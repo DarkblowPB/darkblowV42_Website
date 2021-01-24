@@ -98,10 +98,10 @@ date_default_timezone_set('Asia/Jakarta');
                                 <div id="submenu-3" class="collapse submenu">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-c3.html"><i class="fas fa-fw fa-plus"></i>Create News</a>
+                                            <a class="nav-link" href=""><i class="fas fa-fw fa-plus"></i>Create News</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-chartist.html"><i class="fas fa-fw fa-table"></i>Data News</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "news" && $title == "DarkblowPB || News") {echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/news') ?>"><i class="fas fa-fw fa-table"></i>Data News</a>
                                         </li>
                                     </ul>
                                 </div>
