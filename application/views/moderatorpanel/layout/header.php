@@ -3,14 +3,14 @@ date_default_timezone_set('Asia/Jakarta');
 ?>
 <!doctype html>
 <html lang="en">
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/dark-admin/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="<?php echo base_url() ?>assets/dark-admin/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/dark-admin/assets/vendor/fonts/circular-std/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/dark-admin/assets/libs/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/dark-admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/dark-admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
@@ -92,13 +92,13 @@ date_default_timezone_set('Asia/Jakarta');
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">
+                                <a class="nav-link <?php if ($this->uri->segment(2) == "news"){echo 'active';} ?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">
                                     <i class="fas fa-fw fa-newspaper"></i>News
                                 </a>
                                 <div id="submenu-3" class="collapse submenu">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href=""><i class="fas fa-fw fa-plus"></i>Create News</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "news" && $title == "DarkblowPB || Create News") {echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/news/news_create') ?>"><i class="fas fa-fw fa-plus"></i>Create News</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link <?php if ($this->uri->segment(2) == "news" && $title == "DarkblowPB || News") {echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/news') ?>"><i class="fas fa-fw fa-table"></i>Data News</a>
@@ -107,23 +107,22 @@ date_default_timezone_set('Asia/Jakarta');
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Forms</a>
-                                <div id="submenu-4" class="collapse submenu" style="">
+                                <a class="nav-link <?php if ($this->uri->segment(2) == "recharge"){echo 'active';} ?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">
+                                    <i class="far fa-fw fa-money-bill-alt"></i>Recharge / Top Up
+                                </a>
+                                <div id="submenu-4" class="collapse submenu">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/form-elements.html">Form Elements</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Recharge Voucher") {echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge/voucher') ?>"><i class="fas fa-fw fa-plus"></i>Create Voucher</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/form-validation.html">Parsely Validations</a>
+                                            <a class="nav-link" href="#"><i class="fas fa-fw fa-barcode"></i>Data Voucher</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/multiselect.html">Multiselect</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Recharge / Donation"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge/manual_recharge') ?>"><i class="fas fa-fw fa-plus"></i>Manual Recharge</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/datepicker.html">Date Picker</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/bootstrap-select.html">Bootstrap Select</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Recharge History"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge/recharge_history') ?>" ><i class="fas fa-fw fa-history"></i>Recharge History</a>
                                         </li>
                                     </ul>
                                 </div>

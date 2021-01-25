@@ -114,6 +114,46 @@ class Logger_model extends CI_Model
             'date' => date('d-m-Y h:i:s')
         ));
     }
+
+    function logger_ExtendItemSuccess($player_id, $item_name)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Extend Item Duration Attempt (GM : ".$_SESSION['admin_name'].", Inventory ID : ".$player_id.", Item Name : ".$item_name.") | Extend Duration Item Successfully",
+            'category' => "Player",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_ExtendItemFailed($player_id, $item_name)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Extend Item Duration Attempt (GM : ".$_SESSION['admin_name'].", Inventory ID : ".$player_id.", Item Name : ".$item_name.") | Extend Duration Item Failed",
+            'category' => "Player",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_CreateVoucherSuccess()
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create Voucher Attempt (GM : ".$_SESSION['admin_name'].") | Create Voucher Successfully",
+            'category' => "Recharge",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_CreateVoucherFailed()
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create Voucher Attempt (GM : ".$_SESSION['admin_name'].") | Create Voucher Failed",
+            'category' => "Recharge",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

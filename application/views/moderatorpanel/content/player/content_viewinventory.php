@@ -83,8 +83,6 @@
                                 $count = $_POST['count'];
                                 $extend = $_POST['extend_duration'];
                                 
-                                
-                                
                                 $sql = $connec->prepare("SELECT * FROM player_items WHERE object_id = '".$object_id."'");
                                 $sql->execute();
                                 $result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -100,11 +98,13 @@
                                     $stmt->execute();
                                     if ($sql_0) 
                                     {
+                                        $this->logger->logger_ExtendItemSuccess($result['owner_id'], $result['item_name']);
                                         $this->session->set_flashdata('Success', 'Extend Duration Obj : '.$result['object_id'].' Successfully!');
                                         redirect($_SERVER['HTTP_REFERER'], 'refresh');
                                     }
                                     else 
                                     {
+                                        $this->logger->logger_ExtendItemFailed($result['owner_id'], $result['item_name']);
                                         $this->session->set_flashdata('Failed', 'Extend Weapon Failed!');
                                         redirect($_SERVER['HTTP_REFERER'], 'refresh');
                                     }
