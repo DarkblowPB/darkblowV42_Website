@@ -27,8 +27,8 @@ if (isset($_POST['logout']))
 <?php
 if (isset($_POST['submit-code'])) 
 {
-	$user = $_POST['username'];
-	$uid = $_POST['uid'];
+	$user = pg_escape_string($_POST['username']);
+	$uid = pg_escape_string($_POST['uid']);
 	$item_code = $_POST['item_code'];
 
 	//Checking If Redeem Code Is Empty
@@ -168,8 +168,8 @@ else
 if (isset($_POST['submit-login'])) 
 {
 	session_start();
-	$user = $_POST['username'];
-	$pass = $_POST['password'];
+	$user = pg_escape_string($_POST['username']);
+	$pass = pg_escape_string($_POST['password']);
 
 	function encripitar($pass)
 	{
