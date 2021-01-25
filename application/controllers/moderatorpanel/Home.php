@@ -12,10 +12,10 @@ Class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->login_library->adminAuthCheck_Empty();
         $this->load->model('moderatorpanel/Home_model', 'home');
         $this->load->model('moderatorpanel/Adminlogin_model', 'adminlogin');
         $this->load->model('moderatorpanel/logger_model', 'logger');
-        $this->login_library->adminAuthCheck_Empty();
     }
 
     function index()

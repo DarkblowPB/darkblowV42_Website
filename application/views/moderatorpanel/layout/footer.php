@@ -45,6 +45,12 @@
         $('#table_id').DataTable();
     } );
 </script>
+<script type="text/javascript">
+    $(document).ready( function () 
+    {
+        $('#table_id_1').DataTable();
+    } );
+</script>
     <!-- sparkline js -->
     <script src="<?php echo base_url() ?>assets/dark-admin/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
     <!-- morris js -->

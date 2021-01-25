@@ -128,14 +128,31 @@ date_default_timezone_set('Asia/Jakarta');
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
+                                <a class="nav-link <?php if ($this->uri->segment(2) == "redeemcode"){echo 'active';} ?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">
+                                    <i class="fas fa-fw fa-barcode"></i>Redeem Code
+                                </a>
                                 <div id="submenu-5" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/general-table.html">General Tables</a>
+                                            <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-51" aria-controls="submenu-51">
+                                                <i class="fa fa-fw fa-plus"></i>Create Redeem Code
+                                            </a>
+                                            <div id="submenu-51" class="collapse submenu" style="">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#"><i class="fas fa-file-code mr-2"></i>Redeem Code Item</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#"><i class="fas fa-qrcode mr-2"></i>Redeem Code Cash</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">Data Tables</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || Data Redeem Code"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/redeemcode') ?>"><i class="fas fa-fw fa-table"></i>Data Redeem Code</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#"><i class="fas fa-history mr-2"></i>Redeem Code History</a>
                                         </li>
                                     </ul>
                                 </div>
