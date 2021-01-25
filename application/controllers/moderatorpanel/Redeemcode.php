@@ -96,6 +96,72 @@ Class Redeemcode extends CI_Controller
             }
         }
     }
+
+    function redeemcode_cash()
+    {
+        $valid = $this->form_validation;
+        $valid->set_rules(
+            'item_alert',
+            'Item Alert',
+            'required|min_length[10]|max_length[255]',
+            array(
+                'required' => '%s Cannot Be Empty',
+                'min_length' => '%s Must Have 10 Characters Or More',
+                'max_length' => '%s Maximal Length Reached (max. 255 Characters)'
+            )
+        );
+        $valid->set_rules(
+            'item_code',
+            'Item Code',
+            'required|min_length[19]|max_length[19]|is_unique[item_code.item_code]',
+            array(
+                'required' => '%s Cannot Be Empty',
+                'min_length' => '%s Must Have 19 Characters Or More',
+                'max_length' => '%s Maximal Length Reached (max. 19 Characters)',
+                'is_unique' => '%s Already Exist'
+            )
+        );
+        $valid->set_rules(
+            'cash',
+            'Cash Amount',
+            'required|min_length[1]|max_length[5]',
+            array(
+                'required' => '%s Cannot Be Empty',
+                'min_length' => '%s Must Have 10 Characters Or More',
+                'max_length' => '%s Maximal Length Reached (max. 255 Characters)'
+            )
+        );
+        if ($valid->run() === FALSE) 
+        {
+            $data['title'] = 'DarkblowPB || Create Redeem Code Cash';
+            $data['header'] = 'Redeem Code Cash';
+            $data['content'] = 'moderatorpanel/content/redeemcode/content_createredeemcodecash';
+            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+        }
+        else 
+        {
+            $i = $this->input;
+            $data = array(
+                'item_alert' => $i->post('item_alert'),
+                'item_code' => $i->post('item_code'),
+                'cash' => $i->post('cash'),
+                'type' => "Cash"
+            );
+            $this->adminredeemcode->insertRedeemCodeCash($data);
+            if ($data) 
+            {
+                $this->logger->logger_CreateRedeemCodeCashSuccess($i->post('cash'));
+                $this->session->set_flashdata('Success', 'Create Redeem Code Cash Successfully');
+                redirect(base_url('moderatorpanel/redeemcode/redeemcode_cash'), 'refresh');
+            }
+            else 
+            {
+                $this->logger->logger_CreateRedeemCodeCashFailed($i->post('cash'));
+                $this->session->set_flashdata('Failed', 'Create Redeem Code Cash Failed');
+                redirect(base_url('moderatorpanel/redeemcode/redeemcode_cash'), 'refresh');
+            }
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
