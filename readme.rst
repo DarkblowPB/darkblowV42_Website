@@ -18,11 +18,11 @@ Customize All Things, Clearly Features Make Easier.
 Changelog and New Features
 **************************
 
-New Update :
-- Log Function
-- Player Menu
-- News Menu
-- Account Configuration Menu
+New Update V1.1:
+- Primary Web Work 100%
+- All Basic Features Already Work 98% except News Menu
+- Complex Validation Added To Create Hardest Web Security
+- Logger System For Detect All Action In Moderator Panel
 
 *******************
 Server Requirements
