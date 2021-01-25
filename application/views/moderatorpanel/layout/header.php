@@ -116,7 +116,7 @@ date_default_timezone_set('Asia/Jakarta');
                                             <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Recharge Voucher") {echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge/voucher') ?>"><i class="fas fa-fw fa-plus"></i>Create Voucher</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#"><i class="fas fa-fw fa-barcode"></i>Data Voucher</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Data Voucher"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge') ?>"><i class="fas fa-fw fa-barcode"></i>Data Voucher</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link <?php if ($this->uri->segment(2) == "recharge" && $title == "DarkblowPB || Recharge / Donation"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/recharge/manual_recharge') ?>"><i class="fas fa-fw fa-plus"></i>Manual Recharge</a>

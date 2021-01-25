@@ -154,6 +154,26 @@ class Logger_model extends CI_Model
             'date' => date('d-m-Y h:i:s')
         ));
     }
+
+    function logger_RechargeManualSuccess($player_name, $package)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Manual Recharge Attempt (GM : ".$_SESSION['admin_name'].", Player : ".$player_name.", Package : ".$package.") | Manual Recharge Successfully",
+            'category' => "Recharge",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_RechargeManualFailed($player_name, $package)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Manual Recharge Attempt (GM : ".$_SESSION['admin_name'].", Player : ".$player_name.", Package : ".$package.") | Manual Recharge Failed",
+            'category' => "Recharge",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

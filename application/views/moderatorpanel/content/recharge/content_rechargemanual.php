@@ -73,13 +73,15 @@
 
                             if ($sql_0 && $sql_1) 
                             {
+                                $this->logger->logger_RechargeManualSuccess($result['player_name'], "Package 1");
                                 $this->session->set_flashdata('Success', 'Recharge Successfully For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');
                             }
                             else 
                             {
+                                $this->logger->logger_RechargeManualFailed($result['player_name'], "Package 1");
                                 $this->session->set_flashdata('Failed', 'Recharge Failed For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');   
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');   
                             }
                         }
                     }
@@ -111,13 +113,15 @@
 
                             if ($sql_0 && $sql_1) 
                             {
+                                $this->logger->logger_RechargeManualSuccess($result['player_name'], "Package 2");
                                 $this->session->set_flashdata('Success', 'Recharge Successfully For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');
                             }
                             else 
                             {
+                                $this->logger->logger_RechargeManualFailed($result['player_name'], "Package 2");
                                 $this->session->set_flashdata('Failed', 'Recharge Failed For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');   
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');   
                             }
                         }
                     }
@@ -149,13 +153,15 @@
 
                             if ($sql_0 && $sql_1) 
                             {
+                                $this->logger->logger_RechargeManualSuccess($result['player_name'], "Package 3");
                                 $this->session->set_flashdata('Success', 'Recharge Successfully For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');
                             }
                             else 
                             {
+                                $this->logger->logger_RechargeManualFailed($result['player_name'], "Package 3");
                                 $this->session->set_flashdata('Failed', 'Recharge Failed For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');   
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');   
                             }
                         }
                     }
@@ -187,13 +193,15 @@
 
                             if ($sql_0 && $sql_1) 
                             {
+                                $this->logger->logger_RechargeManualSuccess($result['player_name'], "Package 4");
                                 $this->session->set_flashdata('Success', 'Recharge Successfully For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');
                             }
-                            else 
+                            else
                             {
+                                $this->logger->logger_RechargeManualSuccess($result['player_name'], "Package 4");
                                 $this->session->set_flashdata('Failed', 'Recharge Failed For Player : '.$result['player_name'].'');
-                                redirect(base_url('moderatorpanel/recharge'), 'refresh');   
+                                redirect(base_url('moderatorpanel/recharge/manual_recharge'), 'refresh');   
                             }
                         }
                     }
