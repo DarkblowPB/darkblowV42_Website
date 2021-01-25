@@ -27,7 +27,7 @@
                             <label class="col-form-label">List Item</label>
                         </div>
                         <div class="col-sm-9">
-                            <select name="item_id" class="form-control" value="<?php echo set_value('item_id') ?>">
+                            <select name="item_id" class="form-control" value="<?php echo set_value('item_id') ?>" required>
                                 <option value="" selected disabled>Select Item</option>
                                 <?php
                                 foreach ($itemname as $row) 
@@ -42,10 +42,18 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-3 text-right">
+                            <label class="col-form-label">Item Name</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" name="item_name" class="form-control" value="<?php echo set_value('item_name') ?>" minlength="5" maxlength="255" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3 text-right">
                             <label class="col-form-label">Item Duration</label>
                         </div>
                         <div class="col-sm-9">
-                            <select name="item_count" class="form-control" value="<?php echo set_value('item_count') ?>">
+                            <select name="item_count" class="form-control" value="<?php echo set_value('item_count') ?>" required>
                                 <option value="" selected disabled>Select Item Duration</option>
                                 <option value="" disabled># Main, Chara & Head (Type : Days)</option>
                                 <option value="86400">1 Day</option>
@@ -73,7 +81,7 @@
                             <label class="col-form-label">Item Alert</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="text" name="item_alert" class="form-control" value="<?php echo set_value('item_alert') ?>" minlength="20" max="255" autocomplete="off" required>
+                            <input type="text" name="item_alert" class="form-control" value="<?php echo set_value('item_alert') ?>" minlength="20" maxlength="255" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -81,7 +89,7 @@
                             <label class="col-form-label">Code</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="text" name="item_code" class="form-control" placeholder="Ex. AAAA-BBBB-CCCC-DDDD" value="<?php echo set_value('item_code') ?>" minlength="19" max="19" autocomplete="off" required>
+                            <input type="text" name="item_code" class="form-control" placeholder="Ex. AAAA-BBBB-CCCC-DDDD" value="<?php echo set_value('item_code') ?>" minlength="19" maxlength="19" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -89,7 +97,7 @@
                             <label class="col-form-label">Item Category</label>
                         </div>
                         <div class="col-sm-9">
-                            <select name="category" class="form-control" value="<?php echo set_value('category') ?>">
+                            <select name="category" class="form-control" value="<?php echo set_value('category') ?>" required>
                                 <option value="" selected disabled>Select Item Category</option>
                                 <option value="1">Main</option>
                                 <option value="2">Chara & Head</option>

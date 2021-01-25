@@ -174,6 +174,26 @@ class Logger_model extends CI_Model
             'date' => date('d-m-Y h:i:s')
         ));
     }
+
+    function logger_CreateRedeemCodeItemSuccess($item_name, $duration)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create Redeem Code Item Attempt (GM : ".$_SESSION['admin_name'].", Item : ".$item_name.", Duration : ".$duration.") | Create Redeem Code Successfully",
+            'category' => "Redeem Code",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_CreateRedeemCodeItemFailed($item_name, $duration)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create Redeem Code Item Attempt (GM : ".$_SESSION['admin_name'].", Item : ".$item_name.", Duration : ".$duration.") | Create Redeem Code Failed",
+            'category' => "Redeem Code",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

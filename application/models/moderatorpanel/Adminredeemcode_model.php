@@ -42,6 +42,11 @@ class Adminredeemcode_model extends CI_Model
     {
         $this->db->insert('item_code', $data);
     }
+
+    function getLoggerRedeemCode()
+    {
+        return $this->db->where('category', "Redeem Code")->get('web_adminpanel_log')->result_array();
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

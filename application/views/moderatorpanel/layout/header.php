@@ -134,13 +134,13 @@ date_default_timezone_set('Asia/Jakarta');
                                 <div id="submenu-5" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link " href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-51" aria-controls="submenu-51">
+                                            <a class="nav-link <?php if($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || Create Redeem Code Item"){echo 'active';} ?>" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-51" aria-controls="submenu-51">
                                                 <i class="fa fa-fw fa-plus"></i>Create Redeem Code
                                             </a>
                                             <div id="submenu-51" class="collapse submenu" style="">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="#"><i class="fas fa-file-code mr-2"></i>Redeem Code Item</a>
+                                                        <a class="nav-link <?php if($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || Create Redeem Code Item"){echo 'active';} ?>" href="#"><i class="fas fa-file-code mr-2"></i>Redeem Code Item</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="#"><i class="fas fa-qrcode mr-2"></i>Redeem Code Cash</a>
