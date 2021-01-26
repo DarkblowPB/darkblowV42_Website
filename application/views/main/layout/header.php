@@ -128,9 +128,26 @@ date_default_timezone_set('Asia/Jakarta');
                                         Player Panel
                                     </a>
                                 </li>
+                                <?php
+                                if ($_SESSION['accesslevel'] >= 3 && $_SESSION['accesslevel'] <= 6) 
+                                {
+                                ?>
+                                    <li>
+                                        <a href="<?php echo base_url('moderatorpanel/login') ?>">
+                                            Moderator Panel
+                                        </a>
+                                    </li>
+                                <?php
+                                }
+                                ?>
                                 <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
                                     <a href="<?php echo base_url('player_panel/redeemcode') ?>">
                                         Redeem Code
+                                    </a>
+                                </li>
+                                <li class="<?php if($this->uri->segment(2)== "voucher"){echo 'active';}?>">
+                                    <a href="<?php echo base_url('player_panel/voucher') ?>">
+                                        Voucher
                                     </a>
                                 </li>
                                 <li class="<?php if($this->uri->segment(2)== "inventory"){echo 'active';}?>">

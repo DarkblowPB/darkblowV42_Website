@@ -30,7 +30,7 @@ Class Player extends CI_Controller
 
     function view()
     {
-        if ($_GET['id'] == null) 
+        if ($_GET['id'] == null)
         {
             redirect(base_url('moderatorpanel/player'), 'refresh');
         }
@@ -50,25 +50,32 @@ Class Player extends CI_Controller
             $data['content'] = 'moderatorpanel/content/player/content_viewplayer';
             $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
         }
-        
     }
 
     function inventory()
     {
-        if ($_GET['id'] == null) 
+        if (date('h') >= "00" && date('h') <= "05")
         {
-            redirect(base_url('moderatorpanel/player'), 'refresh');
+            if ($_GET['id'] == null) 
+            {
+                redirect(base_url('moderatorpanel/player'), 'refresh');
+            }
+            if ($_GET['id'] != null) 
+            {
+                $data['title'] = 'DarkblowPB || View Inventory';
+                $data['header'] = 'View Inventory';
+                
+                $data['inventory'] = $this->adminplayer->getInventoryIdAll($_GET['id']);
+                $data['player'] = $this->adminplayer->getPlayerId($_GET['id']);
+                
+                $data['content'] = 'moderatorpanel/content/player/content_viewinventory';
+                $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+            }
         }
-        if ($_GET['id'] != null) 
+        else 
         {
-            $data['title'] = 'DarkblowPB || View Inventory';
-            $data['header'] = 'View Inventory';
-            
-            $data['inventory'] = $this->adminplayer->getInventoryIdAll($_GET['id']);
-            $data['player'] = $this->adminplayer->getPlayerId($_GET['id']);
-            
-            $data['content'] = 'moderatorpanel/content/player/content_viewinventory';
-            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+            $this->session->set_flashdata('Warning', 'This Feature Only Available At 00:00 - 05:00 AM GMT+7 (Asia/Jakarta)');
+            redirect(base_url('moderatorpanel/home'), 'refresh');
         }
     }
     

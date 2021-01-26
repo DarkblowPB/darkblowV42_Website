@@ -4,7 +4,7 @@
 <div class="nk-copyright">
 <div class="container">
 <div class="nk-copyright-left">
-    Copyright &copy; <a href="<?php echo base_url('home') ?>">DarkblowPB 2020</a>
+    Copyright &copy; <a href="<?php echo base_url('home') ?>">DarkblowPB </a><?php echo date('Y'); ?>
 </div>
 <div class="nk-copyright-right">
     <ul class="nk-social-links-2">
@@ -19,7 +19,7 @@
 <!-- END: Footer -->
 </div>
 <!-- START: Page Background -->
-<img class="nk-page-background-fixed" src="<?php echo base_url() ?>assets/goodgames/assets/images/bg.jpg" alt="">
+<!-- <img class="nk-page-background-fixed" src="<?php echo base_url() ?>assets/goodgames/assets/images/bg.jpg" alt=""> -->
 <!-- END: Page Background -->
 
 <!-- START: Scripts -->

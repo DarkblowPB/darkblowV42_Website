@@ -24,7 +24,6 @@
                 <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_slider/<?php echo $row['quickslide_img'] ?>" alt="<?php echo $row['quickslide_title'] ?> Images" class="nk-image-slider-img">
                 <div class="nk-image-slider-content">
                     <h3 class="h4"><?php echo $row['quickslide_title'] ?></h3>
-                    <div class="nk-gap"></div>
                     <p class="text-white"><?php echo $row['quickslide_description'] ?></p>
                 </div>
             </div>

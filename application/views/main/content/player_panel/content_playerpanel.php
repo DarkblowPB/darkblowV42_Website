@@ -49,11 +49,11 @@
                                              </tr>
                                              <tr class="text-center">
                                                   <td>Points</td>
-                                                  <td><?php echo $row['gp'] ?></td>
+                                                  <td><?php echo number_format($row['gp'], '0',',','.'); ?></td>
                                              </tr>
                                              <tr class="text-center">
                                                   <td>Exp</td>
-                                                  <td><?php echo $row['exp'] ?></td>
+                                                  <td><?php echo number_format($row['exp'], '0',',','.'); ?></td>
                                              </tr>
                                              <tr class="text-center">
                                                   <td>Badges</td>
@@ -127,7 +127,7 @@
                                              </tr>
                                              <tr class="text-center">
                                                   <td>D-Cash</td>
-                                                  <td><?php echo $row['money'] ?></td>
+                                                  <td><?php echo number_format($row['money'], '0',',','.'); ?></td>
                                              </tr>
                                              <tr class="text-center">
                                                   <td>Last MAC</td>
@@ -135,7 +135,7 @@
                                              </tr>
                                              <tr class="text-center">
                                                   <td>Web Coin</td>
-                                                  <td><?php echo $row['kuyraicoin'] ?></td>
+                                                  <td><?php echo number_format($row['kuyraicoin'], '0',',','.'); ?></td>
                                              </tr>
                                         <?php endforeach; ?>
                                    </tbody>

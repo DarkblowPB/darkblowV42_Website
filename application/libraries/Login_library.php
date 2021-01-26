@@ -48,7 +48,7 @@ class Login_library
 			redirect(base_url('login'),'refresh');
 		}
 	}
-	public function login_check()
+	public function primaryAuthCheck_Empty()
 	{
 		if (empty($_SESSION['uid'])) 
 		{
@@ -56,6 +56,16 @@ class Login_library
 			redirect(base_url('home'),'refresh');
 		}
 	}
+
+	public function primaryAuthCheck_Exist()
+	{
+		if (!empty($_SESSION['uid'])) 
+		{
+			$this->ci->session->set_flashdata('error', 'You Already Logged In!');
+			redirect(base_url('home'),'refresh');
+		}
+	}
+
 	public function logout()
 	{
 		$this->ci->session->unset_userdata('uid');

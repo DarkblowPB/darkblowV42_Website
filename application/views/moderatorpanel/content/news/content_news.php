@@ -19,9 +19,9 @@
                         <tr>
                             <td><?php echo $num ?></td>
                             <td><?php echo $row['quickslide_title'] ?></td>
-                            <td><?php echo character_limiter($row['quickslide_description'], 255); ?></td>
+                            <td><?php echo character_limiter($row['quickslide_description'], 100); ?></td>
                             <td>
-                                <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_slider/<?php echo $row['quickslide_img'] ?>.jpg" class="img img-responsive img-thumbnail" alt="<?php echo $row['quickslide_title']?>">
+                                <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_slider/<?php echo $row['quickslide_img'] ?>" class="img img-responsive img-thumbnail" alt="<?php echo $row['quickslide_title']?>">
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -29,8 +29,8 @@
                                         Action Menu
                                     </button>
                                     <div class="dropdown-menu text-white" aria-labelledby="action_btn">
-                                        <a class="dropdown-item" href="<?php echo base_url('moderatorpanel/news/news_edit') ?>?id=<?php echo $row['id'] ?>"><i class="fas fa-edit mr-2"></i>Edit News</a>
-                                        <a class="dropdown-item" href="<?php echo base_url('moderatorpanel/news/news_delete') ?>?id=<?php echo $row['id'] ?>"><i class="fas fa-trash mr-2"></i>Delete News</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Fitur Belum Tersedia"><i class="fas fa-edit mr-2"></i>Edit News</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Fitur Belum Tersedia"><i class="fas fa-trash mr-2"></i>Delete News</a>
                                     </div>
                                 </div>
                             </td>

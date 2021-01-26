@@ -29,6 +29,25 @@ class Adminnews_model extends CI_Model
     {
         $this->db->where('id', $id)->delete('web_quickslide');
     }
+
+    function insertNews($data)
+    {
+        $this->db->insert('web_quickslide', $data);
+    }
+
+    function updateNews($data)
+    {
+        $this->db->where('id', $news->id)->update('web_quickslide', $data);
+    }
+
+    function getId($id)
+    {
+        $this->db->select('*');
+        $this->db->from('web_quickslide');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

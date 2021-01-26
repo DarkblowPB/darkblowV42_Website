@@ -214,6 +214,26 @@ class Logger_model extends CI_Model
             'date' => date('d-m-Y h:i:s')
         ));
     }
+
+    function logger_CreateNewsSuccess($news_title)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create News Attempt (GM : ".$_SESSION['admin_name'].", Title : ".$news_title.") | Created News Successfully",
+            'category' => "News",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_CreateNewsFailed($news_title)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Create News Attempt (GM : ".$_SESSION['admin_name'].", Title : ".$news_title.") | Created News Failed",
+            'category' => "News",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

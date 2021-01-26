@@ -2,11 +2,23 @@
                         <?php
                         if ($this->session->flashdata('Success')) 
                         {
-                            echo '<div class="col-lg-8 offset-lg-2">';
+                            echo '<div class="col-lg-12">';
                             echo '<div class="card">';
                             echo '<div class="card-body">';
                             echo '<div class="alert alert-success text-center mt-2" role="alert">';
-                                echo $this->session->flashdata('Success');
+                            echo $this->session->flashdata('Success');
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        if ($this->session->flashdata('Warning'))
+                        {
+                            echo '<div class="col-lg-12">';
+                            echo '<div class="card">';
+                            echo '<div class="card-body">';
+                            echo '<div class="alert alert-warning text-center mt-2" role="alert">';
+                            echo $this->session->flashdata('Warning');
                             echo '</div>';
                             echo '</div>';
                             echo '</div>';

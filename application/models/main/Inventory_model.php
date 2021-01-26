@@ -24,9 +24,9 @@ class Inventory_model extends CI_Model
 	{
 		return $this->db->where('object_id' , $detail)->get('player_items')->result_array();
 	}
-	public function deletedata_specific_item($detail)
+	public function deleteItemInventory($object_id)
 	{
-		return $this->db->where('object_id', $detail)->delete('player_items');
+		return $this->db->where('object_id', $object_id)->delete('player_items');
 	}
 }
 

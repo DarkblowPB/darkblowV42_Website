@@ -117,11 +117,18 @@
                                 <td>
                                     <?php
                                     include 'assets/include.php';
-                                    $sql = $connec->prepare("SELECT * FROM shop WHERE item_id = '".$row['item_id']."'");
+                                    $sql = $connec->prepare("SELECT item_name FROM shop WHERE item_id = '".$row['item_id']."'");
                                     $sql->execute();
                                     $result = $sql->fetch(PDO::FETCH_ASSOC);
+                                    if ($result) 
+                                    {
+                                        echo $result['item_name'];
+                                    }
+                                    else 
+                                    {
+                                        echo "Null";                                        
+                                    }
                                     ?>
-                                    <?php echo $result['item_name'] ?>
                                 </td>
                                 <td><?php echo $row['count'] ?></td>
                                 <td>

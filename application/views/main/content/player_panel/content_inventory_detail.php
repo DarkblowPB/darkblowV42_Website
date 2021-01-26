@@ -6,6 +6,7 @@ include 'assets/include.php';
 		<div class="nk-gap-2"></div>
 		<?php 
 		foreach ($details as $row) :
+			include 'assets/include.php';
 			$query = $connec->prepare("SELECT * FROM player_items WHERE owner_id'".$_SESSION['uid']."' AND object_id='".$row['object_id']."'");
 			$query->execute();
 			$result = $query->fetch(PDO::FETCH_ASSOC);
@@ -19,7 +20,7 @@ include 'assets/include.php';
                     </div>
                     <div class="nk-feature-cont text-center">
                         <h3 class="nk-feature-title">
-                        	<?php
+							<?php
                         	if ($row['item_name'] == "Randombox") 
                         	{
                         		echo "Random Box Prize";
@@ -27,8 +28,22 @@ include 'assets/include.php';
                         	else
                         	{
                         		echo $row['item_name'];
-                        	}
-                        	?>
+							}
+
+							// include 'assets/include.php';
+							
+							// $sql = $connec->prepare("SELECT item_name FROM shop WHERE item_id= '".$row['item_id']."'");
+							// $sql->execute();
+							// $result_0 = $sql->fetch(PDO::FETCH_ASSOC);
+							// if ($result_0) 
+							// {
+							// 	echo $result_0['item_name'];
+							// }
+							// else 
+							// {
+							// 	echo "Null";
+							// }
+							?>
                         </h3>
                         <div class="nk-gap"></div>
                         <table class="table table-borderless table-hover" align="center">
