@@ -74,7 +74,7 @@
                 }
                 ?>
                 <div class="form-group row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 text-right">
                         <label class="col-form-label">Report Title</label>
                     </div>
                     <div class="col-sm-9">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 text-right">
                         <label class="col-form-label">Report Description</label>
                     </div>
                     <div class="col-sm-9">
@@ -90,23 +90,23 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 text-right">
                         <label class="col-form-label">Report Proof (Bukti)</label>
                     </div>
                     <div class="col-sm-9">
-                        <p><?php echo $row['report_proof'] ?></p>
+                        <p><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_report/<?php echo $row['report_proof'] ?>" alt="<?php echo $row['report_title'] ?>" class="img img-responsive img-thumbnail" style="max-width: 250px;"></p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label class="col-form-label">Player</label>
+                    <div class="col-sm-3 text-right">
+                        <label class="col-form-label">Report From</label>
                     </div>
                     <div class="col-sm-9">
                         <p><?php echo $row['player_name'] ?></p>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 text-right">
                         <label class="col-form-label">Date</label>
                     </div>
                     <div class="col-sm-9">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 text-right">
                         <label class="col-form-label">Status</label>
                     </div>
                     <div class="col-sm-9">

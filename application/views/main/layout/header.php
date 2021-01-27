@@ -33,6 +33,7 @@ date_default_timezone_set('Asia/Jakarta');
         <!-- Custom Styles -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/custom.css">
         <!-- jQuery -->
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.css">
         <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
         <!-- END: Styles -->
     </head>
@@ -63,13 +64,8 @@ date_default_timezone_set('Asia/Jakarta');
                                 Home
                             </a>
                         </li>
-                        <!-- <li class="<?php if($this->uri->segment(1)== "news"){echo 'active';}?>">
-                            <a href="<?php echo base_url('news') ?>">
-                                News
-                            </a>
-                        </li> -->
                         <li class="<?php if($this->uri->segment(1)== "player_rank"){echo 'active';} else if ($this->uri->segment(1)== "clan_rank"){echo 'active';}?> nk-drop-item">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 Ranks
                             </a>
                             <ul class="dropdown">
@@ -91,7 +87,7 @@ date_default_timezone_set('Asia/Jakarta');
                             </a>
                         </li>
                         <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';}else if ($this->uri->segment(1) == "recharge") {echo 'active';}else if($this->uri->segment(2) == "details"){echo 'active';} ?> nk-drop-item">
-                            <a href="#">FEATURED</a>
+                            <a href="javascript:void(0)">FEATURED</a>
                             <ul class="dropdown">
                                 <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
                                     <a href="<?php echo base_url('webshop') ?>">Webshop</a>
@@ -103,7 +99,7 @@ date_default_timezone_set('Asia/Jakarta');
                         {   
                         ?>
                         <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';} else if($this->uri->segment(1)== "register"){echo 'active';}?> nk-drop-item">
-                            <a href="#">Login</a>
+                            <a href="javascript:void(0)">Login</a>
                             <ul class="dropdown">
                                 <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
                                     <a href="<?php echo base_url('login') ?>">Login</a>
@@ -118,8 +114,11 @@ date_default_timezone_set('Asia/Jakarta');
                         else
                         {
                         ?>
+                        <li>
+                            <a href="<?php echo base_url('report') ?>">Report</a>
+                        </li>
                         <li class="<?php if($this->uri->segment(1)== "player_panel"){echo 'active';}?> nk-drop-item">
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 User Area
                             </a>
                             <ul class="dropdown">
@@ -168,7 +167,7 @@ date_default_timezone_set('Asia/Jakarta');
                     </ul>
                     <ul class="nk-nav nk-nav-right nk-nav-icons">
                         <li class="single-icon d-lg-none">
-                            <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                            <a href="javascript:void(0)" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
                                 <span class="nk-icon-burger">
                                     <span class="nk-t-1"></span>
                                     <span class="nk-t-2"></span>

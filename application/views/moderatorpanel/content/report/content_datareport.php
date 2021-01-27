@@ -21,16 +21,15 @@
                     echo '</div>';
                 }
                 ?>
-                <table id="table_id" class="table table-responsive-lg table-borderless table-hover text-center">
+                <table id="table_id" class="table table-responsive table-borderless table-hover text-center">
                     <thead>
                         <th width="5%">ID</th>
                         <th>Report Title</th>
-                        <th>Report Description</th>
-                        <th width="15%">Report Proof (Bukti)</th>
-                        <th>Player</th>
+                        <th width="15%">Proof</th>
+                        <th width="15%">Report From</th>
                         <th width="15%">Date</th>
-                        <th width="10%">Status</th>
-                        <th width="15%">Action</th>
+                        <th width="15%">Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody>
                         <?php
@@ -39,8 +38,7 @@
                         <tr>
                             <td><?php echo $row['id'] ?></td>
                             <td><?php echo $row['report_title'] ?></td>
-                            <td><?php echo $row['report_description'] ?></td>
-                            <td><?php echo $row['report_proof'] ?></td>
+                            <td><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_report/<?php echo $row['report_proof'] ?>" alt="<?php echo $row['report_title'] ?>" class="img img-responsive img-thumbnail"></td>
                             <td><?php echo $row['player_name'] ?></td>
                             <td><?php echo $row['date'] ?></td>
                             <td>
