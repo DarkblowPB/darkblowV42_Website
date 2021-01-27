@@ -60,17 +60,6 @@
                                     </button>
                                     <div class="dropdown-menu text-white" aria-labelledby="action_btn">
                                         <a class="dropdown-item" href="<?php echo base_url('moderatorpanel/report/view') ?>?id=<?php echo $row['id'] ?>"><i class="fas fa-info mr-2"></i>View Report</a>
-                                        <?php
-                                        if ($row['status'] == 0)
-                                        {
-                                        ?>
-                                            <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-toggle-off mr-2"></i>Confirm Report</a>
-                                        <?php
-                                        }
-                                        if ($row['status'] != 0)
-                                        {}
-                                        ?>
-                                        <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-trash mr-2"></i>Delete Report</a>
                                     </div>
                                 </div>
                             </td>

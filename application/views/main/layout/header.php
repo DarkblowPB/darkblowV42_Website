@@ -132,7 +132,7 @@ date_default_timezone_set('Asia/Jakarta');
                                 {
                                 ?>
                                     <li>
-                                        <a href="<?php echo base_url('moderatorpanel/login') ?>">
+                                        <a href="<?php echo base_url('moderatorpanel') ?>" target="_blank">
                                             Moderator Panel
                                         </a>
                                     </li>

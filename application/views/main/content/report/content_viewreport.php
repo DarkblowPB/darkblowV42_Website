@@ -8,7 +8,7 @@
                 <table id="table_id" class="table table-striped table-hover text-center">
                     <thead>
                         <th width="5%">Report ID</th>
-                        <th width="15%">Report Title</th>
+                        <th>Report Title</th>
                         <th>Report Proof</th>
                         <th width="15%">Date</th>
                         <th width="15%">Status</th>
@@ -20,7 +20,7 @@
                         <tr>
                             <td><?php echo $row['id']  ?></td>
                             <td><?php echo $row['report_title'] ?></td>
-                            <td><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_report/<?php echo $row['report_proof'] ?>" alt="<?php echo $row['report_title'] ?>" class="img img-responsive img-thumbnail"></td>
+                            <td><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_report/<?php echo $row['report_proof'] ?>" alt="<?php echo $row['report_title'] ?>" class="img img-responsive img-thumbnail" style="max-width:100px;"></td>
                             <td><?php echo $row['date'] ?></td>
                             <td>
                                 <?php

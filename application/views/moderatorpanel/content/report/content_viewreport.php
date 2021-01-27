@@ -26,12 +26,14 @@
                         $stmt->execute();
                         if ($sql_0) 
                         {
-                            $this->session->set_flashdata('Success', 'Report Berhasil Dikonfirmasi');
+                            $this->logger->logger_ChangeReportStateSuccess($_POST['id']);
+                            $this->session->set_flashdata('Success', 'Report Confirmed Succesfully');
                             redirect(base_url('moderatorpanel/report'), 'refresh');
                         }
                         else 
                         {
-                            $this->session->set_flashdata('Failed', 'Report Gagal Dikonfirmasi');
+                            $this->logger->logger_ChangeReportStateFailed($_POST['id']);
+                            $this->session->set_flashdata('Failed', 'Failed Confirmed Report');
                             redirect(base_url('moderatorpanel/report'), 'refresh');
                         }
                     }
@@ -57,11 +59,13 @@
                         $stmt->execute();
                         if ($deletequery) 
                         {
+                            $this->logger->logger_DeleteReportSuccess($_POST['id']);
                             $this->session->set_flashdata('Success', 'Report Deleted Successfully');
                             redirect(base_url('moderatorpanel/report'), 'refresh');
                         }
                         else 
                         {
+                            $this->logger->logger_DeleteReportFailed($_POST['id']);
                             $this->session->set_flashdata('Failed', 'Report Deleted Failed');
                             redirect(base_url('moderatorpanel/report'), 'refresh');
                         }

@@ -81,6 +81,7 @@ Class Report extends CI_Controller
                 );
                 if ($data) 
                 {
+                    
                     $this->report->insertReport($data);
                     $this->session->set_flashdata('success', 'Report Sended Successfully, We Will Response Your Report As Soon As Possible');
                     redirect(base_url('report'), 'refresh');

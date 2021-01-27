@@ -72,7 +72,7 @@ date_default_timezone_set('Asia/Jakarta');
                                 Moderation Menu
                             </li>
                             <li class="nav-item ">
-                                <a href="<?php echo base_url('moderatorpanel/home') ?>" class="nav-link <?php if($this->uri->segment(2)== "home"){echo 'active';}?>">
+                                <a href="<?php echo base_url('moderatorpanel/home') ?>" class="nav-link <?php if($title == "DarkblowPB || Dashboard"){echo 'active';}?>">
                                     <i class="fas fa-fw fa-tachometer-alt"></i>Dashboard
                                 </a>
                             </li>
@@ -174,14 +174,8 @@ date_default_timezone_set('Asia/Jakarta');
                                 <a class="nav-link" href="https://discord.gg/pveCUaZ" target="_blank">
                                     <i class="fab fa-fw fa-discord"></i>Discord
                                 </a>
-                                <a class="nav-link" href="https://www.facebook.com/Ultimate.Defacer" target="_blank">
-                                    <i class="fab fa-fw fa-facebook"></i>Facebook
-                                </a>
                                 <a class="nav-link" href="https://www.instagram.com/dev_eyetracker" target="_blank">
                                     <i class="fab fa-fw fa-instagram"></i>Instagram
-                                </a>
-                                <a class="nav-link" href="https://www.youtube.com/channel/UCjljtvZBD8G732tG0fbKgHw" target="_blank">
-                                    <i class="fab fa-fw fa-youtube"></i>Youtube
                                 </a>
                             </li>
                         </ul>

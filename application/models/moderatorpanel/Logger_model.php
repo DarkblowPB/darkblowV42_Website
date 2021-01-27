@@ -234,6 +234,45 @@ class Logger_model extends CI_Model
             'date' => date('d-m-Y h:i:s')
         ));
     }
+
+    function logger_ChangeReportStateSuccess($report_id)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Confirm Report Attempt (GM : ".$_SESSION['admin_name'].", Report ID : ".$report_id.") | Confirm Report Successfully",
+            'category' => "Report",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_ChangeReportStateFailed($report_id)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Confirm Report Attempt (GM : ".$_SESSION['admin_name'].", Report ID : ".$report_id.") | Confirm Report Failed",
+            'category' => "Report",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+
+    function logger_DeleteReportSuccess($report_id)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Delete Report Attempt (GM : ".$_SESSION['admin_name'].", Report ID : ".$report_id.") | Delete Report Success",
+            'category' => "Report",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
+    function logger_DeleteReportFailed($report_id)
+    {
+        $this->db->insert('web_adminpanel_log', array(
+            'ip_address' => $this->input->ip_address(),
+            'description' => "Delete Report Attempt (GM : ".$_SESSION['admin_name'].", Report ID : ".$report_id.") | Delete Report Failed",
+            'category' => "Report",
+            'date' => date('d-m-Y h:i:s')
+        ));
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
