@@ -14,6 +14,7 @@ Class Report extends CI_Controller
         parent::__construct();
         $this->login_library->primaryAuthCheck_Empty();
         $this->load->model('moderatorpanel/Adminreport_model', 'adminreport');
+        $this->load->model('moderatorpanel/logger_model', 'logger');
     }
     function index()
     {
@@ -24,6 +25,22 @@ Class Report extends CI_Controller
         
         $data['content'] = 'moderatorpanel/content/report/content_datareport';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+    }
+
+    function view()
+    {
+        if ($_GET['id'] == null) 
+        {
+            redirect(base_url('moderatorpanel/report'), 'refresh');
+        }
+        if ($_GET['id'] != null) 
+        {
+            $data['title'] = 'DarkblowPB || View Report';
+            $data['header'] = 'View Report';
+            $data['report'] = $this->adminreport->getReportId($_GET['id']);
+            $data['content'] = 'moderatorpanel/content/report/content_viewreport';
+            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+        }
     }
 }
 

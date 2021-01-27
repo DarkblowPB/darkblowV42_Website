@@ -157,6 +157,16 @@ date_default_timezone_set('Asia/Jakarta');
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($this->uri->segment(2) == "report" && $title == "DarkblowPB || Report"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/report') ?>">
+                                    <i class="fas fa-fw fa-bug"></i>Data Report
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php if ($this->uri->segment(2) == "log" && $title == "DarkblowPB || All Log History"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/log') ?>">
+                                    <i class="fas fa-fw fa-history"></i>Log History
+                                </a>
+                            </li>
                             <li class="nav-divider" style="font-size:10px;">
                                 Crazy Features (Coming Soon)
                             </li>

@@ -19,6 +19,11 @@ class Adminreport_model extends CI_Model
     {
         return $this->db->get('web_report')->result_array();
     }
+
+    function getReportId($id)
+    {
+        return $this->db->where('id', $id)->get('web_report')->result_array();
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
