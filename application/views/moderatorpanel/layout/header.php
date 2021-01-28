@@ -72,7 +72,7 @@ date_default_timezone_set('Asia/Jakarta');
                                 Moderation Menu
                             </li>
                             <li class="nav-item ">
-                                <a href="<?php echo base_url('moderatorpanel/home') ?>" class="nav-link <?php if($title == "DarkblowPB || Dashboard"){echo 'active';} if ($this->uri->segment(2) == "home"){echo 'active';}?>">
+                                <a href="<?php echo base_url('moderatorpanel/home') ?>" class="nav-link <?php if($title == "DarkblowPB || Dashboard"){echo 'active';}?>">
                                     <i class="fas fa-fw fa-tachometer-alt"></i>Dashboard
                                 </a>
                             </li>
@@ -152,7 +152,7 @@ date_default_timezone_set('Asia/Jakarta');
                                             <a class="nav-link <?php if ($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || Data Redeem Code"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/redeemcode') ?>"><i class="fas fa-fw fa-table"></i>Data Redeem Code</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link <?php if ($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || History Redeem Code"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/redeemcode/history') ?>"><i class="fas fa-history mr-2"></i>Redeem Code History</a>
+                                            <a class="nav-link <?php if ($this->uri->segment(2) == "redeemcode" && $title == "DarkblowPB || History Redeem Code"){echo 'active';} ?>" href="<?php echo base_url('moderatorpanel/redeemcode/history') ?>"><i class="fas fa-fw fa-history"></i>Redeem Code History</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller 
@@ -20,5 +26,4 @@ class Home extends CI_Controller
 
 }
 
-/* End of file Home.php */
-/* Location: ./application/controllers/Player_panel/Home.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

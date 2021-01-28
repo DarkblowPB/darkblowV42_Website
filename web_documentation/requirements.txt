@@ -1,0 +1,10 @@
+==============
+ REQUIREMENTS  
+==============
+
+- WEB SERVER : XAMPP
+- PHP VERSION : 7.x
+- DATABASE TYPE : PostgreSQL
+- FRAMEWORK : CodeIgniter3
+
+==============

@@ -22,7 +22,7 @@ Class News extends CI_Controller
         $data['title'] = 'DarkblowPB || News';
         $data['header'] = 'News';
         $data['news'] = $this->adminnews->getNewsAll();
-        $data['content'] = 'moderatorpanel/content/news/content_news';
+        $data['content'] = 'moderatorpanel/content/news/content_datanews';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
     

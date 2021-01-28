@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Download_model extends CI_Model 
@@ -34,5 +40,4 @@ class Download_model extends CI_Model
 	}
 }
 
-/* End of file Download_model.php */
-/* Location: ./application/models/Download_model.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Webshop_model extends CI_Model 
@@ -30,5 +36,4 @@ class Webshop_model extends CI_Model
 	}
 }
 
-/* End of file Webshop_model.php */
-/* Location: ./application/models/Webshop_model.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

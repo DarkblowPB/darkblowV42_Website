@@ -90,7 +90,7 @@ Class Home extends CI_Controller
 
         $data['config'] = $this->configakun->getAccountConfig();
 
-        $data['content'] = 'moderatorpanel/content/config/content_home';
+        $data['content'] = 'moderatorpanel/content/config/content_config';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
 }

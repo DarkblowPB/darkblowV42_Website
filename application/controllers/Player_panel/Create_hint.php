@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Create_hint extends CI_Controller 
@@ -19,5 +25,4 @@ class Create_hint extends CI_Controller
 
 }
 
-/* End of file Create_hint.php */
-/* Location: ./application/controllers/Player_panel/Create_hint.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

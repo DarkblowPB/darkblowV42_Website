@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Register extends CI_Controller 
@@ -44,5 +50,4 @@ class Register extends CI_Controller
 	}
 }
 
-/* End of file Register.php */
-/* Location: ./application/controllers/Register.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

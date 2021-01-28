@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class NotFound extends CI_Controller {
@@ -11,5 +17,4 @@ class NotFound extends CI_Controller {
 
 }
 
-/* End of file NotFound.php */
-/* Location: ./application/controllers/NotFound.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

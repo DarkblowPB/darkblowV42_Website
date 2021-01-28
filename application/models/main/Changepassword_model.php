@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Changepassword_model extends CI_Model 
@@ -14,5 +20,4 @@ class Changepassword_model extends CI_Model
 	}
 }
 
-/* End of file Changepassword_model.php */
-/* Location: ./application/models/Changepassword_model.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

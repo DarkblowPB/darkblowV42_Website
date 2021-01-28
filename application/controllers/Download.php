@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Download extends CI_Controller 
@@ -20,5 +26,4 @@ class Download extends CI_Controller
 	}
 }
 
-/* End of file Download.php */
-/* Location: ./application/controllers/Download.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

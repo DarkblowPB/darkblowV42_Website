@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Createhint_model extends CI_Model 
@@ -14,5 +20,4 @@ class Createhint_model extends CI_Model
 	}
 }
 
-/* End of file Createhint_model.php */
-/* Location: ./application/models/Createhint_model.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

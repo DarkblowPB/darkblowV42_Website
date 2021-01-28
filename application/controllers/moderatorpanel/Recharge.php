@@ -22,7 +22,7 @@ Class Recharge extends CI_Controller
         $data['title'] = 'DarkblowPB || Data Voucher';
         $data['header'] = 'Data Voucher';
         $data['voucher'] = $this->adminrecharge->getVoucherDataAll();
-        $data['content'] = 'moderatorpanel/content/recharge/content_rechargevoucherdata';
+        $data['content'] = 'moderatorpanel/content/recharge/content_daterechargevoucher';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
 
@@ -31,7 +31,16 @@ Class Recharge extends CI_Controller
         $data['title'] = 'DarkblowPB || Recharge History';
         $data['header'] = 'Recharge History';
         $data['history'] = $this->adminrecharge->getLoggerId();
-        $data['content'] = 'moderatorpanel/content/recharge/content_rechargehistory';
+        $data['content'] = 'moderatorpanel/content/recharge/content_historyrecharge';
+        $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+    }
+
+    function manual_recharge()
+    {
+        $data['title'] = 'DarkblowPB || Recharge / Donation';
+        $data['header'] = 'Recharge / Donation';
+        $data['recharge'] = $this->adminrecharge->getPlayerName();
+        $data['content'] = 'moderatorpanel/content/recharge/content_manualrecharge';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
 
@@ -39,15 +48,7 @@ Class Recharge extends CI_Controller
     {
         $data['title'] = 'DarkblowPB || Recharge Voucher';
         $data['header'] = 'Recharge Voucher';
-        $data['content'] = 'moderatorpanel/content/recharge/content_rechargevoucher';
-        $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
-    }
-    function manual_recharge()
-    {
-        $data['title'] = 'DarkblowPB || Recharge / Donation';
-        $data['header'] = 'Recharge / Donation';
-        $data['recharge'] = $this->adminrecharge->getPlayerName();
-        $data['content'] = 'moderatorpanel/content/recharge/content_rechargemanual';
+        $data['content'] = 'moderatorpanel/content/recharge/content_voucherrecharge';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
 }

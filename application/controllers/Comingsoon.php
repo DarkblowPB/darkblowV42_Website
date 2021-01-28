@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Comingsoon extends CI_Controller 
@@ -14,5 +20,4 @@ class Comingsoon extends CI_Controller
 
 }
 
-/* End of file Comingsoon.php */
-/* Location: ./application/controllers/Comingsoon.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Player_rank extends CI_Controller {
@@ -56,5 +62,4 @@ class Player_rank extends CI_Controller {
 
 }
 
-/* End of file Ranks.php */
-/* Location: ./application/controllers/Ranks.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

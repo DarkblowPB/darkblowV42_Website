@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clan_rank extends CI_Controller 
@@ -60,5 +66,4 @@ class Clan_rank extends CI_Controller
 
 }
 
-/* End of file Clan_rank.php */
-/* Location: ./application/controllers/Clan_rank.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

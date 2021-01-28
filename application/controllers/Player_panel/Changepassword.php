@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Changepassword extends CI_Controller 
@@ -25,5 +31,4 @@ class Changepassword extends CI_Controller
 
 }
 
-/* End of file Changepassword.php */
-/* Location: ./application/controllers/Player_panel/Changepassword.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

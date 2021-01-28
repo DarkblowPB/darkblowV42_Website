@@ -3,7 +3,7 @@
         <div class="card">
             <h5 class="card-header">Data Redeem Code Item</h5>
             <div class="card-body">
-                <table id="table_id" class="table table-responsive-lg table-borderless table-hover text-center">
+                <table id="table_id" class="table table-responsive table-borderless table-hover text-center">
                     <thead>
                         <th>Item ID</th>
                         <th>Item Name</th>
@@ -49,7 +49,7 @@
         <div class="card">
             <h5 class="card-header">Data Redeem Code Cash</h5>
             <div class="card-body">
-                <table id="table_id_1" class="table table-responsive-lg table-borderless table-hover text-center">
+                <table id="table_id_1" class="table table-borderless table-hover text-center">
                     <thead>
                         <th>Item Alert</th>
                         <th>Code</th>

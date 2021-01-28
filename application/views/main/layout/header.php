@@ -59,7 +59,7 @@ date_default_timezone_set('Asia/Jakarta');
                         <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="GoodGames" width="199">
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
-                        <li class="<?php if($title == "DarkblowPB || Home"){echo 'active';} if ($this->uri->segment(1) == "home") {echo 'active';}?>">
+                        <li class="<?php if($title == "DarkblowPB || Home"){echo 'active';}?>">
                             <a href="<?php echo base_url('home') ?>">
                                 Home
                             </a>

@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller 
@@ -30,5 +36,4 @@ class Login extends CI_Controller
 
 }
 
-/* End of file Login.php */
-/* Location: ./application/controllers/Login.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

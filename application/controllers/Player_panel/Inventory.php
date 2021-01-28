@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inventory extends CI_Controller 
@@ -43,5 +49,4 @@ class Inventory extends CI_Controller
 	}
 }
 
-/* End of file Inventory.php */
-/* Location: ./application/controllers/Player_panel/Inventory.php */
+// This Code Generated Automatically By EyeTracker Snippets. //

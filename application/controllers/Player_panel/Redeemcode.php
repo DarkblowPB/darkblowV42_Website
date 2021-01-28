@@ -1,4 +1,10 @@
 <?php
+
+// ==================== //
+//   [DEV] EyeTracker   //
+//     Lolsecs#6289     //
+// ==================== //
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Redeemcode extends CI_Controller 
@@ -17,5 +23,4 @@ class Redeemcode extends CI_Controller
 	}
 }
 
-/* End of file Redeemcode.php */
-/* Location: ./application/controllers/Player_panel/Redeemcode.php */
+// This Code Generated Automatically By EyeTracker Snippets. //
