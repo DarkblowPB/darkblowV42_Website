@@ -13,7 +13,6 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		$this->login_library->primaryAuthCheck_Exist();
-		$this->load->model('main/login_model', 'login');
 	}
 
 	public function index()
