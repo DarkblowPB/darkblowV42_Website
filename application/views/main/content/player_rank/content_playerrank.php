@@ -18,7 +18,17 @@
 				<tr>
 					<td align="center"><?php echo ++$start; ?></td>
 					<td align="center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt="Rank Player"></td>
-					<td class="text-center"><?php echo $row['player_name'] ?>
+					<td class="text-center">
+						<?php
+						if ($row['player_name'] == null) 
+						{
+							echo 'New Player';
+						}
+						if ($row['player_name'] != null) 
+						{
+							echo $row['player_name'];
+						}
+						?>
 					</td>
 					<td align="center">
 						<?php
