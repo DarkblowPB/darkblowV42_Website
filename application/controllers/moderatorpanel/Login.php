@@ -50,7 +50,7 @@ Class Login extends CI_Controller
         }
         $data['title'] = 'DarkblowPB || Login Area';
         $data['catchip'] = $this->input->ip_address();
-        $this->load->view('moderatorpanel/content/content_login', $data, FALSE);
+        $this->load->view('moderatorpanel/content/login/content_login', $data, FALSE);
     }
 }
 
