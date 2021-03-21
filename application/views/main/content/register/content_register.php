@@ -15,18 +15,25 @@ echo form_open(base_url('register'),' class="form-horizontal"');
                                                 echo validation_errors("<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>","</em></div>");
                                                 ?>
                                                 <?php
-                                                if ($this->session->flashdata('sukses'))
+                                                if ($this->session->flashdata('success'))
                                                 {
                                                         echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-                                                        echo $this->session->flashdata('sukses');
+                                                        echo $this->session->flashdata('success');
                                                         echo "<div class='nk-gap'></div>";
                                                         echo "<a href='".base_url('login')."' class='nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary' title='Click Me If You Want To Login Now'>Login Now?</a> <a href='".base_url('home')."' class='nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger' title='Click Me If You Want To Back To Home'>Back To Home</a>";
+                                                        echo "</em></div>";
+                                                }
+                                                if ($this->session->flashdata('error'))
+                                                {
+                                                        echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
+                                                        echo $this->session->flashdata('error');
+                                                        echo "<div class='nk-gap'></div>";
                                                         echo "</em></div>";
                                                 }
                                                 ?>
                                                 <div class="form-group">
                                                         <label for="username">Username</label>
-                                                        <input type="text" class="form-control" name="username" placeholder="Enter Your Username" minlength="4" maxlength="16" required autocomplete="off" autofocus value="<?php echo set_value('username') ?>">
+                                                        <input type="text" class="form-control" name="login" placeholder="Enter Your Username" minlength="4" maxlength="16" required autocomplete="off" autofocus value="<?php echo set_value('username') ?>">
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="email">Email Address</label>
@@ -63,7 +70,7 @@ echo form_open(base_url('register'),' class="form-horizontal"');
                                                         </div>
                                                         <div class="form-group">
                                                                 <label>Hint Answer</label>
-                                                                <input type="text" class="form-control" name="hint_answer" placeholder="Enter Your Hint Answer" required value="<?php echo set_value('hint_answer') ?>">
+                                                                <input type="text" class="form-control" name="hint_answer" placeholder="Enter Your Hint Answer" value="<?php echo set_value('hint_answer') ?>" autocomplete="off" required>
                                                         </div>
                                                 <div class="nk-gap"></div>
                                                 <div class="form-group text-center">

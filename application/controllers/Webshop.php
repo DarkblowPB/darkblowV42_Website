@@ -15,6 +15,7 @@ class Webshop extends CI_Controller
 		parent::__construct();
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->library('pagination');
+		$this->load->database();
 	}
 	public function index()
 	{
@@ -57,6 +58,26 @@ class Webshop extends CI_Controller
 	}
 	public function details($id)
 	{
+		if (isset($_POST['submit_buyitem'])) 
+		{
+			if (empty($_SESSION['uid'])) 
+			{
+				redirect(base_url('login'), 'refresh');
+			}
+			if (!empty($_SESSION['uid'])) 
+			{
+				$item_id = $this->input->post('item_id');
+				$price = $this->input->post('price');
+				if ($item_id == null || $price == null) 
+				{
+					$this->session->set_flashdata('error', 'Failed To Bought The Item.');
+				}
+				if ($item_id != null || $price != null) 
+				{
+					$this->webshop->buy_item();
+				}
+			}
+		}
 		$data['title'] = 'DarkblowPB || Webshop Item Details';
 		$data['detail'] = $this->webshop->getdata_webshop_detail($id);
 		$data['related'] = $this->webshop->getdata_webshop_related();

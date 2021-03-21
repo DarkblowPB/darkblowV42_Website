@@ -2,10 +2,10 @@
     <div class="nk-gap-2"></div>
     <div class="container">
         <?php
-        if ($this->session->flashdata('welcome'))
+        if ($this->session->flashdata('success'))
         {
             echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-            echo $this->session->flashdata('welcome');
+            echo $this->session->flashdata('success');
             echo "</em></div>";
             echo "<div class='nk-gap-2'></div>";
         }

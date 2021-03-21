@@ -40,12 +40,26 @@ class Inventory extends CI_Controller
 		$data['isi'] = 'main/content/player_panel/content_inventory';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
+
 	public function detail($detail)
 	{
 		$data['title'] = 'DarkblowPB || Details Item';
 		$data['details'] = $this->inventory->getdata_specific_item($detail);
 		$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
+	}
+
+	function delete_item()
+	{
+		if (empty($_GET['idx']))
+		{
+			$this->session->set_flashdata('error', 'Item Not Found.');
+			redirect($_SERVER['HTTP_REFERER'], 'refresh');
+		}
+		else 
+		{
+			$this->inventory->delete_item($_GET['idx']);
+		}
 	}
 }
 

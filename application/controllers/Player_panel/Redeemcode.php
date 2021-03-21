@@ -13,13 +13,27 @@ class Redeemcode extends CI_Controller
 	{
 		parent::__construct();
 		$this->login_library->primaryAuthCheck_Empty();
+		$this->load->model('main/redeemcode_model', 'redeemcode');
 	}
 	
 	public function index()
 	{
-		$data['title'] = 'DarkblowPB || Redeem Code';
-		$data['isi'] = 'main/content/player_panel/content_redeemcode';
-		$this->load->view('main/layout/wrapper', $data, FALSE);
+		$this->form_validation->set_rules(
+			'code',
+			'Redeem Code',
+			'required',
+			array('required' => '%s Cannot Be Empty')
+		);
+		if ($this->form_validation->run() === FALSE) 
+		{
+			$data['title'] = 'DarkblowPB || Redeem Code';
+			$data['isi'] = 'main/content/player_panel/content_redeemcode';
+			$this->load->view('main/layout/wrapper', $data, FALSE);
+		}
+		else 
+		{
+			$this->redeemcode->code_validation();
+		}
 	}
 }
 

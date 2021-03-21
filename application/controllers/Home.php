@@ -31,7 +31,11 @@ class Home extends CI_Controller {
 	}
 	public function logout()
 	{
-		return $this->login_library->logout();
+		$this->session->unset_userdata('uid');
+		$this->session->unset_userdata('player_name');
+		$this->session->unset_userdata('access_level');
+		$this->session->set_flashdata('success', 'Logout Successfully');
+		redirect(base_url('home'), 'refresh');
 	}
 }
 

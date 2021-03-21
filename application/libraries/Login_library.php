@@ -14,44 +14,6 @@ class Login_library
 		$this->ci->load->model('launcher/Launcherredeemcode_model', 'launcher_redeemcode');
 	}
 
-	public function login($username, $password)
-	{
-		$check = $this->ci->login->login($username,$password);
-		if ($check)
-		{
-			$uid = $check->player_id;
-			$username = $check->login;
-			$playername = $check->player_name;
-			$access_level = $check->access_level;
-			$d_cash = $check->money;
-			$rank = $check->rank;
-			$exp = $check->exp;
-			$coin = $check->kuyraicoin;
-			$points = $check->gp;
-			$password = $check->password;
-
-			$this->ci->session->set_userdata('uid',$uid);
-			$this->ci->session->set_userdata('login',$username);
-			$this->ci->session->set_userdata('playername',$playername);
-			$this->ci->session->set_userdata('accesslevel',$access_level);
-			$this->ci->session->set_userdata('d_cash',$d_cash);
-			$this->ci->session->set_userdata('rank',$rank);
-			$this->ci->session->set_userdata('exp',$exp);
-			$this->ci->session->set_userdata('coin',$coin);
-			$this->ci->session->set_userdata('points',$points);
-			$this->ci->session->set_userdata('password', $password);
-
-			
-			$this->ci->session->set_flashdata('welcome', 'Login Successfully!, Welcome '.$_SESSION['playername'].'.');
-			redirect(base_url('home'),'refresh');
-		}
-		else
-		{
-			$this->ci->session->set_flashdata('error', 'Wrong Username or Password.');
-			redirect(base_url('login'),'refresh');
-		}
-	}
-
 	public function primaryAuthCheck_Empty()
 	{
 		if (empty($_SESSION['uid'])) 
@@ -68,22 +30,6 @@ class Login_library
 			$this->ci->session->set_flashdata('error', 'You Already Logged In!');
 			redirect(base_url('home'),'refresh');
 		}
-	}
-
-	public function logout()
-	{
-		$this->ci->session->unset_userdata('uid');
-		$this->ci->session->unset_userdata('login');
-		$this->ci->session->unset_userdata('playername');
-		$this->ci->session->unset_userdata('accesslevel');
-		$this->ci->session->unset_userdata('d_cash');
-		$this->ci->session->unset_userdata('rank');
-		$this->ci->session->unset_userdata('exp');
-		$this->ci->session->unset_userdata('coin');
-		$this->ci->session->unset_userdata('points');
-		$this->ci->session->unset_userdata('password');
-		$this->ci->session->set_flashdata('welcome', 'Successfully Logout.');
-		redirect(base_url('home'),'refresh');
 	}
 
 	public function logout_from_changepassword()

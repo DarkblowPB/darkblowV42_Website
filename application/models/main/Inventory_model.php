@@ -30,10 +30,41 @@ class Inventory_model extends CI_Model
 	{
 		return $this->db->where('object_id' , $detail)->get('player_items')->result_array();
 	}
-	public function deleteItemInventory($object_id)
+	
+	function delete_item($param1)
 	{
-		return $this->db->where('object_id', $object_id)->delete('player_items');
+		// Checking Item
+		$check_item = $this->db->get_where('player_items', array('object_id' => $param1));
+		$result_item = $check_item->row();
+		if ($result_item) 
+		{
+			// Checking Owner
+			if ($result_item->owner_id != $_SESSION['uid'])
+			{
+				$this->session->set_flashdata('error', 'You Cannot Delete Another Player Item.');
+				redirect($_SERVER['HTTP_REFERER'], 'refresh');
+			}
+			else 
+			{
+				// Delete Item
+				$delete_item = $this->db->where(array('object_id' => $result_item->object_id, 'item_id' => $result_item->item_id))->delete('player_items');
+				if ($delete_item) 
+				{
+					$this->session->set_flashdata('success', 'Item Deleted Successfully.');
+					redirect($_SERVER['HTTP_REFERER'], 'refresh');
+				}
+				else 
+				{
+					$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information.');
+					redirect($_SERVER['HTTP_REFERER'], 'refresh');
+				}	
+			}
+		}
+		else 
+		{
+			$this->session->set_flashdata('error', 'Item Not Found.');
+			redirect($_SERVER['HTTP_REFERER'], 'refresh');
+		}
 	}
 }
-
 // This Code Generated Automatically By EyeTracker Snippets. //

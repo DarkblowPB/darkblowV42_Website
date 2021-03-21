@@ -1,6 +1,3 @@
-<?php
-echo form_open(base_url('login'),' class="form-horizontal"');
-?>
 <div class="nk-main">
         <div class="nk-gap-2"></div>
         <div class="container">
@@ -12,14 +9,13 @@ echo form_open(base_url('login'),' class="form-horizontal"');
                                         <div class="col-lg-6 offset-lg-3">
                                                 <?php
                                                 echo validation_errors("<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>","</em></div>");
-                                                ?>
-                                                <?php
                                                 if ($this->session->flashdata('error'))
                                                 {
                                                         echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
                                                         echo $this->session->flashdata('error');
                                                         echo "</em></div>";
                                                 }
+                                                echo form_open(base_url('login'),' class="form-horizontal"');
                                                 ?>
                                                 <div class="form-group">
                                                         <label for="Username">Username</label>
@@ -34,11 +30,12 @@ echo form_open(base_url('login'),' class="form-horizontal"');
                                                         <button type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-sign-in"></span> &nbsp;Login</button>
                                                         <button type="reset" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger"><span class="fa fa-refresh"></span> &nbsp;Reset</button>
                                                 </div>
+                                                <?php echo form_close(); ?>
                                                 <div class="form-group text-center">
                                                         OR
                                                 </div>
                                                 <div class="form-group text-center">
-                                                        <button type="button" onclick="window.location='register';" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success"><span class="fa fa-user-plus"></span> &nbsp;Register</button>
+                                                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success"><span class="fa fa-user-plus"></span> &nbsp;Register</a>
                                                 </div>
                                         </div>
                                 </div>
@@ -47,6 +44,3 @@ echo form_open(base_url('login'),' class="form-horizontal"');
                 </div>
         </div>
 </div>
-<?php
-echo form_close();
-?>

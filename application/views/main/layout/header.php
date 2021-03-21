@@ -128,7 +128,7 @@ date_default_timezone_set('Asia/Jakarta');
                                     </a>
                                 </li>
                                 <?php
-                                if ($_SESSION['accesslevel'] >= 3 && $_SESSION['accesslevel'] <= 6) 
+                                if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) 
                                 {
                                 ?>
                                     <li>

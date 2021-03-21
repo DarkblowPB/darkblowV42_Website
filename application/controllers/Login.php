@@ -13,6 +13,7 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		$this->login_library->primaryAuthCheck_Exist();
+		$this->load->model('main/login_model', 'login');
 	}
 
 	public function index()
@@ -27,9 +28,11 @@ class Login extends CI_Controller
 		}
 		else 
 		{
-			$username =	$this->input->post('username');
-			$password = $this->input->post('password');
-			$this->login_library->login($username,$password);
+			$data = array(
+				'login' => $this->input->post('username'),
+				'password' => $this->input->post('password')
+			);
+			$this->login->auth_login($data['login'], $data['password']);
 		}
 	}
 
