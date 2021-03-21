@@ -12,7 +12,6 @@ Class Player extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->login_library->adminAuthCheck_Empty();
         $this->load->model('moderatorpanel/Adminplayer_model', 'adminplayer');
         $this->load->model('moderatorpanel/admincreateplayer_model', 'createplayer');
         $this->load->model('main/register_model', 'register');
@@ -74,7 +73,7 @@ Class Player extends CI_Controller
         }
         else 
         {
-            $this->session->set_flashdata('Warning', 'This Feature Only Available At 00:00 - 05:00 AM GMT+7 (Asia/Jakarta)');
+            $this->session->set_flashdata('error', 'This Feature Only Available At 00:00 - 05:00 AM GMT+7 (Asia/Jakarta)');
             redirect(base_url('moderatorpanel/home'), 'refresh');
         }
     }

@@ -54,17 +54,17 @@
                 </span>
             </div>
             <?php
-            if ($this->session->flashdata('Failed')) 
+            if ($this->session->flashdata('error')) 
             {
                 echo '<div class="card-body">';
                 echo '<div class="alert alert-danger text-center" role="alert">';
-                echo $this->session->flashdata('Failed');
+                echo $this->session->flashdata('error');
                 echo '</div>';
                 echo '</div>';
             }
             ?>
             <div class="card-body">
-                <form method="POST" action="<?php echo base_url() ?>moderatorpanel/login" class="form-horizontal">
+                <?php echo form_open(base_url('moderatorpanel/login'), 'class="form-horizontal"') ?>
                     <div class="form-group">
                         <input type="text" name="username" class="form-control form-control-lg" placeholder="Enter Your Username" autocomplete="off" autofocus>
                     </div>
@@ -72,7 +72,7 @@
                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter Your Password">
                     </div>
                     <button type="submit" class="btn btn-outline-primary btn-lg btn-block"><i class="fas fa-sign-in-alt mr-2"></i>MASUK</button>
-                </form>
+                <?php echo form_close(); ?>
             </div>
             <div class="card-body border-top text-info text-center">
                 <marquee class="card-text font-12 mb-0 mt-1">

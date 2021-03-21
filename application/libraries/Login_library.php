@@ -8,6 +8,7 @@ class Login_library
 	public function __construct()
 	{
         $this->ci =& get_instance();
+		$this->ci->load->database();
 		$this->ci->load->model('main/login_model', 'login');
 		$this->ci->load->model('moderatorpanel/logger_model', 'logger');
 		$this->ci->load->model('moderatorpanel/Adminlogin_model', 'loginfunction');
@@ -30,22 +31,6 @@ class Login_library
 			$this->ci->session->set_flashdata('error', 'You Already Logged In!');
 			redirect(base_url('home'),'refresh');
 		}
-	}
-
-	public function logout_from_changepassword()
-	{
-		$this->ci->session->unset_userdata('uid');
-		$this->ci->session->unset_userdata('login');
-		$this->ci->session->unset_userdata('playername');
-		$this->ci->session->unset_userdata('accesslevel');
-		$this->ci->session->unset_userdata('d_cash');
-		$this->ci->session->unset_userdata('rank');
-		$this->ci->session->unset_userdata('exp');
-		$this->ci->session->unset_userdata('coin');
-		$this->ci->session->unset_userdata('points');
-		$this->ci->session->unset_userdata('password');
-		$this->ci->session->set_flashdata('welcome', 'Password Changed Successfully<br>Please Relogin To Continue Your Action.');
-		redirect(base_url('home'),'refresh');
 	}
 
 	public function adminAuthCheck_Empty()
@@ -81,6 +66,19 @@ class Login_library
 		if (!empty($_SESSION['uid_admin']) && !empty($_SESSION['admin_name']) && !empty($_SESSION['access_level_admin'])) 
 		{
 			redirect(base_url('moderatorpanel/home'), 'refresh');
+		}
+	}
+
+	public function changepassword_protect()
+	{
+		$check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+		$result = $check->row();
+		if ($result) 
+		{
+			if ($result->hint_question == null || $result->hint_answer == null) 
+			{
+				redirect(base_url('player_panel'), 'refresh');
+			}
 		}
 	}
 
@@ -139,87 +137,6 @@ class Login_library
 		$this->ci->session->unset_userdata('access_level_admin');
 		
 		redirect(base_url('moderatorpanel/login'), 'refresh');
-	}
-
-	public function launcher_LoginProcessing($username, $password)
-	{
-		$check = $this->ci->launcher_redeemcode->launcher_Login($username, $password);
-		if ($check) 
-		{
-			$login = $check->login;
-			$player_id = $check->player_id;
-			$player_name = $check->player_name;
-			
-			if ($login && $player_id && $player_name) 
-			{
-				$this->ci->session->set_userdata('launcher_username', $login);
-				$this->ci->session->set_userdata('launcher_pid', $player_id);
-				$this->ci->session->set_userdata('launcher_playername', $player_name);
-
-				$this->ci->session->set_flashdata('Success', 'Login Successfully, Welcome '.$_SESSION['launcher_playername'].'');
-				redirect(base_url('launcher/redeemcode/home'), 'refresh');
-			}
-			else 
-			{
-				$this->ci->session->set_flashdata('Failed', 'Login Failed');
-				redirect(base_url('launcher/redeemcode/login'), 'refresh');
-			}
-		}
-		else 
-		{
-			$this->ci->session->set_flashdata('Failed', 'This Account Is Doest Exist');
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-	}
-
-	public function launcher_LogoutProcessing()
-	{
-		$session_A = $this->ci->session->unset_userdata('launcher_username');
-		$session_B = $this->ci->session->unset_userdata('launcher_pid');
-		$session_C = $this->ci->session->unset_userdata('launcher_playername');
-		if ($session_A && $session_B && $session_C) 
-		{
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-		else 
-		{
-			$this->ci->session->unset_userdata('launcher_uid');
-			$this->ci->session->unset_userdata('launcher_pid');
-			$this->ci->session->unset_userdata('launcher_playername');
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-	}
-
-	function launcherAuthCheckEmpty()
-	{
-		if (empty($_SESSION['launcher_username']))
-		{
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-		if (empty($_SESSION['launcher_username']) && empty($_SESSION['pid'])) 
-		{
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-		if (empty($_SESSION['launcher_username']) && empty($_SESSION['launcher_pid']) && empty($_SESSION['launcher_player_name'])) 
-		{
-			redirect(base_url('launcher/redeemcode/login'), 'refresh');
-		}
-	}
-
-	function launcherAuthCheckExist()
-	{
-		if (!empty($_SESSION['launcher_username']))
-		{
-			redirect(base_url('launcher/redeemcode/home'), 'refresh');
-		}
-		if (!empty($_SESSION['launcher_username']) && !empty($_SESSION['pid'])) 
-		{
-			redirect(base_url('launcher/redeemcode/home'), 'refresh');
-		}
-		if (!empty($_SESSION['launcher_username']) && !empty($_SESSION['launcher_pid']) && !empty($_SESSION['launcher_player_name'])) 
-		{
-			redirect(base_url('launcher/redeemcode/home'), 'refresh');
-		}
 	}
 }
 

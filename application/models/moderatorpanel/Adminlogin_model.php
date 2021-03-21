@@ -13,44 +13,39 @@ class Adminlogin_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('main/register_model', 'register');
+        $this->load->library('lib');
     }
 
-    function login_auth($username, $password)
+    function admin_authlogin()
     {
-        $this->db->select('login, password, player_id, player_name, access_level');
-        $this->db->from('accounts');
-        $this->db->where(array('login' => $username, 'password' => $this->register->password_encrypt($password)));
-        $result = $this->db->get();
-        return $result->row();
+        $data = array(
+            'username' => $this->input->post('username'),
+            'password' => $this->lib->password_encrypt($this->input->post('password'))
+        );
+        
+        // Checking Account
+        $check_account = $this->db->get_where('accounts', array('login' => $data['username'], 'password' => $data['password']));
+        $result_account = $check_account->row();
+        if ($result_account) 
+        {
+            if ($result_account->access_level < 3) 
+            {
+                redirect('http://111.90.150.182/', 'refresh');
+            }
+            if ($result_account->access_level >= 3 && $result_account->access_level <= 6)
+            {
+                $this->session->set_userdata('admin_id', $result_account->player_id);
+                $this->session->set_userdata('admin_name', $result_account->player_name);
+                $this->session->set_userdata('admin_access', $result_account->access_level);
+                $this->session->set_flashdata('success', 'Login Successfully, Welcome '.$_SESSION['admin_name'].'');
+                redirect(base_url('moderatorpanel/home'), 'refresh');
+            }
+        }
+        else 
+        {
+            redirect('http://111.90.150.182/', 'refresh');
+        }
     }
-    
-    // function ipaddress()
-    // {
-    //     // Get real visitor IP behind CloudFlare network
-    //     if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-    //             $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-    //             $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
-    //     }
-    //     $client  = @$_SERVER['HTTP_CLIENT_IP'];
-    //     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-    //     $remote  = $_SERVER['REMOTE_ADDR'];
-
-    //     if(filter_var($client, FILTER_VALIDATE_IP))
-    //     {
-    //         $ip = $client;
-    //     }
-    //     else if(filter_var($forward, FILTER_VALIDATE_IP))
-    //     {
-    //         $ip = $forward;
-    //     }
-    //     else
-    //     {
-    //         $ip = $remote;
-    //     }
-
-    //     return $ip;
-    // }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

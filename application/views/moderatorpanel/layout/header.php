@@ -32,13 +32,13 @@ date_default_timezone_set('Asia/Jakarta');
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php
-                                if ($_SESSION['access_level_admin'] >= 3 && $_SESSION['access_level_admin'] < 6) 
+                                if ($_SESSION['admin_access'] >= 3 && $_SESSION['admin_access'] < 6) 
                                 {
                                 ?>
                                     <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_rank/53.gif" alt="" class="user-avatar-md rounded-circle" >
                                 <?php
                                 }
-                                if ($_SESSION['access_level_admin'] == 6) 
+                                if ($_SESSION['admin_access'] == 6) 
                                 {
                                 ?>
                                     <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_rank/54.gif" alt="" class="user-avatar-sm rounded-circle">

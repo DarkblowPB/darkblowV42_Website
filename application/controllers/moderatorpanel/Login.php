@@ -14,6 +14,7 @@ Class Login extends CI_Controller
         parent::__construct();
         $this->login_library->adminAuthCheck_Exist();
         $this->load->model('moderatorpanel/logger_model', 'logger');
+        $this->load->model('moderatorpanel/adminlogin_model', 'admin_login');
     }
 
     function index()
@@ -21,36 +22,34 @@ Class Login extends CI_Controller
         $this->form_validation->set_rules(
             'username',
             'Username',
-            'trim|required|min_length[4]|max_length[16]|alpha_numeric',
+            'strtolower|trim|min_length[4]|max_length[16]|alpha_numeric|required',
             array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Contains 4 Character Or More!',
-                'max_length' => '%s Max Length Reached!',
-                'alpha_numeric' => '%s Only Alpha Numeric Characters Allowed'
+                'min_length' => '%s Must Contains 4 Character Or More',
+                'max_length' => '%s Can Only Use 16 Characters',
+                'alpha_numeric' => '%s Can Only Use Letters And Numbers',
+                'required' => '%s Cannot Be Empty'
             )
         );
         $this->form_validation->set_rules(
             'password',
             'Password',
-            'trim|required|min_length[4]|max_length[16]|alpha_numeric',
+            'strtolower|trim|min_length[4]|max_length[16]|alpha_numeric|required',
             array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Contains 4 Character Or More!',
-                'max_legnth' => '%s Max Length Reached!',
-                'alpha_numeric' => '%s Only Alpha Numeric Characters Allowed'
+                'min_length' => '%s Must Contains 4 Character Or More',
+                'max_length' => '%s Can Only Use 16 Characters',
+                'alpha_numeric' => '%s Can Only Use Letters And Numbers',
+                'required' => '%s Cannot Be Empty'
             )
         );
-
-        if ($this->form_validation->run()) 
+        if ($this->form_validation->run() === FALSE) 
         {
-            $username = $this->input->post('username');
-            $password = $this->input->post('password');
-            $this->logger->loger_LoginAttempt();
-            $this->login_library->adminlogin($username, $password);
+            $data['title'] = 'DarkblowPB || Login Area';
+            $this->load->view('moderatorpanel/content/login/content_login', $data, FALSE);   
         }
-        $data['title'] = 'DarkblowPB || Login Area';
-        $data['catchip'] = $this->input->ip_address();
-        $this->load->view('moderatorpanel/content/login/content_login', $data, FALSE);
+        else 
+        {
+            $this->admin_login->admin_authlogin();
+        }
     }
 }
 
