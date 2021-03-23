@@ -21,7 +21,7 @@
                     echo '</div>';
                 }
                 ?>
-                <form action="<?php echo base_url('moderatorpanel/redeemcode/redeemcode_cash') ?>" method="POST" class="form-horizontal">
+                <?php echo form_open(base_url('moderatorpanel/redeemcode/redeemcode_cash'), 'class="form-horizontal"') ?>
                     <div class="form-group row">
                         <div class="col-sm-3 text-right">
                             <label class="col-form-label">Item Alert</label>
@@ -52,7 +52,7 @@
                             <button type="submit" class="btn btn-outline-primary"><i class="fas fa-paper-plane mr-2"></i>Submit</button>
                         </div>
                     </div>
-                </form>
+                <?php echo form_close() ?>
             </div>
         </div>
     </div>
