@@ -14,7 +14,6 @@ Class Recharge extends CI_Controller
         parent::__construct();
         $this->login_library->adminAuthCheck_Empty();
         $this->load->model('moderatorpanel/Adminrecharge_model', 'adminrecharge');
-        $this->load->model('moderatorpanel/Logger_model', 'logger');
     }
 
     function index()
@@ -37,19 +36,66 @@ Class Recharge extends CI_Controller
 
     function manual_recharge()
     {
-        $data['title'] = 'DarkblowPB || Recharge / Donation';
-        $data['header'] = 'Recharge / Donation';
-        $data['recharge'] = $this->adminrecharge->getPlayerName();
-        $data['content'] = 'moderatorpanel/content/recharge/content_manualrecharge';
-        $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+        $this->form_validation->set_rules(
+            'player_id',
+            'Nickname',
+            'required',
+            array('required' => '%s Cannot Be Empty')
+        );
+        $this->form_validation->set_rules(
+            'recharge_package',
+            'Recharge Package',
+            'required',
+            array('required' => '%s Cannot Be Empty')
+        );
+        if ($this->form_validation->run() === FALSE) 
+        {
+            $data['title'] = 'DarkblowPB || Recharge / Donation';
+            $data['header'] = 'Recharge / Donation';
+            $data['recharge'] = $this->adminrecharge->getPlayerName();
+            $data['content'] = 'moderatorpanel/content/recharge/content_manualrecharge';
+            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);   
+        }
+        else 
+        {
+            $this->adminrecharge->createManualRecharge();
+        }
     }
 
     function voucher()
     {
-        $data['title'] = 'DarkblowPB || Recharge Voucher';
-        $data['header'] = 'Recharge Voucher';
-        $data['content'] = 'moderatorpanel/content/recharge/content_voucherrecharge';
-        $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+        $this->form_validation->set_rules(
+            'cash_alert',
+            'Cash Alert',
+            'required',
+            array('required' => '%s Cannot Be Empty')
+        );
+        $this->form_validation->set_rules(
+            'cash_value',
+            'Cash Value',
+            'required',
+            array('required' => '%s Cannot Be Empty')
+        );
+        $this->form_validation->set_rules(
+            'voucher_code',
+            'Voucher Code',
+            'required|is_unique[item_voucher.voucher_code]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'is_unique' => '%s Already Exists.'
+            )
+        );
+        if ($this->form_validation->run() === FALSE) 
+        {
+            $data['title'] = 'DarkblowPB || Recharge Voucher';
+            $data['header'] = 'Recharge Voucher';
+            $data['content'] = 'moderatorpanel/content/recharge/content_voucherrecharge';
+            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);   
+        }
+        else 
+        {
+            $this->adminrecharge->createVoucher();
+        }
     }
 }
 

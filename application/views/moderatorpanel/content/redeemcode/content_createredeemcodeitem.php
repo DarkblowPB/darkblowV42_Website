@@ -21,7 +21,7 @@
                     echo '</div>';
                 }
                 ?>
-                <form action="<?php echo base_url('moderatorpanel/redeemcode/redeemcode_item') ?>" method="POST" class="form-horizontal">
+                <?php echo form_open(base_url('moderatorpanel/redeemcode/redeemcode_item'), 'class="form-horizontal"') ?>
                     <div class="form-group row">
                         <div class="col-sm-3 text-right">
                             <label class="col-form-label">List Item</label>

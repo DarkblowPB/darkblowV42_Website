@@ -14,7 +14,6 @@ Class Redeemcode extends CI_Controller
         parent::__construct();
         $this->login_library->adminAuthCheck_Empty();
         $this->load->model('moderatorpanel/Adminredeemcode_model', 'adminredeemcode');
-        $this->load->model('moderatorpanel/Logger_model', 'logger');
     }
 
     function index()
@@ -38,30 +37,24 @@ Class Redeemcode extends CI_Controller
 
     function redeemcode_item()
     {
-        $valid = $this->form_validation;
-        $valid->set_rules(
+        $this->form_validation->set_rules(
             'item_alert',
             'Item Alert',
-            'required|min_length[20]|max_length[255]',
-            array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Have 10 Characters Or More',
-                'max_length' => '%s Max Length Reached (max. 255 Characters)'
-            )
+            'required',
+            array('required' => '%s Cannot Be Empty')
         );
-        $valid->set_rules(
+        $this->form_validation->set_rules(
             'item_code',
             'Code',
-            'required|min_length[19]|max_length[19]|alpha_numeric|is_unique[item_code.item_code]',
+            'trim|required|min_length[19]|max_length[19]|is_unique[item_code.item_code]',
             array(
                 'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Have 10 Characters Or More',
-                'max_length' => '%s Max Length Reached (max. 255 Characters)',
-                'alpha_numeric' => '%s Only Alpha Numeric Characters Allowed',
-                'is_unique' => '%s Already Exist'
+                'min_length' => '%s Must Contains 19 Character.',
+                'max_length' => '%s Can Only Use 19 Characters.',
+                'is_unique' => '%s Already Exists.'
             )
         );
-        if ($valid->run() === FALSE) 
+        if ($this->form_validation->run() === FALSE) 
         {
             $data['title'] = 'DarkblowPB || Create Redeem Code Item';
             $data['header'] = 'Create Redeem Code Item';
@@ -71,67 +64,36 @@ Class Redeemcode extends CI_Controller
         }
         else 
         {
-            $i = $this->input;
-            $data = array(
-                'item_id' => $i->post('item_id'),
-                'item_name' => $i->post('item_name'),
-                'item_count' => $i->post('item_count'),
-                'item_alert' => $i->post('item_alert'),
-                'item_code' => $i->post('item_code'),
-                'category' => $i->post('category'),
-                'type' => "Item"
-            );
             $this->adminredeemcode->insertRedeemCodeItem($data);
-            if ($data) 
-            {
-                $this->logger->logger_CreateRedeemCodeItemSuccess($i->post('item_name'), $i->post('item_count'));
-                $this->session->set_flashdata('Success', 'Redeem Code Item Successfully Created');
-                redirect(base_url('moderatorpanel/redeemcode/redeemcode_item'), 'refresh');
-            }
-            else 
-            {
-                $this->logger->logger_CreateRedeemCodeItemFailed($i->post('item_name'), $i->post('item_count'));
-                $this->session->set_flashdata('Failed', 'Redeem Code Item Failed Created');
-                redirect(base_url('moderatorpanel/redeemcode/redeemcode_item'), 'refresh');
-            }
         }
     }
 
     function redeemcode_cash()
     {
-        $valid = $this->form_validation;
-        $valid->set_rules(
+        $this->form_validation->set_rules(
             'item_alert',
             'Item Alert',
-            'required|min_length[10]|max_length[255]',
-            array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Have 10 Characters Or More',
-                'max_length' => '%s Maximal Length Reached (max. 255 Characters)'
-            )
+            'required',
+            array('required' => '%s Cannot Be Empty')
         );
-        $valid->set_rules(
+        $this->form_validation->set_rules(
             'item_code',
             'Item Code',
-            'required|min_length[19]|max_length[19]|is_unique[item_code.item_code]',
+            'trim|required|min_length[19]|max_length[19]|is_unique[item_code.item_code]',
             array(
                 'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Have 19 Characters Or More',
-                'max_length' => '%s Maximal Length Reached (max. 19 Characters)',
-                'is_unique' => '%s Already Exist'
+                'min_length' => '%s Must Contains 19 Character.',
+                'max_length' => '%s Can Only Use 19 Characters.',
+                'is_unique' => '%s Already Exists.'
             )
         );
-        $valid->set_rules(
+        $this->form_validation->set_rules(
             'cash',
             'Cash Amount',
-            'required|min_length[1]|max_length[5]',
-            array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Have 10 Characters Or More',
-                'max_length' => '%s Maximal Length Reached (max. 255 Characters)'
-            )
+            'required',
+            array('required' => '%s Cannot Be Empty')
         );
-        if ($valid->run() === FALSE) 
+        if ($this->form_validation->run() === FALSE)
         {
             $data['title'] = 'DarkblowPB || Create Redeem Code Cash';
             $data['header'] = 'Redeem Code Cash';
@@ -140,26 +102,7 @@ Class Redeemcode extends CI_Controller
         }
         else 
         {
-            $i = $this->input;
-            $data = array(
-                'item_alert' => $i->post('item_alert'),
-                'item_code' => $i->post('item_code'),
-                'cash' => $i->post('cash'),
-                'type' => "Cash"
-            );
-            $this->adminredeemcode->insertRedeemCodeCash($data);
-            if ($data) 
-            {
-                $this->logger->logger_CreateRedeemCodeCashSuccess($i->post('cash'));
-                $this->session->set_flashdata('Success', 'Create Redeem Code Cash Successfully');
-                redirect(base_url('moderatorpanel/redeemcode/redeemcode_cash'), 'refresh');
-            }
-            else 
-            {
-                $this->logger->logger_CreateRedeemCodeCashFailed($i->post('cash'));
-                $this->session->set_flashdata('Failed', 'Create Redeem Code Cash Failed');
-                redirect(base_url('moderatorpanel/redeemcode/redeemcode_cash'), 'refresh');
-            }
+            $this->adminredeemcode->insertRedeemCodeCash();
         }
     }
 }

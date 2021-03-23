@@ -35,8 +35,7 @@
                     ?>
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="<?php echo base_url('moderatorpanel/account_config/home') ?>" method="POST">
-                            <?php
+                            <?php echo form_open(base_url('moderatorpanel/account_config/home'), 'class="form-horizontal"') ?>
                             foreach ($config as $row) :
                             ?>
                             <div class="form-group row">

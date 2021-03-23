@@ -21,87 +21,13 @@
                     echo '</div>';
                 }
                 ?>
-                <?php
-                if (isset($_POST['submit_voucher'])) 
-                {
-                    include 'assets/include.php';
-
-                    $cash_alert = $_POST['cash_alert'];
-                    $cash_value = $_POST['cash_value'];
-                    $voucher_code = $_POST['voucher_code'];
-                    $voucher_status = 1;
-                    $date = date('d-m-Y h:i:s');
-                    if ($cash_alert == "") 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Alert Cannot Be Empty');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($cash_alert < 10) 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Alert Must Contains 10 Characters Or More');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($cash_alert > 255) 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Alert Max Length Is 255 Characters');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($cash_value == "") 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Value Cannot Be Empty');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($cash_value == "0") 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Value Cannot Be Empty');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($cash_value > "999999") 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Value Max 999.999');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($voucher_code == "")
-                    {
-                        $this->session->set_flashdata('Failed', 'Voucher Code Cannot Be Empty');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    if ($voucher_code > 24) 
-                    {
-                        $this->session->set_flashdata('Failed', 'Cash Code Max Length Is 24 Characters');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-
-                    $ISp_Res = $connec->prepare("INSERT INTO item_voucher (cash_alert, cash_value, voucher_code, voucher_status, date) VALUES(?, ?, ?, ?, ?)");
-                    $ISp_Res->execute(array($cash_alert, $cash_value, $voucher_code, $voucher_status, $date));
-                    if ($ISp_Res) 
-                    {
-                        $this->logger->logger_CreateVoucherSuccess();
-                        $this->session->set_flashdata('Success', 'Voucher Created Successfully');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-                    else 
-                    {
-                        $this->logger->logger_CreateVoucherFailed();
-                        $this->session->set_flashdata('Failed', 'Voucher Created Failed');
-                        redirect(base_url('moderatorpanel/recharge/voucher'), 'refresh');
-                    }
-                }
-                ?>
-                <form action="" method="POST" class="form-horizontal">
+                <?php echo form_open(base_url('moderatorpanel/recharge/voucher'), 'class="form-horizontal"') ?>
                     <div class="form-group row">
                         <div class="col-sm-3">
                             <label>Alert</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="text" name="cash_alert" class="form-control" value="<?php echo set_value('cash_alert') ?>" minlength="10" maxlength="50" autocomplete="off" autofocus required>
+                            <input type="text" name="cash_alert" class="form-control" placeholder="Enter Alert For Player" value="<?php echo set_value('cash_alert') ?>" autocomplete="off" autofocus required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -109,7 +35,7 @@
                             <label>Cash Value</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="number" name="cash_value" class="form-control" value="<?php echo set_value('cash_value') ?>" required>
+                            <input type="number" name="cash_value" class="form-control" placeholder="Enter Cash Value" value="<?php echo set_value('cash_value') ?>" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -117,7 +43,7 @@
                             <label>Voucher-Code</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="text" name="voucher_code" class="form-control" value="<?php echo set_value('voucher_code') ?>" minlength="24" maxlength="24" autocomplete="off" required>
+                            <input type="text" name="voucher_code" class="form-control" placeholder="Enter Voucher Code" value="<?php echo set_value('voucher_code') ?>" minlength="24" maxlength="24" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -126,7 +52,7 @@
                             <button type="submit" name="submit_voucher" class="btn btn-outline-primary"><i class="fas fa-paper-plane"></i>Submit</button>
                         </div>
                     </div>
-                </form>
+                <?php echo form_close() ?>
             </div>
         </div>
     </div>

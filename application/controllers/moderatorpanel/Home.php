@@ -31,8 +31,12 @@ Class Home extends CI_Controller
 
     function logout()
     {
-        $this->logger->logger_logoutberhasil();
-        $this->login_library->adminlogout();
+        $this->session->unset_userdata('admin_id');
+        $this->session->unset_userdata('admin_name');
+        $this->session->unset_userdata('admin_access');
+
+        $this->logger->logger_AdminLoginSuccess();
+        redirect(base_url('moderatorpanel/login'), 'refresh');
     }
 }
 

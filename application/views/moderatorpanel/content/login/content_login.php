@@ -66,12 +66,12 @@
             <div class="card-body">
                 <?php echo form_open(base_url('moderatorpanel/login'), 'class="form-horizontal"') ?>
                     <div class="form-group">
-                        <input type="text" name="username" class="form-control form-control-lg" placeholder="Enter Your Username" autocomplete="off" autofocus>
+                        <input type="text" name="username" class="form-control form-control-lg" placeholder="Enter Your Username" value="<?php echo set_value('username') ?>" minlength="4" maxlength="16" autocomplete="off" autofocus required>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter Your Password">
+                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter Your Password" value="<?php echo set_value('password') ?>" minlength="4" maxlength="16" required>
                     </div>
-                    <button type="submit" class="btn btn-outline-primary btn-lg btn-block"><i class="fas fa-sign-in-alt mr-2"></i>MASUK</button>
+                    <button type="submit" class="btn btn-outline-primary btn-lg btn-block"><i class="fas fa-sign-in-alt mr-2"></i>Login</button>
                 <?php echo form_close(); ?>
             </div>
             <div class="card-body border-top text-info text-center">

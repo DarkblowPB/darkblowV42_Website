@@ -14,8 +14,8 @@ Class Player extends CI_Controller
         parent::__construct();
         $this->load->model('moderatorpanel/Adminplayer_model', 'adminplayer');
         $this->load->model('moderatorpanel/admincreateplayer_model', 'createplayer');
-        $this->load->model('main/register_model', 'register');
         $this->load->model('logger/logger_model', 'logger');
+        $this->load->model('lib');
     }
 
     function index()
@@ -242,7 +242,7 @@ Class Player extends CI_Controller
 
             $data = array(
                 'login' => $i->post('username'),
-                'password' => $this->register->password_encrypt($i->post('')),
+                'password' => $this->lib->password_encrypt($i->post('password')),
                 'player_name' => $i->post('player_name'),
                 'rank' => $i->post('rank'),
                 'gp' => $i->post('points'),
