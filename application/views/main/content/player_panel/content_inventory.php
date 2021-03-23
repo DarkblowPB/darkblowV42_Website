@@ -1,7 +1,7 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $_SESSION['playername'] ?></span> Inventory's</span></h3>
+		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $_SESSION['player_name'] ?></span> Inventory's</span></h3>
 		<div class="row vertical-gap">
 			<div class="col-lg-12 col-12">
 				<?php

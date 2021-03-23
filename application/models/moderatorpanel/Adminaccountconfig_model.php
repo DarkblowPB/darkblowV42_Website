@@ -17,12 +17,12 @@ class Adminaccountconfig_model extends CI_Model
 
     function getAccountConfig()
     {
-        return $this->db->where('player_id', $_SESSION['uid_admin'])->get('accounts')->result_array();
+        return $this->db->where('player_id', $_SESSION['admin_id'])->get('accounts')->result_array();
     }
 
     function updateAccountConfig($data)
     {
-        $this->db->where('player_id', $_SESSION['uid_admin'])->update('accounts', $data);
+        $this->db->where('player_id', $_SESSION['admin_id'])->update('accounts', $data);
     }
 }
 

@@ -15,7 +15,7 @@ Class Player extends CI_Controller
         $this->load->model('moderatorpanel/Adminplayer_model', 'adminplayer');
         $this->load->model('moderatorpanel/admincreateplayer_model', 'createplayer');
         $this->load->model('logger/logger_model', 'logger');
-        $this->load->model('lib');
+        $this->load->library('lib');
     }
 
     function index()

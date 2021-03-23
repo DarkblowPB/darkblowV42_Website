@@ -34,7 +34,7 @@ class Inventory extends CI_Controller
 		$config['cur_tag_close'] = '</a>';
 		$this->pagination->initialize($config);
 
-		$data['title'] = 'DarkblowPB || '.$_SESSION['playername'].' Inventory';
+		$data['title'] = 'DarkblowPB || '.$_SESSION['player_name'].' Inventory';
 		$data['start'] = $this->uri->segment(4);
 		$data['inventory'] = $this->inventory->getdata_inventory_limit($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_panel/content_inventory';

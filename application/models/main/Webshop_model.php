@@ -44,493 +44,68 @@ class Webshop_model extends CI_Model
 		$result_item = $check_item->row();
 		if ($result_item) 
 		{
-			// Checking Status
-			if ($result_item->webshop_itemstatus == 0) 
+			// Fetching Account
+			$account_fetch = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+			$result_accountfetch = $account_fetch->row();
+			if ($result_accountfetch) 
 			{
-				$this->session->set_flashdata('error', 'Failed To Buy Item, Due Items Has Been Pulled From The Webshop');
-				redirect(base_url('webshop'), 'refresh');
-			}
-			if ($result_item->webshop_itemstatus == 1) 
-			{
-				// Checking Item
-				if ($item_id >= 100003001 && $item_id <= 904007069) 
+				if ($result_accountfetch->kuyraicoin < $price) 
 				{
-					// Checking Count
-					if ($price == $result_item->webshop_itemprice_3days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
-								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
-									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
-										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-										else 
-										{
-											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '1', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
-									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_7days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
-								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
-									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
-										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-										else 
-										{
-											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '1', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
-									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_30days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
-								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
-									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
-										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-										else 
-										{
-											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '1', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
-									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_permanent)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
-								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
-									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
-										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-										else 
-										{
-											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '1', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
-									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
+					$this->session->set_flashdata('error', 'Failed To Buy Item, Due Webcoin Not Enough.');
+					redirect($_SERVER['HTTP_REFERER'], 'refresh');
 				}
-				if ($item_id >= 1001001003 && $item_id <= 1105003032)
+				if ($result_accountfetch->kuyraicoin >= $price) 
 				{
-					// Checking Count
-					if ($price == $result_item->webshop_itemprice_3days)
+					// Checking Status
+					if ($result_item->webshop_itemstatus == 0) 
 					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
-								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
-									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
-										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-										else 
-										{
-											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
-										}
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '2', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
-									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-									else 
-									{
-										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
-									}
-								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
+						$this->session->set_flashdata('error', 'Failed To Buy Item, Due Items Has Been Pulled From The Webshop');
+						redirect(base_url('webshop'), 'refresh');
 					}
-					if ($price == $result_item->webshop_itemprice_7days)
+					if ($result_item->webshop_itemstatus == 1) 
 					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
+						// Checking Item
+						if ($item_id >= 100003001 && $item_id <= 904007069) 
 						{
-							if ($result_inventory->equip == 1) 
+							// Checking Count
+							if ($price == $result_item->webshop_itemprice_3days)
 							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -538,42 +113,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '2', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '1', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -581,45 +156,45 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
 							}
-							else 
+							if ($price == $result_item->webshop_itemprice_7days)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_30days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -627,42 +202,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '2', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '1', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -670,45 +245,45 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
 							}
-							else 
+							if ($price == $result_item->webshop_itemprice_30days)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_permanent)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -716,42 +291,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '2', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '1', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -759,49 +334,45 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
 							}
-							else 
+							if ($price == $result_item->webshop_itemprice_permanent)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-				}
-				if ($item_id >= 1300002003 && $item_id <= 1508000000) 
-				{
-					// Checking Count
-					if ($price == $result_item->webshop_itemprice_3days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -809,42 +380,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '3', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '1', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -852,45 +423,49 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							else 
-							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
 							}
 						}
-					}
-					if ($price == $result_item->webshop_itemprice_7days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
+						if ($item_id >= 1001001003 && $item_id <= 1105003032)
 						{
-							if ($result_inventory->equip == 1) 
+							// Checking Count
+							if ($price == $result_item->webshop_itemprice_3days)
 							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -898,42 +473,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '3', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '2', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -941,45 +516,45 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
 							}
-							else 
+							if ($price == $result_item->webshop_itemprice_7days)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_30days)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -987,42 +562,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '3', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '2', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -1030,45 +605,45 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
-								else 
-								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
 							}
-							else 
+							if ($price == $result_item->webshop_itemprice_30days)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-					}
-					if ($price == $result_item->webshop_itemprice_permanent)
-					{
-						// Checking Inventory
-						$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
-						$result_inventory = $check_inventory->row();
-						if ($result_inventory) 
-						{
-							if ($result_inventory->equip == 1) 
-							{
-								$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
-								// Update Count
-								$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
-								if ($update_count) 
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
 								{
-									// Fetching Accounts
-									$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-									$result_fetch = $fetch_accounts->row();
-									if ($result_fetch) 
+									if ($result_inventory->equip == 1) 
 									{
-										$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-										// Update Coins
-										$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-										if ($update_coins) 
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
 										{
-											$this->session->set_flashdata('success', 'Successfully Bought Item.');
-											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
 										}
 										else 
 										{
@@ -1076,42 +651,42 @@ class Webshop_model extends CI_Model
 											redirect($_SERVER['HTTP_REFERER'], 'refresh');
 										}
 									}
-									else 
+									if ($result_inventory->equip != 1)
 									{
-										$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
-								}
-							}
-							if ($result_inventory->equip != 1)
-							{
-								$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
-							}
-						}
-						else 
-						{
-							// Update Count
-							$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '3', 'equip' => '1'));
-							if ($update_count) 
-							{
-								// Fetching Accounts
-								$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-								$result_fetch = $fetch_accounts->row();
-								if ($result_fetch) 
-								{
-									$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
-									// Update Coins
-									$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
-									if ($update_coins) 
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '2', 'equip' => '1'));
+									if ($update_count) 
 									{
-										$this->session->set_flashdata('success', 'Successfully Bought Item.');
-										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
 									}
 									else 
 									{
@@ -1119,16 +694,455 @@ class Webshop_model extends CI_Model
 										redirect($_SERVER['HTTP_REFERER'], 'refresh');
 									}
 								}
+							}
+							if ($price == $result_item->webshop_itemprice_permanent)
+							{
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
+								{
+									if ($result_inventory->equip == 1) 
+									{
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
+										{
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									if ($result_inventory->equip != 1)
+									{
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
 								else 
 								{
-									$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
-									redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '2', 'equip' => '1'));
+									if ($update_count) 
+									{
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									else 
+									{
+										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
 								}
 							}
-							else 
+						}
+						if ($item_id >= 1300002003 && $item_id <= 1508000000) 
+						{
+							// Checking Count
+							if ($price == $result_item->webshop_itemprice_3days)
 							{
-								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-								redirect($_SERVER['HTTP_REFERER'], 'refresh');
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
+								{
+									if ($result_inventory->equip == 1) 
+									{
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_3days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
+										{
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									if ($result_inventory->equip != 1)
+									{
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+								else 
+								{
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_3days, 'category' => '3', 'equip' => '1'));
+									if ($update_count) 
+									{
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_3days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									else 
+									{
+										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+							}
+							if ($price == $result_item->webshop_itemprice_7days)
+							{
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
+								{
+									if ($result_inventory->equip == 1) 
+									{
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_7days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
+										{
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									if ($result_inventory->equip != 1)
+									{
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+								else 
+								{
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_7days, 'category' => '3', 'equip' => '1'));
+									if ($update_count) 
+									{
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_7days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									else 
+									{
+										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+							}
+							if ($price == $result_item->webshop_itemprice_30days)
+							{
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
+								{
+									if ($result_inventory->equip == 1) 
+									{
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_30days;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
+										{
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									if ($result_inventory->equip != 1)
+									{
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+								else 
+								{
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_30days, 'category' => '3', 'equip' => '1'));
+									if ($update_count) 
+									{
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_30days;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									else 
+									{
+										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+							}
+							if ($price == $result_item->webshop_itemprice_permanent)
+							{
+								// Checking Inventory
+								$check_inventory = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_item->webshop_itemid));
+								$result_inventory = $check_inventory->row();
+								if ($result_inventory) 
+								{
+									if ($result_inventory->equip == 1) 
+									{
+										$total_count = $result_inventory->count + $result_item->webshop_itemcount_permanent;
+										// Update Count
+										$update_count = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $result_inventory->item_id))->update('player_items', array('count' => $total_count));
+										if ($update_count) 
+										{
+											// Fetching Accounts
+											$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+											$result_fetch = $fetch_accounts->row();
+											if ($result_fetch) 
+											{
+												$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+												// Update Coins
+												$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+												if ($update_coins) 
+												{
+													$this->session->set_flashdata('success', 'Successfully Bought Item.');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+												else 
+												{
+													$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+													redirect($_SERVER['HTTP_REFERER'], 'refresh');
+												}
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									if ($result_inventory->equip != 1)
+									{
+										$this->session->set_flashdata('error', 'You Already Bought This Item And Is In A State Of Use. Bought Waapon Canceled.');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
+								else 
+								{
+									// Update Count
+									$update_count = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $item_id, 'item_name' => $result_item->webshop_itemname, 'count' => $result_item->webshop_itemcount_permanent, 'category' => '3', 'equip' => '1'));
+									if ($update_count) 
+									{
+										// Fetching Accounts
+										$fetch_accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+										$result_fetch = $fetch_accounts->row();
+										if ($result_fetch) 
+										{
+											$remain_coins = $result_fetch->kuyraicoin - $result_item->webshop_itemprice_permanent;
+											// Update Coins
+											$update_coins = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('kuyraicoin' => $remain_coins));
+											if ($update_coins) 
+											{
+												$this->session->set_flashdata('success', 'Successfully Bought Item.');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+											else 
+											{
+												$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+												redirect($_SERVER['HTTP_REFERER'], 'refresh');
+											}
+										}
+										else 
+										{
+											$this->session->set_flashdata('error', 'An Error Occurs While Retrieving Player Information');
+											redirect($_SERVER['HTTP_REFERER'], 'refresh');
+										}
+									}
+									else 
+									{
+										$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
+										redirect($_SERVER['HTTP_REFERER'], 'refresh');
+									}
+								}
 							}
 						}
 					}

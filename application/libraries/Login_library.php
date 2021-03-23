@@ -32,19 +32,19 @@ class Login_library
 
 	public function adminAuthCheck_Empty()
 	{
-		if (empty($_SESSION['uid_admin'])) 
+		if (empty($_SESSION['admin_id'])) 
 		{
 			redirect(base_url('moderatorpanel/login'), 'refresh');
 		}
-		if (empty($_SESSION['uid_admin']) && empty($_SESSION['admin_name'])) 
+		if (empty($_SESSION['admin_id']) && empty($_SESSION['admin_name'])) 
 		{
 			redirect(base_url('moderatorpanel/login'), 'refresh');
 		}
-		if (empty($_SESSION['uid_admin']) && empty($_SESSION['admin_name']) && empty($_SESSION['access_level_admin'])) 
+		if (empty($_SESSION['admin_id']) && empty($_SESSION['admin_name']) && empty($_SESSION['admin_access'])) 
 		{
 			redirect(base_url('moderatorpanel/login'), 'refresh');
 		}
-		if ($_SESSION['access_level_admin'] < 3) 
+		if ($_SESSION['admin_access'] < 3) 
 		{
 			redirect(base_url('moderatorpanel/login'), 'refresh');
 		}
@@ -52,15 +52,15 @@ class Login_library
 
 	public function adminAuthCheck_Exist()
 	{
-		if (!empty($_SESSION['uid_admin'])) 
+		if (!empty($_SESSION['admin_id'])) 
 		{
 			redirect(base_url('moderatorpanel/home'), 'refresh');
 		}
-		if (!empty($_SESSION['uid_admin']) && !empty($_SESSION['admin_name'])) 
+		if (!empty($_SESSION['admin_id']) && !empty($_SESSION['admin_name'])) 
 		{
 			redirect(base_url('moderatorpanel/home'), 'refresh');
 		}
-		if (!empty($_SESSION['uid_admin']) && !empty($_SESSION['admin_name']) && !empty($_SESSION['access_level_admin'])) 
+		if (!empty($_SESSION['admin_id']) && !empty($_SESSION['admin_name']) && !empty($_SESSION['admin_access'])) 
 		{
 			redirect(base_url('moderatorpanel/home'), 'refresh');
 		}
