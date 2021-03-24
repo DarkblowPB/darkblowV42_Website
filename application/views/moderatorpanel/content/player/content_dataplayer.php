@@ -24,40 +24,7 @@
                 <?php
                 if (isset($_POST['submit_unbanned'])) 
                 {
-                    include 'assets/include.php';
-
-                    $unbanned_value = 0;
-                    $sql = $connec->prepare("SELECT * FROM accounts WHERE player_id = '".$_POST['player_id']."'");
-                    $sql->execute();
-                    $result = $sql->fetch(PDO::FETCH_ASSOC);
-                    if ($result) 
-                    {
-                        if ($result['access_level'] == "-1") 
-                        {
-                            $sql_0 = 'UPDATE accounts '
-                            . 'SET access_level = :aa '
-                            . 'WHERE player_id = :bb';
-                            $stmt = $connec->prepare($sql_0);
-                            $stmt->bindParam(':aa', $unbanned_value, PDO::PARAM_STR);
-                            $stmt->bindParam(':bb', $_POST['player_id'], PDO::PARAM_STR);
-                            $stmt->execute();
-                            if ($sql_0) 
-                            {
-                                $this->session->set_flashdata('Success', 'Unbanned Player With ID '.$result['player_id'].' Successfully');
-                                redirect(base_url('moderatorpanel/player'), 'refresh');
-                            }
-                            else 
-                            {
-                                $this->session->set_flashdata('Failed', 'Unbanned Player With ID '.$result['player_id'].' Failed');
-                                redirect(base_url('moderatorpanel/player'), 'refresh');
-                            }
-                        }
-                        if ($result['access_level'] >= 0) 
-                        {
-                            $this->session->set_flashdata('Failed', 'Unbanned Player Yg Gak Kena Banned Buat Apa Anjeng?');
-                            redirect(base_url('moderatorpanel/player'), 'refresh');
-                        }
-                    }
+                    $this->adminplayer->unbanned_player();
                 }
                 ?>
                 <table id="table_id" class="table table-borderless table-hover table-responsive-lg text-center">
@@ -108,10 +75,10 @@
                                             if ($row['access_level'] < 0) 
                                             {
                                             ?>
-                                                <form action="" method="post">
+                                                <?php echo form_open(base_url('moderatorpanel/player'), 'class="form-horizontal"') ?>
                                                     <input type="hidden" name="player_id" value="<?php echo $row['player_id'] ?>">
                                                     <button type="submit" name="submit_unbanned" class="dropdown-item"><i class="fas fa-toggle-on mr-2"></i>Unban</button>
-                                                </form>
+                                                <?php echo form_close() ?>
                                             <?php    
                                             }
                                             ?>

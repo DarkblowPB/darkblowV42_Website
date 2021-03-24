@@ -13,6 +13,7 @@ class Adminplayer_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->model('moderatorpanel/logger_model', 'logger');
     }
 
     function getPlayerAll()
@@ -22,7 +23,89 @@ class Adminplayer_model extends CI_Model
 
     function getPlayerId($id)
     {
-        return $this->db->where('player_id', $id)->get('accounts')->result_array();
+        $check = $this->db->get_where('accounts', array('player_id' => $id));
+        $result = $check->row();
+        if ($result) 
+        {
+            if ($result->access_level >= 3) 
+            {
+                $this->session->set_flashdata('Failed', 'You Cant Banned Player With Level Access Higher Than 2');
+                redirect(base_url('moderatorpanel/player'), 'refresh');
+            }
+            if ($result->access_level >= 0 && $result->access_level < 3) 
+            {
+                return $result;
+            }
+            if ($result->access_level < 0) 
+            {
+                $this->session->set_flashdata('Failed', 'This Player Already Banned Permanently');
+                redirect(base_url('moderatorpanel/player'), 'refresh');
+            }
+        }
+        else 
+        {
+            $this->session->set_flashdata('Failed', 'Player Not Found');
+            redirect(base_url('moderatorpanel/player'), 'refresh');
+        }
+    }
+
+    function banned_player()
+    {
+        $data = array(
+            'player_id' => $this->input->post('player_id'),
+            'player_name' => $this->input->post('player_name'),
+            'banned_type' => $this->input->post('banned_type')
+        );
+        
+        // Fetch Account
+        $fetch_account = $this->db->get_where('accounts', array('player_id' => $data['player_id']));
+        $result_fetch = $fetch_account->row();
+        if ($result_fetch) 
+        {
+            // Update Access_Level
+            $update_access = $this->db->where('player_id', $result_fetch->player_id)->update('accounts', array('access_level' => '-1'));
+            if ($update_access) 
+            {
+                $this->session->set_flashdata('Success', 'You Successfully Banned Permanently Player With ID: '.$result_fetch->player_id.'');
+                redirect(base_url('moderatorpanel/player'), 'refresh');
+            }
+            else 
+            {
+                $this->session->set_flashdata('Failed', 'Major Error, Please Contact DEV & GM For Detail Information.');
+                redirect($_SERVER['HTTP_REFERER'], 'refresh');
+            }
+        }
+    }
+
+    function unbanned_player()
+    {
+        $data = array('player_id' => $this->input->post('player_id'));
+        // Checking Account
+        $check_account = $this->db->get_where('accounts', array('player_id' => $data['player_id']));
+        $result_check = $check_account->row();
+        if ($result_check) 
+        {
+            if ($result_check->access_level == 0) 
+            {
+                $this->session->set_flashdata('Failed', 'This Player Already Active, Unbanned Has Been Canceled.');
+                redirect(base_url('moderatorpanel/player'), 'refresh');
+            }
+            if ($result_check->access_level == -1) 
+            {
+                // Update Access_Level
+                $update_access = $this->db->where('player_id', $result_check->player_id)->update('accounts', array('access_level' => '0'));
+                if ($update_access) 
+                {
+                    $this->session->set_flashdata('Success', 'Successfully Unbanned Player With ID: '. $result_check->player_id.'.');
+                    redirect(base_url('moderatorpanel/player'), 'refresh');
+                }
+                else 
+                {
+                    $this->session->set_flashdata('Failed', 'Major Error, Please Contact DEV & GM For Detail Information.');
+                    redirect($_SERVER['HTTP_REFERER'], 'refresh');
+                }
+            }
+        }
     }
     
     function getInventoryId($id)

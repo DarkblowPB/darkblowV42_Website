@@ -15,7 +15,7 @@ Class Player extends CI_Controller
         $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminplayer_model', 'adminplayer');
         $this->load->model('moderatorpanel/admincreateplayer_model', 'createplayer');
-        $this->load->model('logger/logger_model', 'logger');
+        $this->load->model('moderatorpanel/logger_model', 'logger');
         $this->load->library('lib');
     }
 
@@ -87,11 +87,36 @@ Class Player extends CI_Controller
         }
         if ($_GET['id'] != null) 
         {
-            $data['title'] = 'DarkblowPB || Banned Player';
-            $data['header'] = 'Banned Player Form';
-            $data['player'] = $this->adminplayer->getPlayerId($_GET['id']);
-            $data['content'] = 'moderatorpanel/content/player/content_bannedplayer';
-            $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+            $this->form_validation->set_rules(
+                'player_id',
+                'Player ID',
+                'required',
+                array('required' => '%s Cannot Be Empty')
+            );
+            $this->form_validation->set_rules(
+                'player_name',
+                'Player Name',
+                'required',
+                array('required' => '%s Cannot Be Empty')
+            );
+            $this->form_validation->set_rules(
+                'banned_type',
+                'Banned Type',
+                'required',
+                array('required' => '%s Cannot Be Empty')
+            );
+            if ($this->form_validation->run() === FALSE) 
+            {
+                $data['title'] = 'DarkblowPB || Banned Player';
+                $data['header'] = 'Banned Player Form';
+                $data['player'] = $this->adminplayer->getPlayerId($_GET['id']);
+                $data['content'] = 'moderatorpanel/content/player/content_bannedplayer';
+                $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+            }
+            else 
+            {
+                $this->adminplayer->banned_player();
+            }
         }
     }
 

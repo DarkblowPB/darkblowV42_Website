@@ -203,7 +203,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="" method="POST" class="form-horizontal">
+                                                    <?php echo form_open(base_url('moderatorpanel/player/inventory?id='.$_GET['id']), 'class="form-horizontal"') ?>
                                                         <div class="form-group">
                                                             <label>Object ID</label>
                                                             <input type="text" name="object_id" class="form-control" value="<?php echo $row['object_id'] ?>"  readonly>
@@ -282,7 +282,7 @@
                                                             <button type="reset" class="btn btn-outline-danger"><i class="fas fa-eraser mr-2"></i> Reset</button>
                                                             <button type="submit" name="submit_extend" class="btn btn-outline-primary"><i class="fas fa-paper-plane mr-2"></i>Submit</button>
                                                         </div>
-                                                    </form>
+                                                    <?php echo form_close(); ?>
                                                 </div>
                                             </div>
                                         </div>
