@@ -12,7 +12,8 @@ Class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('moderatorpanel/Home_model', 'home');
+        $this->admin_protect->adminProtectA();
+        $this->load->model('moderatorpanel/Adminhome_model', 'home');
         $this->load->model('moderatorpanel/logger_model', 'logger');
     }
 
@@ -22,6 +23,7 @@ Class Home extends CI_Controller
         $data['header'] = 'Dashboard';
         $data['playerall'] = $this->home->getPlayerAll();
         $data['playeronline'] = $this->home->getPlayerOnline();
+        $data['report'] = $this->home->getReport();
         $data['gm'] = $this->home->getGMAccount();
         $data['lastregistered'] = $this->home->getLastRegistered();
         $data['history'] = $this->home->getLogger();

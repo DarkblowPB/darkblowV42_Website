@@ -12,9 +12,9 @@ class Changepassword extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->login_library->primaryAuthCheck_Empty();
-		$this->login_library->changepassword_protect();
+		$this->main_protect->mainProtectA();
 		$this->load->model('main/changepassword_model', 'changepassword');
+		$this->changepassword->changepassword_protect();
 	}
 
 	public function index()

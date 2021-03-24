@@ -12,7 +12,7 @@ Class Voucher extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->login_library->primaryAuthCheck_Empty();
+        $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
     }
     function index()

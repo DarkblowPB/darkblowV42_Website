@@ -12,7 +12,7 @@ Class Report extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->login_library->primaryAuthCheck_Empty();
+        $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminreport_model', 'adminreport');
         $this->load->model('moderatorpanel/logger_model', 'logger');
     }

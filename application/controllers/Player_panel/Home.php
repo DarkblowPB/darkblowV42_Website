@@ -12,7 +12,7 @@ class Home extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->login_library->primaryAuthCheck_Empty();
+		$this->main_protect->mainProtectA();
 		$this->load->model('main/playerpanel_model', 'player');
 		$this->load->helper('text');
 	}

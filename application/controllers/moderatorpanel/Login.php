@@ -12,7 +12,7 @@ Class Login extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->login_library->adminAuthCheck_Exist();
+        $this->admin_protect->adminProtectB();
         $this->load->model('moderatorpanel/logger_model', 'logger');
         $this->load->model('moderatorpanel/adminlogin_model', 'admin_login');
     }

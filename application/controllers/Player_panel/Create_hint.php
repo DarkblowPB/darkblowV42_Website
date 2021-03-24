@@ -12,7 +12,7 @@ class Create_hint extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->login_library->primaryAuthCheck_Empty();
+		$this->main_protect->mainProtectA();
 		$this->load->model('main/createhint_model', 'hint');
 	}
 	public function index()

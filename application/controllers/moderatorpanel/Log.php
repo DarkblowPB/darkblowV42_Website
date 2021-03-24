@@ -12,7 +12,7 @@ Class Log extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->login_library->adminAuthCheck_Empty();
+        $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminlog_model', 'adminlog');
     }
 

@@ -12,7 +12,7 @@ class Register extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->login_library->primaryAuthCheck_Exist();
+		$this->main_protect->mainProtectB();
 		$this->load->model('main/register_model', 'register');
 	}
 	

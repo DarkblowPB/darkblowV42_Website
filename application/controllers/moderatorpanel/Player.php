@@ -12,6 +12,7 @@ Class Player extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminplayer_model', 'adminplayer');
         $this->load->model('moderatorpanel/admincreateplayer_model', 'createplayer');
         $this->load->model('logger/logger_model', 'logger');
