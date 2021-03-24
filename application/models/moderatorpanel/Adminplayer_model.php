@@ -21,6 +21,20 @@ class Adminplayer_model extends CI_Model
         return $this->db->query('SELECT player_id, player_name, access_level FROM accounts WHERE access_level <= 2 ORDER BY player_id DESC')->result_array();
     }
 
+    function getname_weapon($param)
+    {
+        $check = $this->db->get_where('shop', array('item_id' => $param));
+        $result = $check->row();
+        if ($result) 
+        {
+            echo $result->item_name;
+        }
+        else 
+        {
+            echo "";
+        }
+    }
+
     function getPlayerId($id)
     {
         $check = $this->db->get_where('accounts', array('player_id' => $id));
