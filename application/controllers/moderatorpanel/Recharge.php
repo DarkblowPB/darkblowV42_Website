@@ -21,7 +21,7 @@ Class Recharge extends CI_Controller
         $data['title'] = 'DarkblowPB || Data Voucher';
         $data['header'] = 'Data Voucher';
         $data['voucher'] = $this->adminrecharge->getVoucherDataAll();
-        $data['content'] = 'moderatorpanel/content/recharge/content_daterechargevoucher';
+        $data['content'] = 'moderatorpanel/content/recharge/content_datarechargevoucher';
         $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
     }
 

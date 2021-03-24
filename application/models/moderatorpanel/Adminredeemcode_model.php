@@ -28,7 +28,7 @@ class Adminredeemcode_model extends CI_Model
 
     function getItemNameAll()
     {
-        return $this->db->order_by('item_id', 'asc')->get('item_code')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
     }
 
     function insertRedeemCodeItem()
