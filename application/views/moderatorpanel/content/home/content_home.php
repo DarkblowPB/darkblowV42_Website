@@ -1,24 +1,24 @@
                     <div class="row">        
                         <?php
-                        if ($this->session->flashdata('success')) 
+                        if ($this->session->flashdata('Success')) 
                         {
                             echo '<div class="col-lg-12">';
                             echo '<div class="card">';
                             echo '<div class="card-body">';
                             echo '<div class="alert alert-success text-center mt-2" role="alert">';
-                            echo $this->session->flashdata('error');
+                            echo $this->session->flashdata('Success');
                             echo '</div>';
                             echo '</div>';
                             echo '</div>';
                             echo '</div>';
                         }
-                        if ($this->session->flashdata('error'))
+                        if ($this->session->flashdata('Failed'))
                         {
                             echo '<div class="col-lg-12">';
                             echo '<div class="card">';
                             echo '<div class="card-body">';
                             echo '<div class="alert alert-danger text-center mt-2" role="alert">';
-                            echo $this->session->flashdata('error');
+                            echo $this->session->flashdata('Failed');
                             echo '</div>';
                             echo '</div>';
                             echo '</div>';

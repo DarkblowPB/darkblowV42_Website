@@ -37,7 +37,7 @@ class Adminlogin_model extends CI_Model
                 $this->session->set_userdata('admin_id', $result_account->player_id);
                 $this->session->set_userdata('admin_name', $result_account->player_name);
                 $this->session->set_userdata('admin_access', $result_account->access_level);
-                $this->session->set_flashdata('success', 'Login Successfully, Welcome '.$_SESSION['admin_name'].'');
+                $this->session->set_flashdata('Success', 'Login Successfully, Welcome '.$_SESSION['admin_name'].'');
                 redirect(base_url('moderatorpanel/home'), 'refresh');
             }
         }
