@@ -74,8 +74,6 @@
 						// 	$this->session->set_flashdata('error', 'Nothing Account Match With Your Action');
 						// 	redirect(base_url('player_panel'),'refresh');
 						// }
-						
-							// Checking If Redeem Code Is Cash
 							$sql_hintquestion = 'UPDATE accounts '. 'SET hint_question = :mn '. 'WHERE player_id = :p_id';
 							$stmt_0 = $connec->prepare($sql_hintquestion);
 			                $stmt_0->bindParam(':mn', $hint_question, PDO::PARAM_STR);
@@ -98,7 +96,7 @@
                     echo "</em></div>";
                 }
 				?>
-				<form action="" method="POST" class="form-horizontal">
+				<?php echo form_open(base_url('player_panel/create_hint'), 'class="form-horizontal"') ?>
 					<div class="form-group">
 						<label>Hint Question</label>
 						<select class="form-control" name="hint_question" required>
@@ -165,7 +163,7 @@
 						<button type="submit" name="submit-createnewhint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5"><span class="fa fa-paper-plane"></span> &nbsp;Submit New Hint</button>
 						<button type="reset" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><span class="fa fa-refresh"></span> &nbsp;Reset</button>
 					</div>
-				</form>
+				<?php echo form_close() ?>
 			</div>
 			<?php
 				}

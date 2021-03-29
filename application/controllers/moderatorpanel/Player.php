@@ -54,7 +54,7 @@ Class Player extends CI_Controller
 
     function inventory()
     {
-        if (date('h') >= "00" && date('h') <= "05")
+        if (date('h') >= "00" && date('h') <= "23")
         {
             if ($_GET['id'] == null) 
             {

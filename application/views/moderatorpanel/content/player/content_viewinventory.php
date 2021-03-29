@@ -19,14 +19,7 @@
         }
         ?>
         <div class="card">
-            <?php
-            foreach ($player as $row) 
-            {                    
-            ?>
-                <h4 class="card-header"><?php echo $row['player_name'] ?> Inventory's</h4>
-            <?php
-            }
-            ?>
+            <h4 class="card-header"><?php echo $player->player_name ?> Inventory's</h4>
             <div class="card-body">
                 <table id="table_id" class="table table-responsive-lg table-borderless table-hover text-center">
                     <thead>
