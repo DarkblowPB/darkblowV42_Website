@@ -179,11 +179,11 @@
                                         </button>
                                         <div class="dropdown-menu text-white" aria-labelledby="action_btn">
                                             <button type="button" class="dropdown-item" data-toggle="modal" data-target="#<?php echo $row['object_id'] ?>"><i class="fas fa-plus mr-2"></i>Extends</button>
-                                            <form action="" method="POST">
+                                            <?php echo form_open(base_url('moderatorpanel/player/inventory?id='.$_GET['id'])) ?>
                                                 <input type="hidden" name="object_id" value="<?php echo $row['object_id'] ?>">
                                                 <input type="hidden" name="player_id" value="<?php echo $row['owner_id'] ?>">
                                                 <button type="submit" name="submit_delete" class="dropdown-item"><i class="fas fa-trash mr-2"></i>Delete</button>
-                                            </form>
+                                            <?php echo form_close() ?>
                                         </div>
                                     </div>
                                     <div class="modal fade" id="<?php echo $row['object_id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
