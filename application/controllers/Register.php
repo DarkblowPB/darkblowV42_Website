@@ -33,7 +33,7 @@ class Register extends CI_Controller
 		$this->form_validation->set_rules(
 			'email',
 			'Email',
-			'trim|valid_email|required',
+			'strtolower|trim|valid_email|required',
 			array(
 				'valid_email' => '%s Invalid',
 				'required' => '%s Cannot Be Empty'
@@ -53,7 +53,7 @@ class Register extends CI_Controller
 		$this->form_validation->set_rules(
 			're_password',
 			'Confirmation Password',
-			'matches[password]|required',
+			'strtolower|trim|matches[password]|required',
 			array(
 				'matches' => '%s Mismatch',
 				'required' => '%s Cannot Be Empty'

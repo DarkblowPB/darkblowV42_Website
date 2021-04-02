@@ -22,20 +22,17 @@ Class Report extends CI_Controller
         $valid->set_rules(
             'report_title',
             'Report Title',
-            'required|min_length[10]|max_length[255]',
+            'required',
             array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Contains 10 Characters Or More',
-                'max_length' => '%s Maximal Length Reached (max. 255 Characters)'
+                'required' => '%s Cannot Be Empty'
             )
         );
         $valid->set_rules(
             'report_description',
             'Report Description',
-            'required|min_length[20]',
+            'required',
             array(
-                'required' => '%s Cannot Be Empty',
-                'min_length' => '%s Must Contains 20 Characters Or More'
+                'required' => '%s Cannot Be Empty'
             )
         );
         if ($valid->run()) 

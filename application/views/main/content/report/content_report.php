@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group text-center">
                         <span class="text-white">OR</span><br>
-                        <a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3 mt-10"><span class="fa fa-list-alt"></span> &nbsp;Report List</a>
+                        <a href="<?php echo base_url('report/viewall') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3 mt-10"><span class="fa fa-list-alt"></span> &nbsp;Report List</a>
                     </div>
                 <?php echo form_close(); ?>
             </div>

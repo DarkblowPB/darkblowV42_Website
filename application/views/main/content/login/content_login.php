@@ -8,6 +8,7 @@
                                 <div class="container">
                                         <div class="col-lg-6 offset-lg-3">
                                                 <?php
+                                                echo form_open(base_url('login'),' class="form-horizontal"');
                                                 echo validation_errors("<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>","</em></div>");
                                                 if ($this->session->flashdata('error'))
                                                 {
@@ -15,7 +16,6 @@
                                                         echo $this->session->flashdata('error');
                                                         echo "</em></div>";
                                                 }
-                                                echo form_open(base_url('login'),' class="form-horizontal"');
                                                 ?>
                                                 <div class="form-group">
                                                         <label for="Username">Username</label>
