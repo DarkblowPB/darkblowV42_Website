@@ -15,6 +15,7 @@ Class Home extends CI_Controller
         $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminhome_model', 'home');
         $this->load->model('moderatorpanel/logger_model', 'logger');
+		$this->load->AllProtect->Web_Protection();
     }
 
     function index()
@@ -37,7 +38,7 @@ Class Home extends CI_Controller
         $this->session->unset_userdata('admin_name');
         $this->session->unset_userdata('admin_access');
 
-        $this->logger->logger_AdminLoginSuccess();
+        $this->logger->logger_AdminLogoutSuccess();
         redirect(base_url('moderatorpanel/login'), 'refresh');
     }
 }

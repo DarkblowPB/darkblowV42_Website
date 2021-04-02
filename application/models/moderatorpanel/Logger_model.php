@@ -55,7 +55,7 @@ class Logger_model extends CI_Model
         ));
     }
 
-    function logger_AdminLoginSuccess()
+    function logger_AdminLogoutSuccess()
     {
         $this->db->insert('web_adminpanel_log', array(
             'ip_address' => $this->input->ip_address(),

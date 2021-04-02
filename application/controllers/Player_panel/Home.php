@@ -15,6 +15,7 @@ class Home extends CI_Controller
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/playerpanel_model', 'player');
 		$this->load->helper('text');
+		$this->load->AllProtect->Web_Protection();
 	}
 	public function index()
 	{

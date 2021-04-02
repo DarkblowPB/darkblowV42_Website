@@ -14,6 +14,7 @@ Class Report extends CI_Controller
         parent::__construct();
         $this->main_protect->mainProtectA();
         $this->load->model('main/report_model', 'report');
+		$this->load->AllProtect->Web_Protection();
     }
 
     function index()

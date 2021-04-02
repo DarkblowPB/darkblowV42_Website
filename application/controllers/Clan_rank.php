@@ -13,7 +13,7 @@ class Clan_rank extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('main/clanrank_model', 'clanrank');
-
+		$this->load->AllProtect->Web_Protection();
 	}
 
 	public function index()

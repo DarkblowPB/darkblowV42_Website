@@ -15,6 +15,7 @@ Class Login extends CI_Controller
         $this->admin_protect->adminProtectB();
         $this->load->model('moderatorpanel/logger_model', 'logger');
         $this->load->model('moderatorpanel/adminlogin_model', 'admin_login');
+		$this->load->AllProtect->Web_Protection();
     }
 
     function index()

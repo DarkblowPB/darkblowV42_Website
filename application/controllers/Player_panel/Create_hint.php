@@ -14,6 +14,7 @@ class Create_hint extends CI_Controller
 		parent::__construct();
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/createhint_model', 'hint');
+		$this->load->AllProtect->Web_Protection();
 	}
 	public function index()
 	{

@@ -15,6 +15,7 @@ class Home extends CI_Controller {
 		$this->load->model('main/home_model', 'home');
 		$this->load->model('main/webshop_model','webshop');
 		$this->load->helper('text');
+		$this->load->AllProtect->Web_Protection();
 	}
 
 	public function index()

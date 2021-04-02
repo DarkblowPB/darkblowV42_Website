@@ -7,7 +7,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class NotFound extends CI_Controller {
+class NotFound extends CI_Controller 
+{
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->AllProtect->Web_Protection();
+	}
 
 	public function index()
 	{

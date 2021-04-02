@@ -15,7 +15,7 @@ class Webshop extends CI_Controller
 		parent::__construct();
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->library('pagination');
-		$this->load->database();
+		$this->load->AllProtect->Web_Protection();
 	}
 	public function index()
 	{
