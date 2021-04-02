@@ -14,7 +14,7 @@ Class Voucher extends CI_Controller
         parent::__construct();
         $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
     }
     function index()
     {

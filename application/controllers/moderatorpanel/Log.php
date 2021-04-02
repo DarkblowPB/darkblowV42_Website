@@ -14,7 +14,7 @@ Class Log extends CI_Controller
         parent::__construct();
         $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminlog_model', 'adminlog');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
     }
 
     function index()

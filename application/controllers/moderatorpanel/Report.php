@@ -15,7 +15,7 @@ Class Report extends CI_Controller
         $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminreport_model', 'adminreport');
         $this->load->model('moderatorpanel/logger_model', 'logger');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
     }
     function index()
     {

@@ -14,7 +14,7 @@ class Login extends CI_Controller
 		parent::__construct();
 		$this->main_protect->mainProtectB();
 		$this->load->model('main/login_model', 'login');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
 	}
 
 	public function index()

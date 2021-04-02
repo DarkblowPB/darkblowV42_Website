@@ -13,7 +13,7 @@ class Download extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('main/download_model', 'download');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
 	}
 	public function index()
 	{

@@ -14,7 +14,7 @@ Class Home extends CI_Controller
         parent::__construct();
         $this->admin_protect->adminProtectA();
         $this->load->model('moderatorpanel/Adminaccountconfig_model', 'configakun');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
     }
     function index()
     {

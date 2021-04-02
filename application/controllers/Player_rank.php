@@ -14,7 +14,7 @@ class Player_rank extends CI_Controller {
 		parent::__construct();
 		$this->load->model('main/playerrank_model', 'playerrank');
 		$this->load->library('pagination');
-		$this->load->AllProtect->Web_Protection();
+		$this->allprotect->Web_Protection();
 	}
 
 	public function index()

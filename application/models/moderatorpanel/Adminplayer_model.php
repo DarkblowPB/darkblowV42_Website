@@ -70,9 +70,14 @@ class Adminplayer_model extends CI_Model
             'player_name' => $this->input->post('player_name'),
             'banned_type' => $this->input->post('banned_type')
         );
-        
+
+        if ($data['player_id'] != $_GET['id']) 
+        {
+            $this->session->set_flashdata('Failed', 'Failed To Banned Players');
+            redirect($_SERVER['HTTP_REFERER'], 'refresh');
+        }
         // Fetch Account
-        $fetch_account = $this->db->get_where('accounts', array('player_id' => $data['player_id']));
+        $fetch_account = $this->db->get_where('accounts', array('player_id' => $data['player_id'], 'player_name' => $data['player_name']));
         $result_fetch = $fetch_account->row();
         if ($result_fetch) 
         {
