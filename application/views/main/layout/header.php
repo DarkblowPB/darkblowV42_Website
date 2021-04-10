@@ -8,8 +8,8 @@ date_default_timezone_set('Asia/Jakarta');
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><?php echo $title ?></title>
         <meta name="keywords" content="Darkblow Pointblank, DarkblowPB, darkblowpb, pointblank private server, point blank private server" />
-        <meta name="description" content="Lastest Private Server Development On 2020, FPS Genre & Old Style, Updated UI, New Feature, And Much More. So, What are you waiting for? Lets Play immediately and Get Your Rewards!. BRING YOUR NOSTALGIC MOMENT BACK!">
-        <meta name="Author" content="Darkblow Studio 2020">
+        <meta name="description" content="Lastest Private Server Development On <?php echo date('Y') ?>, FPS Genre & Old Style, Updated UI, New Feature, And Much More. So, What are you waiting for? Lets Play immediately and Get Your Rewards!. BRING YOUR NOSTALGIC MOMENT BACK!">
+        <meta name="Author" content="Darkblow Studio <?php echo date('Y') ?>">
         <link rel="icon" type="image/png" href="<?php echo base_url() ?>assets/Darkblow-Logos.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- START: Styles -->
@@ -56,7 +56,7 @@ date_default_timezone_set('Asia/Jakarta');
             <div class="container">
                 <div class="nk-nav-table">
                     <a href="<?php echo base_url('home') ?>" class="nk-nav-logo">
-                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="GoodGames" width="199">
+                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="DarkblowPB" width="199">
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
                         <li class="<?php if($title == "DarkblowPB || Home"){echo 'active';}?>">

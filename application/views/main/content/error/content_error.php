@@ -74,7 +74,7 @@
     <div class="nk-fullscreen-block-top">
         <div class="text-center">
             <div class="nk-gap-4"></div>
-            <a href="<?php echo base_url() ?>"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/logo-2.png" alt="GoodGames"></a>
+            <a href="<?php echo base_url() ?>"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/logo-2.png" alt="DarkblowPB"></a>
             <div class="nk-gap-2"></div>
         </div>
     </div>
