@@ -454,7 +454,7 @@ $config['csrf_token_name'] = 'eyetracker_protection';
 $config['csrf_cookie_name'] = 'eyetracker_cookies';
 $config['csrf_expire'] = 1800;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array('home/launcher_redeemcode_verify');
 
 /*
 |--------------------------------------------------------------------------
