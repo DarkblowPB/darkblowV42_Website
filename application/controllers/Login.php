@@ -49,11 +49,7 @@ class Login extends CI_Controller
 		}
 		else 
 		{
-			$data = array(
-				'login' => $this->input->post('username'),
-				'password' => $this->input->post('password')
-			);
-			$this->login->auth_login($data['login'], $data['password']);
+			$this->login->auth_login();
 		}
 	}
 

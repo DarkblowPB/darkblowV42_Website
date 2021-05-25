@@ -1,20 +1,15 @@
 <div class="nk-gap-4"></div>
 <!-- START: Footer -->
 <footer class="nk-footer">
-<div class="nk-copyright">
-<div class="container">
-<div class="nk-copyright-left">
-    Copyright &copy; <a href="<?php echo base_url('home') ?>">DarkblowPB </a><?php echo date('Y'); ?>
-</div>
-<div class="nk-copyright-right">
-    <ul class="nk-social-links-2">
-        <li><a class="nk-social-facebook" href="https://www.facebook.com/darkblowproject" target="_blank"><span class="fab fa-facebook"></span></a></li>
-        <li><a class="nk-social-instagram" href="https://www.instagram.com/darkblowpb_id" target="_blank"><span class="fab fa-instagram"></span></a></li>
-        <li><a class="nk-social-youtube" href="<?php echo base_url('home') ?>"><span class="fab fa-youtube"></span></a></li>
-    </ul>
-</div>
-</div>
-</div>
+    <div class="nk-copyright">
+        <div class="row vertical-gap mt-10 justify-content-center">
+            <div class="container">
+                <div class="nk-copyright-left">
+                    Copyright &copy; <a href="<?php echo base_url('home') ?>">DarkblowPB </a><?php echo date('Y'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
 <!-- END: Footer -->
 </div>

@@ -1,8 +1,8 @@
 <div class="container">
 	<div class="nk-gap-2"></div>
 	<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Player</span> Rankings</span></h3>
-	<div class="col-lg-12">
-		<table class="nk-table">
+	<div class="col-lg-12 col-12">
+		<table class="nk-table table-responsive-sm">
 			<thead>
 				<th width="5%" class="text-center">Rank</th>
 				<th width="1%" class="text-center">Patent</th>
@@ -46,7 +46,7 @@
 						}
 						?>
 					</td>
-					<td align="center"><strong><?php echo $row['exp'] ?></strong></td>
+					<td align="center"><strong><?php echo number_format($row['exp'], '0',',','.') ?></strong></td>
 					<td align="center">
 						<?php
 						if ($row['access_level'] == "-1") 

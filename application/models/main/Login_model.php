@@ -9,15 +9,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_model extends CI_Model 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('lib');
+		$this->load->library('encryption');
 	}
-	public function auth_login($username, $password)
+	function auth_login()
 	{
-		$check = $this->db->get_where('accounts', array('login' => $username, 'password' => $this->lib->password_encrypt($password)));
+		$data = array(
+			'username' => $this->encryption->encrypt(pg_escape_string($this->input->post('username'))),
+			'password' => $this->encryption->encrypt(pg_escape_string($this->lib->password_encrypt($this->input->post('password'))))
+		);
+		$check = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])));
 		$result = $check->row();
 		if ($result) 
 		{

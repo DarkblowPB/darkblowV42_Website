@@ -2,12 +2,12 @@
 	<div class="nk-gap-2"></div>
 	<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Clan</span> Rankings</span></h3>
 	<div class="col-lg-12">
-		<table class="nk-table">
+		<table class="nk-table table-responsive-sm">
 			<thead>
 				<th width="1%" class="text-center">Rank</th>
 				<th width="14%" class="text-center">Clan Patent</th>
 				<th class="text-center">Clan Name</th>
-				<th width="16%" class="text-center">Members Count</th>
+				<th width="20%" class="text-center">Members Count</th>
 				<th width="16%" class="text-center">Total Clan Exp</th>
 			</thead>
 			<tbody>

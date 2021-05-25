@@ -64,17 +64,17 @@
                 </div>
             </div>
         </div>
+        <div class="nk-gap-2"></div>
         <!-- END: Categories -->
 
         <!-- START: Latest News -->
         <div class="nk-gap-2"></div>
-        <div class="nk-gap-2"></div>
         <div class="row veritcal-gap">
-            <div class="col-lg-12">
+            <div class="col-lg-12 col-12">
                 <h3 class="nk-decorated-h-2"><span>Minimum <span class="text-main-1">Requirements</span></span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap ">
-                    <div class="col-lg-6 text-white">
+                    <div class="col-lg-6 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
                             <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;">Minimum Requirements</h4>
                             OS : Windows System NT/2000/XP/7;<br>
@@ -87,9 +87,9 @@
                             Internet : Broadband;
                         </div>
                     </div>
-                    <div class="col-lg-6 text-white">
+                    <div class="col-lg-6 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
-                            <h4 style="background-color:rgba(0, 80, 200, 0.7); border-radius: 10px;">Recommended Requirements</h4>
+                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;">Recommended Requirements</h4>
                             OS : Windows 8/8.1/10;<br>
                             CPU : Pentium 4 4.30 GHz / Athlon XP 3000+;<br>
                             Memory : 4GB RAM;<br>
@@ -105,68 +105,64 @@
         </div>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
-            <div class="col-lg-12">
+            <div class="col-lg-12 col-12">
                 <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Top #5</span> Players & Clans</span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
-                    <div class="col-lg-6">
-                        <div class="container">
-                            <table class="nk-table" style="border-radius: 10px;">
-                                <thead class="text-center" style="font-style: italic;">
-                                    <th width="10%">Rank</th>
-                                    <th width="5%">Patent</th>
-                                    <th>Player Name</th>
-                                    <th width="22%">Total Exp</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $num = 1;
-                                    foreach ($account as $row) :
-                                    ?>
-                                        <tr>
-                                            <td class="text-center"><strong><span><?php echo $num ?></span></strong></td>
-                                            <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt=""></td>
-                                            <td><?php echo $row['player_name'] ?></td>
-                                            <td class="text-center"><strong><?php echo $row['exp'] ?></strong></td>
-                                        </tr>
-                                    <?php
-                                        $num++;
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-lg-6 col-12">
+                        <table class="nk-table table-responsive-sm" style="border-radius: 10px;">
+                            <thead class="text-center" style="font-style: italic;">
+                                <th width="10%">Rank</th>
+                                <th width="5%">Patent</th>
+                                <th>Player Name</th>
+                                <th width="22%">Total Exp</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $num = 1;
+                                foreach ($account as $row) :
+                                ?>
+                                    <tr>
+                                        <td class="text-center"><strong><span><?php echo $num ?></span></strong></td>
+                                        <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt=""></td>
+                                        <td><?php echo $row['player_name'] ?></td>
+                                        <td class="text-center"><strong><?php echo number_format($row['exp'], '0',',','.') ?></strong></td>
+                                    </tr>
+                                <?php
+                                    $num++;
+                                endforeach;
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="container">
-                            <table class="nk-table" style="border-radius: 10px;">
-                                <thead class="text-center" style="font-style: italic;">
-                                    <th width="10%">Rank</th>
-                                    <th width="5%">Patent</th>
-                                    <th>Clan Name</th>
-                                    <th width="24%">Total Exp</th>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $num = 1;
-                                    foreach ($clan as $row) :
-                                    ?>
-                                        <tr>
-                                            <td class="text-center"><strong><?php echo $num ?></strong></td>
-                                            <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_clan/<?php echo $row['clan_rank'] ?>.jpg" alt=""></td>
-                                            <td><?php echo $row['clan_name'] ?></td>
-                                            <td class="text-center"><strong><?php echo $row['clan_exp'] ?></strong></td>
-                                        </tr>
-                                    <?php
-                                        $num++;
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-lg-6 col-12">
+                        <table class="nk-table table-responsive-sm" style="border-radius: 10px;">
+                            <thead class="text-center" style="font-style: italic;">
+                                <th width="10%">Rank</th>
+                                <th width="5%">Patent</th>
+                                <th>Clan Name</th>
+                                <th width="24%">Total Exp</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $num = 1;
+                                foreach ($clan as $row) :
+                                ?>
+                                    <tr>
+                                        <td class="text-center"><strong><?php echo $num ?></strong></td>
+                                        <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_clan/<?php echo $row['clan_rank'] ?>.jpg" alt=""></td>
+                                        <td><?php echo $row['clan_name'] ?></td>
+                                        <td class="text-center"><strong><?php echo number_format($row['clan_exp'], '0',',','.') ?></strong></td>
+                                    </tr>
+                                <?php
+                                    $num++;
+                                endforeach;
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button type="button" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-primary" onclick="window.location.href='player_rank'">View All Ranks</button>
+                        <a href="<?php echo base_url('player_rank') ?>" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-primary">View All Ranks</a>
                     </div>
                 </div>
             </div>
@@ -198,7 +194,7 @@
             <div class="nk-gap-3"></div>
             <div class="container">
                 <div class="row vertical-gap justify-content-center">
-                    <button type="button" onclick="window.location='webshop';" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</button>
+                    <a href="javascript:void(0)" onclick="return alert('This Feature Not Available At This Moment.')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</a>
                 </div>
             </div>
         <div class="nk-gap-2"></div>
