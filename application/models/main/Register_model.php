@@ -126,6 +126,11 @@ class Register_model extends CI_Model
 								$this->session->set_flashdata('success', 'Registered Successfully');
 								redirect(base_url('register'), 'refresh');
 							}
+							else 
+							{
+								$this->session->set_flashdata('error', 'Major Error, Please Contact DEV / GM For Detail Information');
+								redirect(base_url('register'), 'refresh');
+							}
 						}
 					}
 					else 

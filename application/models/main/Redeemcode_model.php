@@ -13,14 +13,17 @@ class Redeemcode_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('encryption');
 	}
 	
 	function code_validation()
 	{
-		$data = array('code' => $this->input->post('code'));
+		$data = array(
+			'code' => $this->encryption->encrypt($this->input->post('code'))
+		);
 		
 		// Checking Code
-		$check_code = $this->db->get_where('item_code', array('item_code' => $data['code']));
+		$check_code = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['code'])));
 		$result_code = $check_code->row();
 		if ($result_code) 
 		{
@@ -172,6 +175,93 @@ class Redeemcode_model extends CI_Model
 						redirect(base_url('player_panel/redeemcode'), 'refresh');
 					}
 				}
+			}
+			if ($result_code->type == "Double")
+			{
+				// Checking Usable
+				$check1 = $this->db->get_where('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $result_code->item_code));
+				$check2 = $check1->row();
+				if ($result2)
+				{
+					$this->session->set_flashdata('error', 'You Have Used This Code');
+					redirect(base_url('player_panel/redeemcode'), 'refresh');
+				}
+				else 
+				{
+					$accounts = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+					$money = $accounts->money;
+					$targetmoney = $result_code->cash;
+					$total = $money + $targetmoney;
+					// Checking Item Category
+					if ($result_code->item_id >= 100003001 && $result_code->item_id <= 904007069) 
+					{
+						// Insert To Player_items
+						$insert = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_code->item_id, 'item_name' => $result_code->item_name, 'count' => $result_code->item_count, 'category' => '1', 'equip' => '1'));
+						$updatecash = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('money' => $total));
+						if ($insert && $updatecash)
+						{
+							$insert_log = $this->db->insert('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $result_code->item_code));
+							if ($insert_log) 
+							{
+								$count = $result_code->item_count / 24 / 60 / 60;
+								$this->session->set_flashdata('success', 'Congratulations '.$_SESSION['player_name'].', You Received '.$result_code->item_name.' For '.$count.' Days');
+								redirect(base_url('player_panel/redeemcode'), 'refresh');	
+							}
+						}
+						else 
+						{
+							$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information.');
+							redirect(base_url('player_panel/redeemcode'), 'refresh');
+						}
+					}
+					if ($result_code->item_id >= 1001001003 && $result_code->item_id <= 1105003032) 
+					{
+						// Insert To Player_items
+						$insert = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_code->item_id, 'item_name' => $result_code->item_name, 'count' => $result_code->item_count, 'category' => '2', 'equip' => '1'));
+						$updatecash = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('money' => $total));
+						if ($insert && $updatecash)
+						{
+							$insert_log = $this->db->insert('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $result_code->item_code));
+							if ($insert_log) 
+							{
+								$count = $result_code->item_count / 24 / 60 / 60;
+								$this->session->set_flashdata('success', 'Congratulations '.$_SESSION['player_name'].', You Received '.$result_code->item_name.' For '.$count.' Days');
+								redirect(base_url('player_panel/redeemcode'), 'refresh');
+							}
+						}
+						else 
+						{
+							$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information.');
+							redirect(base_url('player_panel/redeemcode'), 'refresh');
+						}
+					}
+					if ($result_code->item_id > 1105003032) 
+					{
+						// Insert To Player_items
+						$insert = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $result_code->item_id, 'item_name' => $result_code->item_name, 'count' => $result_code->item_count, 'category' => '3', 'equip' => '1'));
+						$updatecash = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('money' => $total));
+						if ($insert && $updatecash)
+						{
+							$insert_log = $this->db->insert('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $result_code->item_code));
+							if ($insert_log) 
+							{
+								$count = $result_code->item_count / 24 / 60 / 60;
+								$this->session->set_flashdata('success', 'Congratulations '.$_SESSION['player_name'].', You Received '.$result_code->item_name.' For '.$count.' Days');
+								redirect(base_url('player_panel/redeemcode'), 'refresh');
+							}
+						}
+						else 
+						{
+							$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information.');
+							redirect(base_url('player_panel/redeemcode'), 'refresh');
+						}
+					}
+				}
+			}
+			if ($result_code->type != "Cash" || $result_code->type != "Item" || $result_code->type != "Double")
+			{
+				$this->session->set_flashdata('error', 'Code Invalid.<br>Maybe It Is System Error, Please Contact DEV/GM For More Details Detail');
+				redirect(base_url('player_panel/redeemcode'), 'refresh');
 			}
 		}
 		else 

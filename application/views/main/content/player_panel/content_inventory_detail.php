@@ -29,20 +29,6 @@ include 'assets/include.php';
                         	{
                         		echo $row['item_name'];
 							}
-
-							// include 'assets/include.php';
-							
-							// $sql = $connec->prepare("SELECT item_name FROM shop WHERE item_id= '".$row['item_id']."'");
-							// $sql->execute();
-							// $result_0 = $sql->fetch(PDO::FETCH_ASSOC);
-							// if ($result_0) 
-							// {
-							// 	echo $result_0['item_name'];
-							// }
-							// else 
-							// {
-							// 	echo "Null";
-							// }
 							?>
                         </h3>
                         <div class="nk-gap"></div>

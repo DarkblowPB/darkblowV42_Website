@@ -13,14 +13,15 @@ class Voucher_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->library('encryption');
     }
 
     function voucher_validation()
     {
-        $data = array('voucher_code' => $this->input->post('voucher_code'));
+        $data = array('voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')));
         
         // Check Voucher Code
-        $check_code = $this->db->get_where('item_voucher', array('voucher_code' => $data['voucher_code']));
+        $check_code = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])));
         $result_code = $check_code->row();
         if ($result_code) 
         {
@@ -49,6 +50,16 @@ class Voucher_model extends CI_Model
                             $this->session->set_flashdata('success', 'Congratulations '.$_SESSION['player_name'].', You Received '.number_format($result_code->cash_value, '0',',','.').' D-Cash.');
                             redirect(base_url('player_panel/voucher'), 'refresh');
                         }
+                        else 
+                        {
+                            $this->session->set_flashdata('error', 'Major Error, Please Contact DEV / GM For Detail Information');
+                            redirect(base_url('player_panel/voucher'), 'refresh');
+                        }
+                    }
+                    else 
+                    {
+                        $this->session->set_flashdata('error', 'Major Error, Please Contact DEV / GM For Detail Information');
+                        redirect(base_url('player_panel/voucher'), 'refresh');
                     }
                 }
             }

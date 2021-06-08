@@ -1,6 +1,3 @@
-<?php
-date_default_timezone_set('Asia/Jakarta');
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -142,6 +139,11 @@ date_default_timezone_set('Asia/Jakarta');
                                 <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
                                     <a href="<?php echo base_url('player_panel/redeemcode') ?>">
                                         Redeem Code
+                                    </a>
+                                </li>
+                                <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
+                                    <a href="<?php echo base_url('player_panel/exchange_ticket') ?>">
+                                        Exchange Ticket
                                     </a>
                                 </li>
                                 <li class="<?php if($this->uri->segment(2)== "voucher"){echo 'active';}?>">

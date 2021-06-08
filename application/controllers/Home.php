@@ -85,7 +85,7 @@ class Home extends CI_Controller
 			}
 			else 
 			{
-				echo "Ngontol";
+				echo "Major Error, Please Contact DEV & GM For Details Information";
 			}
 		}
 	}

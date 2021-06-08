@@ -1148,6 +1148,11 @@ class Webshop_model extends CI_Model
 					}
 				}
 			}
+			else 
+			{
+				$this->session->set_flashdata('error', 'Major Error, Please Contact DEV / GM For Detail Information');
+				redirect(base_url('player_panel/voucher'), 'refresh');
+			}
 		}
 		else 
 		{
