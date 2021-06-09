@@ -24,6 +24,13 @@ New Update V1.1:
 - Complex Validation Added To Create Hardest Web Security
 - Logger System For Detect All Action In Moderator Panel
 
+New Update V1.2:
+- Deleting Report Function (Depricated)
+- Reconstruct Function
+- Adding New Encryption Function
+- News Menu Changed To Slider
+- Logger System Adapted To Primary Web
+
 *******************
 Server Requirements
 *******************
