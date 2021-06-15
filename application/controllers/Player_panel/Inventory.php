@@ -15,6 +15,7 @@ class Inventory extends CI_Controller
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/inventory_model', 'inventory');
 		$this->allprotect->Web_Protection();
+		$this->load->database();
 	}
 	public function index()
 	{
@@ -42,12 +43,19 @@ class Inventory extends CI_Controller
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
-	public function detail($detail)
+	public function detail()
 	{
-		$data['title'] = 'DarkblowPB || Details Item';
-		$data['details'] = $this->inventory->getdata_specific_item($detail);
-		$data['isi'] = 'main/content/player_panel/content_inventory_detail';
-		$this->load->view('main/layout/wrapper', $data, FALSE);
+		if (empty($_GET['idx']))
+		{
+			redirect(base_url('player_panel/inventory'), 'refresh');
+		}
+		if (!empty($_GET['idx']))
+		{
+			$data['title'] = 'DarkblowPB || Details Item';
+			$data['details'] = $this->inventory->detail($_GET['idx']);
+			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
+			$this->load->view('main/layout/wrapper', $data, FALSE);
+		}
 	}
 
 	function delete_item()

@@ -94,7 +94,7 @@
 									?>
 								</td>
 								<td>
-									<a href="<?php echo base_url('player_panel/inventory/detail/'. $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="Click Here To Get Details Item!"><span class="fa fa-info-circle mr-2"></span>View</a>
+									<a href="<?php echo base_url('player_panel/inventory/detail?idx='. $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="Click Here To Get Details Item!"><span class="fa fa-info-circle mr-2"></span>View</a>
 									<?php
 									if ($row['equip'] == 3) 
 									{
@@ -105,7 +105,7 @@
 									if ($row['equip'] >= 1 && $row['equip'] < 3) 
 									{
 									?>
-										<a href="<?php echo base_url('player_panel/inventory/delete_item?idx='.$row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" title="Click Here To Delete Item"><span class="fa fa-trash mr-2"></span>Delete</a>
+										<a href="<?php echo base_url('player_panel/inventory/delete_item?idx='.$row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" title="Click Here To Delete Item" onclick="return confirm('Do You Really Want To Delete This Item? Your Changes Cannot Be Undone.')"><span class="fa fa-trash mr-2"></span>Delete</a>
 									<?php
 									}
 									?>
