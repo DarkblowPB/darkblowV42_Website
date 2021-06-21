@@ -19,7 +19,7 @@ Changelog and New Features
 **************************
 
 New Update V1.1:
-- Primary Web Work 100%
+- Primary Web Work 100%\n
 - All Basic Features Already Work 98% except News Menu
 - Complex Validation Added To Create Hardest Web Security
 - Logger System For Detect All Action In Moderator Panel
