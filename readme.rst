@@ -25,7 +25,7 @@ New Update V1.1:
 - Logger System For Detect All Action In Moderator Panel
 
 New Update V1.2:
-- Deleting Report Function (Depricated)
+- Deleting Report Function (Deprecated)
 - Reconstruct Function
 - Adding New Encryption Function
 - News Menu Changed To Slider
