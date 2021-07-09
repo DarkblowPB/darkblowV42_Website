@@ -111,9 +111,6 @@
                         else
                         {
                         ?>
-                        <li>
-                            <a href="<?php echo base_url('report') ?>">Report</a>
-                        </li>
                         <li class="<?php if($this->uri->segment(1)== "player_panel"){echo 'active';}?> nk-drop-item">
                             <a href="javascript:void(0)">
                                 User Area
