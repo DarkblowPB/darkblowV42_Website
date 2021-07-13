@@ -178,9 +178,33 @@ class Adminplayer_model extends CI_Model
         $this->db->delete('player_items');
     }
 
-    function extendItem($object_id, $value)
+    function extendItem()
     {
-        $this->db->where('object_id', $object_id)->update('player_items', array('count' => $value));
+        $data = array(
+            'object_id' => $this->input->get('object_id'),
+            'owner_id' => $this->input->get('owner_id'),
+            'duration_value' => $this->input->post('duration_value')
+        );
+
+        if ($data['duration_value'] > 259000)
+        {
+            return $this->session->set_flashdata('false', 'KAMU KONTOL. GAUSAH DIUBAH DARI INSPECT');
+        }
+        
+        $update = $this->db->where('object_id', $data['object_id'])->update('player_items', array('count' => $data['duration_value']));
+    }
+
+    function getItemDetails($param) // $param returns Object ID
+    {
+        $query = $this->db->get_where('player_items', array('object_id' => $param))->row();
+        if ($query)
+        {
+            return $query;
+        }
+        else 
+        {
+            return redirect(base_url('moderatorpanel/player'), 'refresh');
+        }
     }
 }
 

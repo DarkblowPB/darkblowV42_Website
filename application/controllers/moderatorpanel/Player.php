@@ -121,6 +121,40 @@ Class Player extends CI_Controller
         }
     }
 
+    function extenditem()
+    {
+        if (empty($_GET['object_id']) && empty($_GET['owner_id']))
+        {
+            return redirect(base_url('moderatorpanel/player'), 'refresh');
+        }
+        if (!empty($_GET['object_id']) && !empty($_GET['owner_id']))
+        {
+            $this->form_validation->set_rules(
+                'duration_value',
+                'Duration Value',
+                'required|numeric|trim',
+                array(
+                    'required' => '%s cannot be empty.',
+                    'numeric' => '%s only accepted numeric character.'
+                )
+            );
+            if ($this->form_validation->run() === FALSE)
+            {
+                $data['title'] = 'DarkblowPB || Extend Duration Item';
+                $data['header'] = 'Extend Duration Item Form';
+
+                $data['item'] = $this->adminplayer->getItemDetails($_GET['object_id']);
+
+                $data['content'] = 'moderatorpanel/content/player/content_extenditem';
+                $this->load->view('moderatorpanel/layout/wrapper', $data, FALSE);
+            }
+            else 
+            {
+                $this->adminplayer->extendItem();
+            }
+        }
+    }
+
     function create_player()
     {
         $valid = $this->form_validation;

@@ -45,33 +45,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body">
-                                    <h5 class="text-muted">Report</h5>
-                                    <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1"><i class="fas fa-bug mr-2"></i><?php echo $report ?></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card border-3 border-top border-top-primary">
-                                <div class="card-body mb-1">
-                                    <h5 class="text-muted">Server Statistic</h5>
-                                    <?php
-                                    include 'assets/include.php';
-                                    $sql = $connec->prepare("SELECT * FROM info_gameservers");
-                                    $sql->execute();
-                                    $result = $sql->fetch(PDO::FETCH_ASSOC);
-                                    $abc = $playeronline * $result['max_players'] / 10000;
-                                    ?>
-                                    <div class="progress progress-xl mt-3 mb-0">
-                                        <div class="progress-bar" role="progressbar" style="color:black; width: <?php echo $abc ?>%;" aria-valuenow="<?php echo $playeronline ?>" aria-valuemin="0" aria-valuemax="<?php echo $result['max_players'] ?>"> <?php echo $abc ?> %</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -149,9 +122,7 @@
                                             <th>Status</th>
                                         </thead>
                                         <tbody class="text-center">
-                                            <?php
-                                            foreach ($lastregistered as $row) {
-                                            ?>
+                                            <?php foreach ($lastregistered as $row) : ?>
                                                 <tr>
                                                     <td><?php echo $row['player_id'] ?></td>
                                                     <td>
@@ -182,9 +153,7 @@
                                                         ?>
                                                     </td>
                                                 </tr>
-                                            <?php
-                                            }
-                                            ?>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -192,29 +161,6 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <div class="card">
-                                    <h5 class="card-header">Latest Report</h5>
-                                <div class="card-body">
-                                    <table class="table table-responsive-lg table-borderless table-hover text-center">
-                                        <thead>
-                                            <th width="5%">No.</th>
-                                            <th>Title</th>
-                                            <th width="10%">Category</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Contoh Judul</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-tag mr-2"></i>Contoh</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-lg-6">
                             <div class="card">
                                 <h5 class="card-header">History</h5>

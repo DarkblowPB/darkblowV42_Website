@@ -16,6 +16,7 @@ Class Home extends CI_Controller
         $this->load->model('moderatorpanel/Adminhome_model', 'home');
         $this->load->model('moderatorpanel/logger_model', 'logger');
 		$this->allprotect->Web_Protection();
+        $this->load->database();
     }
 
     function index()
@@ -24,7 +25,6 @@ Class Home extends CI_Controller
         $data['header'] = 'Dashboard';
         $data['playerall'] = $this->home->getPlayerAll();
         $data['playeronline'] = $this->home->getPlayerOnline();
-        $data['report'] = $this->home->getReport();
         $data['gm'] = $this->home->getGMAccount();
         $data['lastregistered'] = $this->home->getLastRegistered();
         $data['history'] = $this->home->getLogger();
