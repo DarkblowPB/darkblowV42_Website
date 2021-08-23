@@ -19,25 +19,30 @@ Changelog and New Features
 **************************
 
 New Update V1.1:
-- Primary Web Work 100%
-- All Basic Features Already Work 98% except News Menu
-- Complex Validation Added To Create Hardest Web Security
-- Logger System For Detect All Action In Moderator Panel
+
+	- Primary Web Work 100%
+	- All Basic Features Already Work 98% except News Menu
+	- Complex Validation Added To Create Hardest Web Security
+	- Logger System For Detect All Action In Moderator Panel
+
 
 New Update V1.2:
-- Deleting Report Function (Deprecated)
-- Reconstruct Function
-- Adding New Encryption Function
-- News Menu Changed To Slider
-- Logger System Adapted To Primary Web
+
+	- Deleting Report Function (Deprecated)
+	- Reconstruct Function
+	- Adding New Encryption Function
+	- News Menu Changed To Slider
+	- Logger System Adapted To Primary Web
+
 
 New Update V1.3:
-- Re-Create New Admin Site
-- Adding Trade Feature Inside Primary Web (25%)
-- Adding New API For New PBLauncher
-- Complexing Validation Method
-- Supporting Encryption During POST data
-- Fixing Minor Bug When Execute Some Function
+
+	- Re-Create New Admin Site
+	- Adding Trade Feature Inside Primary Web (25%)
+	- Adding New API For New PBLauncher
+	- Complexing Validation Method
+	- Supporting Encryption During POST data
+	- Fixing Minor Bug When Execute Some Function
 
 *******************
 Server Requirements
