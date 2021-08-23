@@ -9,16 +9,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectB();
-		$this->load->model('main/login_model', 'login');
 		$this->allprotect->Web_Protection();
+		$this->load->model('main/login_model', 'login');
 	}
 
-	public function index()
+	function index()
 	{
+		$data['title'] = 'DarkblowPB || Login';
+		$data['isi'] = 'main/content/login/content_login';
+		$this->load->view('main/layout/wrapper', $data, FALSE);
+	}
+
+	function do_login()
+	{
+		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules(
 			'username',
 			'Username',
@@ -41,13 +49,11 @@ class Login extends CI_Controller
 				'required' => '%s Cannot Be Empty'
 			)
 		);
-		if ($this->form_validation->run() === FALSE)
+		if ($this->form_validation->run() == FALSE)
 		{
-			$data['title'] = 'DarkblowPB || Login';
-			$data['isi'] = 'main/content/login/content_login';
-			$this->load->view('main/layout/wrapper', $data, FALSE);
+			echo validation_errors();
 		}
-		else 
+		else
 		{
 			$this->login->auth_login();
 		}

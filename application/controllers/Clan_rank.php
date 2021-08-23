@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clan_rank extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('main/clanrank_model', 'clanrank');
 		$this->allprotect->Web_Protection();
 	}
 
-	public function index()
+	function index()
 	{
 		// Pagination Section
 

@@ -24,10 +24,9 @@
 					<td><?php echo $row['clan_name'] ?></td>
 					<td>
 						<?php
-						$cPlayer = $connec->prepare("SELECT clan_id FROM accounts WHERE clan_id = '".$row['clan_id']."'");
-		                $cPlayer->execute();
-		                $countPlayer = $cPlayer->rowCount();
-		                echo $countPlayer." / ".$row['max_players'];
+						$totalMember = $this->clanrank->GetTotalMemberEachClan($row['clan_id']);
+						$totalCapacity = $this->clanrank->GetTotalClanMemberCapacity($row['clan_id']);
+						echo $totalMember.' / '.$totalCapacity;
 						?>
 					</td>
 					<td><?php echo $row['clan_exp'] ?></td>

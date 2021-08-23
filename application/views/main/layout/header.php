@@ -32,6 +32,8 @@
         <!-- jQuery -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.css">
         <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.all.js"></script>
         <!-- END: Styles -->
     </head>
     <body>
@@ -126,7 +128,7 @@
                                 {
                                 ?>
                                     <li>
-                                        <a href="<?php echo base_url('moderatorpanel') ?>" target="_blank">
+                                        <a href="<?php echo base_url('adm') ?>" target="_blank">
                                             Moderator Panel
                                         </a>
                                     </li>

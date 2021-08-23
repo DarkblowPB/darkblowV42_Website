@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Redeemcode extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
@@ -17,7 +17,7 @@ class Redeemcode extends CI_Controller
 		$this->allprotect->Web_Protection();
 	}
 	
-	public function index()
+	function index()
 	{
 		$this->form_validation->set_rules(
 			'code',

@@ -16,12 +16,6 @@
 <!-- START: Scripts -->
 
 <script type="text/javascript" src="<?php echo base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.min.js"></script>
-<script type="text/javascript">
-    $(document).ready( function () 
-    {
-        $('#table_id').DataTable();
-    } );
-</script>
 <!-- Object Fit Polyfill -->
 <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
 <!-- GSAP -->
@@ -53,5 +47,24 @@
 <script src="<?php echo base_url() ?>assets/goodgames/assets/js/goodgames.min.js"></script>
 <script src="<?php echo base_url() ?>assets/goodgames/assets/js/goodgames-init.js"></script>
 <!-- END: Scripts -->
+<script type="text/javascript">
+    $(document).ready( function () 
+    {
+        $('#table_id').DataTable();
+    } );
+</script>
+<script>
+    function ShowToast(timer, type, title){
+        Swal.fire({
+            toast: true,
+            timer: timer,
+            position: 'top',
+            timerProgressBar: true,
+            icon: type,
+            title: title,
+            showConfirmButton: false
+        })
+    }
+</script>
 </body>
 </html>

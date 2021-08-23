@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Create_hint extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/createhint_model', 'hint');
 		$this->allprotect->Web_Protection();
 	}
-	public function index()
+	function index()
 	{
 		$data['title'] = 'DarkblowPB || Create Hint';
 		$data['detailaccount'] = $this->hint->getdata_accountdetails();

@@ -10,14 +10,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Webshop extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->library('pagination');
 		$this->allprotect->Web_Protection();
 	}
-	public function index()
+	function index()
 	{
 		// Pagination Section
 
@@ -56,7 +56,7 @@ class Webshop extends CI_Controller
 		$data['isi'] = 'main/content/webshop/content_webshop';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
-	public function details($id)
+	function details($id)
 	{
 		if (isset($_POST['submit_buyitem'])) 
 		{

@@ -31,6 +31,14 @@ New Update V1.2:
 - News Menu Changed To Slider
 - Logger System Adapted To Primary Web
 
+New Update V1.3:
+- Re-Create New Admin Site
+- Adding Trade Feature Inside Primary Web (25%)
+- Adding New API For New PBLauncher
+- Complexing Validation Method
+- Supporting Encryption During POST data
+- Fixing Minor Bug When Execute Some Function
+
 *******************
 Server Requirements
 *******************
@@ -41,8 +49,10 @@ It should work on 5.3.7 as well, but we strongly advise you NOT to run
 such old versions of PHP, because of potential security and performance
 issues, as well as missing features.
 
+For PHP version 8.0 or newer not supported.
+
 *********
 Framework
 *********
 
-This Project Using Codeigniter 3 And Native Function Instead All Features More Like Compatible With Daily Needs
+This Project Using Codeigniter 3, More Like Compatible With Daily Needs.

@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inventory extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
@@ -17,7 +17,8 @@ class Inventory extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->load->database();
 	}
-	public function index()
+
+	function index()
 	{
 		$this->load->library('pagination');
 
@@ -43,7 +44,7 @@ class Inventory extends CI_Controller
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
-	public function detail()
+	function detail()
 	{
 		if (empty($_GET['idx']))
 		{

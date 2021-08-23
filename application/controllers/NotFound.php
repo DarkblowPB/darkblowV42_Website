@@ -15,7 +15,7 @@ class NotFound extends CI_Controller
 		$this->allprotect->Web_Protection();
 	}
 
-	public function index()
+	function index()
 	{
 		$data['title'] = '404 - Not Found';
 		$this->load->view('main/content/error/content_error', $data, FALSE);

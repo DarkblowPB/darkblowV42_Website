@@ -9,13 +9,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Download extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('main/download_model', 'download');
 		$this->allprotect->Web_Protection();
 	}
-	public function index()
+	function index()
 	{
 		$data['title'] = 'DarkblowPB || Download';
 		$data['client'] = $this->download->getdata_client();

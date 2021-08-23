@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Player_rank extends CI_Controller {
 
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('main/playerrank_model', 'playerrank');
@@ -17,7 +17,7 @@ class Player_rank extends CI_Controller {
 		$this->allprotect->Web_Protection();
 	}
 
-	public function index()
+	function index()
 	{
 		// Pagination Section
 

@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Register_model extends CI_Model 
 {	
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('lib');
 		$this->load->library('encryption');
 	}
-	public function auth_register()
+	function auth_register()
 	{
 		$data = array(
 			'login' => $this->encryption->encrypt(pg_escape_string($this->input->post('login'))),

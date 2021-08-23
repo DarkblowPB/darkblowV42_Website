@@ -37,14 +37,13 @@
                             <h2 class="h4">You chose the wrong path!</h2>
                             <div>Or such a page just doesn't exist... <br> Would you like to go back to the homepage?</div>
                             <div class="nk-gap-3"></div>
-                            <a href="<?php echo base_url() ?>" class="nk-btn nk-btn-rounded nk-btn-color-white">Return to Homepage</a>
+                            <a href="<?php echo base_url('home') ?>" class="nk-btn nk-btn-rounded nk-btn-color-white">Return to Homepage</a>
                         </div>
                     </div>
                 <div class="nk-gap-3"></div>
             </div>
         </div>
     </div>
-    <div class="nk-page-background-fixed" style="background-image: url('<?php echo base_url() ?>/assets/goodgames/assets/images/bg-fixed-2.jpg');"></div>
     <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/moment/min/moment.min.js"></script>

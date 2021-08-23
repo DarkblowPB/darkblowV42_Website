@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Changepassword extends CI_Controller 
 {
-	public function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
@@ -18,7 +18,7 @@ class Changepassword extends CI_Controller
 		$this->allprotect->Web_Protection();
 	}
 
-	public function index()
+	function index()
 	{
 		$this->form_validation->set_rules(
 			'old_password',
@@ -77,7 +77,7 @@ class Changepassword extends CI_Controller
 			$this->changepassword->changepassword_validation();
 		}
 	}
-	public function logout()
+	function logout()
 	{
 		$this->session->unset_userdata('uid');
 		$this->session->unset_userdata('player_name');

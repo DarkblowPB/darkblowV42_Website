@@ -39,7 +39,8 @@ class Home extends CI_Controller
 		$this->session->unset_userdata('uid');
 		$this->session->unset_userdata('player_name');
 		$this->session->unset_userdata('access_level');
-		$this->session->set_flashdata('success', 'Logout Successfully');
+		
+		$this->session->set_flashdata('true', 'Successfully Logged Out.');
 		redirect(base_url('home'), 'refresh');
 	}
 
