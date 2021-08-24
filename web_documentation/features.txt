@@ -4,37 +4,37 @@ Primary Web (http://localhost:8080/webpb-ci3)
 
 Features List :
 
-- General Features (Guest Features)
-    - Login & Register
-    - Rank List
-        - Player Rank
-        - Clan Rank
-    - Download Section
-    - Webshop
-        - View All
-        - View Item Details
+	- General Features (Guest Features)
+		- Login & Register
+		- Rank List
+			- Player Rank
+			- Clan Rank
+		- Download Section
+		- Webshop
+			- View All
+			- View Item Details
 
-- Private Features (Logged In User Features)
-    - All General Features Included
-    - Report Section
-        - Create Report
-        - View Sended Report
-    - Player Panel
-        - View Player Stats
-        - Create Hint (Only For Old Players)
-        - Request Hint
-        - Change Password
-        - Change Email (Coming Soon)
-    - Redeem Code
-        - Using Different Validation Type
-        - Can Redeem Spesific Item / Cash
-    - Voucher
-        - Using For Topup / Donation / Events
-        - Only 1x Use
-    - Inventory
-        - View Item Details
-        - Gift Item (Coming Soon)
-        - Delete Item
+	- Private Features (Logged In User Features)
+		- All General Features Included
+		- Report Section
+			- Create Report
+			- View Sended Report
+		- Player Panel
+			- View Player Stats
+			- Create Hint (Only For Old Players)
+			- Request Hint
+			- Change Password
+			- Change Email (Coming Soon)
+		- Redeem Code
+			- Using Different Validation Type
+			- Can Redeem Spesific Item / Cash
+		- Voucher
+			- Using For Topup / Donation / Events
+			- Only 1x Use
+		- Inventory
+			- View Item Details
+			- Gift Item (Coming Soon)
+			- Delete Item
 
 =================================================================
 Moderator Panel  (http://localhost:8080/webpb-ci3/moderatorpanel)
@@ -42,30 +42,30 @@ Moderator Panel  (http://localhost:8080/webpb-ci3/moderatorpanel)
 
 Features List :
 
-- Players
-    - Create Custom Account (Stats Customizable)
-    - Data Account
-        - All Details Account
-        - Inventory (Only Open At 00:00 AM untill 05:00 AM)
-        - Banned / Unbanned
-- News
-    - Create News
-    - Data News
-        - Edit News (Coming Soon)
-        - Delete News (Coming Soon)
-- Recharge / Top Up
-    - Create Voucher
-    - Data Voucher
-    - Manual Recharge
-    - Recharge History
-- Redeem Code
-    - Create Redeeem Code
-        - Create Redeem Code Cash
-        - Create Redeem Code Item
-    - Data Redeem Code
-    - Redeem Code History
-- Data Report
-    - View Report
-    - Accept Report
-    - Delete Report
-- Log History
+	- Players
+		- Create Custom Account (Stats Customizable)
+		- Data Account
+			- All Details Account
+			- Inventory (Only Open At 00:00 AM untill 05:00 AM)
+			- Banned / Unbanned
+	- News
+		- Create News
+		- Data News
+			- Edit News (Coming Soon)
+			- Delete News (Coming Soon)
+	- Recharge / Top Up
+		- Create Voucher
+		- Data Voucher
+		- Manual Recharge
+		- Recharge History
+	- Redeem Code
+		- Create Redeeem Code
+			- Create Redeem Code Cash
+			- Create Redeem Code Item
+		- Data Redeem Code
+		- Redeem Code History
+	- Data Report
+		- View Report
+		- Accept Report
+		- Delete Report
+	- Log History
