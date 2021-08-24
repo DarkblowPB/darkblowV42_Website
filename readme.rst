@@ -1,6 +1,6 @@
-###################
+*******************
 Point Blank V42 Website
-###################
+*******************
 
 I Decided To Make A Website From Scratch To Make Easier Admin Task About
 Managing The Game. It Will Take Long Time To Make Crazy Features Inside
