@@ -38,11 +38,12 @@ New Update V1.2:
 New Update V1.3:
 
 	- Re-Create New Admin Site
-	- Adding Trade Feature Inside Primary Web (25%)
+	- Adding Trade Feature Inside Primary Web (80%)
 	- Adding New API For New PBLauncher
 	- Complexing Validation Method
 	- Supporting Encryption During POST data
 	- Fixing Minor Bug When Execute Some Function
+	- Transform Native Function To Ajax To Get Realtime Data (15%)
 
 *******************
 Server Requirements

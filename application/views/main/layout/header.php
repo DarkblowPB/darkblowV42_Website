@@ -24,7 +24,6 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendor/flickity/dist/flickity.min.css">
         <!-- Seiyria Bootstrap Slider -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">
-        <!-- Summernote -->
         <!-- GoodGames -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/goodgames.css">
         <!-- Custom Styles -->
@@ -63,7 +62,7 @@
                                 Home
                             </a>
                         </li>
-                        <li class="<?php if($this->uri->segment(1)== "player_rank"){echo 'active';} else if ($this->uri->segment(1)== "clan_rank"){echo 'active';}?> nk-drop-item">
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_rank" || $this->uri->segment(1) == "clan_rank"){echo 'active';} ?>">
                             <a href="javascript:void(0)">
                                 Ranks
                             </a>
@@ -85,11 +84,14 @@
                                 Download
                             </a>
                         </li>
-                        <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';}else if ($this->uri->segment(1) == "recharge") {echo 'active';}else if($this->uri->segment(2) == "details"){echo 'active';} ?> nk-drop-item">
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
                             <a href="javascript:void(0)">FEATURED</a>
                             <ul class="dropdown">
                                 <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
                                     <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                </li>
+                                <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                                    <a href="<?php echo base_url('trade') ?>">Trade Market</a>
                                 </li>
                             </ul>
                         </li>
@@ -97,7 +99,7 @@
                         if (isset($_SESSION['uid']) == "") 
                         {   
                         ?>
-                        <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';} else if($this->uri->segment(1)== "register"){echo 'active';}?> nk-drop-item">
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register"){echo 'active';} ?>">
                             <a href="javascript:void(0)">Login</a>
                             <ul class="dropdown">
                                 <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
@@ -113,7 +115,7 @@
                         else
                         {
                         ?>
-                        <li class="<?php if($this->uri->segment(1)== "player_panel"){echo 'active';}?> nk-drop-item">
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel"){echo 'active';} ?>">
                             <a href="javascript:void(0)">
                                 User Area
                             </a>
@@ -128,7 +130,7 @@
                                 {
                                 ?>
                                     <li>
-                                        <a href="<?php echo base_url('adm') ?>" target="_blank">
+                                        <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
                                             Moderator Panel
                                         </a>
                                     </li>

@@ -8,36 +8,22 @@
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
-                        <?php
-                        if ($this->session->flashdata('success'))
-                        {
-                            echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-                            echo $this->session->flashdata('success');
-                            echo "</em></div>";
-                        }
-                        else if ($this->session->flashdata('error')) 
-                        {
-                            echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-                            echo $this->session->flashdata('error');
-                            echo "</em></div>";
-                        }
-                        ?>
-                        <?php echo form_open(base_url('player_panel/changepassword'), 'class="form-horizontal"') ?>
+                        <?php echo form_open('', 'id="changepassword_form" autocomplete="off"') ?>
                             <div class="form-group">
                                 <label>Old Password</label>
-                                <input type="password" class="form-control" name="old_password" placeholder="Enter Your Password" value="<?php echo set_value('old_password') ?>" minlength="4" maxlength="16" required autocomplete="off" autofocus>
+                                <input type="password" class="form-control" id="old_password" placeholder="Enter Your Password" value="<?php echo set_value('old_password') ?>" minlength="4" maxlength="16" autofocus>
                             </div>
                             <div class="form-group">
                                 <label>New Password</label>
-                                <input type="password" class="form-control" name="new_password" placeholder="Enter Your New Password" value="<?php echo set_value('new_password') ?>" minlength="4" maxlength="16" required autocomplete="off">
+                                <input type="password" class="form-control" id="new_password" placeholder="Enter Your New Password" value="<?php echo set_value('new_password') ?>" minlength="4" maxlength="16">
                             </div>
                             <div class="form-group">
                                 <label>Confirmation Password</label>
-                                <input type="password" class="form-control" name="confirm_password" placeholder="Enter Your Confirmation Password" value="<?php echo set_value('confirm_password') ?>" minlength="4" maxlength="16" required>
+                                <input type="password" class="form-control" id="confirm_password" placeholder="Enter Your Confirmation Password" value="<?php echo set_value('confirm_password') ?>" minlength="4" maxlength="16">
                             </div>
                             <div class="form-group">
                                 <label>Hint Question</label>
-                                <select class="form-control" name="hint_question" value="<?php echo set_value('hint_question') ?>" required>
+                                <select class="form-control" id="hint_question" value="<?php echo set_value('hint_question') ?>" required>
                                     <option value="" disabled selected>Select Your Hint Question</option>
                                     <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                     <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -58,14 +44,109 @@
                             </div>
                             <div class="form-group">
                                 <label>Hint Answer</label>
-                                <input type="text" class="form-control" name="hint_answer" placeholder="Enter Your Hint Answer" value="<?php echo set_value('hint_answer') ?>" autocomplete="off" required>
+                                <input type="text" class="form-control" id="hint_answer" placeholder="Enter Your Hint Answer" value="<?php echo set_value('hint_answer') ?>" autocomplete="off">
                             </div>
                             <div class="nk-gap"></div>
                             <div class="form-group text-center">
-                                <button type="submit" name="submit-changepassword" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-paper-plane"></span> &nbsp;Submit New Password</button>
-                                <button type="reset" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger"><span class="fa fa-refresh"></span> &nbsp;Reset</button>
+                                <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Change Password">
                             </div>
                         <?php echo form_close() ?>
+                        <script>
+                            $(document).ready(function(){
+                                $('#changepassword_form').on('submit', function(e){
+                                    e.preventDefault();
+                                    if ($('#old_password').val() == ""){
+                                        ShowToast(2000, 'warning', 'Old Password Cannot Be Empty.');
+                                        return;
+                                    }
+                                    else if ($('#new_password').val() == ""){
+                                        ShowToast(2000, 'warning', 'New Password Cannot Be Empty.');
+                                        return;
+                                    }
+                                    else if ($('#confirm_password').val() == ""){
+                                        ShowToast(2000, 'warning', 'Confirm Password Cannot Be Empty.');
+                                        return;
+                                    }
+                                    else if ($('#confirm_password').val() != $('#new_password').val()){
+                                        ShowToast(2000, 'warning', 'Confirm Password Not Matches.');
+                                        return;
+                                    }
+                                    else if ($('#hint_question').val() == ""){
+                                        ShowToast(2000, 'warning', 'Select Your Hint Question.');
+                                        return;
+                                    }
+                                    else if ($('#hint_answer').val() == ""){
+                                        ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                        return;
+                                    }
+                                    else{
+                                        $.ajax({
+                                            url : '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
+                                            type: 'POST',
+                                            data: {
+                                                '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                                'old_password' : $('#old_password').val(),
+                                                'new_password' : $('#new_password').val(),
+                                                'confirm_password' : $('#confirm_password').val(),
+                                                'hint_question' : $('#hint_question').val(),
+                                                'hint_answer' : $('#hint_answer').val()
+                                            },
+                                            success: function(data){
+                                                if (data == "true"){
+                                                    ShowToast(2500, 'success', 'Successfully Change Password. You Need Logged In Again To Continue.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('home/logout') ?>';
+                                                    }, 3000);
+                                                }
+                                                else if (data == "false"){
+                                                    ShowToast(2500, 'error', 'New Password Cannot Be Same Like Old Password.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                                else if (data == "false2"){
+                                                    ShowToast(2500, 'error', 'Wrong Hint Question.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                                else if (data == "false3"){
+                                                    ShowToast(2500, 'error', 'Wrong Hint Answer.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                                else if (data == "false4"){
+                                                    ShowToast(2500, 'error', 'Failed To Update Password.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                                else if (data == "false5"){
+                                                    ShowToast(2500, 'error', 'Wrong Old Password.');
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                                else
+                                                {
+                                                    ShowToast(2500, 'error', data);
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                                }
+                                            },
+                                            error: function(data){
+                                                ShowToast(2500, 'error', data);
+                                                    setTimeout(() => {
+                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
+                                                    }, 3000);
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>

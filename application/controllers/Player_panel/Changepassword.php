@@ -20,6 +20,14 @@ class Changepassword extends CI_Controller
 
 	function index()
 	{
+		$data['title'] = 'DarkblowPB || Change Password';
+		$data['isi'] = 'main/content/player_panel/content_changepassword';
+		$this->load->view('main/layout/wrapper', $data, FALSE);
+	}
+
+	function do_changepassword()
+	{
+		$this->form_validation->set_error_delimiters('','');
 		$this->form_validation->set_rules(
 			'old_password',
 			'Old Password',
@@ -66,17 +74,16 @@ class Changepassword extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty')
 		);
-		if ($this->form_validation->run() === FALSE) 
-		{
-			$data['title'] = 'DarkblowPB || Change Password';
-			$data['isi'] = 'main/content/player_panel/content_changepassword';
-			$this->load->view('main/layout/wrapper', $data, FALSE);
-		}
-		else 
+		if ($this->form_validation->run()) 
 		{
 			$this->changepassword->changepassword_validation();
 		}
+		else 
+		{
+			echo validation_errors();
+		}
 	}
+
 	function logout()
 	{
 		$this->session->unset_userdata('uid');

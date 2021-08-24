@@ -71,6 +71,12 @@
                                                                                                                 window.location = '<?php echo base_url('login') ?>';
                                                                                                         }, 3500);
                                                                                                 }
+                                                                                        },
+                                                                                        error: function(data){
+                                                                                                ShowToast(2000, 'error', data);
+                                                                                                setInterval(() => {
+                                                                                                        window.location = '<?php echo base_url('login') ?>';
+                                                                                                }, 2500);
                                                                                         }
                                                                                 });
                                                                         }

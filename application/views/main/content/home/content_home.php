@@ -2,17 +2,17 @@
     <div class="nk-gap-2"></div>
     <div class="container">
         <?php
-        if ($this->session->flashdata('success'))
+        if ($this->session->flashdata('true'))
         {
             echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-            echo $this->session->flashdata('success');
+            echo $this->session->flashdata('true');
             echo "</em></div>";
             echo "<div class='nk-gap-2'></div>";
         }
-        else if ($this->session->flashdata('error'))
+        else if ($this->session->flashdata('false'))
         {
             echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-            echo $this->session->flashdata('error');
+            echo $this->session->flashdata('false');
             echo "</em></div>";
             echo "<div class='nk-gap-2'></div>";
         }

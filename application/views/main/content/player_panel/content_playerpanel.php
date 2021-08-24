@@ -215,7 +215,41 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <a href="#" class="nk-btn nk-btn-md nk-btn-rounded nk-btn-outline nk-btn-color-main-5">Request To See Hint</a>
+                                                  <button type="button" onclick="ShowHint()" class="nk-btn nk-btn-md nk-btn-rounded nk-btn-outline nk-btn-color-main-5">Request To See Hint</button>
+                                                  <script>
+                                                       function ShowHint()
+                                                       {
+                                                            $.ajax({
+                                                                 url: '<?php echo base_url('player_panel/home/do_requesthint') ?>',
+                                                                 type: 'POST',
+                                                                 data: {
+                                                                      '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                                                      'player_id' : '<?php echo $_SESSION['uid'] ?>'
+                                                                 },
+                                                                 success: function(data){
+                                                                      if (data != ""){
+                                                                           ShowToast(4000, 'success', 'This Is Your Hint: ' + data + '.');
+                                                                           setTimeout(() => {
+                                                                                window.location = '<?php echo base_url('player_panel') ?>';
+                                                                           }, 4500);
+                                                                      }
+                                                                      else
+                                                                      {
+                                                                           ShowToast(4000, 'error', 'Error Request Hint.');
+                                                                           setTimeout(() => {
+                                                                                window.location = '<?php echo base_url('player_panel') ?>';
+                                                                           }, 4500);
+                                                                      }
+                                                                 },
+                                                                 error: function(data){
+                                                                      ShowToast(2000, 'error', data);
+                                                                      setTimeout(() => {
+                                                                           window.location = '<?php echo base_url('player_panel') ?>';
+                                                                      }, 2500);
+                                                                 }
+                                                            });
+                                                       }
+                                                  </script>
                                              <?php
                                              }
                                              else
