@@ -38,7 +38,9 @@ New Update V1.2:
 New Update V1.3:
 
 	- Re-Create New Admin Site
-	- Adding Trade Feature Inside Primary Web (80%)
+	- Adding Trade Feature (80%)
+	- Adding Exchange Items Feature
+	- Adding Voucher Feature
 	- Adding New API For New PBLauncher
 	- Complexing Validation Method
 	- Supporting Encryption During POST data
