@@ -20,14 +20,14 @@
                                                 </div>
                                                 <div class="nk-gap"></div>
                                                 <div class="form-group text-center">
-                                                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary nk-btn-block" value="Login">
+                                                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary nk-btn-md" value="Login">
                                                 </div>
                                                 <?php echo form_close(); ?>
                                                 <div class="form-group text-center">
                                                         OR
                                                 </div>
                                                 <div class="form-group text-center">
-                                                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success nk-btn-block"><span class="fa fa-user-plus"></span> &nbsp;Register</a>
+                                                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success nk-btn-md">Register</a>
                                                 </div>
                                                 <?php echo form_close() ?>
                                                 <script>

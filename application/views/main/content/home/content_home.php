@@ -1,22 +1,6 @@
 <div class="nk-main">
     <div class="nk-gap-2"></div>
     <div class="container">
-        <?php
-        if ($this->session->flashdata('true'))
-        {
-            echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-            echo $this->session->flashdata('true');
-            echo "</em></div>";
-            echo "<div class='nk-gap-2'></div>";
-        }
-        else if ($this->session->flashdata('false'))
-        {
-            echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-            echo $this->session->flashdata('false');
-            echo "</em></div>";
-            echo "<div class='nk-gap-2'></div>";
-        }
-        ?>
         <!-- START: Image Slider -->
         <div class="nk-image-slider" data-autoplay="8000">
             <?php foreach ($quickslide as $row) : ?>
@@ -110,8 +94,8 @@
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
                     <div class="col-lg-6 col-12">
-                        <table class="nk-table table-responsive-sm" style="border-radius: 10px;">
-                            <thead class="text-center" style="font-style: italic;">
+                        <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
+                            <thead style="font-style: italic;">
                                 <th width="10%">Rank</th>
                                 <th width="5%">Patent</th>
                                 <th>Player Name</th>
@@ -119,25 +103,36 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $num = 1;
-                                foreach ($account as $row) :
-                                ?>
+                                if ($account != null)
+                                {
+                                    $num = 1;
+                                    foreach ($account as $row) :
+                                        ?>
+                                        <tr>
+                                            <td><strong><span><?php echo $num ?></span></strong></td>
+                                            <td><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt=""></td>
+                                            <td><?php echo $row['player_name'] ?></td>
+                                            <td><strong><?php echo number_format($row['exp'], '0',',','.') ?></strong></td>
+                                        </tr>
+                                        <?php
+                                        $num++;
+                                    endforeach;
+                                }
+                                else
+                                {
+                                    ?>
                                     <tr>
-                                        <td class="text-center"><strong><span><?php echo $num ?></span></strong></td>
-                                        <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt=""></td>
-                                        <td><?php echo $row['player_name'] ?></td>
-                                        <td class="text-center"><strong><?php echo number_format($row['exp'], '0',',','.') ?></strong></td>
+                                        <td colspan="4">No Data Found</td>
                                     </tr>
-                                <?php
-                                    $num++;
-                                endforeach;
+                                    <?php
+                                }
                                 ?>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <table class="nk-table table-responsive-sm" style="border-radius: 10px;">
-                            <thead class="text-center" style="font-style: italic;">
+                        <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
+                            <thead style="font-style: italic;">
                                 <th width="10%">Rank</th>
                                 <th width="5%">Patent</th>
                                 <th>Clan Name</th>
@@ -145,18 +140,29 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $num = 1;
-                                foreach ($clan as $row) :
-                                ?>
+                                if ($clan != null)
+                                {
+                                    $num = 1;
+                                    foreach ($clan as $row) :
+                                        ?>
+                                        <tr>
+                                            <td><strong><?php echo $num ?></strong></td>
+                                            <td><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_clan/<?php echo $row['clan_rank'] ?>.jpg" alt=""></td>
+                                            <td><?php echo $row['clan_name'] ?></td>
+                                            <td><strong><?php echo number_format($row['clan_exp'], '0',',','.') ?></strong></td>
+                                        </tr>
+                                        <?php
+                                        $num++;
+                                    endforeach;
+                                }
+                                else
+                                {
+                                    ?>
                                     <tr>
-                                        <td class="text-center"><strong><?php echo $num ?></strong></td>
-                                        <td class="text-center"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_clan/<?php echo $row['clan_rank'] ?>.jpg" alt=""></td>
-                                        <td><?php echo $row['clan_name'] ?></td>
-                                        <td class="text-center"><strong><?php echo number_format($row['clan_exp'], '0',',','.') ?></strong></td>
+                                        <td colspan="4">No Data Found</td>
                                     </tr>
-                                <?php
-                                    $num++;
-                                endforeach;
+                                    <?php
+                                }
                                 ?>
                             </tbody>
                         </table>
@@ -167,9 +173,10 @@
                 </div>
             </div>
         </div>
-        <div class="nk-gap-3"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling Items</span></h3>
-        <div class="nk-gap"></div>
+        <?php if ($webshop != null) : ?>
+            <div class="nk-gap-3"></div>
+            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling Items</span></h3>
+            <div class="nk-gap"></div>
             <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
                 <div class="nk-carousel-inner">
                     <?php foreach ($webshop as $row) :?>
@@ -197,6 +204,7 @@
                     <a href="javascript:void(0)" onclick="return alert('This Feature Not Available At This Moment.')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</a>
                 </div>
             </div>
+        <?php endif; ?>
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Discord</span> Server</span></h3>
         <div class="nk-gap-2"></div>

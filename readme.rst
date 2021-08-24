@@ -1,17 +1,17 @@
-*******************
+***********************
 Point Blank V42 Website
-*******************
+***********************
 
 I Decided To Make A Website From Scratch To Make Easier Admin Task About
 Managing The Game. It Will Take Long Time To Make Crazy Features Inside
 The Web. Fully Customizable Feature, Publicly Clone.
 
-*******************
+***********************
 Development Information
-*******************
+***********************
 
 This Repo Contains HTML & PHP Programming Language, Maybe Javascript Inside There Too,
-Development Going To Understand What The Admin Doing Back The Players
+Development Going To Understand What The Admin Doing Back The Players Activity
 Customize All Things, Clearly Features Make Easier.
 
 **************************
@@ -37,15 +37,16 @@ New Update V1.2:
 
 New Update V1.3:
 
-	- Re-Create New Admin Site
+	- Re-Create New Admin Site (10%)
 	- Adding Trade Feature (80%)
-	- Adding Exchange Items Feature
+	- Adding Exchange Items Feature (65%)
 	- Adding Voucher Feature
-	- Adding New API For New PBLauncher
+	- Adding New API For New PBLauncher (Not Included On Public Release)
 	- Complexing Validation Method
-	- Supporting Encryption During POST data
+	- Supporting Encryption During POST Data
+	- Adding New Email Verification
+	- Transform Native Function To Ajax To Get Realtime Data (65%)
 	- Fixing Minor Bug When Execute Some Function
-	- Transform Native Function To Ajax To Get Realtime Data (15%)
 
 *******************
 Server Requirements

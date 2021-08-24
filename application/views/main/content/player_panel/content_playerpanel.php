@@ -289,7 +289,7 @@
                               <div class="row justify-content-center">
                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='../home'">Back To Home</button>&nbsp;
                                    <a href="<?php echo base_url('player_panel/changepassword') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Change Password</a>&nbsp;
-                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Change Email</button>&nbsp;
+                                   <a href="<?php echo base_url('player_panel/changeemail') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Change Email</a>&nbsp;
                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='../home/logout'">Logout</button>
                               </div>
                          </div>

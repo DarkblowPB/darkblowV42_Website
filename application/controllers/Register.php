@@ -19,6 +19,13 @@ class Register extends CI_Controller
 	
 	function index()
 	{
+		$data['title'] = 'DarkblowPB || Register';
+		$data['isi'] = 'main/content/register/content_register';
+		$this->load->view('main/layout/wrapper', $data, FALSE);	
+	}
+
+	function do_register()
+	{
 		$this->form_validation->set_rules(
 			'login',
 			'Username',
@@ -72,15 +79,14 @@ class Register extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty')
 		);
-		if ($this->form_validation->run() === FALSE) 
+		if ($this->form_validation->run()) 
 		{
-			$data['title'] = 'DarkblowPB || Register';
-			$data['isi'] = 'main/content/register/content_register';
-			$this->load->view('main/layout/wrapper', $data, FALSE);	
+			$this->register->RegisterValidationV2();
 		}
 		else
 		{
-			$this->register->auth_register();
+			$this->form_validation->set_error_delimiters('', '');
+			echo validation_errors();
 		}
 	}
 }

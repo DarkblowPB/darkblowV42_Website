@@ -22,7 +22,7 @@ class Player_rank extends CI_Controller {
 		// Pagination Section
 
 			// Load Config
-				$config['base_url'] = 'http://localhost:8080/webpb-ci3/player_rank/index';
+				$config['base_url'] = base_url('player_rank/index');
 				$config['total_rows'] = $this->playerrank->getdata_account_in_rows();
 				$config['per_page'] = 10;
 			// End Load Config

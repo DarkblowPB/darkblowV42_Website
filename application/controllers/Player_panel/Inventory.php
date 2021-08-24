@@ -21,8 +21,8 @@ class Inventory extends CI_Controller
 	function index()
 	{
 		$this->load->library('pagination');
-
-		$config['base_url'] = 'http://localhost:8080/webpb-ci3/player_panel/inventory/index';
+		
+		$config['base_url'] = base_url('player_panel/inventory/index');
 		$config['total_rows'] = $this->inventory->getdata_inventory_rows();
 		$config['per_page'] = 10;
 		$config['full_tag_open'] = '<div class="nk-pagination nk-pagination-center"><nav>';

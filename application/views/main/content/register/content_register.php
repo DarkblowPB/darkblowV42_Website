@@ -9,43 +9,27 @@
                                 <div class="container">
                                         <div class="col-lg-6 offset-lg-3">
                                                 <?php
-                                                echo form_open(base_url('register'),' class="form-horizontal"');
-                                                echo validation_errors("<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>","</em></div>");
-                                                if ($this->session->flashdata('success'))
-                                                {
-                                                        echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-                                                        echo $this->session->flashdata('success');
-                                                        echo "<div class='nk-gap'></div>";
-                                                        echo "<a href='".base_url('login')."' class='nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary' title='Click Me If You Want To Login Now'>Login Now?</a> <a href='".base_url('home')."' class='nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger' title='Click Me If You Want To Back To Home'>Back To Home</a>";
-                                                        echo "</em></div>";
-                                                }
-                                                if ($this->session->flashdata('error'))
-                                                {
-                                                        echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-                                                        echo $this->session->flashdata('error');
-                                                        echo "<div class='nk-gap'></div>";
-                                                        echo "</em></div>";
-                                                }
+                                                echo form_open('','id="register_form" autocomplete="off"');
                                                 ?>
                                                 <div class="form-group">
                                                         <label for="username">Username</label>
-                                                        <input type="text" class="form-control" name="login" placeholder="Enter Your Username" minlength="4" maxlength="16" required autocomplete="off" autofocus value="<?php echo set_value('username') ?>">
+                                                        <input type="text" class="form-control" id="login" placeholder="Enter Your Username" minlength="4" maxlength="16" autofocus>
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="email">Email Address</label>
-                                                        <input type="mail" class="form-control" name="email" placeholder="Enter Your Email Address" minlength="10" maxlength="35" required autocomplete="off" value="<?php echo set_value('email') ?>">
+                                                        <input type="mail" class="form-control" id="email" placeholder="Enter Your Email Address">
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="password">Password</label>
-                                                        <input type="password" class="form-control" name="password" placeholder="Enter Your Password" minlength="4" maxlength="16" required value="<?php echo set_value('password') ?>">
+                                                        <input type="password" class="form-control" id="password" placeholder="Enter Your Password" minlength="4" maxlength="16">
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="re_password">Confirmation Password</label>
-                                                        <input type="password" class="form-control" name="re_password" placeholder="Enter Your Confirmation Password" minlength="4" maxlength="16" required value="<?php echo set_value('re_password') ?>">
+                                                        <input type="password" class="form-control" id="re_password" placeholder="Enter Your Confirmation Password" minlength="4" maxlength="16">
                                                 </div>
                                                 <div class="form-group">
                                                         <label>Hint Question</label>
-                                                        <select class="form-control" name="hint_question" value="<?php echo set_value('hint_question') ?>">
+                                                        <select class="form-control" id="hint_question">
                                                                 <option value="" disabled selected>Select Your Hint Question</option>
                                                                 <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                                                 <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -66,19 +50,106 @@
                                                 </div>
                                                         <div class="form-group">
                                                                 <label>Hint Answer</label>
-                                                                <input type="text" class="form-control" name="hint_answer" placeholder="Enter Your Hint Answer" value="<?php echo set_value('hint_answer') ?>" autocomplete="off" required>
+                                                                <input type="text" class="form-control" id="hint_answer" placeholder="Enter Your Hint Answer">
                                                         </div>
                                                 <div class="nk-gap"></div>
                                                 <div class="form-group text-center">
-                                                        <button type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-user-plus"></span> &nbsp;Register</button>
-                                                        <button type="reset" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger"><span class="fa fa-refresh"></span> &nbsp;Reset</button>
+                                                        <input id="register_button" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register">
+                                                        <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Login</a>
                                                 </div>
                                                 <?php echo form_close(); ?>
+                                                <script>
+                                                        var getBtn = document.getElementById('register_button');
+                                                        $(document).ready(function(){
+                                                                $('#register_form').on('submit', function(e){
+                                                                        e.preventDefault();
+                                                                        if ($('#login').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#email').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#password').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#re_password').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Confirmation Password Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#re_password').val() != $('#password').val()){
+                                                                                ShowToast(2000, 'warning', 'Confirmation Password Not Matches.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#hint_question').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else if ($('#hint_answer').val() == ""){
+                                                                                ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                                                                return;
+                                                                        }
+                                                                        else{
+                                                                                getBtn.removeAttribute('class');
+                                                                                getBtn.removeAttribute('value');
+                                                                                getBtn.setAttribute('class', 'btn btn-outline-primary disabled');
+                                                                                getBtn.setAttribute('value', 'Processing...');
+                                                                                $.ajax({
+                                                                                        url: '<?php echo base_url('register/do_register') ?>',
+                                                                                        type: 'POST',
+                                                                                        data: {
+                                                                                                '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                                                                                'login' : $('#login').val(),
+                                                                                                'email' : $('#email').val(),
+                                                                                                'password' : $('#password').val(),
+                                                                                                're_password' : $('#re_password').val(),
+                                                                                                'hint_question' : $('#hint_question').val(),
+                                                                                                'hint_answer' : $('#hint_answer').val()
+                                                                                        },
+                                                                                        success: function(data){
+                                                                                                if (data == "true"){
+                                                                                                        ShowToast(4500, 'success', 'Successfully Registered. Confirmation Email Has Been Sended To Your Email. Confirm Now And Get Your Rewards.');
+                                                                                                        setTimeout(() => {
+                                                                                                                window.location = '<?php echo base_url('register') ?>';
+                                                                                                        }, 5000);
+                                                                                                }
+                                                                                                else if (data == "true2"){
+                                                                                                        ShowToast(4500, 'success', 'Successfully Registered. But Failed To Send Confirmation Email.');
+                                                                                                        setTimeout(() => {
+                                                                                                                window.location = '<?php echo base_url('register') ?>';
+                                                                                                        }, 5000);
+                                                                                                }
+                                                                                                else if (data == "false"){
+                                                                                                        ShowToast(3000, 'error', 'Failed To Registered Your Account. Please Try Again Later.');
+                                                                                                        setTimeout(() => {
+                                                                                                                window.location = '<?php echo base_url('register') ?>';
+                                                                                                        }, 3500);
+                                                                                                }
+                                                                                                else{
+                                                                                                        ShowToast(3000, 'error', data);
+                                                                                                        setTimeout(() => {
+                                                                                                                window.location = '<?php echo base_url('register') ?>';
+                                                                                                        }, 3500);
+                                                                                                }
+                                                                                        },
+                                                                                        error: function(data){
+                                                                                                ShowToast(3000, 'error', data.responseText);
+                                                                                                setTimeout(() => {
+                                                                                                        window.location = '<?php echo base_url('register') ?>';
+                                                                                                }, 3500);
+                                                                                        }
+                                                                                });
+                                                                        }
+                                                                });
+                                                        });
+                                                </script>
                                                 <div class="form-group text-center">
                                                         <label style="font-weight: bold; font-style: italic;">OR</label>
                                                 </div>
                                                 <div class="form-group text-center">
-                                                        <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3" title="This Feature Not Available At This Moment"><span class="fa fa-google"></span> &nbsp;register with google</button>
+                                                        <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.');"><span class="fa fa-google"></span> &nbsp;register with google</button>
                                                 </div>
                                         </div>
                                 </div>

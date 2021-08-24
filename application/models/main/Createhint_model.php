@@ -14,6 +14,37 @@ class Createhint_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('encryption');
+		$this->load->library('lib');
+	}
+
+	function CreateHintValidationV2()
+	{
+		$data = array(
+			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question')),
+			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer')),
+			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password')))
+		);
+
+		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'], 'password' => $this->encryption->decrypt($data['password'])))->row();
+		if ($query)
+		{
+			$update = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array(
+				'hint_question' => $this->encryption->decrypt($data['hint_question']),
+				'hint_answer' => $this->encryption->decrypt($data['hint_answer'])
+			));
+			if ($update)
+			{
+				echo "true";
+			}
+			else
+			{
+				echo "false";
+			}
+		}
+		else
+		{
+			echo "false";
+		}
 	}
 
 	function validation()

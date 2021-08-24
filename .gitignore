@@ -31,3 +31,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 pblauncher/
 application/views/launcher
+assets/goodgames/assets/vendors/sweetalert2/theme-dark/package.json
+assets/goodgames/assets/vendors/sweetalert2/theme-dark/README.md
+package-lock.json
+application/controller/Get_launcherkey.php
+application/controller/Ip_req.php

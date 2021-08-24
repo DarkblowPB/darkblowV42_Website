@@ -6,18 +6,10 @@
 		<div class="nk-gap-2"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-6">
-				<?php
-                if ($this->session->flashdata('error')) 
-                {
-					echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-                    echo $this->session->flashdata('error');
-                    echo "</em></div>";
-                }
-				?>
-				<?php echo form_open(base_url('player_panel/create_hint'), 'class="form-horizontal"') ?>
+				<?php echo form_open('', 'id="createhint_form" autocomplete="off"') ?>
 					<div class="form-group">
 						<label>Hint Question</label>
-						<select class="form-control" name="hint_question" required>
+						<select class="form-control" id="hint_question" required>
 							<option value="" disabled selected>
 								Select Your Hint Question
 							</option>
@@ -70,18 +62,74 @@
 					</div>
 					<div class="form-group">
 						<label>Hint Answer</label>
-						<input type="text" name="hint_answer" class="form-control" placeholder="Enter Your Hint Password" minlength="2" maxlength="255" required autocomplete="off">
+						<input type="text" id="hint_answer" class="form-control" placeholder="Enter Your Hint Password">
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="password" name="password" class="form-control" placeholder="Enter Your Password" minlength="4" maxlength="16" required>
+						<input type="password" id="password" class="form-control" placeholder="Enter Your Password" minlength="4" maxlength="16">
 					</div>
 					<div class="nk-gap-1"></div>
 					<div class="form-group text-center">
-						<button type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5"><span class="fa fa-paper-plane"></span> &nbsp;Submit New Hint</button>
-						<button type="reset" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><span class="fa fa-refresh"></span> &nbsp;Reset</button>
+						<input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit New Hint">
 					</div>
 				<?php echo form_close() ?>
+				<script>
+					$(document).ready(function(){
+						$('#createhint_form').on('submit', function(e){
+							e.preventDefault();
+							if ($('#hint_question').val() == ""){
+								ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+								return;
+							}
+							else if ($('#hint_answer').val() == ""){
+								ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+								return;
+							}
+							else if ($('#password').val() == ""){
+								ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+								return;
+							}
+							else{
+								$.ajax({
+									url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
+									type: 'POST',
+									data: {
+										'<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+										'hint_question' : $('#hint_question').val(),
+										'hint_answer' : $('#hint_answer').val(),
+										'password' : $('#password').val()
+									},
+									success: function(data){
+										if (data == "true"){
+											ShowToast(2000, 'success', 'Successfully Create New Hint.');
+											setTimeout(() => {
+												window.location = '<?php echo base_url('player_panel/home') ?>';
+											}, 2500);
+										}
+										else if (data == "false"){
+											ShowToast(2000, 'error', 'Failed To Create New Hint.');
+											setTimeout(() => {
+												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
+											}, 2500);
+										}
+										else{
+											ShowToast(3000, 'error', data);
+											setTimeout(() => {
+												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
+											}, 3500);
+										}
+									},
+									error: function(data){
+										ShowToast(2000, 'error', data.responseText);
+											setTimeout(() => {
+												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
+											}, 2500);
+									}
+								});
+							}
+						});
+					});
+				</script>
 			</div>
 		</div>
 		<div class="nk-gap-2"></div>

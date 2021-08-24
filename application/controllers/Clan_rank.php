@@ -25,7 +25,7 @@ class Clan_rank extends CI_Controller
 			// End Load Library
 
 			// Load Config
-				$config['base_url'] = 'http://localhost:8080/webpb-ci3/clan_rank/index';
+				$config['base_url'] = base_url('clan_rank/index');
 				$config['total_rows'] = $this->clanrank->getdata_clan_in_rows();
 				$config['per_page'] = 10;
 			// End Load Config

@@ -19,22 +19,14 @@ class Redeemcode extends CI_Controller
 	
 	function index()
 	{
-		$this->form_validation->set_rules(
-			'code',
-			'Redeem Code',
-			'required',
-			array('required' => '%s Cannot Be Empty')
-		);
-		if ($this->form_validation->run() === FALSE) 
-		{
-			$data['title'] = 'DarkblowPB || Redeem Code';
-			$data['isi'] = 'main/content/player_panel/content_redeemcode';
-			$this->load->view('main/layout/wrapper', $data, FALSE);
-		}
-		else 
-		{
-			$this->redeemcode->code_validation();
-		}
+		$data['title'] = 'DarkblowPB || Redeem Code';
+		$data['isi'] = 'main/content/player_panel/content_redeemcode';
+		$this->load->view('main/layout/wrapper', $data, FALSE);
+	}
+
+	function do_redeem()
+	{
+		$this->redeemcode->CodeValidationV2();
 	}
 }
 
