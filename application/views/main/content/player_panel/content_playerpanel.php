@@ -270,7 +270,7 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <button type="button" class="nk-btn nk-btn-md nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="window.location='create_hint';">Create New One</button>
+                                                  <button type="button" class="nk-btn nk-btn-md nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="window.location='<?php echo base_url('player_panel/create_hint') ?>';">Create New One</button>
                                              <?php 
                                              } 
                                              ?>
@@ -287,10 +287,10 @@
                     <div class="nk-box-2 bg-dark-2">
                          <div class="container">
                               <div class="row justify-content-center">
-                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='../home'">Back To Home</button>&nbsp;
+                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('home') ?>'">Back To Home</button>&nbsp;
                                    <a href="<?php echo base_url('player_panel/changepassword') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Change Password</a>&nbsp;
                                    <a href="<?php echo base_url('player_panel/changeemail') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Change Email</a>&nbsp;
-                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='../home/logout'">Logout</button>
+                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='<?php echo base_url('home/logout') ?>'">Logout</button>
                               </div>
                          </div>
                     </div>

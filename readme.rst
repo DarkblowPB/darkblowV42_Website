@@ -12,7 +12,7 @@ Development Information
 
 This Repo Contains HTML & PHP Programming Language, Maybe Javascript Inside There Too,
 Development Going To Understand What The Admin Doing Back The Players Activity
-Customize All Things, Clearly Features Make Easier.
+Customized All Things, Clearly Features Make Easier.
 
 **************************
 Changelog and New Features
@@ -20,16 +20,15 @@ Changelog and New Features
 
 New Update V1.1:
 
-	- Primary Web Work 100%
-	- All Basic Features Already Work 98% except News Menu
+	- Released
 	- Complex Validation Added To Create Hardest Web Security
-	- Logger System For Detect All Action In Moderator Panel
+	- Logger System For Detect All Action In Moderator Panel (Deprecated & Under The Construction)
 
 
 New Update V1.2:
 
 	- Deleting Report Function (Deprecated)
-	- Reconstruct Function
+	- Clean Up Function Code
 	- Adding New Encryption Function
 	- News Menu Changed To Slider
 	- Logger System Adapted To Primary Web
@@ -39,13 +38,15 @@ New Update V1.3:
 
 	- Re-Create New Admin Site (10%)
 	- Adding Trade Feature (80%)
-	- Adding Exchange Items Feature (65%)
+	- Adding Exchange Items Feature
 	- Adding Voucher Feature
 	- Adding New API For New PBLauncher (Not Included On Public Release)
 	- Complexing Validation Method
 	- Supporting Encryption During POST Data
 	- Adding New Email Verification
-	- Transform Native Function To Ajax To Get Realtime Data (65%)
+	- Transform Basic Function To Ajax To Get Realtime Data (90%)
+	- Improving Function
+	- Clean Up The Code
 	- Fixing Minor Bug When Execute Some Function
 
 *******************
@@ -60,8 +61,9 @@ issues, as well as missing features.
 
 For PHP version 8.0 or newer not supported.
 
-*********
-Framework
-*********
+****
+Note
+****
 
-This Project Using Codeigniter 3, More Like Compatible With Daily Needs.
+Database Not Included Here. If You Can Retrieve That, You Are Awesome.
+But, If You Want Make This Simple, You Can Contact Me On Discord. Lolsecs#0001

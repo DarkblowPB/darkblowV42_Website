@@ -22,7 +22,7 @@ class Webshop extends CI_Controller
 		// Pagination Section
 
 			// Load Config
-				$config['base_url'] = 'http://localhost:8080/webpb-ci3/webshop/index';
+				$config['base_url'] = base_url('webshop/index');
 				$config['total_rows'] = $this->webshop->getdata_webshop_in_row();
 				$config['per_page'] = 9;
 			// End Load Config
@@ -39,7 +39,7 @@ class Webshop extends CI_Controller
 				$config['prev_tag_open'] = '';
 				$config['prev_tag_close'] = '</a>';
 
-				$config['cur_tag_open'] = '<a class="nk-pagination-current" href="#">';
+				$config['cur_tag_open'] = '<a class="nk-pagination-current" href="javascript:void(0)">';
 				$config['cur_tag_close'] = '</a>';
 			// End Pagination Styling
 
@@ -56,33 +56,45 @@ class Webshop extends CI_Controller
 		$data['isi'] = 'main/content/webshop/content_webshop';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
+
 	function details($id)
 	{
-		if (isset($_POST['submit_buyitem'])) 
-		{
-			if (empty($_SESSION['uid'])) 
-			{
-				redirect(base_url('login'), 'refresh');
-			}
-			if (!empty($_SESSION['uid'])) 
-			{
-				$item_id = $this->input->post('item_id');
-				$price = $this->input->post('price');
-				if ($item_id == null || $price == null) 
-				{
-					$this->session->set_flashdata('error', 'Failed To Bought The Item.');
-				}
-				if ($item_id != null || $price != null) 
-				{
-					$this->webshop->buy_item();
-				}
-			}
-		}
 		$data['title'] = 'DarkblowPB || Webshop Item Details';
-		$data['detail'] = $this->webshop->getdata_webshop_detail($id);
+		$data['detail'] = $this->webshop->GetWebshopDetails($id);
 		$data['related'] = $this->webshop->getdata_webshop_related();
 		$data['isi'] = 'main/content/webshop/content_webshopdetail';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
+	}
+
+	function do_buy()
+	{
+		$this->form_validation->set_rules(
+			'player_id',
+			'Player ID',
+			'required',
+			array('required' => '%s Cannot Be Empty.')
+		);
+		$this->form_validation->set_rules(
+			'item_id',
+			'Item ID',
+			'numeric|required',
+			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
+		);
+		$this->form_validation->set_rules(
+			'item_price',
+			'Item Price',
+			'numeric|required',
+			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
+		);
+		if ($this->form_validation->run())
+		{
+			$this->webshop->BuyItemV2();
+		}
+		else
+		{
+			$this->form_validation->set_error_delimiters('', '');
+			echo validation_errors();
+		}
 	}
 }
 

@@ -59,6 +59,14 @@ class Login extends CI_Controller
 		}
 	}
 
+	function do_logout()
+	{
+		$this->session->unset_userdata('uid');
+		$this->session->unset_userdata('player_name');
+		$this->session->unset_userdata('access_level');
+		echo "true";
+	}
+
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

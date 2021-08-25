@@ -17,7 +17,6 @@
                     <div class="form-group">
                         <label class="col-form-label">Price</label>
                         <input type="number" id="item_price" class="form-control" placeholder="Enter Your Price Item">
-                        <span class="text-danger">* TAX: 5%</span>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Valid Item Period</label>

@@ -14,6 +14,7 @@ class Main_protect
     public function __construct()
     {
         $this->ci =& get_instance();
+        $this->ci->load->database();
     }
 
     public function mainProtectA()
@@ -29,6 +30,26 @@ class Main_protect
         if (!empty($_SESSION['uid'])) 
         {
             redirect(base_url('home'), 'refresh');
+        }
+    }
+
+    public function mainProtectC()
+    {
+        $query = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+        if ($query)
+        {
+            if ($query->hint_question != "")
+            {
+                redirect(base_url('player_panel/home') ,'refresh');
+            }
+            else if ($query->hint_answer != "")
+            {
+                redirect(base_url('player_panel/home'), 'refresh');
+            }
+        }
+        else
+        {
+            redirect(base_url('login'), 'refresh');
         }
     }
 }

@@ -13,6 +13,7 @@ class Create_hint extends CI_Controller
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
+		$this->main_protect->mainProtectC();
 		$this->load->model('main/createhint_model', 'hint');
 		$this->allprotect->Web_Protection();
 	}
@@ -20,7 +21,6 @@ class Create_hint extends CI_Controller
 	function index()
 	{
 		$data['title'] = 'DarkblowPB || Create Hint';
-		$data['detailaccount'] = $this->hint->getdata_accountdetails();
 		$data['isi'] = 'main/content/player_panel/content_createhint';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

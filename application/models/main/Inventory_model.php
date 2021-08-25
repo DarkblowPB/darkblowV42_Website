@@ -14,52 +14,58 @@ class Inventory_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
+
+	function GetItemRealName($item_id)
+	{
+		$query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+		if ($query)
+		{
+			return $query->item_name;
+		}
+		else
+		{
+			return "";
+		}
+	}
+	
 	function getdata_inventory_limit($limit, $start)
 	{
 		return $this->db->where('owner_id', $_SESSION['uid'])->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
 	}
+	
 	function getdata_inventory_rows()
 	{
 		return $this->db->where('owner_id', $_SESSION['uid'])->get('player_items')->num_rows();
 	}
+	
 	function getdata_detail_item($detail)
 	{
 		return $this->db->where('item_id', $detail)->get('player_items')->result_array();
 	}
 	
-	function delete_item($param)
+	function delete_item()
 	{
-		// Checking Item
-		$check_item = $this->db->get_where('player_items', array('object_id' => $param));
-		$result_item = $check_item->row();
-		if ($result_item) 
+		$data = array(
+			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
+			'item_id' => $this->encryption->encrypt($this->input->post('item_id'))
+		);
+
+		$query = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+		if ($query)
 		{
-			// Checking Owner
-			if ($result_item->owner_id != $_SESSION['uid'])
+			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');
+			if ($delete)
 			{
-				$this->session->set_flashdata('error', 'You Cannot Delete Another Player Item.');
-				redirect($_SERVER['HTTP_REFERER'], 'refresh');
+				echo "true";
 			}
-			else 
+			else
 			{
-				// Delete Item
-				$delete_item = $this->db->where(array('object_id' => $result_item->object_id, 'item_id' => $result_item->item_id))->delete('player_items');
-				if ($delete_item) 
-				{
-					$this->session->set_flashdata('success', 'Item Deleted Successfully.');
-					redirect($_SERVER['HTTP_REFERER'], 'refresh');
-				}
-				else 
-				{
-					$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information.');
-					redirect($_SERVER['HTTP_REFERER'], 'refresh');
-				}	
+				echo "false";
 			}
 		}
-		else 
+		else
 		{
-			$this->session->set_flashdata('error', 'Item Not Found.');
-			redirect($_SERVER['HTTP_REFERER'], 'refresh');
+			echo "false";
 		}
 	}
 	

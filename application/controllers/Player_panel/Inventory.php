@@ -59,16 +59,28 @@ class Inventory extends CI_Controller
 		}
 	}
 
-	function delete_item()
+	function do_delete()
 	{
-		if (empty($_GET['idx']))
+		$this->form_validation->set_rules(
+			'player_id',
+			'Player ID',
+			'required',
+			array('required' => '%s Cannot Be Empty.')
+		);
+		$this->form_validation->set_rules(
+			'item_id',
+			'Item ID',
+			'numeric|required',
+			array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
+		);
+		if ($this->form_validation->run())
 		{
-			$this->session->set_flashdata('error', 'Item Not Found.');
-			redirect($_SERVER['HTTP_REFERER'], 'refresh');
+			$this->inventory->delete_item();
 		}
-		else 
+		else
 		{
-			$this->inventory->delete_item($_GET['idx']);
+			$this->form_validation->set_error_delimiters('', '');
+			echo validation_errors();
 		}
 	}
 }

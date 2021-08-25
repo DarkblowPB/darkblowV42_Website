@@ -25,71 +25,77 @@
 		<div class="nk-gap-1"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-12 col-12">
-				<table class="nk-table table-borderless">
+				<table class="nk-table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 					<thead>
-						<tr align="center">
+						<tr>
 							<th width="5%">No.</th>
 							<th>Item Name</th>
 							<th width="15%">Item Type</th>
 							<th width="15%">Item Status</th>
-							<th width="25%">Action Menu</th>
+							<th width="25%">Menu</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($inventory as $row ) :?>
-							<tr align="center">
+						<?php foreach ($inventory as $row ) : ?>
+							<tr>
 								<td><?php echo ++$start; ?></td>
 								<td>
 									<?php
-									$check = $this->db->get_where('shop', array('item_id' => $row['item_id']));
-									$result = $check->row();
-									if ($result) 
+										echo $this->inventory->GetItemRealName($row['item_id']);
+									?>
+								</td>
+								<td>
+									<?php
+									switch ($row['category']) 
 									{
-										echo $result->item_name;
-									}
-									else 
-									{
-										echo "Null";
+										case '1':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Main</button>';
+												break;
+											}
+										case '2':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">Character</button>';
+												break;
+											}
+										case '3':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">Item</button>';
+												break;
+											}
+										
+										default:
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger">INVALID</button>';
+												break;
+											}
 									}
 									?>
 								</td>
 								<td>
 									<?php
-									if ($row['category'] == "1") 
+									switch ($row['equip']) 
 									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Main</button>';
-									}
-									else if ($row['category'] == "2") 
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">Character</button>';
-									}
-									else if ($row['category'] == "3") 
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">Item</button>';
-									}
-									else
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-danger">INVALID</button>';
-									}
-									?>
-								</td>
-								<td>
-									<?php
-									if ($row['equip'] == "1") 
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">NOT USE</button>';
-									}
-									else if ($row['equip'] == "2") 
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5">USED</button>';
-									}
-									else if ($row['equip'] == "3") 
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Permanent</button>';
-									}
-									else
-									{
-										echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-6">INVALID</button>';
+										case '1':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">NOT USE</button>';
+												break;
+											}
+										case '2':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5">USED</button>';
+												break;
+											}
+										case '3':
+											{
+												echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Permanent</button>';
+												break;
+											}
+										
+										default:
+										{
+											echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-6">INVALID</button>';
+										}
 									}
 									?>
 								</td>
@@ -99,19 +105,58 @@
 									if ($row['equip'] == 3) 
 									{
 									?>
-										<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><span class="fa fa-trash mr-2"></span>Delete</button>
+										<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'error', 'Cannot Delete Permanent Item.');"><span class="fa fa-trash mr-2"></span>Delete</button>
 									<?php
 									}
 									if ($row['equip'] >= 1 && $row['equip'] < 3) 
 									{
 									?>
-										<a href="<?php echo base_url('player_panel/inventory/delete_item?idx='.$row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" title="Click Here To Delete Item" onclick="return confirm('Do You Really Want To Delete This Item? Your Changes Cannot Be Undone.')"><span class="fa fa-trash mr-2"></span>Delete</a>
+										<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="DeleteItem('<?php echo $_SESSION['uid'] ?>', '<?php echo $row['item_id'] ?>')"><i class="fa fa-trash mr-2"></i>DELETE</button>
 									<?php
 									}
 									?>
 								</td>
 							</tr>
 						<?php endforeach; ?>
+						<script>
+							function DeleteItem(player_id, item_id){
+								$.ajax({
+									url: '<?php echo base_url('player_panel/inventory/do_delete') ?>',
+									type: 'POST',
+									data: {
+										'<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+										'player_id' : player_id,
+										'item_id' : item_id
+									},
+									success: function(data){
+										if (data == "true"){
+											ShowToast(2000, 'success', 'Successfully Delete This Item.');
+											setTimeout(() => {
+												window.location.reload();
+											}, 2500);
+										}
+										else if (data == "false"){
+											ShowToast(2000, 'error', 'Failed To Delete This Item.');
+											setTimeout(() => {
+												window.location.reload();
+											}, 2500);
+										}
+										else{
+											ShowToast(2000, 'error', data);
+											setTimeout(() => {
+												window.location.reload();
+											}, 2500);
+										}
+									},
+									error: function(data){
+										ShowToast(2000, 'error', data.responseText);
+										setTimeout(() => {
+											window.location.reload();
+										}, 2500);
+									}
+								});
+							}
+						</script>
 					</tbody>
 				</table>
 			</div>

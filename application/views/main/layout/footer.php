@@ -58,7 +58,7 @@
         Swal.fire({
             toast: true,
             timer: timer,
-            position: 'top',
+            position: 'center',
             timerProgressBar: true,
             icon: type,
             title: title,

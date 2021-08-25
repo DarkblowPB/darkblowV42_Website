@@ -24,7 +24,7 @@
 							?>
                         </h3>
                         <div class="nk-gap"></div>
-                        <table class="table table-borderless table-hover" align="center">
+                        <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 							<tbody>
 								<tr>
 									<td>Unique ID</td>
@@ -115,8 +115,8 @@
                         			</td>
                         		</tr>
                         		<tr>
-                        			<td colspan="2" align="center">
-                        				<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="self.history.back();"><span class="fa fa-arrow-circle-left"></span> &nbsp;Go Back</button>
+                        			<td colspan="2">
+                        				<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="self.history.back()"><span class="fa fa-arrow-circle-left"></span> &nbsp;Go Back</button>
                         			</td>
                         		</tr>
                         	</tbody>

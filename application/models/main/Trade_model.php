@@ -104,14 +104,7 @@ class Trade_model extends CI_Model
                     $delete = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $this->encryption->decrypt($data['item_id'])))->delete('player_items');
                     if ($delete)
                     {
-                        $fetch2 = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
-                        if ($fetch2)
-                        {
-                            $percentage = (5/100) * $this->encryption->decrypt($data['item_price']);
-                            $totalCoin = $fetch2->kuyraicoin - $percentage;
-                            $this->db->where('player_id', $fetch2->player_id)->update('accounts', array('kuyraicoin' =>$totalCoin));
-                            echo "true";
-                        }
+                        echo "true";
                     }
                     else
                     {
@@ -180,7 +173,7 @@ class Trade_model extends CI_Model
                                         $fetch3 = $this->db->get_where('accounts', array('player_id' => $query->item_owner))->row();
                                         if ($fetch3)
                                         {
-                                            $getPercentage = (10 / 100) * $query->item_price;
+                                            $getPercentage = (5 / 100) * $query->item_price;
                                             $totalCoin2 = $fetch3->kuyraicoin + $getPercentage;
                                             // Update Owner Webcoin
                                             $this->db->where('player_id', $fetch3->player_id)->update('accounts', array('kuyraicoin' => $totalCoin2));

@@ -15,7 +15,7 @@
                                 <div class="nk-feature-cont text-center">
                                     <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                     <p>Size : <?php echo $row['size'] ?><br></p>
-                                    <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>Download</a>
+                                    <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -29,7 +29,7 @@
                             <div class="nk-feature-cont text-center">
                                 <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                 <p>Size : <?php echo $row['size'] ?><br></p>
-                                <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>Download</a>
+                                <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -49,7 +49,7 @@
                         <div class="nk-feature-cont text-center">
                             <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                             <p>Size : <?php echo $row['size'] ?><br></p>
-                            <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>Download</a>
+                            <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -73,7 +73,7 @@
                             <div class="nk-feature-cont text-center">
                                 <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                 <p>Size : <?php echo $row['size'] ?><br></p>
-                                <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>Download</a>
+                                <a href="https://<?php echo $row['file_url'] ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a>
                             </div>
                         </div>
                     </div>
