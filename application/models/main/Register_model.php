@@ -23,9 +23,9 @@ class Register_model extends CI_Model
 			'mailtype'  => 'html',
 			'charset'   => 'utf-8',
 			'protocol'  => 'smtp',
-			'smtp_host' => 'smtp.gmail.com',
-			'smtp_user' => 'imamrasyidbackup@gmail.com',  // Email gmail
-			'smtp_pass'   => 'imamkbm123',  // Password gmail
+			'smtp_host' => 'smtp.gmail.com', // Your SMTP Host
+			'smtp_user' => '',  // Your Email
+			'smtp_pass'   => '',  // Your Password
 			'smtp_crypto' => 'ssl',
 			'smtp_port'   => 465,
 			'crlf'    => "\r\n",
@@ -35,10 +35,10 @@ class Register_model extends CI_Model
 		$this->load->library('email');
 
 		$this->email->initialize($config);
-		$this->email->from('no-reply@darkblowpb.com', 'DarkblowPB');
+		$this->email->from('no-reply@yourdomain.com', 'yourdomain');
 		$this->email->to($email);
-		$this->email->subject('Testing Email');
-		$this->email->message('KOE NGENTOT!.');
+		$this->email->subject('Your Subject');
+		$this->email->message('Your Message');
 		if ($this->email->send())
 		{
 			return true;
@@ -146,14 +146,18 @@ class Register_model extends CI_Model
 					));
 					if ($insert)
 					{
-						if ($this->SendEmailVerification($this->encryption->decrypt($data['email'])))
-						{
-							echo "true";
-						}
-						else
-						{
-							echo "false";
-						}
+						// Comment Code Below To Activated The Email
+						// if ($this->SendEmailVerification($this->encryption->decrypt($data['email'])))
+						// {
+						// 	echo "true";
+						// }
+						// else
+						// {
+						// 	echo "false";
+						// }
+
+						// Default | Comment Code Below If You Activated The Email
+						echo "true";
 					}
 					else
 					{
