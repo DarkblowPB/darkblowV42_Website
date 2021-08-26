@@ -26,7 +26,25 @@ class Redeemcode extends CI_Controller
 
 	function do_redeem()
 	{
-		$this->redeemcode->CodeValidationV2();
+		$this->form_validation->set_rules(
+			'code',
+			'Code',
+			'required',
+			array('required' => '%s Cannot Be Empty.')
+		);
+		if ($this->form_validation->run())
+		{
+			$this->redeemcode->CodeValidationV2();
+		}
+		else
+		{
+			$error = array(
+				'token' => $this->security->get_csrf_hash(),
+				'response' => 'error',
+				'message' => validation_errors()
+			);
+			echo json_encode($error);
+		}
 	}
 }
 

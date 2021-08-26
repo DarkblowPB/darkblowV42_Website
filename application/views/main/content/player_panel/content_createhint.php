@@ -70,10 +70,11 @@
 					</div>
 					<div class="nk-gap-1"></div>
 					<div class="form-group text-center">
-						<input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit New Hint">
+						<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit New Hint">
 					</div>
 				<?php echo form_close() ?>
 				<script>
+					var CSRF_TOKEN = '';
 					$(document).ready(function(){
 						$('#createhint_form').on('submit', function(e){
 							e.preventDefault();
@@ -90,45 +91,64 @@
 								return;
 							}
 							else{
+								SubmitCondition('false');
+								if (CSRF_TOKEN == ''){
+									CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+								}
 								$.ajax({
 									url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
 									type: 'POST',
+									dataType: 'JSON',
 									data: {
-										'<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+										'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
 										'hint_question' : $('#hint_question').val(),
 										'hint_answer' : $('#hint_answer').val(),
 										'password' : $('#password').val()
 									},
 									success: function(data){
-										if (data == "true"){
-											ShowToast(2000, 'success', 'Successfully Create New Hint.');
+										var decodeString = JSON.stringify(data);
+										var decodeParse = JSON.parse(decodeString);
+
+										if (decodeParse.response == 'true'){
+											CSRF_TOKEN = decodeParse.token;
+											ShowToast(2000, 'success', decodeParse.message);
 											setTimeout(() => {
+												SubmitCondition('true');
 												window.location = '<?php echo base_url('player_panel/home') ?>';
-											}, 2500);
+											}, 2000);
 										}
-										else if (data == "false"){
-											ShowToast(2000, 'error', 'Failed To Create New Hint.');
+										if (decodeParse.response == 'false'){
+											CSRF_TOKEN = decodeParse.token;
+											ShowToast(2000, 'error', decodeParse.message);
 											setTimeout(() => {
-												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
-											}, 2500);
-										}
-										else{
-											ShowToast(3000, 'error', data);
-											setTimeout(() => {
-												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
-											}, 3500);
+												SubmitCondition('true');
+											}, 2000);
 										}
 									},
 									error: function(data){
 										ShowToast(2000, 'error', data.responseText);
-											setTimeout(() => {
-												window.location = '<?php echo base_url('player_panel/create_hint') ?>';
-											}, 2500);
+										setTimeout(() => {
+											SubmitCondition('true');
+											window.location = '<?php echo base_url('player_panel/create_hint') ?>';
+										}, 2500);
 									}
 								});
 							}
 						});
 					});
+
+					function SubmitCondition(param)
+					{
+						let getBtn = document.getElementById('submit');
+						if (param == 'true'){
+							getBtn.setAttribute('type', 'submit');
+							getBtn.setAttribute('value', 'Submit New Hint');
+						}
+						if (param == 'false'){
+							getBtn.setAttribute('type', 'button');
+							getBtn.setAttribute('value', 'Processing...');
+						}
+					}
 				</script>
 			</div>
 		</div>

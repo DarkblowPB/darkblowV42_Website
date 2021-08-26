@@ -18,6 +18,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url() ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="<?php echo base_url() ?>assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <!-- ChartJS -->
 <script src="<?php echo base_url() ?>assets/admin/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -103,6 +105,16 @@
     })
     /* END JQUERY KNOB */
 
+  })
+</script>
+<script>
+  $(document).ready(function(){
+    $('#allplayers_table').dataTable({
+      responsive: true,
+      'language': {
+        'zeroRecords': 'Nothing Found Here.'
+      }
+    });
   })
 </script>
 </body>

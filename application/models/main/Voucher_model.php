@@ -29,6 +29,7 @@ class Voucher_model extends CI_Model
     function RedeemVoucherV2()
     {
         $data = array('voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')));
+        $response = array();
 
         $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
         if ($query)
@@ -54,21 +55,33 @@ class Voucher_model extends CI_Model
                 $update = $this->db->where('player_id', $fetch1->player_id)->update('accounts', array('money' =>$totalmoney, 'kuyraicoin' => $totalwebcoin));
                 if ($update)
                 {
-                    echo "true";
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Redeem The Reward. Please Check Your Inventory.';
+                    echo json_encode($response);
                 }
                 else
                 {
-                    echo "false";
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Redeem The Reward.';
+                    echo json_encode($response);
                 }
             }
             else
             {
-                echo "false";
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Redeem The Reward.';
+                echo json_encode($response);
             }
         }
         else
         {
-            echo "false";
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Voucher Code Doesnt Exists.';
+            echo json_encode($response);
         }
     }
 }

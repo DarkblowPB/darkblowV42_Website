@@ -25,6 +25,8 @@ class Createhint_model extends CI_Model
 			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password')))
 		);
 
+		$response = array();
+
 		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'], 'password' => $this->encryption->decrypt($data['password'])))->row();
 		if ($query)
 		{
@@ -34,61 +36,25 @@ class Createhint_model extends CI_Model
 			));
 			if ($update)
 			{
-				echo "true";
+				$response['response'] = 'true';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Successfully Create Hint.';
+				echo json_encode($response);
 			}
 			else
 			{
-				echo "false";
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Failed To Create Hint.';
+				echo json_encode($response);
 			}
 		}
 		else
 		{
-			echo "false";
-		}
-	}
-
-	function validation()
-	{
-		$data = array(
-			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question')),
-			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
-		);
-
-		// Fetching Account
-		$account1 = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-		$account2 = $account1->row();
-		if ($account2)
-		{
-			if ($account2->hint_question != "")
-			{
-				$this->session->set_flashdata('error', 'Hint Question Already Created');
-				redirect(base_url('player_panel'), 'refresh');
-			}
-			if ($account2->hint_answer != "")
-			{
-				
-				$this->session->set_flashdata('error', 'Hint Answer Already Created');
-				redirect(base_url('player_panel'), 'refresh');
-			}
-			if ($account2->hint_question == "" && $account2->hint_answer == "")
-			{
-				$update = $this->db->where('player_id', $account2->player_id)->update('accounts', array('hint_question' => $this->encryption->decrypt($data['hint_question']), 'hint_answer' => $this->encrpytion->decrypt($data['hint_answer'])));
-				if ($update)
-				{
-					$this->session->set_flashdata('success', 'Successfully Created Hint');
-					redirect(base_url('player_panel'), 'refresh');
-				}
-				else 
-				{
-					$this->session->set_flashdata('error', 'Failed To Create Hint');
-					redirect(base_url('player_panel'), 'refresh');
-				}
-			}
-		}
-		else 
-		{
-			$this->session->set_flashdata('error', 'Major Error, Please Contact DEV & GM For Detail Information');
-			redirect(base_url('player_panel'), 'refresh');
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Invalid Password.';
+			echo json_encode($response);
 		}
 	}
 }

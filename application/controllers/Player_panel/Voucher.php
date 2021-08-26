@@ -19,22 +19,9 @@ Class Voucher extends CI_Controller
 
     function index()
     {
-        $this->form_validation->set_rules(
-            'voucher_code',
-            'Voucher Code',
-            'required',
-            array('required' => '%s Cannot Be Empty')
-        );
-        if ($this->form_validation->run() === FALSE) 
-        {
-            $data['title'] = 'DarkblowPB || Voucher';
-            $data['isi'] = 'main/content/player_panel/content_voucher';
-            $this->load->view('main/layout/wrapper', $data, FALSE);    
-        }
-        else 
-        {
-            $this->voucher->voucher_validation();
-        }
+        $data['title'] = 'DarkblowPB || Voucher';
+        $data['isi'] = 'main/content/player_panel/content_voucher';
+        $this->load->view('main/layout/wrapper', $data, FALSE);
     }
 
     function do_redeem()
@@ -52,7 +39,12 @@ Class Voucher extends CI_Controller
         else
         {
             $this->form_validation->set_error_delimiters('', '');
-            echo validation_errors();
+            $response = array(
+                'response' => 'false',
+                'token' => $this->security->get_csrf_hash(),
+                'message' => validation_errors()
+            );
+            echo json_encode($response);
         }
     }
 }
