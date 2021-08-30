@@ -13,9 +13,15 @@ class Webshop extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('main/webshop_model', 'webshop');
-		$this->load->library('pagination');
 		$this->allprotect->Web_Protection();
+		$this->load->library('pagination');
+		$this->load->model('main/webshop_model', 'webshop');
+		$this->load->model('globalmodel', 'gm');
+
+		if ($this->getsettings->Get2()->webshop != 1)
+		{
+			redirect(base_url('home'), 'refresh');
+		}
 	}
 	function index()
 	{
@@ -49,7 +55,7 @@ class Webshop extends CI_Controller
 
 		// End Pagination Section
 
-		$data['title'] = 'DarkblowPB || Webshop';
+		$data['title'] = 'Webshop';
 		$data['popular'] = $this->webshop->getdata_webshop_mostpopular();
 		$data['start'] = $this->uri->segment(3);
 		$data['webshop'] = $this->webshop->getdata_webshop_limit($config['per_page'], $data['start']);
@@ -59,15 +65,46 @@ class Webshop extends CI_Controller
 
 	function details($id)
 	{
-		$data['title'] = 'DarkblowPB || Webshop Item Details';
+		$data['title'] = 'Webshop Item Details';
 		$data['detail'] = $this->webshop->GetWebshopDetails($id);
 		$data['related'] = $this->webshop->getdata_webshop_related();
 		$data['isi'] = 'main/content/webshop/content_webshopdetail';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
+	function do_login()
+	{
+		$response = array();
+		$this->form_validation->set_rules(
+			'username',
+			'Username',
+			'required',
+			array('required' => '%s Cannot Be Empty.')
+		);
+		$this->form_validation->set_rules(
+			'password',
+			'Password',
+			'required',
+			array('required' => '%s Cannot Be Empty.')
+		);
+		if ($this->form_validation->run())
+		{
+			$this->gm->FloatLoginValidation();
+		}
+		else
+		{
+			$this->form_validation->set_error_delimiters('', '');
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+			echo json_encode($response);
+		}
+	}
+
 	function do_buy()
 	{
+		$response = array();
+
 		$this->form_validation->set_rules(
 			'player_id',
 			'Player ID',
@@ -93,7 +130,11 @@ class Webshop extends CI_Controller
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
-			echo validation_errors();
+
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+			echo json_encode($response);
 		}
 	}
 }

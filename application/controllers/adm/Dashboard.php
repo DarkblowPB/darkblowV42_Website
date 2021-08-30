@@ -12,12 +12,13 @@ Class Dashboard extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/dashboard_model', 'dashboard_model');
     }
 
     function index()
     {
-        $data['title'] = 'DarkblowPB || Dashboard';
+        $data['title'] = 'Dashboard';
         $data['header'] = 'Dashboard';
 
         $data['registeredplayers'] = $this->dashboard_model->GetCountAllRegisteredPlayers();
@@ -34,15 +35,11 @@ Class Dashboard extends CI_Controller
 
     function logout()
     {
-        $data = array(
-            'login',
-            'player_name',
-            'rank',
-            'access_level'
-        );
+        $this->session->unset_userdata('admin_uid');
+        $this->session->unset_userdata('admin_name');
+        $this->session->unset_userdata('admin_access_level');
 
-        $this->session->unset_userdata($data);
-        echo "true";
+        redirect(base_url('adm/login'), 'refresh');
     }
 }
 

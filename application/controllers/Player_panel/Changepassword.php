@@ -20,7 +20,7 @@ class Changepassword extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Change Password';
+		$data['title'] = 'Change Password';
 		$data['isi'] = 'main/content/player_panel/content_changepassword';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

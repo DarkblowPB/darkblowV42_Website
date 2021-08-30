@@ -19,7 +19,7 @@ class Register extends CI_Controller
 	
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Register';
+		$data['title'] = 'Register';
 		$data['isi'] = 'main/content/register/content_register';
 		$this->load->view('main/layout/wrapper', $data, FALSE);	
 	}

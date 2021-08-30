@@ -18,7 +18,7 @@ Class Playersmanagement extends CI_Controller
     function index()
     {
         $data = array(
-            'title' => 'DarkblowPB || Players Management - All Players',
+            'title' => 'Players Management - All Players',
             'header' => 'All Players',
             'players' => $this->playersmanagement->GetAllPlayers(),
             'content' => 'admin/content/playersmanagement/content_allplayers'

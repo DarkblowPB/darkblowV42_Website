@@ -4,18 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $title ?></title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    <meta name="author" content="<?php echo $this->getsettings->Get2()->meta_author ?>">
+    <meta name="description" content="<?php echo $this->getsettings->Get2()->meta_description ?>">
+    <meta name="keywords" content="<?php echo $this->getsettings->Get2()->meta_keywords ?>" />
+    <title><?php echo $this->getsettings->Get2()->project_name.' || '.$title ?></title>
+    <!-- START: Styles -->
+
+    <!-- Icon -->
     <link rel="icon" type="image/png" href="<?php echo base_url() ?>assets/Darkblow-Logos.ico">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <!-- FontAwesome -->
     <script defer src="<?php echo base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/all.js"></script>
     <script defer src="<?php echo base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/goodgames/assets/vendor/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/goodgames/assets/css/goodgames.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/goodgames/assets/css/custom.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendor/ionicons/css/ionicons.min.css">
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/goodgames.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/custom.css">
+    <!-- END: Styles -->
+    <!-- jQuery -->
     <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
 </head>
 <body>

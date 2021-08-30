@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $title ?></title>
-        <meta name="keywords" content="Darkblow Pointblank, DarkblowPB, darkblowpb, pointblank private server, point blank private server" />
-        <meta name="description" content="Lastest Private Server Development On <?php echo date('Y') ?>, FPS Genre & Old Style, Updated UI, New Feature, And Much More. So, What are you waiting for? Lets Play immediately and Get Your Rewards!. BRING YOUR NOSTALGIC MOMENT BACK!">
-        <meta name="Author" content="Darkblow Studio <?php echo date('Y') ?>">
-        <link rel="icon" type="image/png" href="<?php echo base_url() ?>assets/Darkblow-Logos.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="<?php echo $this->getsettings->Get2()->meta_author ?>">
+        <meta name="description" content="<?php echo $this->getsettings->Get2()->meta_description ?>">
+        <meta name="keywords" content="<?php echo $this->getsettings->Get2()->meta_keywords ?>" />
+        <title><?php echo $this->getsettings->Get2()->project_name.' || '.$title ?></title>
         <!-- START: Styles -->
         
+        <!-- Icon -->
+        <link rel="icon" type="image/png" href="<?php echo base_url() ?>assets/goodgames/assets/images/settings/<?php echo $this->getsettings->Get2()->project_icon ?>">
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
         <!-- Bootstrap -->
@@ -28,34 +29,32 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/goodgames.css">
         <!-- Custom Styles -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/custom.css">
-        <!-- jQuery -->
-        <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.css">
-        <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
         <!-- SweetAlert2 -->
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/theme-dark/dark.css">
         <script src="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+        <!-- dataTable -->
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.css">
+        <!-- jQuery -->
+        <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
         <!-- END: Styles -->
     </head>
     <body>
         <header class="nk-header nk-header-opaque">
-            
-            
             <!-- START: Marquee -->
             <div class="nk-contacts-top">
-                <div class="container">
-                    <marquee style="font-weight: bold; font-style: italic; text-transform: uppercase;" class="text-main-5">
-                        Lastest Private Server Development On 2020, FPS Genre & Old Style, Updated UI, New Feature, And Much More. So, What are you waiting for? Lets Play immediately and Get Your Rewards! <span class="text-main-1">BRING YOUR NOSTALGIC MOMENT BACK!</span>
-                    </marquee>
-                </div>
+                <marquee style="font-weight: 900; text-transform: uppercase;" class="text-main-1">
+                <span>
+                    <?php echo $this->getsettings->Get2()->running_text ?>
+                </span>
+                </marquee>
             </div>
             <!-- END: Marquee -->
-            
             <!-- START: Navbar -->
             <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
             <div class="container">
                 <div class="nk-nav-table">
                     <a href="<?php echo base_url('home') ?>" class="nk-nav-logo">
-                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="DarkblowPB" width="199">
+                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/settings/<?php echo $this->getsettings->Get2()->project_logo ?>" alt="DarkblowPB" width="199">
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
                         <li class="<?php if($title == "DarkblowPB || Home"){echo 'active';}?>">
@@ -85,88 +84,125 @@
                                 Download
                             </a>
                         </li>
+                        <?php if ($this->getsettings->Get2()->webshop != 0 && $this->getsettings->Get2()->trade_market != 0) : ?>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
                             <a href="javascript:void(0)">FEATURED</a>
                             <ul class="dropdown">
-                                <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
-                                    <a href="<?php echo base_url('webshop') ?>">Webshop</a>
-                                </li>
-                                <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                                    <a href="<?php echo base_url('trade') ?>">Trade Market</a>
-                                </li>
+                                <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
                         </li>
-                        <?php
-                        if (isset($_SESSION['uid']) == "") 
-                        {   
-                        ?>
-                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register"){echo 'active';} ?>">
-                            <a href="javascript:void(0)">Login</a>
+                        <?php endif; ?>
+                        <?php if ($this->getsettings->Get2()->webshop == 1 && $this->getsettings->Get2()->trade_market == 0) : ?>
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                            <a href="javascript:void(0)">FEATURED</a>
                             <ul class="dropdown">
-                                <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('login') ?>">Login</a>
-                                </li>
-                                <li class="<?php if($this->uri->segment(1)== "register"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('register') ?>">Register</a>
-                                </li>
+                                <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
                         </li>
-                        <?php
-                        }
-                        else
-                        {
-                        ?>
-                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel"){echo 'active';} ?>">
-                            <a href="javascript:void(0)">
-                                User Area
-                            </a>
+                        <?php endif; ?>
+                        <?php if ($this->getsettings->Get2()->webshop == 0 && $this->getsettings->Get2()->trade_market == 1) : ?>
+                        <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                            <a href="javascript:void(0)">FEATURED</a>
                             <ul class="dropdown">
-                                <li class="<?php if($this->uri->segment(2)== "home"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('player_panel/home') ?>">
-                                        Player Panel
-                                    </a>
-                                </li>
-                                <?php
-                                if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) 
-                                {
-                                ?>
-                                    <li>
-                                        <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
-                                            Moderator Panel
+                                <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
+                                    <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
+                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <?php endif; ?>
+                        <?php
+                        if (empty($_SESSION['uid'])) :
+                            ?>
+                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register"){echo 'active';} ?>">
+                                <a href="javascript:void(0)">Login</a>
+                                <ul class="dropdown">
+                                    <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
+                                        <a href="<?php echo base_url('login') ?>">Login</a>
+                                    </li>
+                                    <li class="<?php if($this->uri->segment(1)== "register"){echo 'active';}?>">
+                                        <a href="<?php echo base_url('register') ?>">Register</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php
+                        endif;
+                        if (!empty($_SESSION['uid'])) :
+                            ?>
+                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel"){echo 'active';} ?>">
+                                <a href="javascript:void(0)">
+                                    User Area
+                                </a>
+                                <ul class="dropdown">
+                                    <li class="<?php if($this->uri->segment(2)== "home"){echo 'active';}?>">
+                                        <a href="<?php echo base_url('player_panel/home') ?>">
+                                            Player Panel
                                         </a>
                                     </li>
-                                <?php
-                                }
-                                ?>
-                                <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('player_panel/redeemcode') ?>">
-                                        Redeem Code
-                                    </a>
-                                </li>
-                                <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
-                                    <a href="<?php echo base_url('player_panel/exchange_ticket') ?>">
-                                        Exchange Ticket
-                                    </a>
-                                </li>
-                                <li class="<?php if($this->uri->segment(2)== "voucher"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('player_panel/voucher') ?>">
-                                        Voucher
-                                    </a>
-                                </li>
-                                <li class="<?php if($this->uri->segment(2)== "inventory"){echo 'active';}?>">
-                                    <a href="<?php echo base_url('player_panel/inventory') ?>">
-                                        Inventory
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url('home/logout') ?>">
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <?php 
-                        }
+                                    <?php if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) : ?>
+                                        <li>
+                                            <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
+                                                Moderator Panel
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
+                                        <a href="<?php echo base_url('player_panel/redeemcode') ?>">
+                                            Redeem Code
+                                        </a>
+                                    </li>
+                                    <?php if ($this->getsettings->Get2()->exchange_ticket == 1) : ?>
+                                        <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
+                                            <a href="<?php echo base_url('player_panel/exchange_ticket') ?>">
+                                                Exchange Ticket
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($this->getsettings->Get2()->voucher == 1) : ?>
+                                        <li class="<?php if($this->uri->segment(2)== "voucher"){echo 'active';}?>">
+                                            <a href="<?php echo base_url('player_panel/voucher') ?>">
+                                                Voucher
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="<?php if($this->uri->segment(2)== "inventory"){echo 'active';}?>">
+                                        <a href="<?php echo base_url('player_panel/inventory') ?>">
+                                            Inventory
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo base_url('home/logout') ?>">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php 
+                        endif;
                         ?>
                     </ul>
                     <ul class="nk-nav nk-nav-right nk-nav-icons">
@@ -190,7 +226,7 @@
     <div class="nano">
         <div class="nano-content">
             <a href="<?php echo base_url('home') ?>" class="nk-nav-logo">
-                <img src="<?php echo base_url() ?>assets/goodgames/assets/images/weblogo.png" alt="" width="120">
+                <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/settings/<?php echo $this->getsettings->Get2()->project_logo ?>" alt="" width="120">
             </a>
             <div class="nk-navbar-mobile-content">
                 <ul class="nk-nav">

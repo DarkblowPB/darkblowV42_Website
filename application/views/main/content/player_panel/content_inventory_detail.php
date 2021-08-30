@@ -1,7 +1,7 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap-2"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Details</span> Item : <?php echo $details->object_id ?></span></h3>
+		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Details</span> Item : <?php echo $this->inventory->GetItemRealName($details->item_id); ?></span></h3>
 		<div class="row vertical-gap">
 			<div class="col-lg-6 offset-lg-3">
 				<div class="nk-feature-2">
@@ -27,99 +27,106 @@
                         <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 							<tbody>
 								<tr>
-									<td>Unique ID</td>
-									<td><?php echo $details->object_id ?></td>
+									<td>Item Name</td>
+									<td><?php echo $this->inventory->GetItemRealName($details->item_id); ?></td>
 								</tr>
 								<tr>
-									<td>Item Name</td>
+									<td>Duration</td>
 									<td>
 										<?php
-										$get = $this->db->get_where('shop', array('item_id' => $details->item_id));
-										$result = $get->row();
-										if ($result)
+										$count = $details->count / 24 / 60 / 60;
+										if ($details->count == 1) 
 										{
-											echo $result->item_name;
+											echo "".$details->count." Unit";	
+										}
+										else if ($details->count <= 86399) 
+										{
+											echo "".$details->count." Units";
+										}
+										else if ($details->count == 86400)
+										{
+											echo "".$count." Day";
+										}
+										else if ($details->count <= 999993600)
+										{
+											echo "".$count." Days";
 										}
 										else 
 										{
-											echo "Null";
+											echo "NULL";
+										}
+										
+										?>
+									</td>
+								</tr>
+								<tr>
+									<td>Category</td>
+									<td>
+										<?php
+										switch ($this->inventory->GetItemCategory($details->item_id)) 
+										{
+											case '1':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Main</button>';
+													break;
+												}
+											case '2':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Character / Headgear</button>';
+													break;
+												}
+											case '3':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Items</button>';
+													break;
+												}
+											
+											default:
+												{
+													echo "Invalid";
+													break;
+												}
 										}
 										?>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>Duration</td>
-                        			<td>
-                        				<?php
-                        				$count = $details->count / 24 / 60 / 60;
-                        				if ($details->count == 1) 
-                        				{
-                        					echo "".$details->count." Unit";	
-                        				}
-				                    	else if ($details->count <= 86399) 
-		                    			{
-		                        			echo "".$details->count." Units";
-		                    			}
-		                    			else if ($details->count == 86400)
-		                    			{
-		                    				echo "".$count." Day";
-		                    			}
-		                    			else if ($details->count <= 999993600)
-		                    			{
-		                    				echo "".$count." Days";
-		                    			}
-		                    			else 
-		                    			{
-		                    				echo "NULL";
-		                    			}
-		                    			
-                        				?>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>Category</td>
-                        			<td>
-                        				<?php
-                        				if ($details->category == "1") 
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Main</button>';
-                        				}
-                        				else if ($details->category == "2") 
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Character / Headgear</button>';
-                        				}
-                        				else if ($details->category == "3")
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Items</button>';
-                        				}
-                        				?>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>Item Status</td>
-                        			<td>
-                        				<?php
-                        				if ($details->equip == "1") 
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">NOT USE</button>';
-                        				}
-                        				else if ($details->equip == "2") 
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">USED</button>';
-                        				}
-                        				else
-                        				{
-                        					echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Permanent</button>';
-                        				}
-                        				?>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td colspan="2">
-                        				<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="self.history.back()"><span class="fa fa-arrow-circle-left"></span> &nbsp;Go Back</button>
-                        			</td>
-                        		</tr>
-                        	</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>Item Status</td>
+									<td>
+										<?php
+										switch ($details->equip) 
+										{
+											case '1':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">NOT USE</button>';
+													break;
+												}
+											case '2':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">USED</button>';
+													break;
+												}
+											case '3':
+												{
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Permanent</button>';
+													break;
+												}
+											
+											default:
+												{
+													echo "Invalid";
+													break;
+												}
+										}
+										?>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" onclick="self.history.back()"><span class="fa fa-arrow-circle-left"></span> &nbsp;Go Back</button>
+									</td>
+								</tr>
+							</tbody>
                         </table>
                     </div>
                 </div>

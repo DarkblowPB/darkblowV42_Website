@@ -20,7 +20,7 @@ class Create_hint extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Create Hint';
+		$data['title'] = 'Create Hint';
 		$data['isi'] = 'main/content/player_panel/content_createhint';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

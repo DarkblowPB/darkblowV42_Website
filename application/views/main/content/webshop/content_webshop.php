@@ -1,6 +1,6 @@
 <div class="nk-main">
 	<div class="container">
-		<div class="nk-gap"></div>
+		<div class="nk-gap-2"></div>
 		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Most</span> Popular</span></h3>
 		<div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
             <div class="nk-carousel-inner">
@@ -128,7 +128,6 @@
         </div>
 		<?php endforeach; ?>
     </div>
-    <div class="nk-gap-3"></div>
     <div class="nk-gap-2"></div>
     <?php echo $this->pagination->create_links(); ?>
 	</div>

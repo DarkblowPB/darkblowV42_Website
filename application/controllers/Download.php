@@ -17,7 +17,7 @@ class Download extends CI_Controller
 	}
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Download';
+		$data['title'] = 'Download';
 		$data['client'] = $this->download->getdata_client();
 		$data['partial'] = $this->download->getdata_partialclient();
 		$data['launcher'] = $this->download->getdata_launcher();

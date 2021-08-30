@@ -16,10 +16,14 @@ Class Exchange_ticket extends CI_Controller
 		$this->allprotect->Web_Protection();
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
+        if ($this->getsettings->Get2()->exchange_ticket != 1)
+        {
+            redirect(base_url('home'), 'refresh');
+        }
     }
     function index()
     {
-        $data['title'] = 'DarkblowPB || Exchange Ticket';
+        $data['title'] = 'Exchange Ticket';
         $data['item_list'] = $this->exchangeticket->list_item();
         $data['ticket'] = $this->exchangeticket->get_ticket($_SESSION['uid'], '1301513000');
 

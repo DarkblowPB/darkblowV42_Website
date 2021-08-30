@@ -20,7 +20,7 @@ class Home extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Player Panels';
+		$data['title'] = 'Player Panels';
 		$data['account'] = $this->player->getdata_accountdetails();
 		$data['isi'] = 'main/content/player_panel/content_playerpanel';
 		$this->load->view('main/layout/wrapper', $data, FALSE);

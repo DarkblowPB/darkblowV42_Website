@@ -23,7 +23,7 @@ class Home extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Home';
+		$data['title'] = 'Home';
 		$data['account'] = $this->home->getdata_account();
 		$data['clan'] = $this->home->getdata_clan();
 		$data['allaccount'] = $this->home->getdata_allaccount();
@@ -42,6 +42,11 @@ class Home extends CI_Controller
 		
 		$this->session->set_flashdata('true', 'Successfully Logged Out.');
 		echo "<script>self.history.back();</script>";
+	}
+
+	function do_fetch()
+	{
+		$this->getsettings->Fetch();
 	}
 }
 

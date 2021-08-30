@@ -15,11 +15,16 @@ Class Voucher extends CI_Controller
 		$this->allprotect->Web_Protection();
         $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
+
+        if ($this->getsettings->Get2()->voucher != 1)
+        {
+            redirect(base_url('home'), 'refresh');
+        }
     }
 
     function index()
     {
-        $data['title'] = 'DarkblowPB || Voucher';
+        $data['title'] = 'Voucher';
         $data['isi'] = 'main/content/player_panel/content_voucher';
         $this->load->view('main/layout/wrapper', $data, FALSE);
     }

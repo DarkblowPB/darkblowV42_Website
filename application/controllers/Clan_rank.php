@@ -54,7 +54,7 @@ class Clan_rank extends CI_Controller
 
 		// Data Section
 			$data['start'] = $this->uri->segment(3);
-			$data['title'] = 'DarkblowPB - Player Ranks';
+			$data['title'] = 'Player Ranks';
 			$data['clan'] = $this->clanrank->getdata_clan_limit($config['per_page'],$data['start']);
 			$data['isi'] = 'main/content/clan_rank/content_clanrank';
 		// End Data Section

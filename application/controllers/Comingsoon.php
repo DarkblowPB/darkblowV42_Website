@@ -16,7 +16,7 @@ class Comingsoon extends CI_Controller
 	}
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Coming Soon';
+		$data['title'] = 'Coming Soon';
 		$this->load->view('main/content/coming_soon/content_comingsoon', $data, FALSE);
 	}
 

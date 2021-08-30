@@ -17,7 +17,7 @@ Class Changeemail extends CI_Controller
 
     function index()
     {
-        $data['title'] = 'DarkblowPB || Change Email';
+        $data['title'] = 'Change Email';
 
         $data['player'] = $this->changeemail->GetPlayerData();
 

@@ -23,14 +23,14 @@
                         <div class="nk-count h2 mb-0"><?php echo $allaccount ?></div>
                     </div>
                     <div class="nk-feature-cont text-center">
-                        <h3 class="nk-feature-title">Registered Accounts</h3>
+                        <h3 class="nk-feature-title">Registered Players</h3>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="nk-feature-2">
                     <div class="nk-feature-icon">
-                        <div class="h2 mb-0 text-success">ONLINE</div>
+                        <div id="server_status" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
                         <h3 class="nk-feature-title">SERVER STATUS</h3>
@@ -173,37 +173,39 @@
                 </div>
             </div>
         </div>
-        <?php if ($webshop != null) : ?>
-            <div class="nk-gap-3"></div>
-            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling Items</span></h3>
-            <div class="nk-gap"></div>
-            <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
-                <div class="nk-carousel-inner">
-                    <?php foreach ($webshop as $row) :?>
-                        <div>
-                            <div class="pl-5 pr-5">
-                                <div class="nk-product-cat-3">
-                                    <a class="nk-product-image" href="<?php echo base_url('webshop/details/'.$row['id']) ?>">
-                                        <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="<?php echo $row['webshop_itemname'] ?>">
-                                    </a>
-                                    <div class="nk-product-cont">
-                                        <div class="nk-gap-1"></div>
-                                        <h3 class="nk-product-title h5"><a href="<?php echo base_url('webshop/details/'.$row['id']) ?>"><?php echo $row['webshop_itemname'] ?></a></h3>
-                                        <div class="nk-gap-1"></div>
-                                        <div class="nk-product-price"><?php echo $row['webshop_itemprice_30days'] ?>&#8373;</div>
+        <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
+            <?php if ($webshop != null) : ?>
+                <div class="nk-gap-3"></div>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling Items</span></h3>
+                <div class="nk-gap"></div>
+                <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
+                    <div class="nk-carousel-inner">
+                        <?php foreach ($webshop as $row) :?>
+                            <div>
+                                <div class="pl-5 pr-5">
+                                    <div class="nk-product-cat-3">
+                                        <a class="nk-product-image" href="<?php echo base_url('webshop/details/'.$row['id']) ?>">
+                                            <img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="<?php echo $row['webshop_itemname'] ?>">
+                                        </a>
+                                        <div class="nk-product-cont">
+                                            <div class="nk-gap-1"></div>
+                                            <h3 class="nk-product-title h5"><a href="<?php echo base_url('webshop/details/'.$row['id']) ?>"><?php echo $row['webshop_itemname'] ?></a></h3>
+                                            <div class="nk-gap-1"></div>
+                                            <div class="nk-product-price"><?php echo $row['webshop_itemprice_30days'] ?>&#8373;</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="nk-gap-3"></div>
-            <div class="container">
-                <div class="row vertical-gap justify-content-center">
-                    <a href="javascript:void(0)" onclick="return alert('This Feature Not Available At This Moment.')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</a>
+                <div class="nk-gap-3"></div>
+                <div class="container">
+                    <div class="row vertical-gap justify-content-center">
+                        <a href="javascript:void(0)" onclick="return alert('This Feature Not Available At This Moment.')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</a>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php endif; ?>
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Discord</span> Server</span></h3>
@@ -215,4 +217,63 @@
         </div>
     </div>
 </div>
-</div>
+<script>
+    var Q = document.getElementById('server_status');
+    function GetCondition()
+    {
+        $(document).ready(function(){
+            $.ajax({
+                url : '<?php echo base_url('home/do_fetch') ?>',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {},
+                success: function(data){
+                    var GetString = JSON.stringify(data);
+                    var Result = JSON.parse(GetString);
+    
+                    if (Result.response == 'true'){
+                        if (Result.message == 'OFFLINE'){
+                            CSRF_TOKEN = Result.token;
+                            Q.setAttribute('class', 'h2 mb-0 text-main-1');
+                            SetText('OFFLINE');
+                            RefreshFetch();
+                        }
+                        else if (Result.message == 'ONLINE'){
+                            CSRF_TOKEN = Result.token;
+                            Q.setAttribute('class', 'h2 mb-0 text-main-3');
+                            SetText('ONLINE');
+                            RefreshFetch();
+                        }
+                        else{
+                            CSRF_TOKEN = Result.token;
+                            Q.setAttribute('class', 'h2 mb-0 text-main-1');
+                            SetText('OFFLINE');
+                            RefreshFetch();
+                        }
+                    }
+                },
+                error: function(){
+                    Q.setAttribute('class', 'h2 mb-0 text-main-1');
+                    SetText('OFFLINE');
+                    RefreshFetch();
+                }
+            });
+        });
+    }
+
+    function SetText(text)
+    {
+        $('#server_status').html('');
+
+        $('#server_status').html(text);
+    }
+
+    function RefreshFetch()
+    {
+        setTimeout(() => {
+            GetCondition();
+        }, 5000);
+    }
+
+    GetCondition();
+</script>

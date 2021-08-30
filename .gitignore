@@ -34,5 +34,8 @@ application/views/launcher
 assets/goodgames/assets/vendors/sweetalert2/theme-dark/package.json
 assets/goodgames/assets/vendors/sweetalert2/theme-dark/README.md
 package-lock.json
-application/controller/Get_launcherkey.php
-application/controller/Ip_req.php
+assets/goodgames/assets/images/avatar-1.jpg
+assets/goodgames/assets/images/avatar-2.jpg
+assets/goodgames/assets/images/avatar-3.jpg
+application/controllers/Get_launcherkey.php
+application/config/google.php

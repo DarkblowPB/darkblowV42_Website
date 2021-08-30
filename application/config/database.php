@@ -81,8 +81,8 @@ $db['default'] = array(
 	'database' => '',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
-	'pconnect' => true,
-	'db_debug' => (ENVIRONMENT !== 'production'),
+	'pconnect' => TRUE,
+	'db_debug' => TRUE,
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
@@ -92,6 +92,6 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => false,
+	'save_queries' => FALSE,
 	'port' => 5432
 );

@@ -19,11 +19,6 @@ class Webshop_model extends CI_Model
 	{
 		return $this->db->get_where('webshop', array('id' => $id))->row();
 	}
-
-	function getdata_webshop_detail($id)
-	{
-		return $this->db->where('id', $id)->get('webshop')->result_array();
-	}
 	
 	function getdata_webshop_in_row()
 	{
@@ -86,18 +81,24 @@ class Webshop_model extends CI_Model
 
 	function BuyItemV2()
 	{
+		sleep(3);
 		$data = array(
 			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
 			'item_id' => $this->encryption->encrypt($this->input->post('item_id')),
 			'item_price' => $this->encryption->encrypt($this->input->post('item_price'))
 		);
 
+		$response = array();
+
 		$query = $this->db->get_where('webshop', array('id' => $this->encryption->decrypt($data['item_id'])))->row();
 		if ($query)
 		{
 			if ($query->webshop_itemstatus != 1)
 			{
-				echo "false";
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Cannot Find This Webshop Item.';
+				echo json_encode($response);
 			}
 			else
 			{
@@ -107,7 +108,10 @@ class Webshop_model extends CI_Model
 				{
 					if ($fetch->kuyraicoin < $this->encryption->decrypt($data['item_price']))
 					{
-						echo "false2";
+						$response['response'] = 'false';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Your Webcoin Not Enough For Buying This Item.';
+						echo json_encode($response);
 					}
 					else
 					{
@@ -128,11 +132,17 @@ class Webshop_model extends CI_Model
 									$update2 = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 									if ($update && $update2)
 									{
-										echo "true";
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Bought This Item.';
+										echo json_encode($response);
 									}
 									else
 									{
-										echo "false";
+										$response['response'] = 'false';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Failed To Buy This Item.';
+										echo json_encode($response);
 									}
 								}
 								else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days")
@@ -145,11 +155,17 @@ class Webshop_model extends CI_Model
 									$update2 = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 									if ($update && $update2)
 									{
-										echo "true";
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Bought This Item.';
+										echo json_encode($response);
 									}
 									else
 									{
-										echo "false";
+										$response['response'] = 'false';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Failed To Buy This Item.';
+										echo json_encode($response);
 									}
 								}
 								else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days")
@@ -162,11 +178,17 @@ class Webshop_model extends CI_Model
 									$update2 = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 									if ($update && $update2)
 									{
-										echo "true";
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Bought This Item.';
+										echo json_encode($response);
 									}
 									else
 									{
-										echo "false";
+										$response['response'] = 'false';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Failed To Buy This Item.';
+										echo json_encode($response);
 									}
 								}
 								else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent")
@@ -179,16 +201,25 @@ class Webshop_model extends CI_Model
 									$update2 = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 									if ($update && $update2)
 									{
-										echo "true";
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Bought This Item.';
+										echo json_encode($response);
 									}
 									else
 									{
-										echo "false";
+										$response['response'] = 'false';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Failed To Buy This Item.';
+										echo json_encode($response);
 									}
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Invalid Item Duration. Do You Change It From Inspect Element?';
+									echo json_encode($response);
 								}
 							}
 							else if ($fetch2->equip == 2)
@@ -204,21 +235,33 @@ class Webshop_model extends CI_Model
 									$update2 = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 									if ($update && $update2)
 									{
-										echo "true";
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Bought This Item.';
+										echo json_encode($response);
 									}
 									else
 									{
-										echo "false";
+										$response['response'] = 'false';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Failed To Buy This Item.';
+										echo json_encode($response);
 									}
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'You Only Can Buy This Item With Permanent Duration.';
+									echo json_encode($response);
 								}
 							}
 							else if ($fetch2->equip == 3)
 							{
-								echo "false";
+								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'You Already Have This Item With Permanent Duration.';
+								echo json_encode($response);
 							}
 						}
 						else
@@ -232,11 +275,17 @@ class Webshop_model extends CI_Model
 								$update = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 								if ($insert && $update)
 								{
-									echo "true";
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Bought This Item.';
+									echo json_encode($response);
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Failed To Buy This Item.';
+									echo json_encode($response);
 								}
 							}
 							else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days")
@@ -248,11 +297,17 @@ class Webshop_model extends CI_Model
 								$update = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 								if ($insert && $update)
 								{
-									echo "true";
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Bought This Item.';
+									echo json_encode($response);
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Failed To Buy This Item.';
+									echo json_encode($response);
 								}
 							}
 							else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days")
@@ -264,11 +319,17 @@ class Webshop_model extends CI_Model
 								$update = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 								if ($insert && $update)
 								{
-									echo "true";
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Bought This Item.';
+									echo json_encode($response);
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Failed To Buy This Item.';
+									echo json_encode($response);
 								}
 							}
 							else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent")
@@ -280,29 +341,44 @@ class Webshop_model extends CI_Model
 								$update = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('kuyraicoin' => $totalwebcoin));
 								if ($insert && $update)
 								{
-									echo "true";
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Bought This Item.';
+									echo json_encode($response);
 								}
 								else
 								{
-									echo "false";
+									$response['response'] = 'false';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Failed To Buy This Item.';
+									echo json_encode($response);
 								}
 							}
 							else
 							{
-								echo "false";
+								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Invalid Item Duration. Do You Change It From Inspect Element?';
+								echo json_encode($response);
 							}
 						}
 					}
 				}
 				else
 				{
-					echo "false";
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Invalid Account. Do You Execute This From Another Method? Like Postman? Or Anything Else?';
+					echo json_encode($response);
 				}
 			}
 		}
 		else
 		{
-			echo "false";
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Cannot Find This Webshop Item.';
+			echo json_encode($response);
 		}
 	}
 }

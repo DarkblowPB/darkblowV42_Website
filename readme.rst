@@ -36,7 +36,7 @@ New Update V1.2:
 
 New Update V1.3:
 
-	- Re-Create New Admin Site (10%)
+	- Re-Create New Admin Site (15%)
 	- Adding Trade Feature (80%)
 	- Adding Exchange Items Feature
 	- Adding Voucher Feature
@@ -44,7 +44,9 @@ New Update V1.3:
 	- Complexing Validation Method
 	- Supporting Encryption During POST Data
 	- Adding New Email Verification
-	- Transform Basic Function To Ajax To Get Realtime Data (90%)
+	- Transform Basic Function To Ajax To Get Realtime Data
+	- Transform Basic Ajax Result To JSON Result
+	- Add General Settings To Admin Site (Feature, Website Title, Etc.)
 	- Improving Function
 	- Clean Up The Code
 	- Fixing Minor Bug When Execute Some Function

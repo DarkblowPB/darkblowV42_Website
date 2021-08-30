@@ -53,7 +53,7 @@ class Inventory extends CI_Controller
 		if (!empty($_GET['idx']))
 		{
 			$data['title'] = 'DarkblowPB || Details Item';
-			$data['details'] = $this->inventory->detail($_GET['idx']);
+			$data['details'] = $this->inventory->GetItemRealName2($_GET['idx']);
 			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 			$this->load->view('main/layout/wrapper', $data, FALSE);
 		}

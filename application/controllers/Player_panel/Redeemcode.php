@@ -19,7 +19,7 @@ class Redeemcode extends CI_Controller
 	
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Redeem Code';
+		$data['title'] = 'Redeem Code';
 		$data['isi'] = 'main/content/player_panel/content_redeemcode';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

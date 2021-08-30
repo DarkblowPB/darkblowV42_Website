@@ -20,7 +20,7 @@
                                                 </div>
                                                 <div class="nk-gap"></div>
                                                 <div class="form-group text-center">
-                                                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary nk-btn-md" value="Login">
+                                                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary nk-btn-md" value="Login">
                                                 </div>
                                                 <?php echo form_close(); ?>
                                                 <div class="form-group text-center">
@@ -31,7 +31,7 @@
                                                 </div>
                                                 <?php echo form_close() ?>
                                                 <script>
-                                                        var GetMessageElement = document.getElementById('msg');
+                                                        var CSRF_TOKEN = '';
                                                         $(document).ready(function(){
                                                                 $('#login_form').on('submit', function(e){
                                                                         e.preventDefault();
@@ -41,47 +41,72 @@
                                                                         }
                                                                         else if ($('#password').val() == ""){
                                                                                 ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
-                                                                                return;
                                                                         }
                                                                         else{
+                                                                                if (CSRF_TOKEN == ''){
+                                                                                        CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                                                                }
+
+                                                                                SetSubmitButton('false');
+
                                                                                 $.ajax({
                                                                                         url: '<?php echo base_url('login/do_login') ?>',
                                                                                         type: 'POST',
+                                                                                        dataType: 'JSON',
                                                                                         data: {
-                                                                                                '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                                                                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                                                                                 'username' : $('#username').val(),
                                                                                                 'password' : $('#password').val()
                                                                                         },
                                                                                         success: function(data){
-                                                                                                if (data == "true"){
-                                                                                                        ShowToast(1500, 'success', 'Successfully Logged In. Please Wait...');
+                                                                                                var GetString = JSON.stringify(data);
+                                                                                                var Result = JSON.parse(GetString);
+
+                                                                                                if (Result.response == 'true'){
+                                                                                                        SetSubmitButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'success', Result.message);
                                                                                                         setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('home') ?>';
+                                                                                                                window.location = '<?php echo base_url('player_panel/home') ?>';
                                                                                                         }, 2000);
                                                                                                 }
-                                                                                                else if (data == "false"){
-                                                                                                        ShowToast(1500, 'error', 'Invalid Username Or Password. Please Try Again.');
-                                                                                                        setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('login') ?>';
-                                                                                                        }, 2000);
+                                                                                                else if (Result.response == 'false'){
+                                                                                                        SetSubmitButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'error', Result.message);
+                                                                                                        return;
                                                                                                 }
                                                                                                 else{
-                                                                                                        ShowToast(3000, 'error', data);
-                                                                                                        setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('login') ?>';
-                                                                                                        }, 3500);
+                                                                                                        SetSubmitButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'error', Result.message);
+                                                                                                        return;
                                                                                                 }
                                                                                         },
                                                                                         error: function(data){
-                                                                                                ShowToast(2000, 'error', data);
-                                                                                                setInterval(() => {
-                                                                                                        window.location = '<?php echo base_url('login') ?>';
-                                                                                                }, 2500);
+                                                                                                SetSubmitButton('true');
+                                                                                                ShowToast(2000, 'error', data.responseText);
+                                                                                                setTimeout(() => {
+                                                                                                        window.location.reload();
+                                                                                                }, 2000);
                                                                                         }
                                                                                 });
                                                                         }
                                                                 });
                                                         });
+
+                                                        function SetSubmitButton(param)
+                                                        {
+                                                                var GetSubmitButton = document.getElementById('submit');
+                                                                if (param == 'true'){
+                                                                        GetSubmitButton.setAttribute('type', 'submit');
+                                                                        GetSubmitButton.setAttribute('value', 'Login');
+                                                                }
+                                                                if (param == 'false'){
+                                                                        GetSubmitButton.setAttribute('type', 'button');
+                                                                        GetSubmitButton.setAttribute('value', 'Processing...');
+                                                                }
+                                                        }
                                                 </script>
                                         </div>
                                 </div>

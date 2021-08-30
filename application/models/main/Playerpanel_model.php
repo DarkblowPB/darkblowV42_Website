@@ -22,14 +22,20 @@ class Playerpanel_model extends CI_Model
 
 	function RequestHint()
 	{
+		$response = array();
+
 		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
 		if ($query)
 		{
-			echo $query->hint_answer;
+			$response['response'] = 'true';
+			$response['message'] = 'Your Hint : '.$query->hint_answer;
+			echo json_encode($response);
 		}
 		else
 		{
-			echo "";
+			$response['response'] = 'false';
+			$response['message'] = 'Failed To Get Your Hint.';
+			echo json_encode($response);
 		}
 	}
 }

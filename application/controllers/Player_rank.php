@@ -51,7 +51,7 @@ class Player_rank extends CI_Controller {
 
 		// Data Section
 			$data['start'] = $this->uri->segment(3);
-			$data['title'] = 'DarkblowPB - Player Ranks';
+			$data['title'] = 'Player Ranks';
 			$data['account'] = $this->playerrank->getdata_account_limit($config['per_page'],$data['start']);
 			$data['isi'] = 'main/content/player_rank/content_playerrank';
 		// End Data Section

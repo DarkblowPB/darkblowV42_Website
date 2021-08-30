@@ -4,22 +4,6 @@
           <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Player</span> Panels</span></h3>
           <div class="nk-gap-2"></div>
           <div class="row vertical-gap">
-               <div class="col-lg-12">
-                    <?php
-                    if ($this->session->flashdata('error'))
-                    {
-                         echo "<div class='nk-info-box text-danger'><div class='nk-info-box-icon'><i class='ion-close-round'></i></div><h3>Error!</h3><em>";
-                         echo $this->session->flashdata('error');
-                         echo "</em></div>";
-                    }
-                    else if ($this->session->flashdata('success'))
-                    {
-                         echo "<div class='nk-info-box text-success'><div class='nk-info-box-icon'><i class='ion-checkmark-round'></i></div><h3>Success!</h3><em>";
-                         echo $this->session->flashdata('success');
-                         echo "</em></div>";
-                    }
-                    ?>
-               </div>
 			<div class="col-lg-6">
                     <div class="nk-feature-2">
                          <div class="nk-feature-icon" style="margin-bottom: -8px;">
@@ -215,40 +199,42 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <button type="button" onclick="ShowHint()" class="nk-btn nk-btn-md nk-btn-rounded nk-btn-outline nk-btn-color-main-5">Request To See Hint</button>
+                                                  <?php echo form_open('', 'id="requesthint_form"') ?>
+                                                       <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint">
+                                                  <?php echo form_close() ?>
                                                   <script>
-                                                       function ShowHint()
-                                                       {
-                                                            $.ajax({
-                                                                 url: '<?php echo base_url('player_panel/home/do_requesthint') ?>',
-                                                                 type: 'POST',
-                                                                 data: {
-                                                                      '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
-                                                                      'player_id' : '<?php echo $_SESSION['uid'] ?>'
-                                                                 },
-                                                                 success: function(data){
-                                                                      if (data != ""){
-                                                                           ShowToast(4000, 'success', 'This Is Your Hint: ' + data + '.');
-                                                                           setTimeout(() => {
-                                                                                window.location = '<?php echo base_url('player_panel') ?>';
-                                                                           }, 4500);
+                                                       $(document).ready(function(){
+                                                            $('#requesthint_form').on('submit', function(e){
+                                                                 e.preventDefault();
+                                                                 $.ajax({
+                                                                      url : '<?php echo base_url('player_panel/home/do_requesthint') ?>',
+                                                                      type: 'GET',
+                                                                      dataType: 'JSON',
+                                                                      data: {},
+                                                                      success: function(data){
+                                                                           var GetString = JSON.stringify(data);
+                                                                           var Result = JSON.parse(GetString);
+
+                                                                           if (Result.response == 'true'){
+                                                                                ShowToast(3000, 'info', Result.message);
+                                                                                return;
+                                                                           }
+                                                                           else if (Result.response == 'false'){
+                                                                                ShowToast(3000, 'error', Result.message);
+                                                                                return;
+                                                                           }
+                                                                           else{
+                                                                                ShowToast(2000, 'error', Result.message);
+                                                                                return;
+                                                                           }
+                                                                      },
+                                                                      error: function(data){
+                                                                           ShowToast(2000, 'error', data.responseText);
+                                                                           return;
                                                                       }
-                                                                      else
-                                                                      {
-                                                                           ShowToast(4000, 'error', 'Error Request Hint.');
-                                                                           setTimeout(() => {
-                                                                                window.location = '<?php echo base_url('player_panel') ?>';
-                                                                           }, 4500);
-                                                                      }
-                                                                 },
-                                                                 error: function(data){
-                                                                      ShowToast(2000, 'error', data);
-                                                                      setTimeout(() => {
-                                                                           window.location = '<?php echo base_url('player_panel') ?>';
-                                                                      }, 2500);
-                                                                 }
+                                                                 });
                                                             });
-                                                       }
+                                                       });
                                                   </script>
                                              <?php
                                              }

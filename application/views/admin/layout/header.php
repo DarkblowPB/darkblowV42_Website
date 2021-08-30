@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo $title ?></title>
+  <title><?php echo $this->getsettings->Get2()->project_name.' || '.$title ?></title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -29,8 +29,25 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- jQuery -->
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/theme-dark/dark.css">
+  <script src="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+  <!-- jQuery -->  
   <script src="<?php echo base_url() ?>assets/admin/plugins/jquery/jquery.min.js"></script>
+  <!-- Custam Script -->
+  <script>
+    function ShowToast(timer, type, title){
+      Swal.fire({
+          toast: true,
+          timer: timer,
+          position: 'top-end',
+          timerProgressBar: true,
+          icon: type,
+          title: title,
+          showConfirmButton: false
+      });
+    }
+  </script>
 </head>
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -45,24 +62,19 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="javascript:void(0)" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)">
           <i class="far fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right text-center">
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-cog mr-2"></i> Settings
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-sign-out-alt mr-2"></i> Logout
-          </a>
+          <a href="javascript:void(0)" class="dropdown-item">Settings</a>
+          <a href="<?php echo base_url('adm/dashboard/logout') ?>" class="dropdown-item">Logout</a>
         </div>
       </li>
     </ul>
@@ -85,7 +97,7 @@
           <img src="<?php echo base_url() ?>assets/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"></a>
+          <a href="#" class="d-block"><?php echo $_SESSION['admin_name'] ?></a>
         </div>
       </div>
 
@@ -94,12 +106,35 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">All Menu</li>
           <li class="nav-item">
-            <a href="<?php echo base_url('adm/dashboard') ?>" class="nav-link <?php if ($title == "DarkblowPB || Dashboard"){echo "active";} ?>">
+            <a href="<?php base_url('adm/dashboard') ?>" class="nav-link <?php if ($title == "DarkblowPB || Dashboard"){echo "active";} ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php base_url('adm/dashboard') ?>" class="nav-link <?php if ($title == "DarkblowPB || Settings"){echo "active";} ?>">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('adm/settings/generalsettings') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  General Settings
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('adm/settings/featuresettings') ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  Feature Settings
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link">
@@ -160,4 +195,4 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section id="content" class="content">

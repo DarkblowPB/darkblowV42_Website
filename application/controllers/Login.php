@@ -19,14 +19,15 @@ class Login extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = 'DarkblowPB || Login';
+		$data['title'] = 'Login';
 		$data['isi'] = 'main/content/login/content_login';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
 	function do_login()
 	{
-		$this->form_validation->set_error_delimiters('', '');
+		$response = array();
+
 		$this->form_validation->set_rules(
 			'username',
 			'Username',
@@ -51,11 +52,15 @@ class Login extends CI_Controller
 		);
 		if ($this->form_validation->run() == FALSE)
 		{
-			echo validation_errors();
+			$this->form_validation->set_error_delimiters('', '');
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+			echo json_encode($response);
 		}
 		else
 		{
-			$this->login->auth_login();
+			$this->login->LoginValidationV2();
 		}
 	}
 

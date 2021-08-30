@@ -17,7 +17,7 @@ class NotFound extends CI_Controller
 
 	function index()
 	{
-		$data['title'] = '404 - Not Found';
+		$data['title'] = 'Not Found';
 		$this->load->view('main/content/error/content_error', $data, FALSE);
 	}
 

@@ -5,7 +5,7 @@
         <div class="row vertical-gap mt-10 justify-content-center">
             <div class="container">
                 <div class="nk-copyright-left">
-                    Copyright &copy; <a href="<?php echo base_url('home') ?>">DarkblowPB </a><?php echo date('Y'); ?>
+                    Copyright &copy; <a href="<?php echo base_url('home') ?>"><?php echo $this->getsettings->Get2()->project_name ?> </a> 2020 - <?php echo date('Y'); ?>. All Rights Reserved.
                 </div>
             </div>
         </div>
@@ -27,7 +27,6 @@
 <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Sticky Kit -->
 <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-<!-- Jarallax -->
 <!-- imagesLoaded -->
 <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <!-- Flickity -->

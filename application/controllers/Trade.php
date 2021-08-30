@@ -13,11 +13,16 @@ Class Trade extends CI_Controller
     {
         parent::__construct();
         $this->load->model('main/trade_model', 'trade');
+
+        if ($this->getsettings->Get2()->trade_market != 1)
+        {
+            redirect(base_url('home'), 'refresh');
+        }
     }
 
     function index()
     {
-        $data['title'] = 'DarkblowPB || Trade Market';
+        $data['title'] = 'Trade Market';
 
         $data['items'] = $this->trade->GetAllItems();
 
@@ -28,7 +33,7 @@ Class Trade extends CI_Controller
     function addpost()
     {
 		$this->main_protect->mainProtectA();
-        $data['title'] = 'DarkblowPB || Post New Items';
+        $data['title'] = 'Post New Items';
 
         $data['items'] = $this->trade->GetPlayerInventoryItems();
 

@@ -383,7 +383,7 @@ $config['sess_expiration'] = 900;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
-$config['sess_regenerate_destroy'] = FALSE;
+$config['sess_regenerate_destroy'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -453,7 +453,7 @@ $config['csrf_token_name'] = 'eyetracker_protection';
 $config['csrf_cookie_name'] = 'eyetracker_cookies';
 $config['csrf_expire'] = 1800;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('home/launcher_redeemcode_verify');
+$config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images');
 
 /*
 |--------------------------------------------------------------------------

@@ -24,7 +24,28 @@ class AllProtect
         if ($result) 
         {
             echo "<script>alert('You Doesnt Allowed To Visit This Website. Thanks For Your Attention.');</script>";
-            system('shutdown -s -t 5');
+            return;
+        }
+    }
+
+    public function ComingSoon_Protection()
+    {
+        
+    }
+
+    public function AdminLogin_Protection()
+    {
+        if (!empty($_SESSION['admin_uid']))
+        {
+            redirect(base_url('adm/dashboard'), 'refresh');
+        }
+    }
+
+    public function AdminDashboard_Protection()
+    {
+        if (empty($_SESSION['admin_uid']))
+        {
+            redirect(base_url('adm/login'), 'refresh');
         }
     }
 }
