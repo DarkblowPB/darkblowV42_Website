@@ -16,6 +16,25 @@ class AllProtect
         $this->ci =& get_instance();
         $this->ci->load->database();
     }
+    
+    /**
+     * Model Protection
+     * 
+     * This Function Is Protector For Model
+     * Return Error Message If Session Is Empty.
+     */
+    public function Model_Protection()
+    {
+        $response = array();
+        
+        if (empty($_SESSION['uid']))
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->ci->security->get_csrf_hash();
+            $response['message'] = 'You Cannot Force Execute Function To Database.';
+            echo json_encode($response);
+        }
+    }
 
     public function Web_Protection()
     {
