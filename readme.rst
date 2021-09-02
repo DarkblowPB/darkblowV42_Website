@@ -27,29 +27,29 @@ New Update V1.1:
 
 New Update V1.2:
 
-	- Deleting Report Function (Deprecated)
+	- Add New Encryption Function
 	- Clean Up Function Code
-	- Adding New Encryption Function
-	- News Menu Changed To Slider
+	- Deleting Report Function (Deprecated)
 	- Logger System Adapted To Primary Web
+	- News Menu Changed To Slider
 
 
 New Update V1.3:
 
-	- Re-Create New Admin Site (20%)
-	- Adding Trade Feature (80%)
-	- Adding Exchange Items Feature
-	- Adding Voucher Feature
-	- Adding New API For New PBLauncher (Not Included On Public Release)
-	- Complexing Validation Method
-	- Supporting Encryption During POST Data
-	- Adding New Email Verification
-	- Transform Basic Function To Ajax To Get Realtime Data
-	- Transform Basic Ajax Result To JSON Result
-	- Add General Settings To Admin Site (Feature, Website Title, Etc.)
-	- Add Feature Settings To Admin Site
-	- Improve Function
+	- Add Exchange Items Feature
+	- Add Feature Settings
+	- Add General Settings
+	- Add Maintenance Page
+	- Add New API For New PBLauncher (Not Included On Public Release)
+	- Add New Email Verification
+	- Add POST Request Encryption
+	- Add Trade Feature (80%)
+	- Add Voucher Feature
 	- Clean Up Code
+	- Improve Function
+	- Transform Basic Ajax Result To JSON Result
+	- Transform Basic Function To Ajax To Get Realtime Data
+	- Reconstruct New Admin Site (25%)
 
 *******************
 Server Requirements
