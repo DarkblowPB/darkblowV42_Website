@@ -22,7 +22,7 @@ New Update V1.1:
 
 	- Released
 	- Complex Validation Added To Create Hardest Web Security
-	- Logger System For Detect All Action In Moderator Panel (Deprecated & Under The Construction)
+	- Logger System For Detect All Action In Moderator Panel (Deprecated & Under The Reconstruction)
 
 
 New Update V1.2:
@@ -36,7 +36,7 @@ New Update V1.2:
 
 New Update V1.3:
 
-	- Re-Create New Admin Site (15%)
+	- Re-Create New Admin Site (20%)
 	- Adding Trade Feature (80%)
 	- Adding Exchange Items Feature
 	- Adding Voucher Feature
@@ -47,9 +47,9 @@ New Update V1.3:
 	- Transform Basic Function To Ajax To Get Realtime Data
 	- Transform Basic Ajax Result To JSON Result
 	- Add General Settings To Admin Site (Feature, Website Title, Etc.)
-	- Improving Function
-	- Clean Up The Code
-	- Fixing Minor Bug When Execute Some Function
+	- Add Feature Settings To Admin Site
+	- Improve Function
+	- Clean Up Code
 
 *******************
 Server Requirements
