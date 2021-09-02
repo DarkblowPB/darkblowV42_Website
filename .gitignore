@@ -39,3 +39,4 @@ assets/goodgames/assets/images/avatar-2.jpg
 assets/goodgames/assets/images/avatar-3.jpg
 application/controllers/Get_launcherkey.php
 application/config/google.php
+application/controllers/Encrypt.php
