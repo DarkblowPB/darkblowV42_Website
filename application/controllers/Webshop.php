@@ -14,6 +14,7 @@ class Webshop extends CI_Controller
 	{
 		parent::__construct();
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
 		$this->load->library('pagination');
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->model('globalmodel', 'gm');

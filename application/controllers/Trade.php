@@ -12,6 +12,8 @@ Class Trade extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
         $this->load->model('main/trade_model', 'trade');
 
         if ($this->getsettings->Get2()->trade_market != 1)

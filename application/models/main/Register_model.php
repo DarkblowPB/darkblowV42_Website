@@ -14,7 +14,6 @@ class Register_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('lib');
-		$this->load->library('encryption');
 	}
 
 	function SendEmailVerification($email)
@@ -49,130 +48,129 @@ class Register_model extends CI_Model
 		}
 	}
 
-	function IsRegisterEventActive()
+	function CheckUsername($username)
 	{
-		$query = $this->db->get_where('events_register', array('id' => '1'))->row();
-		if ($query)
-		{
-			if ($query->is_active == "t")
-			{
-				return true;
-			}
-			if ($query->is_active == "f")
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
+		$response = array();
 
-	function IsUniqueUsername($username)
-	{
 		$query = $this->db->get_where('accounts', array('login' => $username))->row();
 		if ($query)
 		{
-			return "false";
+			$response['response'] = 'false';
+			$response['message'] = 'This Username Already Registered';
+			echo json_encode($response);
 		}
 		else
 		{
-			return "true";
+			$response['response'] = 'true';
+			$response['message'] = 'Username Available.';
+			echo json_encode($response);
 		}
 	}
 
-	function RegisterValidationV2()
+	function RegisterValidationV3()
 	{
+		$response = array();
+
 		$data = array(
-			'login' => $this->encryption->encrypt($this->input->post('login')),
-			'email' => $this->encryption->encrypt($this->input->post('email')),
-			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password'))),
-			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('confirm_password'))),
-			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question')),
-			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
+			'login' => $this->encryption->encrypt($this->input->post('login', true)),
+			'email' => $this->encryption->encrypt($this->input->post('email', true)),
+			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true))),
+			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('re_password', true))),
+			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
+			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
 		);
-		
-		if ($this->encryption->decrypt($data['login']) != "")
+
+		// Check Register Events.
+		$query = $this->db->get_where('events_register', array('id' => '1'))->row();
+		if ($query)
 		{
-			if ($this->IsUniqueUsername($this->encryption->decrypt($data['login'])))
+			// Trigger When Register Events In Active State.
+			if ($query->is_active == 1)
 			{
-				// If Register Event Active
-				if ($this->IsRegisterEventActive())
+				$query2 = $this->db->insert('accounts', array(
+					'login' => $this->encryption->decrypt($data['login']),
+					'email' => $this->encryption->decrypt($data['email']),
+					'password' => $this->encryption->decrypt($data['password']),
+					'hint_question' => $this->encryption->decrypt($data['hint_question']),
+					'hint_answer' => $this->encryption->decrypt($data['hint_answer'])
+				), true);
+				if ($query2)
 				{
-					// Get Event Data
-					$get = $this->db->get_where('events_register', array('id' => '1'))->row();
-					// Insert New Account
-					$insert = $this->db->insert('accounts', array(
-						'login' => $this->encryption->decrypt($data['login']),
-						'email' => $this->encryption->decrypt($data['email']),
-						'password' => $this->encryption->decrypt($data['password']),
-						'hint_question' => $this->encryption->decrypt($data['hint_question']),
-						'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-						'date_registered' => date('d-m-Y h:i:s'),
-						'email_verification' => '0'
-					));
-					if ($insert)
+					// Get Registered Accounts.
+					$query3 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
+					if ($query3)
 					{
-						// Get New Account Data
-						$get2 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login'])))->row();
-						// Insert Items
-						$insert2 = $this->db->insert('player_items', array('owner_id' => $get2->player_id, 'item_id' => $get->item_id, 'item_name' => $get->item_name, 'count' => $get->item_count, 'category' => $get->item_category, 'equip' => '1'));
-						if ($insert2)
+						// Insert Register Events Reward To Player Inventory.
+						$query4 = $this->db->insert('player_items', array(
+							'owner_id' => $query3->player_id,
+							'item_id' => $query->item_id,
+							'item_name' => $query->item_name,
+							'count' => $query->item_count,
+							'category' => $query->item_category,
+							'equip' => '1'
+						));
+						if ($query4)
 						{
-							echo "true";
+							$response['response'] = 'true';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+							echo json_encode($response);
 						}
 						else
 						{
-							echo "false";
+							$response['response'] = 'true';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered (2). Please Check Your Email For Activated Your Account.';
+							echo json_encode($response);
 						}
 					}
 					else
 					{
-						echo "false";
+						$response['response'] = 'true';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Successfully Registered (3). Please Check Your Email For Activated Your Account.';
+						echo json_encode($response);
 					}
 				}
 				else
 				{
-					// Insert New Account
-					$insert = $this->db->insert('accounts', array(
-						'login' => $this->encryption->decrypt($data['login']),
-						'email' => $this->encryption->decrypt($data['email']),
-						'password' => $this->encryption->decrypt($data['password']),
-						'hint_question' => $this->encryption->decrypt($data['hint_question']),
-						'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-						'date_registered' => date('d-m-Y h:i:s'),
-						'email_verification' => '0'
-					));
-					if ($insert)
-					{
-						// Comment Code Below To Activated The Email
-						// if ($this->SendEmailVerification($this->encryption->decrypt($data['email'])))
-						// {
-						// 	echo "true";
-						// }
-						// else
-						// {
-						// 	echo "false";
-						// }
-
-						// Default | Comment Code Below If You Activated The Email
-						echo "true";
-					}
-					else
-					{
-						echo "false";
-					}
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Failed To Register Your Account.';
+					echo json_encode($response);
 				}
 			}
 			else
 			{
-				echo "false";
+				$query2 = $this->db->insert('accounts', array(
+					'login' => $this->encryption->decrypt($data['login']),
+					'email' => $this->encryption->decrypt($data['email']),
+					'password' => $this->encryption->decrypt($data['password']),
+					'hint_question' => $this->encryption->decrypt($data['hint_question']),
+					'hint_answer' => $this->encryption->decrypt($data['hint_answer'])
+				), true);
+				if ($query2)
+				{
+					$response['response'] = 'true';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+					echo json_encode($response);
+				}
+				else
+				{
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Failed To Register Your Account.';
+					echo json_encode($response);
+				}
 			}
 		}
 		else
 		{
-			echo "KOE NGENTOT";
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Failed To Get Register Events.';
+			echo json_encode($response);
 		}
 	}
 }

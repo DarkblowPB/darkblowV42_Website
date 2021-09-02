@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
@@ -51,11 +52,6 @@
 </head>
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?php echo base_url() ?>assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
@@ -104,9 +100,9 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">All Menu</li>
+          <li class="nav-header">General Menu</li>
           <li class="nav-item">
-            <a href="<?php base_url('adm/dashboard') ?>" class="nav-link <?php if ($title == "DarkblowPB || Dashboard"){echo "active";} ?>">
+            <a href="<?php echo base_url('adm/dashboard') ?>" class="nav-link <?php if ($this->uri->segment(2) == "dashboard"){echo "active";} ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -114,7 +110,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php base_url('adm/dashboard') ?>" class="nav-link <?php if ($title == "DarkblowPB || Settings"){echo "active";} ?>">
+            <a href="<?php echo base_url('adm/clientlaunchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "clientlaunchermanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-download"></i>
+              <p>
+                Client & Launcher Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item <?php if ($this->uri->segment(2) == "settings"){echo 'menu-open';} ?>">
+            <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "settings"){echo "active";} ?>">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Settings
@@ -123,22 +127,23 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url('adm/settings/generalsettings') ?>" class="nav-link">
+                <a href="<?php echo base_url('adm/settings/generalsettings') ?>" class="nav-link <?php if ($title == 'General Settings'){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   General Settings
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url('adm/settings/featuresettings') ?>" class="nav-link">
+                <a href="<?php echo base_url('adm/settings/featuresettings') ?>" class="nav-link <?php if ($title == 'Feature Settings'){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   Feature Settings
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+          <li class="nav-header">Ingame Menu</li>
+          <li class="nav-item <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'menu-open';} ?>">
+            <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'active';} ?>">
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Players Management
                 <i class="fas fa-angle-left right"></i>
@@ -146,21 +151,74 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="<?php echo base_url('adm/playersmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement" && $this->uri->segment(3) == "details" || $title == "All Players"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Players</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="<?php echo base_url('adm/playersmanagement/createcustomplayer') ?>" class="nav-link <?php if ($title == "Create Custom Player"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Banned List</p>
+                  <p>Create Custom Player</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item <?php if ($this->uri->segment(2) == "eventsmanagement"){echo 'menu-open';} ?>">
+            <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "eventsmanagement"){echo 'active';} ?>">
+              <i class="nav-icon fas fa-calendar-check"></i>
+              <p>
+                Events Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('adm/eventsmanagement/login') ?>" class="nav-link <?php if ($this->uri->segment(3) == "login"){echo 'active';} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Login Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available Now.')">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Map Bonus Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('adm/eventsmanagement/playtime') ?>" class="nav-link <?php if ($this->uri->segment(3) == "playtime"){echo 'active';} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Playtime Events</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="javascript:void(0)" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Web Activity</p>
+                  <p>Quest Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Rankup Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Register Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Visit Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xmas Events</p>
                 </a>
               </li>
             </ul>

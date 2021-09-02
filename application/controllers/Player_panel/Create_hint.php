@@ -12,10 +12,11 @@ class Create_hint extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
 		$this->main_protect->mainProtectA();
 		$this->main_protect->mainProtectC();
 		$this->load->model('main/createhint_model', 'hint');
-		$this->allprotect->Web_Protection();
 	}
 
 	function index()

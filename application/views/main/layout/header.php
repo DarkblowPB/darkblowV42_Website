@@ -54,10 +54,10 @@
             <div class="container">
                 <div class="nk-nav-table">
                     <a href="<?php echo base_url('home') ?>" class="nk-nav-logo">
-                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/settings/<?php echo $this->getsettings->Get2()->project_logo ?>" alt="DarkblowPB" width="199">
+                        <img src="<?php echo base_url() ?>/assets/goodgames/assets/images/settings/<?php echo $this->getsettings->Get2()->project_logo ?>" alt="<?php echo $this->getsettings->Get2()->project_name ?>" width="199">
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
-                        <li class="<?php if($title == "DarkblowPB || Home"){echo 'active';}?>">
+                        <li class="<?php if(empty($this->uri->segment(1)) || $this->uri->segment(1) == "home"){echo 'active';}?>">
                             <a href="<?php echo base_url('home') ?>">
                                 Home
                             </a>
@@ -138,7 +138,7 @@
                         <?php
                         if (empty($_SESSION['uid'])) :
                             ?>
-                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register"){echo 'active';} ?>">
+                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register" || $this->uri->segment(1) == "forgotpassword"){echo 'active';} ?>">
                                 <a href="javascript:void(0)">Login</a>
                                 <ul class="dropdown">
                                     <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
@@ -147,6 +147,11 @@
                                     <li class="<?php if($this->uri->segment(1)== "register"){echo 'active';}?>">
                                         <a href="<?php echo base_url('register') ?>">Register</a>
                                     </li>
+                                    <?php if ($this->getsettings->Get2()->forgot_password == 1) : ?>
+                                        <li class="<?php if ($this->uri->segment(1) == "forgotpassword"){echo 'active';} ?>">
+                                            <a href="<?php echo base_url('forgotpassword') ?>">Forgot Password</a>
+                                        </li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
                             <?php

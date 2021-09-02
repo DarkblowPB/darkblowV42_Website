@@ -28,9 +28,34 @@ class AllProtect
         }
     }
 
+    function Changepassword_Protection()
+	{
+		$check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+		$result = $check->row();
+		if ($result) 
+		{
+			if ($result->hint_question == null)
+			{
+				redirect(base_url('player_panel/create_hint'), 'refresh');
+			}
+			if ($result->hint_answer == null) 
+			{
+				redirect(base_url('player_panel/create_hint'), 'refresh');
+			}
+		}
+	}
+
     public function ComingSoon_Protection()
     {
         
+    }
+
+    public function Maintenance_Protection()
+    {
+        if ($this->ci->getsettings->Get2()->website_condition != 1)
+        {
+            redirect(base_url('maintenance'), 'refresh');
+        }
     }
 
     public function AdminLogin_Protection()

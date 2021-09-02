@@ -26,11 +26,17 @@ class Redeemcode extends CI_Controller
 
 	function do_redeem()
 	{
+		$response = array();
+
 		$this->form_validation->set_rules(
 			'code',
 			'Code',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
+			'required|min_length[19]|max_length[19]|alpha_dash',
+			array(
+				'required' => '%s Cannot Be Empty.',
+				'min_length' => '%s Must Contains 19 Characters Or More.',
+				'max_length' => '%s Only Can Accepted 19 Characters.'
+			)
 		);
 		if ($this->form_validation->run())
 		{
@@ -38,12 +44,11 @@ class Redeemcode extends CI_Controller
 		}
 		else
 		{
-			$error = array(
-				'token' => $this->security->get_csrf_hash(),
-				'response' => 'error',
-				'message' => validation_errors()
-			);
-			echo json_encode($error);
+			$this->form_validation->set_error_delimiters('', '');
+
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
 		}
 	}
 }

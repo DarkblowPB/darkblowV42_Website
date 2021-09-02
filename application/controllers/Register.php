@@ -24,69 +24,98 @@ class Register extends CI_Controller
 		$this->load->view('main/layout/wrapper', $data, FALSE);	
 	}
 
+	function do_checkusername()
+	{
+		$response = array();
+
+		if (!empty($this->input->get('username')))
+		{
+			$this->register->CheckUsername($this->input->get('username'));
+		}
+		else
+		{
+			$response['response'] = 'false';
+			$response['message'] = 'Failed To Check Username';
+			echo json_encode($response);
+		}
+	}
+
 	function do_register()
 	{
+		$response = array();
+
 		$this->form_validation->set_rules(
 			'login',
 			'Username',
-			'strtolower|trim|min_length[4]|max_length[16]|is_unique[accounts.login]|alpha_numeric|required',
+			'trim|strtolower|required|is_unique[accounts.login]|alpha_numeric|min_length[4]|max_length[16]',
 			array(
-				'min_length' => '%s Must Contains 4 Character With Combination of Letters and Numbers.',
-				'max_length' => '%s Can Only Use 16 Characters.',
-				'is_unique' => '%s Already Registered',
-				'alpha_numeric' => '%s Can Only Use A Combination Of Letters And Numbers.',
-				'required' => '%s Cannot Be Empty'
+				'required' => '%s Cannot Be Empty.',
+				'is_unique' => '%s Already Exists',
+				'alpha_numeric' => '%s Only Can Using Alphabetic & Numeric Characters.',
+				'min_length' => '%s Must Contains 4 Characters Or More.',
+				'max_length' => '%s Only Can Accept 16 Characters.'
 			)
 		);
 		$this->form_validation->set_rules(
 			'email',
 			'Email',
-			'strtolower|trim|valid_email|required',
+			'trim|strtolower|required|is_unique[accounts.email]|valid_email',
 			array(
-				'valid_email' => '%s Invalid',
-				'required' => '%s Cannot Be Empty'
+				'required' => '%s Cannot Be Empty.',
+				'is_unique' => '%s Already Exists',
+				'valid_email' => 'Invalid %s'
 			)
 		);
 		$this->form_validation->set_rules(
 			'password',
 			'Password',
-			'strtolower|trim|min_length[4]|max_length[16]|alpha_numeric|required',
+			'trim|strtolower|required|alpha_numeric|min_length[4]|max_length[16]',
 			array(
-				'min_length' => '%s Must Contains 4 Character With Combination of Letters and Numbers.',
-				'max_length' => '%s Can Only Use 16 Characters.',
-				'alpha_numeric' => '%s Can Only Use A Combination Of Letters And Numbers.',
-				'required' => '%s Cannot Be Empty'
+				'required' => '%s Cannot Be Empty.',
+				'alpha_numeric' => '%s Only Can Using Alphabetic & Numeric Characters.',
+				'min_length' => '%s Must Contains 4 Characters Or More.',
+				'max_length' => '%s Can Only Accepted 16 Characters.'
 			)
 		);
 		$this->form_validation->set_rules(
 			're_password',
 			'Confirmation Password',
-			'strtolower|trim|matches[password]|required',
+			'trim|strtolower|required|alpha_numeric|min_length[4]|max_length[16]|matches[password]',
 			array(
-				'matches' => '%s Mismatch',
-				'required' => '%s Cannot Be Empty'
+				'required' => '%s Cannot Be Empty.',
+				'alpha_numeric' => '%s Can Only Using Alphabetic & Numeric Characters.',
+				'min_length' => '%s Must Contains 4 Characters Or More.',
+				'max_length' => '%s Only Can Accepted 16 Characters.',
+				'matches' => '%s Doesnt Matches.'
 			)
 		);
 		$this->form_validation->set_rules(
 			'hint_question',
 			'Hint Question',
-			'required',
-			array('required' => '%s Cannot Be Empty')
+			'required|in_list[What was your childhood nickname?, What is the name of your favorite childhood friend?, In what city or town did your mother and father meet?, What is your favorite team?, What is your favorite movie?, What was your favorite sport in high school?, What was your favorite food as a child?, What is the first name of the boy or girl that you first kissed?, What was the make and model of your first car?, What was the name of the hospital where you were born?, Who is your childhood sports hero?, What school did you attend for sixth grade?, What was the last name of your third grade teacher?, In what town was your first job?, What was the name of the company where you had your first job?]',
+			array(
+				'required' => '%s Cannot Be Empty.',
+				'in_list' => 'Invalid %s.'
+			)
 		);
 		$this->form_validation->set_rules(
 			'hint_answer',
 			'Hint Answer',
 			'required',
-			array('required' => '%s Cannot Be Empty')
+			array('required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run()) 
+		if ($this->form_validation->run())
 		{
-			$this->register->RegisterValidationV2();
+			$this->register->RegisterValidationV3();
 		}
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
-			echo validation_errors();
+
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+			echo json_encode($response);
 		}
 	}
 }

@@ -13,9 +13,9 @@ class Inventory extends CI_Controller
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
-		$this->load->model('main/inventory_model', 'inventory');
 		$this->allprotect->Web_Protection();
-		$this->load->database();
+		$this->allprotect->Maintenance_Protection();
+		$this->load->model('main/inventory_model', 'inventory');
 	}
 
 	function index()

@@ -12,6 +12,9 @@ Class Changeemail extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->allprotect->mainProtectA();
+        $this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
         $this->load->model('main/changeemail_model', 'changeemail');
     }
 

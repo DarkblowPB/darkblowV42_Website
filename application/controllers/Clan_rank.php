@@ -12,8 +12,9 @@ class Clan_rank extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('main/clanrank_model', 'clanrank');
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
+		$this->load->model('main/clanrank_model', 'clanrank');
 	}
 
 	function index()

@@ -16,23 +16,6 @@ class Changepassword_model extends CI_Model
 		$this->load->library('lib');
 		$this->load->library('encryption');
 	}
-
-	function changepassword_protect()
-	{
-		$check = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-		$result = $check->row();
-		if ($result) 
-		{
-			if ($result->hint_question == null)
-			{
-				redirect(base_url('player_panel/create_hint'), 'refresh');
-			}
-			if ($result->hint_answer == null) 
-			{
-				redirect(base_url('player_panel/create_hint'), 'refresh');
-			}
-		}
-	}
 	
 	function changepassword_validation()
 	{

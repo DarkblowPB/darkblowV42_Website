@@ -50,17 +50,17 @@ class Login extends CI_Controller
 				'required' => '%s Cannot Be Empty'
 			)
 		);
-		if ($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run())
+		{
+			$this->login->LoginValidationV2();
+		}
+		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = validation_errors();
 			echo json_encode($response);
-		}
-		else
-		{
-			$this->login->LoginValidationV2();
 		}
 	}
 

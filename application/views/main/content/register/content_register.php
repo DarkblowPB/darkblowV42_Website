@@ -13,7 +13,14 @@
                                                 ?>
                                                 <div class="form-group">
                                                         <label for="username">Username</label>
-                                                        <input type="text" class="form-control" id="login" placeholder="Enter Your Username" minlength="4" maxlength="16" autofocus>
+                                                        <div class="row">
+                                                                <div class="col-9">
+                                                                        <input type="text" class="form-control username" id="login" placeholder="Enter Your Username" minlength="4" maxlength="16" autofocus>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                        <button type="button" class="nk-btn nk-btn-outline nk-btn-rounded nk-btn-block nk-btn-lg nk-btn-color-main-5" onclick="UsernameChecking()">Check</button>
+                                                                </div>
+                                                        </div>
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="email">Email Address</label>
@@ -54,12 +61,12 @@
                                                         </div>
                                                 <div class="nk-gap"></div>
                                                 <div class="form-group text-center">
-                                                        <input id="register_button" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register">
+                                                        <input id="register_button" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register" onclick="ShowToast(2000, 'warning', 'Please Check Your Username First.');">
                                                         <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Login</a>
                                                 </div>
                                                 <?php echo form_close(); ?>
                                                 <script>
-                                                        var getBtn = document.getElementById('register_button');
+                                                        var CSRF_TOKEN = '';
                                                         $(document).ready(function(){
                                                                 $('#register_form').on('submit', function(e){
                                                                         e.preventDefault();
@@ -68,7 +75,7 @@
                                                                                 return;
                                                                         }
                                                                         else if ($('#email').val() == ""){
-                                                                                ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                                                                ShowToast(2000, 'warning', 'Email Cannot Be Empty.');
                                                                                 return;
                                                                         }
                                                                         else if ($('#password').val() == ""){
@@ -92,15 +99,16 @@
                                                                                 return;
                                                                         }
                                                                         else{
-                                                                                getBtn.removeAttribute('class');
-                                                                                getBtn.removeAttribute('value');
-                                                                                getBtn.setAttribute('class', 'btn btn-outline-primary disabled');
-                                                                                getBtn.setAttribute('value', 'Processing...');
+                                                                                if (CSRF_TOKEN == ''){
+                                                                                        CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                                                                }
+                                                                                SetButton('false');
                                                                                 $.ajax({
                                                                                         url: '<?php echo base_url('register/do_register') ?>',
                                                                                         type: 'POST',
+                                                                                        dataType: 'JSON',
                                                                                         data: {
-                                                                                                '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                                                                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                                                                                 'login' : $('#login').val(),
                                                                                                 'email' : $('#email').val(),
                                                                                                 'password' : $('#password').val(),
@@ -109,41 +117,107 @@
                                                                                                 'hint_answer' : $('#hint_answer').val()
                                                                                         },
                                                                                         success: function(data){
-                                                                                                if (data == "true"){
-                                                                                                        ShowToast(4500, 'success', 'Successfully Registered. Confirmation Email Has Been Sended To Your Email. Confirm Now And Get Your Rewards.');
+                                                                                                var GetString = JSON.stringify(data);
+                                                                                                var Result = JSON.parse(GetString);
+                                                                                                
+                                                                                                if (Result.response == 'true'){
+                                                                                                        SetButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'success', Result.message);
                                                                                                         setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('register') ?>';
-                                                                                                        }, 5000);
+                                                                                                                window.location.reload();
+                                                                                                        }, 2000);
                                                                                                 }
-                                                                                                else if (data == "true2"){
-                                                                                                        ShowToast(4500, 'success', 'Successfully Registered. But Failed To Send Confirmation Email.');
-                                                                                                        setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('register') ?>';
-                                                                                                        }, 5000);
+                                                                                                else if (Result.response == 'false'){
+                                                                                                        SetButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'error', Result.message);
+                                                                                                        return;
                                                                                                 }
-                                                                                                else if (data == "false"){
-                                                                                                        ShowToast(3000, 'error', 'Failed To Registered Your Account. Please Try Again Later.');
-                                                                                                        setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('register') ?>';
-                                                                                                        }, 3500);
-                                                                                                }
-                                                                                                else{
-                                                                                                        ShowToast(3000, 'error', data);
-                                                                                                        setTimeout(() => {
-                                                                                                                window.location = '<?php echo base_url('register') ?>';
-                                                                                                        }, 3500);
+                                                                                                else {
+                                                                                                        SetButton('true');
+                                                                                                        CSRF_TOKEN = Result.token;
+                                                                                                        ShowToast(2000, 'error', Result.message);
+                                                                                                        return;
                                                                                                 }
                                                                                         },
                                                                                         error: function(data){
-                                                                                                ShowToast(3000, 'error', data.responseText);
+                                                                                                SetButton('true');
+                                                                                                ShowToast(2000, 'error', data.responseText);
                                                                                                 setTimeout(() => {
-                                                                                                        window.location = '<?php echo base_url('register') ?>';
-                                                                                                }, 3500);
+                                                                                                        window.location.reload();
+                                                                                                }, 2000);
                                                                                         }
                                                                                 });
                                                                         }
                                                                 });
                                                         });
+
+                                                        function UsernameChecking()
+                                                        {
+                                                                var username = $('#login').val();
+
+                                                                if (username == ''){
+                                                                        SetButton('false2');
+                                                                        return;
+                                                                }
+                                                                else{
+                                                                        SetButton('false2');
+                                                                        $.ajax({
+                                                                                url: '<?php echo base_url('register/do_checkusername') ?>',
+                                                                                type: 'GET',
+                                                                                dataType: 'JSON',
+                                                                                data: {
+                                                                                        'username' : username
+                                                                                },
+                                                                                success: function(data){
+                                                                                        var GetString = JSON.stringify(data);
+                                                                                        var Result = JSON.parse(GetString);
+
+                                                                                        if (Result.response == 'true'){
+                                                                                                SetButton('true');
+                                                                                                ShowToast(2000, 'success', Result.message);
+                                                                                                return;
+                                                                                        }
+                                                                                        else if (Result.response == 'false'){
+                                                                                                SetButton('false2');
+                                                                                                ShowToast(2000, 'error', Result.message);
+                                                                                                return;
+                                                                                        }
+                                                                                        else{
+                                                                                                SetButton('false2');
+                                                                                                ShowToast(2000, 'error', Result.message);
+                                                                                                return;
+                                                                                        }
+                                                                                },
+                                                                                error: function(data){
+                                                                                        SetButton('false2');
+                                                                                        ShowToast(2000, 'error', data.responseText);
+                                                                                        setTimeout(() => {
+                                                                                                window.location.reload();
+                                                                                        }, 2000);
+                                                                                }
+                                                                        });
+                                                                }
+                                                                
+                                                        }
+
+                                                        function SetButton(param){
+                                                                var Q = document.getElementById('register_button');
+                                                                if (param == 'false'){
+                                                                        Q.setAttribute('type', 'button');
+                                                                        Q.setAttribute('value', 'Processing...');
+                                                                }
+                                                                if (param == 'false2'){
+                                                                        Q.setAttribute('type', 'button');
+                                                                        Q.setAttribute('value', 'Register');
+                                                                }
+                                                                if (param == 'true'){
+                                                                        Q.removeAttribute('onclick');
+                                                                        Q.setAttribute('type', 'submit');
+                                                                        Q.setAttribute('value', 'Register');
+                                                                }
+                                                        }
                                                 </script>
                                                 <div class="form-group text-center">
                                                         <label style="font-weight: bold; font-style: italic;">OR</label>

@@ -12,24 +12,24 @@ class Home extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
+		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');
 		$this->load->model('main/webshop_model','webshop');
-		$this->load->helper('text');
-		$this->allprotect->Web_Protection();
-		$this->load->database();
-		$this->load->library('encryption');
-		$this->load->library('lib');
 	}
 
 	function index()
 	{
 		$data['title'] = 'Home';
+
 		$data['account'] = $this->home->getdata_account();
 		$data['clan'] = $this->home->getdata_clan();
 		$data['allaccount'] = $this->home->getdata_allaccount();
 		$data['onlineaccount'] = $this->home->getdata_onlineaccount();
 		$data['quickslide'] = $this->home->getdata_quickslide();
 		$data['webshop'] = $this->webshop->getdata_webshop_mostpopular();
+		
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

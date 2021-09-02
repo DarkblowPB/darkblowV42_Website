@@ -43,7 +43,7 @@
             <p class="login-box-msg text-uppercase text-bold text-primary">Are You Admin? Prove It!</p>
             <?php echo form_open('', 'id="login_form" autocomplete="off"') ?>
                 <div class="input-group mb-3">
-                    <input type="text" id="username" class="form-control" placeholder="Enter Your Username">
+                    <input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>

@@ -12,8 +12,9 @@ class Download extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('main/download_model', 'download');
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
+		$this->load->model('main/download_model', 'download');
 	}
 	function index()
 	{

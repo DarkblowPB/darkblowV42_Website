@@ -18,6 +18,7 @@ class Login_model extends CI_Model
 
     function LoginValidation()
     {
+        sleep(1);
         $data = array(
             'username' => $this->encryption->encrypt($this->input->post('username', true)),
             'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true)))

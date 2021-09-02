@@ -32,6 +32,13 @@
                                 <option value="1"<?php if ($this->getsettings->Get2()->voucher == 1){echo 'selected';} ?>>Enabled</option>
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Forgot Password</label>
+                            <select id="enable_forgotpassword" class="form-control col-9">
+                                <option value="0" <?php if ($this->getsettings->Get2()->forgot_password == 0){echo 'selected';} ?>>Disabled</option>
+                                <option value="1" <?php if ($this->getsettings->Get2()->forgot_password == 1){echo 'selected';} ?>>Enabled</option>
+                            </select>
+                        </div>
                         <div class="form-group text-right">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
                         </div>
@@ -58,6 +65,10 @@
                                     ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
                                     return;
                                 }
+                                else if ($('#enable_forgotpassword').val() == ""){
+                                    ShowToast(2000, 'warning', 'Forgot Password State Cannot Be Empty.');
+                                    return;
+                                }
                                 else{
                                     
                                     if (CSRF_TOKEN == ''){
@@ -75,7 +86,8 @@
                                             'enable_webshop' : $('#enable_webshop').val(),
                                             'enable_trademarket' : $('#enable_trademarket').val(),
                                             'enable_exchangeticket' : $('#enable_exchangeticket').val(),
-                                            'enable_voucher' : $('#enable_voucher').val()
+                                            'enable_voucher' : $('#enable_voucher').val(),
+                                            'enable_forgotpassword' : $('#enable_forgotpassword').val()
                                         },
                                         success: function(data){
                                             var GetString = JSON.stringify(data);

@@ -111,6 +111,7 @@ class Settings_model extends CI_Model
 
     function SetImage()
     {
+        sleep(1);
         $response = array();
 
         $config = array(
@@ -164,6 +165,7 @@ class Settings_model extends CI_Model
 
     function SetImage2()
     {
+        sleep(1);
         $response = array();
 
         $config = array(
@@ -213,11 +215,13 @@ class Settings_model extends CI_Model
 
     function SetFeature()
     {
+        sleep(1);
         $data = array(
             'enable_webshop' => $this->encryption->encrypt($this->input->post('enable_webshop', true)),
             'enable_trademarket' => $this->encryption->encrypt($this->input->post('enable_trademarket', true)),
             'enable_exchangeticket' => $this->encryption->encrypt($this->input->post('enable_exchangeticket', true)),
-            'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true))
+            'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true)),
+            'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true))
         );
 
         $response = array();
@@ -229,7 +233,8 @@ class Settings_model extends CI_Model
                 'webshop' => $this->encryption->decrypt($data['enable_webshop']),
                 'trade_market' => $this->encryption->decrypt($data['enable_trademarket']),
                 'exchange_ticket' => $this->encryption->decrypt($data['enable_exchangeticket']),
-                'voucher' => $this->encryption->decrypt($data['enable_voucher'])
+                'voucher' => $this->encryption->decrypt($data['enable_voucher']),
+                'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword'])
             ));
 
             if ($update)

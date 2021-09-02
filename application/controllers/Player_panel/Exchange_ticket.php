@@ -14,6 +14,7 @@ Class Exchange_ticket extends CI_Controller
         parent::__construct();
 		$this->main_protect->mainProtectA();
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
         if ($this->getsettings->Get2()->exchange_ticket != 1)

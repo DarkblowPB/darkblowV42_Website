@@ -13,6 +13,7 @@ class NotFound extends CI_Controller
 	{
 		parent::__construct();
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
 	}
 
 	function index()

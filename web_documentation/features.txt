@@ -5,7 +5,7 @@ Primary Web (http://localhost:8080/webpb-ci3)
 Features List :
 
 	- General Features (Guest Features)
-		- Login & Register
+		- Login, Register, Forgot Password
 		- Rank List
 			- Player Rank
 			- Clan Rank
@@ -16,30 +16,30 @@ Features List :
 
 	- Private Features (Logged In User Features)
 		- All General Features Included
-		- Player Panel
-			- View Player Stats
-			- Create Hint (Only For Old Players)
-			- Request Hint
-			- Change Password
-			- Change Email (Coming Soon)
-		- Redeem Code
-			- Using Different Validation Type
-			- Can Redeem Spesific Item / Cash
-		- Exchange Ticket
-			- For Events
-			- Can Be Disabled (Coming Soon)
-		- Voucher
-			- Using For Topup / Donation / Events
-			- Only 1x Use
-		- Inventory
-			- View Item Details
-			- Gift Item (Coming Soon)
-			- Delete Item
+		- User Area
+			- Player Panel
+			- Moderator Panel (Only For Admin & Staff)
+			- Redeem Code
+			- Exchange Ticket (Events Only!)
+			- Voucher (Topup / Events)
+			- Inventory
 
 =================================================================
-Moderator Panel  (http://localhost:8080/webpb-ci3/moderatorpanel)
+Moderator Panel  (http://localhost:8080/webpb-ci3/adm)
 =================================================================
 
 Features List :
 
-<> UNDER CONSTRUCTION <>
+	- Dashboard
+	- Client & Launcher Management
+	- Settings
+		- General Settings
+		- Feature Settings
+	- Players Management
+		- All Players (Details, Banned, Unbanned, Reset, Delete)
+		- Create Custom Player
+	- Events Management
+		- Login Events
+		- Map Bonus Events (Coming Soon)
+		- Playtime Events
+	

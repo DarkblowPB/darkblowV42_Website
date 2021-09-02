@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <?php echo form_open('', 'id="add_form" autocomplete="off"') ?>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Date Start</label>
+                            <input type="datetime-local" id="date_start" class="form-control col-9">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Date End</label>
+                            <input type="datetime-local" id="date_end" class="form-control col-9">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Reward Item</label>
+                            <select id="reward_item" class="form-control col-9 reward_selection">
+                                <option value="" disabled selected>Select Your Reward</option>
+                                <?php foreach($items as $row) : ?>
+                                    <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Reward Duration</label>
+                            <select id="reward_count" class="form-control col-9 count_selection">
+                                <option value="" disabled selected>Select Reward Duration</option>
+                                <option value="64800">1 Days</option>
+                                <option value="259200">3 Days</option>
+                                <option value="604800">7 Days</option>
+                                <option value="2592000">30 Days</option>
+                            </select>
+                        </div>
+                        <div class="form-group text-right">
+                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Events">
+                        </div>
+                    <?php echo form_close() ?>
+                    <script>
+                        var CSRF_TOKEN = '';
+                        $(document).ready(function(){
+                            $('#add_form').on('submit', function(e){
+                                e.preventDefault();
+                                if ($('#date_start').val() == ""){
+                                    ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
+                                    return;
+                                }
+                                else if ($('#date_end').val() == ""){
+                                    ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
+                                    return;
+                                }
+                                else if ($('#reward_item').val() == ""){
+                                    ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
+                                    return;
+                                }
+                                else if ($('#reward_count').val() == ""){
+                                    ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
+                                    return;
+                                }
+                                else{
+
+                                    SetButton('false');
+                                    if (CSRF_TOKEN == ''){
+                                        CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                    }
+
+                                    $.ajax({
+                                        url: '<?php echo base_url('adm/eventsmanagement/login/do_add') ?>',
+                                        type: 'POST',
+                                        dataType: 'JSON',
+                                        data: {
+                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                            'start_date' : $('#date_start').val(),
+                                            'end_date' : $('#date_end').val(),
+                                            'reward_id' : $('#reward_item').val(),
+                                            'reward_count' : $('#reward_count').val()
+                                        },
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                SetButton('true');
+                                                CSRF_TOKEN = Result.token;
+                                                ShowToast(2000, 'success', Result.message);
+                                                return;
+                                            }
+                                            else if (Result.response == 'false'){
+                                                SetButton('true');
+                                                CSRF_TOKEN = Result.token;
+                                                ShowToast(2000, 'error', Result.message);
+                                                return;
+                                            }
+                                            else{
+                                                SetButton('true');
+                                                CSRF_TOKEN = Result.token;
+                                                ShowToast(2000, 'error', Result.message);
+                                                return;
+                                            }
+                                        },
+                                        error: function(data){
+                                            SetButton('true');
+                                            ShowToast(2000, 'error', data.responseText);
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+                        function SetButton(param)
+                        {
+                            var HEHE = document.getElementById('submit');
+                            if (param == 'false'){
+                                HEHE.setAttribute('type', 'button');
+                                HEHE.setAttribute('value', 'Processing...');
+                            }
+                            if (param == 'true'){
+                                HEHE.setAttribute('type', 'submit');
+                                HEHE.setAttribute('value', 'Submit New Events');
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
