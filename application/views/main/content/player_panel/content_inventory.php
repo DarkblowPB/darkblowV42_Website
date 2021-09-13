@@ -123,6 +123,7 @@
 									$.ajax({
 										url: '<?php echo base_url('player_panel/inventory/do_delete') ?>',
 										type: 'POST',
+										dataType: 'JSON',
 										data: {
 											'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
 											'player_id' : player_id,
@@ -151,7 +152,7 @@
 												return;
 											}
 										},
-										error: function(data){
+										error: function(){
 											ShowToast(2000, 'error', 'Failed To Delete This Item.');
 											setTimeout(() => {
 												window.location.reload();

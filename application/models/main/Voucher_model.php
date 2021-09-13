@@ -29,8 +29,9 @@ class Voucher_model extends CI_Model
     function RedeemVoucherV2()
     {
         $data = array('voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')));
+        
         $response = array();
-
+        
         $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
         if ($query)
         {

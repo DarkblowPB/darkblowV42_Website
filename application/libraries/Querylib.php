@@ -167,6 +167,36 @@ class Querylib
         $query = $this->ci->db->delete('accounts', array('last_login' => '0'));
         if ($query) return TRUE; else return FALSE;
     }
+
+    /**
+     * Send Email
+     * 
+     * Send Email To Players
+     */
+    public function SendEmail($email_address)
+    {
+        $config = array(
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_user' => 'imamrasyidbackup@gmail.com',
+            'smtp_pass'   => 'imamkbm123',
+            'smtp_crypto' => 'ssl',
+            'smtp_port'   => 465,
+            'crlf'    => "\r\n",
+            'newline' => "\r\n"
+        );
+
+        $this->load->library('email');
+
+        $this->email->initialize($config);
+        $this->email->from('no_reply@'.$this->ci->getsettings->Get2()->project_name.'.com', $this->ci->getsettings->Get2()->project_name);
+        $this->email->to($email_address);
+        $this->email->subject('Email Verification');
+        $this->email->message('');
+        if ($this->email->send()) return TRUE; else return FALSE;
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -96,6 +96,7 @@
                                 
                                 function Do_SubmitVoucher()
                                 {
+                                    SetAttribute('submit', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?php echo base_url('player_panel/voucher/do_redeem') ?>',
                                         type: 'POST',

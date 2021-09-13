@@ -23,11 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/vendor/ionicons/css/ionicons.min.css">
     <!-- GoodGames -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/goodgames.css">
-    <!-- Custom Styles -->
-    <!-- <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/custom.css"> -->
     <!-- END: Styles -->
-    <!-- jQuery -->
-    <!-- <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script> -->
 </head>
 <body>
     <div class="nk-main">
@@ -55,11 +51,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/moment/min/moment.min.js"></script> -->
     <script src="<?php echo base_url() ?>/assets/goodgames/assets/vendor/hammerjs/hammer.min.js"></script>
-    <!-- <script src="<?php echo base_url() ?>/assets/goodgames/assets/js/goodgames.min.js"></script>
-    <script src="<?php echo base_url() ?>/assets/goodgames/assets/js/goodgames-init.js"></script> -->
 </body>
 </html>

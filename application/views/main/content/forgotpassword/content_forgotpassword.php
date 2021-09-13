@@ -41,26 +41,23 @@
                     </div>
                 <?php echo form_close() ?>
                 <script>
-                    var CSRF_TOKEN = '';
+                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                     $(document).ready(function(){
                         $('#forgotpassword_form').on('submit', function(e){
                             e.preventDefault();
 
-                            if ($('#username').val() == ""){
+                            if ($('#username').val() == ''){
                                 ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
                                 return;
                             }
-                            else if ($('#hint_question').val() == ""){
+                            else if ($('#hint_question').val() == ''){
                                 ShowToast(2000, 'warning', 'Select Your Hint Question.');
                                 return;
                             }
-                            else if ($('#hint_answer').val() == ""){
+                            else if ($('#hint_answer').val() == ''){
                                 ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
                             }
                             else{
-                                if (CSRF_TOKEN == ''){
-                                    CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                                }
                                 
                                 SetAttribute('submit', 'button', 'Processing...');
 
@@ -69,6 +66,7 @@
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                         'username' : $('#username').val(),
                                         'hint_question' : $('#hint_question').val(),
                                         'hint_answer' : $('#hint_answer').val()
@@ -79,35 +77,115 @@
 
                                         if (Result.response == 'true'){
                                             SetAttribute('submit', 'submit', 'Send Request');
-                                            CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                         else if (Result.response == 'false'){
                                             SetAttribute('submit', 'submit', 'Send Request');
-                                            CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                         else{
                                             SetAttribute('submit', 'submit', 'Send Request');
-                                            CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                     },
                                     error: function(data){
-                                        SetAttribute('submit', 'submit', 'Send Request');
-                                        ShowToast(2000, 'error', data.responseText);
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
-                                        return;
+                                        ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                        $.ajax({
+                                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                                            type: 'GET',
+                                            dataType: 'JSON',
+                                            data: {},
+                                            success: function(data){
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+
+                                                if (Result.response == 'true'){
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+
+
+                                            },
+                                            error: function(){
+                                                SetAttribute('submit', 'submit', 'Send Request');
+                                                ShowToast(2000, 'error', 'Failed To Send Request.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
                                     }
                                 });
                             }
                         });
                     });
+
+                    function Do_SendRequest()
+                    {
+                        if ($('#username').val() == ''){
+                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            return;
+                        }
+                        else if ($('#hint_question').val() == ''){
+                            ShowToast(2000, 'warning', 'Select Your Hint Question.');
+                            return;
+                        }
+                        else if ($('#hint_answer').val() == ''){
+                            ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                        }
+                        else{
+                            
+                            SetAttribute('submit', 'button', 'Processing...');
+
+                            $.ajax({
+                                url: '<?php echo base_url('forgotpassword/do_sendrequest') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                    'username' : $('#username').val(),
+                                    'hint_question' : $('#hint_question').val(),
+                                    'hint_answer' : $('#hint_answer').val()
+                                },
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true'){
+                                        SetAttribute('submit', 'submit', 'Send Request');
+                                        ShowToast(2000, 'success', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                    else if (Result.response == 'false'){
+                                        SetAttribute('submit', 'submit', 'Send Request');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                    else{
+                                        SetAttribute('submit', 'submit', 'Send Request');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                },
+                                error: function(){
+                                    SetAttribute('submit', 'submit', 'Send Request');
+                                    ShowToast(2000, 'error', 'Failed To Send Request.');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            });
+                        }
+                    }
                 </script>
             </div>
         </div>

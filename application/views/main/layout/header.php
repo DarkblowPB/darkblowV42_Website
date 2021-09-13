@@ -171,7 +171,7 @@
                                     <?php if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) : ?>
                                         <li>
                                             <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
-                                                Moderator Panel
+                                                Administrator Panel
                                             </a>
                                         </li>
                                     <?php endif; ?>

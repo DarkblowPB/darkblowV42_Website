@@ -55,11 +55,7 @@
 </script>
 <script>
     function Logout(){
-        var CSRF_TOKEN = '';
-
-        if (CSRF_TOKEN == ''){
-            CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-        }
+        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
 
         $.ajax({
             url: '<?php echo base_url('logout/do_logout') ?>',

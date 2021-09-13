@@ -18,29 +18,16 @@
     <script src="<?php echo base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
     <!-- jQuery -->
     <script src="<?php echo base_url() ?>assets/admin/plugins/jquery/jquery.min.js"></script>
-    <script>
-    function ShowToast(timer, type, title){
-        Swal.fire({
-            toast: true,
-            timer: timer,
-            position: 'top',
-            timerProgressBar: true,
-            icon: type,
-            title: title,
-            showConfirmButton: false
-        });
-    }
-    </script>
 </head>
 <body class="dark-mode hold-transition login-page">
     <div class="login-box">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="javascript:void(0)" class="h1"><b>DarkblowPB</b> Admin</a>
+            <a href="javascript:void(0)" class="h1"><b><?php echo $this->getsettings->Get2()->project_name ?></b> Admin Panel</a>
         </div>
         <div class="card-body">
-            <p class="login-box-msg text-uppercase text-bold text-primary">Are You Admin? Prove It!</p>
+            <p class="login-box-msg text-uppercase text-bold text-primary"><marquee>Are You Admin? Prove It!</marquee></p>
             <?php echo form_open('', 'id="login_form" autocomplete="off"') ?>
                 <div class="input-group mb-3">
                     <input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
@@ -75,7 +62,7 @@
                 </div>
             <?php echo form_close() ?>
             <script>
-                var CSRF_TOKEN = '';
+                var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                 $(document).ready(function(){
                     $('#login_form').on('submit', function(e){
                         e.preventDefault();
@@ -89,11 +76,8 @@
                             return;
                         }
                         else{
-                            if (CSRF_TOKEN == ''){
-                                CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                            }
 
-                            SetButton('false');
+                            SetAttribute('submit', 'button', 'Processing...');
 
                             $.ajax({
                                 url: '<?php echo base_url('adm/login/do_login') ?>',
@@ -109,51 +93,114 @@
                                     var Result = JSON.parse(GetString);
 
                                     if (Result.response == 'true'){
-                                        SetButton('true');
-                                        CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Login');
                                         ShowToast(2000, 'success', Result.message);
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('adm/dashboard') ?>';
-                                        }, 2000);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                     else if (Result.response == 'false'){
-                                        SetButton('true');
-                                        CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Login');
                                         ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                     else{
-                                        SetButton('true');
-                                        CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Login');
                                         ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                 },
-                                error: function(data){
-                                    SetButton('true');
-                                    ShowToast(2000, 'error', data.responseText);
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
-                                    return;
+                                error: function(){
+                                    ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                    $.ajax({
+                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                        type: 'GET',
+                                        dataType: 'JSON',
+                                        data: {},
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                CSRF_TOKEN = Result.token;
+                                            }
+
+                                            Do_Login();
+                                        },
+                                        error: function(){
+                                            SetAttribute('submit', 'submit', 'Login');
+                                            ShowToast(2000, 'error', 'Failed To Login.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
                                 }
                             });
                         }
                     });
                 });
 
-                function SetButton(param)
+                function Do_Login()
                 {
-                    var Q = document.getElementById('submit');
-                    if (param == 'false'){
-                        Q.setAttribute('type', 'button');
-                        Q.setAttribute('value', 'Processing...');
-                    }
-                    if (param == 'true'){
-                        Q.setAttribute('type', 'submit');
-                        Q.setAttribute('value', 'Login');
-                    }
+                    if ($('#username').val() == ""){
+                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            return;
+                        }
+                        else if ($('#password').val() == ""){
+                            ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                            return;
+                        }
+                        else{
+                            
+                            SetAttribute('submit', 'submit', 'Processing...');
+
+                            $.ajax({
+                                url: '<?php echo base_url('adm/login/do_login') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                    'username' : $('#username').val(),
+                                    'password' : $('#password').val()
+                                },
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true'){
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'success', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        setTimeout(() => {
+                                            window.location = '<?php echo base_url('adm/dashboard') ?>';
+                                        }, 2000);
+                                        return;
+                                    }
+                                    else if (Result.response == 'false'){
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                    else{
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                },
+                                error: function(){
+                                    SetAttribute('submit', 'submit', 'Login');
+                                    ShowToast(2000, 'error', 'Failed To Login.');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            });
+                        }
                 }
             </script>
         </div>
@@ -167,5 +214,6 @@
 <script src="<?php echo base_url() ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>assets/admin/dist/js/adminlte.min.js"></script>
+<script src="<?php echo base_url() ?>assets/goodgames/assets/js/custom.js"></script>
 </body>
 </html>

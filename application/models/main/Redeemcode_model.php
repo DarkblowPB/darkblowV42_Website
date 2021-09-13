@@ -74,6 +74,7 @@ class Redeemcode_model extends CI_Model
 
 	function CodeValidationV2()
 	{
+		sleep(1);
 		$data = array(
 			'code' => $this->encryption->encrypt($this->input->post('code'))
 		);

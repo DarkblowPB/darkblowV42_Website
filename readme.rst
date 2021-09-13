@@ -22,7 +22,7 @@ New Update V1.1:
 
 	- Released
 	- Complex Validation Added To Create Hardest Web Security
-	- Logger System For Detect All Action In Moderator Panel (Deprecated & Under The Reconstruction)
+	- Logger System For Detect All Action In Moderator Panel
 
 
 New Update V1.2:
@@ -36,20 +36,20 @@ New Update V1.2:
 
 New Update V1.3:
 
-	- Add Exchange Items Feature
+	- Add Exchange Items Feature (Experimental!)
 	- Add Feature Settings
 	- Add General Settings
 	- Add Maintenance Page
 	- Add New API For New PBLauncher (Not Included On Public Release)
 	- Add New Email Verification
 	- Add POST Request Encryption
-	- Add Trade Feature (80%)
+	- Add Trade Feature (95%) (Experimental!)
 	- Add Voucher Feature
 	- Clean Up Code
 	- Improve Function
 	- Transform Basic Ajax Result To JSON Result
-	- Transform Basic Function To Ajax To Get Realtime Data
-	- Reconstruct New Admin Site (25%)
+	- Transform Basic AJAX Function To Get Realtime Data
+	- Reconstruct New Admin Site (35%)
 
 *******************
 Server Requirements

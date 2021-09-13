@@ -26,6 +26,8 @@
 							}
 							else{
 								
+								SetAttribute('submit', 'button', 'Processing...');
+
 								$.ajax({
 									url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
 									type: 'POST',
@@ -92,6 +94,8 @@
 
 					function Do_RedeemCode()
 					{
+						SetAttribute('submit', 'button', 'Processing...');
+
 						$.ajax({
 							url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
 							type: 'POST',
