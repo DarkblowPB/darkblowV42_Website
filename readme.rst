@@ -68,4 +68,4 @@ Note
 ****
 
 Database Not Included Here. If You Can Retrieve That, You Are Awesome.
-But, If You Want Make This Simple, You Can Contact Me On Discord. Lolsecs#0001
+But, If You Want Make This Simple, You Can Contact Me On Discord. Lolsecs#2192
