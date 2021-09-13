@@ -13,8 +13,9 @@ class Register extends CI_Controller
 	{
 		parent::__construct();
 		$this->allprotect->Web_Protection();
-		$this->main_protect->mainProtectB();
 		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->BlockedAccount_Protection();
+		$this->main_protect->mainProtectB();
 		$this->load->model('main/register_model', 'register');
 	}
 	

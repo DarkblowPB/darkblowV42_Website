@@ -12,6 +12,9 @@ Class Logout extends CI_Controller
     function __construct()
     {
         parent::__construct();
+		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->BlockedAccount_Protection();
         if (empty($_SESSION['uid']))
         {
             redirect(base_url('home'), 'refresh');

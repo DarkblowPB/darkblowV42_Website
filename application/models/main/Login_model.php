@@ -29,24 +29,34 @@ class Login_model extends CI_Model
 		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])))->row();
 		if ($query)
 		{
-			// Set Session
-			$sessionData = array(
-				'uid' => $query->player_id,
-				'player_name' => $query->player_name,
-				'access_level' => $query->access_level
-			);
-			$this->session->set_userdata($sessionData);
-			$response['response'] = 'true';
-			$response['token'] = $this->security->get_csrf_hash();
-			if ($_SESSION['player_name'] == '')
+			if ($query->access_level == '-1')
 			{
-				$response['message'] = 'Successfully Logged In. Welcome '.$query->login.'.';
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Your Account Has Been Blocked. Login Failed.';
+				echo json_encode($response);
 			}
-			if ($_SESSION['player_name'] != '')
+			else
 			{
-				$response['message'] = 'Successfully Logged In. Welcome '.$_SESSION['player_name'].'.';
+				// Set Session
+				$sessionData = array(
+					'uid' => $query->player_id,
+					'player_name' => $query->player_name,
+					'access_level' => $query->access_level
+				);
+				$this->session->set_userdata($sessionData);
+				$response['response'] = 'true';
+				$response['token'] = $this->security->get_csrf_hash();
+				if ($_SESSION['player_name'] == '')
+				{
+					$response['message'] = 'Successfully Logged In. Welcome '.$query->login.'.';
+				}
+				if ($_SESSION['player_name'] != '')
+				{
+					$response['message'] = 'Successfully Logged In. Welcome '.$_SESSION['player_name'].'.';
+				}
+				echo json_encode($response);
 			}
-			echo json_encode($response);
 		}
 		else
 		{

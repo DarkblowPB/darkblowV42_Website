@@ -14,6 +14,7 @@ Class Forgotpassword extends CI_Controller
         parent::__construct();
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
+		$this->allprotect->BlockedAccount_Protection();
     }
 
     function index()

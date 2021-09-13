@@ -15,6 +15,7 @@ class Login extends CI_Controller
 		$this->main_protect->mainProtectB();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->load->model('main/login_model', 'login');
 	}
 

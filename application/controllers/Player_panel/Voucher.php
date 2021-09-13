@@ -12,9 +12,10 @@ Class Voucher extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->main_protect->mainProtectA();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->BlockedAccount_Protection();
+        $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
 
         if ($this->getsettings->Get2()->voucher != 1)

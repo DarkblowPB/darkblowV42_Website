@@ -47,7 +47,7 @@ class AllProtect
         }
     }
 
-    function Changepassword_Protection()
+    public function Changepassword_Protection()
 	{
 		$check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
 		$result = $check->row();
@@ -63,6 +63,21 @@ class AllProtect
 			}
 		}
 	}
+
+    public function BlockedAccount_Protection()
+    {
+        if (isset($_SESSION['access_level']))
+        {
+            if ($_SESSION['access_level'] == '-1')
+            {
+                $this->ci->session->unset_userdata('uid');
+                $this->ci->session->unset_userdata('player_name');
+                $this->ci->session->unset_userdata('access_level');
+
+                redirect(base_url('home'), 'refresh');
+            }
+        }
+    }
 
     public function ComingSoon_Protection()
     {

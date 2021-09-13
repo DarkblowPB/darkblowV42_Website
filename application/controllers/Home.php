@@ -14,6 +14,7 @@ class Home extends CI_Controller
 		parent::__construct();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');
 		$this->load->model('main/webshop_model','webshop');

@@ -21,15 +21,6 @@ class Inventory_model extends CI_Model
 		if ($query)
 		{
 			return $query;
-			// $find = $this->db->get_where('shop', array('item_id' => $query->item_id))->row();
-			// if ($find)
-			// {
-			// 	return $find;
-			// }
-			// else
-			// {
-			// 	return "";
-			// }
 		}
 		else
 		{
@@ -83,6 +74,8 @@ class Inventory_model extends CI_Model
 	
 	function delete_item()
 	{
+		$response = array();
+
 		$data = array(
 			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
 			'item_id' => $this->encryption->encrypt($this->input->post('item_id'))
@@ -94,16 +87,25 @@ class Inventory_model extends CI_Model
 			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');
 			if ($delete)
 			{
-				echo "true";
+				$response['response'] = 'true';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Successfully Delete This Item.';
+				echo json_encode($response);
 			}
 			else
 			{
-				echo "false";
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Failed To Delete This Item.';
+				echo json_encode($response);
 			}
 		}
 		else
 		{
-			echo "false";
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Failed To Delete This Item.';
+			echo json_encode($response);
 		}
 	}
 	

@@ -13,8 +13,9 @@ class Redeemcode extends CI_Controller
 	{
 		parent::__construct();
 		$this->main_protect->mainProtectA();
-		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->allprotect->Web_Protection();
+        $this->allprotect->BlockedAccount_Protection();
+		$this->load->model('main/redeemcode_model', 'redeemcode');
 	}
 	
 	function index()
