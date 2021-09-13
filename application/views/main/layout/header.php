@@ -200,7 +200,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url('home/logout') ?>">
+                                        <a href="javascript:void(0)" onclick="Logout()">
                                             Logout
                                         </a>
                                     </li>

@@ -45,6 +45,7 @@
 <!-- GoodGames -->
 <script src="<?php echo base_url() ?>assets/goodgames/assets/js/goodgames.min.js"></script>
 <script src="<?php echo base_url() ?>assets/goodgames/assets/js/goodgames-init.js"></script>
+<script src="<?php echo base_url() ?>assets/goodgames/assets/js/custom.js"></script>
 <!-- END: Scripts -->
 <script type="text/javascript">
     $(document).ready( function () 
@@ -53,16 +54,40 @@
     } );
 </script>
 <script>
-    function ShowToast(timer, type, title){
-        Swal.fire({
-            toast: true,
-            timer: timer,
-            position: 'center',
-            timerProgressBar: true,
-            icon: type,
-            title: title,
-            showConfirmButton: false
-        })
+    function Logout(){
+        var CSRF_TOKEN = '';
+
+        if (CSRF_TOKEN == ''){
+            CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+        }
+
+        $.ajax({
+            url: '<?php echo base_url('logout/do_logout') ?>',
+            type: 'GET',
+            dataType : 'JSON',
+            data: {},
+            success: function(data){
+                var GetString = JSON.stringify(data);
+                var Result = JSON.parse(GetString);
+
+                if (Result.response == 'true'){
+                    ShowToast(2000, 'success', Result.message);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+                else{
+                    ShowToast(2000, 'error', Result.message);
+                    return;
+                }
+            },
+            error: function(){
+                ShowToast(2000, 'error', 'Failed to Logout.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
     }
 </script>
 </body>

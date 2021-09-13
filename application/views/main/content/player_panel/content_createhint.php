@@ -74,7 +74,7 @@
 					</div>
 				<?php echo form_close() ?>
 				<script>
-					var CSRF_TOKEN = '';
+					var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
 					$(document).ready(function(){
 						$('#createhint_form').on('submit', function(e){
 							e.preventDefault();
@@ -91,10 +91,7 @@
 								return;
 							}
 							else{
-								SubmitCondition('false');
-								if (CSRF_TOKEN == ''){
-									CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-								}
+								SetAttribute('submit', 'button', 'Processing...');
 								$.ajax({
 									url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
 									type: 'POST',
@@ -110,44 +107,108 @@
 										var decodeParse = JSON.parse(decodeString);
 
 										if (decodeParse.response == 'true'){
+											SetAttribute('submit', 'submit', 'Submit New Hint');
 											CSRF_TOKEN = decodeParse.token;
 											ShowToast(2000, 'success', decodeParse.message);
 											setTimeout(() => {
-												SubmitCondition('true');
 												window.location = '<?php echo base_url('player_panel/home') ?>';
 											}, 2000);
 										}
-										if (decodeParse.response == 'false'){
+										else if (decodeParse.response == 'false'){
+											SetAttribute('submit', 'submit', 'Submit New Hint');
 											CSRF_TOKEN = decodeParse.token;
 											ShowToast(2000, 'error', decodeParse.message);
-											setTimeout(() => {
-												SubmitCondition('true');
-											}, 2000);
+											return;
+										}
+										else{
+											SetAttribute('submit', 'submit', 'Submit New Hint');
+											CSRF_TOKEN = decodeParse.token;
+											ShowToast(2000, 'error', decodeParse.message);
+											return;
 										}
 									},
-									error: function(data){
-										ShowToast(2000, 'error', data.responseText);
-										setTimeout(() => {
-											SubmitCondition('true');
-											window.location = '<?php echo base_url('player_panel/create_hint') ?>';
-										}, 2500);
+									error: function(){
+										ShowToast(2000, 'info', 'Generating New Request Token...');
+										SetAttribute('submit', 'button', 'Generating New Request Token...');
+
+										$.ajax({
+											url : '<?php echo base_url('api/getnewtoken') ?>',
+											type: 'GET',
+											dataType: 'JSON',
+											data: {
+												'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+												'hint_question' : $('#hint_question').val(),
+												'hint_answer' : $('#hint_answer').val(),
+												'password' : $('#password').val()
+											},
+											success: function(data){
+												var GetString = JSON.stringify(data);
+												var Result = JSON.parse(GetString);
+
+												if (Result.response == 'true'){
+													CSRF_TOKEN = Result.token;
+												}
+
+
+											},
+											error: function(){
+												ShowToast(2000, 'error', 'Failed To Create New Hint.');
+												setTimeout(() => {
+													window.location.reload();
+												}, 2000);
+											}
+										});
 									}
 								});
 							}
 						});
 					});
 
-					function SubmitCondition(param)
+					function Do_CreateNewHint()
 					{
-						let getBtn = document.getElementById('submit');
-						if (param == 'true'){
-							getBtn.setAttribute('type', 'submit');
-							getBtn.setAttribute('value', 'Submit New Hint');
-						}
-						if (param == 'false'){
-							getBtn.setAttribute('type', 'button');
-							getBtn.setAttribute('value', 'Processing...');
-						}
+						$.ajax({
+							url : '<?php echo base_url('player_panel/create_hint/do_create') ?>',
+							type : 'POST',
+							dataType : 'JSON',
+							data: {
+								'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+								'hint_question' : $('#hint_question').val(),
+								'hint_answer' : $('#hint_answer').val(),
+								'password' : $('#password').val()
+							},
+							success: function(data){
+								var GetString = JSON.stringify(data);
+								var Result = JSON.parse(GetString);
+
+								if (Result.response == 'true'){
+									SetAttribute('submit', 'submit', 'Submit New Hint');
+									ShowToast(2000, 'success', Result.message);
+									CSRF_TOKEN = Result.token;
+									setTimeout(() => {
+										self.history.back();
+									}, 2000);
+									return;
+								}
+								else if (Result.response == 'false'){
+									SetAttribute('submit', 'submit', 'Submit New Hint');
+									ShowToast(2000, 'error', Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
+								}
+								else{
+									SetAttribute('submit', 'submit', 'Submit New Hint');
+									ShowToast(2000, 'error', Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
+								}
+							},
+							error: function(){
+								ShowToast(2000, 'error', 'Failed To Create New Hint.');
+								setTimeout(() => {
+									window.location.reload();
+								}, 2000);
+							}
+						});
 					}
 				</script>
 			</div>

@@ -48,20 +48,26 @@ class Register_model extends CI_Model
 		}
 	}
 
-	function CheckUsername($username)
+	function CheckUsername()
 	{
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('login' => $username))->row();
+		$data = array(
+			'username' => $this->encryption->encrypt($this->input->post('login'))
+		);
+
+		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();
 		if ($query)
 		{
 			$response['response'] = 'false';
-			$response['message'] = 'This Username Already Registered';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Username Already Registered.';
 			echo json_encode($response);
 		}
 		else
 		{
 			$response['response'] = 'true';
+			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Username Available.';
 			echo json_encode($response);
 		}

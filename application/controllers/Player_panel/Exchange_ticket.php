@@ -22,25 +22,42 @@ Class Exchange_ticket extends CI_Controller
             redirect(base_url('home'), 'refresh');
         }
     }
+    
     function index()
     {
         $data['title'] = 'Exchange Ticket';
-        $data['item_list'] = $this->exchangeticket->list_item();
-        $data['ticket'] = $this->exchangeticket->get_ticket($_SESSION['uid'], '1301513000');
+        $data['item_list'] = $this->exchangeticket->GetAllItems();
+        $data['ticket'] = $this->exchangeticket->GetTicketID($_SESSION['uid'], $this->getsettings->Get2()->event_ticket);
 
         $data['isi'] = 'main/content/player_panel/content_exchangeticket';
         $this->load->view('main/layout/wrapper', $data, FALSE);
     }
-    function  exchange_item()
+
+    function do_exchange()
     {
-        if (empty($_GET['item_id']))
+        $response = array();
+
+        $this->form_validation->set_rules(
+            'id',
+            'Item ID',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Only Can Contains Numeric Characters.'
+            )
+        );
+        if ($this->form_validation->run())
         {
-            $this->session->set_flashdata('false', 'Failed To Exchange Item');
-            redirect(base_url('player_panel/exchange_ticket'), 'refresh');
+            $this->exchangeticket->ExchangeItemV2();
         }
-        if (!empty($_GET['item_id']))
+        else
         {
-            $this->exchangeticket->validate($_GET['item_id']);
+            $this->form_validation->set_error_delimiters('', '');
+
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+            echo json_encode($response);
         }
     }
 }

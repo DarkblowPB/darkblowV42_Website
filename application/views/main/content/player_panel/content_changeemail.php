@@ -12,7 +12,7 @@
                             <input type="hidden" id="hidden_email" value="<?php echo $player->email ?>">
                         <?php endif; ?>
                         <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                            <label class="form-control"><button type="button" onclick="Resend_Email()" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">Resend Email Verification</button></label>
+                            <label class="form-control"><button type="button" id="resend_email" onclick="Resend_Email()" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">Resend Email Verification</button></label>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
@@ -34,39 +34,107 @@
                 <?php echo form_close() ?>
                 <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
                     <script>
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         function Resend_Email(){
                             $.ajax({
                                 url: '<?php echo base_url('player_panel/changeemail/do_resend') ?>',
                                 type: 'POST',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                     'email' : '<?php echo $player->email ?>'
                                 },
                                 success: function(data){
-                                    if (data == "true"){
-                                        ShowToast(2500, 'success', 'Successfully Resend Email Verification. Please Check Your Email.');
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true'){
+                                        SetAttribute('resend_email', 'button', 'Resend Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'success', Result.message);
                                         setTimeout(() => {
-                                            window.location = '<?php echo base_url('player_panel/changeemail') ?>';
-                                        }, 3000);
+                                            window.location.reload();
+                                        }, 2000);
                                     }
-                                    else if (data == "false"){
-                                        ShowToast(2500, 'error', 'Failed To Resend Email Verification.');
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('player_panel/changeemail') ?>';
-                                        }, 3000);
+                                    else if (Result.response == 'false'){
+                                        SetAttribute('resend_email', 'button', 'Resend Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'error', Result.message);
+                                        return;
                                     }
                                     else{
-                                        ShowToast(2500, 'error', data);
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('player_panel/changeemail') ?>';
-                                        }, 3000);
+                                        SetAttribute('resend_email', 'button', 'Resend Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'error', Result.message);
+                                        return;
                                     }
                                 },
                                 error: function(data){
-                                    ShowToast(2500, 'error', data);
+                                    ShowToast(1000, 'info', 'Getting New Request Token...');
+                                    SetAttribute('resend_email', 'button', 'Getting New Request Token...');
+
+                                    $.ajax({
+                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                        type: 'GET',
+                                        dataType : 'JSON',
+                                        data: {},
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                CSRF_TOKEN = Result.token;
+                                            }
+
+                                            Do_ChangeEmail();
+                                        },
+                                        error: function(){
+                                            ShowToast(2000, 'error', 'Failed To Send Verification Email.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        function Do_ChangeEmail()
+                        {
+                            $.ajax({
+                                url: '<?php echo base_url('player_panel/changeemail/do_resend') ?>',
+                                type: 'POST',
+                                data: {
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                    'email' : '<?php echo $player->email ?>'
+                                },
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true'){
+                                        ShowToast(2000, 'success', Result.message);
+                                        SetAttribute('resend_email', 'button', 'Send Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                    else if (Result.response == 'false'){
+                                        ShowToast(2000, 'error', Result.message);
+                                        SetAttribute('resend_email', 'button', 'Send Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                    else{
+                                        ShowToast(2000, 'error', Result.message);
+                                        SetAttribute('resend_email', 'button', 'Send Email Verification');
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                },
+                                error: function(){
+                                    ShowToast(2000, 'error', 'Failed To Send Verification Email.');
                                     setTimeout(() => {
-                                        window.location = '<?php echo base_url('player_panel/changeemail') ?>';
-                                    }, 3000);
+                                        window.location.reload();
+                                    }, 2000);
                                 }
                             });
                         }

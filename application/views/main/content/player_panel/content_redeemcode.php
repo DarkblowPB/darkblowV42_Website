@@ -16,7 +16,7 @@
 					</div>
 				<?php echo form_close() ?>
 				<script>
-					var CSRF_TOKEN = '';
+					var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
 					$(document).ready(function(){
 						$('#redeemcode_form').on('submit', function(e){
 							e.preventDefault();
@@ -25,11 +25,6 @@
 								return;
 							}
 							else{
-								SubmitCondition('false');
-								
-								if (CSRF_TOKEN == ''){
-									CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-								}
 								
 								$.ajax({
 									url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
@@ -41,53 +36,97 @@
 									},
 									success: function(data){
 										var decodeString = JSON.stringify(data);
-										var jsonString = JSON.parse(decodeString);
-										if (jsonString.response == "true"){
-											CSRF_TOKEN = jsonString.token;
-											ShowToast(2000, 'success', jsonString.message);
-											setTimeout(() => {
-												SubmitCondition('true');
-											}, 2500);
+										var Result = JSON.parse(decodeString);
+
+										if (Result.response == 'true'){
+											SetAttribute('submit', 'submit', 'Submit Code');
+											ShowToast(2000, 'success', Result.message);
+											CSRF_TOKEN = Result.token;
 											return;
 										}
-										else if (jsonString.response == "false"){
-											CSRF_TOKEN = jsonString.token;
-											ShowToast(2000, 'error', jsonString.message);
-											setTimeout(() => {
-												SubmitCondition('true');
-											}, 2500);
+										else if (Result.response == 'false'){
+											SetAttribute('submit', 'submit', 'Submit Code');
+											ShowToast(2000, 'error', Result.message);
+											CSRF_TOKEN = Result.token;
 											return;
 										}
 										else{
-											CSRF_TOKEN = jsonString.token;
-											ShowToast(2000, 'error', jsonString.message);
-											setTimeout(() => {
-												SubmitCondition('true');
-											}, 2500);
+											SetAttribute('submit', 'submit', 'Submit Code');
+											ShowToast(2000, 'error', Result.message);
+											CSRF_TOKEN = Result.token;
 											return;
 										}
 									},
 									error: function(){
-										ShowToast(2000, 'error', 'Failed To Redeem The Code.');
-										setTimeout(() => {
-											window.location.reload();
-										}, 2500);
+										ShowToast(1000, 'info', 'Generating New Request Token...');
+										SetAttribute('submit', 'button', 'Generating New Request Token...');
+
+										$.ajax({
+											url: '<?php echo base_url('api/getnewtoken') ?>',
+											type: 'GET',
+											dataType: 'JSON',
+											data: {},
+											success: function(data){
+												var GetString = JSON.stringify(data);
+												var Result = JSON.parse(GetString);
+
+												if (Result.response == 'true'){
+													CSRF_TOKEN = Result.token;
+												}
+
+												Do_RedeemCode();
+											},
+											error: function(){
+												ShowToast(2000, 'error', 'Failed To Submit The Code.');
+												SetAttribute('submit', 'submit', 'Submit Code');
+												setTimeout(() => {
+													window.location.reload();
+												}, 2000);
+											}
+										});
 									}
 								});
 							}
 						});
 					});
-					function SubmitCondition(param)
+
+					function Do_RedeemCode()
 					{
-						let getBtn = document.getElementById('submit');
-						if (param == 'true'){
-							getBtn.setAttribute('type', 'submit');
-							getBtn.setAttribute('value', 'Submit Code');
-						}
-						if (param == 'false'){
-							getBtn.setAttribute('type', 'button');
-							getBtn.setAttribute('value', 'Processing...');
-						}
+						$.ajax({
+							url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
+							type: 'POST',
+							dataType: 'JSON',
+							data: {},
+							success: function(data){
+								var GetString = JSON.stringify(data);
+								var Result = JSON.parse(GetString);
+
+								if (Result.response == 'true'){
+									SetAttribute('submit', 'submit', 'Submit Code');
+									ShowToast(2000, 'success', Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
+								}
+								else if (Result.response == 'false'){
+									SetAttribute('submit', 'submit', 'Submit Code');
+									ShowToast(2000, 'error', Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
+								}
+								else{
+									SetAttribute('submit', 'submit', 'Submit Code');
+									ShowToast(2000, 'error', Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
+								}
+							},
+							error: function(){
+								ShowToast(2000, 'error', 'Failed To Submit The Code.');
+								setTimeout(() => {
+									window.location.reload();
+								}, 2000);
+							}
+						});
 					}
 				</script>
 				<div class="nk-gap-2"></div><div class="nk-gap-2"></div><div class="nk-gap-2"></div><div class="nk-gap-2"></div>

@@ -198,7 +198,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="<?php echo base_url('adm/eventsmanagement/rankup') ?>" class="nav-link <?php if ($this->uri->segment(3) == "rankup"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Rankup Events</p>
                 </a>

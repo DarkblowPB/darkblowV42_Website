@@ -12,9 +12,10 @@ class Register extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->main_protect->mainProtectB();
-		$this->load->model('main/register_model', 'register');
 		$this->allprotect->Web_Protection();
+		$this->main_protect->mainProtectB();
+		$this->allprotect->Maintenance_Protection();
+		$this->load->model('main/register_model', 'register');
 	}
 	
 	function index()
@@ -28,15 +29,29 @@ class Register extends CI_Controller
 	{
 		$response = array();
 
-		if (!empty($this->input->get('username')))
+		$this->form_validation->set_rules(
+			'login',
+			'Username',
+			'required|alpha_numeric|min_length[4]|max_length[16]|is_unique[accounts.login]',
+			array(
+				'required' => '%s Cannot Be Empty.',
+				'alpha_numeric' => '%s Only Can Contains Alphabetic & Numeric Characters.',
+				'min_length' => '%s Must Contains 4 Characters Or More.',
+				'max_length' => '%s Can Only Contains 16 Characters.',
+				'is_unique' => '%s Already Registered.'
+			)
+		);
+		if ($this->form_validation->run())
 		{
-			$this->register->CheckUsername($this->input->get('username'));
+			$this->register->CheckUsername();
 		}
 		else
 		{
+			$this->form_validation->set_error_delimiters('', '');
+
 			$response['response'] = 'false';
-			$response['message'] = 'Failed To Check Username';
-			echo json_encode($response);
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
 		}
 	}
 

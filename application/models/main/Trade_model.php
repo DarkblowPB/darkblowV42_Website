@@ -70,6 +70,8 @@ class Trade_model extends CI_Model
 
     function CreateNewItem()
     {
+        $response = array();
+
         $data = array(
             'item_id' => $this->encryption->encrypt($this->input->post('item_id')),
             'item_price' => $this->encryption->encrypt($this->input->post('item_price'))
@@ -104,22 +106,34 @@ class Trade_model extends CI_Model
                     $delete = $this->db->where(array('owner_id' => $_SESSION['uid'], 'item_id' => $this->encryption->decrypt($data['item_id'])))->delete('player_items');
                     if ($delete)
                     {
-                        echo "true";
+                        $response['response'] = 'true';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Successfully Post Item.';
+                        echo json_encode($response);
                     }
                     else
                     {
-                        echo "false2";
+                        $response['response'] = 'false';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Post The Item.';
+                        echo json_encode($response);
                     }
                 }
                 else
                 {
-                    echo "false3";
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Cannot Trade Equipped Item.';
+                    echo json_encode($response);
                 }
             }
         }
         else
         {
-            echo "false4";
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'This Item Is Unavailable For Trade.';
+            echo json_encode($response);
         }
     }
 

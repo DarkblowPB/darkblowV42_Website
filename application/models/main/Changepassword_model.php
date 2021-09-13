@@ -14,11 +14,12 @@ class Changepassword_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 		$this->load->library('lib');
-		$this->load->library('encryption');
 	}
 	
 	function changepassword_validation()
 	{
+		$response = array();
+
 		$data = array(
 			'old_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('old_password'))),
 			'new_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('new_password'))),
@@ -33,19 +34,28 @@ class Changepassword_model extends CI_Model
 			if ($this->encryption->decrypt($data['new_password']) == $query->password)
 			{
 				// If New Password Same Like Old Password
-				echo "false";
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'New Password Cannot Be Same As Old Password.';
+				echo json_encode($response);
 			}
 			else
 			{
 				if ($this->encryption->decrypt($data['hint_question']) != $query->hint_question)
 				{
 					// If Wrong Hint Question
-					echo "false2";
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Invalid Hint Question.';
+					echo json_encode($response);
 				}
 				else if ($this->encryption->decrypt($data['hint_answer']) != $query->hint_answer)
 				{
 					// If Wrong Hint Answer
-					echo "false3";
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Invalid Hint Answer';
+					echo json_encode($response);
 				}
 				else
 				{
@@ -54,12 +64,18 @@ class Changepassword_model extends CI_Model
 					if ($update)
 					{
 						// If Successfully Update Password
-						echo "true";
+						$response['response'] = 'true';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Successfully Change The Password.';
+						echo json_encode($response);
 					}
 					else
 					{
 						// If Failed Update Password
-						echo "false4";
+						$response['response'] = 'false';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Failed To Change The Password.';
+						echo json_encode($response);
 					}
 				}
 			}
@@ -67,7 +83,10 @@ class Changepassword_model extends CI_Model
 		else
 		{
 			// If Wrong Old Password
-			echo "false5";
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Invalid Old Password.';
+			echo json_encode($response);
 		}
 	}
 }

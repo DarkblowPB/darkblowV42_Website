@@ -23,10 +23,11 @@
                         <label class="form-control"><?php echo $this->trade->GetDurationLeftEachMonth() ?> Days</label>
                     </div>
                     <div class="form-group text-center">
-                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit Your Item">
+                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit Your Item">
                     </div>
                 <?php echo form_close() ?>
                 <script>
+                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                     $(document).ready(function(){
                         $('#post_form').on('submit', function(e){
                             e.preventDefault();
@@ -34,57 +35,109 @@
                                 url: '<?php echo base_url('trade/do_post') ?>',
                                 type: 'POST',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                     'item_id' : $('#item_id').val(),
                                     'item_price' : $('#item_price').val()
                                 },
                                 success: function(data){
-                                    if (data == "true"){
-                                        ShowToast(2000, 'success', 'Successfully Post New Item.');
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true'){
+                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        ShowToast(2000, 'success', Result.message);
+                                        CSRF_TOKEN = Result.token;
                                         setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade') ?>';
-                                        }, 2500);
+                                            window.location.reload();
+                                        }, 2000);
                                     }
-                                    else if (data == "false"){
-                                        ShowToast(2000, 'error', 'Failed To Post New Item.');
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade') ?>';
-                                        }, 2500);
-                                    }
-                                    else if (data == "false2"){
-                                        ShowToast(2000, 'error', 'Failed To Post New Item.');
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade') ?>';
-                                        }, 2500);
-                                    }
-                                    else if (data == "false3"){
-                                        ShowToast(2000, 'error', 'Failed To Post New Item.');
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade') ?>';
-                                        }, 2500);
-                                    }
-                                    else if (data == "false4"){
-                                        ShowToast(2000, 'error', 'Failed To Post New Item.');
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade') ?>';
-                                        }, 2500);
+                                    else if (Result.response == 'false'){
+                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
                                     }
                                     else{
-                                        ShowToast(3000, 'error', data);
-                                        setTimeout(() => {
-                                            window.location = '<?php echo base_url('trade/addpost') ?>';
-                                        }, 3500);
+                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
                                     }
                                 },
                                 error: function(){
-                                    ShowToast(2000, 'error', 'Failed To Post New Item.');
-                                    setTimeout(() => {
-                                        window.location = '<?php echo base_url('trade/addpost') ?>';
-                                    }, 2500);
+                                    ShowToast(2000, 'info', 'Generate New Request Token...');
+
+                                    $.ajax({
+                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                        type: 'GET',
+                                        dataType: 'JSON',
+                                        data: {},
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                CSRF_TOKEN = Result.token;
+                                            }
+                                        },
+                                        error: function(){
+                                            SetAttribute('submit', 'submit', 'Submit Your Item.');
+                                            ShowToast(2000, 'error', 'Failed To Submit Your item.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
                                 }
                             });
                         });
                     });
+
+                    function Do_SubmitTrade()
+                    {
+                        $.ajax({
+                            url: '<?php echo base_url('trade/do_post') ?>',
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: {
+                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                'item_id' : $('#item_id').val(),
+                                'item_price' : $('#item_price').val()
+                            },
+                            success: function(data){
+                                var GetString = JSON.stringify(data);
+                                var Result = JSON.parse(GetString);
+
+                                if (Result.response == 'true'){
+                                    SetAttribute('submit', 'submit', 'Submit Your Item');
+                                    ShowToast(2000, 'success', Result.message);
+                                    CSRF_TOKEN = Result.token;
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                                else if (Result.response == 'false'){
+                                    SetAttribute('submit', 'submit', 'Submit Your Item');
+                                    ShowToast(2000, 'error', Result.message);
+                                    CSRF_TOKEN = Result.token;
+                                    return;
+                                }
+                                else{
+                                    SetAttribute('submit', 'submit', 'Submit Your Item');
+                                    ShowToast(2000, 'error', Result.message);
+                                    CSRF_TOKEN = Result.token;
+                                    return;
+                                }
+                            },
+                            error: function(){
+                                SetAttribute('submit', 'submit', 'Submit Your Item');
+                                ShowToast(2000, 'error', 'Failed To Submit Your Item.');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+                        });
+                    }
                 </script>
             </div>
         </div>

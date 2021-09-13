@@ -14,6 +14,7 @@ class Login extends CI_Controller
 		parent::__construct();
 		$this->main_protect->mainProtectB();
 		$this->allprotect->Web_Protection();
+		$this->allprotect->Maintenance_Protection();
 		$this->load->model('main/login_model', 'login');
 	}
 
@@ -64,12 +65,14 @@ class Login extends CI_Controller
 		}
 	}
 
-	function do_logout()
+	function do_gettoken()
 	{
-		$this->session->unset_userdata('uid');
-		$this->session->unset_userdata('player_name');
-		$this->session->unset_userdata('access_level');
-		echo "true";
+		$response = array();
+
+		$response['response'] = 'true';
+		$response['token'] = $this->security->get_csrf_hash();
+
+		echo json_encode($response);
 	}
 
 }

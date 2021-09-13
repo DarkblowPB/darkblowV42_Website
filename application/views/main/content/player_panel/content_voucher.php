@@ -19,21 +19,17 @@
                                 </div>
                             <?php echo form_close() ?>
                             <script>
-                                var CSRF_TOKEN = '';
+                                var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                                 $(document).ready(function(){
                                     $('#voucher_form').on('submit', function(e){
                                         e.preventDefault();
-                                        if ($('#voucher_code').val() == ""){
+                                        if ($('#voucher_code').val() == ''){
                                             ShowToast(2000, 'error', 'Voucher Code Cannot Be Empty.');
                                             return;
                                         }
                                         else{
-                                            SubmitCondition('false');
-                                            
-                                            if (CSRF_TOKEN == ''){
-                                                CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                                            }
-                                            
+                                            SetAttribute('submit', 'button', 'Processing...');
+
                                             $.ajax({
                                                 url: '<?php echo base_url('player_panel/voucher/do_redeem') ?>',
                                                 type: 'POST',
@@ -43,55 +39,102 @@
                                                     'voucher_code' : $('#voucher_code').val()
                                                 },
                                                 success: function(data){
-                                                    var decodeString = JSON.stringify(data);
-                                                    var jsonString = JSON.parse(decodeString);
-                                                    if (jsonString.response == "true"){
-                                                        CSRF_TOKEN = jsonString.token;
-                                                        ShowToast(2000, 'success', jsonString.message);
-                                                        setTimeout(() => {
-                                                            SubmitCondition('true');
-                                                        }, 2000);
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+
+                                                    if (Result.response == 'true'){
+                                                        SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                        ShowToast(2000, 'success', Result.message);
+                                                        CSRF_TOKEN = Result.token;
                                                         return;
                                                     }
-                                                    else if (jsonString.response == "false"){
-                                                        CSRF_TOKEN = jsonString.token;
-                                                        ShowToast(2000, 'error', jsonString.message);
-                                                        setTimeout(() => {
-                                                            SubmitCondition('true');
-                                                        }, 2000);
+                                                    else if (Result.response == 'false'){
+                                                        SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                        ShowToast(2000, 'error', Result.message);
+                                                        CSRF_TOKEN = Result.token;
                                                         return;
                                                     }
                                                     else{
-                                                        CSRF_TOKEN = jsonString.token;
-                                                        ShowToast(2000, 'error', jsonString.message);
-                                                        setTimeout(() => {
-                                                            SubmitCondition('true');
-                                                        }, 2000);
+                                                        SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                        ShowToast(2000, 'error', Result.message);
+                                                        CSRF_TOKEN = Result.token;
                                                         return;
                                                     }
                                                 },
                                                 error: function(data){
-                                                    ShowToast(3500, 'error', data);
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/voucher') ?>';
-                                                    }, 4000);
+                                                    SetAttribute('submit', 'button', 'Generating New Request Token...');
+                                                    ShowToast(1000, 'info', 'Generating New Request Token...');
+
+                                                    $.ajax({
+                                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                        type: 'GET',
+                                                        dataType: 'JSON',
+                                                        data: {},
+                                                        success: function(data){
+                                                            var GetString = JSON.stringify(data);
+                                                            var Result = JSON.parse(GetString);
+
+                                                            if (Result.response == 'true'){
+                                                                CSRF_TOKEN = Result.token;
+                                                            }
+
+                                                            Do_SubmitVoucher();
+                                                        },
+                                                        error: function(){
+                                                            SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                            ShowToast(2000, 'error', 'Failed To Submit Voucher.');
+                                                            setTimeout(() => {
+                                                                window.location.reload();
+                                                            }, 2000);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
                                     });
                                 });
                                 
-                                function SubmitCondition(param)
+                                function Do_SubmitVoucher()
                                 {
-                                    let getBtn = document.getElementById('submit');
-                                    if (param == 'true'){
-                                        getBtn.setAttribute('type', 'submit');
-                                        getBtn.setAttribute('value', 'Submit Voucher');
-                                    }
-                                    if (param == 'false'){
-                                        getBtn.setAttribute('type', 'button');
-                                        getBtn.setAttribute('value', 'Processing...');
-                                    }
+                                    $.ajax({
+                                        url: '<?php echo base_url('player_panel/voucher/do_redeem') ?>',
+                                        type: 'POST',
+                                        dataType: 'JSON',
+                                        data: {
+                                            '<?php echo $this->security->get_csrf_hash() ?>' : CSRF_TOKEN,
+                                            'voucher_code' : $('#voucher_code').val()
+                                        },
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                ShowToast(2000, 'success', Result.message);
+                                                CSRF_TOKEN = Result.token;
+                                                return;
+                                            }
+                                            else if (Result.response == 'false'){
+                                                SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                ShowToast(2000, 'error', Result.message);
+                                                CSRF_TOKEN = Result.token;
+                                                return;
+                                            }
+                                            else{
+                                                SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                ShowToast(2000, 'error', Result.message);
+                                                CSRF_TOKEN = Result.token;
+                                                return;
+                                            }
+                                        },
+                                        error: function(){
+                                            SetAttribute('submit', 'submit', 'Submit Voucher');
+                                            ShowToast(2000, 'error', 'Failed To Submit Voucher.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
                                 }
                             </script>
                         </div>

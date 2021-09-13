@@ -48,7 +48,7 @@
                             </div>
                             <div class="nk-gap"></div>
                             <div class="form-group text-center">
-                                <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Change Password">
+                                <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Change Password">
                             </div>
                         <?php echo form_close() ?>
                         <script>
@@ -80,6 +80,8 @@
                                         return;
                                     }
                                     else{
+                                        SetAttribute('submit', 'button', 'Processing...');
+
                                         $.ajax({
                                             url : '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
                                             type: 'POST',
@@ -92,60 +94,114 @@
                                                 'hint_answer' : $('#hint_answer').val()
                                             },
                                             success: function(data){
-                                                if (data == "true"){
-                                                    ShowToast(2500, 'success', 'Successfully Change Password. You Need Logged In Again To Continue.');
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+                                                
+                                                if (Result.response == 'true'){
+                                                    SetAttribute('submit', 'submit', 'Change Password');
+
+                                                    CSRF_TOKEN = Result.token;
+                                                    ShowToast(1000, 'success', Result.message);
                                                     setTimeout(() => {
-                                                        window.location = '<?php echo base_url('home/logout') ?>';
-                                                    }, 3000);
+                                                        Logout();
+                                                    }, 1000);
                                                 }
-                                                else if (data == "false"){
-                                                    ShowToast(2500, 'error', 'New Password Cannot Be Same Like Old Password.');
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
+                                                else if (Result.response == 'false'){
+                                                    SetAttribute('submit', 'submit', 'Change Password');
+
+                                                    CSRF_TOKEN = Result.token;
+                                                    ShowToast(2000, 'error', Result.message);
+                                                    return;
                                                 }
-                                                else if (data == "false2"){
-                                                    ShowToast(2500, 'error', 'Wrong Hint Question.');
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
-                                                }
-                                                else if (data == "false3"){
-                                                    ShowToast(2500, 'error', 'Wrong Hint Answer.');
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
-                                                }
-                                                else if (data == "false4"){
-                                                    ShowToast(2500, 'error', 'Failed To Update Password.');
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
-                                                }
-                                                else if (data == "false5"){
-                                                    ShowToast(2500, 'error', 'Wrong Old Password.');
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
-                                                }
-                                                else
-                                                {
-                                                    ShowToast(2500, 'error', data);
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
+                                                else{
+                                                    SetAttribute('submit', 'submit', 'Change Password');
+                                                    CSRF_TOKEN = Result.token;
+                                                    ShowToast(2000, 'error', Result.message);
+                                                    return;
                                                 }
                                             },
                                             error: function(data){
-                                                ShowToast(2500, 'error', data);
-                                                    setTimeout(() => {
-                                                        window.location = '<?php echo base_url('player_panel/changepassword') ?>';
-                                                    }, 3000);
+                                                ShowToast(1000, 'info', 'Getting New Request Token...');
+                                                SetAttribute('submit', 'button', 'Getting New Request Token...');
+
+                                                $.ajax({
+                                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                    type: 'GET',
+                                                    dataType: 'JSON',
+                                                    data: {},
+                                                    success: function(data){
+                                                        var GetString = JSON.stringify(data);
+                                                        var Result = JSON.parse(GetString);
+
+                                                        if (Result.response == 'true'){
+                                                            CSRF_TOKEN = Result.token;
+                                                        }
+
+                                                        Do_ChangePassword();
+                                                    },
+                                                    error: function(){
+                                                        ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                        SetAttribute('submit', 'submit', 'Change Password');
+                                                        setTimeout(() => {
+                                                            window.location.reload();
+                                                        }, 2000);
+                                                    }
+                                                })
                                             }
                                         });
                                     }
                                 });
                             });
+
+                            function Do_ChangePassword()
+                            {
+                                $.ajax({
+                                    url : '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
+                                    type: 'POST',
+                                    data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : '<?php echo $this->security->get_csrf_hash() ?>',
+                                        'old_password' : $('#old_password').val(),
+                                        'new_password' : $('#new_password').val(),
+                                        'confirm_password' : $('#confirm_password').val(),
+                                        'hint_question' : $('#hint_question').val(),
+                                        'hint_answer' : $('#hint_answer').val()
+                                    },
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+                                        
+                                        if (Result.response == 'true'){
+                                            SetAttribute('submit', 'submit', 'Change Password');
+
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(1000, 'success', Result.message);
+                                            setTimeout(() => {
+                                                Logout();
+                                            }, 1000);
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute('submit', 'submit', 'Change Password');
+
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'error', Result.message);
+                                            return;
+                                        }
+                                        else{
+                                            SetAttribute('submit', 'submit', 'Change Password');
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'error', Result.message);
+                                            return;
+                                        }
+                                    },
+                                    error: function(data){
+                                        ShowToast(2000, 'info', 'Failed To Change Password.');
+                                        SetAttribute('submit', 'button', 'Change Password');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                });
+                            }
                         </script>
                     </div>
                 </div>

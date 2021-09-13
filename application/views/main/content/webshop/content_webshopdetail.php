@@ -54,7 +54,7 @@
 									</div>
 								<?php echo form_close() ?>
 								<script>
-									var CSRF_TOKEN = '';
+									var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
 									$(document).ready(function(){
 										$('#price_option').on('change', function(e){
 											e.preventDefault();
@@ -65,10 +65,7 @@
 										$('#buy_form').on('submit', function(e){
 											e.preventDefault();
 											<?php if (!empty($_SESSION['uid'])) : ?>
-												SubmitCondition('submit_buy', 'false');
-												if (CSRF_TOKEN == ''){
-													CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-												}
+												SetAttribute('submit_buy', 'button', 'Processing...');
 												
 												$.ajax({
 													url: '<?php echo base_url('webshop/do_buy') ?>',
@@ -85,59 +82,100 @@
 														var Result = JSON.parse(GetString);
 
 														if (Result.response == 'true'){
-															SubmitCondition('submit_buy', 'true');
-															
-															CSRF_TOKEN = Result.token;
+															SetAttribute('submit_buy', 'submit', 'Buy');
 															ShowToast(2000, 'success', Result.message);
-															setTimeout(() => {
-																window.location.reload();
-															}, 2000);
+															CSRF_TOKEN = Result.token;
+															return;
 														}
 														else if (Result.response == 'false'){
-															SubmitCondition('submit_buy', 'true');
-
-															CSRF_TOKEN = Result.token;
+															SetAttribute('submit_buy', 'submit', 'Buy');
 															ShowToast(2000, 'error', Result.message);
+															CSRF_TOKEN = Result.token;
 															return;
 														}
 														else{
-															SubmitCondition('submit_buy', 'true');
-															
-															CSRF_TOKEN = Result.token;
+															SetAttribute('submit_buy', 'submit', 'Buy');
 															ShowToast(2000, 'error', Result.message);
+															CSRF_TOKEN = Result.token;
 															return;
 														}
 													},
 													error: function(data){
-														SubmitCondition('submit_buy', 'true');
-														
-														ShowToast(3000, 'error', data.responseText);
-														setTimeout(() => {
-															window.location.reload();
-														}, 3500);
+														ShowToast(1000, 'info', 'Generating New Request Token...');
+
+														$.ajax({
+															url: '<?php echo base_url('api/getnewtoken') ?>',
+															type: 'GET',
+															dataType: 'JSON',
+															data: {},
+															success: function(data){
+																var GetString = JSON.stringify(data);
+																var Result = JSON.parse(data);
+
+																if (Result.response == 'true'){
+																	CSRF_TOKEN = Result.token;
+																}
+																
+																Do_Buy();
+															},
+															error: function(){
+																SetAttribute('submit_buy', 'submit', 'Buy');
+																ShowToast(2000, 'error', 'Failed To Buy This Item.');
+																setTimeout(() => {
+																	window.location.reload();
+																}, 2000);
+															}
+														});
 													}
 												});
+												
+												function Do_Buy()
+												{
+													$.ajax({
+														url: '<?php echo base_url('webshop/do_buy') ?>',
+														type: 'POST',
+														dataType: 'JSON',
+														data: {
+															'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+															'player_id' : '<?php echo $_SESSION['uid'] ?>',
+															'item_id' : '<?php echo $detail->id ?>',
+															'item_price' : $('#price_option').val()
+														},
+														success: function(data){
+															var GetString = JSON.stringify(data);
+															var Result = JSON.parse(GetString);
+
+															if (Result.response == 'true'){
+																SetAttribute('submit_buy', 'submit', 'Buy');
+																ShowToast(2000, 'success', Result.message);
+																CSRF_TOKEN = Result.token;
+																return;
+															}
+															else if (Result.response == 'false'){
+																SetAttribute('submit_buy', 'submit', 'Buy');
+																ShowToast(2000, 'error', Result.message);
+																CSRF_TOKEN = Result.token;
+																return;
+															}
+															else{
+																SetAttribute('submit_buy', 'submit', 'Buy');
+																ShowToast(2000, 'error', Result.message);
+																CSRF_TOKEN = Result.token;
+																return;
+															}
+														},
+														error: function(){
+															SetAttribute('submit_buy', 'submiy', 'Buy');
+															ShowToast(2000, 'error', 'Failed To Buy This Item.');
+															setTimeout(() => {
+																window.location.reload();
+															}, 2000);
+														}
+													});
+												}
 											<?php endif; ?>
 										});
 									});
-
-									function SubmitCondition(button_id, param)
-									{
-										let getBtn = document.getElementById(button_id);
-										if (param == 'true'){
-											getBtn.setAttribute('type', 'submit');
-											if (button_id == 'submit_login'){
-												getBtn.setAttribute('value', 'Login');
-											}
-											else{
-												getBtn.setAttribute('value', 'Buy');
-											}
-										}
-										if (param == 'false'){
-											getBtn.setAttribute('type', 'button');
-											getBtn.setAttribute('value', 'Processing...');
-										}
-									}
 								</script>
 								<div class="nk-gap-3"></div>
 							</div>
@@ -261,7 +299,7 @@
 							</div>
 						<?php echo form_close() ?>
 						<script>
-							var FLOAT_CSRF = '';
+							var FLOAT_CSRF = '<?php echo $this->security->get_csrf_hash() ?>';
 							$(document).ready(function(){
 								$('#float_login').on('submit', function(e){
 									e.preventDefault();
@@ -275,11 +313,7 @@
 									}
 									else{
 
-										if (FLOAT_CSRF == ''){
-											FLOAT_CSRF = '<?php echo $this->security->get_csrf_hash() ?>';
-										}
-
-										SubmitCondition('submit_login', 'false');
+										SetAttribute('submit_login', 'button', 'Processing...');
 
 										$.ajax({
 											url: '<?php echo base_url('webshop/do_login') ?>',
@@ -291,37 +325,100 @@
 												'password' : $('#password').val()
 											},
 											success: function(data){
-												var decodeString = JSON.stringify(data);
-												var parseString = JSON.parse(decodeString);
+												var GetString = JSON.stringify(data);
+												var Result = JSON.parse(GetString);
 												
-												if (parseString.response == 'true'){
-													FLOAT_CSRF = parseString.token;
-													ShowToast(2000, 'success', parseString.message);
+												if (Result.response == 'true'){
+													SetAttribute('submit_login', 'submit', 'Login');
+													ShowToast(2000, 'success', Result.message);
+													FLOAT_CSRF = Result.token;
 													setTimeout(() => {
-														SubmitCondition('submit_login', 'true');
 														window.location.reload();
 													}, 2000);
+												}
+												else if (Result.response == 'false'){
+													SetAttribute('submit_login', 'submit', 'Login');
+													ShowToast(2000, 'error', Result.message);
+													FLOAT_CSRF = Result.token;
 													return;
 												}
-												else if (parseString.response == 'false'){
-													FLOAT_CSRF = parseString.token;
-													ShowToast(2000, 'error', parseString.message);
-													setTimeout(() => {
-														SubmitCondition('submit_login', 'true');
-													}, 2000);
+												else{
+													SetAttribute('submit_login', 'submit', 'Login');
+													ShowToast(2000, 'error', Result.message);
+													FLOAT_CSRF = Result.token;
 													return;
 												}
 											},
-											error: function(data){
-												ShowToast(2000, 'error', data);
-												setTimeout(() => {
-													window.location.reload()
-												}, 2500);
+											error: function(){
+												ShowToast(1000, 'info', 'Generating New Request Token...');
+												
+												$.ajax({
+													url: '<?php echo base_url('api/getnewtoken') ?>',
+													type: 'GET',
+													dataType: 'JSON',
+													data: {},
+													success: function(data){
+														var GetString = JSON.stringify(data);
+														var Result = JSON.parse(GetString);
+
+														if (Result.response == 'true'){
+															FLOAT_CSRF = Result.token;
+														}
+
+
+													}
+												});
 											}
 										});
 									}
 								});
 							});
+
+							function Do_Login()
+							{
+								$.ajax({
+									url: '<?php echo base_url('webshop/do_login') ?>',
+									type: 'POST',
+									dataType: 'JSON',
+									data: {
+										'<?php echo $this->security->get_csrf_token_name() ?>' : FLOAT_CSRF,
+										'username' : $('#username').val(),
+										'password' : $('#password').val()
+									},
+									success: function(data){
+										var GetString = JSON.stringify(data);
+										var Result = JSON.parse(GetString);
+
+										if (Result.response == 'true'){
+											SetAttribute('submit_login', 'submit', 'Login');
+											ShowToast(2000, 'success', Result.message);
+											FLOAT_CSRF = Result.token;
+											setTimeout(() => {
+												window.location.reload();
+											}, 2000);
+										}
+										else if (Result.response == 'false'){
+											SetAttribute('submit_login', 'submit', 'Login');
+											ShowToast(2000, 'error', Result.message);
+											FLOAT_CSRF = Result.token;
+											return;
+										}
+										else{
+											SetAttribute('submit_login', 'submit', 'Login');
+											ShowToast(2000, 'error', Result.message);
+											FLOAT_CSRF = Result.token;
+											return;
+										}
+									},
+									error: function(){
+										SetAttribute('submit_login', 'submit', 'Login');
+										ShowToast(2000, 'error', 'Failed To Login.');
+										setTimeout(() => {
+											window.location.reload();
+										}, 2000);
+									}
+								});
+							}
 						</script>
 					</div>
 				</div>

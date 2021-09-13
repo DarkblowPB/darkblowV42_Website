@@ -37,7 +37,7 @@
                     </div>
                     <div class="nk-gap-3"></div>
                     <div class="form-group text-center">
-                        <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Send Request">
+                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Send Request">
                     </div>
                 <?php echo form_close() ?>
                 <script>
@@ -61,6 +61,8 @@
                                 if (CSRF_TOKEN == ''){
                                     CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                                 }
+                                
+                                SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
                                     url: '<?php echo base_url('forgotpassword/do_sendrequest') ?>',
@@ -76,22 +78,26 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
+                                            SetAttribute('submit', 'submit', 'Send Request');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'success', Result.message);
                                             return;
                                         }
                                         else if (Result.response == 'false'){
+                                            SetAttribute('submit', 'submit', 'Send Request');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
                                             return;
                                         }
                                         else{
+                                            SetAttribute('submit', 'submit', 'Send Request');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
                                             return;
                                         }
                                     },
                                     error: function(data){
+                                        SetAttribute('submit', 'submit', 'Send Request');
                                         ShowToast(2000, 'error', data.responseText);
                                         setTimeout(() => {
                                             window.location.reload();
