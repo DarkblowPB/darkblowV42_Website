@@ -96,6 +96,9 @@
                                         SetAttribute('submit', 'submit', 'Login');
                                         ShowToast(2000, 'success', Result.message);
                                         CSRF_TOKEN = Result.token;
+                                        setTimeout(() => {
+                                            window.location = '<?php echo base_url('adm/dashboard') ?>';
+                                        }, 2000);
                                         return;
                                     }
                                     else if (Result.response == 'false'){
