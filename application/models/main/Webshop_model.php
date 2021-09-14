@@ -20,24 +20,25 @@ class Webshop_model extends CI_Model
 		return $this->db->get_where('webshop', array('id' => $id))->row();
 	}
 	
-	function getdata_webshop_in_row()
+	function GetWebshopCount()
 	{
 		return $this->db->where('webshop_itemstatus', '1')->get('webshop')->num_rows();
 	}
 	
-	function getdata_webshop_limit($limit, $start)
+	function GetWebshopPerPage($limit, $start)
 	{
 		return $this->db->where('webshop_itemstatus', '1')->order_by('id','desc')->get('webshop', $limit, $start)->result_array();
 	}
 	
-	function getdata_webshop_mostpopular()
+	function GetPopularWebshop()
 	{
 		return $this->db->order_by('webshop_totalbuy', 'desc')->limit(7)->get('webshop')->result_array();
 	}
 	
-	function getdata_webshop_related()
+	function GetWebshopRelated()
 	{
-		return $this->db->where('webshop_itemstatus', '1')->order_by('id','desc')->limit(4)->get('webshop')->result_array();
+		// Coming Soon
+		return null;
 	}
 
 	function GetItemDuration($item_id, $itemprice)
@@ -81,7 +82,7 @@ class Webshop_model extends CI_Model
 
 	function BuyItemV2()
 	{
-		sleep(3);
+		sleep(2);
 		$data = array(
 			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
 			'item_id' => $this->encryption->encrypt($this->input->post('item_id')),

@@ -17,19 +17,17 @@ class Home extends CI_Controller
 		$this->allprotect->BlockedAccount_Protection();
 		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');
-		$this->load->model('main/webshop_model','webshop');
 	}
 
 	function index()
 	{
 		$data['title'] = 'Home';
 
-		$data['account'] = $this->home->getdata_account();
-		$data['clan'] = $this->home->getdata_clan();
-		$data['allaccount'] = $this->home->getdata_allaccount();
-		$data['onlineaccount'] = $this->home->getdata_onlineaccount();
-		$data['quickslide'] = $this->home->getdata_quickslide();
-		$data['webshop'] = $this->webshop->getdata_webshop_mostpopular();
+		$data['account'] = $this->home->GetPlayerRanking();
+		$data['clan'] = $this->home->GetClanRanking();
+
+		$data['quickslide'] = $this->home->GetNews();
+		$data['webshop'] = $this->home->GetPopularWebshop();
 		
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
@@ -45,9 +43,19 @@ class Home extends CI_Controller
 		echo "<script>self.history.back();</script>";
 	}
 
-	function do_fetch()
+	function do_getservercondition()
 	{
 		$this->getsettings->Fetch();
+	}
+
+	function do_getonline()
+	{
+		$this->getsettings->GetOnlinePlayers();
+	}
+
+	function do_getregistered()
+	{
+		$this->getsettings->GetRegisteredPlayers();
 	}
 }
 

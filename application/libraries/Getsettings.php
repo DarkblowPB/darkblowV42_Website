@@ -63,6 +63,22 @@ class Getsettings
             echo json_encode($response);
         }
     }
+
+    function GetOnlinePlayers()
+    {
+        $response = array();
+
+        $response['response'] = $this->ci->db->get_where('accounts', array('online' => 't'))->num_rows();
+        echo json_encode($response);
+    }
+
+    function GetRegisteredPlayers()
+    {
+        $response = array();
+
+        $response['response'] = $this->ci->db->get_where('accounts', array('access_level <' => '3'))->num_rows();
+        echo json_encode($response);
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

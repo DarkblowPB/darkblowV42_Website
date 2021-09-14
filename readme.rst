@@ -21,34 +21,35 @@ Changelog and New Features
 New Update V1.1:
 
 	- Released
-	- Complex Validation Added To Create Hardest Web Security
-	- Logger System For Detect All Action In Moderator Panel
+	- Add New Complex Validation
+	- Add New Administrator Panel Logger System
 
 
 New Update V1.2:
 
 	- Add New Encryption Function
+	- add New Primary Web Logger System
 	- Clean Up Function Code
 	- Deleting Report Function (Deprecated)
-	- Logger System Adapted To Primary Web
 	- News Menu Changed To Slider
 
 
 New Update V1.3:
 
+	- Add JSON Result
 	- Add Exchange Items Feature (Experimental!)
 	- Add Feature Settings
 	- Add General Settings
 	- Add Maintenance Page
-	- Add New API For New PBLauncher (Not Included On Public Release)
+	- Add New Server Statistic API
+	- Add New PBLauncher API (Not Included On Public Release)
 	- Add New Email Verification
 	- Add POST Request Encryption
 	- Add Trade Feature (95%) (Experimental!)
 	- Add Voucher Feature
 	- Clean Up Code
 	- Improve Function
-	- Transform Basic Ajax Result To JSON Result
-	- Transform Basic AJAX Function To Get Realtime Data
+	- Transform Basic AJAX Function
 	- Reconstruct New Admin Site (35%)
 
 *******************

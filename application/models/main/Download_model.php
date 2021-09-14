@@ -14,27 +14,22 @@ class Download_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
-	
-	function getdata_download()
-	{
-		return $this->db->get('web_download_clientlauncher')->result_array();
-	}
 
-	function getdata_client()
+	function GetClient()
 	{
 		return $this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array();
 	}
 
-	function getdata_partialclient()
+	function GetPartialClient()
 	{
 		return $this->db->where('type','partial')->get('web_download_clientlauncher')->result_array();
 	}
 
-	function getdata_launcher()
+	function GetLauncher()
 	{
 		return $this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array();
 	}
-	function getdata_supportapplication()
+	function GetSupportApp()
 	{
 		return $this->db->where('type','support')->get('web_download_clientlauncher')->result_array();
 	}

@@ -20,7 +20,7 @@
             <div class="col-lg-4">
                 <div class="nk-feature-2">
                     <div class="nk-feature-icon">
-                        <div class="nk-count h2 mb-0"><?php echo $allaccount ?></div>
+                        <div id="registered_players" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
                         <h3 class="nk-feature-title">Registered Players</h3>
@@ -40,7 +40,7 @@
             <div class="col-lg-4">
                 <div class="nk-feature-2">
                     <div class="nk-feature-icon">
-                        <div class="nk-count h2 mb-0"><?php echo $onlineaccount ?></div>
+                        <div id="online_players" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
                         <h3 class="nk-feature-title">Online Players</h3>
@@ -219,11 +219,13 @@
 </div>
 <script>
     var Q = document.getElementById('server_status');
+    var QQ = document.getElementById('online_players');
+    var QQQ = document.getElementById('registered_players');
     function GetCondition()
     {
         $(document).ready(function(){
             $.ajax({
-                url : '<?php echo base_url('home/do_fetch') ?>',
+                url : '<?php echo base_url('home/do_getservercondition') ?>',
                 type: 'GET',
                 dataType: 'JSON',
                 data: {},
@@ -233,23 +235,30 @@
     
                     if (Result.response == 'true'){
                         if (Result.message == 'OFFLINE'){
-                            CSRF_TOKEN = Result.token;
                             Q.setAttribute('class', 'h2 mb-0 text-main-1');
-                            SetText('OFFLINE');
+                            $('#server_status').html(Result.message);
                             RefreshFetch();
                         }
                         else if (Result.message == 'ONLINE'){
-                            CSRF_TOKEN = Result.token;
                             Q.setAttribute('class', 'h2 mb-0 text-main-3');
-                            SetText('ONLINE');
+                            $('#server_status').html(Result.message);
                             RefreshFetch();
                         }
                         else{
-                            CSRF_TOKEN = Result.token;
                             Q.setAttribute('class', 'h2 mb-0 text-main-1');
-                            SetText('OFFLINE');
+                            $('#server_status').html(Result.message);
                             RefreshFetch();
                         }
+                    }
+                    else if (Result.response == 'false'){
+                        Q.setAttribute('class', 'h2 mb-0 text-main-1');
+                        $('#server_status').html(Result.message);
+                        RefreshFetch();
+                    }
+                    else{
+                        Q.setAttribute('class', 'h2 mb-0 text-main-1');
+                        $('#server_status').html('OFFLINE');
+                        RefreshFetch();
                     }
                 },
                 error: function(){
@@ -260,20 +269,59 @@
             });
         });
     }
-
-    function SetText(text)
+    
+    function GetOnlinePlayers()
     {
-        $('#server_status').html('');
+        $.ajax({
+            url: '<?php echo base_url('home/do_getonline') ?>',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {},
+            success: function(data){
+                var GetString = JSON.stringify(data);
+                var Result = JSON.parse(GetString);
+                
+                QQ.setAttribute('class', 'nk-count h2 mb-0');
+                $('#online_players').html(Result.response);
+            },
+            error: function(){
+                QQ.setAttribute('class', 'nk-count h2 mb-0');
+                $('#online_players').html('0');
+            }
+        });
+    }
 
-        $('#server_status').html(text);
+    function GetRegisteredPlayers()
+    {
+        $.ajax({
+            url: '<?php echo base_url('home/do_getregistered') ?>',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {},
+            success: function(data){
+                var GetString = JSON.stringify(data);
+                var Result = JSON.parse(GetString);
+                
+                QQQ.setAttribute('class', 'nk-count h2 mb-0');
+                $('#registered_players').html(Result.response);
+            },
+            error: function(){
+                QQQ.setAttribute('class', 'nk-count h2 mb-0');
+                $('#registered_players').html('0');
+            }
+        });
     }
 
     function RefreshFetch()
     {
         setTimeout(() => {
             GetCondition();
+            GetOnlinePlayers();
+            GetRegisteredPlayers();
         }, 5000);
     }
 
     GetCondition();
+    GetOnlinePlayers();
+    GetRegisteredPlayers();
 </script>

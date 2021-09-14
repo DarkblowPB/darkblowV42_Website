@@ -31,7 +31,7 @@ class Webshop extends CI_Controller
 
 			// Load Config
 				$config['base_url'] = base_url('webshop/index');
-				$config['total_rows'] = $this->webshop->getdata_webshop_in_row();
+				$config['total_rows'] = $this->webshop->GetWebshopCount();
 				$config['per_page'] = 9;
 			// End Load Config
 
@@ -58,9 +58,9 @@ class Webshop extends CI_Controller
 		// End Pagination Section
 
 		$data['title'] = 'Webshop';
-		$data['popular'] = $this->webshop->getdata_webshop_mostpopular();
+		$data['popular'] = $this->webshop->GetPopularWebshop();
 		$data['start'] = $this->uri->segment(3);
-		$data['webshop'] = $this->webshop->getdata_webshop_limit($config['per_page'], $data['start']);
+		$data['webshop'] = $this->webshop->GetWebshopPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/webshop/content_webshop';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
@@ -69,7 +69,7 @@ class Webshop extends CI_Controller
 	{
 		$data['title'] = 'Webshop Item Details';
 		$data['detail'] = $this->webshop->GetWebshopDetails($id);
-		$data['related'] = $this->webshop->getdata_webshop_related();
+		$data['related'] = $this->webshop->GetWebshopRelated();
 		$data['isi'] = 'main/content/webshop/content_webshopdetail';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

@@ -25,7 +25,7 @@ class Player_rank extends CI_Controller {
 
 			// Load Config
 				$config['base_url'] = base_url('player_rank/index');
-				$config['total_rows'] = $this->playerrank->getdata_account_in_rows();
+				$config['total_rows'] = $this->playerrank->GetPlayerCount();
 				$config['per_page'] = 10;
 			// End Load Config
 
@@ -54,7 +54,7 @@ class Player_rank extends CI_Controller {
 		// Data Section
 			$data['start'] = $this->uri->segment(3);
 			$data['title'] = 'Player Ranks';
-			$data['account'] = $this->playerrank->getdata_account_limit($config['per_page'],$data['start']);
+			$data['account'] = $this->playerrank->GetClanPerPage($config['per_page'],$data['start']);
 			$data['isi'] = 'main/content/player_rank/content_playerrank';
 		// End Data Section
 

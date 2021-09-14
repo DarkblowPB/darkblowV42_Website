@@ -14,11 +14,13 @@ class Playerrank_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
-	function getdata_account_limit($limit, $start)
+
+	function GetClanPerPage($limit, $start)
 	{
-		return $this->db->order_by('exp', 'desc')->get('accounts', $limit, $start)->result_array();
+		return $this->db->order_by('exp', 'desc')->where(array('email !=' => 'empty@empty.empty', 'access_level <' => '3', 'access_level !=' => '-1'))->get('accounts', $limit, $start)->result_array();
 	}
-	function getdata_account_in_rows()
+	
+	function GetPlayerCount()
 	{
 		return $this->db->get('accounts')->num_rows();
 	}

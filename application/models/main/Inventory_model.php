@@ -17,14 +17,14 @@ class Inventory_model extends CI_Model
 
 	function GetItemRealName2($id)
 	{
-		$query = $this->db->get_where('player_items', array('object_id' => $id))->row();
+		$query = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'object_id' => $id))->row();
 		if ($query)
 		{
 			return $query;
 		}
 		else
 		{
-			return "";
+			redirect(base_url('player_panel/inventory'), 'refresh');
 		}
 	}
 
@@ -57,23 +57,19 @@ class Inventory_model extends CI_Model
 		}
 	}
 	
-	function getdata_inventory_limit($limit, $start)
+	function GetInventoryPerPage($limit, $start)
 	{
 		return $this->db->where('owner_id', $_SESSION['uid'])->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
 	}
 	
-	function getdata_inventory_rows()
+	function GetInventoryCount()
 	{
 		return $this->db->where('owner_id', $_SESSION['uid'])->get('player_items')->num_rows();
 	}
 	
-	function getdata_detail_item($detail)
+	function DeleteItem()
 	{
-		return $this->db->where('item_id', $detail)->get('player_items')->result_array();
-	}
-	
-	function delete_item()
-	{
+		sleep(1);
 		$response = array();
 
 		$data = array(
@@ -106,20 +102,6 @@ class Inventory_model extends CI_Model
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Failed To Delete This Item.';
 			echo json_encode($response);
-		}
-	}
-	
-	function detail($param)
-	{
-		$check = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'object_id' => $param));
-		$result = $check->row();
-		if ($result)
-		{
-			return $result;
-		}
-		else 
-		{
-			redirect(base_url('player_panel/inventory'), 'refresh');
 		}
 	}
 }

@@ -15,12 +15,12 @@ class Clanrank_model extends CI_Model
 		$this->load->database();
 	}
 
-	function getdata_clan_limit($limit, $start)
+	function GetClanPerPage($limit, $start)
 	{
 		return $this->db->order_by('clan_exp', 'desc')->get('clan_data', $limit, $start)->result_array();
 	}
 
-	function getdata_clan_in_rows()
+	function GetClanCount()
 	{
 		return $this->db->get('clan_data')->num_rows();
 	}

@@ -24,7 +24,7 @@ class Inventory extends CI_Controller
 		$this->load->library('pagination');
 		
 		$config['base_url'] = base_url('player_panel/inventory/index');
-		$config['total_rows'] = $this->inventory->getdata_inventory_rows();
+		$config['total_rows'] = $this->inventory->GetInventoryCount();
 		$config['per_page'] = 10;
 		$config['full_tag_open'] = '<div class="nk-pagination nk-pagination-center"><nav>';
 		$config['full_tag_close'] = '</nav></div>';
@@ -40,7 +40,7 @@ class Inventory extends CI_Controller
 
 		$data['title'] = 'DarkblowPB || '.$_SESSION['player_name'].' Inventory';
 		$data['start'] = $this->uri->segment(4);
-		$data['inventory'] = $this->inventory->getdata_inventory_limit($config['per_page'], $data['start']);
+		$data['inventory'] = $this->inventory->GetInventoryPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_panel/content_inventory';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
@@ -76,7 +76,7 @@ class Inventory extends CI_Controller
 		);
 		if ($this->form_validation->run())
 		{
-			$this->inventory->delete_item();
+			$this->inventory->DeleteItem();
 		}
 		else
 		{

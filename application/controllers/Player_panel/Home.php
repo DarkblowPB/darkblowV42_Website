@@ -22,7 +22,7 @@ class Home extends CI_Controller
 	function index()
 	{
 		$data['title'] = 'Player Panels';
-		$data['account'] = $this->player->getdata_accountdetails();
+		$data['account'] = $this->player->GetDetailsAccount();
 		$data['isi'] = 'main/content/player_panel/content_playerpanel';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

@@ -28,7 +28,7 @@ class Clan_rank extends CI_Controller
 
 			// Load Config
 				$config['base_url'] = base_url('clan_rank/index');
-				$config['total_rows'] = $this->clanrank->getdata_clan_in_rows();
+				$config['total_rows'] = $this->clanrank->GetClanCount();
 				$config['per_page'] = 10;
 			// End Load Config
 
@@ -57,7 +57,7 @@ class Clan_rank extends CI_Controller
 		// Data Section
 			$data['start'] = $this->uri->segment(3);
 			$data['title'] = 'Player Ranks';
-			$data['clan'] = $this->clanrank->getdata_clan_limit($config['per_page'],$data['start']);
+			$data['clan'] = $this->clanrank->GetClanPerPage($config['per_page'],$data['start']);
 			$data['isi'] = 'main/content/clan_rank/content_clanrank';
 		// End Data Section
 
