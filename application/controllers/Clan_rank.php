@@ -15,16 +15,13 @@ class Clan_rank extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
+		$this->load->library('pagination');
 		$this->load->model('main/clanrank_model', 'clanrank');
 	}
 
 	function index()
 	{
 		// Pagination Section
-
-			// Load Library
-				$this->load->library('pagination'); 
-			// End Load Library
 
 			// Load Config
 				$config['base_url'] = base_url('clan_rank/index');

@@ -31,6 +31,8 @@ Class Changeemail extends CI_Controller
 
     function do_changeemail()
     {
+        $response = array();
+
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'old_email',
@@ -56,7 +58,9 @@ Class Changeemail extends CI_Controller
         }
         else
         {
-            echo validation_errors();
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['meesage'] = validation_errors();
         }
     }
 

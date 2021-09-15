@@ -49,14 +49,20 @@ Class Settings extends CI_Controller
             $this->form_validation->set_rules(
                 'server_condition',
                 'Server Condition',
-                'required',
-                array('required' => '%s Cannot Be Empty.')
+                'required|in_list[0,1]',
+                array(
+                    'required' => '%s Cannot Be Empty.',
+                    'in_list' => 'Invalid %s.'
+                )
             );
             $this->form_validation->set_rules(
                 'website_condition',
                 'Website Condition',
-                'required',
-                array('required' => '%s Cannot Be Empty.')
+                'required|in_list[0,1]',
+                array(
+                    'required' => '%s Cannot Be Empty.',
+                    'in_list' => 'Invalid %s.'
+                )
             );
             if ($this->form_validation->run())
             {

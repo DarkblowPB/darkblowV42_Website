@@ -16,12 +16,12 @@ class Comingsoon extends CI_Controller
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 	}
+
 	function index()
 	{
 		$data['title'] = 'Coming Soon';
 		$this->load->view('main/content/coming_soon/content_comingsoon', $data, FALSE);
 	}
-
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

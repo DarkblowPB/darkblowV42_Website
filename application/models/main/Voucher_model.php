@@ -26,8 +26,29 @@ class Voucher_model extends CI_Model
         return $this->db->get_where('item_voucher', array('id' => $voucher_id))->row();
     }
 
+    function SetCategory($item_id)
+    {
+        if ($item_id >= 100003001 && $item_id <= 904007069)
+		{
+			return "1";
+		}
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
+		{
+			return "2";
+		}
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
+		{
+			return "3";
+		}
+		else
+		{
+			return "0";
+		}
+    }
+
     function RedeemVoucherV2()
     {
+        sleep(1);
         $data = array('voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')));
         
         $response = array();
@@ -37,6 +58,7 @@ class Voucher_model extends CI_Model
         {
             // Get Prize -> Items
             $items = explode(',', $query->voucher_items);
+            $count = count($items);
             // Get Prize -> Cash
             $cash = $query->voucher_cash;
             // Get Prize -> Webcoin
@@ -51,6 +73,38 @@ class Voucher_model extends CI_Model
 
                 $totalmoney = $playermoney + $cash;
                 $totalwebcoin = $playerwebcoin + $webcoin;
+
+                // Insert / Update Items
+
+                for ($i=0; $i < $count; $i++)
+                {
+                    $fetch2 = $this->db->get_where('player_items', array('owner_id' => $fetch1->player_id, 'item_id' => $items[$i]))->row();
+                    if ($fetch2)
+                    {
+                        if ($fetch2->equip != '1')
+                        {
+                            // Update Count
+                            $this->db->where(array('owner_id' => $fetch2->owner_id, 'item_id' => $fetch2->item_id))->update('player_items', array('count' => ($fetch2->count + 2592000)));
+                        }
+                        else
+                        {
+                            // Convert To Cash
+                            $this->db->where('player_id', $fetch2->owner_id)->update('accounts', array('money' => ($fetch1->money + 10000)));
+                        }
+                    }
+                    else
+                    {
+                        // Insert Item
+                        $this->db->insert('player_items', array(
+                            'owner_id' => $fetch2->owner_id,
+                            'item_id' => $fetch2->item_id,
+                            'item_name' => 'Voucher Item',
+                            'count' => '2592000',
+                            'category' => $this->SetCategory($fetch2->item_id),
+                            'equip' => '1'
+                        ));
+                    }
+                }
 
                 // Update Cash & Webcoin
                 $update = $this->db->where('player_id', $fetch1->player_id)->update('accounts', array('money' =>$totalmoney, 'kuyraicoin' => $totalwebcoin));
