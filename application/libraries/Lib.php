@@ -19,13 +19,13 @@ class Lib
 
 	public function CreateAccount()
 	{
-		$randomexp = rand(0, 999999999);
+		$randomexp = rand(0, 169000000);
 
 		$base_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 		$base_characters_length = strlen($base_characters);
 		
-		$username_length = 8;
-		$password_length = 8;
+		$username_length = 10;
+		$password_length = 10;
 
 		$pure_username = '';
 		$pure_password = '';
@@ -43,7 +43,7 @@ class Lib
 		$query = $this->ci->db->insert('accounts', array(
 			'login' => $pure_username,
 			'password' => $this->password_encrypt($pure_password),
-			'rank' => '53',
+			'rank' => '31',
 			'gp' => '999999999',
 			'exp' => $randomexp,
 			'pc_cafe' => '5',
@@ -65,7 +65,7 @@ class Lib
 				<meta charset="UTF-8">
 				<meta http-equiv="X-UA-Compatible" content="IE=edge">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>GOD Account Creation</title>
+				<title>GOD MENU - ACCOUNT CREATION</title>
 				<link rel="stylesheet" href="'.base_url().'assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css">
 			</head>
 			<body class="bg-light">
@@ -90,7 +90,7 @@ class Lib
 											</tr>
 											<tr>
 												<td>Rank</td>
-												<td><img src="'.base_url().'assets/goodgames/assets/images/img_rank/53.gif"></td>
+												<td><img src="'.base_url().'assets/goodgames/assets/images/img_rank/31.gif"></td>
 											</tr>
 											<tr>
 												<td>Point</td>
