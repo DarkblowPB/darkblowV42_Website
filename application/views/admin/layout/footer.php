@@ -43,6 +43,14 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>assets/admin/dist/js/adminlte.js"></script>
 <script>
+  function SetAttribute(Button_ID, Type, Value) {
+    var Q = document.getElementById(Button_ID);
+
+    Q.setAttribute('type', Type);
+    Q.setAttribute('value', Value);
+  }
+</script>
+<script>
   $(document).ready(function () {
     /* jQueryKnob */
 

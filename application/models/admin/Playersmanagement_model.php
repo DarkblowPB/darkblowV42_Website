@@ -18,7 +18,7 @@ class Playersmanagement_model extends CI_Model
 
     function GetAllPlayers()
     {
-        return $this->db->get('accounts')->result_array();
+        return $this->db->get_where('accounts', array('email !=' => 'empty@empty.empty', 'access_level <' => '3'))->result_array();
     }
 
     function GetRankInfo()
@@ -180,20 +180,30 @@ class Playersmanagement_model extends CI_Model
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query)
         {
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
-            if ($update)
+            if ($query->access_level != '-1')
             {
-                $response['response'] = 'true';
+                $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Unbanned This Player.';
+                $response['message'] = 'This Player Not In Banned Condition.';
                 echo json_encode($response);
             }
             else
             {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Failed To Unbanned This Player.';
-                echo json_encode($response);
+                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
+                if ($update)
+                {
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Unbanned This Player.';
+                    echo json_encode($response);
+                }
+                else
+                {
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Unbanned This Player.';
+                    echo json_encode($response);
+                }
             }
         }
         else
@@ -217,20 +227,30 @@ class Playersmanagement_model extends CI_Model
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query)
         {
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
-            if ($update)
+            if ($query->access_level == '-1')
             {
-                $response['response'] = 'true';
+                $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Banned This Player.';
+                $response['message'] = 'This Player Already In Banned Condition.';
                 echo json_encode($response);
             }
             else
             {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Failed To Banned This Player.';
-                echo json_encode($response);
+                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
+                if ($update)
+                {
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Banned This Player.';
+                    echo json_encode($response);
+                }
+                else
+                {
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Banned This Player.';
+                    echo json_encode($response);
+                }
             }
         }
         else

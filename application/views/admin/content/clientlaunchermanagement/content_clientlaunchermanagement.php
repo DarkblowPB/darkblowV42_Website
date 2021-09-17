@@ -50,16 +50,14 @@
     </div>
 </div>
 <script>
-    var CSRF_TOKEN = '';
+    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
     function DeleteFiles(files_id){
         if (files_id == "" || files_id == null){
             ShowToast(2000, 'error', 'Invalid Files.');
             return;
         }
         if (files_id != "" || files_id != null){
-            if (CSRF_TOKEN == ''){
-                CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-            }
+
             $.ajax({
                 url: '<?php echo base_url('adm/clientlaunchermanagement/do_delete') ?>',
                 type: 'POST',
@@ -91,8 +89,24 @@
                     }
                 },
                 error: function(data){
-                    ShowToast(2000, 'error', data.responseText);
-                    return;
+                    ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                    $.ajax({
+                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                        type: 'GET',
+                        dataType: 'JSON',
+                        data: {},
+                        success: function(data){
+                            var GetString = JSON.stringify(data);
+                            var Result = JSON.parse(GetString);
+
+                            if (Result.response == 'true'){
+                                CSRF_TOKEN = Result.token;
+                            }
+
+                            return DeleteFiles(files_id);
+                        }
+                    });
                 }
             })
         }

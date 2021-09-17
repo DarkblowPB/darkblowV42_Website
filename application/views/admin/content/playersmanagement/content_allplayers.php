@@ -29,12 +29,15 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item" href="<?php echo base_url('adm/playersmanagement/details?player_id='.$row['player_id']) ?>">Details</a>
-                                                <?php if ($row['access_level'] != -1) : ?>
-                                                    <a class="dropdown-item" href="javascript:void(0)" onclick="BannedPlayer('<?php echo $row['player_id'] ?>')">Banned</a>
+                                                
+                                                <?php if ($row['access_level'] == '-1') : ?>
+                                                    <input type="button" id="submit_<?php echo $num ?>" class="dropdown-item" value="Unbanned" onclick="Do_Unbanned('<?php echo 'submit_'.$num ?>', '<?php echo $row['player_id'] ?>')">
                                                 <?php endif; ?>
-                                                <?php if ($row['access_level'] == -1) : ?>
-                                                    <a class="dropdown-item text-warning" href="javascript:void(0)" onclick="UnbannedPlayer('<?php echo $row['player_id'] ?>')">Unbanned</a>
+                                                <?php if ($row['access_level'] != '-1') : ?>
+                                                    <input type="button" id="submit_<?php echo $num ?>" class="dropdown-item" value="Banned" onclick="Do_Banned('<?php echo 'submit_'.$num ?>', '<?php echo $row['player_id'] ?>')">
                                                 <?php endif; ?>
+
+                                                <input type="button" id="reset_<?php echo $num ?>" class="dropdown-item" value="Reset" onclick="Do_ResetPlayer('<?php echo 'reset_'.$num ?>', '<?php echo $row['player_id'] ?>')">
                                             </div>
                                         </div>
                                     </td>
@@ -43,12 +46,100 @@
                         </tbody>
                     </table>
                     <script>
-                        var CSRF_TOKEN = '';
-                        function BannedPlayer(player_id){
-                            $(document).ready(function(){
-                                if (CSRF_TOKEN == ''){
-                                    CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                                }
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var TOTAL_RETRY = 0;
+
+                        function Do_ResetPlayer(button_id, player_id)
+                        {
+                            if (player_id == ''){
+                                ShowToast(2000, 'warning', 'Please Select Players.');
+                                return;
+                            }
+                            else{
+                                SetAttribute(button_id, 'button', 'Processing...');
+                                
+                                $.ajax({
+                                    url: '<?php echo base_url('adm/playersmanagement/do_reset') ?>',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                        'player_id' : player_id
+                                    },
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+
+                                        if (Result.response == 'true'){
+                                            SetAttribute(button_id, 'button', 'Reset');
+                                            ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute(button_id, 'button', 'Reset');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                        else{
+                                            SetAttribute(button_id, 'button', 'Reset');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        if (TOTAL_RETRY >= 3){
+                                            SetAttribute(button_id, 'button', 'Reset');
+                                            ShowToast(2000, 'error', 'Failed To Reset This Player.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            TOTAL_RETRY += 1;
+                                            ShowToast(1000, 'info', 'Generating New Request Token...');
+    
+                                            $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+    
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+    
+                                                    return Do_ResetPlayer(button_id, player_id);
+                                                },
+                                                error: function(){
+                                                    ShowToast(2000, 'error', 'Failed To Reset This Player.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        function Do_Banned(button_id, player_id)
+                        {
+                            if (player_id == ''){
+                                ShowToast(2000, 'warning', 'Please Select Players.');
+                                return;
+                            }
+                            else{
+                                SetAttribute(button_id, 'button', 'Processing...');
+
                                 $.ajax({
                                     url: '<?php echo base_url('adm/playersmanagement/do_banned') ?>',
                                     type: 'POST',
@@ -62,38 +153,76 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            CSRF_TOKEN = Result.token;
+                                            SetAttribute(button_id, 'button', 'Banned');
                                             ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            document.getElementById(button_id).setAttribute('value', 'Unbanned');
+                                            document.getElementById(button_id).setAttribute('onclick', "Do_Unbanned('" + button_id + "', '"+ player_id +"')");
+                                            return;
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute(button_id, 'button', 'Banned');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                        else{
+                                            SetAttribute(button_id, 'button', 'Banned');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        if (TOTAL_RETRY >= 3){
+                                            SetAttribute(button_id, 'button', 'Banned');
+                                            ShowToast(2000, 'error', 'Failed To Banned This Player.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
                                             return;
                                         }
-                                        else if (Result.response == 'false'){
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
                                         else{
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
+                                            TOTAL_RETRY += 1;
+                                            ShowToast(1000, 'info', 'Generating New Request Token...');
+    
+                                            $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+    
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+    
+                                                    return Do_Banned(button_id, player_id);
+                                                },
+                                                error: function(){
+                                                    ShowToast(2000, 'error', 'Failed To Banned This Player.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
                                         }
-                                    },
-                                    error: function(data){
-                                        ShowToast(2000, 'error', data.responseText);
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
                                     }
                                 });
-                            });
+                            }
                         }
-                        function UnbannedPlayer(player_id){
-                            $(document).ready(function(){
-                                if (CSRF_TOKEN == ''){
-                                    CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                                }
+
+                        function Do_Unbanned(button_id, player_id)
+                        {
+                            if (player_id == ''){
+                                ShowToast(2000, 'warning', 'Please Select Players.');
+                                return;
+                            }
+                            else{
+                                SetAttribute(button_id, 'button', 'Processing...');
+
                                 $.ajax({
                                     url: '<?php echo base_url('adm/playersmanagement/do_unbanned') ?>',
                                     type: 'POST',
@@ -107,32 +236,65 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            document.getElementById(button_id).setAttribute('value', 'Banned');
+                                            document.getElementById(button_id).setAttribute('onclick', "Do_Banned('" + button_id + "', '"+ player_id +"')");
+                                            return;
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute(button_id, 'button', 'Unbanned');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                        else{
+                                            SetAttribute(button_id, 'button', 'Unbanned');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        if (TOTAL_RETRY >= 3){
+                                            SetAttribute(button_id, 'button', 'Unbanned');
+                                            ShowToast(2000, 'error', 'Failed To Banned This Player.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
                                             return;
                                         }
-                                        else if (Result.response == 'false'){
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
                                         else{
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
+                                            TOTAL_RETRY += 1;
+                                            ShowToast(1000, 'info', 'Generating New Request Token...');
+    
+                                            $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+    
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+    
+                                                    return Do_Unbanned(button_id, player_id);
+                                                },
+                                                error: function(){
+                                                    SetAttribute(button_id, 'button', 'Unbanned');
+                                                    ShowToast(2000, 'error', 'Failed To Banned This Player.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
                                         }
-                                    },
-                                    error: function(data){
-                                        ShowToast(2000, 'error', data.responseText);
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
                                     }
                                 });
-                            });
+                            }
                         }
                     </script>
                 </div>

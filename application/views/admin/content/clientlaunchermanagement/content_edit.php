@@ -30,11 +30,11 @@
                             <input type="text" id="file_version" class="form-control col-9" placeholder="Enter Your File Version" value="<?php echo $files->version ?>">
                         </div>
                         <div class="form-group text-right">
-                            <input type="submit" class="btn btn-outline-primary text-white" value="Submit Edit">
+                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
                         </div>
                     <?php echo form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '';
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         $(document).ready(function(){
                             $('#editfiles_form').on('submit', function(e){
                                 e.preventDefault();
@@ -56,9 +56,8 @@
                                     return;
                                 }
                                 else{
-                                    if (CSRF_TOKEN == ''){
-                                        CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                                    }
+                                    
+                                    SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
                                         url: '<?php echo base_url('adm/clientlaunchermanagement/do_edit') ?>',
@@ -78,6 +77,7 @@
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true'){
+                                                SetAttribute('submit', 'submit', 'Submit');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'success', Result.message);
                                                 setTimeout(() => {
@@ -86,26 +86,119 @@
                                                 return;
                                             }
                                             else if (Result.response == 'false'){
+                                                SetAttribute('submit', 'submit', 'Submit');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'error', Result.message);
                                                 return;
                                             }
                                             else {
+                                                SetAttribute('submit', 'submit', 'Submit');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'success', Result.message);
                                                 return;
                                             }
                                         },
                                         error: function(data){
-                                            ShowToast(2000, 'error', data.responseText);
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
+                                            ShowToast(2000, 'info', 'Generating New Request Token...');
+
+                                            $.ajax({
+                                                url: '<?php echo $this->security->get_csrf_hash() ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+
+                                                    Do_Edit();
+                                                },
+                                                error: function(){
+                                                    ShowToast(2000, 'error', 'Failed To Edit.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
                                         }
                                     });
                                 }
                             });
                         });
+
+                        function Do_Edit()
+                        {
+                            if ($('#file_name').val() == ""){
+                                ShowToast(2000, 'warning', 'File Name Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#file_url').val() == ""){
+                                ShowToast(2000, 'warning', 'File URL Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#file_type').val() == ""){
+                                ShowToast(2000, 'warning', 'File Type Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#file_size').val() == ""){
+                                ShowToast(2000, 'warning', 'File Size Cannot Be Empty.');
+                                return;
+                            }
+                            else{
+                                
+                                SetAttribute('submit', 'button', 'Processing...');
+
+                                $.ajax({
+                                    url: '<?php echo base_url('adm/clientlaunchermanagement/do_edit') ?>',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                        'file_id' : '<?php echo $this->input->get('files_id') ?>',
+                                        'file_name' : $('#file_name').val(),
+                                        'file_url' : $('#file_url').val(),
+                                        'file_type' : $('#file_type').val(),
+                                        'file_size' : $('#file_size').val(),
+                                        'file_version' : $('#file_version').val()
+                                    },
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+
+                                        if (Result.response == 'true'){
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'success', Result.message);
+                                            setTimeout(() => {
+                                                self.history.back();
+                                            }, 2000);
+                                            return;
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'error', Result.message);
+                                            return;
+                                        }
+                                        else {
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'success', Result.message);
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        ShowToast(2000, 'error', 'Failed To Edit.');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                });
+                            }
+                        }
                     </script>
                 </div>
             </div>
