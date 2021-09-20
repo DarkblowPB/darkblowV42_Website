@@ -13,7 +13,7 @@ Class Eventsplaytime_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('admin/eventslogin_model', 'eventslogin');
+        $this->load->library('lib');
     }
 
     function GetAllEvents()
@@ -31,76 +31,90 @@ Class Eventsplaytime_model extends CI_Model
         $response = array();
 
         $data = array(
-            'date_start' => $this->encryption->encrypt($this->input->post('date_start', true)),
-            'date_end' => $this->encryption->encrypt($this->input->post('date_end', true)),
+            'start_date' => $this->encryption->encrypt($this->input->post('start_date', true)),
+            'end_date' => $this->encryption->encrypt($this->input->post('end_date', true)),
             'title' => $this->encryption->encrypt($this->input->post('title', true)),
             'seconds_target' => $this->encryption->encrypt($this->input->post('seconds_target', true)),
-            'reward_type' => $this->encryption->encrypt($this->input->post('reward_type', true)),
-            'good_reward1' => $this->encryption->encrypt($this->input->post('good_reward1', true)),
-            'good_reward2' => $this->encryption->encrypt($this->input->post('good_reward2', true)),
-            'good_count1' => $this->encryption->encrypt($this->input->post('good_count1', true)),
-            'good_count2' => $this->encryption->encrypt($this->input->post('good_count2', true))
+            'reward_1' => $this->input->post('reward_1', true),
+            'reward_2' => $this->input->post('reward_2', true),
+            'reward_count' => $this->encryption->encrypt($this->input->post('reward_count', true))
         );
 
-        $purify = array(
-            'date_start' => $this->eventslogin->ConvertDate($this->encryption->decrypt($data['date_start'])),
-            'date_end' => $this->eventslogin->ConvertDate($this->encryption->decrypt($data['date_end']))
-        );
-
-        if ($this->encryption->decrypt($data['reward_type']) == 'single_reward')
+        if ($data['reward_1'] == '' && $data['reward_2'] == '')
         {
-            $insert = $this->db->insert('events_playtime', array(
-                'start_date' => $purify['date_start'],
-                'end_date' => $purify['date_end'],
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Reward 1 & 2 Cannot Be Empty.';
+        }
+        else
+        {
+            $query = $this->db->insert('events_playtime', array(
+                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
                 'title' => $this->encryption->decrypt($data['title']),
                 'seconds_target' => $this->encryption->decrypt($data['seconds_target']),
-                'good_reward1' => $this->encryption->decrypt($data['good_reward1']),
-                'good_count1' => $this->encryption->decrypt($data['good_count1'])
+                'good_reward1' => $data['reward_1'],
+                'good_reward2' => $data['reward_2'],
+                'good_count1' => $this->encryption->decrypt($data['reward_count']),
+                'good_count1' => $this->encryption->decrypt($data['reward_count'])
             ));
 
-            if ($insert)
+            if ($query)
             {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Created New Events';
+                $response['message'] = 'Successfully Created Events.';
+
                 echo json_encode($response);
             }
             else
             {
-                $response['response'] = 'true';
+                
+                $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Created New Events';
+                $response['message'] = 'Failed To Created Events.';
+
                 echo json_encode($response);
             }
         }
+    }
 
-        if ($this->encryption->decrypt($data['reward_type']) == 'double_reward')
+    function DeleteEvents()
+    {
+        $response = array();
+
+        $data = array(
+            'title' => $this->encryption->encrypt($this->input->post('title', true))
+        );
+
+        $query = $this->db->get_where('events_playtime', array('title' => $this->encryption->decrypt($data['title'])))->row();
+        if ($query)
         {
-            $insert = $this->db->insert('events_playtime', array(
-                'start_date' => $purify['date_start'],
-                'end_date' => $purify['date_end'],
-                'title' => $this->encryption->decrypt($data['title']),
-                'seconds_target' => $this->encryption->decrypt($data['seconds_target']),
-                'good_reward1' => $this->encryption->decrypt($data['good_reward1']),
-                'good_reward2' => $this->encryption->decrypt($data['good_reward2']),
-                'good_count1' => $this->encryption->decrypt($data['good_count1']),
-                'good_count2' => $this->encryption->decrypt($data['good_count2'])
-            ));
-
-            if ($insert)
+            $delete = $this->db->where('title', $query->title)->delete('events_playtime');
+            if ($delete)
             {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Created New Events';
+                $response['message'] = 'Successfully Delete This Events.';
+
                 echo json_encode($response);
             }
             else
             {
-                $response['response'] = 'true';
+                $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Created New Events';
+                $response['message'] = 'Failed To Delete This Events.';
+
                 echo json_encode($response);
             }
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Invalid Events.';
+
+            echo json_encode($response);
         }
     }
 }

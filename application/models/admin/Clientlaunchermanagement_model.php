@@ -16,6 +16,27 @@ class Clientlaunchermanagement_model extends CI_Model
         $this->load->library('upload');
     }
 
+    function GetFilesURL()
+    {
+        sleep(1);
+        $response = array();
+        
+        $data = array(
+            'files_id' => $this->encryption->encrypt($this->input->post('files_id', true))
+        );
+
+        $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['files_id'])))->row();
+        if ($query)
+        {
+            $response['response'] = 'true';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['url'] = $query->file_url;
+            $response['message'] = '';
+
+            echo json_encode($response);
+        }
+    }
+
     function EditFiles($files_id)
     {
         $response = array();

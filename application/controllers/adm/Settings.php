@@ -12,6 +12,7 @@ Class Settings extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/settings_model', 'settings');
     }
 

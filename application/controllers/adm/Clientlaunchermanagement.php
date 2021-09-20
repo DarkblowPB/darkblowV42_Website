@@ -202,6 +202,32 @@ Class Clientlaunchermanagement extends CI_Controller
             echo json_encode($response);
         }
     }
+
+    function do_geturl()
+    {
+        $response = array();
+        
+        $this->form_validation->set_error_delimiters('', '');
+        $this->form_validation->set_rules(
+            'files_id',
+            'Files ID',
+            'required|numeric',
+            array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Only Can Using Numeric Characters.')
+        );
+        if ($this->form_validation->run())
+        {
+            $this->clientlauncher->GetFilesURL();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['url'] = '';
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

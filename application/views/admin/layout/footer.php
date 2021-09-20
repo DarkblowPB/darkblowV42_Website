@@ -140,6 +140,16 @@
         'zeroRecords' : 'Nothing Found Here.'
       }
     });
+    $('#redeemcode_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
+    $('#bannedvisitor_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
 
     // Form Selection
     $('.reward_selection').select2();

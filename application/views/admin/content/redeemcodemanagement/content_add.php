@@ -5,100 +5,126 @@
                 <div class="card-body">
                     <?php echo form_open('', 'id="add_form" autocomplete="off"') ?>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">Date Start</label>
-                            <input type="datetime-local" id="date_start" class="form-control col-9">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">Date End</label>
-                            <input type="datetime-local" id="date_end" class="form-control col-9">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">Reward Item</label>
-                            <select id="reward_item" class="form-control col-9 reward_selection">
-                                <option value="" disabled selected>Select Your Reward</option>
-                                <?php foreach($items as $row) : ?>
+                            <label class="col-form-label col-3">Reward</label>
+                            <select id="item_id" class="form-control col-9 reward_selection">
+                                <option value="" disabled selected>Select Reward</option>
+                                <?php foreach ($rewards as $row) : ?>
                                     <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">Reward Duration</label>
-                            <select id="reward_count" class="form-control col-9 count_selection">
+                            <label class="col-form-label col-3">Duration</label>
+                            <select id="item_count" class="form-control col-9">
                                 <option value="" disabled selected>Select Reward Duration</option>
-                                <option value="64800">1 Days</option>
-                                <option value="259200">3 Days</option>
-                                <option value="604800">7 Days</option>
-                                <option value="2592000">30 Days</option>
+                                <option value="64800">1 Day</option>
+                                <option value="259200">3 Day</option>
+                                <option value="604800">7 Day</option>
+                                <option value="2592000">30 Day</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Code</label>
+                            <input type="text" id="item_code" class="form-control col-7" placeholder="Enter The Code">
+                            <input type="button" id="generate_randomcode" class="btn btn-outline-primary text-white ml-3 col-1" value="Generate" onclick="GenerateCode()">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Cash</label>
+                            <input type="number" id="cash" class="form-control col-9" placeholder="Enter Cash">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Type</label>
+                            <select id="type" class="form-control col-9">
+                                <option value="" disabled selected>Select Type</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Item">Item</option>
+                                <option value="Double">Double</option>
                             </select>
                         </div>
                         <div class="form-group text-right">
-                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Events">
+                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Redeem Code">
                         </div>
                     <?php echo form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        
+                        function GenerateCode()
+                        {
+                            $.ajax({
+                                url: '<?php echo base_url('adm/redeemcodemanagement/do_generatecode') ?>',
+                                type: 'GET',
+                                dataType: 'JSON',
+                                data: {},
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    document.getElementById('item_code').setAttribute('value', Result.code);
+                                    return;
+                                },
+                                error: function(){
+                                    ShowToast(2000, 'error', 'Failed To Generate Code.');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            });
+                        }
+
                         $(document).ready(function(){
                             $('#add_form').on('submit', function(e){
                                 e.preventDefault();
-                                if ($('#date_start').val() == ""){
-                                    ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
+                                if ($('#item_code').val() == '' || $('#item_code').val() == null){
+                                    ShowToast(2000, 'warning', 'Code Cannot Be Empty.');
                                     return;
                                 }
-                                else if ($('#date_end').val() == ""){
-                                    ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#reward_item').val() == null){
-                                    ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#reward_count').val() == null){
-                                    ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
+                                else if ($('#type').val() == '' || $('#type').val() == null){
+                                    ShowToast(2000, 'warning', 'Type Cannot Be Empty.');
                                     return;
                                 }
                                 else{
                                     SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
-                                        url: '<?php echo base_url('adm/eventsmanagement/login/do_add') ?>',
+                                        url: '<?php echo base_url('adm/redeemcodemanagement/do_add') ?>',
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'start_date' : $('#date_start').val(),
-                                            'end_date' : $('#date_end').val(),
-                                            'reward_id' : $('#reward_item').val(),
-                                            'reward_count' : $('#reward_count').val()
+                                            'item_id' : $('#item_id').val(),
+                                            'item_count' : $('#item_count').val(),
+                                            'item_code' : $('#item_code').val(),
+                                            'cash' : $('#cash').val(),
+                                            'type' : $('#type').val()
                                         },
                                         success: function(data){
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
+                                                SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
                                                     self.history.back();
                                                 }, 2000);
-                                                return;
                                             }
                                             else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
+                                                SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                             else{
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
+                                                SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(1000, 'info', 'Generating New Request Token...');
-
+                                            ShowToast(1000, 'info', 'Get New Request Token...');
+                                            
                                             $.ajax({
                                                 url: '<?php echo base_url('api/getnewtoken') ?>',
                                                 type: 'GET',
@@ -111,12 +137,12 @@
                                                     if (Result.response == 'true'){
                                                         CSRF_TOKEN = Result.token;
                                                     }
-                                                    return Do_Add();
 
+                                                    return CreateRedeemCode();
                                                 },
                                                 error: function(){
-                                                    SetAttribute('submit', 'submit', 'Submit New Events');
-                                                    ShowToast(2000, 'error', 'Failed To Add Events.');
+                                                    SetAttribute('submit', 'submit', 'Submit New Redeem Code');
+                                                    ShowToast(2000, 'error', 'Failed To Create Redeem Code.');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);
@@ -128,67 +154,67 @@
                             });
                         });
 
-                        function Do_Add()
+                        function CreateRedeemCode()
                         {
-                            if ($('#date_start').val() == ""){
-                                ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
+                            if ($('#item_id').val() == '' || $('#item_id').val() == null){
+                                ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
                                 return;
                             }
-                            else if ($('#date_end').val() == ""){
-                                ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
-                                return;
-                            }
-                            else if ($('#reward_item').val() == null){
-                                ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
-                                return;
-                            }
-                            else if ($('#reward_count').val() == null){
+                            else if ($('#item_count') == '' || $('#item_count').val() == null){
                                 ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#item_code').val() == '' || $('#item_code').val() == null){
+                                ShowToast(2000, 'warning', 'Code Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#type').val() == '' || $('#type').val() == null){
+                                ShowToast(2000, 'warning', 'Type Cannot Be Empty.');
                                 return;
                             }
                             else{
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/login/do_add') ?>',
+                                    url: '<?php echo base_url('adm/redeemcodemanagement/do_add') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
                                         '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'start_date' : $('#date_start').val(),
-                                        'end_date' : $('#date_end').val(),
-                                        'reward_id' : $('#reward_item').val(),
-                                        'reward_count' : $('#reward_count').val()
+                                        'item_id' : $('#item_id').val(),
+                                        'item_count' : $('#item_count').val(),
+                                        'item_code' : $('#item_code').val(),
+                                        'cash' : $('#cash').val(),
+                                        'type' : $('#type').val()
                                     },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
+                                            SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                             ShowToast(2000, 'success', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             setTimeout(() => {
                                                 self.history.back();
                                             }, 2000);
-                                            return;
                                         }
                                         else if (Result.response == 'false'){
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
+                                            SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                             ShowToast(2000, 'error', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                         else{
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
+                                            SetAttribute('submit', 'submit', 'Submit New Redeem Code');
                                             ShowToast(2000, 'error', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                     },
                                     error: function(){
-                                        SetAttribute('submit', 'submit', 'Submit New Events');
-                                        ShowToast(2000, 'error', 'Failed To Add Events.');
+                                        SetAttribute('submit', 'submit', 'Submit New Redeem Code');
+                                        ShowToast(2000, 'error', 'Failed To Create Redeem Code.');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);

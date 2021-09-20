@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                             <?php $num = 1; foreach ($files as $row) : ?>
-                                <tr>
+                                <tr id="data_<?php echo $num ?>">
                                     <td><?php echo $num; ?></td>
                                     <td><?php echo $row['file_name'] ?></td>
                                     <td class="text-uppercase text-bold"><?php echo $row['type'] ?></td>
@@ -34,9 +34,9 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="<?php echo base_url('adm/clientlaunchermanagement/details?files_id='.$row['id']) ?>"><i class="fas fa-list mr-2"></i>Details</a>
-                                                <a class="dropdown-item" href="<?php echo base_url('adm/clientlaunchermanagement/edit?files_id='.$row['id']) ?>"><i class="fas fa-edit mr-2"></i>Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0)" onclick="DeleteFiles('<?php echo $row['id'] ?>')"><i class="fas fa-trash mr-2"></i>Delete</a>
+                                                <a class="dropdown-item" href="<?php echo base_url('adm/clientlaunchermanagement/details?files_id='.$row['id']) ?>">Details</a>
+                                                <a class="dropdown-item" href="<?php echo base_url('adm/clientlaunchermanagement/edit?files_id='.$row['id']) ?>">Edit</a>
+                                                <input type="button" id="delete_<?php echo $num ?>" class="dropdown-item" value="Delete" onclick="DeleteFiles('data_<?php echo $num ?>', 'delete_<?php echo $num ?>', '<?php echo $row['id'] ?>');">
                                             </div>
                                         </div>
                                     </td>
@@ -51,62 +51,88 @@
 </div>
 <script>
     var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-    function DeleteFiles(files_id){
+    var RETRY = 0;
+    function DeleteFiles(data_id, button_id, files_id){
         if (files_id == "" || files_id == null){
             ShowToast(2000, 'error', 'Invalid Files.');
             return;
         }
         if (files_id != "" || files_id != null){
-
-            $.ajax({
-                url: '<?php echo base_url('adm/clientlaunchermanagement/do_delete') ?>',
-                type: 'POST',
-                dataType: 'JSON',
-                data: {
-                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                    'files_id' : files_id
-                },
-                success: function(data){
-                    var GetString = JSON.stringify(data);
-                    var Result = JSON.parse(GetString);
-                    
-                    if (Result.response == 'true'){
-                        CSRF_TOKEN = Result.token;
-                        ShowToast(2000, 'success', Result.message);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                    else if (Result.response == 'false'){
-                        CSRF_TOKEN = Result.token;
-                        ShowToast(2000, 'error', Result.message);
-                        return;
-                    }
-                    else{
-                        CSRF_TOKEN = Result.token;
-                        ShowToast(2000, 'error', Result.message);
-                        return;
-                    }
-                },
-                error: function(data){
-                    ShowToast(1000, 'info', 'Generate New Request Token...');
+            Swal.fire({
+                title: 'Are You Sure Want To Delete This Item?',
+                text: "You Won't Be Able To Revert This Action!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Delete It!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    SetAttribute(button_id, 'button', 'Processing...');
 
                     $.ajax({
-                        url: '<?php echo base_url('api/getnewtoken') ?>',
-                        type: 'GET',
+                        url: '<?php echo base_url('adm/clientlaunchermanagement/do_delete') ?>',
+                        type: 'POST',
                         dataType: 'JSON',
-                        data: {},
+                        data: {
+                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                            'files_id' : files_id
+                        },
                         success: function(data){
                             var GetString = JSON.stringify(data);
                             var Result = JSON.parse(GetString);
-
+                            
                             if (Result.response == 'true'){
+                                document.getElementById(data_id).remove();
+                                ShowToast(2000, 'success', Result.message);
                                 CSRF_TOKEN = Result.token;
+                                return;
                             }
-
-                            return DeleteFiles(files_id);
+                            else if (Result.response == 'false'){
+                                SetAttribute(button_id, 'button', 'Delete');
+                                ShowToast(2000, 'error', Result.message);
+                                CSRF_TOKEN = Result.token;
+                                return;
+                            }
+                            else{
+                                SetAttribute(button_id, 'button', 'Delete');
+                                ShowToast(2000, 'error', Result.message);
+                                CSRF_TOKEN = Result.token;
+                                return;
+                            }
+                        },
+                        error: function(data){
+                            if (RETRY >= 3){
+                                ShowToast(2000, 'error', 'Failed To Delete This Item.');
+                                return;
+                            }
+                            else{
+                                RETRY += 1;
+                                ShowToast(1000, 'info', 'Generate New Request Token...');
+            
+                                $.ajax({
+                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                    type: 'GET',
+                                    dataType: 'JSON',
+                                    data: {},
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+            
+                                        if (Result.response == 'true'){
+                                            CSRF_TOKEN = Result.token;
+                                        }
+            
+                                        return DeleteFiles(data_id, button_id, files_id);
+                                    },
+                                    error: function(){
+                                        ShowToast(2000, 'error', 'Failed To Delete This Item.');
+                                        return;
+                                    }
+                                });
+                            }
                         }
-                    });
+                    })
                 }
             })
         }

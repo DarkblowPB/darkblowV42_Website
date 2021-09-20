@@ -21,10 +21,24 @@
                         </thead>
                         <tbody>
                             <?php $num = 1; foreach ($items as $row) : ?>
-                                <tr id="<?php echo 'loginevents_'.$num ?>">
+                                <tr id="<?php echo 'data'.$num ?>">
                                     <td><?php echo $num ?></td>
-                                    <td><?php echo $this->eventslogin->ConvertDate2($row['start_date'])[0].'-'.$this->eventslogin->ConvertDate2($row['start_date'])[1].'-'.$this->eventslogin->ConvertDate2($row['start_date'])[2].' '.$this->eventslogin->ConvertDate2($row['start_date'])[3].':'.$this->eventslogin->ConvertDate2($row['start_date'])[4] ?></td>
-                                    <td><?php echo $this->eventslogin->ConvertDate2($row['end_date'])[0].'-'.$this->eventslogin->ConvertDate2($row['end_date'])[1].'-'.$this->eventslogin->ConvertDate2($row['end_date'])[2].' '.$this->eventslogin->ConvertDate2($row['end_date'])[3].':'.$this->eventslogin->ConvertDate2($row['end_date'])[4] ?></td>
+                                    <td>
+                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2]. // Days
+                                                    '-'.$this->lib->ConvertDate($row['start_date'])[1]. // Month
+                                               '-'.'20'.$this->lib->ConvertDate($row['start_date'])[0]. // Years
+                                                    ' '.$this->lib->ConvertDate($row['start_date'])[3]. // Hours
+                                                    ':'.$this->lib->ConvertDate($row['start_date'])[4] // Minutes
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2]. // Days
+                                                    '-'.$this->lib->ConvertDate($row['end_date'])[1]. // Month
+                                               '-'.'20'.$this->lib->ConvertDate($row['end_date'])[0]. // Years
+                                                    ' '.$this->lib->ConvertDate($row['end_date'])[3]. // Hours
+                                                    ':'.$this->lib->ConvertDate($row['end_date'])[4] // Minutes
+                                        ?>
+                                    </td>
                                     <td><?php echo $this->eventslogin->GetItemName($row['reward_id']) ?></td>
                                     <td><?php echo $this->eventslogin->ConvertDuration($row['reward_count']) ?></td>
                                     <td>
@@ -33,7 +47,8 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a href="javascript:void(0)" class="dropdown-item" onclick="DeleteEvents('<?php echo 'loginevents_'.$num ?>', '<?php echo $this->eventslogin->ConvertDate2($row['start_date'])[0].$this->eventslogin->ConvertDate2($row['start_date'])[1].$this->eventslogin->ConvertDate2($row['start_date'])[2].$this->eventslogin->ConvertDate2($row['start_date'])[3].$this->eventslogin->ConvertDate2($row['start_date'])[4] ?>', '<?php echo $this->eventslogin->ConvertDate2($row['end_date'])[0].$this->eventslogin->ConvertDate2($row['end_date'])[1].$this->eventslogin->ConvertDate2($row['end_date'])[2].$this->eventslogin->ConvertDate2($row['end_date'])[3].$this->eventslogin->ConvertDate2($row['end_date'])[4] ?>')">Delete</a>
+                                                
+                                                <input type="button" id="delete_<?php echo $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?php echo $num ?>', 'delete_<?php echo $num ?>', '<?php echo $this->lib->ConvertDate($row['start_date'])[0].$this->lib->ConvertDate($row['start_date'])[1].$this->lib->ConvertDate($row['start_date'])[2].$this->lib->ConvertDate($row['start_date'])[3].$this->lib->ConvertDate($row['start_date'])[4] ?>', '<?php echo $this->lib->ConvertDate($row['end_date'])[0].$this->lib->ConvertDate($row['end_date'])[1].$this->lib->ConvertDate($row['end_date'])[2].$this->lib->ConvertDate($row['end_date'])[3].$this->lib->ConvertDate($row['end_date'])[4] ?>')">
                                             </div>
                                         </div>
                                     </td>
@@ -42,12 +57,10 @@
                         </tbody>
                     </table>
                     <script>
-                        var CSRF_TOKEN = '';
-                        function DeleteEvents(elementId, start_date, end_date)
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        function DeleteEvents(data_id, button_id, start_date, end_date)
                         {
-                            if (CSRF_TOKEN == ''){
-                                CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                            }
+                            SetAttribute(button_id, 'button', 'Processing...');
                             $.ajax({
                                 url: '<?php echo base_url('adm/eventsmanagement/login/do_delete') ?>',
                                 type: 'POST',
@@ -62,35 +75,52 @@
                                     var Result = JSON.parse(GetString);
 
                                     if (Result.response == 'true'){
-                                        CSRF_TOKEN = Result.token;
+                                        document.getElementById(data_id).remove();
+                                        SetAttribute(button_id, 'button', 'Delete');
                                         ShowToast(2000, 'success', Result.message);
-                                        RemoveElement(elementId);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                     else if (Result.response == 'false'){
-                                        CSRF_TOKEN = Result.token;
+                                        SetAttribute(button_id, 'button', 'Delete');
                                         ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                     else{
-                                        CSRF_TOKEN = Result.token;
+                                        SetAttribute(button_id, 'button', 'Delete');
                                         ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                 },
                                 error: function(data){
-                                    ShowToast(2000, 'error', data.responseText);
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
+                                    ShowToast(1000, 'info', 'Generating New Request Token...');
+
+                                    $.ajax({
+                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                        type: 'GET',
+                                        dataType: 'JSON',
+                                        data: {},
+                                        success: function(data){
+                                            var GetString = JSON.stringify(data);
+                                            var Result = JSON.parse(GetString);
+
+                                            if (Result.response == 'true'){
+                                                CSRF_TOKEN = Result.token;
+                                            }
+
+                                            return DeleteEvents(data_id, button_id, start_date, end_date);
+                                        },
+                                        error: function(){
+                                            ShowToast(2000, 'error', 'Failed To Delete This Events.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
                                 }
                             });
-                        }
-
-                        function RemoveElement(elementId)
-                        {
-                            var R = document.getElementById(elementId);
-                            R.remove();
                         }
                     </script>
                 </div>

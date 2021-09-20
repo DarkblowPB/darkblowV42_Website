@@ -13,6 +13,7 @@ class Eventslogin_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->library('lib');
     }
 
     function GetAllEvents()
@@ -63,43 +64,6 @@ class Eventslogin_model extends CI_Model
         }
     }
 
-    function ConvertDate($defaultDate)
-    {
-        $resultdate = array();
-
-        // Get Years (2 Digits)
-        $explode1 = explode('-', $defaultDate)[0];
-        $split1 = str_split($explode1, 2);
-
-        // Get Month (2 Digits)
-        $explode2 = explode('-', $defaultDate)[1];
-
-        // Get Days (2 Digits)
-        $explode3 = explode('-', $defaultDate)[2];
-        $split2 = str_split($explode3, 2);
-
-        // Get Hours (2 Digits)
-        $explode4 = explode('T', $defaultDate)[1];
-        $explode5 = explode(':', $explode4);
-
-        // Get Minutes (2 Digits)
-        $explode6 = $explode5[1];
-
-        // The Result
-        $resultdate['years'] = $split1[1];
-        $resultdate['month'] = $explode2;
-        $resultdate['days'] = $split2[0];
-        $resultdate['hours'] = $explode5[0];
-        $resultdate['minutes'] = $explode6;
-
-        return $resultdate;
-    }
-
-    function ConvertDate2($param)
-    {
-        return str_split($param, 2); // [0] Years | [1] Month | [2] Days | [3] Hours | [4] Minutes
-    }
-
     function AddNewEvents()
     {
         sleep(1);
@@ -117,11 +81,11 @@ class Eventslogin_model extends CI_Model
         $defaultDate2 = $this->encryption->decrypt($data['end_date']); // End Date
 
         $query = $this->db->insert('events_login', array(
-            'start_date' => $this->ConvertDate($defaultDate)['years'].$this->ConvertDate($defaultDate)['month'].$this->ConvertDate($defaultDate)['days'].$this->ConvertDate($defaultDate)['hours'].$this->ConvertDate($defaultDate)['minutes'],
-            'end_date' => $this->ConvertDate($defaultDate2)['years'].$this->ConvertDate($defaultDate2)['month'].$this->ConvertDate($defaultDate2)['days'].$this->ConvertDate($defaultDate2)['hours'].$this->ConvertDate($defaultDate2)['minutes'],
+            'start_date' => $this->lib->ExplodeDate($defaultDate)['years'].$this->lib->ExplodeDate($defaultDate)['month'].$this->lib->ExplodeDate($defaultDate)['days'].$this->lib->ExplodeDate($defaultDate)['hours'].$this->lib->ExplodeDate($defaultDate)['minutes'],
+            'end_date' => $this->lib->ExplodeDate($defaultDate2)['years'].$this->lib->ExplodeDate($defaultDate2)['month'].$this->lib->ExplodeDate($defaultDate2)['days'].$this->lib->ExplodeDate($defaultDate2)['hours'].$this->lib->ExplodeDate($defaultDate2)['minutes'],
             'reward_id' => $this->encryption->decrypt($data['reward_id']),
             'reward_count' => $this->encryption->decrypt($data['reward_count'])
-        ), true);
+        ));
 
         if ($query)
         {

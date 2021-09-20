@@ -91,7 +91,7 @@
                             </div>
                         <?php endif; ?>
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-outline-primary text-white">Submit Settings</button>
+                            <input type="submit" id="submit_generalsettings03" class="btn btn-outline-primary text-white" value="Submit Settings">
                         </div>
                     <?php echo form_close() ?>
                 </div>
@@ -113,10 +113,7 @@
                 return;
             }
             else{
-                SetButtonCondition("submit_generalsettings01", "false");
-                if (CSRF_TOKEN == ''){
-                    CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                }
+                SetAttribute('submit_generalsettings01', 'button', 'Processing...');
 
                 $.ajax({
                     url: '<?php echo base_url('adm/settings/do_submit_generalsettings') ?>',
@@ -133,40 +130,112 @@
                         var Result = JSON.parse(GetString);
 
                         if (Result.response == 'true'){
-                            SetButtonCondition("submit_generalsettings01", "true");
-                            
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
                             ShowToast(2000, 'success', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else if (Result.response == 'false'){
-                            SetButtonCondition("submit_generalsettings01", "true");
-
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else{
-                            SetButtonCondition("submit_generalsettings01", "true");
-                            
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                     },
-                    error: function(data){
-                        SetButtonCondition("submit_generalsettings01", "true");
+                    error: function(){
+                        ShowToast(1000, 'info', 'Generating New Request Token...');
                         
-                        ShowToast(2000, 'error', data.responseText);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                        return;
+                        $.ajax({
+                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                            type: 'GET',
+                            dataType: 'JSON',
+                            data: {},
+                            success: function(){
+                                var GetString = JSON.stringify(data);
+                                var Result = JSON.parse(GetString);
+
+                                if (Result.response == 'true'){
+                                    CSRF_TOKEN = Result.token;
+                                }
+
+                                return Do_SubmitSettings_01();
+                            },
+                            error: function(){
+                                SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
+                                ShowToast(2000, 'Failed To Update Settings.');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+                        });
                     }
                 });
             }
         });
     });
+
+    function Do_SubmitSettings_01()
+    {
+        if ($('#server_condition').val() == ""){
+            ShowToast(2000, 'warning', 'Server Condition Cannot Be Empty.');
+            return;
+        }
+        else if ($('#website_condition').val() == ""){
+            ShowToast(2000, 'warning', 'Website Condition Cannot Be Empty.');
+            return;
+        }
+        else{
+            SetAttribute('submit_generalsettings01', 'button', 'Processing...');
+
+            $.ajax({
+                url: '<?php echo base_url('adm/settings/do_submit_generalsettings') ?>',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                    'submit_form' : 'submit01',
+                    'server_condition' : $('#server_condition').val(),
+                    'website_condition' : $('#website_condition').val()
+                },
+                success: function(data){
+                    var GetString = JSON.stringify(data);
+                    var Result = JSON.parse(GetString);
+
+                    if (Result.response == 'true'){
+                        SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'success', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                    else if (Result.response == 'false'){
+                        SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'error', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                    else{
+                        SetAttribute('submit_generalsettings01', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'error', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                },
+                error: function(){
+                    ShowToast(2000, 'error', 'Failed To Update Settings.');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        }
+    }
+
     $(document).ready(function(){
         $('#generalsettings02_form').on('submit', function(e){
             e.preventDefault();
@@ -191,8 +260,8 @@
                 return;
             }
             else{
-                
-                SetButtonCondition("submit_generalsettings02", "false");
+                SetAttribute('submit_generalsettings02', 'button', 'Processing...');
+
                 $.ajax({
                     url: '<?php echo base_url('adm/settings/do_submit_generalsettings') ?>',
                     type: 'POST',
@@ -211,51 +280,141 @@
                         var Result = JSON.parse(GetString);
 
                         if (Result.response == 'true'){
-                            SetButtonCondition("submit_generalsettings02", "true");
-                            
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
                             ShowToast(2000, 'success', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else if (Result.response == 'false'){
-                            SetButtonCondition("submit_generalsettings02", "true");
-                            
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else{
-                            SetButtonCondition("submit_generalsettings02", "true");
-                            
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                     },
-                    error: function(data){
-                        SetButtonCondition("submit_generalsettings02", "true");
+                    error: function(){
+                        ShowToast(1000, 'info', 'Generating New Request Token...');
                         
-                        ShowToast(2000, 'error', data.responseText);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
+                        $.ajax({
+                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                            type: 'GET',
+                            dataType: 'JSON',
+                            data: {},
+                            success: function(){
+                                var GetString = JSON.stringify(data);
+                                var Result = JSON.parse(GetString);
+
+                                if (Result.response == 'true'){
+                                    CSRF_TOKEN = Result.token;
+                                }
+
+                                return Do_SubmitSettings_02();
+                            },
+                            error: function(){
+                                SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
+                                ShowToast(2000, 'Failed To Update Settings.');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+                        });
                     }
                 });
             }
         });
     })
+
+    function Do_SubmitSettings_02()
+    {
+        if ($('#project_name').val() == ""){
+            ShowToast(2000, 'warning', 'Project Name Cannot Be Empty.');
+            return;
+        }
+        else if ($('#meta_author').val() == ""){
+            ShowToast(2000, 'warning', 'Meta Author Cannot Be Empty.');
+            return;
+        }
+        else if ($('#meta_description').val() == ""){
+            ShowToast(2000, 'warning', 'Meta Description Cannot Be Empty.');
+            return;
+        }
+        else if ($('#meta_keywords').val() == ""){
+            ShowToast(2000, 'warning', 'Meta Keywords Cannot Be Empty.');
+            return;
+        }
+        else if ($('#running_text').val() == ""){
+            ShowToast(2000, 'warning', 'Running Text Cannot Be Empty.');
+            return;
+        }
+        else{
+            SetAttribute('submit_generalsettings02', 'button', 'Processing...');
+
+            $.ajax({
+                url: '<?php echo base_url('adm/settings/do_submit_generalsettings') ?>',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                    'submit_form' : 'submit02',
+                    'project_name' : $('#project_name').val(),
+                    'meta_author' : $('#meta_author').val(),
+                    'meta_description' : $('#meta_description').val(),
+                    'meta_keywords' : $('#meta_keywords').val(),
+                    'running_text' : $('#running_text').val()
+                },
+                success: function(data){
+                    var GetString = JSON.stringify(data);
+                    var Result = JSON.parse(GetString);
+
+                    if (Result.response == 'true'){
+                        SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'success', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                    else if (Result.response == 'false'){
+                        SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'error', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                    else{
+                        SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'error', Result.message);
+                        CSRF_TOKEN = Result.token;
+                        return;
+                    }
+                },
+                error: function(){
+                    SetAttribute('submit_generalsettings02', 'submit', 'Submit Settings');
+                    ShowToast(2000, 'Failed To Update Settings.');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        }
+    }
+
     $(document).ready(function(){
         $('#generalsettings03_form').on('submit', function(e){
             e.preventDefault();
-            if ($('#project_logo').val() == ""){
+            if ($('#project_logo').val() == null){
                 ShowToast(2000, 'error', 'Project Logo Cannot Be Empty.');
                 return;
             }
-            else if ($('#project_icon').val() == ""){
+            else if ($('#project_icon').val() == null){
                 ShowToast(2000, 'error', 'Project Icon Cannot Be Empty.');
                 return;
             }
             else{
+                SetAttribute('submit_generalsettings03', 'button', 'Processing...');
                 $.ajax({
                     url: '<?php echo base_url('adm/settings/do_submit_generalsettings_images') ?>',
                     type: 'POST',
@@ -270,40 +429,106 @@
                         var Result = JSON.parse(GetString);
 
                         if (Result.response == 'true'){
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
                             ShowToast(2000, 'success', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else if (Result.response == 'false'){
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                         else{
-                            CSRF_TOKEN = Result.token;
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
                             ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
                             return;
                         }
                     },
-                    error: function(data){
-                        ShowToast(2000, 'error', data.responseText);
-                        return;
+                    error: function(){
+                        ShowToast(1000, 'info', 'Generating New Request Token...');
+
+                        $.ajax({
+                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                            type: 'GET',
+                            dataType: 'JSON',
+                            data: {},
+                            success: function(data){
+                                var GetString = JSON.stringify(data);
+                                var Result = JSON.parse(GetString);
+
+                                if (Result.response == 'true'){
+                                    CSRF_TOKEN = Result.token;
+                                }
+                                return Do_SubmitSettings_03();
+                            },
+                            error: function(){
+                                ShowToast(2000, 'error', 'Failed To Update Settings.');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+                        });
                     }
                 });
             }
         });
     });
 
-    function SetButtonCondition(button_id, param)
+    function Do_SubmitSettings_03()
     {
-        var e = document.getElementById(button_id);
-        if (param == 'true'){
-            e.setAttribute('type', 'submit');
-            e.setAttribute('value', 'Submit Settings');
-        }
-        if (param == 'false'){
-            e.setAttribute('type', 'button');
-            e.setAttribute('value', 'Processing...');
-        }
+        if ($('#project_logo').val() == null){
+                ShowToast(2000, 'error', 'Project Logo Cannot Be Empty.');
+                return;
+            }
+            else if ($('#project_icon').val() == null){
+                ShowToast(2000, 'error', 'Project Icon Cannot Be Empty.');
+                return;
+            }
+            else{
+                SetAttribute('submit_generalsettings03', 'button', 'Processing...');
+                $.ajax({
+                    url: '<?php echo base_url('adm/settings/do_submit_generalsettings_images') ?>',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    async: false,
+                    success: function(data){
+                        var GetString = JSON.stringify(data);
+                        var Result = JSON.parse(GetString);
+
+                        if (Result.response == 'true'){
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
+                            ShowToast(2000, 'success', Result.message);
+                            CSRF_TOKEN = Result.token;
+                            return;
+                        }
+                        else if (Result.response == 'false'){
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
+                            ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
+                            return;
+                        }
+                        else{
+                            SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
+                            ShowToast(2000, 'error', Result.message);
+                            CSRF_TOKEN = Result.token;
+                            return;
+                        }
+                    },
+                    error: function(){
+                        SetAttribute('submit_generalsettings03', 'submit', 'Submit Settings');
+                        ShowToast(2000, 'error', 'Failed To Update Settings.');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                });
+            }
     }
 </script>

@@ -10,7 +10,7 @@
                         <tbody>
                             <tr>
                                 <td>File URL</td>
-                                <td><a href="https://<?php echo $files->file_url ?>" target="_blank" class="btn btn-outline-primary text-white text-bold">Check Visibility</a></td>
+                                <td><input type="button" id="check_visibility" class="btn btn-outline-primary text-white text-bold" value="Check Visibility" onclick=""></td>
                             </tr>
                             <tr>
                                 <td>File Type</td>
@@ -37,6 +37,53 @@
                             </tr>
                         </tbody>
                     </table>
+                    <script>
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        $(document).ready(function(){
+                            $('#check_visibility').click(function(){
+                                SetAttribute('check_visibility', 'button', 'Processing...');
+                                $.ajax({
+                                    url: '<?php echo base_url('adm/clientlaunchermanagement/do_geturl') ?>',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                        'files_id' : '<?php echo $this->input->get('files_id', true) ?>'
+                                    },
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+
+                                        if (Result.response == 'true'){
+                                            SetAttribute('check_visibility', 'button', 'Check Visibility');
+                                            CSRF_TOKEN = Result.token;
+                                            window.open('https://' + Result.url);
+                                            return;
+                                        }
+                                        else if (Result.response == 'false'){
+                                            SetAttribute('check_visibility', 'button', 'Check Visibility');
+                                            CSRF_TOKEN = Result.token;
+                                            ShowToast(2000, 'error', Result.message);
+                                            return;
+                                        }
+                                        else{
+                                            SetAttribute('check_visibility', 'button', 'Check Visibility');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        SetAttribute('check_visibility', 'button', 'Check Visibility');
+                                        ShowToast(2000, 'error', 'Failed To Check Visibility.');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                     <div class="form-group text-center mt-3">
                         <button type="button" class="btn btn-outline-danger text-white text-bold" onclick="self.history.back()"><i class="fas fa-arrow-left mr-2"></i>Back</button>
                     </div>

@@ -42,7 +42,7 @@ class Dashboard_model extends CI_Model
 
     function LastRegisteredPlayers()
     {
-        return $this->db->order_by('player_id', 'desc')->limit(10)->get('accounts')->result_array();
+        return $this->db->order_by('player_id', 'desc')->limit(10)->get_where('accounts', array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->result_array();
     }
 
     function LastRedeemCodeUsed()

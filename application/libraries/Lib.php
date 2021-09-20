@@ -17,121 +17,6 @@ class Lib
 		$this->ci->load->database();
     }
 
-	public function CreateAccount()
-	{
-		$randomexp = rand(0, 169000000);
-
-		$base_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-		$base_characters_length = strlen($base_characters);
-		
-		$username_length = 10;
-		$password_length = 10;
-
-		$pure_username = '';
-		$pure_password = '';
-
-		for ($i=0; $i <= $username_length; $i++)
-		{
-			$pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
-		}
-
-		for ($i=0; $i < $password_length; $i++)
-		{
-			$pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
-		}
-
-		$query = $this->ci->db->insert('accounts', array(
-			'login' => $pure_username,
-			'password' => $this->password_encrypt($pure_password),
-			'rank' => '31',
-			'gp' => '999999999',
-			'exp' => $randomexp,
-			'pc_cafe' => '5',
-			'access_level' => '6',
-			'lastip' => '127.0.0.1',
-			'email' => 'empty@empty.empty',
-			'money' => '999999999',
-			'kuyraicoin' => '999999999',
-			'hint_question' => 'What was your childhood nickname?',
-			'hint_answer' => 'asd',
-			'email_verification' => '1'
-		));
-
-		if ($query)
-		{
-			echo '<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>GOD MENU - ACCOUNT CREATION</title>
-				<link rel="stylesheet" href="'.base_url().'assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css">
-			</head>
-			<body class="bg-light">
-				<br><br><br>
-				<div class="container mt-5">
-					<div class="row justify-content-center">
-						<div class="col-lg-8 col-md-8 col-sm-12 col-12">
-							<div class="card">
-								<div class="card-header bg-primary text-center">
-									GOD ACCOUNT CREATION
-								</div>
-								<div class="card-body">
-									<table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
-										<tbody style="font-weight: bold;">
-											<tr>
-												<td width="30%">Username</td>
-												<td>'.$pure_username.'</td>
-											</tr>
-											<tr>
-												<td>Password</td>
-												<td>'.$pure_password.'</td>
-											</tr>
-											<tr>
-												<td>Rank</td>
-												<td><img src="'.base_url().'assets/goodgames/assets/images/img_rank/31.gif"></td>
-											</tr>
-											<tr>
-												<td>Point</td>
-												<td>999.999.999</td>
-											</tr>
-											<tr>
-												<td>Exp</td>
-												<td>'.number_format($randomexp, 0, ',', '.').'</td>
-											</tr>
-											<tr>
-												<td>PC Cafe</td>
-												<td>5</td>
-											</tr>
-											<tr>
-												<td>Access Level</td>
-												<td>6</td>
-											</tr>
-											<tr>
-												<td>Webcoin</td>
-												<td>999.999.999</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="card-footer text-center">
-									Copyright &copy; DarkblowPB Reborn '.date('Y').'. All Rights Reserved.
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>	
-			</body>
-			<script src="'.base_url().'assets/goodgames/assets/vendors/bs5/js/bootstrap.min.js"></script>
-			</html>';
-		}
-		else
-		{
-			echo '<p>Failed To Create GOD Account. Reason: '.error_get_last().'</p>';
-		}
-	}
-
 	public function EncryptedWeb()
 	{
 		$query = array(
@@ -209,6 +94,43 @@ class Lib
 				}
 		}
 	}
+
+	public function ExplodeDate($defaultDate)
+    {
+        $resultdate = array();
+
+        // Get Years (2 Digits)
+        $explode1 = explode('-', $defaultDate)[0];
+        $split1 = str_split($explode1, 2);
+
+        // Get Month (2 Digits)
+        $explode2 = explode('-', $defaultDate)[1];
+
+        // Get Days (2 Digits)
+        $explode3 = explode('-', $defaultDate)[2];
+        $split2 = str_split($explode3, 2);
+
+        // Get Hours (2 Digits)
+        $explode4 = explode('T', $defaultDate)[1];
+        $explode5 = explode(':', $explode4);
+
+        // Get Minutes (2 Digits)
+        $explode6 = $explode5[1];
+
+        // The Result
+        $resultdate['years'] = $split1[1];
+        $resultdate['month'] = $explode2;
+        $resultdate['days'] = $split2[0];
+        $resultdate['hours'] = $explode5[0];
+        $resultdate['minutes'] = $explode6;
+
+        return $resultdate;
+    }
+
+    public function ConvertDate($param)
+    {
+        return str_split($param, 2); // [0] Years | [1] Month | [2] Days | [3] Hours | [4] Minutes
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

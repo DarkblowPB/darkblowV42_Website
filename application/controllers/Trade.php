@@ -15,6 +15,7 @@ Class Trade extends CI_Controller
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
+		
         $this->load->model('main/trade_model', 'trade');
 
         if ($this->getsettings->Get2()->trade_market != 1)

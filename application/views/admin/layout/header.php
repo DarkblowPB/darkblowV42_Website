@@ -110,10 +110,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url('adm/clientlaunchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "clientlaunchermanagement"){echo "active";} ?>">
-              <i class="nav-icon fas fa-download"></i>
+            <a href="<?php echo base_url('adm/bannedvisitor') ?>" class="nav-link <?php if ($this->uri->segment(2) == "bannedvisitor"){echo "active";} ?>">
+              <i class="nav-icon fa fa-ban"></i>
               <p>
-                Client & Launcher Management
+                Banned Visitor
               </p>
             </a>
           </li>
@@ -140,7 +140,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">Ingame Menu</li>
+          <li class="nav-header">Game Menu</li>
           <li class="nav-item <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'menu-open';} ?>">
             <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'active';} ?>">
               <i class="nav-icon fas fa-users"></i>
@@ -192,7 +192,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available Now.')">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Quest Events</p>
                 </a>
@@ -204,7 +204,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="<?php echo base_url('adm/eventsmanagement/register') ?>" class="nav-link <?php if ($this->uri->segment(3) == "register"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Register Events</p>
                 </a>
@@ -222,6 +222,22 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('adm/clientlaunchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "clientlaunchermanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-download"></i>
+              <p>
+                Client & Launcher Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('adm/redeemcodemanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "redeemcodemanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-gift"></i>
+              <p>
+                Redeem Code Management
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

@@ -7,67 +7,62 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Rankup extends CI_Controller
+Class Register extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->allprotect->AdminDashboard_Protection();
-        $this->load->model('admin/eventsrankup_model', 'eventsrankup');
+        $this->load->model('admin/eventsregister_model', 'eventsregister');
     }
 
     function index()
     {
-        $data['title'] = 'Rank Up Events';
-        $data['header'] = 'Rank Up Events';
-
-        $data['rankup'] = $this->eventsrankup->GetRankUpEvents();
-
-        $data['content'] = 'admin/content/events/rankup/content_rankup';
+        $data['title'] = 'Register Events';
+        $data['header'] = 'Register Events';
+        
+        $data['events'] = $this->eventsregister->GetEvents();
+        $data['items'] = $this->eventsregister->GetAllItems();
+        
+        $data['content'] = 'admin/content/events/register/content_register';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function do_update()
     {
         $response = array();
-
+        
         $this->form_validation->set_error_delimiters('', '');
-
         $this->form_validation->set_rules(
-            'start_date',
-            'Start Date',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
-        );
-        $this->form_validation->set_rules(
-            'end_date',
-            'End Date',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
-        );
-        $this->form_validation->set_rules(
-            'point',
-            'Point Boost',
-            'required|numeric|max_length[4]',
+            'item_id',
+            'Reward',
+            'required|numeric',
             array(
                 'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Must Be Numeric Characters.',
-                'max_length' => '%s Can Be Set Up To 9999.'
+                'numeric' => '%s Only Can Using Numeric Characters.'
             )
         );
         $this->form_validation->set_rules(
-            'exp',
-            'EXP Boost',
-            'required|numeric|max_length[4]',
+            'item_count',
+            'Duration',
+            'required|in_list[64800,259200,604800,2592000]',
             array(
                 'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Must Be Numeric Characters.',
-                'max_length' => '%s Can Be Set Up To 9999.'
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'stock',
+            'Stock',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Only Can Using Numeric Characters.'
             )
         );
         if ($this->form_validation->run())
         {
-            $this->eventsrankup->UpdateEvents();
+            $this->eventsregister->UpdateEvents();
         }
         else
         {
@@ -77,6 +72,11 @@ Class Rankup extends CI_Controller
 
             echo json_encode($response);
         }
+    }
+
+    function do_updatestate()
+    {
+        $this->eventsregister->UpdateEventsState();
     }
 }
 

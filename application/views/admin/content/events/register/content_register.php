@@ -5,33 +5,21 @@
                 <div class="card-body">
                     <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead class="bg-primary">
-                            <th width="15%">Start Date</th>
-                            <th width="15%">End Date</th>
-                            <th width="10%">Point Boost(%)</th>
-                            <th width="10%">EXP Boost(%)</th>
+                            <th>Reward</th>
+                            <th width="15%">Category</th>
+                            <th width="10%">Duration</th>
+                            <th width="5%">Stock</th>
+                            <th width="10%">Status</th>
+                            <th width="10%">Menu</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td id="data_start_date">
-                                    <?php
-                                    echo $this->lib->ConvertDate($rankup->start_date)[2]. // Days
-                                     '-'.$this->lib->ConvertDate($rankup->start_date)[1]. // Month
-                                     '-'.'20'.$this->lib->ConvertDate($rankup->start_date)[0]. // Years
-                                     ' '.$this->lib->ConvertDate($rankup->start_date)[3]. // Hours
-                                     ':'.$this->lib->ConvertDate($rankup->start_date)[4] // Minutes
-                                    ?>
-                                </td>
-                                <td id="data_end_date">
-                                    <?php
-                                    echo $this->lib->ConvertDate($rankup->end_date)[2]. // Days
-                                     '-'.$this->lib->ConvertDate($rankup->end_date)[1]. // Month
-                                     '-'.'20'.$this->lib->ConvertDate($rankup->end_date)[0]. // Years
-                                     ' '.$this->lib->ConvertDate($rankup->end_date)[3]. // Hours
-                                     ':'.$this->lib->ConvertDate($rankup->end_date)[4] // Minutes
-                                    ?>
-                                </td>
-                                <td id="data_point_boost"><?php echo $rankup->percent_gp ?></td>
-                                <td id="data_exp_boost"><?php echo $rankup->percent_xp ?></td>
+                                <td><?php echo $this->eventsregister->GetItemName($events->item_id) ?></td>
+                                <td><?php echo $this->eventsregister->GetItemCategory($events->item_id) ?></td>
+                                <td><?php echo ($events->item_count / 24 / 60 / 60).' Days' ?></td>
+                                <td><?php echo $events->stock ?></td>
+                                <td><?php if ($events->is_active == 'f'){echo '<span class="text-danger">DISABLED</span>';}else{echo '<span class="text-success">ENABLED</span>';} ?></td>
+                                <td><input type="button" id="update_events" class="btn btn-outline-<?php if ($events->is_active == 'f'){echo 'success';}else{echo 'danger';} ?>" value="<?php if ($events->is_active == 'f'){echo 'ENABLE';}else{echo 'DISABLE';} ?>" onclick="Do_SetState()"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -41,22 +29,30 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="edit_form" autocomplete="off"') ?>
+                    <?php echo form_open('', 'id="update_form" autocomplete="off"') ?>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">Start Date</label>
-                            <input type="datetime-local" id="start_date" class="form-control col-9">
+                            <label class="col-form-label col-3">Reward</label>
+                            <select id="item_id" class="form-control col-9">
+                                <option value="" disabled selected>Select Reward</option>
+                                <?php foreach($items as $row) : ?>
+                                    <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">End Date</label>
-                            <input type="datetime-local" id="end_date" class="form-control col-9">
+                            <label class="col-form-label col-3">Duration</label>
+                            <select id="item_count" class="form-control col-9">
+                                <option value="" disabled selected>Select Reward Duration</option>
+                                <option value="64800">1 Day</option>
+                                <option value="259200">3 Days</option>
+                                <option value="604800">7 Days</option>
+                                <option value="2592000">30 Days</option>
+                                <option value="1">Permanent</option>
+                            </select>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">Point Boost (%)</label>
-                            <input type="number" id="point" class="form-control col-9" placeholder="Enter Point Boost">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">EXP Boost (%)</label>
-                            <input type="number" id="exp" class="form-control col-9" placeholder="Enter EXP Boost">
+                            <label class="col-form-label col-3">Stock</label>
+                            <input type="number" id="stock" class="form-control col-9" placeholder="Enter Events Stock">
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Update Events">
@@ -65,66 +61,62 @@
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         $(document).ready(function(){
-                            $('#edit_form').on('submit', function(e){
+                            $('#update_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                if ($('#start_date').val() == ''){
-                                    ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
+                                if ($('#item_id').val() == null){
+                                    ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
                                     return;
                                 }
-                                else if ($('#end_date').val() == ''){
-                                    ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
+                                else if ($('#item_count').val() == null){
+                                    ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
                                     return;
                                 }
-                                else if ($('#point').val() == ''){
-                                    ShowToast(2000, 'warning', 'Point Boost Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#exp').val() == ''){
-                                    ShowToast(2000, 'warning', 'EXP Boost Cannot Be Empty.');
+                                else if ($('#stock').val() == ''){
+                                    ShowToast(2000, 'warning', 'Stock Cannot Be Empty.');
                                     return;
                                 }
                                 else{
                                     SetAttribute('submit', 'button', 'Processing...');
-
+    
                                     $.ajax({
-                                        url: '<?php echo base_url('adm/eventsmanagement/rankup/do_update') ?>',
+                                        url: '<?php echo base_url('adm/eventsmanagement/register/do_update') ?>',
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'start_date' : $('#start_date').val(),
-                                            'end_date' : $('#end_date').val(),
-                                            'point' : $('#point').val(),
-                                            'exp' : $('#exp').val()
+                                            'item_id' : $('#item_id').val(),
+                                            'item_count' : $('#item_count').val(),
+                                            'stock' : $('#stock').val()
                                         },
                                         success: function(data){
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
-
+    
                                             if (Result.response == 'true'){
                                                 SetAttribute('submit', 'submit', 'Update Events');
-                                                CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'success', Result.message);
+                                                CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
-                                                return;
                                             }
                                             else if (Result.response == 'false'){
                                                 SetAttribute('submit', 'submit', 'Update Events');
                                                 ShowToast(2000, 'error', Result.message);
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                             else {
                                                 SetAttribute('submit', 'submit', 'Update Events');
                                                 ShowToast(2000, 'error', Result.message);
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(1000, 'info', 'Generating New Request Token...');
-
+                                            ShowToast(1000, 'info', 'Getting New Request Token...');
+    
                                             $.ajax({
                                                 url: '<?php echo base_url('api/getnewtoken') ?>',
                                                 type: 'GET',
@@ -133,14 +125,15 @@
                                                 success: function(data){
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
-
+    
                                                     if (Result.response == 'true'){
                                                         CSRF_TOKEN = Result.token;
                                                     }
-
+    
                                                     return Do_Update();
                                                 },
                                                 error: function(){
+                                                    SetAttribute('submit', 'submit', 'Update Events');
                                                     ShowToast(2000, 'error', 'Failed To Update Events.');
                                                     setTimeout(() => {
                                                         window.location.reload();
@@ -152,64 +145,86 @@
                                 }
                             });
                         });
-
+    
+                        function Do_SetState()
+                        {
+                            $.ajax({
+                                url: '<?php echo base_url('adm/eventsmanagement/register/do_updatestate') ?>',
+                                type: 'GET',
+                                dataType: 'JSON',
+                                data: {},
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+    
+                                    ShowToast(2000, 'success', Result.message);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                },
+                                error: function(){
+                                    ShowToast(2000, 'error', 'Failed To Update Events.');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            });
+                        }
+    
                         function Do_Update()
                         {
-                            if ($('#start_date').val() == ''){
-                                ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
+                            if ($('#item_id').val() == null){
+                                ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
                                 return;
                             }
-                            else if ($('#end_date').val() == ''){
-                                ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
+                            else if ($('#item_count').val() == null){
+                                ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
                                 return;
                             }
-                            else if ($('#point').val() == ''){
-                                ShowToast(2000, 'warning', 'Point Boost Cannot Be Empty.');
-                                return;
-                            }
-                            else if ($('#exp').val() == ''){
-                                ShowToast(2000, 'warning', 'EXP Boost Cannot Be Empty.');
+                            else if ($('#stock').val() == null){
+                                ShowToast(2000, 'warning', 'Stock Cannot Be Empty.');
                                 return;
                             }
                             else{
                                 SetAttribute('submit', 'button', 'Processing...');
-
+    
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/rankup/do_update') ?>',
+                                    url: '<?php echo base_url('adm/eventsmanagement/register/do_update') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
                                         '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'start_date' : $('#start_date').val(),
-                                        'end_date' : $('#end_date').val(),
-                                        'point' : $('#point').val(),
-                                        'exp' : $('#exp').val()
+                                        'item_id' : $('#item_id').val(),
+                                        'item_count' : $('#item_count').val(),
+                                        'stock' : $('#stock').val()
                                     },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
-
+    
                                         if (Result.response == 'true'){
                                             SetAttribute('submit', 'submit', 'Update Events');
-                                            CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                            return;
                                         }
                                         else if (Result.response == 'false'){
                                             SetAttribute('submit', 'submit', 'Update Events');
                                             ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                         else {
                                             SetAttribute('submit', 'submit', 'Update Events');
                                             ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                     },
                                     error: function(){
+                                        SetAttribute('submit', 'submit', 'Update Events');
                                         ShowToast(2000, 'error', 'Failed To Update Events.');
                                         setTimeout(() => {
                                             window.location.reload();

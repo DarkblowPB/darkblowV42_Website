@@ -15,6 +15,7 @@ class Inventory extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
+		
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/inventory_model', 'inventory');
 	}

@@ -42,8 +42,7 @@ class AllProtect
         $result = $check->row();
         if ($result) 
         {
-            echo "<script>alert('You Doesnt Allowed To Visit This Website. Thanks For Your Attention.');</script>";
-            return;
+            redirect(base_url('banned'), 'refresh');
         }
     }
 
