@@ -180,7 +180,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available Now.')">
+                <a href="<?php echo base_url('adm/eventsmanagement/mapbonus') ?>" class="nav-link <?php if ($this->uri->segment(3) == "mapbonus"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Map Bonus Events</p>
                 </a>
@@ -236,6 +236,14 @@
               <i class="nav-icon fas fa-gift"></i>
               <p>
                 Redeem Code Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('adm/vouchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "vouchermanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-gift"></i>
+              <p>
+                Voucher Management
               </p>
             </a>
           </li>

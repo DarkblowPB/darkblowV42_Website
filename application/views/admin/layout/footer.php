@@ -135,6 +135,11 @@
         'zeroRecords' : 'Nothing Found Here.'
       }
     });
+    $('#mapbonus_events_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
     $('#playtime_events_table').dataTable({
       'language': {
         'zeroRecords' : 'Nothing Found Here.'
@@ -146,6 +151,11 @@
       }
     });
     $('#bannedvisitor_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
+    $('#voucher_table').dataTable({
       'language': {
         'zeroRecords' : 'Nothing Found Here.'
       }

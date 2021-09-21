@@ -58,6 +58,7 @@
                     </table>
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var RETRY = 0;
                         function DeleteEvents(data_id, button_id, start_date, end_date)
                         {
                             SetAttribute(button_id, 'button', 'Processing...');
@@ -95,30 +96,39 @@
                                     }
                                 },
                                 error: function(data){
-                                    ShowToast(1000, 'info', 'Generating New Request Token...');
-
-                                    $.ajax({
-                                        url: '<?php echo base_url('api/getnewtoken') ?>',
-                                        type: 'GET',
-                                        dataType: 'JSON',
-                                        data: {},
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true'){
-                                                CSRF_TOKEN = Result.token;
+                                    if (RETRY >= 3){
+                                        ShowToast(2000, 'error', 'Failed To Delete This Events.');
+                                        SetAttribute(button_id, 'button', 'Delete');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                    else{
+                                        ShowToast(1000, 'info', 'Generating New Request Token...');
+    
+                                        $.ajax({
+                                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                                            type: 'GET',
+                                            dataType: 'JSON',
+                                            data: {},
+                                            success: function(data){
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+    
+                                                if (Result.response == 'true'){
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+    
+                                                return DeleteEvents(data_id, button_id, start_date, end_date);
+                                            },
+                                            error: function(){
+                                                ShowToast(2000, 'error', 'Failed To Delete This Events.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
                                             }
-
-                                            return DeleteEvents(data_id, button_id, start_date, end_date);
-                                        },
-                                        error: function(){
-                                            ShowToast(2000, 'error', 'Failed To Delete This Events.');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
-                                        }
-                                    });
+                                        });
+                                    }
                                 }
                             });
                         }
