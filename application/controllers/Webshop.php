@@ -16,6 +16,7 @@ class Webshop extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->load->library('pagination');
 		$this->load->model('main/webshop_model', 'webshop');

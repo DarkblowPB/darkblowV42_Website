@@ -13,6 +13,7 @@ Class Banned extends CI_Controller
     {
         parent::__construct();
         $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
     }
 
     function index()

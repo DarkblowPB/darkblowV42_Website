@@ -14,6 +14,7 @@ Class Maintenance extends CI_Controller
         parent::__construct();
         $this->allprotect->Web_Protection();
         $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
 		
         if ($this->getsettings->Get2()->website_condition != 0)
         {

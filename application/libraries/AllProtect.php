@@ -16,6 +16,24 @@ class AllProtect
         $this->ci =& get_instance();
         $this->ci->load->database();
     }
+
+    /**
+     * DarkblowCopierGuard
+     * 
+     * This Function Will Protect Your Site From Clonner, Coppier, Ripper.
+     * 
+     * @return void
+     * @copyright Darkblow Studio
+     */
+    public function DarkblowCopierGuard()
+    {
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+        if (preg_match("/webzip|httrack|wget|FlickBot|downloader|productionbot|superbot|PersonaPilot|NPBot|WebCopier|vayala|imagefetch|Microsoft URL Control|mac finder|emailreaper|emailsiphon|emailwolf|emailmagnet|emailsweeper|Indy Library|FrontPage|cherry picker|WebCopier|netzip|Share Program|TurnitinBot|full web bot|zeus/i", $user_agent))
+        {
+            set_status_header(403);
+        }
+    }
     
     /**
      * Model Protection

@@ -15,6 +15,7 @@ class Home extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');

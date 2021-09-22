@@ -15,6 +15,7 @@ class Create_hint extends CI_Controller
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->main_protect->mainProtectA();
 		$this->main_protect->mainProtectC();
