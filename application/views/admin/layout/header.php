@@ -36,19 +36,6 @@
   <!-- jQuery -->  
   <script src="<?php echo base_url() ?>assets/admin/plugins/jquery/jquery.min.js"></script>
   <!-- Custam Script -->
-  <script>
-    function ShowToast(timer, type, title){
-      Swal.fire({
-          toast: true,
-          timer: timer,
-          position: 'top-end',
-          timerProgressBar: true,
-          icon: type,
-          title: title,
-          showConfirmButton: false
-      });
-    }
-  </script>
 </head>
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -82,7 +69,7 @@
     <!-- Brand Logo -->
     <a href="<?php echo base_url('adm/dashboard') ?>" class="brand-link">
       <img src="<?php echo base_url() ?>assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-bold">DarkblowPB Admin</span>
+      <span class="brand-text font-weight-bold"><?php echo $this->getsettings->Get2()->project_name ?> Admin</span>
     </a>
 
     <!-- Sidebar -->
@@ -192,7 +179,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available Now.')">
+                <a href="<?php echo base_url('adm/eventsmanagement/quest') ?>" class="nav-link <?php if ($this->uri->segment(3) == "quest"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Quest Events</p>
                 </a>
@@ -210,13 +197,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available.')">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Visit Events</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
+                <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available.')">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Xmas Events</p>
                 </a>

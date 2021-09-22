@@ -23,13 +23,34 @@ Class Quest extends CI_Controller
 
         $data['events'] = $this->eventsquest->GetEvents();
 
-        $data['content'] = 'admin/content/eventsmanagement/quest/content_quest';
+        $data['content'] = 'admin/content/events/quest/content_quest';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function do_delete()
     {
-        $this->eventsquest->DeleteEvents();
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'start_date',
+            'Start Date',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
+        if ($this->form_validation->run())
+        {
+            $this->eventsquest->DeleteEvents();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
     }
 
     function do_update()

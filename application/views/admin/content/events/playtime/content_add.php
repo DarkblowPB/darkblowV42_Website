@@ -28,11 +28,9 @@
                                             <option value="7200">2 Hour</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
                                     <div class="form-group row">
                                         <label class="col-form-label col-3">Reward 1</label>
-                                        <select id="reward_1" class="form-control col-9">
+                                        <select id="reward_1" class="form-control col-9 reward_selection">
                                             <option value="" selected>Select Reward 1</option>
                                             <?php foreach ($items as $row) : ?>
                                                 <option value="<?php echo $row['good_id'] ?>"><?php echo $row['item_name'] ?></option>
@@ -41,7 +39,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-form-label col-3">Reward 2</label>
-                                        <select id="reward_2" class="form-control col-9">
+                                        <select id="reward_2" class="form-control col-9 reward_selection">
                                             <option value="" selected>Select Reward 2</option>
                                             <?php foreach ($items as $row) : ?>
                                                 <option value="<?php echo $row['good_id'] ?>"><?php echo $row['item_name'] ?></option>

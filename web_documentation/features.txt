@@ -5,7 +5,10 @@ Primary Web (http://localhost:8080/webpb-ci3)
 Features List :
 
 	- General Features (Guest Features)
-		- Login, Register, Forgot Password
+		- Login
+			- Login
+			- Register
+			- Forgot Password
 		- Rank List
 			- Player Rank
 			- Clan Rank
@@ -25,13 +28,13 @@ Features List :
 			- Inventory
 
 =================================================================
-Moderator Panel  (http://localhost:8080/webpb-ci3/adm)
+Administrator Panel  (http://localhost:8080/webpb-ci3/adm)
 =================================================================
 
 Features List :
 
 	- Dashboard
-	- Client & Launcher Management
+	- Banned Visitor
 	- Settings
 		- General Settings
 		- Feature Settings
@@ -40,6 +43,13 @@ Features List :
 		- Create Custom Player
 	- Events Management
 		- Login Events
-		- Map Bonus Events (Coming Soon)
+		- Map Bonus Events
 		- Playtime Events
-	
+		- Quest Events
+		- Rankup Events
+		- Register Events
+		- Visit Events
+		- XMAS Events
+	- Client & Launcher Management
+	- Redeem Code Management
+	- Voucher Management

@@ -10,11 +10,27 @@
                             <th width="15%">Menu</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete"></td>
-                            </tr>
+                            <?php foreach ($events as $row) : ?>
+                                <tr>
+                                    <td>
+                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2]. // Days
+                                                    '-'.$this->lib->ConvertDate($row['start_date'])[1]. // Month
+                                                '-'.'20'.$this->lib->ConvertDate($row['start_date'])[0]. // Years
+                                                    ' '.$this->lib->ConvertDate($row['start_date'])[3]. // Hours
+                                                    ':'.$this->lib->ConvertDate($row['start_date'])[4] // Minutes
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2]. // Days
+                                                    '-'.$this->lib->ConvertDate($row['end_date'])[1]. // Month
+                                                '-'.'20'.$this->lib->ConvertDate($row['end_date'])[0]. // Years
+                                                    ' '.$this->lib->ConvertDate($row['end_date'])[3]. // Hours
+                                                    ':'.$this->lib->ConvertDate($row['end_date'])[4] // Minutes
+                                        ?>
+                                    </td>
+                                    <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete" onclick="Do_Delete('delete', '<?php echo $this->lib->ConvertDate($row['start_date'])[0].$this->lib->ConvertDate($row['start_date'])[1].$this->lib->ConvertDate($row['start_date'])[2].$this->lib->ConvertDate($row['start_date'])[3].$this->lib->ConvertDate($row['start_date'])[4] ?>')"></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -26,11 +42,11 @@
                     <?php echo form_open('', 'id="update_form" autocomplete="off"') ?>
                         <div class="form-group row">
                             <label class="col-form-label col-3">Start Date</label>
-                            <input type="datetime-local" id="start_date">
+                            <input type="datetime-local" id="start_date" class="form-control col-9">
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-3">End Date</label>
-                            <input type="datetime-local" id="end_date">
+                            <input type="datetime-local" id="end_date" class="form-control col-9">
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
@@ -40,20 +56,23 @@
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
 
-                        function Do_Delete(button_id)
+                        function Do_Delete(button_id, start_date)
                         {
+                            SetAttribute(button_id, 'button', 'Processing...');
                             $.ajax({
                                 url: '<?php echo base_url('adm/eventsmanagement/quest/do_delete') ?>',
-                                type: 'GET',
+                                type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                    'start_date' : start_date
                                 },
                                 success: function(data){
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
-
-                                    ShowToast(2000, 'succcess', Result.message);
+                                    
+                                    SetAttribute(button_id, 'button', 'Delete');
+                                    ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     setTimeout(() => {
                                         window.location.reload();

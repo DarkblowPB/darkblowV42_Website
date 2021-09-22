@@ -42,14 +42,9 @@
 <script src="<?php echo base_url() ?>assets/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url() ?>assets/admin/dist/js/adminlte.js"></script>
-<script>
-  function SetAttribute(Button_ID, Type, Value) {
-    var Q = document.getElementById(Button_ID);
+<!-- Custom Script -->
+<script src="<?php echo base_url() ?>assets/goodgames/assets/js/custom.js"></script>
 
-    Q.setAttribute('type', Type);
-    Q.setAttribute('value', Value);
-  }
-</script>
 <script>
   $(document).ready(function () {
     /* jQueryKnob */

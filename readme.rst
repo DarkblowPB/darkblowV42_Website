@@ -18,17 +18,17 @@ Customized All Things, Clearly Features Make Easier.
 Changelog and New Features
 **************************
 
-New Update V1.1:
+New Update V1.1 [DEPRECATED]:
 
 	- Released
 	- Add New Complex Validation
 	- Add New Administrator Panel Logger System
 
 
-New Update V1.2:
+New Update V1.2 [DEPRECATED]:
 
 	- Add New Encryption Function
-	- add New Primary Web Logger System
+	- Add New Primary Web Logger System
 	- Clean Up Function Code
 	- Deleting Report Function (Deprecated)
 	- News Menu Changed To Slider
@@ -36,10 +36,13 @@ New Update V1.2:
 
 New Update V1.3:
 
-	- Add JSON Result
+	- Add Anti-Coppier / Clonner / Ripper
+	- Add Banned Visitor Page
 	- Add Exchange Items Feature (Experimental!)
 	- Add Feature Settings
+	- Add Forgot Password Feature
 	- Add General Settings
+	- Add JSON Result
 	- Add Maintenance Page
 	- Add New Server Statistic API
 	- Add New PBLauncher API (Not Included On Public Release)
@@ -47,10 +50,7 @@ New Update V1.3:
 	- Add POST Request Encryption
 	- Add Trade Feature (95%) (Experimental!)
 	- Add Voucher Feature
-	- Clean Up Code
-	- Improve Function
-	- Transform Basic AJAX Function
-	- Reconstruct New Admin Site (35%)
+	- Reconstruct New Admin Site (55%)
 
 *******************
 Server Requirements

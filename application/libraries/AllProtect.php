@@ -22,17 +22,21 @@ class AllProtect
      * 
      * This Function Will Protect Your Site From Clonner, Coppier, Ripper.
      * 
+     * If This Function Activated The Session Timeout Not Working As Well.
+     * 
+     * Not Recommended For Activate This Function.
+     * 
      * @return void
      * @copyright Darkblow Studio
      */
     public function DarkblowCopierGuard()
     {
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        // $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-        if (preg_match("/webzip|httrack|wget|FlickBot|downloader|productionbot|superbot|PersonaPilot|NPBot|WebCopier|vayala|imagefetch|Microsoft URL Control|mac finder|emailreaper|emailsiphon|emailwolf|emailmagnet|emailsweeper|Indy Library|FrontPage|cherry picker|WebCopier|netzip|Share Program|TurnitinBot|full web bot|zeus/i", $user_agent))
-        {
-            set_status_header(403);
-        }
+        // if (preg_match("/webzip|httrack|wget|FlickBot|downloader|productionbot|superbot|PersonaPilot|NPBot|WebCopier|vayala|imagefetch|Microsoft URL Control|mac finder|emailreaper|emailsiphon|emailwolf|emailmagnet|emailsweeper|Indy Library|FrontPage|cherry picker|WebCopier|netzip|Share Program|TurnitinBot|full web bot|zeus/i", $user_agent))
+        // {
+        //     set_status_header(403);
+        // }
     }
     
     /**

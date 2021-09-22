@@ -92,16 +92,21 @@ class Eventsquest_model extends CI_Model
 
     function GetEvents()
     {
-        return $this->db->get('events_quest')->row();
+        return $this->db->get('events_quest')->result_array();
     }
 
     function DeleteEvents()
     {
         $response = array();
 
-        $query = $this->db->delete('events_quest');
+        $data = array(
+            'start_date' => $this->encryption->encrypt($this->input->post('start_date', true))
+        );
+
+        $query = $this->db->where('start_date', $this->encryption->decrypt($data['start_date']))->delete('events_quest');
         if ($query)
         {
+            $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Delete This Events.';
 
@@ -109,6 +114,7 @@ class Eventsquest_model extends CI_Model
         }
         else
         {
+            $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Delete This Events.';
     
