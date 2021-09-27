@@ -31,6 +31,8 @@ class Changepassword extends CI_Controller
 
 	function do_changepassword()
 	{
+		$response = array();
+
 		$this->form_validation->set_error_delimiters('','');
 		$this->form_validation->set_rules(
 			'old_password',
@@ -69,8 +71,11 @@ class Changepassword extends CI_Controller
 		$this->form_validation->set_rules(
 			'hint_question',
 			'Hint Question',
-			'required',
-			array('required' => '%s Cannot Be Empty')
+			'required|in_list[What was your childhood nickname?,What is the name of your favorite childhood friend?,In what city or town did your mother and father meet?,What is your favorite team?,What is your favorite movie?,What was your favorite sport in high school?,What was your favorite food as a child?,What is the first name of the boy or girl that you first kissed?,What was the make and model of your first car?,What was the name of the hospital where you were born?,Who is your childhood sports hero?,What school did you attend for sixth grade?,What was the last name of your third grade teacher?,In what town was your first job?,What was the name of the company where you had your first job?]',
+			array(
+				'required' => '%s Cannot Be Empty',
+				'in_list' => 'Invalid %s'
+			)
 		);
 		$this->form_validation->set_rules(
 			'hint_answer',
@@ -80,11 +85,15 @@ class Changepassword extends CI_Controller
 		);
 		if ($this->form_validation->run()) 
 		{
-			$this->changepassword->changepassword_validation();
+			$this->changepassword->ChangePasswordV2();
 		}
 		else 
 		{
-			echo validation_errors();
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+
+			echo json_encode($response);
 		}
 	}
 

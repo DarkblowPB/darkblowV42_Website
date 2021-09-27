@@ -234,6 +234,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "rankawardsmanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-trophy"></i>
+              <p>
+                Rank Awards Management
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -26,6 +26,14 @@ Class Forgotpassword extends CI_Controller
         // $data['isi'] = 'main/content/forgotpassword/content_forgotpassword';
         // $this->load->view('main/layout/wrapper', $data, FALSE);
     }
+
+    function do_sendrequest()
+    {
+        // $response = array();
+
+        // $this->form_validation->set_error_delimiters('', '');
+        // $this->form_validation->set_rules('');
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -155,6 +155,11 @@
         'zeroRecords' : 'Nothing Found Here.'
       }
     });
+    $('#rankawards_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
 
     // Form Selection
     $('.reward_selection').select2();

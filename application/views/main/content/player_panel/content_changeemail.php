@@ -12,7 +12,7 @@
                             <input type="hidden" id="hidden_email" value="<?php echo $player->email ?>">
                         <?php endif; ?>
                         <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                            <label class="form-control"><button type="button" id="resend_email" onclick="Resend_Email()" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">Resend Email Verification</button></label>
+                            <label class="form-control"><button type="button" id="resend_email" onclick="return ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.')" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">Resend Email Verification</button></label>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">

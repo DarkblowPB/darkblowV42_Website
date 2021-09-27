@@ -70,19 +70,26 @@ class AllProtect
 
     public function Changepassword_Protection()
 	{
-		$check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
-		$result = $check->row();
-		if ($result) 
-		{
-			if ($result->hint_question == null)
-			{
-				redirect(base_url('player_panel/create_hint'), 'refresh');
-			}
-			if ($result->hint_answer == null) 
-			{
-				redirect(base_url('player_panel/create_hint'), 'refresh');
-			}
-		}
+        if (isset($_SESSION['uid']))
+        {
+            $check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+            $result = $check->row();
+            if ($result) 
+            {
+                if ($result->hint_question == null)
+                {
+                    redirect(base_url('player_panel/create_hint'), 'refresh');
+                }
+                if ($result->hint_answer == null) 
+                {
+                    redirect(base_url('player_panel/create_hint'), 'refresh');
+                }
+            }
+        }
+        else
+        {
+            redirect(base_url('login'), 'refresh');
+        }
 	}
 
     public function BlockedAccount_Protection()

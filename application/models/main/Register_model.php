@@ -117,10 +117,21 @@ class Register_model extends CI_Model
 						));
 						if ($query4)
 						{
-							$response['response'] = 'true';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
-							echo json_encode($response);
+							// if ($this->SendEmailVerification($this->encryption->decrypt($data['email'])))
+							// {
+								$response['response'] = 'true';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+								echo json_encode($response);
+							// }
+							// else
+							// {
+							// 	$response['response'] = 'true';
+							// 	$response['token'] = $this->security->get_csrf_hash();
+							// 	$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+							// 	echo json_encode($response);
+							// }
+							
 						}
 						else
 						{

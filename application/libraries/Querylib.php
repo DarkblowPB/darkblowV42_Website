@@ -172,6 +172,9 @@ class Querylib
      * Send Email
      * 
      * Send Email To Players
+     * 
+     * @return void
+     * @copyright DarkblowStudio 2021
      */
     public function SendEmail($email_address)
     {
