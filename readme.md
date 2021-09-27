@@ -1,12 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
-
-
-<!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/imamrasyid/darkblowV42_Website">
@@ -20,8 +12,6 @@
     <br />
     <a href="https://github.com/imamrasyid/darkblowV42_Website"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/imamrasyid/darkblowV42_Website">View Demo</a>
     ·
     <a href="https://github.com/imamrasyid/darkblowV42_Website/issues">Report Bug</a>
     ·
@@ -45,15 +35,11 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -61,8 +47,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 There are many great open sources website for Point Blank On Internet, so I created this enhanced one. I want to create a Website template so amazing that it'll be the last one you ever need -- I think this is it.
 
