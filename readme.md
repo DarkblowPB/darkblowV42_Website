@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/imamrasyid/darkblowV42_Website">
-    <img src="./assets/goodgames/assets/imags/weblogo.png" alt="Logo" width="199" height="51">
+    <img src="https://i.imgur.com/qL9KJt0.png" alt="Logo" width="199" height="51">
   </a>
 
   <h3 align="center">DarkblowPB Website Template</h3>
@@ -118,7 +118,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
-
-	- [Facebook](https://facebook.com/Ultimate.Defacer)
-	- [Instagram](https://instagram.com/dev_eyetracker)
-	- [Discord](https://discord.gg/zcwBaK9rRG)
+<a href="https://facebook.com/Ultimate.Defacer">Facebook</a><br>
+<a href="https://instagram.com/dev_eyetracker">Instagram</a><br>
+<a href="https://discord.gg/zcwBaK9rRG">Discord</a>
