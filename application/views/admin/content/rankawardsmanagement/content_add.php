@@ -8,9 +8,9 @@
                             <label class="col-form-label col-3">Rank</label>
                             <select id="rank_id" class="form-control col-9">
                                 <option value="" disabled selected>Select Rank</option>
-                                <?php for ($i=0; $i <= 51; $i++) : ?>
-                                    <option value="<?php echo $i ?>"><?php echo $this->rankawards->GetRank($i) ?></option>
-                                <?php endfor; ?>
+                                <?php $num = 0; foreach ($rank as $row) : ?>
+                                    <option value="<?php echo $row['rank'] ?>"><?php echo $row['rank_name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group row">

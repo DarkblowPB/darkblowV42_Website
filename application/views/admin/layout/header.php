@@ -235,7 +235,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "rankawardsmanagement"){echo "active";} ?>">
+            <a href="<?php echo base_url('adm/rankawardsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "rankawardsmanagement"){echo "active";} ?>">
               <i class="nav-icon fas fa-trophy"></i>
               <p>
                 Rank Awards Management

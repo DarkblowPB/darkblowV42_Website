@@ -33,6 +33,7 @@ Class Rankawardsmanagement extends CI_Controller
         $data['header'] = 'Create New Rank Awards';
 
         $data['items'] = $this->rankawards->GetAllItems();
+        $data['rank'] = $this->rankawards->GetAllRank();
 
         $data['content'] = 'admin/content/rankawardsmanagement/content_add';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
@@ -74,6 +75,46 @@ Class Rankawardsmanagement extends CI_Controller
         if ($this->form_validation->run())
         {
             $this->rankawards->AddNewAwards();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
+    }
+
+    function do_delete()
+    {
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'rank_id',
+            'Rank ID',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'item_id',
+            'Item ID',
+            'required|numeric|min_length[9]|max_length[10]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.',
+                'min_length' => '%s Must Contains 9 Numeric Characters Or More.',
+                'max_length' => '%s Only Can Contains Max 11 Numeric Characters.'
+            )
+        );
+        if ($this->form_validation->run())
+        {
+            $this->rankawards->DeleteAwards();
         }
         else
         {

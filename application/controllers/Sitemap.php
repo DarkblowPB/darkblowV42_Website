@@ -17,7 +17,8 @@ Class Sitemap extends CI_Controller
 
     function index()
     {
-        
+        $data['title'] = 'DarkblowPB Reborn  - Sitemap';
+        $this->load->view('main/content/sitemap/content_sitemap', $data, FALSE);
     }
 }
 

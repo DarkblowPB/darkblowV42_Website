@@ -25,6 +25,11 @@ class Rankawardsmanagement_model extends CI_Model
         return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
     }
 
+    function GetAllRank()
+    {
+        return $this->db->order_by('id')->get('web_rankinfo')->result_array();
+    }
+
     function GetRank($rank_id)
     {
         $query = $this->db->get_where('web_rankinfo', array('id' => $rank_id))->row();
@@ -66,6 +71,7 @@ class Rankawardsmanagement_model extends CI_Model
         $query = $this->db->insert('info_rank_awards', array(
             'rank_id' => $this->encryption->decrypt($data['rank_id']),
             'item_id' => $this->encryption->decrypt($data['item_id']),
+            'item_count' => $this->encryption->decrypt($data['item_count']),
             'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
             'item_equip' => $data['item_equip']
         ));
@@ -83,6 +89,47 @@ class Rankawardsmanagement_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add New Awards.';
     
+            echo json_encode($response);
+        }
+    }
+
+    function DeleteAwards()
+    {
+        $response = array();
+
+        $data = array(
+            'rank_id' => $this->encryption->encrypt($this->input->post('rank_id', true)),
+            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true))
+        );
+
+        $query = $this->db->get_where('info_rank_awards', array('rank_id' => $this->encryption->decrypt($data['rank_id']), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+        if ($query)
+        {
+            // Delete
+            $delete = $this->db->where(array('rank_id' => $query->rank_id, 'item_id' => $query->item_id))->delete('info_rank_awards');
+            if ($delete)
+            {
+                $response['response'] = 'true';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Delete Awards.';
+
+                echo json_encode($response);
+            }
+            else
+            {
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Delete Awards.';
+
+                echo json_encode($response);
+            }
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Invalid Data.';
+
             echo json_encode($response);
         }
     }

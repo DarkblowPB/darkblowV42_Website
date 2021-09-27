@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <a href="javascript:void(0)" class="btn btn-outline-primary text-white"><i class="fas fa-plus-circle mr-2"></i>Add New Award</a>
+                    <a href="<?php echo base_url('adm/rankawardsmanagement/add') ?>" class="btn btn-outline-primary text-white"><i class="fas fa-plus-circle mr-2"></i>Add New Award</a>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 
-                                                <input type="button" id="delete_<?php echo $num ?>" class="dropdown-item" value="Delete">
+                                                <input type="button" id="delete_<?php echo $num ?>" class="dropdown-item" value="Delete" onclick="DeleteAwards('data_<?php echo $num ?>', 'delete_<?php echo $num ?>', '<?php echo $row['rank_id'] ?>', '<?php echo $row['item_id'] ?>')">
                                             </div>
                                         </div>
                                     </td>
@@ -68,7 +68,7 @@
                                             type: 'POST',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->security->get_csrf_hash() ?>' : CSRF_TOKEN,
+                                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                                 'rank_id' : rank_id,
                                                 'item_id' : item_id
                                             },
@@ -105,6 +105,7 @@
                                                     return;
                                                 }
                                                 else{
+                                                    RETRY += 1;
                                                     $.ajax({
                                                         url: '<?php echo base_url('api/getnewtoken') ?>',
                                                         type: 'GET',

@@ -53,3 +53,4 @@ Features List :
 	- Client & Launcher Management
 	- Redeem Code Management
 	- Voucher Management
+	- Rank Awards Management
