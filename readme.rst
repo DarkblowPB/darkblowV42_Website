@@ -1,72 +1,140 @@
-***********************
-Point Blank V42 Website
-***********************
-
-I Decided To Make A Website From Scratch To Make Easier Admin Task About
-Managing The Game. It Will Take Long Time To Make Crazy Features Inside
-The Web. Fully Customizable Feature, Publicly Clone.
-
-***********************
-Development Information
-***********************
-
-This Repo Contains HTML & PHP Programming Language, Maybe Javascript Inside There Too,
-Development Going To Understand What The Admin Doing Back The Players Activity
-Customized All Things, Clearly Features Make Easier.
-
-**************************
-Changelog and New Features
-**************************
-
-New Update V1.1 [DEPRECATED]:
-
-	- Released
-	- Add New Complex Validation
-	- Add New Administrator Panel Logger System
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
 
-New Update V1.2 [DEPRECATED]:
 
-	- Add New Encryption Function
-	- Add New Primary Web Logger System
-	- Clean Up Function Code
-	- Deleting Report Function (Deprecated)
-	- News Menu Changed To Slider
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="assets/goodgames/assets/imags/weblogo.png" alt="Logo" width="199" height="51">
+  </a>
+
+  <h3 align="center">DarkblowPB Website Template</h3>
+
+  <p align="center">
+    Open Sources Point Blank V42 Website
+    <br />
+    <a href="https://github.com/imamrasyid/darkblowV42_Website"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/imamrasyid/darkblowV42_Website">View Demo</a>
+    ·
+    <a href="https://github.com/imamrasyid/darkblowV42_Website/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/imamrasyid/darkblowV42_Website/issues">Request Feature</a>
+  </p>
+</p>
 
 
-New Update V1.3:
 
-	- Add Anti-Coppier / Clonner / Ripper
-	- Add Banned Visitor Page
-	- Add Exchange Items Feature (Experimental!)
-	- Add Feature Settings
-	- Add Forgot Password Feature
-	- Add General Settings
-	- Add JSON Result
-	- Add Maintenance Page
-	- Add New Server Statistic API
-	- Add New PBLauncher API (Not Included On Public Release)
-	- Add New Email Verification
-	- Add POST Request Encryption
-	- Add Trade Feature (95%) (Experimental!)
-	- Add Voucher Feature
-	- Reconstruct New Admin Site (55%)
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-*******************
-Server Requirements
-*******************
 
-PHP version 5.6 or newer is recommended.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-For PHP version 8.0 or newer not supported.
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-****
-Note
-****
+There are many great open sources website for Point Blank On Internet, so I created this enhanced one. I want to create a Website template so amazing that it'll be the last one you ever need -- I think this is it.
 
-Database Not Included Here. If You Can Retrieve That, You Are Awesome.
-But, If You Want Make This Simple, You Can Contact Me On Discord. Lolsecs#2192
+Here's why:
+* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+* You shouldn't be doing the same tasks over and over like creating a Website from scratch
+* You should implement DRY principles to the rest of your life :smile:
+
+Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+
+A list of commonly used resources that I find helpful are listed in the acknowledgements.
+
+### Built With
+
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [Codeigniter](https://codeigniter.com)
+* [PostgreSQL](https://www.postgresql.org/)
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+For first time, you must be confused about the site structure, simple explanation is, this site using MVC structure, using [Codeigniter](https://codeigniter.com) framework.
+for installing you can using Git or Clone this project into your local machine.
+
+	1. Clone using Git / Download manually this repository.
+	2. Start your Local web Server (ex. XAMPP).
+	3. Copy his project to "htdocs" folder (every local web server have different folder name).
+	4. Done.
+
+And how to configure database settings? follow this step clearly:
+
+	1. Expand application folder.
+	2. Expand config folder.
+	3. Open database.php .
+	4. Scroll down to line 88. (DO NOT CHANGE ANY LINE ON THIS FILE. JUST LINE 88)
+	5. Setup your credentials server.
+	6. Done.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* git
+  ```sh
+  git clone https://github.com/imamrasyid/darkblowV42_Website
+  ```
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+	- [Facebook](https://facebook.com/Ultimate.Defacer)
+	- [Instagram](https://instagram.com/dev_eyetracker)
+	- [Discord](https://discord.gg/zcwBaK9rRG)

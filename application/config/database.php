@@ -74,24 +74,55 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject',
+	
+	// This Is Default Database Configuration.
+	/**
+	 * Note:
+	 * 
+	 * @param host Must Be Ip Address. example => 127.0.0.1
+	 * @param port Must Be Int. example => 5432.
+	 * @param user Example => postgres.
+	 * @param password Example => 123456.
+	 * @param dbname Example => darkblowproject
+	 */
+	'dsn'	=> 'host=your_host port=your_port user=your_user password=your_password dbname=your_dbname',
+
+	// Do Not Change This Line
 	'hostname' => 'localhost',
+	// Do Not Change This Line
 	'username' => '',
+	// Do Not Change This Line
 	'password' => '',
+	// Do Not Change This Line
 	'database' => '',
+	// Do Not Change This Line
 	'dbdriver' => 'postgre',
+	// Do Not Change This Line
 	'dbprefix' => '',
+	// Do Not Change This Line
 	'pconnect' => TRUE,
+	// Do Not Change This Line
 	'db_debug' => TRUE,
+	// Do Not Change This Line
 	'cache_on' => FALSE,
+	// Do Not Change This Line
 	'cachedir' => '',
+	// Do Not Change This Line
 	'char_set' => 'utf8',
+	// Do Not Change This Line
 	'dbcollat' => 'utf8_general_ci',
+	// Do Not Change This Line
 	'swap_pre' => '',
+	// Do Not Change This Line
 	'encrypt' => FALSE,
+	// Do Not Change This Line
 	'compress' => FALSE,
+	// Do Not Change This Line
 	'stricton' => FALSE,
+	// Do Not Change This Line
 	'failover' => array(),
+	// Do Not Change This Line
 	'save_queries' => FALSE,
+	// Do Not Change This Line
 	'port' => 5432
 );
