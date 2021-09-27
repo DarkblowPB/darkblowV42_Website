@@ -9,8 +9,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="assets/goodgames/assets/imags/weblogo.png" alt="Logo" width="199" height="51">
+  <a href="https://github.com/imamrasyid/darkblowV42_Website">
+    <img src="./assets/goodgames/assets/imags/weblogo.png" alt="Logo" width="199" height="51">
   </a>
 
   <h3 align="center">DarkblowPB Website Template</h3>
