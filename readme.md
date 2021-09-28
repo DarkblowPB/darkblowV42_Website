@@ -75,7 +75,7 @@ for installing you can using Git or Clone this project into your local machine.
 
 	1. Clone using Git / Download manually this repository.
 	2. Start your Local web Server (ex. XAMPP).
-	3. Copy his project to "htdocs" folder (every local web server have different folder name).
+	3. Copy this project to "htdocs" folder (every local web server have different folder name).
 	4. Done.
 
 And how to configure database settings? follow this step clearly:
