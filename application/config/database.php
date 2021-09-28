@@ -74,7 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	
+
 	// This Is Default Database Configuration.
 	/**
 	 * Note:
@@ -85,7 +85,7 @@ $db['default'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host=your_host port=your_port user=your_user password=your_password dbname=your_dbname',
+	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject',
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
