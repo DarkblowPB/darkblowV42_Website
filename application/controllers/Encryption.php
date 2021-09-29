@@ -68,7 +68,7 @@ Class Encryption extends CI_Controller
         {
             case 'truncate':
                 {
-                    // $this->lib->EncryptedWeb();
+                    $this->lib->EncryptedWeb();
                     
                     break;
                 }
