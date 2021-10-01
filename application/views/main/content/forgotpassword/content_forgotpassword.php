@@ -1,19 +1,19 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Forgot </span> Password</span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_17') ?> </span> <?php echo $this->lang->line('STR_DARKBLOW_18') ?></span></h3>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <?php echo form_open('', 'id="forgotpassword_form" autocomplete="off"') ?>
                     <div class="form-group">
-                        <label class="col-form-label">Username</label>
-                        <input type="text" id="username" class="form-control" placeholder="Enter Your Username">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_19') ?></label>
+                        <input type="text" id="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_20') ?>">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Hint Question</label>
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
                         <select id="hint_question" class="form-control">
-                            <option value="" disabled selected>Select Your Hint Question</option>
+                            <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
                             <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                             <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
                             <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
@@ -32,8 +32,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Hint Answer</label>
-                        <input type="text" id="hint_answer" class="form-control" placeholder="Entery Your Hint Answer">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
+                        <input type="text" id="hint_answer" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>">
                     </div>
                     <div class="nk-gap-3"></div>
                     <div class="form-group text-center">
@@ -114,7 +114,7 @@
                                             },
                                             error: function(){
                                                 SetAttribute('submit', 'submit', 'Send Request');
-                                                ShowToast(2000, 'error', 'Failed To Send Request.');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_1') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
@@ -129,15 +129,15 @@
                     function Do_SendRequest()
                     {
                         if ($('#username').val() == ''){
-                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                             return;
                         }
                         else if ($('#hint_question').val() == ''){
-                            ShowToast(2000, 'warning', 'Select Your Hint Question.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_2') ?>');
                             return;
                         }
                         else if ($('#hint_answer').val() == ''){
-                            ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_3') ?>');
                         }
                         else{
                             
@@ -178,7 +178,7 @@
                                 },
                                 error: function(){
                                     SetAttribute('submit', 'submit', 'Send Request');
-                                    ShowToast(2000, 'error', 'Failed To Send Request.');
+                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_1') ?>');
                                     setTimeout(() => {
                                         window.location.reload();
                                     }, 2000);

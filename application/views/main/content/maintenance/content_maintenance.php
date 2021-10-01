@@ -43,8 +43,8 @@
                 <div class="container text-center">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                            <h1 class="h2"><span class="text-main-1">Sorry</span> We Are Under The Maintenance</h1>
-                            <div class="text-white">Sorry, We Under The Maintenance Now, We Always Trying To Keep The Quality Of Services. For More Details, Please Follow The Social Media By Click Button Below.</div>
+                            <h1 class="h2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_0') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_45') ?></h1>
+                            <div class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_46') ?></div>
                             <div class="nk-gap-2"></div>
                         </div>
                     </div>

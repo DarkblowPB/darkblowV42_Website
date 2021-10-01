@@ -100,9 +100,9 @@ $db['default'] = array(
 	// Do Not Change This Line
 	'dbprefix' => '',
 	// Do Not Change This Line
-	'pconnect' => TRUE,
+	'pconnect' => FALSE,
 	// Do Not Change This Line
-	'db_debug' => TRUE,
+	'db_debug' => FALSE,
 	// Do Not Change This Line
 	'cache_on' => FALSE,
 	// Do Not Change This Line
@@ -114,7 +114,7 @@ $db['default'] = array(
 	// Do Not Change This Line
 	'swap_pre' => '',
 	// Do Not Change This Line
-	'encrypt' => FALSE,
+	'encrypt' => TRUE,
 	// Do Not Change This Line
 	'compress' => FALSE,
 	// Do Not Change This Line

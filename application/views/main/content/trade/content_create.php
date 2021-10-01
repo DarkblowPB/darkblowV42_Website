@@ -1,25 +1,25 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span class="text-main-1">Post <span class="text-white">New Item</span></span></h3>
+        <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_134') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_135') ?></span></span></h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <?php echo form_open('', 'id="post_form" autocomplete="off"') ?>
                     <div class="form-group">
-                        <label class="col-form-label">Items</label>
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_136') ?></label>
                         <select id="item_id" class="form-control">
-                            <option value="" disabled selected>Select Your Item</option>
+                            <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_137') ?></option>
                             <?php foreach($items as $row) : ?>
                                 <option value="<?php echo $row['item_id'] ?>"><?php echo $this->trade->ConvertBaseNameItem($row['item_id']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Price</label>
-                        <input type="number" id="item_price" class="form-control" placeholder="Enter Your Price Item">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_61') ?></label>
+                        <input type="number" id="item_price" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_138') ?>">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Valid Item Period</label>
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_139') ?></label>
                         <label class="form-control"><?php echo $this->trade->GetDurationLeftEachMonth() ?> Days</label>
                     </div>
                     <div class="form-group text-center">
@@ -65,7 +65,7 @@
                                     }
                                 },
                                 error: function(){
-                                    ShowToast(2000, 'info', 'Generate New Request Token...');
+                                    ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                     $.ajax({
                                         url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -82,7 +82,7 @@
                                         },
                                         error: function(){
                                             SetAttribute('submit', 'submit', 'Submit Your Item.');
-                                            ShowToast(2000, 'error', 'Failed To Submit Your item.');
+                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_14') ?>');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
@@ -131,7 +131,7 @@
                             },
                             error: function(){
                                 SetAttribute('submit', 'submit', 'Submit Your Item');
-                                ShowToast(2000, 'error', 'Failed To Submit Your Item.');
+                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_14') ?>');
                                 setTimeout(() => {
                                     window.location.reload();
                                 }, 2000);

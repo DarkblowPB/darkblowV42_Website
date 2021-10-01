@@ -59,43 +59,43 @@
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
                         <li class="<?php if(empty($this->uri->segment(1)) || $this->uri->segment(1) == "home"){echo 'active';}?>">
                             <a href="<?php echo base_url('home') ?>">
-                                Home
+                                <?php echo $this->lang->line('STR_MENU_1') ?>
                             </a>
                         </li>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_rank" || $this->uri->segment(1) == "clan_rank"){echo 'active';} ?>">
                             <a href="javascript:void(0)">
-                                Ranks
+                                <?php echo $this->lang->line('STR_MENU_2') ?>
                             </a>
                             <ul class="dropdown">
                                 <li class="<?php if($this->uri->segment(1)== "player_rank"){echo 'active';}?>">
                                     <a href="<?php echo base_url('player_rank') ?>">
-                                        Player Ranks
+                                        <?php echo $this->lang->line('STR_MENU_7') ?>
                                     </a>
                                 </li>
                                 <li class="<?php if($this->uri->segment(1)== "clan_rank"){echo 'active';}?>">
                                     <a href="<?php echo base_url('clan_rank') ?>">
-                                        Clan Ranks
+                                        <?php echo $this->lang->line('STR_MENU_8') ?>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="<?php if($this->uri->segment(1)== "download"){echo 'active';}?>">
                             <a href="<?php echo base_url('download') ?>">
-                                Download
+                                <?php echo $this->lang->line('STR_MENU_3') ?>
                             </a>
                         </li>
                         <?php if ($this->getsettings->Get2()->webshop != 0 && $this->getsettings->Get2()->trade_market != 0) : ?>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                            <a href="javascript:void(0)">FEATURED</a>
+                            <a href="javascript:void(0)"><?php echo $this->lang->line('STR_MENU_4') ?></a>
                             <ul class="dropdown">
                                 <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                        <a href="<?php echo base_url('webshop') ?>"><?php echo $this->lang->line('STR_MENU_9') ?></a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                        <a href="<?php echo base_url('trade') ?>"><?php echo $this->lang->line('STR_MENU_10') ?></a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -103,16 +103,16 @@
                         <?php endif; ?>
                         <?php if ($this->getsettings->Get2()->webshop == 1 && $this->getsettings->Get2()->trade_market == 0) : ?>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                            <a href="javascript:void(0)">FEATURED</a>
+                            <a href="javascript:void(0)"><?php echo $this->lang->line('STR_MENU_4') ?></a>
                             <ul class="dropdown">
                                 <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                        <a href="<?php echo base_url('webshop') ?>"><?php echo $this->lang->line('STR_MENU_9') ?></a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                        <a href="<?php echo base_url('trade') ?>"><?php echo $this->lang->line('STR_MENU_10') ?></a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -120,16 +120,16 @@
                         <?php endif; ?>
                         <?php if ($this->getsettings->Get2()->webshop == 0 && $this->getsettings->Get2()->trade_market == 1) : ?>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                            <a href="javascript:void(0)">FEATURED</a>
+                            <a href="javascript:void(0)"><?php echo $this->lang->line('STR_MENU_4') ?></a>
                             <ul class="dropdown">
                                 <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "webshop"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('webshop') ?>">Webshop</a>
+                                        <a href="<?php echo base_url('webshop') ?>"><?php echo $this->lang->line('STR_MENU_9') ?></a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($this->getsettings->Get2()->trade_market == 1) : ?>
                                     <li class="<?php if ($this->uri->segment(1) == "trade"){echo 'active';} ?>">
-                                        <a href="<?php echo base_url('trade') ?>">Trade Market</a>
+                                        <a href="<?php echo base_url('trade') ?>"><?php echo $this->lang->line('STR_MENU_10') ?></a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -139,17 +139,17 @@
                         if (empty($_SESSION['uid'])) :
                             ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register" || $this->uri->segment(1) == "forgotpassword"){echo 'active';} ?>">
-                                <a href="javascript:void(0)">Login</a>
+                                <a href="javascript:void(0)"><?php echo $this->lang->line('STR_MENU_5') ?></a>
                                 <ul class="dropdown">
                                     <li class="<?php if($this->uri->segment(1)== "login"){echo 'active';}?>">
-                                        <a href="<?php echo base_url('login') ?>">Login</a>
+                                        <a href="<?php echo base_url('login') ?>"><?php echo $this->lang->line('STR_MENU_11') ?></a>
                                     </li>
                                     <li class="<?php if($this->uri->segment(1)== "register"){echo 'active';}?>">
-                                        <a href="<?php echo base_url('register') ?>">Register</a>
+                                        <a href="<?php echo base_url('register') ?>"><?php echo $this->lang->line('STR_MENU_12') ?></a>
                                     </li>
                                     <?php if ($this->getsettings->Get2()->forgot_password == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "forgotpassword"){echo 'active';} ?>">
-                                            <a href="<?php echo base_url('forgotpassword') ?>">Forgot Password</a>
+                                            <a href="<?php echo base_url('forgotpassword') ?>"><?php echo $this->lang->line('STR_MENU_13') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
@@ -165,43 +165,43 @@
                                 <ul class="dropdown">
                                     <li class="<?php if($this->uri->segment(2)== "home"){echo 'active';}?>">
                                         <a href="<?php echo base_url('player_panel/home') ?>">
-                                            Player Panel
+                                            <?php echo $this->lang->line('STR_MENU_14') ?>
                                         </a>
                                     </li>
                                     <?php if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) : ?>
                                         <li>
                                             <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
-                                                Administrator Panel
+                                                <?php echo $this->lang->line('STR_MENU_15') ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
                                     <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
                                         <a href="<?php echo base_url('player_panel/redeemcode') ?>">
-                                            Redeem Code
+                                            <?php echo $this->lang->line('STR_MENU_16') ?>
                                         </a>
                                     </li>
                                     <?php if ($this->getsettings->Get2()->exchange_ticket == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
                                             <a href="<?php echo base_url('player_panel/exchange_ticket') ?>">
-                                                Exchange Ticket
+                                                <?php echo $this->lang->line('STR_MENU_17') ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->getsettings->Get2()->voucher == 1) : ?>
                                         <li class="<?php if($this->uri->segment(2)== "voucher"){echo 'active';}?>">
                                             <a href="<?php echo base_url('player_panel/voucher') ?>">
-                                                Voucher
+                                                <?php echo $this->lang->line('STR_MENU_18') ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
                                     <li class="<?php if($this->uri->segment(2)== "inventory"){echo 'active';}?>">
                                         <a href="<?php echo base_url('player_panel/inventory') ?>">
-                                            Inventory
+                                            <?php echo $this->lang->line('STR_MENU_19') ?>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" onclick="Logout()">
-                                            Logout
+                                            <?php echo $this->lang->line('STR_MENU_20') ?>
                                         </a>
                                     </li>
                                 </ul>

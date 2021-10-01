@@ -1,12 +1,12 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span class="text-main-1">Change <span class="text-white">Email</span></span></h3>
+        <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_47') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_48') ?></span></span></h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <?php echo form_open('', 'id="changeemail_form" autocomplete="off"') ?>
                     <div class="form-group">
-                        <label class="col-form-label">Old Email</label><br>
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_49') ?></label><br>
                         <?php if ($this->changeemail->IsConfirmEmail($player->email)) : ?>
                             <label class="form-control"><?php echo $player->email ?></label>
                             <input type="hidden" id="hidden_email" value="<?php echo $player->email ?>">
@@ -16,19 +16,19 @@
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">New Email</label>
-                        <input type="email" id="new_email" class="form-control" placeholder="Enter Your New Email">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_50') ?></label>
+                        <input type="email" id="new_email" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_51') ?>">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Confirm Email</label>
-                        <input type="email" id="confirm_email" class="form-control" placeholder="Enter Your Confirm Email">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_52') ?></label>
+                        <input type="email" id="confirm_email" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_53') ?>">
                     </div>
                     <div class="form-group text-center">
                         <?php if ($this->changeemail->IsConfirmEmail($player->email)) : ?>
                             <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Change Email">
                         <?php endif; ?>
                         <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                            <label class="form-control bg-main-1 mt-50">Please Verify Your Email Before Change To New Email.</label>
+                            <label class="form-control bg-main-1 mt-50"><?php echo $this->lang->line('STR_DARKBLOW_54') ?></label>
                         <?php endif; ?>
                     </div>
                 <?php echo form_close() ?>
@@ -85,10 +85,10 @@
                                                 CSRF_TOKEN = Result.token;
                                             }
 
-                                            Do_ChangeEmail();
+                                            return Do_ChangeEmail();
                                         },
                                         error: function(){
-                                            ShowToast(2000, 'error', 'Failed To Send Verification Email.');
+                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_3') ?>');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
@@ -131,7 +131,7 @@
                                     }
                                 },
                                 error: function(){
-                                    ShowToast(2000, 'error', 'Failed To Send Verification Email.');
+                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_3') ?>');
                                     setTimeout(() => {
                                         window.location.reload();
                                     }, 2000);
@@ -146,14 +146,14 @@
                             $('#changeemail_form').on('submit', function(e){
                                 e.preventDefault();
                                 if ($('#new_email').val() == $('#hidden_email').val()){
-                                    ShowToast(2000, 'warning', 'New Email Cannot Be Same Like Old Email.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_5') ?>');
                                     setTimeout(() => {
                                         window.location = '<?php echo base_url('player_panel/changeemail') ?>';
                                     }, 2500);
                                     return;
                                 }
                                 else if ($('#confirm_email').val() != $('#new_email').val()){
-                                    ShowToast(2000, 'warning', 'Confirm Email Doesnt Match With New Email.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_6') ?>');
                                     setTimeout(() => {
                                         window.location = '<?php echo base_url('player_panel/changeemail') ?>';
                                     }, 2500);
@@ -171,13 +171,13 @@
                                         },
                                         success: function(data){
                                             if (data == "true"){
-                                                ShowToast(2000, 'success', 'Successfully Update Email Address.');
+                                                ShowToast(2000, 'success', '<?php echo $this->lang->line('STR_SUCCESS_1') ?>');
                                                 setTimeout(() => {
                                                     window.location = '<?php echo base_url('player_panel/home') ?>';
                                                 }, 2500);
                                             }
                                             else if (data == "false"){
-                                                ShowToast(2000, 'error', 'Failed To Update Email Address.');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_4') ?>');
                                                 setTimeout(() => {
                                                     window.location = '<?php echo base_url('player_panel/home') ?>';
                                                 }, 2500);

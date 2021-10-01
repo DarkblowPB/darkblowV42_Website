@@ -23,7 +23,7 @@
                         <div id="registered_players" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
-                        <h3 class="nk-feature-title">Registered Players</h3>
+                        <h3 class="nk-feature-title"><?php echo $this->lang->line('STR_DARKBLOW_25') ?></h3>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <div id="server_status" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
-                        <h3 class="nk-feature-title">SERVER STATUS</h3>
+                        <h3 class="nk-feature-title"><?php echo $this->lang->line('STR_DARKBLOW_26') ?></h3>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <div id="online_players" class=""></div>
                     </div>
                     <div class="nk-feature-cont text-center">
-                        <h3 class="nk-feature-title">Online Players</h3>
+                        <h3 class="nk-feature-title"><?php echo $this->lang->line('STR_DARKBLOW_27') ?></h3>
                     </div>
                 </div>
             </div>
@@ -55,12 +55,12 @@
         <div class="nk-gap-2"></div>
         <div class="row veritcal-gap">
             <div class="col-lg-12 col-12">
-                <h3 class="nk-decorated-h-2"><span>Minimum <span class="text-main-1">Requirements</span></span></h3>
+                <h3 class="nk-decorated-h-2"><span><?php echo $this->lang->line('STR_DARKBLOW_28') ?> <span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_29') ?></span></span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap ">
                     <div class="col-lg-6 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
-                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;">Minimum Requirements</h4>
+                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;"><?php echo $this->lang->line('STR_DARKBLOW_28') ?> <?php echo $this->lang->line('STR_DARKBLOW_29') ?></h4>
                             OS : Windows System NT/2000/XP/7;<br>
                             CPU : Pentium 4 2.4 GHz / Athlon XP 2500+;<br>
                             Memory : 1GB RAM;<br>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-lg-6 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
-                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;">Recommended Requirements</h4>
+                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;"><?php echo $this->lang->line('STR_DARKBLOW_30') ?> <?php echo $this->lang->line('STR_DARKBLOW_29') ?></h4>
                             OS : Windows 8/8.1/10;<br>
                             CPU : Pentium 4 4.30 GHz / Athlon XP 3000+;<br>
                             Memory : 4GB RAM;<br>
@@ -96,10 +96,10 @@
                     <div class="col-lg-6 col-12">
                         <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
                             <thead style="font-style: italic;">
-                                <th width="10%">Rank</th>
-                                <th width="5%">Patent</th>
-                                <th>Player Name</th>
-                                <th width="22%">Total Exp</th>
+                                <th width="10%"><?php echo $this->lang->line('STR_DARKBLOW_3') ?></th>
+                                <th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_31') ?></th>
+                                <th><?php echo $this->lang->line('STR_DARKBLOW_32') ?></th>
+                                <th width="23%"><?php echo $this->lang->line('STR_DARKBLOW_33') ?></th>
                             </thead>
                             <tbody>
                                 <?php
@@ -122,7 +122,7 @@
                                 {
                                     ?>
                                     <tr>
-                                        <td colspan="4">No Data Found</td>
+                                        <td colspan="4"><?php echo $this->lang->line('STR_INFO_4') ?></td>
                                     </tr>
                                     <?php
                                 }
@@ -133,10 +133,10 @@
                     <div class="col-lg-6 col-12">
                         <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
                             <thead style="font-style: italic;">
-                                <th width="10%">Rank</th>
-                                <th width="5%">Patent</th>
-                                <th>Clan Name</th>
-                                <th width="24%">Total Exp</th>
+                                <th width="10%"><?php echo $this->lang->line('STR_DARKBLOW_3') ?></th>
+                                <th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_31') ?></th>
+                                <th><?php echo $this->lang->line('STR_DARKBLOW_5') ?></th>
+                                <th width="24%"><?php echo $this->lang->line('STR_DARKBLOW_33') ?></th>
                             </thead>
                             <tbody>
                                 <?php
@@ -159,7 +159,7 @@
                                 {
                                     ?>
                                     <tr>
-                                        <td colspan="4">No Data Found</td>
+                                        <td colspan="4"><?php echo $this->lang->line('STR_INFO_4') ?></td>
                                     </tr>
                                     <?php
                                 }
@@ -168,7 +168,7 @@
                         </table>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <a href="<?php echo base_url('player_rank') ?>" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-primary">View All Ranks</a>
+                        <a href="<?php echo base_url('player_rank') ?>" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-primary"><?php echo $this->lang->line('STR_DARKBLOW_34') ?></a>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
         <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
             <?php if ($webshop != null) : ?>
                 <div class="nk-gap-3"></div>
-                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling Items</span></h3>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_35') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_36') ?></span></h3>
                 <div class="nk-gap"></div>
                 <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
                     <div class="nk-carousel-inner">
@@ -202,13 +202,13 @@
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="row vertical-gap justify-content-center">
-                        <a href="javascript:void(0)" onclick="return alert('This Feature Not Available At This Moment.')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5">View All</a>
+                        <a href="javascript:void(0)" onclick="return alert('<?php echo $this->lang->line('STR_INFO_2') ?>')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5"><?php echo $this->lang->line('STR_DARKBLOW_175') ?></a>
                     </div>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Discord</span> Server</span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_37') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_159') ?></span></h3>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12">

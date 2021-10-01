@@ -3,28 +3,28 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12">
-                <h3 class="nk-decorated-h-2"><span class="text-main-1">Change <span class="text-white">Password</span></span></h3>
+                <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_47') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></span></span></h3>
                 <div class="nk-gap-3"></div>
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
                         <?php echo form_open('', 'id="changepassword_form" autocomplete="off"') ?>
                             <div class="form-group">
-                                <label>Old Password</label>
-                                <input type="password" class="form-control" id="old_password" placeholder="Enter Your Password" value="<?php echo set_value('old_password') ?>" minlength="4" maxlength="16" autofocus>
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_55') ?></label>
+                                <input type="password" class="form-control" id="old_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_160') ?>" minlength="4" maxlength="16" autofocus>
                             </div>
                             <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" class="form-control" id="new_password" placeholder="Enter Your New Password" value="<?php echo set_value('new_password') ?>" minlength="4" maxlength="16">
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_56') ?></label>
+                                <input type="password" class="form-control" id="new_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_161') ?>" minlength="4" maxlength="16">
                             </div>
                             <div class="form-group">
-                                <label>Confirmation Password</label>
-                                <input type="password" class="form-control" id="confirm_password" placeholder="Enter Your Confirmation Password" value="<?php echo set_value('confirm_password') ?>" minlength="4" maxlength="16">
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_57') ?></label>
+                                <input type="password" class="form-control" id="confirm_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_133') ?>" value="<?php echo set_value('confirm_password') ?>" minlength="4" maxlength="16">
                             </div>
                             <div class="form-group">
-                                <label>Hint Question</label>
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
                                 <select class="form-control" id="hint_question" value="<?php echo set_value('hint_question') ?>" required>
-                                    <option value="" disabled selected>Select Your Hint Question</option>
+                                    <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
                                     <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                     <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
                                     <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
@@ -43,8 +43,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Hint Answer</label>
-                                <input type="text" class="form-control" id="hint_answer" placeholder="Enter Your Hint Answer" value="<?php echo set_value('hint_answer') ?>" autocomplete="off">
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
+                                <input type="text" class="form-control" id="hint_answer" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>" autocomplete="off">
                             </div>
                             <div class="nk-gap"></div>
                             <div class="form-group text-center">
@@ -59,23 +59,23 @@
                                     e.preventDefault();
 
                                     if ($('#old_password').val() == '' || $('#old_password').val() == null){
-                                        ShowToast(2000, 'warning', 'Old Password Cannot Be Empty.');
+                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_7') ?>');
                                         return;
                                     }
                                     else if ($('#new_password').val() == '' || $('#new_password').val() == null){
-                                        ShowToast(2000, 'warning', 'New Password Cannot Be Empty.');
+                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_8') ?>');
                                         return;
                                     }
                                     else if ($('#confirm_password').val() == '' || $('#confirm_password').val() == null){
-                                        ShowToast(2000, 'warning', 'Confirmation Password Cannot Be Empty.');
+                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_9') ?>');
                                         return;
                                     }
                                     else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
-                                        ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_10') ?>');
                                         return;
                                     }
                                     else if ($('#hint_answer').val() == '' || $('#hint_answer').val() == null){
-                                        ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
                                         return;
                                     }
                                     else{
@@ -118,7 +118,7 @@
                                                 }
                                             },
                                             error: function(){
-                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+                                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
     
                                                 $.ajax({
                                                     url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -137,7 +137,7 @@
                                                     },
                                                     error: function(){
                                                         SetAttribute('submit', 'submit', 'Change Password');
-                                                        ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
                                                         setTimeout(() => {
                                                             window.location.reload();
                                                         }, 2000);
@@ -152,23 +152,23 @@
                             function Do_ChangePassword()
                             {
                                 if ($('#old_password').val() == '' || $('#old_password').val() == null){
-                                    ShowToast(2000, 'warning', 'Old Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_7') ?>');
                                     return;
                                 }
                                 else if ($('#new_password').val() == '' || $('#new_password').val() == null){
-                                    ShowToast(2000, 'warning', 'New Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_8') ?>');
                                     return;
                                 }
                                 else if ($('#confirm_password').val() == '' || $('#confirm_password').val() == null){
-                                    ShowToast(2000, 'warning', 'Confirmation Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_9') ?>');
                                     return;
                                 }
                                 else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
-                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_10') ?>');
                                     return;
                                 }
                                 else if ($('#hint_answer').val() == '' || $('#hint_answer').val() == null){
-                                    ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_3') ?>');
                                     return;
                                 }
                                 else{
@@ -212,7 +212,7 @@
                                         },
                                         error: function(){
                                             SetAttribute('submit', 'submit', 'Change Password');
-                                            ShowToast(2000, 'error', 'Failed To Change Password.');
+                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);

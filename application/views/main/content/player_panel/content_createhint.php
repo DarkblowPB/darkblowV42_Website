@@ -62,7 +62,7 @@
 					</div>
 					<div class="form-group">
 						<label>Hint Answer</label>
-						<input type="text" id="hint_answer" class="form-control" placeholder="Enter Your Hint Password">
+						<input type="text" id="hint_answer" class="form-control" placeholder="Enter Your Hint Answer">
 					</div>
 					<div class="form-group">
 						<label>Password</label>

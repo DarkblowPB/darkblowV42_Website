@@ -1,13 +1,13 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Exchange</span> Ticket</span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_58') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_59') ?></span></h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                 <div class="nk-feature-2">
                     <div class="nk-feature-cont text-center text-white">
-                        <h3 class="nk-feature-title text-main-1">Information</h3>
-                        Your Ticket: <span id="ticket_information" class="font-weight-bold"><?php echo $ticket ?></span> <span class="fa fa-ticket ml-5"></span> 
+                        <h3 class="nk-feature-title text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_162') ?></h3>
+                        <?php echo $this->lang->line('STR_DARKBLOW_60') ?>: <span id="ticket_information" class="font-weight-bold"><?php echo $ticket ?></span> <span class="fa fa-ticket ml-5"></span> 
                     </div>
                 </div>
             </div>
@@ -22,9 +22,9 @@
                         </div>
                         <div class="nk-feature-cont text-center">
                             <h3 class="nk-feature-title text-main-1"><?php echo $row['item_name'] ?></h3>
-                            <p>Price: <?php echo $row['item_price'] ?> Tickets</p>
-                            <p style="margin-top: -20px">Duration: <?php if ($row['item_count'] >= 86400){echo ($row['item_count'] / 24 / 60 / 60)." Days";}else {echo "Permanent";} ?></p>
-                            <p style="margin-top: -20px">Stock: <?php if ($row['stock'] > 0){echo $row['stock']." Qty";}else{echo "Out Of Stock";} ?></p>
+                            <p><?php echo $this->lang->line('STR_DARKBLOW_61') ?> <?php echo $row['item_price'] ?> <?php echo $this->lang->line('STR_DARKBLOW_59') ?>s</p>
+                            <p style="margin-top: -20px"><?php echo $this->lang->line('STR_DARKBLOW_62') ?> <?php if ($row['item_count'] >= 86400){echo ($row['item_count'] / 24 / 60 / 60)." Days";}else {echo "Permanent";} ?></p>
+                            <p style="margin-top: -20px"><?php echo $this->lang->line('STR_DARKBLOW_63') ?> <?php if ($row['stock'] > 0){echo $row['stock']." Qty";}else{echo "Out Of Stock";} ?></p>
                             
                             <input type="button" id="submit_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" onclick="Exchange('submit_<?php echo $num ?>', '<?php echo $row['id'] ?>')" value="Exchange">
                         </div>
@@ -68,7 +68,7 @@
                         }
                     },
                     error: function(){
-                        ShowToast(1000, 'info', 'Generating New Request Token...');
+                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
                         SetAttribute(button_id, 'button', 'Processing...');
 
                         $.ajax({
@@ -87,7 +87,7 @@
                                 Exchange2(button_id, item_id);
                             },
                             error: function(){
-                                ShowToast(2000, 'error', 'Failed To Exchange Tickets.');
+                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');
                                 setTimeout(() => {
                                     window.location.reload();
                                 }, 2000);
@@ -131,7 +131,7 @@
                     },
                     error: function(){
                         SetAttribute(button_id, 'button', 'Exchange');
-                        ShowToast(2000, 'error', 'Failed To Exchange Tickets.');
+                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);

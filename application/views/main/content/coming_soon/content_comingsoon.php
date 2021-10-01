@@ -36,7 +36,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <a href="#"><img src="<?php echo base_url() ?>assets/goodgames/assets/images/weblogo.png" alt="GoodGames"></a>
+                    <a href="#"><img src="<?php echo base_url() ?>assets/goodgames/assets/images/weblogo.png" alt=""></a>
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap-2"></div>
@@ -44,7 +44,7 @@
             </div>
             <div class="nk-fullscreen-block-middle">
                 <div class="container text-center">
-                    <h1 class="h3">Coming Soon</h1>
+                    <h1 class="h3"><?php echo $this->lang->line('STR_DARKBLOW_8') ?></h1>
                     <div class="nk-gap-2"></div>
                     <div class="nk-countdown nk-countdown-center" data-end="2021-8-25 00:00:00" data-timezone="UTC"></div>
                     <div class="nk-gap-2"></div>

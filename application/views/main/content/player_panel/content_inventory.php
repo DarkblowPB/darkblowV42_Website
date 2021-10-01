@@ -1,18 +1,18 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $_SESSION['player_name'] ?></span> Inventory's</span></h3>
+		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $_SESSION['player_name'] ?></span> <?php echo $this->lang->line('STR_DARKBLOW_163') ?></span></h3>
 		<div class="nk-gap-1"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-12 col-12">
 				<table class="nk-table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 					<thead>
 						<tr>
-							<th width="5%">No.</th>
-							<th>Item Name</th>
-							<th width="15%">Item Type</th>
-							<th width="15%">Item Status</th>
-							<th width="25%">Menu</th>
+							<th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_164') ?></th>
+							<th><?php echo $this->lang->line('STR_DARKBLOW_66') ?></th>
+							<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_72') ?></th>
+							<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_69') ?></th>
+							<th width="25%">Menu<?php echo $this->lang->line('STR_DARKBLOW_73') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -110,7 +110,7 @@
 						{
 							?>
 							<tr>
-								<td colspan="5" class="text-center">No Data Found.</td>
+								<td colspan="5" class="text-center"><?php echo $this->lang->line('STR_INFO_4') ?></td>
 							</tr>
 							<?php
 						}
@@ -153,7 +153,7 @@
 											}
 										},
 										error: function(){
-											ShowToast(2000, 'error', 'Failed To Delete This Item.');
+											ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
 											setTimeout(() => {
 												window.location.reload();
 											}, 2000);

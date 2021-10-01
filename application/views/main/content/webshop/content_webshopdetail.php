@@ -2,9 +2,9 @@
 	<div class="nk-gap-1"></div>
 	<div class="container">
 		<ul class="nk-breadcrumbs">
-			<li><a href="<?php echo base_url('home') ?>">Home</a></li>
+			<li><a href="<?php echo base_url('home') ?>"><?php echo $this->lang->line('STR_DARKBLOW_151') ?></a></li>
 			<li><span class="fa fa-angle-right"></span></li>
-			<li><a href="<?php echo base_url('webshop') ?>">Webshop</a></li>
+			<li><a href="<?php echo base_url('webshop') ?>">Webshop<?php echo $this->lang->line('STR_DARKBLOW_148') ?></a></li>
 			<li><span class="fa fa-angle-right"></span></li>
 			<li><span><?php echo $detail->webshop_itemname ?></span></li>
 		</ul>
@@ -46,7 +46,7 @@
 									</div>
 									<div class="form-group text-center">
 										<?php if (empty($_SESSION['uid'])) : ?>
-											<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal">Buy</a>
+											<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal"><?php echo $this->lang->line('STR_DARKBLOW_152') ?></a>
 										<?php endif; ?>
 										<?php if (!empty($_SESSION['uid'])) : ?>
 												<input id="submit_buy" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Buy">
@@ -101,7 +101,7 @@
 														}
 													},
 													error: function(data){
-														ShowToast(1000, 'info', 'Generating New Request Token...');
+														ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
 														$.ajax({
 															url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -166,7 +166,7 @@
 														},
 														error: function(){
 															SetAttribute('submit_buy', 'submiy', 'Buy');
-															ShowToast(2000, 'error', 'Failed To Buy This Item.');
+															ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
 															setTimeout(() => {
 																window.location.reload();
 															}, 2000);
@@ -183,7 +183,7 @@
 					</div>
 					<!-- START: Related Products -->
 					<div class="nk-gap-3"></div>
-					<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Related</span> Items</span></h3>
+					<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_153') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_136') ?></span></h3>
 					<div class="nk-gap"></div>
 					<div class="row vertical-gap">
 						<?php foreach ($related as $row) : ?>
@@ -277,16 +277,16 @@
 							<span class="ion-android-close"></span>
 						</button>
 						<h4 class="mb-0 text-center">
-							<span><span class="text-main-1">Float</span> Login</span>
+							<span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_154') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_155') ?></span>
 						</h4>
 						<?php echo form_open('', 'id="float_login" class="nk-form text-white" autocomplete="off"') ?>
 							<div class="row vertical-gap">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 									<div class="nk-gap"></div>
-									<label class="col-form-label">Username</label>
-									<input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
-									<label class="col-form-label">Password</label>
-									<input type="password" id="password" class="form-control" placeholder="Enter Your Password">
+									<label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_19') ?></label>
+									<input type="text" id="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_20') ?>" autofocus>
+									<label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_18') ?></label>
+									<input type="password" id="password" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>">
 								</div>
 							</div>
 							<div class="nk-gap-1"></div>
@@ -304,11 +304,11 @@
 								$('#float_login').on('submit', function(e){
 									e.preventDefault();
 									if ($('#username').val() == ''){
-										ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
 										return;
 									}
 									else if ($('#password').val() == ''){
-										ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
 										return;
 									}
 									else{
@@ -350,7 +350,7 @@
 												}
 											},
 											error: function(){
-												ShowToast(1000, 'info', 'Generating New Request Token...');
+												ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 												
 												$.ajax({
 													url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -365,7 +365,14 @@
 															FLOAT_CSRF = Result.token;
 														}
 
-
+														return Do_Login();
+													},
+													error: function(){
+														SetAttribute('submit_login', 'submit', 'Login');
+														ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
+														setTimeout(() => {
+															window.location.reload();
+														}, 2000);
 													}
 												});
 											}
@@ -412,7 +419,7 @@
 									},
 									error: function(){
 										SetAttribute('submit_login', 'submit', 'Login');
-										ShowToast(2000, 'error', 'Failed To Login.');
+										ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
 										setTimeout(() => {
 											window.location.reload();
 										}, 2000);

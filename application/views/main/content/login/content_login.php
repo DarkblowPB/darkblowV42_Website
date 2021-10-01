@@ -1,18 +1,18 @@
 <div class="nk-main">
     <div class="nk-gap-2"></div>
     <div class="container">
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Login</span> Area</span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_38') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_39') ?></span></h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="nk-gap-3"></div>
                 <?php echo form_open('', 'id="login_form" autocomplete="off"') ?>
                     <div class="form-group">
-                        <label class="col-form-label">Username</label>
-                        <input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_40') ?></label>
+                        <input type="text" id="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" autofocus>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Enter Your Password">
+                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></label>
+                        <input type="password" id="password" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>">
                     </div>
                     <div class="nk-gap-3"></div>
                     <div class="form-group text-center">
@@ -22,7 +22,7 @@
                         OR
                     </div>
                     <div class="form-group text-center">
-                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-success">Register</a>
+                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-success"><?php echo $this->lang->line('STR_DARKBLOW_44') ?></a>
                     </div>
                 <?php echo form_close() ?>
                 <script>
@@ -32,12 +32,12 @@
                             e.preventDefault();
 
                             if ($('#username').val() == ''){
-                                ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                 document.getElementById('username').focus();
                                 return;
                             }
                             else if ($('#password').val() == ''){
-                                ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                                ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_2') ?>');
                                 document.getElementById('password').focus();
                                 return;
                             }
@@ -96,14 +96,18 @@
                                                 if (Result2.response == 'true'){
                                                     CSRF_TOKEN = Result2.token;
                                                     
-                                                    DoLogin();
+                                                    return DoLogin();
                                                 }
                                                 else{
                                                     window.location.reload();
                                                 }
                                             },
                                             error: function(){
-                                                window.location.reload();
+                                                SetAttribute('submit', 'submit', 'Login');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
                                             }
                                         });
                                     }
@@ -152,29 +156,10 @@
                                 }
                             },
                             error: function(){
-                                ShowToast(1000, 'info', 'Getting New Request Token...');
-                                $.ajax({
-                                    url: '<?php echo base_url('login/do_gettoken') ?>',
-                                    type: 'GET',
-                                    dataType: 'JSON',
-                                    data: {},
-                                    success: function(data){
-                                        var GetString2 = JSON.stringify(data);
-                                        var Result2 = JSON.parse(GetString2);
-
-                                        if (Result2.response == 'true'){
-                                            CSRF_TOKEN = Result2.token;
-                                            
-                                            DoLogin();
-                                        }
-                                        else{
-                                            window.location.reload();
-                                        }
-                                    },
-                                    error: function(){
-                                        window.location.reload();
-                                    }
-                                });
+                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
                             }
                         });
                     }

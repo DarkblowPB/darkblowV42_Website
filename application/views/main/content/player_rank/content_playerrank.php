@@ -1,15 +1,15 @@
 <div class="container">
 	<div class="nk-gap-2"></div>
-	<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Player</span> Rank</span></h3>
+	<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_84') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_3') ?></span></h3>
 	<div class="col-lg-12 col-12">
 		<table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center">
 			<thead>
-				<th width="5%">Rank</th>
-				<th width="5%">Patent</th>
-				<th>Player Name</th>
-				<th width="20%">Badges</th>
-				<th width="15%">Total Exp</th>
-				<th width="15%">Status</th>
+				<th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_3') ?></th>
+				<th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_31') ?></th>
+				<th><?php echo $this->lang->line('STR_DARKBLOW_32') ?></th>
+				<th width="20%"><?php echo $this->lang->line('STR_DARKBLOW_90') ?></th>
+				<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_33') ?></th>
+				<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_126') ?></th>
 			</thead>
 			<tbody>
 				<?php
@@ -80,7 +80,7 @@
 				{
 					?>
 					<tr>
-						<td colspan="6">No Data Found</td>
+						<td colspan="6"><?php echo $this->lang->line('STR_INFO_4') ?></td>
 					</tr>
 					<?php
 				}

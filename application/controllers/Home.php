@@ -12,6 +12,9 @@ class Home extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+        $this->lang->load(array('header', 'string'));
+
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
@@ -33,16 +36,6 @@ class Home extends CI_Controller
 		
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
-	}
-	
-	function logout()
-	{
-		$this->session->unset_userdata('uid');
-		$this->session->unset_userdata('player_name');
-		$this->session->unset_userdata('access_level');
-		
-		$this->session->set_flashdata('true', 'Successfully Logged Out.');
-		echo "<script>self.history.back();</script>";
 	}
 
 	function do_getservercondition()

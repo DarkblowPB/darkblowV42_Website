@@ -87,6 +87,14 @@ And how to configure database settings? follow this step clearly:
 	5. Setup your credentials server.
 	6. Done.
 
+And how to configure website language? follow this step more clearly:
+
+  1. Expand application folder.
+  2. Expand config folder.
+  3. Open config.php .
+  4. Scroll down to line 84. (Available Language: 'english' & 'indonesian')
+  5. Done.
+
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.

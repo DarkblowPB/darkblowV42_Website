@@ -43,8 +43,8 @@
                 <div class="container text-center">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                            <h1 class="h2"><span class="text-main-1">Sorry</span> Your IP Has Blocked To View This Website</h1>
-                            <div class="text-white">Sorry, Your IP Has Blocked To View This Website, Join Discord Server For Detail Information.</div>
+                            <h1 class="h2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_0') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_1') ?></h1>
+                            <div class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_0') ?>, <?php echo $this->lang->line('STR_DARKBLOW_1') ?>, <?php echo $this->lang->line('STR_DARKBLOW_2') ?></div>
                             <div class="nk-gap-2"></div>
                         </div>
                     </div>

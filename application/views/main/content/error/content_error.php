@@ -41,10 +41,10 @@
                         <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                             <h1 class="text-main-1" style="font-size: 150px;">404</h1>
                             <div class="nk-gap"></div>
-                            <h2 class="h4">You chose the wrong path!</h2>
-                            <div>Or such a page just doesn't exist... <br> Would you like to go back to the homepage?</div>
+                            <h2 class="h4"><?php echo $this->lang->line('STR_DARKBLOW_13') ?></h2>
+                            <div><?php echo $this->lang->line('STR_DARKBLOW_14') ?> <br> <?php echo $this->lang->line('STR_DARKBLOW_15') ?></div>
                             <div class="nk-gap-3"></div>
-                            <a href="<?php echo base_url('home') ?>" class="nk-btn nk-btn-rounded nk-btn-color-white">Return to Homepage</a>
+                            <a href="<?php echo base_url('home') ?>" class="nk-btn nk-btn-rounded nk-btn-color-white"><?php echo $this->lang->line('STR_DARKBLOW_16') ?></a>
                         </div>
                     </div>
                 <div class="nk-gap-3"></div>

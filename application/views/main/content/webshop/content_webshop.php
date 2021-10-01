@@ -1,7 +1,7 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap-2"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">Most</span> Popular</span></h3>
+		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_146') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_147') ?></span></h3>
 		<?php if ($popular != null) : ?>
 			<div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
 				<div class="nk-carousel-inner">
@@ -29,11 +29,11 @@
 		<?php endif; ?>
 		<?php if ($popular == null) : ?>
 			<div clas="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">No Data Found</div>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center"><?php echo $this->lang->line('STR_INFO_4') ?></div>
 			</div>
 		<?php endif; ?>
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Webshop</span> All Items</span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_148') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_149') ?></span></h3>
     <div class="nk-gap"></div>
     <div class="row vertical-gap">
 		<?php if ($webshop != null) : ?>
@@ -136,7 +136,7 @@
 			<?php endforeach; ?>
 		<?php endif; ?>
 		<?php if ($webshop == null) : ?>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">No Data Found</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center"><?php echo $this->lang->line('STR_INFO_4') ?></div>
 		<?php endif; ?>
     </div>
     <div class="nk-gap-2"></div>

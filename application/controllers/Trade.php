@@ -12,6 +12,9 @@ Class Trade extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
+        $this->lang->load(array('header', 'string', 'message'));
+
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();

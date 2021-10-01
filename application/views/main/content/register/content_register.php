@@ -3,7 +3,7 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12">
-                <h3 class="nk-decorated-h-2"><span class="text-main-1">Register <span class="text-white">Area</span></span></h3>
+                <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_44') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_39') ?></span></span></h3>
                 <div class="nk-gap-3"></div>
                 <div class="nk-gap-3"></div>
                 <div class="container">
@@ -12,10 +12,10 @@
                         echo form_open('','id="register_form" autocomplete="off"');
                         ?>
                         <div class="form-group">
-                            <label for="username">Username</label>
+                            <label for="username"><?php echo $this->lang->line('STR_DARKBLOW_40') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="text" class="form-control" id="login" placeholder="Enter Your Username" minlength="4" maxlength="16" autofocus>
+                                    <input type="text" class="form-control" id="login" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check">
@@ -23,21 +23,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="mail" class="form-control" id="email" placeholder="Enter Your Email Address">
+                            <label for="email"><?php echo $this->lang->line('STR_DARKBLOW_131') ?></label>
+                            <input type="mail" class="form-control" id="email" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_132') ?>">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter Your Password" minlength="4" maxlength="16">
+                            <label for="password"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></label>
+                            <input type="password" class="form-control" id="password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
                         </div>
                         <div class="form-group">
-                            <label for="re_password">Confirmation Password</label>
-                            <input type="password" class="form-control" id="re_password" placeholder="Enter Your Confirmation Password" minlength="4" maxlength="16">
+                            <label for="re_password"><?php echo $this->lang->line('STR_DARKBLOW_57') ?></label>
+                            <input type="password" class="form-control" id="re_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16">
                         </div>
                         <div class="form-group">
-                            <label>Hint Question</label>
+                            <label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
                             <select class="form-control" id="hint_question">
-                                <option value="" disabled selected>Select Your Hint Question</option>
+                                <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
                                 <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                 <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
                                 <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
@@ -56,8 +56,8 @@
                             </select>
                         </div>
                             <div class="form-group">
-                                <label>Hint Answer</label>
-                                <input type="text" class="form-control" id="hint_answer" placeholder="Enter Your Hint Answer">
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
+                                <input type="text" class="form-control" id="hint_answer" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>" required>
                             </div>
                         <div class="nk-gap"></div>
                         <div class="form-group text-center">
@@ -69,7 +69,7 @@
                             CSRF_TOKEN2 = '<?php echo $this->security->get_csrf_hash() ?>';
                             $('#check_username').click(function(){
                                 if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     return;
                                 }
                                 else{
@@ -104,7 +104,7 @@
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
+                                            ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                             $.ajax({
                                                 url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -119,7 +119,13 @@
                                                         CSRF_TOKEN2 = Result.token;
                                                     }
 
-                                                    CheckUsername();
+                                                    return CheckUsername();
+                                                },
+                                                else{
+                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
                                                 }
                                             });
                                         }
@@ -130,7 +136,7 @@
                             function CheckUsername()
                             {
                                 if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     setTimeout(() => {
                                         window.location.reload();
                                     }, 2000);
@@ -167,7 +173,7 @@
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(2000, 'error', 'Failed To Check Username.');
+                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
@@ -180,23 +186,23 @@
                                 e.preventDefault();
 
                                 if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     document.getElementById('login').focus();
                                 }
                                 else if ($('#email').val() == ''){
-                                    ShowToast(2000, 'warning', 'Email Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_13') ?>');
                                     document.getElementById('email').focus();
                                 }
                                 else if ($('#password').val() == ''){
-                                    ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
                                     document.getElementById('password').focus();
                                 }
                                 else if ($('#re_password').val() == ''){
-                                    ShowToast(2000, 'warning', 'Confirmation Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_9') ?>');
                                     document.getElementById('re_password').focus();
                                 }
                                 else if ($('#re_password').val() != $('#password').val()){
-                                    ShowToast(2000, 'warning', 'Confirmation Password Doesnt Matches.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_14') ?>');
                                     document.getElementById('re_password').focus();
                                 }
                                 else{
@@ -237,8 +243,7 @@
                                             }
                                         },
                                         error: function(){
-                                            SetAttribute('submit', button, 'Generate New Request Token...');
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
+                                            ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                             $.ajax({
                                                 url: '<?php echo base_url('api/getnewtoken') ?>',
@@ -253,7 +258,13 @@
                                                         CSRF_TOKEN2 = Result.token;
                                                     }
 
-                                                    Do_Register();
+                                                    return Do_Register();
+                                                },
+                                                error: function(){
+                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_12') ?>');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
                                                 }
                                             })
                                         }
@@ -264,23 +275,23 @@
                             function Do_Register()
                             {
                                 if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     document.getElementById('login').focus();
                                 }
                                 else if ($('#email').val() == ''){
-                                    ShowToast(2000, 'warning', 'Email Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_13') ?>');
                                     document.getElementById('email').focus();
                                 }
                                 else if ($('#password').val() == ''){
-                                    ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
                                     document.getElementById('password').focus();
                                 }
                                 else if ($('#re_password').val() == ''){
-                                    ShowToast(2000, 'warning', 'Confirmation Password Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_9') ?>');
                                     document.getElementById('re_password').focus();
                                 }
                                 else if ($('#re_password').val() != $('#password').val()){
-                                    ShowToast(2000, 'warning', 'Confirmation Password Doesnt Matches.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_14') ?>');
                                     document.getElementById('re_password').focus();
                                 }
                                 else{
@@ -324,7 +335,7 @@
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(2000, 'error', 'Failed To Register Your Account.');
+                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_12') ?>');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
@@ -337,7 +348,7 @@
                             <label style="font-weight: bold; font-style: italic;">OR</label>
                         </div>
                         <div class="form-group text-center">
-                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.');"><span class="fa fa-google"></span> &nbsp;register with google</button>
+                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.');"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
                         </div>
                     </div>
                 </div>
