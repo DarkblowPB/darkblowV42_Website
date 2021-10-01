@@ -114,7 +114,7 @@ $db['default'] = array(
 	// Do Not Change This Line
 	'swap_pre' => '',
 	// Do Not Change This Line
-	'encrypt' => TRUE,
+	'encrypt' => FALSE,
 	// Do Not Change This Line
 	'compress' => FALSE,
 	// Do Not Change This Line
@@ -122,7 +122,7 @@ $db['default'] = array(
 	// Do Not Change This Line
 	'failover' => array(),
 	// Do Not Change This Line
-	'save_queries' => FALSE,
+	'save_queries' => TRUE,
 	// Do Not Change This Line
 	'port' => 5432
 );

@@ -26,7 +26,7 @@
                     </div>
                 <?php echo form_close() ?>
                 <script>
-                    CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                     $(document).ready(function(){
                         $('#login_form').on('submit', function(e){
                             e.preventDefault();
@@ -117,6 +117,7 @@
                     });
                     
                     function DoLogin(){
+                        
                         $.ajax({
                             url: '<?php echo base_url('login/do_login') ?>',
                             type: 'POST',

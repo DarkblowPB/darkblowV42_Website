@@ -11,8 +11,8 @@
 							<th width="5%"><?php echo $this->lang->line('STR_DARKBLOW_164') ?></th>
 							<th><?php echo $this->lang->line('STR_DARKBLOW_66') ?></th>
 							<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_72') ?></th>
-							<th width="15%"><?php echo $this->lang->line('STR_DARKBLOW_69') ?></th>
-							<th width="25%">Menu<?php echo $this->lang->line('STR_DARKBLOW_73') ?></th>
+							<th width="20%"><?php echo $this->lang->line('STR_DARKBLOW_69') ?></th>
+							<th width="25%"><?php echo $this->lang->line('STR_DARKBLOW_73') ?></th>
 						</tr>
 					</thead>
 					<tbody>

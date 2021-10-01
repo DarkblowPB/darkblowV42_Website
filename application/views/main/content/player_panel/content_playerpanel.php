@@ -136,7 +136,7 @@
                                              <span class="fa fa-history"></span>
                                         </div>
                                         <div class="nk-feature-cont text-center">
-                                             <h3 class="nk-feature-title"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_106') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_63') ?></h3>
+                                             <h3 class="nk-feature-title"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_106') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_64') ?></h3>
                                              <div class="nk-gap-1"></div>
                                              <table class="table table-borderless table-hover text-white" style="width: 100%;">
                                                   <tbody>
@@ -279,7 +279,7 @@
                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('home') ?>'"><?php echo $this->lang->line('STR_DARKBLOW_118') ?></button>&nbsp;
                                    <a href="<?php echo base_url('player_panel/changepassword') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4"><?php echo $this->lang->line('STR_DARKBLOW_47') ?> <?php echo $this->lang->line('STR_DARKBLOW_42') ?></a>&nbsp;
                                    <a href="<?php echo base_url('player_panel/changeemail') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4"><?php echo $this->lang->line('STR_DARKBLOW_47') ?> <?php echo $this->lang->line('STR_DARKBLOW_48') ?></a>&nbsp;
-                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='<?php echo base_url('home/logout') ?>'">Logout<?php echo $this->lang->line('STR_DARKBLOW_119') ?></button>
+                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='<?php echo base_url('home/logout') ?>'"><?php echo $this->lang->line('STR_DARKBLOW_119') ?></button>
                               </div>
                          </div>
                     </div>

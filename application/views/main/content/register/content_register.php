@@ -66,7 +66,7 @@
                         </div>
                         <?php echo form_close(); ?>
                         <script>
-                            CSRF_TOKEN2 = '<?php echo $this->security->get_csrf_hash() ?>';
+                            var CSRF_TOKEN2 = '<?php echo $this->security->get_csrf_hash() ?>';
                             $('#check_username').click(function(){
                                 if ($('#login').val() == ''){
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
@@ -121,7 +121,7 @@
 
                                                     return CheckUsername();
                                                 },
-                                                else{
+                                                error: function(){
                                                     ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
                                                     setTimeout(() => {
                                                         window.location.reload();

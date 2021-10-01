@@ -12,7 +12,7 @@
  Target Server Version : 130004
  File Encoding         : 65001
 
- Date: 28/09/2021 13:23:57
+ Date: 02/10/2021 02:14:19
 */
 
 
@@ -6944,14 +6944,17 @@ CREATE TABLE "public"."web_settings" (
   "trade_market" varchar(255) COLLATE "pg_catalog"."default",
   "exchange_ticket" varchar(255) COLLATE "pg_catalog"."default",
   "voucher" varchar(255) COLLATE "pg_catalog"."default",
-  "forgot_password" varchar(255) COLLATE "pg_catalog"."default"
+  "forgot_password" varchar(255) COLLATE "pg_catalog"."default",
+  "language" int4,
+  "event_ticket" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
+COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', 'b3a8a47d582273ed7f22d8afa2dfe450.png', 'Darkblow-Logos.ico', 'Testing', '1', '1', '1', '1', '1', '1', '0');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', 'b3a8a47d582273ed7f22d8afa2dfe450.png', 'Darkblow-Logos.ico', 'Testing', '1', '1', '1', '1', '1', '1', '0', 1, NULL);
 
 -- ----------------------------
 -- Table structure for webshop
