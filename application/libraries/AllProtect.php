@@ -68,6 +68,15 @@ class AllProtect
         }
     }
 
+    public function Banned_Protection2()
+    {
+        $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
+        if (!$check)
+        {
+            redirect(base_url('home'), 'refresh');
+        }
+    }
+
     public function Changepassword_Protection()
 	{
         if (isset($_SESSION['uid']))
