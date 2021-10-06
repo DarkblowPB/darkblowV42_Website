@@ -80,8 +80,9 @@ $config['url_suffix'] = '';
 | there is an available translation if you intend to use something other
 | than english.
 |
+| Available Language = "english", "indonesian", "thailand";
 */
-$config['language']	= 'indonesian';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
