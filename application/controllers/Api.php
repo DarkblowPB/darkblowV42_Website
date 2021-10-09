@@ -24,6 +24,37 @@ Class Api extends CI_Controller
 
 		echo json_encode($response);
 	}
+
+	function getlaunchertoken()
+	{
+		if (empty($this->input->get('token')))
+		{
+			echo "Invalid Token";
+		}
+		else if (!empty($this->input->get('token')))
+		{
+			if ($this->input->get('token') == 'darkblowpbreborn_2021')
+			{
+				$query = $this->db->get('info_launcherkey')->row();
+				if ($query)
+				{
+					echo $query->key;
+				}
+				else
+				{
+					echo "Invalid Token";
+				}
+			}
+			else
+			{
+				echo "Invalid Token";
+			}
+		}
+		else
+		{
+			echo "adm adm";
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

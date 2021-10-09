@@ -23,7 +23,7 @@ class Webshop extends CI_Controller
 		
 		$this->load->library('pagination');
 		$this->load->model('main/webshop_model', 'webshop');
-		$this->load->model('globalmodel', 'gm');
+		$this->load->model('main/login_model', 'login');
 
 		if ($this->getsettings->Get2()->webshop != 1)
 		{
@@ -96,7 +96,7 @@ class Webshop extends CI_Controller
 		);
 		if ($this->form_validation->run())
 		{
-			$this->gm->FloatLoginValidation();
+			$this->login->LoginValidationV2();
 		}
 		else
 		{

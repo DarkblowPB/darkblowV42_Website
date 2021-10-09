@@ -19,7 +19,6 @@ Class Forgotpassword extends CI_Controller
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
     }
 
     function index()

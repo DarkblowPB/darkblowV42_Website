@@ -15,6 +15,7 @@ Class Encryption extends CI_Controller
         $this->load->database();
         $this->load->library('lib');
         $this->load->model('main/redeemcode_model', 'redeem');
+        $this->load->model('main/inventory_model', 'inventory');
 
         if (empty($_SESSION['uid']))
         {
@@ -556,7 +557,7 @@ Class Encryption extends CI_Controller
                 122 => '1001002052', // Leopard Bope
                 123 => '1001002053', // Hide Cup [R]
                 124 => '1001002053', // Hide World Cup 2014
-                125 => '1001002056', //Hide Commando
+                125 => '1001002056', // Hide Commando
                 126 => '1001002062', // Infected Acid Paul
                 127 => '1001002063', // Infected Keen Eyes
                 128 => '1001002064', // Infected Hide
@@ -587,10 +588,10 @@ Class Encryption extends CI_Controller
                 $this->db->insert('player_items', array(
                     'owner_id' => $query->player_id,
                     'item_id' => $item_list[$i],
-                    'item_name' => 'Title Reward',
-                    'count' => '2592000',
+                    'item_name' => $this->inventory->GetItemRealName($item_list[$i]),
+                    'count' => '1',
                     'category' => $this->redeem->GetItemCategory($item_list[$i]),
-                    'equip' => '1'
+                    'equip' => '3'
                 ));
             }
 

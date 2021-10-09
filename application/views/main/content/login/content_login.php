@@ -27,62 +27,74 @@
                 <?php echo form_close() ?>
                 <script>
                     var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                    var RETRY = 0;
                     $(document).ready(function(){
                         $('#login_form').on('submit', function(e){
                             e.preventDefault();
 
-                            if ($('#username').val() == ''){
-                                ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
-                                document.getElementById('username').focus();
-                                return;
-                            }
-                            else if ($('#password').val() == ''){
-                                ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_2') ?>');
-                                document.getElementById('password').focus();
-                                return;
-                            }
-                            else{
-                                SetAttribute('submit', 'button', 'Processing...');
+                            return DoLogin();
+                        });
+                    });
+                    
+                    function DoLogin()
+                    {
+                        if ($('#username').val() == '' || $('#username').val() == null){
+                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            document.getElementById('username').focus();
+                        }
+                        else if ($('#password').val() == '' || $('#password').val() == null){
+                            ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                            document.getElementById('password').focus();
+                        }
+                        else{
+                            SetAttribute('submit', 'button', 'Processing...');
+                            $.ajax({
+                                url: '<?php echo base_url('login/do_login') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                    'username' : $('#username').val(),
+                                    'password' : $('#password').val()
+                                },
+                                success: function(data){
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
 
-                                $.ajax({
-                                    url: '<?php echo base_url('login/do_login') ?>',
-                                    type: 'POST',
-                                    dataType: 'JSON',
-                                    data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'username' : $('#username').val(),
-                                        'password' : $('#password').val()
-                                    },
-                                    success: function(data){
-                                        var GetString = JSON.stringify(data);
-                                        var Result = JSON.parse(GetString);
+                                    if (Result.response == 'true'){
+                                        SetAttribute('submit', 'submit', 'Login');
 
-                                        if (Result.response == 'true'){
-                                            SetAttribute('submit', 'submit', 'Login');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'success', Result.message);
+                                        setTimeout(() => {
+                                            window.location = '<?php echo base_url('player_panel') ?>';
+                                        }, 2000);
+                                        return;
+                                    }
+                                    else if (Result.response == 'false'){
+                                        SetAttribute('submit', 'submit', 'Login');
 
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'success', Result.message);
-                                            setTimeout(() => {
-                                                window.location = '<?php echo base_url('player_panel') ?>';
-                                            }, 2000);
-                                            return;
-                                        }
-                                        else if (Result.response == 'false'){
-                                            SetAttribute('submit', 'submit', 'Login');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'error', Result.message);
+                                        return;
+                                    }
+                                    else{
+                                        SetAttribute('submit', 'submit', 'Login');
 
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
-                                        else{
-                                            SetAttribute('submit', 'submit', 'Login');
-
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
-                                    },
-                                    error: function(){
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, 'error', Result.message);
+                                        return;
+                                    }
+                                },
+                                error: function(){
+                                    if (RETRY >= 3){
+                                        ShowToast(2000, 'error', 'Failed To Logged In.');
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                    else{
                                         ShowToast(1000, 'info', 'Getting New Request Token...');
                                         $.ajax({
                                             url: '<?php echo base_url('login/do_gettoken') ?>',
@@ -111,58 +123,9 @@
                                             }
                                         });
                                     }
-                                });
-                            }
-                        });
-                    });
-                    
-                    function DoLogin(){
-                        
-                        $.ajax({
-                            url: '<?php echo base_url('login/do_login') ?>',
-                            type: 'POST',
-                            dataType: 'JSON',
-                            data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                'username' : $('#username').val(),
-                                'password' : $('#password').val()
-                            },
-                            success: function(data){
-                                var GetString = JSON.stringify(data);
-                                var Result = JSON.parse(GetString);
-
-                                if (Result.response == 'true'){
-                                    SetAttribute('submit', 'submit', 'Login');
-
-                                    CSRF_TOKEN = Result.token;
-                                    ShowToast(2000, 'success', Result.message);
-                                    setTimeout(() => {
-                                        window.location = '<?php echo base_url('player_panel') ?>';
-                                    }, 2000);
-                                    return;
                                 }
-                                else if (Result.response == 'false'){
-                                    SetAttribute('submit', 'submit', 'Login');
-
-                                    CSRF_TOKEN = Result.token;
-                                    ShowToast(2000, 'error', Result.message);
-                                    return;
-                                }
-                                else{
-                                    SetAttribute('submit', 'submit', 'Login');
-
-                                    CSRF_TOKEN = Result.token;
-                                    ShowToast(2000, 'error', Result.message);
-                                    return;
-                                }
-                            },
-                            error: function(){
-                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            }
-                        });
+                            });
+                        }
                     }
                 </script>
             </div>

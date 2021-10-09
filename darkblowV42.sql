@@ -6945,7 +6945,7 @@ CREATE TABLE "public"."web_settings" (
   "exchange_ticket" varchar(255) COLLATE "pg_catalog"."default",
   "voucher" varchar(255) COLLATE "pg_catalog"."default",
   "forgot_password" varchar(255) COLLATE "pg_catalog"."default",
-  "language" int4,
+  "register" int4,
   "event_ticket" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;

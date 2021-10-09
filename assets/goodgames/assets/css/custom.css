@@ -1,1 +1,67 @@
 /* PLACE YOU CUSTOM STYLES IN THIS FILE */
+
+  .calendar__week,
+  .calendar__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+  }
+  .calendar__week {
+    grid-auto-rows: 100px;
+    text-align: right;
+  }
+  
+  .calendar__header {
+    grid-auto-rows: 50px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .calendar__day {
+    padding: 16px;
+    background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend.png') 0 0 no-repeat;
+    background-position: center !important;
+}
+
+  .claimed {
+      color: white;
+      background-color: #38a220;
+      background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_check.png') 0 0 no-repeat;
+  }
+
+  .today {
+      color: white;
+      background-color: #0275d8;
+      background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_today.png') 0 0 no-repeat;
+    }
+    
+  .passed {
+    color: white;
+    background-color: #dd163b;
+    background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_pass.png') 0 0 no-repeat;
+  }
+  
+  main {
+    background-color: inherit;
+  }
+  
+  .calendar {
+    background-color: inherit;
+    border: 1px solid #dd163b;
+    color: white;
+  }
+  
+  .calendar__header > div {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #dd163b;
+  }
+  
+  .calendar__day {
+    border-right: 1px solid #dd163b;
+    border-top: 1px solid #dd163b;
+  }
+  
+  .calendar__day:last-child {
+    border-right: 0;
+  }

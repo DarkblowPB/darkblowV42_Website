@@ -23,6 +23,7 @@ Features List :
 			- Player Panel
 			- Moderator Panel (Only For Admin & Staff)
 			- Redeem Code
+			- Attendance (Events Only!)
 			- Exchange Ticket (Events Only!)
 			- Voucher (Topup / Events)
 			- Inventory

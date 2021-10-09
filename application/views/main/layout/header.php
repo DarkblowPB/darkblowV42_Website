@@ -182,7 +182,7 @@
                                     </li>
                                     <?php if ($this->getsettings->Get2()->exchange_ticket == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
-                                            <a href="<?php echo base_url('player_panel/exchange_ticket') ?>">
+                                            <a href="<?php echo base_url('event/exchange_ticket') ?>">
                                                 <?php echo $this->lang->line('STR_MENU_17') ?>
                                             </a>
                                         </li>

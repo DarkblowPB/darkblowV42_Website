@@ -39,13 +39,16 @@ Class Settings extends CI_Controller
 
     function do_submit_generalsettings()
     {
+        $response = array();
+        
+        $this->form_validation->set_error_delimiters('', '');
+
         $data = array(
             'submit_form' => $this->input->post('submit_form')
         );
 
         if ($data['submit_form'] == "submit01")
         {
-            $response = array();
 
             $this->form_validation->set_rules(
                 'server_condition',
@@ -80,9 +83,7 @@ Class Settings extends CI_Controller
             }
         }
         else if ($data['submit_form'] == "submit02")
-        {
-            $response = array();
-    
+        {    
             $this->form_validation->set_rules(
                 'project_name',
                 'Project Name',
@@ -122,7 +123,6 @@ Class Settings extends CI_Controller
         }
         else
         {
-            $this->form_validation->set_error_delimiters('', '');
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -141,6 +141,7 @@ Class Settings extends CI_Controller
     function do_submit_featuresettings()
     {
         $response = array();
+        $this->form_validation->set_error_delimiters('', '');
 
         $this->form_validation->set_rules(
             'enable_webshop',
@@ -166,16 +167,22 @@ Class Settings extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
+        $this->form_validation->set_rules(
+            'enable_register',
+            'Register State',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
         if ($this->form_validation->run())
         {
             $this->settings->SetFeature();
         }
         else
         {
-            $this->form_validation->set_error_delimiters('', '');
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
+
             echo json_encode($response);
         }
     }

@@ -22,7 +22,7 @@ class Settings_model extends CI_Model
 
     function SetCondition()
     {
-        sleep(2);
+        sleep(1);
         $data = array(
             'server_condition' => $this->encryption->encrypt($this->input->post('server_condition', true)),
             'website_condition' => $this->encryption->encrypt($this->input->post('website_condition', true))
@@ -64,7 +64,7 @@ class Settings_model extends CI_Model
 
     function SetGeneral()
     {
-        sleep(2);
+        sleep(1);
         $response = array();
 
         $data = array(
@@ -221,7 +221,8 @@ class Settings_model extends CI_Model
             'enable_trademarket' => $this->encryption->encrypt($this->input->post('enable_trademarket', true)),
             'enable_exchangeticket' => $this->encryption->encrypt($this->input->post('enable_exchangeticket', true)),
             'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true)),
-            'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true))
+            'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true)),
+            'enable_register' => $this->encryption->encrypt($this->input->post('enable_register', true))
         );
 
         $response = array();
@@ -234,7 +235,8 @@ class Settings_model extends CI_Model
                 'trade_market' => $this->encryption->decrypt($data['enable_trademarket']),
                 'exchange_ticket' => $this->encryption->decrypt($data['enable_exchangeticket']),
                 'voucher' => $this->encryption->decrypt($data['enable_voucher']),
-                'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword'])
+                'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword']),
+                'register' => $this->encryption->decrypt($data['enable_register'])
             ));
 
             if ($update)

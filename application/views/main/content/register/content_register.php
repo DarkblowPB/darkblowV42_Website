@@ -73,6 +73,7 @@
                                     return;
                                 }
                                 else{
+                                    SetAttribute('check_username', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_checkusername') ?>',
                                         type: 'POST',
@@ -87,17 +88,20 @@
 
                                             if (Result.response == 'true'){
                                                 document.getElementById('submit').setAttribute('onclick', '');
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
                                             }
                                             else if (Result.response == 'false'){
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
                                             }
                                             else{
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
@@ -122,6 +126,7 @@
                                                     return CheckUsername();
                                                 },
                                                 error: function(){
+                                                    SetAttribute('check_username', 'button', 'Check');
                                                     ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
                                                     setTimeout(() => {
                                                         window.location.reload();
@@ -142,6 +147,7 @@
                                     }, 2000);
                                 }
                                 else{
+                                    SetAttribute('check_username', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_checkusername') ?>',
                                         type: 'POST',
@@ -156,17 +162,20 @@
 
                                             if (Result.response == 'true'){
                                                 document.getElementById('submit').setAttribute('onclick', '');
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
                                             }
                                             else if (Result.response == 'false'){
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
                                             }
                                             else{
+                                                SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
                                                 return;
@@ -205,7 +214,16 @@
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_14') ?>');
                                     document.getElementById('re_password').focus();
                                 }
+                                else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
+                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                    document.getElementById('hint_question').focus();
+                                }
+                                else if ($('#hint_answer').val() == ''){
+                                    ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                    document.getElementById('hint_answer').focus();
+                                }
                                 else{
+                                    SetAttribute('submit', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_register') ?>',
                                         type: 'POST',
@@ -294,7 +312,16 @@
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_14') ?>');
                                     document.getElementById('re_password').focus();
                                 }
+                                else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
+                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                    document.getElementById('hint_question').focus();
+                                }
+                                else if ($('#hint_answer').val() == ''){
+                                    ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                    document.getElementById('hint_answer').focus();
+                                }
                                 else{
+                                    SetAttribute('submit', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_register') ?>',
                                         type: 'POST',
