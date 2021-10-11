@@ -26,6 +26,13 @@
                             </select>
                         </div>
                         <div class="form-group row">
+                            <label class="col-form-label col-3">Redeem Code</label>
+                            <select id="enable_redeemcode" class="form-control col-9">
+                                <option value="0"<?php if ($this->getsettings->Get2()->redeemcode == 0){echo 'selected';} ?>>Disabled</option>
+                                <option value="1"<?php if ($this->getsettings->Get2()->redeemcode == 1){echo 'selected';} ?>>Enabled</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-form-label col-3">Voucher</label>
                             <select id="enable_voucher" class="form-control col-9">
                                 <option value="0"<?php if ($this->getsettings->Get2()->voucher == 0){echo 'selected';} ?>>Disabled</option>
@@ -75,8 +82,12 @@
                                     ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
                                     return;
                                 }
+                                else if ($('#enable_redeemcode').val() == '' || $('#enable_redeemcode').val() == null){
+                                    ShowToast(2000, 'warning', 'Redeem Code State Cannot Be Empty.');
+                                    return;
+                                }
                                 else if ($('#enable_voucher').val() == '' || $('#enable_voucher').val() == null){
-                                    ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', 'Voucher State Cannot Be Empty.');
                                     return;
                                 }
                                 else if ($('#enable_forgotpassword').val() == '' || $('#enable_forgotpassword').val() == null){
@@ -92,8 +103,7 @@
                                     return;
                                 }
                                 else{
-
-                                    SetButton('false');
+                                    SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
                                         url: '<?php echo base_url('adm/settings/do_submit_featuresettings') ?>',
@@ -104,6 +114,7 @@
                                             'enable_webshop' : $('#enable_webshop').val(),
                                             'enable_trademarket' : $('#enable_trademarket').val(),
                                             'enable_exchangeticket' : $('#enable_exchangeticket').val(),
+                                            'enable_redeemcode' : $('#enable_redeemcode').val(),
                                             'enable_voucher' : $('#enable_voucher').val(),
                                             'enable_forgotpassword' : $('#enable_forgotpassword').val(),
                                             'enable_register' : $('#enable_register').val(),
@@ -114,19 +125,19 @@
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true'){
-                                                SetButton('true');
+                                                SetAttribute('submit', 'submit', 'Submit Feature');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'success', Result.message);
                                                 return;
                                             }
                                             else if (Result.response == 'false'){
-                                                SetButton('true');
+                                                SetAttribute('submit', 'submit', 'Submit Feature');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'error', Result.message);
                                                 return;
                                             }
                                             else{
-                                                SetButton('true');
+                                                SetAttribute('submit', 'submit', 'Submit Feature');
                                                 CSRF_TOKEN = Result.token;
                                                 ShowToast(2000, 'error', Result.message);
                                                 return;
@@ -151,7 +162,7 @@
                                                     return SubmitSettings();
                                                 },
                                                 error: function(){
-                                                    SetButton('true');
+                                                    SetAttribute('submit', 'submit', 'Submit Feature');
                                                     ShowToast(2000, 'error', 'Failed To Submit Settings.');
                                                     setTimeout(() => {
                                                         window.location.reload();
@@ -191,8 +202,7 @@
                                 return;
                             }
                             else{
-
-                                SetButton('false');
+                                SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
                                     url: '<?php echo base_url('adm/settings/do_submit_featuresettings') ?>',
@@ -212,45 +222,32 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            SetButton('true');
+                                            SetAttribute('submit', 'submit', 'Submit Feature');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'success', Result.message);
                                             return;
                                         }
                                         else if (Result.response == 'false'){
-                                            SetButton('true');
+                                            SetAttribute('submit', 'submit', 'Submit Feature');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
                                             return;
                                         }
                                         else{
-                                            SetButton('true');
+                                            SetAttribute('submit', 'submit', 'Submit Feature');
                                             CSRF_TOKEN = Result.token;
                                             ShowToast(2000, 'error', Result.message);
                                             return;
                                         }
                                     },
                                     error: function(){
-                                        SetButton('true');
+                                        SetAttribute('submit', 'submit', 'Submit Feature');
                                         ShowToast(2000, 'error', 'Failed To Submit Settings.');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
                                     }
                                 });
-                            }
-                        }
-
-                        function SetButton(param)
-                        {
-                            var Q = document.getElementById('submit');
-                            if (param == 'true'){
-                                Q.setAttribute('type', 'submit');
-                                Q.setAttribute('value', 'Submit Feature');
-                            }
-                            if (param == 'false'){
-                                Q.setAttribute('type', 'button');
-                                Q.setAttribute('value', 'Processing...');
                             }
                         }
                     </script>

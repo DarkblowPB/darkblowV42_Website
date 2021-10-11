@@ -38,6 +38,10 @@
                                         {
                                             echo 'passed';
                                         }
+                                        else
+                                        {
+                                            echo 'claimed';
+                                        }
                                     }
                                     ?>
                                     " title="
@@ -58,6 +62,10 @@
                                         if (!$this->attendance->GetPlayerAttendDate($row['id']))
                                         {
                                             echo 'Passed';
+                                        }
+                                        else
+                                        {
+                                            echo 'Already Claimed';
                                         }
                                     }
                                     else

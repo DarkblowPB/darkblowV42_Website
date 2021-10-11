@@ -162,6 +162,12 @@ Class Settings extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         $this->form_validation->set_rules(
+            'enable_redeemcode',
+            'Redeem Code State',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
+        $this->form_validation->set_rules(
             'enable_voucher',
             'Voucher State',
             'required',

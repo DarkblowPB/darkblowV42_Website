@@ -22,6 +22,11 @@ Class Changeemail extends CI_Controller
 		
         $this->main_protect->mainProtectA();
         $this->load->model('main/changeemail_model', 'changeemail');
+
+        if ($this->getsettings->Get2()->change_email != 1)
+        {
+            redirect(base_url('player_panel'), 'refresh');
+        }
     }
 
     function index()

@@ -21,6 +21,11 @@ class Redeemcode extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->load->model('main/redeemcode_model', 'redeemcode');
+
+		if ($this->getsettings->Get2()->redeemcode != 1)
+		{
+			redirect(base_url('player_panel'), 'refresh');
+		}
 	}
 	
 	function index()

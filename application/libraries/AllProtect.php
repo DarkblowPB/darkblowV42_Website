@@ -43,7 +43,11 @@ class AllProtect
      * Model Protection
      * 
      * This Function Is Protector For Model
+     * 
      * Return Error Message If Session Is Empty.
+     * 
+     * @return void
+     * @copyright Darkblow Studio
      */
     public function Model_Protection()
     {
@@ -57,7 +61,14 @@ class AllProtect
             echo json_encode($response);
         }
     }
-
+    /**
+     * Web Protection
+     * 
+     * This Function Is Protector For User That Have Banned IP.
+     * 
+     * @return void
+     * @copyright Darkblow Studio
+     */
     public function Web_Protection()
     {
         $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()));
@@ -67,6 +78,7 @@ class AllProtect
             redirect(base_url('banned'), 'refresh');
         }
     }
+
 
     public function Banned_Protection2()
     {
@@ -114,11 +126,6 @@ class AllProtect
                 redirect(base_url('home'), 'refresh');
             }
         }
-    }
-
-    public function ComingSoon_Protection()
-    {
-        
     }
 
     public function Maintenance_Protection()
