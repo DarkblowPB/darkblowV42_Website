@@ -182,6 +182,8 @@ $lang = array(
     'STR_DARKBLOW_172' => 'Total Match',
     'STR_DARKBLOW_173' => 'Create New One',
     'STR_DARKBLOW_174' => 'Price',
+    'STR_DARKBLOW_175' => 'Attendance',
+    'STR_DARKBLOW_176' => 'Event',
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

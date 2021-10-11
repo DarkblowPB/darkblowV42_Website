@@ -182,6 +182,8 @@ $lang = array(
     'STR_DARKBLOW_172' => 'Total Pertandingan',
     'STR_DARKBLOW_173' => 'Buat Baru',
     'STR_DARKBLOW_174' => 'Harga',
+    'STR_DARKBLOW_175' => 'Kehadiran',
+    'STR_DARKBLOW_176' => 'Acara',
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

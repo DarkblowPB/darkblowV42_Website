@@ -46,6 +46,13 @@
                                 <option value="1" <?php if ($this->getsettings->Get2()->register == 1){echo 'selected';} ?>>Enabled</option>
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Attendance</label>
+                            <select id="enable_attendance" class="form-control col-9">
+                                <option value="0" <?php if ($this->getsettings->Get2()->attendance == 0){echo 'selected';} ?>>Disabled</option>
+                                <option value="1" <?php if ($this->getsettings->Get2()->attendance == 1){echo 'selected';} ?>>Enabled</option>
+                            </select>
+                        </div>
                         <div class="form-group text-right">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
                         </div>
@@ -80,6 +87,10 @@
                                     ShowToast(2000, 'warning', 'Register State Cannot Be Empty.');
                                     return;
                                 }
+                                else if ($('#enable_attendance').val() == '' || $('#enable_register').val() == null){
+                                    ShowToast(2000, 'warning', 'Attendance State Cannot Be Empty.');
+                                    return;
+                                }
                                 else{
 
                                     SetButton('false');
@@ -95,7 +106,8 @@
                                             'enable_exchangeticket' : $('#enable_exchangeticket').val(),
                                             'enable_voucher' : $('#enable_voucher').val(),
                                             'enable_forgotpassword' : $('#enable_forgotpassword').val(),
-                                            'enable_register' : $('#enable_register').val()
+                                            'enable_register' : $('#enable_register').val(),
+                                            'enable_attendance' : $('#enable_attendance').val()
                                         },
                                         success: function(data){
                                             var GetString = JSON.stringify(data);

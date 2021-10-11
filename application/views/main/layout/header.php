@@ -158,7 +158,7 @@
                         endif;
                         if (!empty($_SESSION['uid'])) :
                             ?>
-                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel"){echo 'active';} ?>">
+                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel" || $this->uri->segment(1) == "event"){echo 'active';} ?>">
                                 <a href="javascript:void(0)">
                                     User Area
                                 </a>
@@ -183,7 +183,14 @@
                                     <?php if ($this->getsettings->Get2()->exchange_ticket == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
                                             <a href="<?php echo base_url('event/exchange_ticket') ?>">
-                                                <?php echo $this->lang->line('STR_MENU_17') ?>
+                                                <?php echo $this->lang->line('STR_MENU_17') ?> <span class="text-main-3">[NEW]</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($this->getsettings->Get2()->attendance == 1) : ?>
+                                        <li class="<?php if ($this->uri->segment(2) == "attendance"){echo 'active';} ?>">
+                                            <a href="<?php echo base_url('event/attendance') ?>">
+                                                <?php echo $this->lang->line('STR_MENU_21') ?> <span class="text-main-3">[NEW]</span>
                                             </a>
                                         </li>
                                     <?php endif; ?>

@@ -222,7 +222,8 @@ class Settings_model extends CI_Model
             'enable_exchangeticket' => $this->encryption->encrypt($this->input->post('enable_exchangeticket', true)),
             'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true)),
             'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true)),
-            'enable_register' => $this->encryption->encrypt($this->input->post('enable_register', true))
+            'enable_register' => $this->encryption->encrypt($this->input->post('enable_register', true)),
+            'enable_attendance' => $this->encryption->encrypt($this->input->post('enable_attendance', true))
         );
 
         $response = array();
@@ -236,7 +237,8 @@ class Settings_model extends CI_Model
                 'exchange_ticket' => $this->encryption->decrypt($data['enable_exchangeticket']),
                 'voucher' => $this->encryption->decrypt($data['enable_voucher']),
                 'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword']),
-                'register' => $this->encryption->decrypt($data['enable_register'])
+                'register' => $this->encryption->decrypt($data['enable_register']),
+                'attendance' => $this->encryption->decrypt($data['enable_attendance'])
             ));
 
             if ($update)

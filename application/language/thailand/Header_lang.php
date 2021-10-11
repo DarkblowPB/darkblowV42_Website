@@ -31,7 +31,8 @@ $lang = array(
     'STR_MENU_17' => 'ตั๋วแลกเงิน',
     'STR_MENU_18' => 'บัตรกำนัล',
     'STR_MENU_19' => 'รายการสิ่งของ',
-    'STR_MENU_20' => 'ออกจากระบบ'
+    'STR_MENU_20' => 'ออกจากระบบ',
+    'STR_MENU_21' => 'Attendance',
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -173,6 +173,12 @@ Class Settings extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
+        $this->form_validation->set_rules(
+            'enable_attendance',
+            'Attendance State',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
         if ($this->form_validation->run())
         {
             $this->settings->SetFeature();

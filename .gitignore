@@ -41,3 +41,5 @@ application/controllers/Get_launcherkey.php
 application/config/google.php
 application/controllers/Encrypt.php
 application/libraries/Theme.php
+application/controllers/Event/Opencase.php
+application/views/main/content/event/content_opencase.php

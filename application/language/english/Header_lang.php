@@ -31,7 +31,8 @@ $lang = array(
     'STR_MENU_17' => 'Exchange Ticket',
     'STR_MENU_18' => 'Voucher',
     'STR_MENU_19' => 'Inventory',
-    'STR_MENU_20' => 'Logout'
+    'STR_MENU_20' => 'Logout',
+    'STR_MENU_21' => 'Attendance'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //
