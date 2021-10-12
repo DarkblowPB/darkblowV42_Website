@@ -160,6 +160,11 @@
         'zeroRecords' : 'Nothing Found Here.'
       }
     });
+    $('#attendance_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
 
     // Form Selection
     $('.reward_selection').select2();

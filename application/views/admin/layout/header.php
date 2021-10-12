@@ -161,6 +161,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="<?php echo base_url('adm/eventsmanagement/attendance') ?>" class="nav-link <?php if ($this->uri->segment(3) == "attendance"){echo 'active';} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Attendance Events</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?php echo base_url('adm/eventsmanagement/login') ?>" class="nav-link <?php if ($this->uri->segment(3) == "login"){echo 'active';} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Login Events</p>
