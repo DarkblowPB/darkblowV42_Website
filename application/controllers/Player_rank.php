@@ -13,7 +13,7 @@ class Player_rank extends CI_Controller {
 	{
 		parent::__construct();
 
-        $this->lang->load(array('header', 'string'));
+        $this->lang->load(array('header', 'string', 'message'));
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
