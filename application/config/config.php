@@ -384,7 +384,7 @@ $config['encryption_key'] = 'darkblowpb_reborn2021';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'eyetracker_session';
+$config['sess_cookie_name'] = 'darkblowpbreborn_session';
 $config['sess_expiration'] = 900;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
@@ -455,8 +455,8 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'eyetracker_protection';
-$config['csrf_cookie_name'] = 'eyetracker_cookies';
+$config['csrf_token_name'] = 'darkblowpbreborn_protector';
+$config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
 $config['csrf_expire'] = 1800;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images');
