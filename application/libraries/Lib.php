@@ -166,6 +166,71 @@ class Lib
     {
         return str_split($param, 2); // [0] Years | [1] Month | [2] Days | [3] Hours | [4] Minutes
     }
+
+	public function GetTokenName()
+	{
+		return "tokenkey";
+	}
+
+	public function GetTokenKey()
+	{
+		$min_value = 1;
+		$max_value = $this->ci->db->get('web_tokenkey')->num_rows() + 1;
+
+		$randomizer = rand($min_value, $max_value);
+
+		$newtoken = '';
+
+		$newtoken .= $this->GenerateRandomToken();
+
+		if ($this->ci->db->get('web_tokenkey')->num_rows() == 0)
+		{
+			$insert = $this->ci->db->insert('web_tokenkey', array(
+				'token' => $newtoken,
+				'is_valid' => '1'
+			));
+
+			if ($insert)
+			{
+				return $newtoken;
+			}
+			else
+			{
+				return "invalidtoken";
+			}		
+		}
+		else
+		{
+			$query = $this->ci->db->order_by('id', 'desc')->limit(1)->get_where('web_tokenkey', array('is_valid' => '1'))->row();
+			if ($query)
+			{
+				return $query->token;
+			}
+			else
+			{
+				return "invalidtoken";
+			}
+		}
+	}
+
+	public function GenerateRandomToken()
+	{
+		$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz1234567890';
+		$length = array(
+			'characters_length' => strlen($characters),
+			'token_length' => 64
+		);
+		$value = array(
+			'token' => ''
+		);
+
+		for ($i=0; $i < $length['token_length']; $i++)
+		{
+			$value['token'] .= $characters[rand(0, $length['characters_length'] - 1)];
+		}
+
+		return $value['token'];
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -228,7 +228,7 @@
                 url : '<?php echo base_url('home/do_getservercondition') ?>',
                 type: 'GET',
                 dataType: 'JSON',
-                data: {},
+                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
                 success: function(data){
                     var GetString = JSON.stringify(data);
                     var Result = JSON.parse(GetString);
@@ -276,7 +276,7 @@
             url: '<?php echo base_url('home/do_getonline') ?>',
             type: 'GET',
             dataType: 'JSON',
-            data: {},
+            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
             success: function(data){
                 var GetString = JSON.stringify(data);
                 var Result = JSON.parse(GetString);
@@ -297,7 +297,7 @@
             url: '<?php echo base_url('home/do_getregistered') ?>',
             type: 'GET',
             dataType: 'JSON',
-            data: {},
+            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
             success: function(data){
                 var GetString = JSON.stringify(data);
                 var Result = JSON.parse(GetString);

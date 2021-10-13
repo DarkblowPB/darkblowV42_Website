@@ -67,7 +67,7 @@ Class Redeemcodemanagement_model extends CI_Model
      * 
      * You Can Generate Your Own Code At https://www.voucherify.io/generator
      * 
-     * @return item_code
+     * @return string
      * @link https://www.voucherify.io/generator
      * @copyright Darkblow Studio
      */

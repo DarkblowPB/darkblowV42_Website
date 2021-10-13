@@ -77,6 +77,15 @@ class Register_model extends CI_Model
 	{
 		$response = array();
 
+		$data = array(
+			'login' => $this->encryption->encrypt($this->input->post('login', true)),
+			'email' => $this->encryption->encrypt($this->input->post('email', true)),
+			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true))),
+			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('re_password', true))),
+			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
+			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
+		);
+
 		if ($this->getsettings->Get2()->register != 1)
 		{
 			$response['response'] = 'false';
@@ -87,14 +96,6 @@ class Register_model extends CI_Model
 		}
 		else
 		{
-			$data = array(
-				'login' => $this->encryption->encrypt($this->input->post('login', true)),
-				'email' => $this->encryption->encrypt($this->input->post('email', true)),
-				'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true))),
-				'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('re_password', true))),
-				'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
-				'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
-			);
 	
 			// Check Register Events.
 			$query = $this->db->get_where('events_register', array('id' => '1'))->row();
@@ -105,6 +106,7 @@ class Register_model extends CI_Model
 				{
 					$query2 = $this->db->insert('accounts', array(
 						'login' => $this->encryption->decrypt($data['login']),
+						'lastip' => $this->input->ip_address(),
 						'email' => $this->encryption->decrypt($data['email']),
 						'password' => $this->encryption->decrypt($data['password']),
 						'hint_question' => $this->encryption->decrypt($data['hint_question']),
@@ -171,6 +173,7 @@ class Register_model extends CI_Model
 				{
 					$query2 = $this->db->insert('accounts', array(
 						'login' => $this->encryption->decrypt($data['login']),
+						'lastip' => $this->input->ip_address(),
 						'email' => $this->encryption->decrypt($data['email']),
 						'password' => $this->encryption->decrypt($data['password']),
 						'hint_question' => $this->encryption->decrypt($data['hint_question']),

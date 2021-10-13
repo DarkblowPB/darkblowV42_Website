@@ -37,6 +37,9 @@
         <!-- jQuery -->
         <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
         <!-- END: Styles -->
+        <noscript>
+            Your Browser Does Not Support Javascript.
+        </noscript>
     </head>
     <body>
         <header class="nk-header nk-header-opaque">

@@ -13,7 +13,7 @@
                                 url: '<?php echo base_url('adm/eventsmanagement/attendance/do_disableevent') ?>',
                                 type: 'GET',
                                 dataType: 'JSON',
-                                data: {},
+                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
                                 success: function(data){
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
@@ -157,7 +157,7 @@
                                                 url: '<?php echo base_url('api/getnewtoken') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
-                                                data: {},
+                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
                                                 success: function(data){
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);

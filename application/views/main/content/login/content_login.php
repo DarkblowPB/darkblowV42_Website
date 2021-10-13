@@ -97,10 +97,10 @@
                                     else{
                                         ShowToast(1000, 'info', 'Getting New Request Token...');
                                         $.ajax({
-                                            url: '<?php echo base_url('login/do_gettoken') ?>',
+                                            url: '<?php echo base_url('api/getnewtoken') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
-                                            data: {},
+                                            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
                                             success: function(data){
                                                 var GetString2 = JSON.stringify(data);
                                                 var Result2 = JSON.parse(GetString2);
