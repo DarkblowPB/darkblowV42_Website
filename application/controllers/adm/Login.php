@@ -13,6 +13,7 @@ Class Login extends CI_Controller
     {
         parent::__construct();
         $this->allprotect->AdminLogin_Protection();
+        $this->lib->GetVisitorData('Admin Login (Warning!!!)');
         $this->load->model('admin/login_model', 'login');
     }
 

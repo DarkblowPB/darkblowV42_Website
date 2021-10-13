@@ -14,6 +14,7 @@ class Register extends CI_Controller
 		parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
+        $this->lib->GetVisitorData('Register');
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
@@ -21,6 +22,7 @@ class Register extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->main_protect->mainProtectB();
+
 		$this->load->model('main/register_model', 'register');
 	}
 	

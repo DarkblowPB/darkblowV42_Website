@@ -14,6 +14,8 @@ Class Attendance extends CI_Controller
         parent::__construct();
         $this->lang->load(array('header', 'string', 'message'));
 
+        $this->lib->GetVisitorData('Attendance');
+
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();

@@ -231,6 +231,35 @@ class Lib
 
 		return $value['token'];
 	}
+
+	public function GetVisitorData($page)
+	{
+		$data = array(
+			'operating_system' => $this->ci->agent->platform(),
+			'browser' => $this->ci->agent->browser().' '.$this->ci->agent->version(),
+			'ip_address' => $this->ci->input->ip_address(),
+			'visited_page' => $page
+		);
+
+		$query = $this->ci->db->get_where('web_log', array('ip_address' => $data['ip_address'], 'visited_page' => $data['visited_page']))->row();
+		if ($query)
+		{
+			$count = $query->total_visit + 1;
+
+			$this->ci->db->where(array('ip_address' => $query->ip_address, 'visited_page' => $query->visited_page))->update('web_log', array('total_visit' => ($count), 'last_visit' => date('d-m-Y h:i:s')));
+		}
+		else
+		{
+			$this->ci->db->insert('web_log', array(
+				'operating_system' => $data['operating_system'],
+				'browser' => $data['browser'],
+				'ip_address' => $data['ip_address'],
+				'visited_page' => $data['visited_page'],
+				'total_visit' => '1',
+				'last_visit' => date('d-m-Y h:i:s')
+			));
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

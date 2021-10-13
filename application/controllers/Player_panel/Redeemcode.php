@@ -14,6 +14,7 @@ class Redeemcode extends CI_Controller
 		parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
+        $this->lib->GetVisitorData('Redeem Code');
 		
 		$this->main_protect->mainProtectA();
 		$this->allprotect->Web_Protection();

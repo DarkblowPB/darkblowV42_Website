@@ -13,7 +13,7 @@ Class Api extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
-		$this->load->library('lib');
+        $this->lib->GetVisitorData('Api');
     }
 
 	function getnewtoken()
@@ -78,70 +78,6 @@ Class Api extends CI_Controller
 				echo json_encode($response);
 			}
 		}
-
-
-		// $query = $this->db->get_where('web_ipbanned', array('ip_address' => $this->input->ip_address()))->row();
-		// if ($query)
-		// {
-		// 	$response['response'] = 'true';
-		// 	$response['token'] = '';
-
-		// 	echo json_encode($response);
-		// }
-		// else
-		// {
-		// 	if (isset($_SESSION['uid']))
-		// 	{
-		// 		if ($_SESSION['uid'] != '' || $_SESSION['uid'] != null)
-		// 		{
-		// 			$query2 = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
-		// 			if ($query2)
-		// 			{
-		// 				if ($query2->access_level == -1)
-		// 				{
-		// 					$response['response'] = 'true';
-		// 					$response['token'] = '';
-	
-		// 					echo json_encode($response);
-		// 				}
-		// 				else
-		// 				{
-		// 					// Target Fetch
-		// 					$response['response'] = 'true';
-		// 					$response['token'] = $this->security->get_csrf_hash();
-					
-		// 					echo json_encode($response);
-		// 				}
-		// 			}
-		// 			else
-		// 			{
-		// 				// Target Fetch
-		// 				$response['response'] = 'true';
-		// 				$response['token'] = $this->security->get_csrf_hash();
-				
-		// 				echo json_encode($response);
-		// 			}
-		// 		}
-		// 		else
-		// 		{
-		// 			// Target Fetch
-		// 			$response['response'] = 'true';
-		// 			$response['token'] = $this->security->get_csrf_hash();
-			
-		// 			echo json_encode($response);
-		// 		}
-		// 	}
-		// 	else
-		// 	{
-		// 		// Target Fetch
-		// 		$response['response'] = 'true';
-		// 		$response['token'] = $this->security->get_csrf_hash();
-		
-		// 		echo json_encode($response);
-		// 	}
-		// }
-
-
 	}
 
 	function getlaunchertoken()

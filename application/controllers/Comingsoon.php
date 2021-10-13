@@ -14,6 +14,7 @@ class Comingsoon extends CI_Controller
 		parent::__construct();
 
         $this->lang->load(array('header', 'string'));
+        $this->lib->GetVisitorData('Comingsoon');
 		
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();

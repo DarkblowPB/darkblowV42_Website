@@ -14,6 +14,7 @@ Class Changeemail extends CI_Controller
         parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
+        $this->lib->GetVisitorData('Change Email');
         
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();

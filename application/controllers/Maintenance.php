@@ -14,6 +14,7 @@ Class Maintenance extends CI_Controller
         parent::__construct();
         
         $this->lang->load(array('header', 'string'));
+        $this->lib->GetVisitorData('Maintenance');
 
         $this->allprotect->Web_Protection();
         $this->allprotect->BlockedAccount_Protection();

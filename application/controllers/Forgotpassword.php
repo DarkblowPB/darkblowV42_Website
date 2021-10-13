@@ -14,6 +14,7 @@ Class Forgotpassword extends CI_Controller
         parent::__construct();
         
         $this->lang->load(array('header', 'string', 'message'));
+        $this->lib->GetVisitorData('Forgot Password');
 
         $this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();

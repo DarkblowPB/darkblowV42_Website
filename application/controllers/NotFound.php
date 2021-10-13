@@ -14,6 +14,7 @@ class NotFound extends CI_Controller
 		parent::__construct();
 
         $this->lang->load(array('header', 'string'));
+        $this->lib->GetVisitorData('404 - Not Found');
 		
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();

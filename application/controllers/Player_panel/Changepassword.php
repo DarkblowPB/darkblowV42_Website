@@ -14,6 +14,7 @@ class Changepassword extends CI_Controller
 		parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
+        $this->lib->GetVisitorData('Change Password');
 		
 		$this->allprotect->Changepassword_Protection();
 		$this->allprotect->Web_Protection();
