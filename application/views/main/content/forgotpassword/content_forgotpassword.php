@@ -5,14 +5,21 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <?php echo form_open('', 'id="forgotpassword_form" autocomplete="off"') ?>
+                <?php echo validation_errors('<div class="alert alert-danger" role="alert">', '</div>') ?>
+                <?php if ($this->session->flashdata('false')) : ?>
+                    <div class="alert alert-danger" role="alert"><?php echo $this->session->flashdata('false') ?></div>
+                <?php endif; ?>
+                <?php if ($this->session->flashdata('true')) : ?>
+                    <div class="alert alert-success" role="alert"><?php echo $this->session->flashdata('true') ?></div>
+                <?php endif; ?>
+                <?php echo form_open(base_url('forgotpassword/do_sendrequest'), 'id="forgotpassword_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_19') ?></label>
-                        <input type="text" id="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_20') ?>">
+                        <input type="text" name="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_20') ?>" required>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
-                        <select id="hint_question" class="form-control">
+                        <select name="hint_question" class="form-control" required>
                             <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
                             <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                             <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -33,160 +40,13 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
-                        <input type="text" id="hint_answer" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>">
+                        <input type="text" name="hint_answer" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>" required>
                     </div>
                     <div class="nk-gap-3"></div>
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Send Request">
                     </div>
                 <?php echo form_close() ?>
-                <script>
-                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                    $(document).ready(function(){
-                        $('#forgotpassword_form').on('submit', function(e){
-                            e.preventDefault();
-
-                            if ($('#username').val() == ''){
-                                ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
-                                return;
-                            }
-                            else if ($('#hint_question').val() == ''){
-                                ShowToast(2000, 'warning', 'Select Your Hint Question.');
-                                return;
-                            }
-                            else if ($('#hint_answer').val() == ''){
-                                ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
-                            }
-                            else{
-                                
-                                SetAttribute('submit', 'button', 'Processing...');
-
-                                $.ajax({
-                                    url: '<?php echo base_url('forgotpassword/do_sendrequest') ?>',
-                                    type: 'POST',
-                                    dataType: 'JSON',
-                                    data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'username' : $('#username').val(),
-                                        'hint_question' : $('#hint_question').val(),
-                                        'hint_answer' : $('#hint_answer').val()
-                                    },
-                                    success: function(data){
-                                        var GetString = JSON.stringify(data);
-                                        var Result = JSON.parse(GetString);
-
-                                        if (Result.response == 'true'){
-                                            SetAttribute('submit', 'submit', 'Send Request');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
-                                        else if (Result.response == 'false'){
-                                            SetAttribute('submit', 'submit', 'Send Request');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
-                                        else{
-                                            SetAttribute('submit', 'submit', 'Send Request');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
-                                    },
-                                    error: function(data){
-                                        ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                        $.ajax({
-                                            url: '<?php echo base_url('api/getnewtoken') ?>',
-                                            type: 'GET',
-                                            dataType: 'JSON',
-                                            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                            success: function(data){
-                                                var GetString = JSON.stringify(data);
-                                                var Result = JSON.parse(GetString);
-
-                                                if (Result.response == 'true'){
-                                                    CSRF_TOKEN = Result.token;
-                                                }
-
-
-                                            },
-                                            error: function(){
-                                                SetAttribute('submit', 'submit', 'Send Request');
-                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_1') ?>');
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    });
-
-                    function Do_SendRequest()
-                    {
-                        if ($('#username').val() == ''){
-                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
-                            return;
-                        }
-                        else if ($('#hint_question').val() == ''){
-                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_2') ?>');
-                            return;
-                        }
-                        else if ($('#hint_answer').val() == ''){
-                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_DARKBLOW_3') ?>');
-                        }
-                        else{
-                            
-                            SetAttribute('submit', 'button', 'Processing...');
-
-                            $.ajax({
-                                url: '<?php echo base_url('forgotpassword/do_sendrequest') ?>',
-                                type: 'POST',
-                                dataType: 'JSON',
-                                data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                    'username' : $('#username').val(),
-                                    'hint_question' : $('#hint_question').val(),
-                                    'hint_answer' : $('#hint_answer').val()
-                                },
-                                success: function(data){
-                                    var GetString = JSON.stringify(data);
-                                    var Result = JSON.parse(GetString);
-
-                                    if (Result.response == 'true'){
-                                        SetAttribute('submit', 'submit', 'Send Request');
-                                        ShowToast(2000, 'success', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    }
-                                    else if (Result.response == 'false'){
-                                        SetAttribute('submit', 'submit', 'Send Request');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    }
-                                    else{
-                                        SetAttribute('submit', 'submit', 'Send Request');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    }
-                                },
-                                error: function(){
-                                    SetAttribute('submit', 'submit', 'Send Request');
-                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_1') ?>');
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
-                                }
-                            });
-                        }
-                    }
-                </script>
             </div>
         </div>
     </div>

@@ -16,37 +16,23 @@ class Forgotpassword_model extends CI_Model
         $this->load->library('email');
     }
 
-    function SendRequestEmail()
+    function ForgotPasswordValidationV1()
     {
         $data = array(
             'username' => $this->encryption->encrypt($this->input->post('username', true)),
             'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
             'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
         );
-        
-        $response = array();
 
-        $query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();
+        $query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'hint_question' => $this->encryption->decrypt($data['hint_question']), 'hint_answer' => $this->encryption->decrypt($data['hint_answer'])))->row();
         if ($query)
         {
-            if ($this->encryption->decrypt($data['hint_question']) != $query->hint_question)
-            {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Invalid Hint Question.';
-                echo json_encode($response);
-            }
-            else if ($this->encryption->decrypt($data['hint_answer']) != $query->hint_answer)
-            {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Invalid Hint Answer.';
-                echo json_encode($response);
-            }
-            else
-            {
-                // Send Email Will Be Coded Here!
-            }
+            // Send Verification Email.
+        }
+        else
+        {
+            $this->session->set_flashdata('false', 'Cannot Find Any Account.');
+            redirect(base_url('forgotpassword'), 'refresh');
         }
     }
 }
