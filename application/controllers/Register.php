@@ -141,6 +141,18 @@ class Register extends CI_Controller
 			echo json_encode($response);
 		}
 	}
+
+	function verification()
+	{
+		if (empty($this->input->get('token_key', true)))
+		{
+			redirect(base_url('home'), 'refresh');
+		}
+		else
+		{
+			$this->register->AccountVerification();
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

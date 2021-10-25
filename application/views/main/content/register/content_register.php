@@ -227,6 +227,7 @@
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_register') ?>',
                                         type: 'POST',
+                                        timeout: 0,
                                         dataType: 'JSON',
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
@@ -245,7 +246,9 @@
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN2 = Result.token;
-                                                return;
+                                                setTimeout(() => {
+                                                    window.location = '<?php echo base_url('login') ?>';
+                                                }, 2000);
                                             }
                                             else if (Result.response == 'false'){
                                                 SetAttribute('submit', 'submit', 'Register');
@@ -325,6 +328,7 @@
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_register') ?>',
                                         type: 'POST',
+                                        timeout: 0,
                                         dataType: 'JSON',
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
