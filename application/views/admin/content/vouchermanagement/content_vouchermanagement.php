@@ -55,6 +55,7 @@
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item" href="<?php echo base_url('adm/vouchermanagement/details?voucher_id='.$row['id']) ?>">Details</a>
                                                 <input type="button" id="delete_<?php echo $num ?>" class="dropdown-item" value="Delete" onclick="DeleteVoucher('data_<?php echo $num ?>', 'delete_<?php echo $num ?>', '<?php echo $row['voucher_code'] ?>')">
+                                                <a href="<?php echo base_url('adm/vouchermanagement/print?id='.$row['id']) ?>" target="_blank" class="dropdown-item">Print</a>
                                             </div>
                                         </div>
                                     </td>

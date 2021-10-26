@@ -37,7 +37,7 @@ class Lib
 			14 => $this->ci->db->truncate('friends'),
 			15 => $this->ci->db->truncate('info_basic_items'),
 			16 => $this->ci->db->truncate('info_channels'),
-			17 => $this->ci->db->truncate('info_coupons_flags'),
+			17 => $this->ci->db->truncate('info_cupons_flags'),
 			18 => $this->ci->db->truncate('info_gameservers'),
 			19 => $this->ci->db->truncate('info_launcherkey'),
 			20 => $this->ci->db->truncate('info_login_configs'),

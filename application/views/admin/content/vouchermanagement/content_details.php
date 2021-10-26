@@ -65,6 +65,7 @@
                     </table>
                     <div class="mt-3 text-center">
                         <button type="button" class="btn btn-outline-primary text-white" onclick="self.history.back();"><i class="fas fa-arrow-left mr-2"></i>Back</button>
+                        <a href="<?php if ($voucher->active == 't'){ ?><?php echo base_url('adm/vouchermanagement/print?id='.$voucher->id) ?><?php }else{ ?>javascript:void(0)<?php } ?>" target="_blank" class="btn btn-outline-primary text-white"><i class="fas fa-print mr-2"></i>Print</a>
                     </div>
                 </div>
             </div>

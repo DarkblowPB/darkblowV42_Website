@@ -75,7 +75,7 @@
                                     <option value="64800">1 Day</option>
                                     <option value="259200">3 Days</option>
                                     <option value="604800">7 Days</option>
-                                    <option value="2950000">30 Days</option>
+                                    <option value="2592000">30 Days</option>
                                 </select>
                             </div>
                             <div class="form-group text-right">

@@ -472,6 +472,20 @@ Class Vouchermanagement extends CI_Controller
         }
     }
 
+    function print()
+    {
+        if (empty($this->input->get('id', true)))
+        {
+            echo "<script>self.history.back()</script>";
+        }
+        else
+        {
+            $data['title'] = 'Voucher Information';
+            $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($this->input->get('id', true));
+            $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
+        }
+    }
+
     function do_generatecode()
     {
         $this->vouchermanagement->GenerateVoucherCode();

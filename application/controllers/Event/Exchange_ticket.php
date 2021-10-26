@@ -55,7 +55,7 @@ Class Exchange_ticket extends CI_Controller
         );
         if ($this->form_validation->run())
         {
-            $this->exchangeticket->ExchangeItemV2();
+            $this->exchangeticket->ExchangeItemV3();
         }
         else
         {
