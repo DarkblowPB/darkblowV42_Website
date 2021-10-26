@@ -32,7 +32,7 @@ Class Encryption extends CI_Controller
         if ($this->encryption->decrypt($data['query']) == '' || empty($this->encryption->decrypt($data['query'])))
         {
             echo '
-            <table border="1">
+            <table border="1" align="center">
                 <thead>
                     <th align="center" colspan="2">Menu List</th>
                 </thead>

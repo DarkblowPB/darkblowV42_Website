@@ -8,7 +8,7 @@
                     <div class="card bg-dark-2">
                         <div class="card-body text-center">
                             <a href="<?php echo base_url('trade/addpost') ?>" class="nk-btn nk-btn-rounded nk-btn-sm nk-btn-outline nk-btn-color-main-5"><i class="fa fa-plus-circle mr-2"></i> <?php echo $this->lang->line('STR_DARKBLOW_143') ?></a>
-                            <a href="" class="nk-btn nk-btn-rounded nk-btn-sm nk-btn-outline nk-btn-color-main-1"><i class="fa fa-history mr-2"></i> History</a>
+                            <a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-sm nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.')"><i class="fa fa-history mr-2"></i> History</a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                                             <span>
                                                                 <?php echo $this->lang->line('STR_DARKBLOW_68') ?> : <span class="text-white" style="font-weight: bold;"><?php switch($row['item_category']){ case "1":{echo "Weapon";break;}case "2":{echo "Chara";break;}case "3":{echo "Item";break;} default:break;} ?></span><br>
                                                                 <?php echo $this->lang->line('STR_DARKBLOW_145') ?> &nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;"><?php echo $this->trade->GetPlayerName($row['item_owner']) ?></span><br>
-                                                                <?php echo $this->lang->line('STR_DARKBLOW_174') ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;">&#8373; <?php echo number_format($row['item_price'], '0',',','.') ?></span><br>
+                                                                <?php echo $this->lang->line('STR_DARKBLOW_174') ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;">&#8373; <?php echo number_format(($row['item_price'] + 250), '0',',','.') ?></span><br>
                                                                 <div class="text-center mt-25">
                                                                     <input type="button" id="submit_<?php echo $num ?>" onclick="Buy_Item('submit_<?php echo $num ?>', '<?php echo $row['id'] ?>')" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-sm nk-btn-color-main-5" value="BUY">
                                                                 </div>
@@ -58,7 +58,9 @@
                                         ?>
                                         <script>
                                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                            var RETRY = 0;
                                             var sessionUID = "<?php if (empty($_SESSION['uid'])){echo "0";}if (!empty($_SESSION['uid'])){echo $_SESSION['uid'];} ?>";
+
                                             function Buy_Item(button_id, id){
                                                 if (sessionUID == '0')
                                                 {
@@ -86,6 +88,9 @@
                                                                 SetAttribute(button_id, 'button', 'BUY');
                                                                 ShowToast(2000, 'success', Result.message);
                                                                 CSRF_TOKEN = Result.token;
+                                                                setTimeout(() => {
+                                                                    window.location.reload();
+                                                                }, 2000);
                                                                 return;
                                                             }
                                                             else if (Result.response == 'false'){
@@ -102,10 +107,42 @@
                                                             }
                                                         },
                                                         error: function(){
-                                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
-                                                            setTimeout(() => {
-                                                                window.location = '<?php echo base_url('trade') ?>';
-                                                            }, 2500);
+                                                            if (RETRY >= 3){
+                                                                SetAttribute(button_id, 'button', 'BUY');
+                                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
+                                                                setTimeout(() => {
+                                                                    window.location.reload();
+                                                                }, 2000);
+                                                            }
+                                                            else{
+                                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                                                $.ajax({
+                                                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                                    type: 'GET',
+                                                                    dataType: 'JSON',
+                                                                    data: {
+                                                                        '<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'
+                                                                    },
+                                                                    success: function(data){
+                                                                        var GetString = JSON.stringify(data);
+                                                                        var Result = JSON.parse(GetString);
+
+                                                                        if (Result.response == 'true'){
+                                                                            CSRF_TOKEN = Result.token;
+                                                                        }
+
+                                                                        return Buy_Item();
+                                                                    },
+                                                                    error: function(){
+                                                                        SetAttribute(button_id, 'button', 'BUY');
+                                                                        ShowToast(2000, 'error', 'Failed To Sumbit Your Item');
+                                                                        setTimeout(() => {
+                                                                            window.location.reload();
+                                                                        }, 2000);
+                                                                    }
+                                                                });
+                                                            }
                                                         }
                                                     });
                                                 }

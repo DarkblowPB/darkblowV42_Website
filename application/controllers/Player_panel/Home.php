@@ -12,7 +12,7 @@ class Home extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-        $this->lang->load(array('header', 'string'));
+        $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Player Panel');
 		
 		$this->allprotect->Web_Protection();

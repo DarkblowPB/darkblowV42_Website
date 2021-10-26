@@ -52,6 +52,8 @@ Class Trade extends CI_Controller
 
     function do_post()
     {
+        $response = array();
+
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'item_id',
@@ -68,19 +70,47 @@ Class Trade extends CI_Controller
                 'numeric' => '%s Only Accepted Numeric Character.'
             )
         );
-        if ($this->form_validation->run() == TRUE)
+        if ($this->form_validation->run())
         {
             $this->trade->CreateNewItem();
         }
         else
         {
-            echo validation_errors();
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
         }
     }
 
     function do_buy()
     {
-        $this->trade->BuyItem();
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'trade_id',
+            'Trade ID',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.'
+            )
+        );
+        if ($this->form_validation->run())
+        {
+            $this->trade->BuyItem();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
     }
 }
 

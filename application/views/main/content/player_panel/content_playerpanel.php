@@ -281,7 +281,7 @@
                                    <?php if ($this->getsettings->Get2()->change_email == 1) : ?>
                                         <a href="<?php echo base_url('player_panel/changeemail') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4"><?php echo $this->lang->line('STR_DARKBLOW_47') ?> <?php echo $this->lang->line('STR_DARKBLOW_48') ?></a>&nbsp;
                                    <?php endif; ?>
-                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location.href='<?php echo base_url('home/logout') ?>'"><?php echo $this->lang->line('STR_DARKBLOW_119') ?></button>
+                                   <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="Logout()"><?php echo $this->lang->line('STR_DARKBLOW_119') ?></button>
                               </div>
                          </div>
                     </div>

@@ -124,11 +124,11 @@ class Register_model extends CI_Model
 		<body>
 			<table>
 				<thead class="bg-primary">
-					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="./assets/goodgames/assets/images/weblogo.png" alt=""></a></th>
+					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="'.base_url().'assets/goodgames/assets/images/settings/'.$this->getsettings->Get2()->project_logo.'" alt="'.$this->getsettings->Get2()->project_name.'"></a></th>
 				</thead>
 				<tbody class="bg-light">
 					<tr>
-						<td colspan="2" id="header" align="center">Email Confirmation - DarkblowPB Reborn</td>
+						<td colspan="2" id="header" align="center">Email Confirmation - '.$this->getsettings->Get2()->project_name.'</td>
 					</tr>
 					<tr>
 						<td align="center">
@@ -159,7 +159,7 @@ class Register_model extends CI_Model
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class="bg-primary">Copyright &copy; <b>DarkblowPB Reborn</b> 2021. All rights reserved.</td>
+						<td align="center" class="bg-primary">Copyright &copy; <b>'.$this->getsettings->Get2()->project_name.'</b> 2021. All rights reserved.</td>
 					</tr>
 				</tbody>
 			</table>

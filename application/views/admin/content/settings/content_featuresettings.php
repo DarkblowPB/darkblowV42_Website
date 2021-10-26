@@ -12,7 +12,7 @@
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">Trade Market (Experimental)</label>
+                            <label class="col-form-label col-3">Trade Market</label>
                             <select id="enable_trademarket" class="form-control col-9">
                                 <option value="0"<?php if ($this->getsettings->Get2()->trade_market == 0){echo 'selected';} ?>>Disabled</option>
                                 <option value="1"<?php if ($this->getsettings->Get2()->trade_market == 1){echo 'selected';} ?>>Enabled</option>
