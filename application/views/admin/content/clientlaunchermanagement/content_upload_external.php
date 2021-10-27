@@ -10,7 +10,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-3">File Url</label>
-                            <input type="url" id="file_url" class="form-control col-9" placeholder="Enter Your File Url">
+                            <input type="url" id="file_url" class="form-control col-9" placeholder="Enter Your File Url (Without 'https://' or 'http://')">
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-3">File Type</label>
@@ -35,88 +35,103 @@
                         </div>
                     <?php echo form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '';
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var RETRY = 0;
                         $(document).ready(function(){
                             $('#clientlauncher_upload_form').on('submit', function(e){
                                 e.preventDefault();
-
-                                if ($('#file_name').val() == ""){
-                                    ShowToast(2000, 'warning', 'File Name Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#file_url').val() == ""){
-                                    ShowToast(2000, 'warning', 'File URL Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#file_type').val() == ""){
-                                    ShowToast(2000, 'warning', 'File Type Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#file_size').val() == ""){
-                                    ShowToast(2000, 'warning', 'File Size Cannot Be Empty.');
-                                    return;
-                                }
-                                else{
-                                    SetButton('false');
-                                    if (CSRF_TOKEN == ""){
-                                        CSRF_TOKEN = "<?php echo $this->security->get_csrf_hash() ?>";
-                                    }
-
-                                    $.ajax({
-                                        url: '<?php echo base_url('adm/clientlaunchermanagement/do_upload_externalurl') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data:{
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'file_name' : $('#file_name').val(),
-                                            'file_url' : $('#file_url').val(),
-                                            'file_type' : $('#file_type').val(),
-                                            'file_size' : $('#file_size').val(),
-                                            'file_version' : $('#file_version').val(),
-                                        },
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-                                            
-                                            if (Result.response == 'false'){
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            }
-                                            else if (Result.response == 'true'){
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'success', Result.message);
-                                                return;
-                                            }
-                                            else{
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return
-                                            }
-                                        },
-                                        error: function(data){
-                                                SetButton('true');
-                                            ShowToast(2000, 'error', data.responseText);
-                                            return;
-                                        }
-                                    });
-                                }
                             });
+
+                            return Do_UploadUrl();
                         });
 
-                        function SetButton(param)
+                        function Do_UploadUrl()
                         {
-                            var P = document.getElementById('submit');
-                            if (param == 'true'){
-                                P.setAttribute('type', 'submit');
-                                P.setAttribute('value', 'Submit File');
+                            if ($('#file_name').val() == '' || $('#file_name').val() == null){
+                                ShowToast(2000, 'warning', 'File Name Cannot Be Empty.');
+                                return;
                             }
-                            if (param == 'false'){
-                                P.setAttribute('type', 'button');
-                                P.setAttribute('value', 'Processing...');
+                            else if ($('#file_url').val() == '' || $('#file_url').val() == null){
+                                ShowToast(2000, 'warning', 'File URL Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#file_type').val() == '' || $('#file_type').val() == null){
+                                ShowToast(2000, 'warning', 'File Type Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#file_size').val() == '' || $('#file_size').val() == null){
+                                ShowToast(2000, 'warning', 'File Size Cannot Be Empty.');
+                                return;
+                            }
+                            else{
+                                SetAttribute('submit', 'button', 'Processing...');
+
+                                $.ajax({
+                                    url: '<?php echo base_url('adm/clientlaunchermanagement/do_upload_externalurl') ?>',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        'file_name' : $('#file_name').val(),
+                                        'file_url' : $('#file_url').val(),
+                                        'file_type' : $('#file_type').val(),
+                                        'file_size' : $('#file_size').val(),
+                                        'file_version' : $('#file_version').val()
+                                    },
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+
+                                        if (Result.response == 'true'){
+                                            SetAttribute('submit', 'submit', 'Submit File');
+                                            ShowToast(2000, 'success', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            setTimeout(() => {
+                                                self.history.back();
+                                            }, 2000);
+                                        }
+                                        else{
+                                            SetAttribute('submit', 'submit', 'Submit File');
+                                            ShowToast(2000, 'error', Result.message);
+                                            CSRF_TOKEN = Result.token;
+                                            return;
+                                        }
+                                    },
+                                    error: function(){
+                                        if (RETRY >= 3){
+                                            SetAttribute('submit', 'submit', 'Submit File');
+                                            ShowToast(2000, 'error', 'Failed To Submit File.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                        else{
+                                            RETRY += 1;
+
+                                            $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+            
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+                                                    return Do_UploadUrl();
+                                                },
+                                                error: function(){
+                                                    SetAttribute('submit', 'submit', 'Submit File');
+                                                    ShowToast(2000, 'error', 'Failed To Submit File.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
                             }
                         }
                     </script>

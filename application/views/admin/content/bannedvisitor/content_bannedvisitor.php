@@ -32,79 +32,12 @@
                     <?php echo form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var RETRY = 0;
                         $(document).ready(function(){
                             $('#add_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                if ($('#ip_address').val() == '' || $('#ip_address').val() == null){
-                                    ShowToast(2000, 'warning', 'IP ADDRESS Cannot Be Empty.');
-                                    return;
-                                }
-                                else{
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?php echo base_url('adm/bannedvisitor/do_add') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data:{
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'ip_address' : $('#ip_address').val()
-                                        },
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                            }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                            else{
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function(){
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?php echo base_url('api/getnewtoken') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                success: function(data){
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true'){
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return Do_Add();
-                                                },
-                                                error: function(){
-                                                    SetAttribute('submit', 'submit', 'Submit');
-                                                    ShowToast(2000, 'error', 'Failed To Add Item.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return Do_Add();
                             });
                         });
 
@@ -136,12 +69,6 @@
                                                 window.location.reload();
                                             }, 2000);
                                         }
-                                        else if (Result.response == 'false'){
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
                                         else{
                                             SetAttribute('submit', 'submit', 'Submit');
                                             ShowToast(2000, 'error', Result.message);
@@ -150,11 +77,37 @@
                                         }
                                     },
                                     error: function(){
-                                        SetAttribute('submit', 'submit', 'Submit');
-                                        ShowToast(2000, 'error', 'Failed To Add Item.');
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
+                                        if (RETRY >= 3){
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            ShowToast(2000, 'error', 'Failed To Add Item.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                        else{
+                                            $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                dataType: 'JSON',
+                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+            
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+                                                    return Do_Add();
+                                                },
+                                                error: function(){
+                                                    SetAttribute('submit', 'submit', 'Submit');
+                                                    ShowToast(2000, 'error', 'Failed To Submit IP ADDRESS.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
+                                        }
                                     }
                                 });
                             }

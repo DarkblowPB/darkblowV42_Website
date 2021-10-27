@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <a href="<?php echo base_url('adm/eventsmanagement/attendance/create?type=7') ?>" class="btn btn-outline-primary text-white">Create Event Set (7 Days)</a>
-                    <a href="javascript:void(0)" class="btn btn-outline-primary text-white" onclick="ShowToast(2000, 'info', 'Coming Soon')">Create Event Set (14 Days)</a>
+                    <a href="<?php echo base_url('adm/eventsmanagement/attendance/create?type=14') ?>" class="btn btn-outline-primary text-white">Create Event Set (14 Days)</a>
                     <input type="button" id="disable_event" class="btn btn-outline-danger text-white" value="Disable Event" onclick="DisableEvent()">
                     <script>
                         function DisableEvent()
