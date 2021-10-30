@@ -66,8 +66,14 @@
                         </div>
                         <?php echo form_close(); ?>
                         <script>
-                            var CSRF_TOKEN2 = '<?php echo $this->security->get_csrf_hash() ?>';
+                            var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                            var RETRY = 0;
                             $('#check_username').click(function(){
+                                return CheckUsername();
+                            });
+
+                            function CheckUsername()
+                            {
                                 if ($('#login').val() == ''){
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     return;
@@ -79,7 +85,7 @@
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
+                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                             'login' : $('#login').val()
                                         },
                                         success: function(data){
@@ -91,101 +97,57 @@
                                                 SetAttribute('check_username', 'button', 'Check');
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                             else if (Result.response == 'false'){
                                                 SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                             else{
                                                 SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
-
-                                            $.ajax({
-                                                url: '<?php echo base_url('api/getnewtoken') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                success: function(data){
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true'){
-                                                        CSRF_TOKEN2 = Result.token;
+                                            if (RETRY >= 3){
+                                                SetAttribute('check_username', 'button', 'Check');
+                                                ShowToast(2000, 'error', 'Failed To Check Nickname.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                            else{
+                                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
+    
+                                                $.ajax({
+                                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                    type: 'GET',
+                                                    dataType: 'JSON',
+                                                    data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                    success: function(data){
+                                                        var GetString = JSON.stringify(data);
+                                                        var Result = JSON.parse(GetString);
+    
+                                                        if (Result.response == 'true'){
+                                                            CSRF_TOKEN = Result.token;
+                                                        }
+    
+                                                        return CheckUsername();
+                                                    },
+                                                    error: function(){
+                                                        SetAttribute('check_username', 'button', 'Check');
+                                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
+                                                        setTimeout(() => {
+                                                            window.location.reload();
+                                                        }, 2000);
                                                     }
-
-                                                    return CheckUsername();
-                                                },
-                                                error: function(){
-                                                    SetAttribute('check_username', 'button', 'Check');
-                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-
-                            function CheckUsername()
-                            {
-                                if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
-                                }
-                                else{
-                                    SetAttribute('check_username', 'button', 'Processing...');
-                                    $.ajax({
-                                        url: '<?php echo base_url('register/do_checkusername') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
-                                            'login' : $('#login').val()
-                                        },
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true'){
-                                                document.getElementById('submit').setAttribute('onclick', '');
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
+                                                });
                                             }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
-                                            }
-                                            else{
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function(){
-                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
                                         }
                                     });
                                 }
@@ -194,103 +156,7 @@
                             $('#register_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                if ($('#login').val() == ''){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
-                                    document.getElementById('login').focus();
-                                }
-                                else if ($('#email').val() == ''){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_13') ?>');
-                                    document.getElementById('email').focus();
-                                }
-                                else if ($('#password').val() == ''){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
-                                    document.getElementById('password').focus();
-                                }
-                                else if ($('#re_password').val() == ''){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_9') ?>');
-                                    document.getElementById('re_password').focus();
-                                }
-                                else if ($('#re_password').val() != $('#password').val()){
-                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_14') ?>');
-                                    document.getElementById('re_password').focus();
-                                }
-                                else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
-                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
-                                    document.getElementById('hint_question').focus();
-                                }
-                                else if ($('#hint_answer').val() == ''){
-                                    ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
-                                    document.getElementById('hint_answer').focus();
-                                }
-                                else{
-                                    SetAttribute('submit', 'button', 'Processing...');
-                                    $.ajax({
-                                        url: '<?php echo base_url('register/do_register') ?>',
-                                        type: 'POST',
-                                        timeout: 0,
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
-                                            'login' : $('#login').val(),
-                                            'email' : $('#email').val(),
-                                            'password' : $('#password').val(),
-                                            're_password' : $('#re_password').val(),
-                                            'hint_question' : $('#hint_question').val(),
-                                            'hint_answer' : $('#hint_answer').val()
-                                        },
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                setTimeout(() => {
-                                                    window.location = '<?php echo base_url('login') ?>';
-                                                }, 2000);
-                                            }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
-                                            }
-                                            else{
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function(){
-                                            ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
-
-                                            $.ajax({
-                                                url: '<?php echo base_url('api/getnewtoken') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                success: function(data){
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true'){
-                                                        CSRF_TOKEN2 = Result.token;
-                                                    }
-
-                                                    return Do_Register();
-                                                },
-                                                error: function(){
-                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_12') ?>');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            })
-                                        }
-                                    });
-                                }
+                                return Do_Register();
                             });
 
                             function Do_Register()
@@ -352,12 +218,6 @@
                                                 }, 2000);
                                                 return;
                                             }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
-                                                return;
-                                            }
                                             else{
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'error', Result.message);
@@ -366,10 +226,40 @@
                                             }
                                         },
                                         error: function(){
-                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_12') ?>');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
+                                            if (RETRY >= 3){
+                                                SetAttribute('submit', 'submit', 'Register');
+                                                ShowToast(2000, 'error', 'Failed To Register.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                            else{
+                                                RETRY += 1;
+                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                                $.ajax({
+                                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                    type: 'GET',
+                                                    dataType : 'JSON',
+                                                    data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                    success: function(data){
+                                                        var GetString = JSON.stringify(data);
+                                                        var Result = JSON.parse(GetString);
+
+                                                        if (Result.response == 'true'){
+                                                            CSRF_TOKEN = Result.token;
+                                                        }
+
+                                                        return Do_Register();
+                                                    },
+                                                    error: function(){
+                                                        ShowToast(2000, 'error', 'Failed To Redeem The Code.');
+                                                        setTimeout(() => {
+                                                            window.location.reload();
+                                                        }, 2000);
+                                                    }
+                                                });
+                                            }
                                         }
                                     });
                                 }

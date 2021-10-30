@@ -199,45 +199,54 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <?php echo form_open('', 'id="requesthint_form"') ?>
-                                                       <input type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint">
-                                                  <?php echo form_close() ?>
+                                                  <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint">
                                                   <script>
+                                                       var RETRY = 0;
                                                        $(document).ready(function(){
                                                             $('#requesthint_form').on('submit', function(e){
                                                                  e.preventDefault();
-                                                                 $.ajax({
-                                                                      url : '<?php echo base_url('player_panel/home/do_requesthint') ?>',
-                                                                      type: 'GET',
-                                                                      dataType: 'JSON',
-                                                                      data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                                      success: function(data){
-                                                                           var GetString = JSON.stringify(data);
-                                                                           var Result = JSON.parse(GetString);
+                                                                 
+                                                            });
+                                                       });
 
-                                                                           if (Result.response == 'true'){
-                                                                                ShowToast(3000, 'info', Result.message);
-                                                                                return;
-                                                                           }
-                                                                           else if (Result.response == 'false'){
-                                                                                ShowToast(3000, 'error', Result.message);
-                                                                                return;
-                                                                           }
-                                                                           else{
-                                                                                ShowToast(2000, 'error', Result.message);
-                                                                                return;
-                                                                           }
-                                                                      },
-                                                                      error: function(){
+                                                       function RequestHint()
+                                                       {
+                                                            $.ajax({
+                                                                 url : '<?php echo base_url('player_panel/home/do_requesthint') ?>',
+                                                                 type: 'GET',
+                                                                 dataType: 'JSON',
+                                                                 data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                                 success: function(data){
+                                                                      var GetString = JSON.stringify(data);
+                                                                      var Result = JSON.parse(GetString);
+
+                                                                      if (Result.response == 'true'){
+                                                                           ShowToast(3000, 'info', Result.message);
+                                                                           return;
+                                                                      }
+                                                                      else if (Result.response == 'false'){
+                                                                           ShowToast(3000, 'error', Result.message);
+                                                                           return;
+                                                                      }
+                                                                      else{
+                                                                           ShowToast(2000, 'error', Result.message);
+                                                                           return;
+                                                                      }
+                                                                 },
+                                                                 error: function(){
+                                                                      if (RETRY >= 3){
                                                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_9') ?>');
                                                                            setTimeout(() => {
                                                                                 window.location.reload();
                                                                            }, 2000);
                                                                            return;
                                                                       }
-                                                                 });
+                                                                      else{
+                                                                           return RequestHint();
+                                                                      }
+                                                                 }
                                                             });
-                                                       });
+                                                       }
                                                   </script>
                                              <?php
                                              }

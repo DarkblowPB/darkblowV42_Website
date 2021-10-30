@@ -600,6 +600,85 @@ Class Encryption extends CI_Controller
             echo json_encode($response);
         }
     }
+
+    function do_addfullshopv2()
+    {
+        $data = array(
+            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+        );
+
+        $int = array(
+            'min' => 100003001,
+            'max' => 1300242030
+        );
+
+        $state = array(
+            'success' => 0,
+            'failed' => 0,
+        );
+
+        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        if ($query)
+        {
+            $query2 = $this->db->where('owner_id', $query->player_id)->delete('player_items');
+            if ($query2)
+            {
+                for ($i=0; $i < 401; $i++)
+                {
+                    if ($int['min'] >= $int['max']){
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Successfully Added '.$state['success'].' New Items. Failed: ['.$state['failed'].']';
+                        echo json_encode($response);
+                    }
+                    $query3 = $this->db->get_where('shop', array('item_id' => $int['min']))->row();
+                    if ($query3)
+                    {
+                        $query4 = $this->db->insert('player_items', array(
+                            'owner_id' => $query->player_id,
+                            'item_id' => $int['min'],
+                            'item_name' => 'Reward Item',
+                            'count' => '1',
+                            'category' => $this->redeem->GetItemCategory($int['min']),
+                            'equip' => '3'
+                        ));
+
+                        if ($query4)
+                        {
+                            $state['success']++;
+                            $int['min']++;
+                        }
+                        else
+                        {
+                            $state['failed']++;
+                            $int['min']++;
+                        }
+                    }
+                    else
+                    {
+                        $state['failed']++;
+                        $int['min']++;
+                    }
+                }
+
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Added '.$state['success'].' New Items. Failed: ['.$state['failed'].']';
+            }
+            else
+            {
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Delete Your Inventory.';
+
+                echo json_encode($response);
+            }
+        }
+        else
+        {
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Find Your Account.';
+
+            echo json_encode($response);
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -117,48 +117,96 @@
 						?>
 						<?php if ($inventory != null) : ?>
 							<script>
-								CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-								function DeleteItem(data_id, button_id, player_id, item_id){
-									SetAttribute(button_id, 'button', 'Processing...');
-									$.ajax({
-										url: '<?php echo base_url('player_panel/inventory/do_delete') ?>',
-										type: 'POST',
-										dataType: 'JSON',
-										data: {
-											'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-											'player_id' : player_id,
-											'item_id' : item_id
-										},
-										success: function(data){
-											var GetString = JSON.stringify(data);
-											var Result = JSON.parse(GetString);
+								var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+								var RETRY = 0;
 
-											if (Result.response == 'true'){
-												document.getElementById(data_id).remove();
-												ShowToast(2000, 'success', Result.message);
-												CSRF_TOKEN = Result.token;
-												return;
+								function DeleteItem(data_id, button_id, player_id, item_id)
+								{
+									if (data_id == '' || data_id == null){
+										ShowToast(2000, 'warning', 'Invalid Data.');
+										return;
+									}
+									else if (button_id == '' || button_id == null){
+										ShowToast(2000, 'warning', 'Invalid Data.');
+										return;
+									}
+									else if (player_id == '' || player_id == null){
+										ShowToast(2000, 'warning', 'Invalid Data.');
+										return;
+									}
+									else if (item_id == '' || item_id == null){
+										ShowToast(2000, 'warning', 'Invalid Data.');
+										return;
+									}
+									else{
+										SetAttribute(button_id, 'button', 'Processing...');
+										
+										$.ajax({
+											url: '<?php echo base_url('player_panel/inventory/do_delete') ?>',
+											type: 'POST',
+											dataType: 'JSON',
+											data: {
+												'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+												'player_id' : player_id,
+												'item_id' : item_id
+											},
+											success: function(data){
+												var GetString = JSON.stringify(data);
+												var Result = JSON.parse(GetString);
+	
+												if (Result.response == 'true'){
+													document.getElementById(data_id).remove();
+													ShowToast(2000, 'success', Result.message);
+													CSRF_TOKEN = Result.token;
+													return;
+												}
+												else{
+													SetAttribute(button_id, 'button', 'DELETE');
+													ShowToast(2000, 'error', Result.message);
+													CSRF_TOKEN = Result.token;
+													return;
+												}
+											},
+											error: function(){
+												if (RETRY >= 3){
+													SetAttribute(button_id, 'button', 'DELETE');
+													ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
+													setTimeout(() => {
+														window.location.reload();
+													}, 2000);
+												}
+												else{
+													ShowToast(1000, 'info', 'Generate New Request Token...');
+
+													$.ajax({
+														url: '<?php echo base_url('api/getnewtoken') ?>',
+														type: 'GET',
+														dataType: 'JSON',
+														data: {
+															'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'
+														},
+														success: function(data){
+															var GetString = JSON.stringify(data);
+															var Result = JSON.parse(GetString);
+
+															if (Result.response == 'true'){
+																CSRF_TOKEN = Result.token;
+															}
+
+															return DeleteItem(data_id, button_id, player_id, item_id);
+														},
+														error: function(){
+															SetAttribute('submit', 'submit', 'Change Email');
+															ShowToast(2000, 'error', 'Failed To Change Email.');
+															setTimeout(() => {
+																window.location.reload();
+															}, 2000);
+														}
+													});
+												}
 											}
-											else if (Result.response == 'false'){
-												SetAttribute(button_id, 'button', 'DELETE');
-												ShowToast(2000, 'error', Result.message);
-												CSRF_TOKEN = Result.token;
-												return;
-											}
-											else{
-												SetAttribute(button_id, 'button', 'DELETE');
-												ShowToast(2000, 'error', Result.message);
-												CSRF_TOKEN = Result.token;
-												return;
-											}
-										},
-										error: function(){
-											ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
-											setTimeout(() => {
-												window.location.reload();
-											}, 2000);
-										}
-									});
+										});
+									}
 								}
 							</script>
 						<?php endif; ?>

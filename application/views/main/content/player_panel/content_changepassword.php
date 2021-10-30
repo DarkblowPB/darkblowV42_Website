@@ -83,6 +83,7 @@
                                         $.ajax({
                                             url: '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
                                             type: 'POST',
+                                            timeout: 0,
                                             dataType: 'JSON',
                                             data: {
                                                 '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
@@ -176,6 +177,7 @@
                                     $.ajax({
                                         url: '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
                                         type: 'POST',
+                                        timeout: 0,
                                         dataType: 'JSON',
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,

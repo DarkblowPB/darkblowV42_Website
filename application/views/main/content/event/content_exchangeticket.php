@@ -34,109 +34,80 @@
         </div>
         <script>
             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+            var RETRY = 0;
+
             function Exchange(button_id, item_id)
             {
-                SetAttribute(button_id, 'button', 'Processing...');
-                $.ajax({
-                    url: '<?php echo base_url('player_panel/exchange_ticket/do_exchange') ?>',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                        'id' : item_id
-                    },
-                    success: function(data){
-                        var GetString = JSON.stringify(data);
-                        var Result = JSON.parse(GetString);
+                if (item_id == '' || item_id == null){
+                    ShowToast(2000, 'warning', 'Invalid Package.');
+                    return;
+                }
+                else{
+                    SetAttribute(button_id, 'button', 'Processing...');
+                    $.ajax({
+                        url: '<?php echo base_url('player_panel/exchange_ticket/do_exchange') ?>',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                            'id' : item_id
+                        },
+                        success: function(data){
+                            var GetString = JSON.stringify(data);
+                            var Result = JSON.parse(GetString);
 
-                        if (Result.response == 'true'){
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'success', Result.message);
-                            CSRF_TOKEN = Result.token;
-                            $('#ticket_information').html(Result.ticket);
-                            return;
-                        }
-                        else if (Result.response == 'false'){
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'error', Result.message);
-                            CSRF_TOKEN = Result.Token;
-                        }
-                        else{
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'error', Result.message);
-                            CSRF_TOKEN = Result.Token;
-                        }
-                    },
-                    error: function(){
-                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
-                        SetAttribute(button_id, 'button', 'Processing...');
-
-                        $.ajax({
-                            url: '<?php echo base_url('api/getnewtoken') ?>',
-                            type: 'GET',
-                            dataType: 'JSON',
-                            data:{},
-                            success: function(data){
-                                var GetString = JSON.stringify(data);
-                                var Result = JSON.parse(GetString);
-
-                                if (Result.response == 'true'){
-                                    CSRF_TOKEN = Result.token;
-                                }
-
-                                Exchange2(button_id, item_id);
-                            },
-                            error: function(){
-                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
+                            if (Result.response == 'true'){
+                                SetAttribute(button_id, 'button', 'Exchange');
+                                ShowToast(2000, 'success', Result.message);
+                                CSRF_TOKEN = Result.token;
+                                $('#ticket_information').html(Result.ticket);
+                                return;
                             }
-                        });
-                    }
-                });
-            }
-            function Exchange2(button_id, item_id)
-            {
-                SetAttribute(button_id, 'button', 'Processing...');
-                $.ajax({
-                    url: '<?php echo base_url('player_panel/exchange_ticket/do_exchange') ?>',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                        'id' : item_id
-                    },
-                    success: function(data){
-                        var GetString = JSON.stringify(data);
-                        var Result = JSON.parse(GetString);
+                            else if (Result.response == 'false'){
+                                SetAttribute(button_id, 'button', 'Exchange');
+                                ShowToast(2000, 'error', Result.message);
+                                CSRF_TOKEN = Result.Token;
+                            }
+                            else{
+                                SetAttribute(button_id, 'button', 'Exchange');
+                                ShowToast(2000, 'error', Result.message);
+                                CSRF_TOKEN = Result.Token;
+                            }
+                        },
+                        error: function(){
+                            if (RETRY >= 3){
+                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
+                                return;
+                            }
+                            else{
+                                RETRY+= 1;
+                                $.ajax({
+                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                    type: 'GET',
+                                    dataType: 'JSON',
+                                    data:{},
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
 
-                        if (Result.response == 'true'){
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'success', Result.message);
-                            CSRF_TOKEN = Result.token;
-                            $('#ticket_information').html(Result.ticket);
-                            return;
+                                        if (Result.response == 'true'){
+                                            CSRF_TOKEN = Result.token;
+                                        }
+
+                                        Exchange(button_id, item_id);
+                                    },
+                                    error: function(){
+                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                });
+                            }
+
                         }
-                        else if (Result.response == 'false'){
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'error', Result.message);
-                            CSRF_TOKEN = Result.Token;
-                        }
-                        else{
-                            SetAttribute(button_id, 'button', 'Exchange');
-                            ShowToast(2000, 'error', Result.message);
-                            CSRF_TOKEN = Result.Token;
-                        }
-                    },
-                    error: function(){
-                        SetAttribute(button_id, 'button', 'Exchange');
-                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                });
+                    });
+                }
             }
         </script>
     </div>

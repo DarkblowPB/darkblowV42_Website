@@ -75,140 +75,96 @@
 				<?php echo form_close() ?>
 				<script>
 					var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+					var RETRY = 0;
 					$(document).ready(function(){
 						$('#createhint_form').on('submit', function(e){
 							e.preventDefault();
-							if ($('#hint_question').val() == ""){
-								ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
-								return;
-							}
-							else if ($('#hint_answer').val() == ""){
-								ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
-								return;
-							}
-							else if ($('#password').val() == ""){
-								ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
-								return;
-							}
-							else{
-								SetAttribute('submit', 'button', 'Processing...');
-								$.ajax({
-									url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
-									type: 'POST',
-									dataType: 'JSON',
-									data: {
-										'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-										'hint_question' : $('#hint_question').val(),
-										'hint_answer' : $('#hint_answer').val(),
-										'password' : $('#password').val()
-									},
-									success: function(data){
-										var decodeString = JSON.stringify(data);
-										var decodeParse = JSON.parse(decodeString);
 
-										if (decodeParse.response == 'true'){
-											SetAttribute('submit', 'submit', 'Submit New Hint');
-											CSRF_TOKEN = decodeParse.token;
-											ShowToast(2000, 'success', decodeParse.message);
-											setTimeout(() => {
-												window.location = '<?php echo base_url('player_panel/home') ?>';
-											}, 2000);
-										}
-										else if (decodeParse.response == 'false'){
-											SetAttribute('submit', 'submit', 'Submit New Hint');
-											CSRF_TOKEN = decodeParse.token;
-											ShowToast(2000, 'error', decodeParse.message);
-											return;
-										}
-										else{
-											SetAttribute('submit', 'submit', 'Submit New Hint');
-											CSRF_TOKEN = decodeParse.token;
-											ShowToast(2000, 'error', decodeParse.message);
-											return;
-										}
-									},
-									error: function(){
-										ShowToast(2000, 'info', 'Generating New Request Token...');
-										SetAttribute('submit', 'button', 'Generating New Request Token...');
-
-										$.ajax({
-											url : '<?php echo base_url('api/getnewtoken') ?>',
-											type: 'GET',
-											dataType: 'JSON',
-											data: {
-												'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-												'hint_question' : $('#hint_question').val(),
-												'hint_answer' : $('#hint_answer').val(),
-												'password' : $('#password').val()
-											},
-											success: function(data){
-												var GetString = JSON.stringify(data);
-												var Result = JSON.parse(GetString);
-
-												if (Result.response == 'true'){
-													CSRF_TOKEN = Result.token;
-												}
-
-
-											},
-											error: function(){
-												ShowToast(2000, 'error', 'Failed To Create New Hint.');
-												setTimeout(() => {
-													window.location.reload();
-												}, 2000);
-											}
-										});
-									}
-								});
-							}
-						});
+							return Do_CreateNewHint();
 					});
 
 					function Do_CreateNewHint()
 					{
-						$.ajax({
-							url : '<?php echo base_url('player_panel/create_hint/do_create') ?>',
-							type : 'POST',
-							dataType : 'JSON',
-							data: {
-								'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-								'hint_question' : $('#hint_question').val(),
-								'hint_answer' : $('#hint_answer').val(),
-								'password' : $('#password').val()
-							},
-							success: function(data){
-								var GetString = JSON.stringify(data);
-								var Result = JSON.parse(GetString);
+						if ($('#hint_question').val() == ""){
+							ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+							return;
+						}
+						else if ($('#hint_answer').val() == ""){
+							ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+							return;
+						}
+						else if ($('#password').val() == ""){
+							ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+							return;
+						}
+						else{
+							SetAttribute('submit', 'button', 'Processing...');
+							$.ajax({
+								url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
+								type: 'POST',
+								dataType: 'JSON',
+								data: {
+									'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+									'hint_question' : $('#hint_question').val(),
+									'hint_answer' : $('#hint_answer').val(),
+									'password' : $('#password').val()
+								},
+								success: function(data){
+									var decodeString = JSON.stringify(data);
+									var decodeParse = JSON.parse(decodeString);
 
-								if (Result.response == 'true'){
-									SetAttribute('submit', 'submit', 'Submit New Hint');
-									ShowToast(2000, 'success', Result.message);
-									CSRF_TOKEN = Result.token;
-									setTimeout(() => {
-										self.history.back();
-									}, 2000);
-									return;
+									if (decodeParse.response == 'true'){
+										SetAttribute('submit', 'submit', 'Submit New Hint');
+										CSRF_TOKEN = decodeParse.token;
+										ShowToast(2000, 'success', decodeParse.message);
+										setTimeout(() => {
+											window.location = '<?php echo base_url('player_panel/home') ?>';
+										}, 2000);
+									}
+									else{
+										SetAttribute('submit', 'submit', 'Submit New Hint');
+										CSRF_TOKEN = decodeParse.token;
+										ShowToast(2000, 'error', decodeParse.message);
+										return;
+									}
+								},
+								error: function(){
+									if (RETRY >= 3){
+										SetAttribute('submit', 'submit', 'Submit New Hint');
+										ShowToast(2000, 'error', 'Failed To Submit New Hint.');
+										setTimeout(() => {
+											window.location.reload();
+										}, 2000);
+									}
+									else{
+										RETRY += 1;
+										
+										$.ajax({
+                                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                                            type: 'GET',
+                                            dataType : 'JSON',
+                                            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                            success: function(data){
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+
+                                                if (Result.response == 'true'){
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+
+                                                return Do_CreateNewHint();
+                                            },
+                                            error: function(){
+                                                ShowToast(2000, 'error', 'Failed To Create New Hint.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
+									}
 								}
-								else if (Result.response == 'false'){
-									SetAttribute('submit', 'submit', 'Submit New Hint');
-									ShowToast(2000, 'error', Result.message);
-									CSRF_TOKEN = Result.token;
-									return;
-								}
-								else{
-									SetAttribute('submit', 'submit', 'Submit New Hint');
-									ShowToast(2000, 'error', Result.message);
-									CSRF_TOKEN = Result.token;
-									return;
-								}
-							},
-							error: function(){
-								ShowToast(2000, 'error', 'Failed To Create New Hint.');
-								setTimeout(() => {
-									window.location.reload();
-								}, 2000);
-							}
-						});
+							});
+						}
 					}
 				</script>
 			</div>
