@@ -180,7 +180,7 @@ class Register_model extends CI_Model
 		$response = array();
 
 		$data = array(
-			'username' => $this->encryption->encrypt($this->input->post('login'))
+			'username' => $this->encryption->encrypt($this->input->post('login', true))
 		);
 
 		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();

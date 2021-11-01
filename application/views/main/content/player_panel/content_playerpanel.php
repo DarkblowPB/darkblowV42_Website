@@ -199,13 +199,14 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint">
+                                                  <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint" onclick="RequestHint()">
                                                   <script>
                                                        var RETRY = 0;
                                                        $(document).ready(function(){
-                                                            $('#requesthint_form').on('submit', function(e){
+                                                            $('#requesthint_form').on('click', function(e){
                                                                  e.preventDefault();
                                                                  
+                                                                 return RequestHint();
                                                             });
                                                        });
 

@@ -18,7 +18,7 @@
                                     <input type="text" class="form-control" id="login" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
                                 </div>
                                 <div class="col-3">
-                                    <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check">
+                                    <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check" onclick="CheckUsername()">
                                 </div>
                             </div>
                         </div>
@@ -68,9 +68,6 @@
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                             var RETRY = 0;
-                            $('#check_username').click(function(){
-                                return CheckUsername();
-                            });
 
                             function CheckUsername()
                             {
@@ -100,12 +97,6 @@
                                                 CSRF_TOKEN = Result.token;
                                                 return;
                                             }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
                                             else{
                                                 SetAttribute('check_username', 'button', 'Check');
                                                 ShowToast(2000, 'error', Result.message);
@@ -122,6 +113,7 @@
                                                 }, 2000);
                                             }
                                             else{
+                                                RETRY += 1;
                                                 ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
     
                                                 $.ajax({
@@ -197,7 +189,7 @@
                                         timeout: 0,
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN2,
+                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                             'login' : $('#login').val(),
                                             'email' : $('#email').val(),
                                             'password' : $('#password').val(),
@@ -212,7 +204,7 @@
                                             if (Result.response == 'true'){
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
+                                                CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
                                                     window.location = '<?php echo base_url('login') ?>';
                                                 }, 2000);
@@ -221,7 +213,7 @@
                                             else{
                                                 SetAttribute('submit', 'submit', 'Register');
                                                 ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN2 = Result.token;
+                                                CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                         },
@@ -253,7 +245,7 @@
                                                         return Do_Register();
                                                     },
                                                     error: function(){
-                                                        ShowToast(2000, 'error', 'Failed To Redeem The Code.');
+                                                        ShowToast(2000, 'error', 'Failed To Register Your Account.');
                                                         setTimeout(() => {
                                                             window.location.reload();
                                                         }, 2000);
