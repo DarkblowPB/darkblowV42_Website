@@ -173,7 +173,7 @@
                                     </li>
                                     <?php if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) : ?>
                                         <li>
-                                            <a href="<?php echo base_url('adm/dashboard') ?>" target="_blank">
+                                            <a href="javascript:void(0)" onclick="AutomaticLogin()">
                                                 <?php echo $this->lang->line('STR_MENU_15') ?>
                                             </a>
                                         </li>

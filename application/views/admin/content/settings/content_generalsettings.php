@@ -72,7 +72,7 @@
                         <div class="form-group row">
                             <input type="hidden" name="submit_form" value="submit03">
                             <label class="col-form-label col-3">Project Logo</label>
-                            <input type="file" name="project_logo" class="form-control-file col-9">
+                            <input type="file" id="project_logo" name="project_logo" class="form-control-file col-9">
                         </div>
                         <?php if ($settings->project_logo != null) : ?>
                             <div class="form-group row">
@@ -82,7 +82,7 @@
                         <?php endif; ?>
                         <div class="form-group row">
                             <label class="col-form-label col-3">Project Icon</label>
-                            <input type="file" name="project_icon" class="form-control-file col-9">
+                            <input type="file" id="project_icon" name="project_icon" class="form-control-file col-9">
                         </div>
                         <?php if ($settings->project_icon != null) : ?>
                             <div class="form-group row">

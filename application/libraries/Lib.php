@@ -268,6 +268,105 @@ class Lib
 		// 	));
 		// }
 	}
+
+	/**
+	 * Get Visitor Action
+	 * 
+	 * When Users Execute A Function, System Will Printed Into Database.
+	 * 
+	 * @param string
+	 * @return void
+	 * @copyright Darkblow Studio
+	 */
+	public function GetVisitorAction($action)
+	{
+		$data = array(
+			'operating_system' => $this->ci->agent->platform(),
+			'browser' => $this->ci->agent->browser().' '.$this->ci->agent->version(),
+			'ip_address' => $this->ci->input->ip_address(),
+			'visited_page' => '-',
+			'actions' => $action,
+			'total_visit' => '0',
+			'last_visit' => date('d-m-Y h:i:s')
+		);
+		
+		$this->db->insert('web_log', $data);
+	}
+
+	/**
+	 * Get Reach Point State
+	 * 
+	 * Will Return HTTP Code For Checking Page Is Available Or Not.
+	 * 
+	 * @param string
+	 * @return int
+	 * @copyright Darkblow Studio
+	 */
+	public function GetReachPointState($url)
+	{
+		// Use curl_init() function to initialize a cURL session
+		$curl = curl_init($url);
+		
+		// Use curl_setopt() to set an option for cURL transfer
+		curl_setopt($curl, CURLOPT_NOBODY, true);
+		
+		// Use curl_exec() to perform cURL session
+		$result = curl_exec($curl);
+		
+		if ($result !== false) {
+			
+			// Use curl_getinfo() to get information
+			// regarding a specific transfer
+			$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE); 
+			
+			if ($statusCode == 404) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function AutomaticLoginQuery()
+	{
+		$response = array();
+
+		$data = array(
+			'player_id' => $_SESSION['uid'],
+			'password' => $_SESSION['login_token']
+		);
+
+		$query = $this->ci->db->get_where('accounts', array('player_id' => $data['player_id'], 'password' => $data['password']))->row();
+		if ($query)
+		{
+			if ($query->access_level < 3)
+			{
+				$response['response'] = 'false';
+				$response['message'] = 'You Dont Have Access To This Page.';
+
+				echo json_encode($response);
+			}
+			else
+			{
+				$sessionData = array(
+					'admin_uid' => $query->player_id,
+					'admin_name' => $query->player_name,
+					'admin_access_level' => $query->access_level
+				);
+
+				$this->ci->session->set_userdata($sessionData);
+
+				$response['response'] = 'true';
+				$response['message'] = 'Authorize Complete. Redirecting...';
+
+				echo json_encode($response);
+			}
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

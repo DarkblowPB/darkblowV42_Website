@@ -16,6 +16,151 @@ class Playersmanagement_model extends CI_Model
         $this->load->library('lib');
     }
 
+    function GetItemName($item_id)
+    {
+        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        if ($query)
+        {
+            return $query->item_name;
+        }
+        else
+        {
+            return "???";
+        }
+    }
+
+    function GetItemCategory($item_id)
+	{
+		if ($item_id >= 100003001 && $item_id <= 904007069)
+		{
+			return "1";
+		}
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
+		{
+			return "2";
+		}
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
+		{
+			return "3";
+		}
+		else
+		{
+			return "0";
+		}
+	}
+
+    function GetAllShop()
+    {
+        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+    }
+
+    function SendItem()
+    {
+        $response = array();
+
+        $data = array(
+            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true)),
+            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true)),
+            'item_count' => $this->encryption->encrypt($this->input->post('item_count', true))
+        );
+
+        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        if ($query)
+        {
+            $query2 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+            if ($query2)
+            {
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Send Item. Player Already Have This Item.';
+
+                echo json_encode($response);
+            }
+            else
+            {
+                if ($this->encryption->decrypt($data['item_count']) != '1')
+                {
+                    $query3 = $this->db->insert('player_items', array(
+                        'owner_id' => $query->player_id,
+                        'item_id' => $this->encryption->decrypt($data['item_id']),
+                        'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
+                        'count' => $this->encryption->decrypt($data['item_count']),
+                        'category' => $this->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'equip' => '1'));
+                    if ($query3)
+                    {
+                        $response['response'] = 'true';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        if ($query->player_name != '')
+                        {
+                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->player_name.'".';
+                        }
+                        else
+                        {
+                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->login.'".';
+                        }
+    
+                        echo json_encode($response);
+                    }
+                    else
+                    {
+                        $response['response'] = 'false';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Send Item.';
+    
+                        echo json_encode($response);
+                    }
+                }
+                else
+                {
+                    $query3 = $this->db->insert('player_items', array(
+                        'owner_id' => $query->player_id,
+                        'item_id' => $this->encryption->decrypt($data['item_id']),
+                        'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
+                        'count' => $this->encryption->decrypt($data['item_count']),
+                        'category' => $this->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'equip' => '3'));
+                    if ($query3)
+                    {
+                        $response['response'] = 'true';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        if ($query->player_name != '')
+                        {
+                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->player_name.'".';
+                        }
+                        else
+                        {
+                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->login.'".';
+                        }
+    
+                        echo json_encode($response);
+                    }
+                    else
+                    {
+                        $response['response'] = 'false';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Send Item.';
+    
+                        echo json_encode($response);
+                    }
+                }
+            }
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Find Account.';
+
+            echo json_encode($response);
+        }
+    }
+
+    function GetAllPlayers2()
+    {
+        return $this->db->get('accounts')->result_array();
+    }
+
     function GetAllPlayers()
     {
         return $this->db->get_where('accounts', array('email !=' => 'empty@empty.empty', 'access_level <' => '3'))->result_array();

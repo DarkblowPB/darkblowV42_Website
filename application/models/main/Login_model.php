@@ -42,7 +42,8 @@ class Login_model extends CI_Model
 				$sessionData = array(
 					'uid' => $query->player_id,
 					'player_name' => $query->player_name,
-					'access_level' => $query->access_level
+					'access_level' => $query->access_level,
+					'login_token' => $query->password,
 				);
 				$this->session->set_userdata($sessionData);
 				$response['response'] = 'true';

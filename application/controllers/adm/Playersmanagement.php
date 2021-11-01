@@ -56,6 +56,67 @@ Class Playersmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
+    function senditem()
+    {
+        $data['title'] = 'Send Item Player';
+        $data['header'] = 'Send Item Player';
+
+        $data['players'] = $this->playersmanagement->GetAllPlayers2();
+        $data['items'] = $this->playersmanagement->GetAllShop();
+
+        $data['content'] = 'admin/content/playersmanagement/content_senditem';
+
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
+
+    function do_senditem()
+    {
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'player_id',
+            'Players',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'item_id',
+            'Items',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'item_count',
+            'Item Duration',
+            'required|numeric|in_list[315576000,64800,259200,604800,2592000]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Charaters.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        if ($this->form_validation->run())
+        {
+            $this->playersmanagement->SendItem();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
+    }
+
     function do_fixinventory()
     {
         $response = array();

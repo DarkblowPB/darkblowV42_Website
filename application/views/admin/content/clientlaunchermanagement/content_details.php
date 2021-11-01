@@ -65,7 +65,7 @@
                                     if (Result.response == 'true'){
                                         SetAttribute('check_visibility', 'button', 'Check Visibility');
                                         CSRF_TOKEN = Result.token;
-                                        window.open('https://' + Result.url);
+                                        window.open(Result.url);
                                         return;
                                     }
                                     else if (Result.response == 'false'){

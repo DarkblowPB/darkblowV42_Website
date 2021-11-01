@@ -55,8 +55,6 @@
 </script>
 <script>
     function Logout(){
-        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-
         $.ajax({
             url: '<?php echo base_url('logout/do_logout') ?>',
             type: 'GET',
@@ -79,6 +77,39 @@
             },
             error: function(){
                 ShowToast(2000, 'error', 'Failed to Logout.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+    }
+
+    function AutomaticLogin()
+    {
+        $.ajax({
+            url: '<?php echo base_url('api/do_login') ?>',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+            success: function(data){
+                var GetString = JSON.stringify(data);
+                var Result = JSON.parse(GetString)
+
+                if (Result.response == 'true'){
+                    ShowToast(2000, 'success', Result.message);
+                    setTimeout(() => {
+                        window.location = '<?php echo base_url('adm/dashboard') ?>';
+                    }, 2000);
+                }
+                else{
+                    ShowToast(2000, 'error', Result.message);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            },
+            erorr: function(){
+                ShowToast(2000, 'error', 'Failed To Reach Server.');
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);

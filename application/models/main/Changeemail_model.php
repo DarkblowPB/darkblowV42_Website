@@ -51,6 +51,8 @@ class Changeemail_model extends CI_Model
 
     function ChangeEmailValidation()
     {
+        $response = array();
+
         $data = array(
             'old_email' => $this->encryption->encrypt($this->input->post('old_email')),
             'new_email' => $this->encryption->encrypt($this->input->post('new_email')),
@@ -62,8 +64,11 @@ class Changeemail_model extends CI_Model
         {
             if ($query->email_verification == 0)
             {
-                // If Email Verification Is 0
-                echo "false";
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Please Confirm Your Email First.';
+
+                echo json_encode($response);
             }
             else if ($query->email_verification == 1)
             {
@@ -71,11 +76,19 @@ class Changeemail_model extends CI_Model
                 $update = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('email' => $this->encryption->decrypt($data['new_email']), 'email_verification' => '0'));
                 if ($update)
                 {
-                    echo "true";
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Change Email';
+
+                    echo json_encode($response);
                 }
                 else
                 {
-                    echo "false";
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed Change Email';
+    
+                    echo json_encode($response);
                 }
             }
         }

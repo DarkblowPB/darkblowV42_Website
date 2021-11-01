@@ -40,9 +40,9 @@
                         $(document).ready(function(){
                             $('#clientlauncher_upload_form').on('submit', function(e){
                                 e.preventDefault();
-                            });
 
-                            return Do_UploadUrl();
+                                return Do_UploadUrl();
+                            });
                         });
 
                         function Do_UploadUrl()
@@ -71,6 +71,7 @@
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                         'file_name' : $('#file_name').val(),
                                         'file_url' : $('#file_url').val(),
                                         'file_type' : $('#file_type').val(),

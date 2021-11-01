@@ -16,6 +16,11 @@ Class Api extends CI_Controller
         $this->lib->GetVisitorData('Api');
     }
 
+	function do_login()
+	{
+		$this->lib->AutomaticLoginQuery();
+	}
+
 	function getnewtoken()
 	{
 		$response = array();
