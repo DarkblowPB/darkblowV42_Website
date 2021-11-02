@@ -178,11 +178,13 @@
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
-                                        <a href="<?php echo base_url('player_panel/redeemcode') ?>">
-                                            <?php echo $this->lang->line('STR_MENU_16') ?>
-                                        </a>
-                                    </li>
+                                    <?php if ($this->getsettings->Get2()->redeemcode == 1) : ?>
+                                        <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
+                                            <a href="<?php echo base_url('player_panel/redeemcode') ?>">
+                                                <?php echo $this->lang->line('STR_MENU_16') ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
                                     <?php if ($this->getsettings->Get2()->exchange_ticket == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "exchange_ticket"){echo 'active';} ?>">
                                             <a href="<?php echo base_url('event/exchange_ticket') ?>">
