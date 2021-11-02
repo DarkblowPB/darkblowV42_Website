@@ -3,7 +3,16 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open(base_url('adm/newsmanagement/do_add'), 'id="add_form" autocomplete="off"') ?>
+                    <?php echo form_open_multipart(base_url('adm/newsmanagement/add'), 'id="add_form" autocomplete="off"') ?>
+                        <?php if ($this->session->flashdata('true')) : ?>
+                            <div class="alert alert-success" role="alert"><?php echo $this->session->flashdata('true') ?></div>
+                        <?php endif; ?>
+                        <?php if ($this->session->flashdata('false')) : ?>
+                            <div class="alert alert-danger" role="alert"><?php echo $this->session->flashdata('false') ?></div>
+                        <?php endif; ?>
+                        <?php if ($this->session->flashdata('error')) : ?>
+                            <div class="alert alert-warning" role="alert"><?php echo $this->session->flashdata('error') ?></div>
+                        <?php endif; ?>
                         <div class="form-group row">
                             <label class="col-form-label col-3">News Title</label>
                             <input type="text" name="quickslide_title" class="form-control col-9" placeholder="Enter News Title" maxlength="255" autofocus required>

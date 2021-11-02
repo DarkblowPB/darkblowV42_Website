@@ -115,6 +115,11 @@
 <script>
   $(document).ready(function(){
     // DataTable
+    $('#news_table').dataTable({
+      'language': {
+        'zeroRecords': 'Nothing Found Here.'
+      }
+    });
     $('#allplayers_table').dataTable({
       'language': {
         'zeroRecords': 'Nothing Found Here.'

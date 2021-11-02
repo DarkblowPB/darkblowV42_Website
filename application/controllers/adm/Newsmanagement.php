@@ -40,10 +40,72 @@ Class Newsmanagement extends CI_Controller
 
     function add()
     {
-        $data['title'] = 'Create New News';
-        $data['header'] = 'Create New News';
-        $data['content'] = 'admin/content/newsmanagement/content_add';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+        $this->form_validation->set_rules(
+            'quickslide_title',
+            'Title',
+            'required|max_length[255]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'max_length' => '%s Only Can Contains 255 Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'quickslide_description',
+            'Description',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
+        if ($this->form_validation->run())
+        {
+            $this->newsmanagement->AddNewNews();
+        }
+        else
+        {
+            $data['title'] = 'Create New News';
+            $data['header'] = 'Create New News';
+            $data['content'] = 'admin/content/newsmanagement/content_add';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
+        }
+    }
+
+    function edit()
+    {
+        if (empty($this->input->get('news_id', true)))
+        {
+            redirect(base_url('adm/newsmanagement'), 'refresh');
+        }
+        else
+        {
+            $this->form_validation->set_rules(
+                'quickslide_title',
+                'Title',
+                'required|max_length[255]',
+                array(
+                    'required' => '%s Cannot Be Empty.',
+                    'max_length' => '%s Only Can Contains 255 Characters.'
+                )
+            );
+            $this->form_validation->set_rules(
+                'quickslide_description',
+                'Description',
+                'required',
+                array('required' => '%s Cannot Be Empty.')
+            );
+            if ($this->form_validation->run())
+            {
+                $this->newsmanagement->EditNews();
+            }
+            else
+            {
+                $data['title'] = 'Edit News';
+                $data['header'] = 'Edit News';
+        
+                $data['news'] = $this->newsmanagement->GetDetails($this->input->get('news_id', true));
+        
+                $data['content'] = 'admin/content/newsmanagement/content_edit';
+                $this->load->view('admin/layout/wrapper', $data, FALSE);
+            }
+        }
     }
 
     function do_add()
@@ -71,6 +133,35 @@ Class Newsmanagement extends CI_Controller
         {
             $this->session->set_flashdata('false', 'Hehe Error :)');
             redirect(base_url('adm/newsmanagement/add'), 'refresh');
+        }
+    }
+
+    function do_delete()
+    {
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'news_id',
+            'News Data',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Must Be Numeric Characters.'
+            )
+        );
+        if ($this->form_validation->run())
+        {
+            $this->newsmanagement->DeleteNews();
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
         }
     }
 }

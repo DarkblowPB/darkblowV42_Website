@@ -128,6 +128,14 @@
             </ul>
           </li>
           <li class="nav-header">Game Menu</li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('adm/newsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "newsmanagement"){echo "active";} ?>">
+              <i class="nav-icon fa fa-newspaper"></i>
+              <p>
+                News Management
+              </p>
+            </a>
+          </li>
           <li class="nav-item <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'menu-open';} ?>">
             <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement"){echo 'active';} ?>">
               <i class="nav-icon fas fa-users"></i>
