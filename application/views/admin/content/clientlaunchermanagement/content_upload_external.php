@@ -10,7 +10,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-3">File Url</label>
-                            <input type="url" id="file_url" class="form-control col-9" placeholder="Enter Your File Url (Without 'https://' or 'http://')">
+                            <input type="url" id="file_url" class="form-control col-9" placeholder="Enter Your File Url">
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-3">File Type</label>
