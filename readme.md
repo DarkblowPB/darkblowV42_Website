@@ -95,6 +95,14 @@ And how to configure website language? follow this step more clearly:
   	4. Scroll down to line 84. (Available Language: 'english' & 'indonesian')
   	5. Done.
 
+Configure Google Registration:
+	1. Expand application folder.
+	2. Expand controller folder.
+	3. Open Register.php
+	4. Scroll down to line 160 (Client ID) -> Set Your Client ID.
+	5. Scroll down to line 163 (Client Secret) -> Set Your Client Secret.
+	6. Done.
+
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
