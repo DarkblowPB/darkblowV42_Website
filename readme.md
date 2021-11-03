@@ -96,6 +96,7 @@ And how to configure website language? follow this step more clearly:
   	5. Done.
 
 Configure Google Registration:
+
 	1. Expand application folder.
 	2. Expand controller folder.
 	3. Open Register.php
