@@ -131,7 +131,14 @@ class Register extends CI_Controller
 		);
 		if ($this->form_validation->run())
 		{
-			$this->register->RegisterValidationV3();
+			if (isset($_SESSION['g_email']))
+			{
+				$this->register->GoogleRegisterValidation();
+			}
+			else
+			{
+				$this->register->RegisterValidationV3();
+			}
 		}
 		else
 		{
@@ -142,6 +149,74 @@ class Register extends CI_Controller
 			$response['message'] = validation_errors();
 			echo json_encode($response);
 		}
+	}
+
+	function g_register()
+	{
+		include_once APPPATH . "../vendor/autoload.php";
+		$google_client = new Google_Client();
+		
+		// Enter Your Client ID
+		$google_client->setClientId('697915084656-eotr2kqefqv1iith2282lmr1oknfaqkd.apps.googleusercontent.com');
+		
+		// Enter Your Client Secret Code
+		$google_client->setClientSecret('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');
+
+		
+		$google_client->setRedirectUri(base_url('register/g_register'));
+		$google_client->addScope('email');
+		$google_client->addScope('profile');
+		
+		if (isset($_GET['code']))
+		{
+			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
+			if (!isset($token['error']))
+			{
+				$google_client->setAccessToken($token['access_token']);
+				$google_service = new Google_Service_Oauth2($google_client);
+				$data = $google_service->userinfo->get();
+				$date = date('d-m-Y h:i:s');
+				$user_data = array(
+					'g_email' => $data['email']
+				);
+				$this->session->set_userdata('access_token', $token['access_token']);
+				$this->session->set_userdata('g_email', $user_data['g_email']);
+
+				if ($this->register->CheckRegisteredAccount($user_data['g_email']))
+				{
+					redirect(base_url('register'), 'refresh');
+				}
+				else
+				{
+					$this->session->unset_userdata('access_token');
+					$this->session->unset_userdata('g_email');
+					echo "<script>alert('This Email Already Registered. Please Use Another Email.');window.location='".base_url('register')."'</script>";
+				}
+			}
+		}
+
+		if (!$this->session->userdata('access_token'))
+		{
+			redirect($google_client->createAuthUrl(), 'refresh');
+		}
+		else
+		{
+			redirect(base_url('register'), 'refresh');
+		}
+	}
+
+	function do_cancelgoogleregistration()
+	{
+		sleep(1);
+		$response = array();
+
+		$this->session->unset_userdata('access_token');
+		$this->session->unset_userdata('g_email');
+
+		$response['response'] = 'true';
+		$response['message'] = 'Successfully Canceled Google Registration.';
+
+		echo json_encode($response);
 	}
 
 	function verification()

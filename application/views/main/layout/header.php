@@ -178,10 +178,10 @@
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($this->getsettings->Get2()->redeemcode == 1) : ?>
-                                        <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
-                                            <a href="<?php echo base_url('player_panel/redeemcode') ?>">
-                                                <?php echo $this->lang->line('STR_MENU_16') ?>
+                                    <?php if ($this->getsettings->Get2()->attendance == 1) : ?>
+                                        <li class="<?php if ($this->uri->segment(2) == "attendance"){echo 'active';} ?>">
+                                            <a href="<?php echo base_url('event/attendance') ?>">
+                                                <?php echo $this->lang->line('STR_MENU_21') ?> <span class="text-main-3">[NEW]</span>
                                             </a>
                                         </li>
                                     <?php endif; ?>
@@ -192,10 +192,10 @@
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($this->getsettings->Get2()->attendance == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(2) == "attendance"){echo 'active';} ?>">
-                                            <a href="<?php echo base_url('event/attendance') ?>">
-                                                <?php echo $this->lang->line('STR_MENU_21') ?> <span class="text-main-3">[NEW]</span>
+                                    <?php if ($this->getsettings->Get2()->redeemcode == 1) : ?>
+                                        <li class="<?php if($this->uri->segment(2)== "redeemcode"){echo 'active';}?>">
+                                            <a href="<?php echo base_url('player_panel/redeemcode') ?>">
+                                                <?php echo $this->lang->line('STR_MENU_16') ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>

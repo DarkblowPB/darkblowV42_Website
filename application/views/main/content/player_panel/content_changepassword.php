@@ -53,100 +53,12 @@
                         <?php echo form_close() ?>
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-
+                            var RETRY = 0;
                             $(document).ready(function(){
                                 $('#changepassword_form').on('submit', function(e){
                                     e.preventDefault();
 
-                                    if ($('#old_password').val() == '' || $('#old_password').val() == null){
-                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_7') ?>');
-                                        return;
-                                    }
-                                    else if ($('#new_password').val() == '' || $('#new_password').val() == null){
-                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_8') ?>');
-                                        return;
-                                    }
-                                    else if ($('#confirm_password').val() == '' || $('#confirm_password').val() == null){
-                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_9') ?>');
-                                        return;
-                                    }
-                                    else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
-                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_10') ?>');
-                                        return;
-                                    }
-                                    else if ($('#hint_answer').val() == '' || $('#hint_answer').val() == null){
-                                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
-                                        return;
-                                    }
-                                    else{
-                                        SetAttribute('submit', 'button', 'Processing...');
-                                        $.ajax({
-                                            url: '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
-                                            type: 'POST',
-                                            timeout: 0,
-                                            dataType: 'JSON',
-                                            data: {
-                                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                                'old_password' : $('#old_password').val(),
-                                                'new_password' : $('#new_password').val(),
-                                                'confirm_password' : $('#confirm_password').val(),
-                                                'hint_question' : $('#hint_question').val(),
-                                                'hint_answer' : $('#hint_answer').val()
-                                            },
-                                            success: function(data){
-                                                var GetString = JSON.stringify(data);
-                                                var Result = JSON.parse(GetString);
-    
-                                                if (Result.response == 'true'){
-                                                    SetAttribute('submit', 'submit', 'Change Password');
-                                                    ShowToast(2000, 'success', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    setTimeout(() => {
-                                                        Logout();
-                                                    }, 2000);
-                                                }
-                                                else if (Result.response == 'false'){
-                                                    SetAttribute('submit', 'submit', 'Change Password');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                }
-                                                else{
-                                                    SetAttribute('submit', 'submit', 'Change Password');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                }
-                                            },
-                                            error: function(){
-                                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
-    
-                                                $.ajax({
-                                                    url: '<?php echo base_url('api/getnewtoken') ?>',
-                                                    type: 'GET',
-                                                    dataType: 'JSON',
-                                                    data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                    success: function(data){
-                                                        var GetString = JSON.stringify(data);
-                                                        var Result = JSON.parse(GetString);
-    
-                                                        if (Result.response == 'true'){
-                                                            CSRF_TOKEN = Result.token;
-                                                        }
-
-                                                        return Do_ChangePassword();
-                                                    },
-                                                    error: function(){
-                                                        SetAttribute('submit', 'submit', 'Change Password');
-                                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
-                                                        setTimeout(() => {
-                                                            window.location.reload();
-                                                        }, 2000);
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
+                                    return Do_ChangePassword();
                                 });
                             });
 
@@ -199,12 +111,6 @@
                                                     // Logout Function
                                                 }, 2000);
                                             }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Change Password');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
                                             else{
                                                 SetAttribute('submit', 'submit', 'Change Password');
                                                 ShowToast(2000, 'error', Result.message);
@@ -213,11 +119,41 @@
                                             }
                                         },
                                         error: function(){
-                                            SetAttribute('submit', 'submit', 'Change Password');
-                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
+                                            if (RETRY >= 3){
+                                                SetAttribute('submit', 'submit', 'Change Password.');
+                                                ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                            else{
+                                                RETRY += 1;
+                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                                $.ajax({
+                                                url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                type: 'GET',
+                                                timeout: 0,
+                                                dataType : 'JSON',
+                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+                                                success: function(data){
+                                                    var GetString = JSON.stringify(data);
+                                                    var Result = JSON.parse(GetString);
+
+                                                    if (Result.response == 'true'){
+                                                        CSRF_TOKEN = Result.token;
+                                                    }
+
+                                                    return Do_ChangePassword();
+                                                },
+                                                error: function(){
+                                                    ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                    setTimeout(() => {
+                                                        window.location.reload();
+                                                    }, 2000);
+                                                }
+                                            });
+                                            }
                                         }
                                     });
                                 }

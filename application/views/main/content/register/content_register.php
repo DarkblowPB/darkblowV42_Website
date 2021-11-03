@@ -8,63 +8,77 @@
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
-                        <?php
-                        echo form_open('','id="register_form" autocomplete="off"');
-                        ?>
-                        <div class="form-group">
-                            <label for="username"><?php echo $this->lang->line('STR_DARKBLOW_40') ?></label>
-                            <div class="row">
-                                <div class="col-9">
-                                    <input type="text" class="form-control" id="login" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
-                                </div>
-                                <div class="col-3">
-                                    <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check" onclick="CheckUsername()">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><?php echo $this->lang->line('STR_DARKBLOW_131') ?></label>
-                            <input type="mail" class="form-control" id="email" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_132') ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></label>
-                            <input type="password" class="form-control" id="password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
-                        </div>
-                        <div class="form-group">
-                            <label for="re_password"><?php echo $this->lang->line('STR_DARKBLOW_57') ?></label>
-                            <input type="password" class="form-control" id="re_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16">
-                        </div>
-                        <div class="form-group">
-                            <label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
-                            <select class="form-control" id="hint_question">
-                                <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
-                                <option value="What was your childhood nickname?">What was your childhood nickname?</option>
-                                <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
-                                <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
-                                <option value="What is your favorite team?">What is your favorite team?</option>
-                                <option value="What is your favorite movie?">What is your favorite movie?</option>
-                                <option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
-                                <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
-                                <option value="What is the first name of the boy or girl that you first kissed?">What is the first name of the boy or girl that you first kissed?</option>
-                                <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
-                                <option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</option>
-                                <option value="Who is your childhood sports hero?">Who is your childhood sports hero?</option>
-                                <option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
-                                <option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
-                                <option value="In what town was your first job?">In what town was your first job?</option>
-                                <option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</option>
-                            </select>
-                        </div>
+                        <?php echo form_open('','id="register_form" autocomplete="off"'); ?>
                             <div class="form-group">
-                                <label><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
-                                <input type="text" class="form-control" id="hint_answer" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>" required>
+                                <label for="username"><?php echo $this->lang->line('STR_DARKBLOW_40') ?></label>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="login" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check" onclick="CheckUsername()">
+                                    </div>
+                                </div>
                             </div>
-                        <div class="nk-gap"></div>
-                        <div class="form-group text-center">
-                            <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register" onclick="ShowToast(2000, 'warning', 'Please Check Your Username First.');">
-                            <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Login</a>
-                        </div>
+                            <div class="form-group">
+                                <label for="email"><?php echo $this->lang->line('STR_DARKBLOW_131') ?></label>
+                                <?php if (isset($_SESSION['g_email'])) : ?>
+                                    <label class="form-control"><?php echo $_SESSION['g_email'] ?></label>
+                                <?php endif; ?>
+                                <?php if (!isset($_SESSION['g_email'])) : ?>
+                                    <input type="mail" class="form-control" id="email" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_132') ?>">
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="password"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></label>
+                                <input type="password" class="form-control" id="password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
+                            </div>
+                            <div class="form-group">
+                                <label for="re_password"><?php echo $this->lang->line('STR_DARKBLOW_57') ?></label>
+                                <input type="password" class="form-control" id="re_password" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16">
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
+                                <select class="form-control" id="hint_question">
+                                    <option value="" disabled selected><?php echo $this->lang->line('STR_DARKBLOW_22') ?></option>
+                                    <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                                    <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                                    <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                                    <option value="What is your favorite team?">What is your favorite team?</option>
+                                    <option value="What is your favorite movie?">What is your favorite movie?</option>
+                                    <option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+                                    <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+                                    <option value="What is the first name of the boy or girl that you first kissed?">What is the first name of the boy or girl that you first kissed?</option>
+                                    <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                                    <option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</option>
+                                    <option value="Who is your childhood sports hero?">Who is your childhood sports hero?</option>
+                                    <option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
+                                    <option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
+                                    <option value="In what town was your first job?">In what town was your first job?</option>
+                                    <option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</option>
+                                </select>
+                            </div>
+                                <div class="form-group">
+                                    <label><?php echo $this->lang->line('STR_DARKBLOW_23') ?></label>
+                                    <input type="text" class="form-control" id="hint_answer" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>" required>
+                                </div>
+                            <div class="nk-gap"></div>
+                            <div class="form-group text-center">
+                                <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register" onclick="ShowToast(2000, 'warning', 'Please Check Your Username First.');">
+                                <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Login</a>
+                            </div>
                         <?php echo form_close(); ?>
+                        <div class="form-group text-center">
+                            <label style="font-weight: bold; font-style: italic;">OR</label>
+                        </div>
+                        <div class="form-group text-center">
+                            <?php if (isset($_SESSION['g_email'])) : ?>
+                                <input type="button" id="cancelgoogleregistration" value="Cancel Google Registration" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
+                            <?php endif; ?>
+                            <?php if (!isset($_SESSION['g_email'])) : ?>
+                                <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
+                            <?php endif; ?>
+                        </div>
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                             var RETRY = 0;
@@ -157,10 +171,12 @@
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     document.getElementById('login').focus();
                                 }
-                                else if ($('#email').val() == ''){
+                                <?php if (!isset($_SESSION['g_email'])) : ?>
+                                    else if ($('#email').val() == ''){
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_13') ?>');
                                     document.getElementById('email').focus();
                                 }
+                                <?php endif; ?>
                                 else if ($('#password').val() == ''){
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
                                     document.getElementById('password').focus();
@@ -191,7 +207,12 @@
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                             'login' : $('#login').val(),
-                                            'email' : $('#email').val(),
+                                            <?php if (isset($_SESSION['g_email'])) : ?>
+                                                'email' : '<?php echo $_SESSION['g_email'] ?>',
+                                            <?php endif; ?>
+                                            <?php if (!isset($_SESSION['g_email'])) : ?>
+                                                'email' : $('#email').val(),
+                                            <?php endif; ?>
                                             'password' : $('#password').val(),
                                             're_password' : $('#re_password').val(),
                                             'hint_question' : $('#hint_question').val(),
@@ -256,13 +277,37 @@
                                     });
                                 }
                             }
+
+                            function CancelGoogleRegistration()
+                            {
+                                SetAttribute('cancelgoogleregistration', 'button', 'Processing...');
+                                $.ajax({
+                                    url: '<?php echo base_url('register/do_cancelgoogleregistration') ?>',
+                                    type: 'GET',
+                                    dataType: 'JSON',
+                                    data: {},
+                                    success: function(data){
+                                        var GetString = JSON.stringify(data);
+                                        var Result = JSON.parse(GetString);
+
+                                        if (Result.response == 'true'){
+                                            SetAttribute('cancelgoogleregistration', 'button', 'Cancel Google Registration');
+                                            ShowToast(2000, 'success', Result.message);
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    },
+                                    erorr: function(){
+                                        SetAttribute('cancelgoogleregistration', 'button', 'Cancel Google Registration');
+                                        ShowToast(2000, 'error', 'Failed To Reach Server.');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                });
+                            }
                         </script>
-                        <div class="form-group text-center">
-                            <label style="font-weight: bold; font-style: italic;">OR</label>
-                        </div>
-                        <div class="form-group text-center">
-                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.');"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
-                        </div>
                     </div>
                 </div>
             </div>
