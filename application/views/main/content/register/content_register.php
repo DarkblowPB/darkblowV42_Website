@@ -78,6 +78,8 @@
                             <?php if (!isset($_SESSION['g_email'])) : ?>
                                 <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
                             <?php endif; ?>
+                            <div class="nk-gap-1"></div>
+                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" onclick="ShowToast(2000, 'info', 'This Feature Not Available This Moment.')"><i class="fa fa-facebook-square mr-2"></i> Login With Facebook</button>
                         </div>
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';

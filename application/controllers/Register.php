@@ -179,7 +179,7 @@ class Register extends CI_Controller
 				$user_data = array(
 					'g_email' => $data['email']
 				);
-				$this->session->set_userdata('access_token', $token['access_token']);
+				$this->session->set_userdata('g_access_token', $token['access_token']);
 				$this->session->set_userdata('g_email', $user_data['g_email']);
 
 				if ($this->register->CheckRegisteredAccount($user_data['g_email']))
