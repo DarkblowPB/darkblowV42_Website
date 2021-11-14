@@ -39,7 +39,10 @@
 								url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
 								type: 'POST',
 								dataType: 'JSON',
-								data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
+								data: {
+									'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+									'code' : $('#code').val()
+								},
 								success: function(data){
 									var GetString = JSON.stringify(data);
 									var Result = JSON.parse(GetString);

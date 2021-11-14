@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'home';
 
+$route['adm'] = 'adm/login';
+
 $route['sitemap\.xml'] = 'sitemap';
 
 $route['404_override'] = 'notFound';

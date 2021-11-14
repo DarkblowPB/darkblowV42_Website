@@ -97,6 +97,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?php echo base_url('adm/servercommandmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "servercommandmanagement"){echo "active";} ?>">
+              <i class="nav-icon fas fa-server"></i>
+              <p>
+                Server Command Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo base_url('adm/bannedvisitor') ?>" class="nav-link <?php if ($this->uri->segment(2) == "bannedvisitor"){echo "active";} ?>">
               <i class="nav-icon fa fa-ban"></i>
               <p>

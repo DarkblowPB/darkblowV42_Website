@@ -15,6 +15,88 @@ class Attendance_model extends CI_Model
         $this->load->database();
     }
 
+    function ServerLibrary($param)
+    {
+        $data = array(
+            'ip_address' => '127.0.0.1',
+            'port' => 1000
+        );
+
+        switch ($param) {
+            case 'ip_address':
+                {
+                    return $data['ip_address'];
+                }
+            case 'port':
+                {
+                    return $data['port'];
+                }
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
+    function ClaimRewardViaSocket($player_id, $item_id, $count)
+    {
+        $response = array();
+
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($socket === TRUE)
+        {
+            $connect = socket_connect($socket, $this->ServerLibrary('ip_address'), $this->ServerLibrary('port'));
+            if ($connect === TRUE)
+            {
+                $write = socket_write($socket, 'SendGift ', $player_id.' '.$item_id.' '.$count);
+                if ($write === TRUE)
+                {
+                    $read = socket_read($socket, 2048);
+                    if ($read == 'Success')
+                    {
+                        $response['response'] = 'true';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Successfully Claim The Rewards.';
+
+                        echo json_encode($response);
+                    }
+                    else
+                    {
+                        $response['response'] = 'false';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Claim The Rewards.';
+
+                        echo json_encode($response);
+                    }
+                }
+                else
+                {
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Claim The Rewards.';
+
+                    echo json_encode($response);
+                }
+            }
+            else
+            {
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Claim The Rewards.';
+
+                echo json_encode($response);
+            }
+        }
+        else
+        {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Claim The Rewards.';
+
+            echo json_encode($response);
+        }
+    }
+
     function GetAttendData()
     {
         return $this->db->get('events_attendance')->result_array();
@@ -136,6 +218,7 @@ class Attendance_model extends CI_Model
             }
             else
             {
+
                 // If User Didn't Claim The Reward
                 // Insert To Their Inventory
 

@@ -32,7 +32,7 @@
                                                   <td><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt="<?php echo $row['rank'] ?>"></td>
                                              </tr>
                                              <tr class="text-center">
-                                                  <td>Points<?php echo $this->lang->line('STR_DARKBLOW_88') ?></td>
+                                                  <td><?php echo $this->lang->line('STR_DARKBLOW_88') ?></td>
                                                   <td><?php echo number_format($row['gp'], '0',',','.'); ?></td>
                                              </tr>
                                              <tr class="text-center">

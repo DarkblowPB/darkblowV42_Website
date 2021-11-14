@@ -13,6 +13,7 @@ class Redeemcode_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('admin/servercommandmanagement_model', 'ab');
 	}
 
 	function GetTotalCashPlayer($player_id)
@@ -25,6 +26,31 @@ class Redeemcode_model extends CI_Model
 		else
 		{
 			return 0;
+		}
+	}
+
+	function GetItemDurationInInt($sum)
+	{
+		switch ($sum) {
+			case 64800:
+				{
+					return '1';
+				}
+			case 259200:
+				{
+					return '3';
+				}
+			case 604800:
+				{
+					return '7';
+				}
+			case 2592000:
+				{
+					return '30';
+				}
+			
+			default:
+				break;
 		}
 	}
 
@@ -103,19 +129,19 @@ class Redeemcode_model extends CI_Model
 					$check3 = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $check->item_id))->row();
 					if ($check3)
 					{
-						// Check Item Status
-						if ($check3->equip == 1)
-						{
-							// Update Duration
-							$get = $check3->count + $check->item_count;
-							$update = $this->db->where(array('owner_id' => $check3->owner_id, 'item_id' => $check3->item_id))->update('player_items', array('count' => $get));
-							// Insert Log
-							$insert = $this->db->insert('check_user_itemcode', array('uid' => $check3->owner_id, 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
-							if ($update && $insert)
+							// Check Item Status
+							if ($check3->equip == 1)
 							{
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['response'] = 'true';
-								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$check3->item_name.'.';
+									// Update Duration
+									$get = $check3->count + $check->item_count;
+									$update = $this->db->where(array('owner_id' => $check3->owner_id, 'item_id' => $check3->item_id))->update('player_items', array('count' => $get));
+									// Insert Log
+									$insert = $this->db->insert('check_user_itemcode', array('uid' => $check3->owner_id, 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
+									if ($update && $insert)
+									{
+											$response['token'] = $this->security->get_csrf_hash();
+											$response['response'] = 'true';
+											$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$check3->item_name.'.';
 								echo json_encode($response);
 							}
 							else
