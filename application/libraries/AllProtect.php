@@ -53,7 +53,7 @@ class AllProtect
     {
         $response = array();
         
-        if (empty($_SESSION['uid']))
+        if (empty($this->ci->session->userdata('uid')))
         {
             $response['response'] = 'false';
             $response['token'] = $this->ci->security->get_csrf_hash();
@@ -91,9 +91,9 @@ class AllProtect
 
     public function Changepassword_Protection()
 	{
-        if (isset($_SESSION['uid']))
+        if (!empty($this->ci->session->userdata('uid')))
         {
-            $check = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']));
+            $check = $this->ci->db->get_where('accounts', array('player_id' => $this->ci->session->userdata('uid')));
             $result = $check->row();
             if ($result) 
             {
@@ -115,9 +115,9 @@ class AllProtect
 
     public function BlockedAccount_Protection()
     {
-        if (isset($_SESSION['access_level']))
+        if (!empty($this->ci->session->userdata('access_level')))
         {
-            if ($_SESSION['access_level'] == '-1')
+            if ($this->ci->session->userdata('access_level') == '-1')
             {
                 $this->ci->session->unset_userdata('uid');
                 $this->ci->session->unset_userdata('player_name');

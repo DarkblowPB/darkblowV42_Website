@@ -1,6 +1,7 @@
 {
     "require": {
         "google/apiclient": "^2.0",
-        "facebook/graph-sdk": "^5.7"
+        "facebook/graph-sdk": "^5.7",
+        "chriskacerguis/codeigniter-restserver": "^3.1"
     }
 }

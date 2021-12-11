@@ -35,7 +35,7 @@ class Main_protect
 
     public function mainProtectC()
     {
-        $query = $this->ci->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+        $query = $this->ci->db->get_where('accounts', array('player_id' => $this->ci->session->userdata('uid')))->row();
         if ($query)
         {
             if ($query->hint_question != "")

@@ -37,6 +37,8 @@
         <!-- jQuery -->
         <script src="<?php echo base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
         <!-- END: Styles -->
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/ldbtn.min.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/loading.min.css">
         <noscript>
             Your Browser Does Not Support Javascript.
         </noscript>

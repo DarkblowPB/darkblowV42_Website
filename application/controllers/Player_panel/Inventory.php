@@ -22,6 +22,7 @@ class Inventory extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->main_protect->mainProtectA();
+		$this->load->library('lib');
 		$this->load->model('main/inventory_model', 'inventory');
 	}
 

@@ -13,7 +13,6 @@ class Forgotpassword_model extends CI_Model
     {
         parent::__construct();
         $this->load->database();
-        $this->load->library('email');
     }
 
     function ForgotPasswordValidationV1()

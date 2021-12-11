@@ -15,11 +15,6 @@ class Changeemail_model extends CI_Model
         $this->load->database();
     }
 
-    function SendEmail()
-    {
-        $config = array('');
-    }
-
     function GetPlayerData()
     {
         return $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();

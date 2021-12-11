@@ -17,6 +17,89 @@ class Lib
 		$this->ci->load->database();
     }
 
+	public function GetItemName($item_id)
+	{
+		$query = $this->ci->db->get_where('shop', array('item_id' => $item_id))->row();
+		if ($query) return $query->item_name; else return "";
+	}
+
+	public function GetItemCategory($item_id)
+	{
+		if ($item_id >= 100003001 && $item_id <= 904007069)
+		{
+			return 1;
+		}
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
+		{
+			return 2;
+		}
+		else return 3;
+	}
+
+	public function GetBuyType($item_id)
+	{
+		$query = $this->ci->db->get_where('shop', array('item_id' => $item_id))->row();
+		if ($query)
+		{
+			return $query->buy_type;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function GetItemDuration($buy_type, $count, $equip = null)
+	{
+		switch ($buy_type)
+		{
+			case '1':
+				{
+					if ($equip != null)
+					{
+						if ($equip != 1)
+						{
+							echo 'Invalid';
+						}
+						else
+						{
+							if ($count == 1) echo $count.' Unit'; else echo $count.' Unit\'s';
+						}
+					}
+					break;
+				}
+			case '2':
+				{
+					if ($equip == 1)
+					{
+						$result = $count / 24 / 60 / 60;
+						if ($result == 1) echo $result.' Day'; else echo $result. ' Day\'s';
+					}
+					else if ($equip == 2)
+					{
+						$split = str_split($count, 2);
+						$datestr = "20".$split[0].'-'.$split[1].'-'.$split[2].' '.$split[3].':'.$split[4].':'.'00';
+						$date = strtotime($datestr);
+						
+						$diff = $date-time();
+						$days = floor($diff / (60 * 60 * 24));
+						$hours=round(($diff - $days * 60 * 60 * 24) / (60 * 60));
+						
+						//Report
+						echo $days.' Day\'s Remaining';
+					}
+					else
+					{
+						echo 'Permanent';
+					}
+					break;
+				}
+			
+			default:
+				break;
+		}
+	}
+
 	public function EncryptedWeb()
 	{
 		$query = array(
@@ -331,42 +414,122 @@ class Lib
 		}
 	}
 
-	public function AutomaticLoginQuery()
+	public function HostLibrary($server, $param)
 	{
-		$response = array();
-
-		$data = array(
-			'player_id' => $_SESSION['uid'],
-			'password' => $_SESSION['login_token']
+		$main_server = array(
+			'ip_address' => '127.0.0.1',
+			'port_1' => 1000,
+			'port_2' => 1200
 		);
 
-		$query = $this->ci->db->get_where('accounts', array('player_id' => $data['player_id'], 'password' => $data['password']))->row();
-		if ($query)
+		$side_server = array(
+			'ip_address' => '127.0.0.1',
+			'port_1' => 1500,
+			'port_2' => 1700
+		);
+
+		switch ($server)
 		{
-			if ($query->access_level < 3)
-			{
-				$response['response'] = 'false';
-				$response['message'] = 'You Dont Have Access To This Page.';
+			case 'main':
+				{
+					switch ($param)
+					{
+						case 'ip_address':
+							{
+								return $main_server['ip_address'];
+							}
+						case 'port_1':
+							{
+								return $main_server['port_1'];
+							}
+						case 'port_2':
+							{
+								return $main_server['port_2'];
+							}
+						
+						default:
+							{
+								return "";
+							}
+					}
+				}
 
-				echo json_encode($response);
-			}
-			else
-			{
-				$sessionData = array(
-					'admin_uid' => $query->player_id,
-					'admin_name' => $query->player_name,
-					'admin_access_level' => $query->access_level
-				);
-
-				$this->ci->session->set_userdata($sessionData);
-
-				$response['response'] = 'true';
-				$response['message'] = 'Authorize Complete. Redirecting...';
-
-				echo json_encode($response);
-			}
+			case 'side':
+				{
+					switch ($param)
+					{
+						case 'ip_address':
+							{
+								return $side_server['ip_address'];
+							}
+						case 'port_1':
+							{
+								return $side_server['port_1'];
+							}
+						case 'port_2':
+							{
+								return $side_server['port_2'];
+							}
+						
+						default:
+							{
+								return "";
+							}
+					}
+				}
+				
+			default:
+				return "";
 		}
 	}
+
+	public function CheckOpenPort($ip_address, $port)
+	{
+		$connection = @fsockopen($ip_address, $port);
+
+		if (is_resource($connection))
+		{
+			return TRUE;
+
+			fclose($connection);
+		}
+
+		else
+		{
+			return FALSE;
+		}
+	}
+
+    public function SendSocket($ip_address, $port, $buffer)
+    {
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($socket)
+        {
+            $connect = socket_connect($socket, $ip_address, $port);
+            if ($connect)
+            {
+                $write = socket_write($socket, $buffer, strlen($buffer));
+                if ($write)
+                {
+                    $read = socket_read($socket, 2048);
+                    // $read = Success
+                    return $read;
+                }
+                else
+                {
+                    return "Failed";
+                }
+            }
+            else
+            {
+                return "Failed";
+            }
+        }
+        else
+        {
+            echo "Failed";
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -22,6 +22,7 @@ class Redeemcode extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->load->model('main/redeemcode_model', 'redeemcode');
+		$this->load->library('servercommand_library');
 
 		if ($this->getsettings->Get2()->redeemcode != 1)
 		{

@@ -13,7 +13,6 @@ class Createhint_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library('encryption');
 		$this->load->library('lib');
 	}
 

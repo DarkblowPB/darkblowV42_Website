@@ -30,7 +30,7 @@ class Querylib
         $string = array(
             'Author' => $this->ci->encryption->encrypt('EyeTracker'),
             'Company' => $this->ci->encryption->encrypt('Darkblow Studio'),
-            'Version' => $this->ci->encryption->encrypt('1.3.1'),
+            'Version' => $this->ci->encryption->encrypt('2.3.1'),
             'Framework' => $this->ci->encryption->encrypt('Codeigniter 3'),
             'PHP_Version' => $this->ci->encryption->encrypt('7.4')
         );
@@ -173,7 +173,7 @@ class Querylib
      * 
      * Send Email To Players
      * 
-     * @return void
+     * @return bool
      * @copyright DarkblowStudio 2021
      */
     public function SendEmail($email_address)

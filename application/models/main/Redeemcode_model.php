@@ -13,70 +13,21 @@ class Redeemcode_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('admin/servercommandmanagement_model', 'ab');
+		$this->load->library('lib');
 	}
 
-	function GetTotalCashPlayer($player_id)
-	{
-		$query = $this->db->get_where('accounts', array('player_id' => $player_id))->row();
-		if ($query)
-		{
-			return $query->money;
-		}
-		else
-		{
-			return 0;
-		}
-	}
-
-	function GetItemDurationInInt($sum)
-	{
-		switch ($sum) {
-			case 64800:
-				{
-					return '1';
-				}
-			case 259200:
-				{
-					return '3';
-				}
-			case 604800:
-				{
-					return '7';
-				}
-			case 2592000:
-				{
-					return '30';
-				}
-			
-			default:
-				break;
-		}
-	}
-
-	function GetCashValueFromItem($item_duration)
-	{
-		if ($item_duration == 86400)
-		{
-			return 5000;
-		}
-		else if ($item_duration == 259200)
-		{
-			return 15000;
-		}
-		else if ($item_duration == 604800)
-		{
-			return 35000;
-		}
-		else if ($item_duration == 2592000)
-		{
-			return 150000;
-		}
-		else
-		{
-			return 0;
-		}
-	}
+	function GetItemName($item_id)
+    {
+        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        if ($query)
+        {
+            return $query->item_name;
+        }
+        else
+        {
+            return "";
+        }
+    }
 
 	function GetItemCategory($item_id)
 	{
@@ -102,7 +53,8 @@ class Redeemcode_model extends CI_Model
 	{
 		sleep(1);
 		$data = array(
-			'code' => $this->encryption->encrypt($this->input->post('code'))
+			'code' => $this->encryption->encrypt($this->input->post('code')),
+			'player_id' => $this->encryption->encrypt($_SESSION['uid'])
 		);
 
 		$response = array();
@@ -125,104 +77,65 @@ class Redeemcode_model extends CI_Model
 			{
 				if ($check->type == "Item")
 				{
-					// Check Player Inventory
-					$check3 = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $check->item_id))->row();
-					if ($check3)
+					$insert = $this->db->insert('check_user_itemcode', array('uid' => $this->encryption->decrypt($data['player_id']), 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
+					if ($insert)
 					{
-							// Check Item Status
-							if ($check3->equip == 1)
-							{
-									// Update Duration
-									$get = $check3->count + $check->item_count;
-									$update = $this->db->where(array('owner_id' => $check3->owner_id, 'item_id' => $check3->item_id))->update('player_items', array('count' => $get));
-									// Insert Log
-									$insert = $this->db->insert('check_user_itemcode', array('uid' => $check3->owner_id, 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
-									if ($update && $insert)
-									{
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['response'] = 'true';
-											$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$check3->item_name.'.';
-								echo json_encode($response);
-							}
-							else
-							{
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['response'] = 'false';
-								$response['message'] = 'Failed To Redeem The Code.';
-								echo json_encode($response);
-							}
-						}
-						else
+						$config = array(
+							'separator' => '>'
+						);
+						$buffer = array(
+							'command_type' => 'RedeemCode',
+							'item_id' => $check->item_id,
+							'category' => $this->GetItemCategory($check->item_id),
+							'item_name' => $this->GetItemName($check->item_id),
+							'item_count' => $check->item_count,
+							'player_id' => $this->encryption->decrypt($data['player_id']),
+							'type' => 'Item',
+							'cash' => '0'
+						);
+						if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1')))
 						{
-							// Converting Item To DR-Cash
-							$cash_value = $this->GetCashValueFromItem($check->item_count);
-							$total_value = $cash_value + $this->GetTotalCashPlayer($check3->owner_id);
-							// Update Player Money
-							$update = $this->db->where('player_id', $check3->owner_id)->update('accounts', array('money' => $total_value));
-							if ($update)
+							if ($this->lib->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), $buffer['command_type'].$config['separator'].$buffer['item_id'].$config['separator'].$buffer['category'].$config['separator'].$buffer['item_name'].$config['separator'].$buffer['item_count'].$config['separator'].$buffer['player_id'].$config['separator'].$buffer['type'].$config['separator'].$buffer['cash']) == 'Success')
 							{
-								$response['token'] = $this->security->get_csrf_hash();
 								$response['response'] = 'true';
-								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$cash_value.' DR-Cash.';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$this->GetItemName($check->item_id).'.';
+
 								echo json_encode($response);
 							}
 							else
 							{
-								$response['token'] = $this->security->get_csrf_hash();
 								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Redeem The Code.';
-								echo json_encode($response);
 							}
-						}
-					}
-					else
-					{
-						// Insert New Item
-						$insert = $this->db->insert('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $check->item_id, 'item_name' => $check->item_name, 'count' => $check->item_count, 'category' => $this->GetItemCategory($check->item_id), 'equip' => '1'));
-						// Insert Log
-						$insert2 = $this->db->insert('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
-						if ($insert && $insert2)
-						{
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['response'] = 'true';
-							$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$check->item_name;
-							echo json_encode($response);
 						}
 						else
 						{
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['response'] = 'false';
-							$response['message'] = 'Failed To Redeem The Code.';
-							echo json_encode($response);
+							if ($this->lib->SendSocket($this->lib->HostLibrary('side', 'ip_address'), $this->lib->HostLibrary('side', 'port_1'), $buffer['command_type'].$config['separator'].$buffer['item_id'].$config['separator'].$buffer['category'].$config['separator'].$buffer['item_name'].$config['separator'].$buffer['item_count'].$config['separator'].$buffer['player_id'].$config['separator'].$buffer['type'].$config['separator'].$buffer['cash']) == 'Success')
+							{
+								$response['response'] = 'true';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$this->GetItemName($check->item_id).'.';
+
+								echo json_encode($response);
+							}
+							else
+							{
+								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Failed To Redeem The Code.';
+							}
 						}
 					}
 				}
 				else if ($check->type == "Cash")
 				{
-					// Fetch Player Data
-					$fetch = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
-					if ($fetch)
-					{
-						$totalCash = $fetch->money + $check->cash;
-						// Update Cash
-						$update = $this->db->where('player_id', $fetch->player_id)->update('accounts', array('money' => $totalCash));
-						// Insert Log
-						$insert = $this->db->insert('check_user_itemcode', array('uid' => $fetch->player_id, 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
-						if ($update && $insert)
-						{
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['response'] = 'true';
-							$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$check->cash.' DR-Cash';
-							echo json_encode($response);
-						}
-						else
-						{
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['response'] = 'false';
-							$response['message'] = 'Failed To Redeem The Code.';
-							echo json_encode($response);
-						}
-					}
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Sorry, This Reward Is Cash, And We Under Development.';
+
+					echo json_encode($response);
 				}
 			}
 		}

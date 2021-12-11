@@ -22,6 +22,7 @@ Class Exchange_ticket extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 		
 		$this->main_protect->mainProtectA();
+        $this->load->library('lib');
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
         if ($this->getsettings->Get2()->exchange_ticket != 1)

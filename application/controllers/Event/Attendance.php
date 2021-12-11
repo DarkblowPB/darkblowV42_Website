@@ -24,6 +24,7 @@ Class Attendance extends CI_Controller
 		$this->main_protect->mainProtectA();
 
         $this->load->model('main/attendance_model', 'attendance');
+        $this->load->library('servercommand_library');
 
         if ($this->getsettings->Get2()->attendance != 1)
         {
@@ -39,41 +40,6 @@ Class Attendance extends CI_Controller
 
         $data['isi'] = 'main/content/event/content_attendance';
         $this->load->view('main/layout/wrapper', $data, FALSE);
-    }
-
-    function do_claim()
-    {
-        $response = array();
-
-        $this->form_validation->set_error_delimiters('', '');
-
-        $this->form_validation->set_rules(
-            'event_id',
-            'Event ID',
-            'required|numeric',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Must Be Numeric Characters.'
-            )
-        );
-        $this->form_validation->set_rules(
-            'date',
-            'Date',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
-        );
-        if ($this->form_validation->run())
-        {
-            $this->attendance->ClaimReward();
-        }
-        else
-        {
-            $response['response'] = 'false';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = validation_errors();
-
-            echo json_encode($response);
-        }
     }
 }
 

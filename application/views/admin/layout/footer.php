@@ -150,6 +150,11 @@
         'zeroRecords' : 'Nothing Found Here.'
       }
     });
+    $('#visit_table').dataTable({
+      'language': {
+        'zeroRecords' : 'Nothing Found Here.'
+      }
+    });
     $('#bannedvisitor_table').dataTable({
       'language': {
         'zeroRecords' : 'Nothing Found Here.'

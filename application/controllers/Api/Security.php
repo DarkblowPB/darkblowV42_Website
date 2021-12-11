@@ -5,32 +5,28 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Api extends CI_Controller
-{
+
+use chriskacerguis\RestServer\RestController;
+
+class Security extends RestController {
+
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
-        $this->lib->GetVisitorData('Api');
     }
 
-	function do_login()
-	{
-		$this->lib->AutomaticLoginQuery();
-	}
-
-	function getnewtoken()
-	{
-		$response = array();
+    function csrf_get()
+    {
+        $response = array();
 
 		if (empty($this->input->get('tokenkey', true)))
 		{
 			$response['response'] = 'true';
 			$response['token'] = '';
 
-			echo json_encode($response);
+			$this->response($response, 200);
 		}
 		else
 		{
@@ -45,8 +41,8 @@ Class Api extends CI_Controller
 				{
 					$response['response'] = 'true';
 					$response['token'] = '';
-	
-					echo json_encode($response);
+                    
+                    $this->response($response, 200);
 				}
 				else if ($query->is_valid == 1)
 				{
@@ -56,65 +52,34 @@ Class Api extends CI_Controller
 					{
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
-						
-						echo json_encode($response);
+                        
+                        $this->response($response, 200);
 					}
 					else
 					{
-						$response['token'] = 'true';
+						$response['response'] = 'true';
 						$response['token'] = '';
-	
-						echo json_encode($response);
+                        
+                        $this->response($response, 200);
 					}
 				}
 				else
 				{
 					$response['response'] = 'true';
 					$response['token'] = '';
-					
-					echo json_encode($response);
+                    
+                    $this->response($response, 200);
 				}
 			}
 			else
 			{
 				$response['response'] = 'false';
 				$response['token'] = '';
-
-				echo json_encode($response);
+                
+                $this->response($response, 200);
 			}
 		}
-	}
-
-	function getlaunchertoken()
-	{
-		if (empty($this->input->get('token')))
-		{
-			echo "Invalid Token";
-		}
-		else if (!empty($this->input->get('token')))
-		{
-			if ($this->input->get('token') == 'darkblowpbreborn_2021')
-			{
-				$query = $this->db->get('info_launcherkey')->row();
-				if ($query)
-				{
-					echo $query->key;
-				}
-				else
-				{
-					echo "Invalid Token";
-				}
-			}
-			else
-			{
-				echo "Invalid Token";
-			}
-		}
-		else
-		{
-			echo "adm adm";
-		}
-	}
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
