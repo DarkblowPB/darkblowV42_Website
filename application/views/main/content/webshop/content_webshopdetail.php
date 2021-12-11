@@ -18,7 +18,7 @@
 								<!-- START: Product Photos -->
 								<div class="nk-gallery">
 									<div class="nk-gallery-item-box">
-										<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $detail->webshop_itemimg ?>" alt="">
+										<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $detail->webshop_itemimg ?>" style="max-width: 1000px;" alt="">
 									</div>
 									<div class="nk-gap-1"></div>
 								</div>
@@ -104,7 +104,7 @@
 														ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
 														$.ajax({
-															url: '<?php echo base_url('api/getnewtoken') ?>',
+															url: '<?php echo base_url('api/security/csrf') ?>',
 															type: 'GET',
 															dataType: 'JSON',
 															data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
@@ -186,80 +186,91 @@
 					<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_153') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_136') ?></span></h3>
 					<div class="nk-gap"></div>
 					<div class="row vertical-gap">
-						<?php foreach ($related as $row) : ?>
-							<div class="col-md-6">
-								<div class="nk-product-cat">
-									<a class="nk-product-image" href="<?php echo base_url('webshop/details/'.$row['id']) ?>">
-										<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="<?php echo $row['webshop_itemname'] ?>">
-									</a>
-									<div class="nk-product-cont">
-										<h3 class="nk-product-title h5"><a href="<?php echo base_url('webshop/details/'.$row['id']) ?>"><?php echo $row['webshop_itemname'] ?></a></h3>
-										<div class="nk-gap-1"></div>
-										<div class="nk-product-rating" data-rating="<?php echo $row['webshop_itemrating'] ?>">
-											<?php
-											switch ($row['webshop_itemrating']) 
-											{
-												case '0.5':
-													{
-														echo '<i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+						<?php if ($related != null) : ?>
+							<?php foreach ($related as $row) : ?>
+								<div class="col-md-6">
+									<div class="nk-product-cat">
+										<a class="nk-product-image" href="<?php echo base_url('webshop/details/'.$row['id']) ?>">
+											<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="<?php echo $row['webshop_itemname'] ?>">
+										</a>
+										<div class="nk-product-cont">
+											<h3 class="nk-product-title h5"><a href="<?php echo base_url('webshop/details/'.$row['id']) ?>"><?php echo $row['webshop_itemname'] ?></a></h3>
+											<div class="nk-gap-1"></div>
+											<div class="nk-product-rating" data-rating="<?php echo $row['webshop_itemrating'] ?>">
+												<?php
+												switch ($row['webshop_itemrating']) 
+												{
+													case '0.5':
+														{
+															echo '<i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '1.0':
+														{
+															echo '<i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '1.5':
+														{
+															echo '<i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '2.0':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '2.5':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '3.0':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '3.5':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '4.0':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>';
+															break;
+														}
+													case '4.5':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i>';
+															break;
+														}
+													case '5.0':
+														{
+															echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
+															break;
+														}
+													default:
 														break;
-													}
-												case '1.0':
-													{
-														echo '<i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '1.5':
-													{
-														echo '<i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '2.0':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '2.5':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '3.0':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '3.5':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '4.0':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>';
-														break;
-													}
-												case '4.5':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fas fa-star-half"></i>';
-														break;
-													}
-												case '5.0':
-													{
-														echo '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
-														break;
-													}
-												default:
-													break;
-											}
-											?>
+												}
+												?>
+											</div>
+											<div class="nk-gap-1"></div>
+											<div class="nk-product-price">&#8373; <?php echo $row['webshop_itemprice_30days'] ?></div>
 										</div>
-										<div class="nk-gap-1"></div>
-										<div class="nk-product-price">&#8373; <?php echo $row['webshop_itemprice_30days'] ?></div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						<?php endif; ?>
+						<?php if ($related == null) : ?>
+							<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+								<div class="card bg-dark-2">
+									<div class="card-body text-center">
+										No Related Webshop Data Available
 									</div>
 								</div>
 							</div>
-						<?php endforeach; ?>
+						<?php endif; ?>
 					</div>
 					<!-- END: Related Products -->
 				</div>
@@ -353,7 +364,7 @@
 												ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 												
 												$.ajax({
-													url: '<?php echo base_url('api/getnewtoken') ?>',
+													url: '<?php echo base_url('api/security/csrf') ?>',
 													type: 'GET',
 													dataType: 'JSON',
 													data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},

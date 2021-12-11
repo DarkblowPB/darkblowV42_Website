@@ -10,52 +10,20 @@
                     </div>
                     <div class="nk-feature-cont text-center">
                         <h3 class="nk-feature-title">
-							<?php
-							$get = $this->db->get_where('shop', array('item_id' => $details->item_id));
-							$result = $get->row();
-							if ($result)
-							{
-								echo $result->item_name;
-							}
-							else 
-							{
-								echo "Null";
-							}
-							?>
+							<?php echo $this->lib->GetItemName($details->item_id) ?>
                         </h3>
                         <div class="nk-gap"></div>
                         <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 							<tbody>
 								<tr>
 									<td><?php echo $this->lang->line('STR_DARKBLOW_66') ?></td>
-									<td><?php echo $this->inventory->GetItemRealName($details->item_id); ?></td>
+									<td><?php echo $this->lib->GetItemName($details->item_id) ?></td>
 								</tr>
 								<tr>
 									<td><?php echo $this->lang->line('STR_DARKBLOW_67') ?></td>
 									<td>
 										<?php
-										$count = $details->count / 24 / 60 / 60;
-										if ($details->count == 1) 
-										{
-											echo "".$details->count." Unit";	
-										}
-										else if ($details->count <= 86399) 
-										{
-											echo "".$details->count." Units";
-										}
-										else if ($details->count == 86400)
-										{
-											echo "".$count." Day";
-										}
-										else if ($details->count <= 999993600)
-										{
-											echo "".$count." Days";
-										}
-										else 
-										{
-											echo "NULL";
-										}
-										
+										echo $this->lib->GetItemDuration($this->lib->GetBuyType($details->item_id), $details->count, $details->equip);
 										?>
 									</td>
 								</tr>
@@ -63,7 +31,7 @@
 									<td><?php echo $this->lang->line('STR_DARKBLOW_68') ?></td>
 									<td>
 										<?php
-										switch ($this->inventory->GetItemCategory($details->item_id)) 
+										switch ($this->lib->GetItemCategory($details->item_id)) 
 										{
 											case '1':
 												{
@@ -103,12 +71,12 @@
 												}
 											case '2':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">USED</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">IN USE</button>';
 													break;
 												}
 											case '3':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">Permanent</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">PERMANENT</button>';
 													break;
 												}
 											

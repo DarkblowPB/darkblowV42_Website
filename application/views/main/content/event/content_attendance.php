@@ -86,7 +86,7 @@
             <script>
                 var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash(); ?>';
                 var RETRY = 0;
-                function ClaimReward(event_id, date)
+                function ClaimReward(event_id, date, item_id)
                 {
                     if (event_id == '' || event_id == null){
                         ShowToast(2000, 'warning', 'Invalid Attendance Event.');
@@ -100,19 +100,23 @@
                         SetAttribute('claim_today', 'button', 'Processing...');
 
                         $.ajax({
-                            url: '<?php echo base_url('event/attendance/do_claim') ?>',
+                            url: '<?php echo base_url('api/servercommand/attendance') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
                                 '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                'event_id' : event_id,
-                                'date' : date
+                                'opcode' : '<?php echo $this->servercommand_library->GenerateOpcode("Attendance") ?>',
+                                'secret_token' : '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys' : '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                'command_type' : 'Attendance',
+                                'event_id' : event_id
                             },
+                            timeout: 0,
                             success: function(data){
                                 var GetString = JSON.stringify(data);
                                 var Result = JSON.parse(GetString);
 
-                                if (Result.response == 'true'){
+                                if (Result.status == 'success'){
                                     SetAttribute('claim_today', 'button', 'Claim Today');
                                     ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
@@ -120,7 +124,7 @@
                                         document.getElementById('<?php echo $this->attendance->GetTodayEventID() ?>').setAttribute('class', 'calendar__day claimed');
                                     }, 2000);
                                 }
-                                else if (Result.response == 'false'){
+                                else if (Result.status == 'error'){
                                     SetAttribute('claim_today', 'button', 'Claim Today');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
@@ -148,7 +152,7 @@
                                     ShowToast(1000, 'info', 'Generate New Request Token...');
     
                                     $.ajax({
-                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                        url: '<?php echo base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},

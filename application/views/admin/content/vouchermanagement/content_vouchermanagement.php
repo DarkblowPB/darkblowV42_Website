@@ -125,7 +125,7 @@
                                                     ShowToast(2000, 'info', 'Generate New Request Token...');
 
                                                     $.ajax({
-                                                        url: '<?php echo base_url('api/getnewtoken') ?>',
+                                                        url: '<?php echo base_url('api/security/csrf') ?>',
                                                         type: 'GET',
                                                         dataType: 'JSON',
                                                         data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},

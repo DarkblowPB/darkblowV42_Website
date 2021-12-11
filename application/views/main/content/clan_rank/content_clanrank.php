@@ -29,7 +29,7 @@
 								echo $totalMember.' / '.$totalCapacity;
 								?>
 							</td>
-							<td><?php echo $row['clan_exp'] ?></td>
+							<td><?php echo number_format($row['clan_exp'], 0, ',', '.') ?></td>
 						</tr>
 						<?php
 					endforeach;

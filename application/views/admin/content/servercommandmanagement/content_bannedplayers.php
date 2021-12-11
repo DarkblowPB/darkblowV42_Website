@@ -1,90 +1,76 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="bannedvisitor_table" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
-                        <thead class="bg-primary">
-                            <th>IP ADDRESS</th>
-                        </thead>
-                        <tbody>
-                            <?php foreach($ip as $row) : ?>
-                                <tr>
-                                    <td><?php echo $row['ip_address'] ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-body">
-                    <?php echo form_open('', 'id="add_form" autocomplete="off"') ?>
+                    <?php echo form_open('', 'id="bannedplayers_form" autocomplete="off"') ?>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">IP ADDRESS</label>
-                            <input type="text" id="ip_address" class="form-control col-9" placeholder="Enter IP Address">
+                            <label class="col-form-label col-3">Players</label>
+                            <select id="player_id" class="form-control col-9 reward_selection">
+                                <option value="" disabled selected>Select Players</option>
+                                <?php foreach ($players as $row) : ?>
+                                    <option value="<?php echo $row['player_id'] ?>">Player ID: <?php echo $row['player_id'] ?> | Nick: <?php echo $row['player_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
-                        <div class="form-group text-center">
-                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
+                        <div class="form-group text-right">
+                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Command">
                         </div>
                     <?php echo form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
+
                         $(document).ready(function(){
-                            $('#add_form').on('submit', function(e){
+                            $('#bannedplayers_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                return Do_Add();
+                                return BannedPlayers();
                             });
                         });
 
-                        function Do_Add(){
-                            if ($('#ip_address').val() == '' || $('#ip_address').val() == null){
-                                ShowToast(2000, 'warning', 'IP ADDRESS Cannot Be Empty.');
+                        function BannedPlayers()
+                        {
+                            if ($('#player_id').val() == '' || $('#player_id').val() == null){
+                                ShowToast(2000, 'warning', 'Please Select Players First.');
                                 return;
                             }
                             else{
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/bannedvisitor/do_add') ?>',
+                                    url: '<?php echo base_url('api/servercommand/bannedplayer') ?>',
                                     type: 'POST',
+                                    timeout: 0,
                                     dataType: 'JSON',
-                                    data:{
+                                    data: {
                                         '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'ip_address' : $('#ip_address').val()
+                                        'opcode' : '<?php echo $this->servercommand_library->GenerateOpcode("Banned Player") ?>',
+                                        'secret_token' : '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
+                                        'secret_keys' : '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                        'command_type' : 'Banned Player',
+                                        'player_id' : $('#player_id').val()
                                     },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
-
-                                        if (Result.response == 'true'){
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
-                                        }
-                                        else{
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
+                                        
+                                        SetAttribute('submit', 'submit', 'Submit Command');
+                                        ShowToast(2000, Result.status, Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
                                     },
                                     error: function(){
                                         if (RETRY >= 3){
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', 'Failed To Add Item.');
+                                            SetAttribute('submit', 'button', 'Submit Command');
+                                            ShowToast(2000, 'error', 'Failed To Banned Player.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
                                         }
                                         else{
+                                            RETRY += 1;
+                                            ShowToast(1000, 'info', 'Generate New Request Token...');
                                             $.ajax({
                                                 url: '<?php echo base_url('api/security/csrf') ?>',
                                                 type: 'GET',
@@ -93,15 +79,16 @@
                                                 success: function(data){
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
-            
+
                                                     if (Result.response == 'true'){
                                                         CSRF_TOKEN = Result.token;
                                                     }
-                                                    return Do_Add();
+
+                                                    return BannedPlayers();
                                                 },
                                                 error: function(){
-                                                    SetAttribute('submit', 'submit', 'Submit');
-                                                    ShowToast(2000, 'error', 'Failed To Submit IP ADDRESS.');
+                                                    SetAttribute('submit', 'button', 'Submit Command');
+                                                    ShowToast(2000, 'error', 'Failed To Banned Player.');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);

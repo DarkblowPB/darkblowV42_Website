@@ -3,81 +3,74 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="clientlauncher_upload_form" autocomplete="off"') ?>
+                    <?php echo form_open('', 'id="sendcommand_form" autocomplete="off"') ?>
                         <div class="form-group row">
-                            <label class="col-form-label col-3">File</label>
-                            <input type="file" name="file" id="file" class="form-control-file col-9">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">&nbsp;</label>
-                            <label id="progressbar" class="col-9"></label>
+                            <label class="col-form-label col-3">Enter Your Message</label>
+                            <textarea id="message" rows="15" class="form-control col-9"></textarea>
                         </div>
                         <div class="form-group text-right">
-                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Upload Files">
+                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Command">
                         </div>
                     <?php echo form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash(); ?>';
                         var RETRY = 0;
+
                         $(document).ready(function(){
-                            $('#clientlauncher_upload_form').on('submit', function(e){
+                            $('#sendcommand_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                return Do_Upload();
+                                return SendCommand();
                             });
                         });
 
-                        function Do_Upload()
+                        function SendCommand()
                         {
-                            if ($('#file').val() == ''){
-                                ShowToast(2000, 'warning', 'Files Cannot Be Empty.');
+                            if ($('#message').val() == '' || $('#message').val() == null){
+                                ShowToast(2000, 'warning', 'Message Cannot Be Empty.');
                                 return;
                             }
                             else{
-
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/clientlaunchermanagement/do_upload_directurl') ?>',
+                                    url: '<?php echo base_url('api/servercommand/sendannouncement') ?>',
                                     type: 'POST',
-                                    dataType: 'JSON',
                                     timeout: 0,
-                                    data: new FormData(this),
-                                    processData:false,
-                                    contentType:false,
-                                    cache:false,
-                                    async:false,
+                                    dataType: 'JSON',
+                                    data: {
+                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+                                        'opcode' : '<?php echo $this->servercommand_library->GenerateOpcode("Send Announcement") ?>',
+                                        'secret_token' : '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
+                                        'secret_keys' : '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                        'command_type' : 'Send Announcement',
+                                        'message' : $('#message').val()
+                                    },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
                                         
-                                        if (Result.response == 'false'){
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
-                                        else{
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        }
+                                        SetAttribute('submit', 'submit', 'Submit Command');
+                                        ShowToast(2000, Result.status, Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
                                     },
                                     error: function(){
                                         if (RETRY >= 3){
-                                            SetAttribute('submit', 'submit', 'Upload Files');
-                                            ShowToast(2000, 'error', 'Failed To Upload File.');
+                                            SetAttribute('submit', 'button', 'Submit Command');
+                                            ShowToast(2000, 'error', 'Failed To Send Announcement.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
                                         }
                                         else{
+                                            RETRY += 1;
+                                            ShowToast(1000, 'info', 'Generate New Request Token...');
                                             $.ajax({
                                                 url: '<?php echo base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
-                                                data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'
-                                                },
+                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
                                                 success: function(data){
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
@@ -86,11 +79,11 @@
                                                         CSRF_TOKEN = Result.token;
                                                     }
 
-                                                    return Do_Upload();
+                                                    return SendCommand();
                                                 },
                                                 error: function(){
-                                                    SetAttribute('submit', 'submit', 'Upload Files');
-                                                    ShowToast(2000, 'error', 'Failed To Upload File.');
+                                                    SetAttribute('submit', 'button', 'Submit Command');
+                                                    ShowToast(2000, 'error', 'Failed To Send Announcement.');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);

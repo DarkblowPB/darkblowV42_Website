@@ -87,8 +87,7 @@
                                 <div class="nk-feature-cont text-center">
                                     <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                     <p>Size : <?php echo $row['size'] ?><br></p>
-                                        <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
-                                    <!-- <a href="https://<?php echo $row['file_url'] ?>" target="_blank" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; <?php echo $this->lang->line('STR_DARKBLOW_10') ?></a> -->
+                                    <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
                                 </div>
                             </div>
                         </div>

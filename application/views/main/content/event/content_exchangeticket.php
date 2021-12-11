@@ -13,17 +13,20 @@
             </div>
         </div>
         <div class="nk-gap-2"></div>
-        <div class="row vertical-gap justify-content-center">
+        <hr class="bg-dark-4">
+        <div class="row vertical-gap">
             <?php $num = 1; foreach ($item_list as $row) : ?>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12 text-white">
                     <div class="nk-feature-2">
                         <div class="nk-feature-icon">
-                            <img src="" style="max-width: 100px;" alt="">
+                            <img src="<?php echo base_url() ?>assets/goodgames/asset/images/img_webshop/<?php echo $row['item_img'] ?>" style="max-width: 100px;" alt="">
                         </div>
                         <div class="nk-feature-cont text-center">
                             <h3 class="nk-feature-title text-main-1"><?php echo $row['item_name'] ?></h3>
                             <p><?php echo $this->lang->line('STR_DARKBLOW_61') ?> <?php echo $row['item_price'] ?> <?php echo $this->lang->line('STR_DARKBLOW_59') ?>s</p>
-                            <p style="margin-top: -20px"><?php echo $this->lang->line('STR_DARKBLOW_62') ?> <?php if ($row['item_count'] >= 86400){echo ($row['item_count'] / 24 / 60 / 60)." Days";}else {echo "Permanent";} ?></p>
+                            <p style="margin-top: -20px">
+                                <?php echo $this->lang->line('STR_DARKBLOW_62') ?> <?php echo $this->lib->GetItemDuration($this->lib->GetBuyType($row['item_id']), $row['item_count'], 1); ?>
+                            </p>
                             <p style="margin-top: -20px"><?php echo $this->lang->line('STR_DARKBLOW_63') ?> <?php if ($row['stock'] > 0){echo $row['stock']." Qty";}else{echo "Out Of Stock";} ?></p>
                             
                             <input type="button" id="submit_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" onclick="Exchange('submit_<?php echo $num ?>', '<?php echo $row['id'] ?>')" value="Exchange">
@@ -76,13 +79,16 @@
                         },
                         error: function(){
                             if (RETRY >= 3){
-                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
+                                ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
                                 return;
                             }
                             else{
                                 RETRY+= 1;
                                 $.ajax({
-                                    url: '<?php echo base_url('api/getnewtoken') ?>',
+                                    url: '<?php echo base_url('api/security/csrf') ?>',
                                     type: 'GET',
                                     dataType: 'JSON',
                                     data:{},
@@ -94,7 +100,7 @@
                                             CSRF_TOKEN = Result.token;
                                         }
 
-                                        Exchange(button_id, item_id);
+                                        return Exchange(button_id, item_id);
                                     },
                                     error: function(){
                                         ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_7') ?>');

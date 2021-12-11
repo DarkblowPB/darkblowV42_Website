@@ -13,7 +13,7 @@
             <div class="info-box bg-secondary">
                 <span class="info-box-icon"><i class="fas fa-user-check"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Players</span>
+                    <span class="info-box-text">Online Players</span>
                     <span class="info-box-number"><?php echo $onlineplayers ?></span>
                 </div>
             </div>

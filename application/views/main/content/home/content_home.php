@@ -1,7 +1,6 @@
 <div class="nk-main">
     <div class="nk-gap-2"></div>
     <div class="container">
-        <!-- START: Image Slider -->
         <div class="nk-image-slider" data-autoplay="8000">
             <?php foreach ($quickslide as $row) : ?>
             <div class="nk-image-slider-item">
@@ -13,12 +12,11 @@
             </div>
             <?php endforeach; ?>
         </div>
-        <!-- END: Image Slider -->
-        <!-- START: Categories -->
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-4">
-                <div class="nk-feature-2">
+                <div id="registered_players_card" class="nk-feature-2 ld-over-inverse running">
+                    <div class="ld ld-ring ld-spin"></div>
                     <div class="nk-feature-icon">
                         <div id="registered_players" class=""></div>
                     </div>
@@ -28,7 +26,8 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="nk-feature-2">
+                <div id="server_status_card" class="nk-feature-2 ld-over-inverse running">
+                    <div class="ld ld-ring ld-spin"></div>
                     <div class="nk-feature-icon">
                         <div id="server_status" class=""></div>
                     </div>
@@ -38,7 +37,8 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="nk-feature-2">
+                <div id="online_players_card" class="nk-feature-2 ld-over-inverse running">
+                    <div class="ld ld-ring ld-spin"></div>
                     <div class="nk-feature-icon">
                         <div id="online_players" class=""></div>
                     </div>
@@ -49,9 +49,6 @@
             </div>
         </div>
         <div class="nk-gap-2"></div>
-        <!-- END: Categories -->
-
-        <!-- START: Latest News -->
         <div class="nk-gap-2"></div>
         <div class="row veritcal-gap">
             <div class="col-lg-12 col-12">
@@ -94,6 +91,7 @@
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
                     <div class="col-lg-6 col-12">
+                        
                         <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
                             <thead style="font-style: italic;">
                                 <th width="10%"><?php echo $this->lang->line('STR_DARKBLOW_3') ?></th>
@@ -199,12 +197,6 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="nk-gap-3"></div>
-                <div class="container">
-                    <div class="row vertical-gap justify-content-center">
-                        <a href="javascript:void(0)" onclick="return alert('<?php echo $this->lang->line('STR_INFO_2') ?>')" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-main-5"><?php echo $this->lang->line('STR_DARKBLOW_175') ?></a>
-                    </div>
-                </div>
             <?php endif; ?>
         <?php endif; ?>
         <div class="nk-gap-2"></div>
@@ -237,33 +229,39 @@
                         if (Result.message == 'OFFLINE'){
                             Q.setAttribute('class', 'h2 mb-0 text-main-1');
                             $('#server_status').html(Result.message);
+                            document.getElementById('server_status_card').classList.remove('running');
                             RefreshFetch();
                         }
                         else if (Result.message == 'ONLINE'){
                             Q.setAttribute('class', 'h2 mb-0 text-main-3');
                             $('#server_status').html(Result.message);
+                            document.getElementById('server_status_card').classList.remove('running');
                             RefreshFetch();
                         }
                         else{
                             Q.setAttribute('class', 'h2 mb-0 text-main-1');
                             $('#server_status').html(Result.message);
+                            document.getElementById('server_status_card').classList.remove('running');
                             RefreshFetch();
                         }
                     }
                     else if (Result.response == 'false'){
                         Q.setAttribute('class', 'h2 mb-0 text-main-1');
                         $('#server_status').html(Result.message);
+                        document.getElementById('server_status_card').classList.remove('running');
                         RefreshFetch();
                     }
                     else{
                         Q.setAttribute('class', 'h2 mb-0 text-main-1');
                         $('#server_status').html('OFFLINE');
+                        document.getElementById('server_status_card').classList.remove('running');
                         RefreshFetch();
                     }
                 },
                 error: function(){
                     Q.setAttribute('class', 'h2 mb-0 text-main-1');
                     SetText('OFFLINE');
+                    document.getElementById('server_status_card').classList.remove('running');
                     RefreshFetch();
                 }
             });
@@ -283,9 +281,11 @@
                 
                 QQ.setAttribute('class', 'nk-count h2 mb-0');
                 $('#online_players').html(Result.response);
+                document.getElementById('online_players_card').classList.remove('running');
             },
             error: function(){
                 QQ.setAttribute('class', 'nk-count h2 mb-0');
+                document.getElementById('online_players_card').classList.remove('running');
                 $('#online_players').html('0');
             }
         });
@@ -304,10 +304,12 @@
                 
                 QQQ.setAttribute('class', 'nk-count h2 mb-0');
                 $('#registered_players').html(Result.response);
+                document.getElementById('registered_players_card').classList.remove('running');
             },
             error: function(){
                 QQQ.setAttribute('class', 'nk-count h2 mb-0');
                 $('#registered_players').html('0');
+                document.getElementById('registered_players_card').classList.remove('running');
             }
         });
     }
@@ -320,8 +322,9 @@
             GetRegisteredPlayers();
         }, 5000);
     }
-
-    GetCondition();
-    GetOnlinePlayers();
-    GetRegisteredPlayers();
+    setTimeout(() => {
+        GetCondition();
+        GetOnlinePlayers();
+        GetRegisteredPlayers();
+    }, 3000);
 </script>

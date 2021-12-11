@@ -36,29 +36,25 @@
 							SetAttribute('submit', 'button', 'Processing...');
 
 							$.ajax({
-								url: '<?php echo base_url('player_panel/redeemcode/do_redeem') ?>',
+								url: '<?php echo base_url('api/servercommand/redeemcode') ?>',
 								type: 'POST',
 								dataType: 'JSON',
 								data: {
 									'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
+									'opcode' : '<?php echo $this->servercommand_library->GenerateOpcode("Redeem Code") ?>',
+									'secret_token' : '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
+									'secret_keys' : '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+									'command_type' : 'Redeem Code',
 									'code' : $('#code').val()
 								},
 								success: function(data){
 									var GetString = JSON.stringify(data);
 									var Result = JSON.parse(GetString);
 
-									if (Result.response == 'true'){
-										SetAttribute('submit', 'submit', 'Submit Code');
-										ShowToast(2000, 'success', Result.message);
-										CSRF_TOKEN = Result.token;
-										return;
-									}
-									else{
-										SetAttribute('submit', 'submit', 'Submit Code');
-										ShowToast(2000, 'error', Result.message);
-										CSRF_TOKEN = Result.token;
-										return;
-									}
+									SetAttribute('submit', 'submit', 'Submit Code');
+									ShowToast(2000, Result.status, Result.message);
+									CSRF_TOKEN = Result.token;
+									return;
 								},
 								error: function(){
 									if (RETRY >= 3){
@@ -72,7 +68,7 @@
 										ShowToast(2000, 'info', 'Generate New Request Token...');
 
 										$.ajax({
-                                            url: '<?php echo base_url('api/getnewtoken') ?>',
+                                            url: '<?php echo base_url('api/security/csrf') ?>',
                                             type: 'GET',
                                             dataType : 'JSON',
                                             data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},

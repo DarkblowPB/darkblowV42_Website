@@ -212,6 +212,7 @@
 
                                                        function RequestHint()
                                                        {
+                                                            SetAttribute('request_hint', 'button', 'Processing...');
                                                             $.ajax({
                                                                  url : '<?php echo base_url('player_panel/home/do_requesthint') ?>',
                                                                  type: 'GET',
@@ -223,14 +224,17 @@
 
                                                                       if (Result.response == 'true'){
                                                                            ShowToast(3000, 'info', Result.message);
+                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
                                                                            return;
                                                                       }
                                                                       else if (Result.response == 'false'){
                                                                            ShowToast(3000, 'error', Result.message);
+                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
                                                                            return;
                                                                       }
                                                                       else{
                                                                            ShowToast(2000, 'error', Result.message);
+                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
                                                                            return;
                                                                       }
                                                                  },
