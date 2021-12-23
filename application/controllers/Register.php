@@ -13,6 +13,8 @@ class Register extends CI_Controller
 	{
 		parent::__construct();
 
+		$this->load->helper('file');
+
         $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Register');
 
@@ -155,13 +157,18 @@ class Register extends CI_Controller
 	{
 		include_once APPPATH . "../vendor/autoload.php";
 		$google_client = new Google_Client();
-		
-		// Enter Your Client ID
-		$google_client->setClientId('697915084656-eotr2kqefqv1iith2282lmr1oknfaqkd.apps.googleusercontent.com');
-		
-		// Enter Your Client Secret Code
-		$google_client->setClientSecret('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');
 
+		$g_config = read_file('./google_registration.json');
+		$g_decode = json_decode($g_config);
+		
+		foreach ($g_decode as $row)
+		{
+			// Enter Your Client ID
+			$google_client->setClientId($row->ClientID);
+			
+			// Enter Your Client Secret Code
+			$google_client->setClientSecret($row->ClientSecret);
+		}
 		
 		$google_client->setRedirectUri(base_url('register/g_register'));
 		$google_client->addScope('email');
