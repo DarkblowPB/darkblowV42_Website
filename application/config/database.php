@@ -87,14 +87,17 @@ $custom_var = @file_get_contents('./project_version.txt');
 			}
 		
 		default:
-			break;
+			{
+				$active_group = '1.15.42.30';
+				break;
+			}
 	}
 }
 $query_builder = TRUE;
 
 $db['1.15.42.30'] = array(
 
-	// This Is 1.15.42.30 Database Configuration.
+	// This Is Project Version 1.15.42.30 Database Configuration.
 	/**
 	 * Note:
 	 * 

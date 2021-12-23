@@ -288,7 +288,24 @@ $config['rest_ip_blacklist'] = '';
 | if you have any of these features enabled
 |
 */
-$config['rest_database_group'] = 'default';
+$custom_var = @file_get_contents('./project_version.txt');
+switch ($custom_var) 
+{
+  case '1.15.42.30':
+    {
+      $config['rest_database_group'] = '1.15.42.30';
+      break;
+    }
+    
+  case '3.24.1801.1':
+    {
+      $config['rest_database_group'] = '3.24.1801.1';
+      break;
+    }
+  
+  default:
+    break;
+}
 
 /*
 |--------------------------------------------------------------------------
