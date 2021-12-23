@@ -70,12 +70,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$custom_var = @file_get_contents('./project_version.txt');
+{
+	switch ($custom_var) 
+	{
+		case '1.15.42.30':
+			{
+				$active_group = '1.15.42.30';
+				break;
+			}
+			
+		case '3.24.1801.1':
+			{
+				$active_group = '3.24.1801.1';
+				break;
+			}
+		
+		default:
+			break;
+	}
+}
 $query_builder = TRUE;
 
-$db['default'] = array(
+$db['1.15.42.30'] = array(
 
-	// This Is Default Database Configuration.
+	// This Is 1.15.42.30 Database Configuration.
 	/**
 	 * Note:
 	 * 
@@ -86,6 +105,60 @@ $db['default'] = array(
 	 * @param dbname Example => darkblowproject
 	 */
 	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject',
+
+	// Do Not Change This Line
+	'hostname' => 'localhost',
+	// Do Not Change This Line
+	'username' => '',
+	// Do Not Change This Line
+	'password' => '',
+	// Do Not Change This Line
+	'database' => '',
+	// Do Not Change This Line
+	'dbdriver' => 'postgre',
+	// Do Not Change This Line
+	'dbprefix' => '',
+	// Do Not Change This Line
+	'pconnect' => FALSE,
+	// Do Not Change This Line
+	'db_debug' => FALSE,
+	// Do Not Change This Line
+	'cache_on' => FALSE,
+	// Do Not Change This Line
+	'cachedir' => '',
+	// Do Not Change This Line
+	'char_set' => 'utf8',
+	// Do Not Change This Line
+	'dbcollat' => 'utf8_general_ci',
+	// Do Not Change This Line
+	'swap_pre' => '',
+	// Do Not Change This Line
+	'encrypt' => FALSE,
+	// Do Not Change This Line
+	'compress' => FALSE,
+	// Do Not Change This Line
+	'stricton' => FALSE,
+	// Do Not Change This Line
+	'failover' => array(),
+	// Do Not Change This Line
+	'save_queries' => TRUE,
+	// Do Not Change This Line
+	'port' => 5432
+);
+
+$db['3.24.1801.1'] = array(
+
+	// This Is Project Version 3.24.1801.1 Database Configuration.
+	/**
+	 * Note:
+	 * 
+	 * @param host Must Be Ip Address. example => 127.0.0.1
+	 * @param port Must Be Int. example => 5432.
+	 * @param user Example => postgres.
+	 * @param password Example => 123456.
+	 * @param dbname Example => darkblowproject
+	 */
+	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject_evo',
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
