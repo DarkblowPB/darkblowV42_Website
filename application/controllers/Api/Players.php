@@ -14,6 +14,7 @@ class Players extends RestController {
     function __construct()
     {
         parent::__construct();
+        $this->load->library('lib');
     }
 
     function index_get()
@@ -87,6 +88,21 @@ class Players extends RestController {
             }
         }
 
+    }
+
+    function gettoken_post()
+    {
+        $response = array();
+        
+        if (empty($this->input->post('login', true)) && empty($this->input->post('password'))) $this->response(["token" => '0'], 404);
+        else
+        {
+            $query = $this->db->get_where('accounts', array(
+                'login' => $this->input->post('login', true),
+                'password' => $this->lib->password_encrypt($this->input->post('password', true))
+            ))->row();
+            if ($query) $this->response(["token" => $query->token], 200);
+        }
     }
 }
 

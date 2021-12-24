@@ -70,9 +70,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$custom_var = @file_get_contents('./project_version.txt');
+$database_version = @file_get_contents('./darkblow_config.json');
+$database_parse = json_decode($database_version);
+
+foreach ($database_parse as $row)
 {
-	switch ($custom_var) 
+	switch ($row->ProjectVersion->Version)
 	{
 		case '1.15.42.30':
 			{
@@ -93,6 +96,7 @@ $custom_var = @file_get_contents('./project_version.txt');
 			}
 	}
 }
+
 $query_builder = TRUE;
 
 $db['1.15.42.30'] = array(

@@ -133,7 +133,7 @@ class Register extends CI_Controller
 		);
 		if ($this->form_validation->run())
 		{
-			if (isset($_SESSION['g_email']))
+			if (!empty($this->session->userdata('g_email')))
 			{
 				$this->register->GoogleRegisterValidation();
 			}
@@ -158,16 +158,16 @@ class Register extends CI_Controller
 		include_once APPPATH . "../vendor/autoload.php";
 		$google_client = new Google_Client();
 
-		$g_config = read_file('./google_registration.json');
+		$g_config = read_file('./darkblow_config.json');
 		$g_decode = json_decode($g_config);
 		
 		foreach ($g_decode as $row)
 		{
 			// Enter Your Client ID
-			$google_client->setClientId($row->ClientID);
+			$google_client->setClientId($row->GoogleConfig->ClientID);
 			
 			// Enter Your Client Secret Code
-			$google_client->setClientSecret($row->ClientSecret);
+			$google_client->setClientSecret($row->GoogleConfig->ClientSecret);
 		}
 		
 		$google_client->setRedirectUri(base_url('register/g_register'));

@@ -1,0 +1,15 @@
+[
+  {
+    "GoogleConfig": {
+      "ClientID": "",
+      "ClientSecret": ""
+    },
+    "ProjectVersion": {
+      "Version": "1.15.42.30"
+    },
+    "SMTPConfig": {
+      "Email": "",
+      "Password": ""
+    }
+  }
+]

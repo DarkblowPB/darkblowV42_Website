@@ -12,8 +12,8 @@ class Register_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 		$this->load->library('lib');
+		$this->load->library('email');
 	}
 
 	function CheckRegisteredAccount($email)
@@ -46,22 +46,26 @@ class Register_model extends CI_Model
 
 	function SendEmailVerification($email, $username, $token)
 	{
-		$config = array(
-			'mailtype'  => 'html',
-			'charset'   => 'utf-8',
-			'protocol'  => 'smtp',
-			'smtp_host' => 'smtp.gmail.com', // Your SMTP Host
-			'smtp_user' => '',  // Your Email
-			'smtp_pass'   => '',  // Your Password
-			'smtp_crypto' => 'ssl',
-			'smtp_port'   => 465,
-			'crlf'    => "\r\n",
-			'newline' => "\r\n"
-		);
-
-		$this->load->library('email');
-
+		$SmtpConfig = @file_get_contents('./darkblow_config.json');
+		$SmtpParse = json_decode($SmtpConfig);
+		
+		foreach ($SmtpParse as $row)
+		{
+			$config = array(
+				'mailtype'  => 'html',
+				'charset'   => 'utf-8',
+				'protocol'  => 'smtp',
+				'smtp_host' => 'smtp.gmail.com', // Your SMTP Host
+				'smtp_user' => $row->SmtpConfig->Email,  // Your Email
+				'smtp_pass'   => $row->SmtpConfig->Password,  // Your Password
+				'smtp_crypto' => 'ssl',
+				'smtp_port'   => 465,
+				'crlf'    => "\r\n",
+				'newline' => "\r\n"
+			);
+		}
 		$this->email->initialize($config);
+
 		$this->email->from('no-reply@yourdomain.com', 'DarkblowPB Reborn');
 		$this->email->to($email);
 		$this->email->subject('Email Verification');

@@ -288,23 +288,27 @@ $config['rest_ip_blacklist'] = '';
 | if you have any of these features enabled
 |
 */
-$custom_var = @file_get_contents('./project_version.txt');
-switch ($custom_var) 
+$database_version = @file_get_contents('./darkblow_config.json');
+$database_parse = json_decode($database_version);
+foreach ($database_parse as $row)
 {
-  case '1.15.42.30':
-    {
-      $config['rest_database_group'] = '1.15.42.30';
-      break;
-    }
+  switch ($row->ProjectVersion->Version)
+  {
+    case '1.15.42.30':
+      {
+        $config['rest_database_group'] = '1.15.42.30';
+        break;
+      }
+      
+    case '3.24.1801.1':
+      {
+        $config['rest_database_group'] = '3.24.1801.1';
+        break;
+      }
     
-  case '3.24.1801.1':
-    {
-      $config['rest_database_group'] = '3.24.1801.1';
+    default:
       break;
-    }
-  
-  default:
-    break;
+  }
 }
 
 /*
