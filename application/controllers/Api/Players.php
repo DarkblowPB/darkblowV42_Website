@@ -90,19 +90,19 @@ class Players extends RestController {
 
     }
 
-    function gettoken_post()
+    function getip_get()
     {
-        $response = array();
-        
-        if (empty($this->input->post('login', true)) && empty($this->input->post('password'))) $this->response(["token" => '0'], 404);
-        else
-        {
-            $query = $this->db->get_where('accounts', array(
-                'login' => $this->input->post('login', true),
-                'password' => $this->lib->password_encrypt($this->input->post('password', true))
-            ))->row();
-            if ($query) $this->response(["token" => $query->token], 200);
-        }
+        // if (!empty($this->input->get('token', true)))
+        // {
+        //     if ($this->input->get('token', true) == 'darkblowpbreborn_2021')
+        //     {
+        //         $this->db->insert('launcher_loghistory', array(
+        //             'ip_address' => $this->input->ip_address(),
+        //             'date_created' => date('d-m-Y H:i:s')
+        //         ));
+        //     }
+        // }
+        $this->response(["status" => 'Success', "ip_address" => $this->input->ip_address()], 200);
     }
 }
 
