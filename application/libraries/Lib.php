@@ -14,8 +14,65 @@ class Lib
     public function __construct()
     {
         $this->ci =& get_instance();
-		$this->ci->load->database();
+		$this->ci->load->helper('file');
     }
+
+	public function EncryptDecryptConfig()
+	{
+		$encrypt_config = read_file('./darkblow_config.json');
+		$encrypt_decode = json_decode($encrypt_config);
+
+		foreach ($encrypt_decode as $row)
+		{
+			$config = array(
+				'ciphering' => $row->EncryptionConfig->ciphering,
+				'options' => $row->EncryptionConfig->options,
+				'encryption_iv' => $row->EncryptionConfig->encryption_iv,
+				'encryption_key' => $row->EncryptionConfig->encryption_key
+			);
+		}
+
+		return $config;
+	}
+
+	public function Encrypt($param)
+	{
+        // Store the cipher method
+        $ciphering = $this->EncryptDecryptConfig()['ciphering'];
+        
+        // Use OpenSSl Encryption method
+        $options = $this->EncryptDecryptConfig()['options'];
+        
+        // Non-NULL Initialization Vector for encryption
+        $encryption_iv = $this->EncryptDecryptConfig()['encryption_iv'];
+        
+        // Store the encryption key
+        $encryption_key = $this->EncryptDecryptConfig()['encryption_key'];
+        
+        // Use openssl_encrypt() function to encrypt the data
+        $encryption = openssl_encrypt($param, $ciphering, $encryption_key, $options, $encryption_iv);
+		return $encryption;
+	}
+
+	public function Decrypt($param)
+	{
+		// Store the cipher method
+        $ciphering = $this->EncryptDecryptConfig()['ciphering'];
+        
+        // Use OpenSSl Encryption method
+        $options = $this->EncryptDecryptConfig()['options'];
+        
+        // Non-NULL Initialization Vector for decryption
+        $decryption_iv = $this->EncryptDecryptConfig()['encryption_iv'];
+        
+        // Store the decryption key
+        $decryption_key = $this->EncryptDecryptConfig()['encryption_key'];
+        
+        // Use openssl_decrypt() function to decrypt the data
+        $decryption=openssl_decrypt ($param, $ciphering, $decryption_key, $options, $decryption_iv);
+		
+		return $decryption;
+	}
 
 	public function GetItemName($item_id)
 	{
@@ -416,17 +473,23 @@ class Lib
 
 	public function HostLibrary($server, $param)
 	{
-		$main_server = array(
-			'ip_address' => '127.0.0.1',
-			'port_1' => 1000,
-			'port_2' => 1200
-		);
+        $host_config = read_file('./darkblow_config.json');
+        $host_decode = json_decode($host_config);
 
-		$side_server = array(
-			'ip_address' => '127.0.0.1',
-			'port_1' => 1500,
-			'port_2' => 1700
-		);
+		foreach ($host_decode as $row)
+		{	
+			$main_server = array(
+				'ip_address' => $row->CredentialsConfig->primary_host->host,
+				'port_1' => $row->CredentialsConfig->primary_host->port,
+				'port_2' => $row->CredentialsConfig->third_host->port
+			);
+
+			$side_server = array(
+				'ip_address' => $row->CredentialsConfig->side_host->host,
+				'port_1' => $row->CredentialsConfig->secondary_host->port,
+				'port_2' => $row->CredentialsConfig->side_host->port
+			);
+		}
 
 		switch ($server)
 		{

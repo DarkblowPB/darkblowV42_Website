@@ -14,35 +14,54 @@ class Servercommand_library
     public function __construct()
     {
         $this->ci =& get_instance();
+        $this->ci->load->helper('file');
     }
 
     public function PrimaryHost()
     {
-        $data = array(
-            'host' => '127.0.0.1',
-            'port' => 1000
-        );
+        $host_config = read_file('./darkblow_config.json');
+        $host_decode = json_decode($host_config);
+
+        foreach ($host_decode as $row)
+        {
+            $data = array(
+                'host' => $row->CredentialsConfig->primary_host->host,
+                'port' => $row->CredentialsConfig->primary_host->port
+            );
+        }
 
         return $data;
     }
 
     public function SecondaryHost()
     {
-        $data = array(
-            'host' => '127.0.0.1',
-            'port' => 1500
-        );
+        $host_config = read_file('./darkblow_config.json');
+        $host_decode = json_decode($host_config);
+
+        foreach ($host_decode as $row)
+        {
+            $data = array(
+                'host' => $row->CredentialsConfig->secondary_host->host,
+                'port' => $row->CredentialsConfig->secondary_host->port
+            );
+        }
 
         return $data;
     }
     
     public function ThirdHost()
     {
-        $data = array(
-            'host' => '127.0.0.1',
-            'port' => 1200
-        );
-    
+        $host_config = read_file('./darkblow_config.json');
+        $host_decode = json_decode($host_config);
+
+        foreach ($host_decode as $row)
+        {
+            $data = array(
+                'host' => $row->CredentialsConfig->third_host->host,
+                'port' => $row->CredentialsConfig->third_host->port
+            );
+        }
+
         return $data;
     }
     

@@ -62,8 +62,8 @@ class Launcher extends RestController
         $response = array();
 
         $data = array(
-            'username' => $this->input->get('login'),
-            'password' => $this->input->get('password')
+            'username' => $this->input->get('login', true),
+            'password' => $this->input->get('password', true)
         );
         
         $query = $this->db->get_where('accounts', array(
@@ -81,6 +81,78 @@ class Launcher extends RestController
         else
         {
             $response['status'] = 'Failed';
+            $this->response($response, 200);
+        }
+    }
+
+    function validatekey_get()
+    {
+        $response = array();
+
+        $data = array(
+            'key' => $this->input->get('launcher_key', true)
+        );
+
+        $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
+        if ($query)
+        {
+            if ($query->status == 0)
+            {
+                $response['status'] = 'Failed';
+                $response['message'] = 'Failed Update Launcher Key';
+                $this->response($response, 200);
+            }
+            else
+            {
+                $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
+                if ($update)
+                {
+                    $response['status'] = 'Success';
+                    $response['message'] = 'Successfully Update Launcher Key';
+                    $this->response($response, 200);
+                }
+                else
+                {
+                    $response['status'] = 'Failed';
+                    $response['message'] = 'Failed Update Launcher Key';
+                    $this->response($response, 200);
+                }
+            }
+        }
+        else
+        {
+            $response['status'] = 'Failed';
+            $response['message'] = 'Failed Update Launcher Key';
+            $this->response($response, 200);
+        }
+    }
+
+    function generatekey_get()
+    {
+        $response = array();
+        
+        $numeric = '0123456789';
+        $num_length = strlen($numeric);
+        $key_length = 9;
+        $key = '';
+
+        for ($i=0; $i < $key_length; $i++) $key .= $numeric[rand(0, $num_length) - 1];
+
+        $insert = $this->db->insert('launcher_launcherkey', array(
+            'key' => $key,
+            'status' => '1'
+        ));
+
+        if ($insert)
+        {
+            $response['status'] = 'Success';
+            $response['launcher_key'] = $key;
+            $this->response($response, 200);
+        }
+        else
+        {
+            $response['status'] = 'Failed';
+            $response['launcher_key'] = '0';
             $this->response($response, 200);
         }
     }

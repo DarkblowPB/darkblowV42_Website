@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+$custom_config = @file_get_contents('./darkblow_config.json');
+$custom_decode = json_decode($custom_config);
+foreach ($custom_decode as $row)
+{
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -82,7 +85,7 @@ $config['url_suffix'] = '';
 |
 | Available Language = "english", "indonesian", "thailand";
 */
-$config['language']	= 'english';
+$config['language']	= $row->LanguageConfig;
 
 /*
 |--------------------------------------------------------------------------
@@ -330,7 +333,8 @@ $config['cache_query_string'] = TRUE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'darkblowpb_reborn2021';
+
+$config['encryption_key'] = $row->EncryptionConfig->encryption_key;
 
 /*
 |--------------------------------------------------------------------------
@@ -527,3 +531,4 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+}

@@ -1,15 +1,40 @@
 [
   {
     "GoogleConfig": {
-      "ClientID": "",
-      "ClientSecret": ""
+      "ClientID": "523500284288-ec0kppf2h9nco2oqjtsmet2hk1teinrq.apps.googleusercontent.com",
+      "ClientSecret": "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"
     },
     "ProjectVersion": {
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
-      "Email": "",
-      "Password": ""
-    }
+      "Email": "imamrasyidbackup@gmail.com",
+      "Password": "imamkbm123"
+    },
+    "CredentialsConfig": {
+      "primary_host": {
+        "host": "127.0.0.1",
+        "port": 1000
+      },
+      "secondary_host": {
+        "host": "127.0.0.1",
+        "port": 1500
+      },
+      "third_host": {
+        "host": "127.0.0.1",
+        "port": 1200
+      },
+      "side_host": {
+        "host": "127.0.0.1",
+        "port": 1700
+      }
+    },
+    "EncryptionConfig": {
+      "ciphering": "AES-128-CTR",
+      "options": 0,
+      "encryption_iv": "2539435361336837",
+      "encryption_key": "eyetracker_protection"
+    },
+    "LanguageConfig": "english"
   }
 ]
