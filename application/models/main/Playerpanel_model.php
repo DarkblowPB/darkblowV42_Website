@@ -12,19 +12,18 @@ class Playerpanel_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 	}
 
 	function GetDetailsAccount()
 	{
-		return $this->db->where('player_id', $_SESSION['uid'])->get('accounts')->result_array();
+		return $this->db->where('player_id', $this->session->userdata('uid'))->get('accounts')->result_array();
 	}
 
 	function RequestHint()
 	{
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
 		if ($query)
 		{
 			$response['response'] = 'true';

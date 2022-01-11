@@ -12,7 +12,6 @@ class Changepassword_model extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 		$this->load->library('lib');
 	}
 
@@ -28,7 +27,7 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'], 'password' => $this->encryption->decrypt($data['old_password'])))->row();
+		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
 		if ($query)
 		{
 			if ($query->email_verification == '0')
@@ -106,7 +105,7 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'],'password' => $this->encryption->decrypt($data['old_password'])))->row();
+		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'),'password' => $this->encryption->decrypt($data['old_password'])))->row();
 		if ($query)
 		{
 			if ($this->encryption->decrypt($data['new_password']) == $query->password)
@@ -138,7 +137,7 @@ class Changepassword_model extends CI_Model
 				else
 				{
 					// Update Password
-					$update = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('password' => $this->encryption->decrypt($data['new_password'])));
+					$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('password' => $this->encryption->decrypt($data['new_password'])));
 					if ($update)
 					{
 						// If Successfully Update Password

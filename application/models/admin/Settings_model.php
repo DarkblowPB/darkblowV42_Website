@@ -134,10 +134,7 @@ class Settings_model extends CI_Model
                 $update = $this->db->where('id', $query->id)->update('web_settings', array(
                     'project_logo' => $fileData['file_name']
                 ));
-                if ($update)
-                {
-                    $this->SetImage2();
-                }
+                if ($update) $this->SetImage2();
                 else
                 {
                     $response['response'] = 'false';

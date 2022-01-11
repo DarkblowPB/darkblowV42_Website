@@ -30,14 +30,8 @@ class Servercommandmanagement_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
     function SendPacket()
@@ -212,9 +206,7 @@ class Servercommandmanagement_model extends CI_Model
                 }
             
             default:
-                {
-                    break;
-                }
+                break;
         }
     }
 
@@ -232,20 +224,11 @@ class Servercommandmanagement_model extends CI_Model
                     $read = socket_read($socket, 2048);
                     return $read;
                 }
-                else
-                {
-                    return "Failed";
-                }
+                else return "Failed";
             }
-            else
-            {
-                return "Failed";
-            }
+            else return "Failed";
         }
-        else
-        {
-            return "Failed";
-        }
+        else return "Failed";
     }
 }
 

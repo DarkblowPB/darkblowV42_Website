@@ -80,7 +80,7 @@
           <img src="<?php echo base_url() ?>assets/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['admin_name'] ?></a>
+          <a href="#" class="d-block"><?php echo $this->session->userdata('admin_name') ?></a>
         </div>
       </div>
 

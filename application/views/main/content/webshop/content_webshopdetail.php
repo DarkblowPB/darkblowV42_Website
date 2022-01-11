@@ -45,10 +45,10 @@
 										</select>
 									</div>
 									<div class="form-group text-center">
-										<?php if (empty($_SESSION['uid'])) : ?>
+										<?php if (empty($this->session->userdata('uid'))) : ?>
 											<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal"><?php echo $this->lang->line('STR_DARKBLOW_152') ?></a>
 										<?php endif; ?>
-										<?php if (!empty($_SESSION['uid'])) : ?>
+										<?php if (!empty($this->session->userdata('uid'))) : ?>
 												<input id="submit_buy" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Buy">
 										<?php endif; ?>
 									</div>
@@ -64,7 +64,7 @@
 										});
 										$('#buy_form').on('submit', function(e){
 											e.preventDefault();
-											<?php if (!empty($_SESSION['uid'])) : ?>
+											<?php if (!empty($this->session->userdata('uid'))) : ?>
 												SetAttribute('submit_buy', 'button', 'Processing...');
 												
 												$.ajax({
@@ -73,7 +73,7 @@
 													dataType: 'JSON',
 													data: {
 														'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-														'player_id' : '<?php echo $_SESSION['uid'] ?>',
+														'player_id' : '<?php echo $this->session->userdata('uid') ?>',
 														'item_id' : '<?php echo $detail->id ?>',
 														'item_price' : $('#price_option').val()
 													},
@@ -137,7 +137,7 @@
 														dataType: 'JSON',
 														data: {
 															'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-															'player_id' : '<?php echo $_SESSION['uid'] ?>',
+															'player_id' : '<?php echo $this->session->userdata('uid') ?>',
 															'item_id' : '<?php echo $detail->id ?>',
 															'item_price' : $('#price_option').val()
 														},
@@ -279,7 +279,7 @@
 		
 	</div>
 	<div class="nk-gap-1"></div>
-	<?php if (empty($_SESSION['uid'])) : ?>
+	<?php if (empty($this->session->userdata('uid'))) : ?>
 		<div class="nk-modal modal fade" id="login_modal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-sm" role="document">
 				<div class="modal-content" style="border-radius: 5px;">

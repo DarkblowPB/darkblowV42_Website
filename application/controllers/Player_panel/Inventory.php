@@ -45,7 +45,7 @@ class Inventory extends CI_Controller
 		$config['cur_tag_close'] = '</a>';
 		$this->pagination->initialize($config);
 
-		$data['title'] = 'DarkblowPB || '.$_SESSION['player_name'].' Inventory';
+		$data['title'] = 'DarkblowPB || '.$this->session->userdata('player_name').' Inventory';
 		$data['start'] = $this->uri->segment(4);
 		$data['inventory'] = $this->inventory->GetInventoryPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_panel/content_inventory';
@@ -54,14 +54,11 @@ class Inventory extends CI_Controller
 
 	function detail()
 	{
-		if (empty($_GET['idx']))
-		{
-			redirect(base_url('player_panel/inventory'), 'refresh');
-		}
-		if (!empty($_GET['idx']))
+		if (empty($this->input->get('idx', true))) redirect(base_url('player_panel/inventory'), 'refresh');
+		if (!empty($this->input->get('idx',true)))
 		{
 			$data['title'] = 'DarkblowPB || Details Item';
-			$data['details'] = $this->inventory->GetItemRealName2($_GET['idx']);
+			$data['details'] = $this->inventory->GetItemRealName2($this->input->get('idx', true));
 			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 			$this->load->view('main/layout/wrapper', $data, FALSE);
 		}

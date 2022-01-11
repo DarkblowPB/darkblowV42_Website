@@ -19,14 +19,8 @@ class Register_model extends CI_Model
 	function CheckRegisteredAccount($email)
 	{
 		$query = $this->db->get_where('accounts', array('email' => $email))->row();
-		if ($query)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
+		if ($query) return FALSE;
+		else return TRUE;
 	}
 
 	function GenerateRandomToken()
@@ -36,10 +30,7 @@ class Register_model extends CI_Model
 		$tokenlength = 128;
 		$token = '';
 		
-		for ($i=0; $i < $tokenlength; $i++)
-		{
-			$token .= $character[rand(0, $length - 1)];
-		}
+		for ($i=0; $i < $tokenlength; $i++) $token .= $character[rand(0, $length - 1)];
 
 		return $token;
 	}
@@ -608,10 +599,7 @@ class Register_model extends CI_Model
 		$query = $this->db->get_where('web_email_confirmation', array('token' => $this->encryption->decrypt($data['token'])))->row();
 		if ($query)
 		{
-			if ($query->valid == 0)
-			{
-				echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
-			}
+			if ($query->valid == 0) echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
 			else
 			{
 				$update = array(
@@ -619,20 +607,11 @@ class Register_model extends CI_Model
 					'02' => $this->db->where('login', $query->account_id)->update('accounts', array('email_verification' => '1'))
 				);
 
-				if ($update['01'] && $update['02'])
-				{
-					echo "<script>alert('Successfully Verify Your Account. You Can Play The Game Now.');window.location='".base_url('login')."'</script>";
-				}
-				else
-				{
-					echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
-				}
+				if ($update['01'] && $update['02']) echo "<script>alert('Successfully Verify Your Account. You Can Play The Game Now.');window.location='".base_url('login')."'</script>";
+				else echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
 			}
 		}
-		else
-		{
-			echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
-		}
+		else echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
 	}
 }
 

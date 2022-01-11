@@ -61,7 +61,7 @@ class Login_model extends CI_Model
     
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Logged In. Welcome '.$_SESSION['admin_name'].'.';
+                    $response['message'] = 'Successfully Logged In. Welcome '.$this->session->userdata('admin_name').'.';
                     echo json_encode($response);
                 }
                 else

@@ -17,12 +17,12 @@ class Changeemail_model extends CI_Model
 
     function GetPlayerData()
     {
-        return $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+        return $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
     }
     
     function IsConfirmEmail($email)
     {
-        $query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'], 'email' => $email))->row();
+        $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'email' => $email))->row();
         if ($query)
         {
             if ($query->email_verification == 0)
@@ -54,7 +54,7 @@ class Changeemail_model extends CI_Model
             'confirm_email' => $this->encryption->encrypt($this->input->post('confirm_email'))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid'], 'email' => $this->encryption->decrypt($data['old_email'])))->row();
+        $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'email' => $this->encryption->decrypt($data['old_email'])))->row();
         if ($query)
         {
             if ($query->email_verification == 0)
@@ -68,7 +68,7 @@ class Changeemail_model extends CI_Model
             else if ($query->email_verification == 1)
             {
                 // If Email Verification Is 1
-                $update = $this->db->where('player_id', $_SESSION['uid'])->update('accounts', array('email' => $this->encryption->decrypt($data['new_email']), 'email_verification' => '0'));
+                $update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('email' => $this->encryption->decrypt($data['new_email']), 'email_verification' => '0'));
                 if ($update)
                 {
                     $response['response'] = 'true';

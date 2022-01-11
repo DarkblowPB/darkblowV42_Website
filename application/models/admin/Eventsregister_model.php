@@ -29,34 +29,18 @@ class Eventsregister_model extends CI_Model
 
     function GetItemCategory($item_id)
 	{
-		if ($item_id >= 100003001 && $item_id <= 904007069)
-		{
-			return "Weapon";
-		}
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
-		{
-			return "Chara & Headgear";
-		}
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
-		{
-			return "Item";
-		}
+		if ($item_id >= 100003001 && $item_id <= 904007069) return "Weapon";
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "Chara & Headgear";
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "Item";
+        else return "Invalid Item Category";
 	}
 
     function GetItemCategory2($item_id)
     {
-        if ($item_id >= 100003001 && $item_id <= 904007069)
-		{
-			return "1";
-		}
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
-		{
-			return "2";
-		}
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
-		{
-			return "3";
-		}
+        if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
+        else return "-1";
     }
 
     function GetAllItems()

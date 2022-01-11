@@ -53,14 +53,22 @@ class AllProtect
     {
         $response = array();
         
-        if (empty($this->ci->session->userdata('uid')))
+        if ($this->IsBannedIpAddress())
         {
-            $response['response'] = 'false';
+            $response['status'] = 'error';
             $response['token'] = $this->ci->security->get_csrf_hash();
-            $response['message'] = 'You Cannot Force Execute Function To Database.';
+            $response['message'] = 'You Cannot Force Execute Function To Our Database.';
+
             echo json_encode($response);
         }
     }
+
+    public function IsBannedIpAddress()
+    {
+        $query = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
+        if ($query) return true; else return false;
+    }
+
     /**
      * Web Protection
      * 
@@ -73,20 +81,14 @@ class AllProtect
     {
         $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()));
         $result = $check->row();
-        if ($result) 
-        {
-            redirect(base_url('banned'), 'refresh');
-        }
+        if ($result) redirect(base_url('banned'), 'refresh');
     }
 
 
     public function Banned_Protection2()
     {
         $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
-        if (!$check)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if (!$check) redirect(base_url('home'), 'refresh');
     }
 
     public function Changepassword_Protection()
@@ -97,20 +99,11 @@ class AllProtect
             $result = $check->row();
             if ($result) 
             {
-                if ($result->hint_question == null)
-                {
-                    redirect(base_url('player_panel/create_hint'), 'refresh');
-                }
-                if ($result->hint_answer == null) 
-                {
-                    redirect(base_url('player_panel/create_hint'), 'refresh');
-                }
+                if ($result->hint_question == null) redirect(base_url('player_panel/create_hint'), 'refresh');
+                if ($result->hint_answer == null) redirect(base_url('player_panel/create_hint'), 'refresh');
             }
         }
-        else
-        {
-            redirect(base_url('login'), 'refresh');
-        }
+        else redirect(base_url('login'), 'refresh');
 	}
 
     public function BlockedAccount_Protection()
@@ -130,26 +123,20 @@ class AllProtect
 
     public function Maintenance_Protection()
     {
-        if ($this->ci->getsettings->Get2()->website_condition != 1)
-        {
-            redirect(base_url('maintenance'), 'refresh');
-        }
+        if ($this->ci->getsettings->Get2()->website_condition != 1) redirect(base_url('maintenance'), 'refresh');
     }
 
     public function AdminLogin_Protection()
     {
-        if (!empty($_SESSION['admin_uid']))
-        {
-            redirect(base_url('adm/dashboard'), 'refresh');
-        }
+        if (!empty($this->ci->session->userdata('admin_id'))) redirect(base_url('adm/dashboard'), 'refresh');
     }
 
     public function AdminDashboard_Protection()
     {
-        if (empty($_SESSION['admin_uid']))
-        {
-            redirect(base_url('adm/login'), 'refresh');
-        }
+        // if (empty($this->ci->session->userdata('admin_id')))
+        // {
+        //     redirect(base_url('adm/login'), 'refresh');
+        // }
     }
 }
 

@@ -12,7 +12,6 @@ class Vouchermanagement_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     function GetAllItems()
@@ -28,14 +27,7 @@ class Vouchermanagement_model extends CI_Model
     function GetVoucherDetails($voucher_id)
     {
         $query = $this->db->get_where('item_voucher', array('id' => $voucher_id))->row();
-        if ($query)
-        {
-            return $query;
-        }
-        else
-        {
-            redirect(base_url('adm/vouchermanagement'), 'refresh');
-        }
+        if ($query) return $query; else redirect(base_url('adm/vouchermanagement'), 'refresh');
     }
 
     function AddNewVoucher($type)
@@ -47,9 +39,9 @@ class Vouchermanagement_model extends CI_Model
             case 'small':
                 {
                     $data = array(
-                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1')),
-                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2')),
-                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3')),
+                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
+                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
+                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3', true)),
                         'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')),
                         'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount')),
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
@@ -98,11 +90,11 @@ class Vouchermanagement_model extends CI_Model
             case 'medium':
                 {
                     $data = array(
-                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1')),
-                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2')),
-                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3')),
-                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4')),
-                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5')),
+                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
+                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
+                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3', true)),
+                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4', true)),
+                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5', true)),
                         'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')),
                         'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount')),
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
@@ -153,13 +145,13 @@ class Vouchermanagement_model extends CI_Model
             case 'large':
                 {
                     $data = array(
-                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1')),
-                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2')),
-                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3')),
-                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4')),
-                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5')),
-                        'reward_6' => $this->encryption->encrypt($this->input->post('reward_6')),
-                        'reward_7' => $this->encryption->encrypt($this->input->post('reward_7')),
+                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
+                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
+                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3', true)),
+                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4', true)),
+                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5', true)),
+                        'reward_6' => $this->encryption->encrypt($this->input->post('reward_6', true)),
+                        'reward_7' => $this->encryption->encrypt($this->input->post('reward_7', true)),
                         'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')),
                         'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount')),
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
@@ -212,18 +204,18 @@ class Vouchermanagement_model extends CI_Model
             case 'extra_large':
                 {
                     $data = array(
-                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1')),
-                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2')),
-                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3')),
-                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4')),
-                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5')),
-                        'reward_6' => $this->encryption->encrypt($this->input->post('reward_6')),
-                        'reward_7' => $this->encryption->encrypt($this->input->post('reward_7')),
-                        'reward_8' => $this->encryption->encrypt($this->input->post('reward_8')),
-                        'reward_9' => $this->encryption->encrypt($this->input->post('reward_9')),
-                        'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code')),
-                        'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount')),
-                        'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
+                        'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
+                        'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
+                        'reward_3' => $this->encryption->encrypt($this->input->post('reward_3', true)),
+                        'reward_4' => $this->encryption->encrypt($this->input->post('reward_4', true)),
+                        'reward_5' => $this->encryption->encrypt($this->input->post('reward_5', true)),
+                        'reward_6' => $this->encryption->encrypt($this->input->post('reward_6', true)),
+                        'reward_7' => $this->encryption->encrypt($this->input->post('reward_7', true)),
+                        'reward_8' => $this->encryption->encrypt($this->input->post('reward_8', true)),
+                        'reward_9' => $this->encryption->encrypt($this->input->post('reward_9', true)),
+                        'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code', true)),
+                        'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount', true)),
+                        'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount', true))
                     );
 
                     $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
@@ -306,30 +298,15 @@ class Vouchermanagement_model extends CI_Model
             'part_5' => ''
         );
 
-        for ($i=0; $i < $length['serial_number']; $i++)
-        {
-            $pure_code['part_1'] .= $characters[rand(0, $length['characters_length'] - 1)];
-        }
+        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_1'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++)
-        {
-            $pure_code['part_2'] .= $characters[rand(0, $length['characters_length'] - 1)];
-        }
+        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_2'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++)
-        {
-            $pure_code['part_3'] .= $characters[rand(0, $length['characters_length'] - 1)];
-        }
+        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_3'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++)
-        {
-            $pure_code['part_4'] .= $characters[rand(0, $length['characters_length'] - 1)];
-        }
+        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_4'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++)
-        {
-            $pure_code['part_5'] .= $characters[rand(0, $length['characters_length'] - 1)];
-        }
+        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_5'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
         $response['code'] = $pure_code['part_1'].$separator.$pure_code['part_2'].$separator.$pure_code['part_3'].$separator.$pure_code['part_4'].$separator.$pure_code['part_5'];
 
@@ -370,14 +347,8 @@ class Vouchermanagement_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 }
 

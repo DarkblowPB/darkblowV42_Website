@@ -1,0 +1,87 @@
+.cases h1 {
+  color: #fff;
+  position: relative;
+  text-align: center;
+  z-index: 10;
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url("back.jpg?raw=true");
+  top: 0px;
+}
+
+.background::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgb(30, 33, 41);
+  opacity: 0.95;
+}
+
+.cases {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.caixa {
+  width: 340px;
+  height: 340px;
+  position: relative;
+  margin: 0% auto;
+  background-image: url("case.png?raw=true");
+  background-size: cover;
+  cursor: pointer;
+  transition: 0.4s;
+  z-index: 150;
+}
+
+.scrolled {
+  width: 100%;
+  height: 210px;
+  background: rgb(30, 33, 41);
+  position: relative;
+  top: -35%;
+  border-top: 8px solid #e49f00;
+  border-bottom: 8px solid #e49f00;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 5s;
+}
+
+.items {
+  width: 170px;
+  height: 95px;
+  background-image: url("items.png?raw=true");
+  background-position: 0px -5px;
+  top: 60px;
+  position: relative;
+  left: 50px;
+  display: inline-block;
+  margin-left: 60px;
+  transform: scale(1.4);
+}
+
+.scrolled::before {
+  content: "";
+  width: 8px;
+  height: 100.2%;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  background: #e49f00;
+  z-index: 50;
+}
+
+.scrollar {
+  transition: 15s;
+}

@@ -1235,10 +1235,8 @@ Class Redeemcodemanagement_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
     function GetTotalRedeem($item_code)

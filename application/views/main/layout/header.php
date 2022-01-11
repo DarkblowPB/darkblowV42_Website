@@ -141,7 +141,7 @@
                         </li>
                         <?php endif; ?>
                         <?php
-                        if (empty($_SESSION['uid'])) :
+                        if (empty($this->session->userdata('uid'))) :
                             ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register" || $this->uri->segment(1) == "forgotpassword"){echo 'active';} ?>">
                                 <a href="javascript:void(0)"><?php echo $this->lang->line('STR_MENU_5') ?></a>
@@ -161,7 +161,7 @@
                             </li>
                             <?php
                         endif;
-                        if (!empty($_SESSION['uid'])) :
+                        if (!empty($this->session->userdata('uid'))) :
                             ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel" || $this->uri->segment(1) == "event"){echo 'active';} ?>">
                                 <a href="javascript:void(0)">
@@ -173,7 +173,7 @@
                                             <?php echo $this->lang->line('STR_MENU_14') ?>
                                         </a>
                                     </li>
-                                    <?php if ($_SESSION['access_level'] >= 3 && $_SESSION['access_level'] <= 6) : ?>
+                                    <?php if ($this->session->userdata('access_level') >= 3 && $this->session->userdata('access_level') <= 6) : ?>
                                         <li>
                                             <a href="javascript:void(0)" onclick="AutomaticLogin()">
                                                 <?php echo $this->lang->line('STR_MENU_15') ?>

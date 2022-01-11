@@ -1,7 +1,7 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $_SESSION['player_name'] ?></span> <?php echo $this->lang->line('STR_DARKBLOW_163') ?></span></h3>
+		<h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->session->userdata('player_name') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_163') ?></span></h3>
 		<div class="nk-gap-1"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-12 col-12">
@@ -96,7 +96,7 @@
 										if ($row['equip'] >= 1 && $row['equip'] < 3) 
 										{
 										?>
-											<input type="button" id="DeleteButton_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="DeleteItem('data_<?php echo $num ?>', 'DeleteButton_<?php echo $num ?>','<?php echo $_SESSION['uid'] ?>', '<?php echo $row['item_id'] ?>')" value="DELETE">
+											<input type="button" id="DeleteButton_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="DeleteItem('data_<?php echo $num ?>', 'DeleteButton_<?php echo $num ?>','<?php echo $this->session->userdata('uid') ?>', '<?php echo $row['item_id'] ?>')" value="DELETE">
 										<?php
 										}
 										?>

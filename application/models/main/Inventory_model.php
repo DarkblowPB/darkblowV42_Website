@@ -17,54 +17,34 @@ class Inventory_model extends CI_Model
 
 	function GetItemRealName2($id)
 	{
-		$query = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'object_id' => $id))->row();
-		if ($query)
-		{
-			return $query;
-		}
-		else
-		{
-			redirect(base_url('player_panel/inventory'), 'refresh');
-		}
+		$query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'object_id' => $id))->row();
+		if ($query) return $query;
+		else redirect(base_url('player_panel/inventory'), 'refresh');
 	}
 
 	function GetItemCategory($item_id)
 	{
-		if ($item_id >= 100003001 && $item_id <= 904007069)
-		{
-			return 1;
-		}
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
-		{
-			return 2;
-		}
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
-		{
-			return 3;
-		}
+		if ($item_id >= 100003001 && $item_id <= 904007069) return 1;
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return 2;
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return 3;
+		else return 0;
 	}
 
 	function GetItemRealName($item_id)
 	{
 		$query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-		if ($query)
-		{
-			return $query->item_name;
-		}
-		else
-		{
-			return "";
-		}
+		if ($query) return $query->item_name;
+		else return "";
 	}
 	
 	function GetInventoryPerPage($limit, $start)
 	{
-		return $this->db->where('owner_id', $_SESSION['uid'])->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
+		return $this->db->where('owner_id', $this->session->userdata('uid'))->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
 	}
 	
 	function GetInventoryCount()
 	{
-		return $this->db->where('owner_id', $_SESSION['uid'])->get('player_items')->num_rows();
+		return $this->db->where('owner_id', $this->session->userdata('uid'))->get('player_items')->num_rows();
 	}
 	
 	function DeleteItem()
@@ -77,7 +57,7 @@ class Inventory_model extends CI_Model
 			'item_id' => $this->encryption->encrypt($this->input->post('item_id'))
 		);
 
-		$query = $this->db->get_where('player_items', array('owner_id' => $_SESSION['uid'], 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+		$query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
 		if ($query)
 		{
 			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');

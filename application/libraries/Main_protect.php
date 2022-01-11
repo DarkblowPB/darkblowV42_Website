@@ -19,7 +19,7 @@ class Main_protect
 
     public function mainProtectA()
     {
-        if (empty($_SESSION['uid'])) 
+        if (empty($this->ci->session->userdata('uid'))) 
         {
             redirect(base_url('login'), 'refresh');
         }
@@ -27,7 +27,7 @@ class Main_protect
 
     public function mainProtectB()
     {
-        if (!empty($_SESSION['uid'])) 
+        if (!empty($this->ci->session->userdata('uid'))) 
         {
             redirect(base_url('home'), 'refresh');
         }

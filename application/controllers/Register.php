@@ -174,10 +174,10 @@ class Register extends CI_Controller
 		$google_client->addScope('email');
 		$google_client->addScope('profile');
 		
-		if (isset($_GET['code']))
+		if (!empty($this->input->get('code', true)))
 		{
 			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
-			if (!isset($token['error']))
+			if (!empty($token['error']))
 			{
 				$google_client->setAccessToken($token['access_token']);
 				$google_service = new Google_Service_Oauth2($google_client);

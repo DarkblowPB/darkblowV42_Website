@@ -33,10 +33,8 @@ class Clanrank_model extends CI_Model
 	function GetTotalClanMemberCapacity($clan_id)
 	{
 		$query = $this->db->get_where('clan_data', array('clan_id' => $clan_id))->row();
-		if ($query)
-		{
-			return $query->max_players;
-		}
+		if ($query) return $query->max_players;
+		else return 0;
 	}
 }
 

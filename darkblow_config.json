@@ -1,15 +1,15 @@
 [
   {
     "GoogleConfig": {
-      "ClientID": "523500284288-ec0kppf2h9nco2oqjtsmet2hk1teinrq.apps.googleusercontent.com",
-      "ClientSecret": "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"
+      "ClientID": "",
+      "ClientSecret": ""
     },
     "ProjectVersion": {
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
-      "Email": "imamrasyidbackup@gmail.com",
-      "Password": "imamkbm123"
+      "Email": "",
+      "Password": ""
     },
     "CredentialsConfig": {
       "primary_host": {

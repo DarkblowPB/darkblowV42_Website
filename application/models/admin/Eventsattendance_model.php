@@ -23,14 +23,8 @@ class Eventsattendance_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
     function GetItemDuration($duration)
@@ -45,7 +39,6 @@ class Eventsattendance_model extends CI_Model
                 return "7 Days";
             case '2592000':
                 return "30 Days";
-            
             default:
                 return "-1 Day";
         }
@@ -132,14 +125,7 @@ class Eventsattendance_model extends CI_Model
                 'total_claim' => '0',
                 'date' => ($date['day']++).'-'.$date['month'].'-'.$date['year']
             ));
-            if ($query)
-            {
-                $state['success']++;
-            }
-            else
-            {
-                $state['fail']++;
-            }
+            if ($query) $state['success']++; else $state['fail']++;
         }
 
         $response['response'] = 'true';
@@ -193,14 +179,7 @@ class Eventsattendance_model extends CI_Model
                 'total_claim' => '0',
                 'date' => ($date['day']++).'-'.$date['month'].'-'.$date['year']
             ));
-            if ($query)
-            {
-                $state['success']++;
-            }
-            else
-            {
-                $state['fail']++;
-            }
+            if ($query) $state['success']++; else $state['fail']++;
         }
 
         $response['response'] = 'true';

@@ -19,34 +19,16 @@ class Redeemcode_model extends CI_Model
 	function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
 	function GetItemCategory($item_id)
 	{
-		if ($item_id >= 100003001 && $item_id <= 904007069)
-		{
-			return "1";
-		}
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
-		{
-			return "2";
-		}
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000)
-		{
-			return "3";
-		}
-		else
-		{
-			return "0";
-		}
+		if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
+		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
+		else return "0";
 	}
 
 	function CodeValidationV2()
@@ -54,7 +36,7 @@ class Redeemcode_model extends CI_Model
 		sleep(1);
 		$data = array(
 			'code' => $this->encryption->encrypt($this->input->post('code')),
-			'player_id' => $this->encryption->encrypt($_SESSION['uid'])
+			'player_id' => $this->encryption->encrypt($this->session->userdata('uid'))
 		);
 
 		$response = array();
@@ -65,7 +47,7 @@ class Redeemcode_model extends CI_Model
 		{
 			// If Code Found
 			// Check History Redeem Code
-			$check2 = $this->db->get_where('check_user_itemcode', array('uid' => $_SESSION['uid'], 'item_code' => $check->item_code))->row();
+			$check2 = $this->db->get_where('check_user_itemcode', array('uid' => $this->session->userdata('uid'), 'item_code' => $check->item_code))->row();
 			if ($check2)
 			{
 				$response['token'] = $this->security->get_csrf_hash();
@@ -99,7 +81,7 @@ class Redeemcode_model extends CI_Model
 							{
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$this->GetItemName($check->item_id).'.';
+								$response['message'] = 'Congratulations '.$this->session->userdata('player_name').', You Received '.$this->GetItemName($check->item_id).'.';
 
 								echo json_encode($response);
 							}
@@ -116,7 +98,7 @@ class Redeemcode_model extends CI_Model
 							{
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations '.$_SESSION['player_name'].', You Received '.$this->GetItemName($check->item_id).'.';
+								$response['message'] = 'Congratulations '.$this->session->userdata('player_name').', You Received '.$this->GetItemName($check->item_id).'.';
 
 								echo json_encode($response);
 							}

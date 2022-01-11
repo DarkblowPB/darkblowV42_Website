@@ -17,10 +17,7 @@ Class Encryption extends CI_Controller
         $this->load->model('main/redeemcode_model', 'redeem');
         $this->load->model('main/inventory_model', 'inventory');
 
-        if (empty($_SESSION['uid']))
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if (empty($this->session->userdata['uid'])) redirect(base_url('home'), 'refresh');
     }
 
     function god_access()

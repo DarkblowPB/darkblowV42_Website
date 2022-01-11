@@ -33,28 +33,16 @@ class Rankawardsmanagement_model extends CI_Model
     function GetRank($rank_id)
     {
         $query = $this->db->get_where('web_rankinfo', array('id' => $rank_id))->row();
-        if ($query)
-        {
-            return $query->rank_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->rank_name;
+        else return "";
         
     }
 
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
     function AddNewAwards()

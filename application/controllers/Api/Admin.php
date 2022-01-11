@@ -30,8 +30,8 @@ class Admin extends RestController {
         else
         {
             $data = array(
-                'player_id' => $_SESSION['uid'],
-                'password' => $_SESSION['login_token']
+                'player_id' => $this->session->userdata('uid'),
+                'password' => $this->session->userdata('login_token')
             );
     
             $query = $this->db->get_where('accounts', array('player_id' => $data['player_id'], 'password' => $data['password']))->row();

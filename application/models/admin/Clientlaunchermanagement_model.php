@@ -134,14 +134,8 @@ class Clientlaunchermanagement_model extends CI_Model
     function GetSpecifiedFile($files_id)
     {
         $query = $this->db->get_where('web_download_clientlauncher', array('id' => $files_id))->row();
-        if ($query)
-        {
-            return $query;
-        }
-        else
-        {
-            redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
-        }
+        if ($query) return $query;
+        else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
 
     function UploadFiles_ExternalURL()

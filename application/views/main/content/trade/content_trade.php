@@ -3,7 +3,7 @@
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_141') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_142') ?></span></span></h3>
         <div class="row vertical-gap">
-            <?php if (!empty($_SESSION['uid'])) : ?>
+            <?php if (!empty($this->session->userdata('uid'))) : ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card bg-dark-2">
                         <div class="card-body text-center">
@@ -59,7 +59,7 @@
                                         <script>
                                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                                             var RETRY = 0;
-                                            var sessionUID = "<?php if (empty($_SESSION['uid'])){echo "0";}if (!empty($_SESSION['uid'])){echo $_SESSION['uid'];} ?>";
+                                            var sessionUID = "<?php if (empty($this->session->userdata('uid'))){echo "0";}if (!empty($this->session->userdata('uid'))){echo $this->session->userdata('uid');} ?>";
 
                                             function Buy_Item(button_id, id){
                                                 if (sessionUID == '0')

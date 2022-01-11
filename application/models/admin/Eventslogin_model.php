@@ -29,36 +29,21 @@ class Eventslogin_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query)
-        {
-            return $query->item_name;
-        }
-        else
-        {
-            return "";
-        }
+        if ($query) return $query->item_name;
+        else return "";
     }
 
     function ConvertDuration($duration)
     {
         switch ($duration) {
             case '64800':
-                {
-                    return "1 Day";
-                }
+                return "1 Day";
             case '259200':
-                {
-                    return "3 Days";
-                }
+                return "3 Days";
             case '604800':
-                {
-                    return "7 Days";
-                }
+                return "7 Days";
             case '2592000':
-                {
-                    return "30 Days";
-                }
-            
+                return "30 Days";
             default:
                 return "";
         }

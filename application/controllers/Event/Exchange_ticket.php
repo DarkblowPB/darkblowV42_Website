@@ -35,7 +35,7 @@ Class Exchange_ticket extends CI_Controller
     {
         $data['title'] = 'Exchange Ticket';
         $data['item_list'] = $this->exchangeticket->GetAllItems();
-        $data['ticket'] = $this->exchangeticket->GetTicketID($_SESSION['uid'], $this->getsettings->Get2()->event_ticket);
+        $data['ticket'] = $this->exchangeticket->GetTicketID($this->session->userdata('uid'), $this->getsettings->Get2()->event_ticket);
 
         $data['isi'] = 'main/content/event/content_exchangeticket';
         $this->load->view('main/layout/wrapper', $data, FALSE);

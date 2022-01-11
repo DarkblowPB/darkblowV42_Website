@@ -56,26 +56,15 @@ class Webshop_model extends CI_Model
 			switch ($itemprice) 
 			{
 				case $price['3days']:
-					{
-						return "3days";
-					}
+					return "3days";
 				case $price['7days']:
-					{
-						return "7days";
-					}
+					return "7days";
 				case $price['30days']:
-					{
-						return "30days";
-					}
+					return "30days";
 				case $price['permanent']:
-					{
-						return "permanent";
-					}
-				
+					return "permanent";
 				default:
-					{
-						return "invalid";
-					}
+					return "invalid";
 			}
 		}
 	}
@@ -104,7 +93,7 @@ class Webshop_model extends CI_Model
 			else
 			{
 				// Fetch Player Data
-				$fetch = $this->db->get_where('accounts', array('player_id' => $_SESSION['uid']))->row();
+				$fetch = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
 				if ($fetch)
 				{
 					if ($fetch->kuyraicoin < $this->encryption->decrypt($data['item_price']))

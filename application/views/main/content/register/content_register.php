@@ -22,10 +22,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="email"><?php echo $this->lang->line('STR_DARKBLOW_131') ?></label>
-                                <?php if (isset($_SESSION['g_email'])) : ?>
+                                <?php if (!empty($this->session->userdata('g_email'))) : ?>
                                     <label class="form-control"><?php echo $_SESSION['g_email'] ?></label>
                                 <?php endif; ?>
-                                <?php if (!isset($_SESSION['g_email'])) : ?>
+                                <?php if (empty($this->session->userdata('g_email'))) : ?>
                                     <input type="mail" class="form-control" id="email" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_132') ?>">
                                 <?php endif; ?>
                             </div>
@@ -173,7 +173,7 @@
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                                     document.getElementById('login').focus();
                                 }
-                                <?php if (!isset($_SESSION['g_email'])) : ?>
+                                <?php if (empty($this->session->userdata('g_email'))) : ?>
                                     else if ($('#email').val() == ''){
                                     ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_13') ?>');
                                     document.getElementById('email').focus();
@@ -209,10 +209,10 @@
                                         data: {
                                             '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
                                             'login' : $('#login').val(),
-                                            <?php if (isset($_SESSION['g_email'])) : ?>
-                                                'email' : '<?php echo $_SESSION['g_email'] ?>',
+                                            <?php if (!empty($this->session->userdata('g_email'))) : ?>
+                                                'email' : '<?php echo $this->session->userdata('g_email') ?>',
                                             <?php endif; ?>
-                                            <?php if (!isset($_SESSION['g_email'])) : ?>
+                                            <?php if (empty($this->session->userdata('g_email'))) : ?>
                                                 'email' : $('#email').val(),
                                             <?php endif; ?>
                                             'password' : $('#password').val(),

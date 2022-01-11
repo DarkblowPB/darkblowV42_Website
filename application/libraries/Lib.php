@@ -82,28 +82,15 @@ class Lib
 
 	public function GetItemCategory($item_id)
 	{
-		if ($item_id >= 100003001 && $item_id <= 904007069)
-		{
-			return 1;
-		}
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032)
-		{
-			return 2;
-		}
+		if ($item_id >= 100003001 && $item_id <= 904007069) return 1;
+		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return 2;
 		else return 3;
 	}
 
 	public function GetBuyType($item_id)
 	{
 		$query = $this->ci->db->get_where('shop', array('item_id' => $item_id))->row();
-		if ($query)
-		{
-			return $query->buy_type;
-		}
-		else
-		{
-			return 0;
-		}
+		if ($query) return $query->buy_type; else return 0;
 	}
 
 	public function GetItemDuration($buy_type, $count, $equip = null)
@@ -113,16 +100,7 @@ class Lib
 			case '1':
 				{
 					if ($equip != null)
-					{
-						if ($equip != 1)
-						{
-							echo 'Invalid';
-						}
-						else
-						{
-							if ($count == 1) echo $count.' Unit'; else echo $count.' Unit\'s';
-						}
-					}
+					if ($equip != 1) echo 'Invalid'; else if ($count == 1) echo $count.' Unit'; else echo $count.' Unit\'s';
 					break;
 				}
 			case '2':
@@ -140,15 +118,11 @@ class Lib
 						
 						$diff = $date-time();
 						$days = floor($diff / (60 * 60 * 24));
-						$hours=round(($diff - $days * 60 * 60 * 24) / (60 * 60));
 						
 						//Report
 						echo $days.' Day\'s Remaining';
 					}
-					else
-					{
-						echo 'Permanent';
-					}
+					else echo 'Permanent';
 					break;
 				}
 			
@@ -213,10 +187,7 @@ class Lib
 
 		$count = count($query);
 
-		for ($i=0; $i < $count - 1; $i++) 
-		{
-			if ($query[$i]) $state['success']++; else $state['failed']++;
-		}
+		for ($i=0; $i < $count - 1; $i++) if ($query[$i]) $state['success']++; else $state['failed']++;
 
 		echo "Successfully Truncate Database. Success: ".$state['success'].", Failed: ".$state['failed'].".";
 	}
@@ -264,9 +235,7 @@ class Lib
 				}
 			
 			default:
-				{
-					return TRUE;
-				}
+				return TRUE;
 		}
 	}
 
@@ -314,11 +283,6 @@ class Lib
 
 	public function GetTokenKey()
 	{
-		$min_value = 1;
-		$max_value = $this->ci->db->get('web_tokenkey')->num_rows() + 1;
-
-		$randomizer = rand($min_value, $max_value);
-
 		$newtoken = '';
 
 		$newtoken .= $this->GenerateRandomToken();
@@ -330,26 +294,12 @@ class Lib
 				'is_valid' => '1'
 			));
 
-			if ($insert)
-			{
-				return $newtoken;
-			}
-			else
-			{
-				return "invalidtoken";
-			}		
+			if ($insert) return $newtoken; else return "invalidtoken";
 		}
 		else
 		{
 			$query = $this->ci->db->order_by('id', 'desc')->limit(1)->get_where('web_tokenkey', array('is_valid' => '1'))->row();
-			if ($query)
-			{
-				return $query->token;
-			}
-			else
-			{
-				return "invalidtoken";
-			}
+			if ($query) return $query->token; else return "invalidtoken";
 		}
 	}
 
@@ -364,10 +314,7 @@ class Lib
 			'token' => ''
 		);
 
-		for ($i=0; $i < $length['token_length']; $i++)
-		{
-			$value['token'] .= $characters[rand(0, $length['characters_length'] - 1)];
-		}
+		for ($i=0; $i < $length['token_length']; $i++) $value['token'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
 		return $value['token'];
 	}
@@ -444,31 +391,18 @@ class Lib
 	 */
 	public function GetReachPointState($url)
 	{
-		// Use curl_init() function to initialize a cURL session
 		$curl = curl_init($url);
-		
-		// Use curl_setopt() to set an option for cURL transfer
 		curl_setopt($curl, CURLOPT_NOBODY, true);
-		
-		// Use curl_exec() to perform cURL session
 		$result = curl_exec($curl);
 		
-		if ($result !== false) {
-			
-			// Use curl_getinfo() to get information
-			// regarding a specific transfer
+		if ($result !== false)
+		{
 			$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE); 
 			
-			if ($statusCode == 404) {
-				return false;
-			}
-			else {
-				return true;
-			}
+			if ($statusCode == 404) return false;
+			else return true;
 		}
-		else {
-			return false;
-		}
+		else return false;
 	}
 
 	public function HostLibrary($server, $param)
@@ -498,22 +432,13 @@ class Lib
 					switch ($param)
 					{
 						case 'ip_address':
-							{
-								return $main_server['ip_address'];
-							}
+							return $main_server['ip_address'];
 						case 'port_1':
-							{
-								return $main_server['port_1'];
-							}
+							return $main_server['port_1'];
 						case 'port_2':
-							{
-								return $main_server['port_2'];
-							}
-						
+							return $main_server['port_2'];
 						default:
-							{
-								return "";
-							}
+							return "";
 					}
 				}
 
@@ -522,22 +447,13 @@ class Lib
 					switch ($param)
 					{
 						case 'ip_address':
-							{
-								return $side_server['ip_address'];
-							}
+							return $side_server['ip_address'];
 						case 'port_1':
-							{
-								return $side_server['port_1'];
-							}
+							return $side_server['port_1'];
 						case 'port_2':
-							{
-								return $side_server['port_2'];
-							}
-						
+							return $side_server['port_2'];
 						default:
-							{
-								return "";
-							}
+							return "";
 					}
 				}
 				
@@ -557,10 +473,7 @@ class Lib
 			fclose($connection);
 		}
 
-		else
-		{
-			return FALSE;
-		}
+		else return FALSE;
 	}
 
     public function SendSocket($ip_address, $port, $buffer)
@@ -575,23 +488,13 @@ class Lib
                 if ($write)
                 {
                     $read = socket_read($socket, 2048);
-                    // $read = Success
                     return $read;
                 }
-                else
-                {
-                    return "Failed";
-                }
+                else return "Failed";
             }
-            else
-            {
-                return "Failed";
-            }
+            else return "Failed";
         }
-        else
-        {
-            echo "Failed";
-        }
+        else return "Failed";
     }
 }
 

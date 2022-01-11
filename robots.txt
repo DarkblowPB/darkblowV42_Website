@@ -1,2 +1,2 @@
-User-agent: HTTrack Website Copier
-Disallow: /
+User-agent: *
+Disallow: 
