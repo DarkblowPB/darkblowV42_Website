@@ -8,8 +8,8 @@
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
-      "Email": "imamrasyidbackup@gmail.com",
-      "Password": "imamkbm123"
+      "Email": "",
+      "Password": ""
     },
     "CredentialsConfig": {
       "primary_host": {
