@@ -39,10 +39,7 @@ Class Quest extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsquest->DeleteEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsquest->DeleteEvents();
         else
         {
             $response['response'] = 'false';
@@ -71,10 +68,7 @@ Class Quest extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsquest->UpdateEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsquest->UpdateEvents();
         else
         {
             $response['response'] = 'false';

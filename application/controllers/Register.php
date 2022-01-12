@@ -51,10 +51,7 @@ class Register extends CI_Controller
 				'is_unique' => '%s Already Registered.'
 			)
 		);
-		if ($this->form_validation->run())
-		{
-			$this->register->CheckUsername();
-		}
+		if ($this->form_validation->run()) $this->register->CheckUsername();
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
@@ -131,17 +128,7 @@ class Register extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run())
-		{
-			if (!empty($this->session->userdata('g_email')))
-			{
-				$this->register->GoogleRegisterValidation();
-			}
-			else
-			{
-				$this->register->RegisterValidationV3();
-			}
-		}
+		if ($this->form_validation->run()) if (!empty($this->session->userdata('g_email'))) $this->register->GoogleRegisterValidation(); else $this->register->RegisterValidationV3();
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
@@ -189,10 +176,7 @@ class Register extends CI_Controller
 				$this->session->set_userdata('g_access_token', $token['access_token']);
 				$this->session->set_userdata('g_email', $user_data['g_email']);
 
-				if ($this->register->CheckRegisteredAccount($user_data['g_email']))
-				{
-					redirect(base_url('register'), 'refresh');
-				}
+				if ($this->register->CheckRegisteredAccount($user_data['g_email'])) redirect(base_url('register'), 'refresh');
 				else
 				{
 					$this->session->unset_userdata('access_token');
@@ -202,14 +186,7 @@ class Register extends CI_Controller
 			}
 		}
 
-		if (!$this->session->userdata('access_token'))
-		{
-			redirect($google_client->createAuthUrl(), 'refresh');
-		}
-		else
-		{
-			redirect(base_url('register'), 'refresh');
-		}
+		if (!$this->session->userdata('access_token')) redirect($google_client->createAuthUrl(), 'refresh'); else redirect(base_url('register'), 'refresh');
 	}
 
 	function do_cancelgoogleregistration()
@@ -228,14 +205,7 @@ class Register extends CI_Controller
 
 	function verification()
 	{
-		if (empty($this->input->get('token_key', true)))
-		{
-			redirect(base_url('home'), 'refresh');
-		}
-		else
-		{
-			$this->register->AccountVerification();
-		}
+		if (empty($this->input->get('token_key', true))) redirect(base_url('home'), 'refresh'); else $this->register->AccountVerification();
 	}
 }
 

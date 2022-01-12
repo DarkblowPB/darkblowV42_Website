@@ -55,10 +55,7 @@ Class Newsmanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->newsmanagement->AddNewNews();
-        }
+        if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
         else
         {
             $data['title'] = 'Create New News';
@@ -91,10 +88,7 @@ Class Newsmanagement extends CI_Controller
                 'required',
                 array('required' => '%s Cannot Be Empty.')
             );
-            if ($this->form_validation->run())
-            {
-                $this->newsmanagement->EditNews();
-            }
+            if ($this->form_validation->run()) $this->newsmanagement->EditNews();
             else
             {
                 $data['title'] = 'Edit News';
@@ -125,10 +119,7 @@ Class Newsmanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->newsmanagement->AddNewNews();
-        }
+        if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
         else
         {
             $this->session->set_flashdata('false', 'Hehe Error :)');
@@ -151,10 +142,7 @@ Class Newsmanagement extends CI_Controller
                 'numeric' => '%s Must Be Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->newsmanagement->DeleteNews();
-        }
+        if ($this->form_validation->run()) $this->newsmanagement->DeleteNews();
         else
         {
             $response['response'] = 'false';

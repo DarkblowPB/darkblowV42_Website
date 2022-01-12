@@ -44,9 +44,7 @@ class Launcher extends RestController
                     }
                 
                 default:
-                    {
-                        break;
-                    }
+                    break;
             }
         }
     }

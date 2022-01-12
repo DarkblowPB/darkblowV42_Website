@@ -39,10 +39,7 @@ Class Login extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->login->LoginValidation();
-        }
+        if ($this->form_validation->run()) $this->login->LoginValidation();
         else
         {
             $this->form_validation->set_error_delimiters('', '');

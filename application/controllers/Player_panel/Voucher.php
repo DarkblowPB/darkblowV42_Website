@@ -52,10 +52,7 @@ Class Voucher extends CI_Controller
                 'max_length' => '%s Only Can Contains 19 Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->voucher->RedeemVoucherV3();
-        }
+        if ($this->form_validation->run()) $this->voucher->RedeemVoucherV3();
         else
         {
             $response['response'] = 'false';

@@ -75,10 +75,7 @@ Class Login extends CI_Controller
                 'in_list' => 'Invalid %s'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventslogin->AddNewEvents();
-        }
+        if ($this->form_validation->run()) $this->eventslogin->AddNewEvents();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -106,10 +103,7 @@ Class Login extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventslogin->DeleteEvents();
-        }
+        if ($this->form_validation->run()) $this->eventslogin->DeleteEvents();
         else
         {
             $this->form_validation->set_error_delimiters('', '');

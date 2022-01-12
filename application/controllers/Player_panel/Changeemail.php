@@ -63,10 +63,7 @@ Class Changeemail extends CI_Controller
             'required|matches[new_email]|valid_email',
             array('required' => '%s Cannot Be Empty.', 'matches' => '%s Not Matches.', 'valid_email' => 'Invalid %s.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->changeemail->ChangeEmailValidation();
-        }
+        if ($this->form_validation->run()) $this->changeemail->ChangeEmailValidation();
         else
         {
             $response['response'] = 'false';
@@ -84,14 +81,7 @@ Class Changeemail extends CI_Controller
             'required|valid_email',
             array('required' => '%s Cannot Be Empty.', 'valid_email' => 'Invalid %s.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->changeemail->SendEmail();
-        }
-        else
-        {
-            echo validation_errors();
-        }
+        if ($this->form_validation->run()) $this->changeemail->SendEmail(); else echo validation_errors();
     }
 }
 

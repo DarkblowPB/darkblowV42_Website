@@ -87,10 +87,7 @@ class Changepassword extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty')
 		);
-		if ($this->form_validation->run()) 
-		{
-			$this->changepassword->ChangePasswordV2();
-		}
+		if ($this->form_validation->run()) $this->changepassword->ChangePasswordV2();
 		else 
 		{
 			$response['response'] = 'false';

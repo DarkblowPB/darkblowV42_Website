@@ -49,10 +49,7 @@ Class Redeemcodemanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->redeemcodemanagement->DeleteCode();
-        }
+        if ($this->form_validation->run()) $this->redeemcodemanagement->DeleteCode();
         else
         {
             $response['response'] = 'false';
@@ -108,10 +105,7 @@ Class Redeemcodemanagement extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->redeemcodemanagement->CreateNewRedeemCode();
-        }
+        if ($this->form_validation->run()) $this->redeemcodemanagement->CreateNewRedeemCode();
         else
         {
             $response['response'] = 'false';

@@ -84,10 +84,7 @@ Class Playtime extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsplaytime->AddNewEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsplaytime->AddNewEvents();
         else
         {
             $response['response'] = 'false';
@@ -109,10 +106,7 @@ Class Playtime extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsplaytime->DeleteEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsplaytime->DeleteEvents();
         else
         {
             $response['response'] = 'false';

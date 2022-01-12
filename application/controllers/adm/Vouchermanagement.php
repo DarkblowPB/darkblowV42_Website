@@ -121,10 +121,7 @@ Class Vouchermanagement extends CI_Controller
                             'is_unique' => '%s Already Exists.'
                         )
                     );
-                    if ($this->form_validation->run())
-                    {
-                        $this->vouchermanagement->AddNewVoucher('small');
-                    }
+                    if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('small');
                     else
                     {
                         $response['response'] = 'false';
@@ -211,10 +208,7 @@ Class Vouchermanagement extends CI_Controller
                             'is_unique' => '%s Already Exists.'
                         )
                     );
-                    if ($this->form_validation->run())
-                    {
-                        $this->vouchermanagement->AddNewVoucher('medium');
-                    }
+                    if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('medium');
                     else
                     {
                         $response['response'] = 'false';
@@ -319,10 +313,7 @@ Class Vouchermanagement extends CI_Controller
                             'is_unique' => '%s Already Exists.'
                         )
                     );
-                    if ($this->form_validation->run())
-                    {
-                        $this->vouchermanagement->AddNewVoucher('large');
-                    }
+                    if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('large');
                     else
                     {
                         $response['response'] = 'false';
@@ -445,10 +436,7 @@ Class Vouchermanagement extends CI_Controller
                             'is_unique' => '%s Already Exists.'
                         )
                     );
-                    if ($this->form_validation->run())
-                    {
-                        $this->vouchermanagement->AddNewVoucher('extra_large');
-                    }
+                    if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('extra_large');
                     else
                     {
                         $response['response'] = 'false';
@@ -474,10 +462,7 @@ Class Vouchermanagement extends CI_Controller
 
     function print()
     {
-        if (empty($this->input->get('id', true)))
-        {
-            echo "<script>self.history.back()</script>";
-        }
+        if (empty($this->input->get('id', true))) echo "<script>self.history.back()</script>";
         else
         {
             $data['title'] = 'Voucher Information';
@@ -503,10 +488,7 @@ Class Vouchermanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->vouchermanagement->DeleteVoucher();
-        }
+        if ($this->form_validation->run()) $this->vouchermanagement->DeleteVoucher();
         else
         {
             $response['response'] = 'false';

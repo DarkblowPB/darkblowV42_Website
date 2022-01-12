@@ -20,10 +20,7 @@ Class Maintenance extends CI_Controller
         $this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
 		
-        if ($this->getsettings->Get2()->website_condition != 0)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if ($this->getsettings->Get2()->website_condition != 0) redirect(base_url('home'), 'refresh');
     }
 
     function index()

@@ -40,6 +40,7 @@ class Redeemcode extends CI_Controller
 	function do_redeem()
 	{
 		$response = array();
+		$this->form_validation->set_error_delimiters('', '');
 
 		$this->form_validation->set_rules(
 			'code',
@@ -51,14 +52,9 @@ class Redeemcode extends CI_Controller
 				'max_length' => '%s Only Can Accepted 19 Characters.'
 			)
 		);
-		if ($this->form_validation->run())
-		{
-			$this->redeemcode->CodeValidationV2();
-		}
+		if ($this->form_validation->run()) $this->redeemcode->CodeValidationV2();
 		else
 		{
-			$this->form_validation->set_error_delimiters('', '');
-
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = validation_errors();

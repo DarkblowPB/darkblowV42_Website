@@ -39,10 +39,7 @@ Class Clientlaunchermanagement extends CI_Controller
             $data['content'] = 'admin/content/clientlaunchermanagement/content_details';
             $this->load->view('admin/layout/wrapper', $data, FALSE);
         }
-        else
-        {
-            redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
-        }
+        else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
 
     function edit()
@@ -77,15 +74,9 @@ Class Clientlaunchermanagement extends CI_Controller
                 $data['content'] = 'admin/content/clientlaunchermanagement/content_upload_direct';
                 $this->load->view('admin/layout/wrapper', $data, FALSE);
             }
-            else
-            {
-                redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
-            }
+            else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
         }
-        else
-        {
-            redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
-        }
+        else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
 
     function do_upload_directurl()
@@ -121,10 +112,7 @@ Class Clientlaunchermanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty')
         );
-        if ($this->form_validation->run())
-        {
-            $this->clientlauncher->UploadFiles_ExternalURL();
-        }
+        if ($this->form_validation->run()) $this->clientlauncher->UploadFiles_ExternalURL();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -163,10 +151,7 @@ Class Clientlaunchermanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->clientlauncher->EditFiles($this->input->post('file_id'));
-        }
+        if ($this->form_validation->run()) $this->clientlauncher->EditFiles($this->input->post('file_id'));
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -188,10 +173,7 @@ Class Clientlaunchermanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->clientlauncher->DeleteFiles($this->input->post('files_id', true));
-        }
+        if ($this->form_validation->run()) $this->clientlauncher->DeleteFiles($this->input->post('files_id', true));
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -214,10 +196,7 @@ Class Clientlaunchermanagement extends CI_Controller
             'required|numeric',
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Only Can Using Numeric Characters.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->clientlauncher->GetFilesURL();
-        }
+        if ($this->form_validation->run()) $this->clientlauncher->GetFilesURL();
         else
         {
             $response['response'] = 'false';

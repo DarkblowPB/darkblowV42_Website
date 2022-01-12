@@ -39,10 +39,7 @@ Class Bannedvisitor extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->bannedvisitor->AddIPAddress();
-        }
+        if ($this->form_validation->run()) $this->bannedvisitor->AddIPAddress();
         else
         {
             $response['response'] = 'false';
@@ -65,10 +62,7 @@ Class Bannedvisitor extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->bannedvisitor->DeleteIPAddress();
-        }
+        if ($this->form_validation->run()) $this->bannedvisitor->DeleteIPAddress();
         else
         {
             $response['response'] = 'false';

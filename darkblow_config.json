@@ -35,6 +35,10 @@
       "encryption_iv": "2539435361336837",
       "encryption_key": "eyetracker_protection"
     },
-    "LanguageConfig": "english"
+    "LanguageConfig": "english",
+    "Database": {
+      "Old": "darkblowproject",
+      "Evo": "darkblowproject_evo"
+    }
   }
 ]

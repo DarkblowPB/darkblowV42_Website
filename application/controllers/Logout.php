@@ -18,10 +18,7 @@ Class Logout extends CI_Controller
         $this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
 		
-        if (empty($this->session->userdata('uid')))
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if (empty($this->session->userdata('uid'))) redirect(base_url('home'), 'refresh');
     }
 
     function index()

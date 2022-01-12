@@ -29,10 +29,7 @@ Class Attendance extends CI_Controller
 
     function create()
     {
-        if (empty($this->input->get('type', true)))
-        {
-            redirect(base_url('adm/eventsmanagement/attendance'), 'refresh');
-        }
+        if (empty($this->input->get('type', true))) redirect(base_url('adm/eventsmanagement/attendance'), 'refresh');
         else
         {
             $data['title'] = 'Create Attendace Event';
@@ -124,10 +121,7 @@ Class Attendance extends CI_Controller
                 'in_list' => '%s Invalid.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->attendance->CreateEvents7Days();
-        }
+        if ($this->form_validation->run()) $this->attendance->CreateEvents7Days();
         else
         {
             $response['response'] = 'false';
@@ -280,10 +274,7 @@ Class Attendance extends CI_Controller
                 'in_list' => '%s Invalid.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->attendance->CreateEvents14Days();
-        }
+        if ($this->form_validation->run()) $this->attendance->CreateEvents14Days();
         else
         {
             $response['response'] = 'false';
@@ -309,10 +300,7 @@ Class Attendance extends CI_Controller
                 'numeric' => '%s Only Can Contains Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->attendance->DeleteEvents();
-        }
+        if ($this->form_validation->run()) $this->attendance->DeleteEvents();
         else
         {
             $response['response'] = 'false';

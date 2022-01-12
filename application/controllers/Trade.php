@@ -23,10 +23,7 @@ Class Trade extends CI_Controller
 		
         $this->load->model('main/trade_model', 'trade');
 
-        if ($this->getsettings->Get2()->trade_market != 1)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if ($this->getsettings->Get2()->trade_market != 1) redirect(base_url('home'), 'refresh');
     }
 
     function index()
@@ -70,10 +67,7 @@ Class Trade extends CI_Controller
                 'numeric' => '%s Only Accepted Numeric Character.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->trade->CreateNewItem();
-        }
+        if ($this->form_validation->run()) $this->trade->CreateNewItem();
         else
         {
             $response['response'] = 'false';
@@ -99,10 +93,7 @@ Class Trade extends CI_Controller
                 'numeric' => '%s Must Be Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->trade->BuyItem();
-        }
+        if ($this->form_validation->run()) $this->trade->BuyItem();
         else
         {
             $response['response'] = 'false';

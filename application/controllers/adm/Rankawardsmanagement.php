@@ -72,10 +72,7 @@ Class Rankawardsmanagement extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->rankawards->AddNewAwards();
-        }
+        if ($this->form_validation->run()) $this->rankawards->AddNewAwards();
         else
         {
             $response['response'] = 'false';
@@ -112,10 +109,7 @@ Class Rankawardsmanagement extends CI_Controller
                 'max_length' => '%s Only Can Contains Max 11 Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->rankawards->DeleteAwards();
-        }
+        if ($this->form_validation->run()) $this->rankawards->DeleteAwards();
         else
         {
             $response['response'] = 'false';

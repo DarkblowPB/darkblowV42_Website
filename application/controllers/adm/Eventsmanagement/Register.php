@@ -60,10 +60,7 @@ Class Register extends CI_Controller
                 'numeric' => '%s Only Can Using Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsregister->UpdateEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsregister->UpdateEvents();
         else
         {
             $response['response'] = 'false';

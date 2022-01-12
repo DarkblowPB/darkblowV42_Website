@@ -66,6 +66,7 @@ class Inventory extends CI_Controller
 
 	function do_delete()
 	{
+		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules(
 			'player_id',
 			'Player ID',
@@ -78,15 +79,7 @@ class Inventory extends CI_Controller
 			'numeric|required',
 			array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run())
-		{
-			$this->inventory->DeleteItem();
-		}
-		else
-		{
-			$this->form_validation->set_error_delimiters('', '');
-			echo validation_errors();
-		}
+		if ($this->form_validation->run()) $this->inventory->DeleteItem(); else echo validation_errors();
 	}
 }
 

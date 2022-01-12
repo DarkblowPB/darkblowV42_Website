@@ -83,15 +83,9 @@ Class Encryption extends CI_Controller
                     $pure_username = '';
                     $pure_password = '';
 
-                    for ($i=0; $i <= $username_length; $i++)
-                    {
-                        $pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
-                    }
+                    for ($i=0; $i <= $username_length; $i++) $pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
 
-                    for ($i=0; $i < $password_length; $i++)
-                    {
-                        $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
-                    }
+                    for ($i=0; $i < $password_length; $i++) $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
 
                     $query = $this->db->insert('accounts', array(
                         'login' => $pure_username,
@@ -179,10 +173,7 @@ Class Encryption extends CI_Controller
                         <script src="'.base_url().'assets/goodgames/assets/vendors/bs5/js/bootstrap.min.js"></script>
                         </html>';
                     }
-                    else
-                    {
-                        echo '<p>Failed To Create GOD Account. Reason: '.error_get_last().'</p>';
-                    }
+                    else echo '<p>Failed To Create GOD Account. Reason: '.error_get_last().'</p>';
                     break;
                 }
             case 'banned':
@@ -258,27 +249,13 @@ Class Encryption extends CI_Controller
                     if ($banned)
                     {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name))
-                        {
-                            $response['message'] = 'Successfully Banned '.$query->login.'.';
-                        }
-                        else
-                        {
-                            $response['message'] = 'Successfully Banned '.$query->player_name.'.';
-                        }
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned '.$query->login.'.'; else $response['message'] = 'Successfully Banned '.$query->player_name.'.';
                         echo json_encode($response);
                     }
                     else
                     {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name))
-                        {
-                            $response['message'] = 'Successfully Banned '.$query->login.'.';
-                        }
-                        else
-                        {
-                            $response['message'] = 'Successfully Banned '.$query->player_name.'.';
-                        }
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned '.$query->login.'.'; else $response['message'] = 'Successfully Banned '.$query->player_name.'.';
                         echo json_encode($response);
                     }
                 }
@@ -329,27 +306,14 @@ Class Encryption extends CI_Controller
                     if ($banned)
                     {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name))
-                        {
-                            $response['message'] = 'Successfully Unbanned '.$query->login.'.';
-                        }
-                        else
-                        {
-                            $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
-                        }
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned '.$query->login.'.';
+                        else $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
                         echo json_encode($response);
                     }
                     else
                     {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name))
-                        {
-                            $response['message'] = 'Successfully Unbanned '.$query->login.'.';
-                        }
-                        else
-                        {
-                            $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
-                        }
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned '.$query->login.'.'; else $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
                         echo json_encode($response);
                     }
                 }
@@ -382,14 +346,7 @@ Class Encryption extends CI_Controller
             if ($update)
             {
                 $response['token'] = $this->security->get_csrf_hash();
-                if ($query->player_name == '' || empty($query->player_name))
-                {
-                    $response['message'] = 'Successfully Set Cash '.$query->login.', To: '.$this->encryption->decrypt($data['cash_amount']).'.';
-                }
-                else
-                {
-                    $response['message'] = 'Successfully Set Cash '.$query->player_name.', To: '.$this->encryption->decrypt($data['cash_amount']).'.';
-                }
+                if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash '.$query->login.', To: '.$this->encryption->decrypt($data['cash_amount']).'.'; else $response['message'] = 'Successfully Set Cash '.$query->player_name.', To: '.$this->encryption->decrypt($data['cash_amount']).'.';
                 echo json_encode($response);
             }
             else

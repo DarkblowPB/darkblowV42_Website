@@ -53,10 +53,7 @@ class Create_hint extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run())
-		{
-			$this->hint->CreateHintValidationV2();
-		}
+		if ($this->form_validation->run()) $this->hint->CreateHintValidationV2();
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');

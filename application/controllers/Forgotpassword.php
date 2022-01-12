@@ -31,10 +31,7 @@ Class Forgotpassword extends CI_Controller
 
     function verifyid()
     {
-        if (empty($this->input->get('token', true)))
-        {
-            redirect(base_url(), 'refresh');
-        }
+        if (empty($this->input->get('token', true))) redirect(base_url(), 'refresh');
         else
         {
             // Token Verifying...

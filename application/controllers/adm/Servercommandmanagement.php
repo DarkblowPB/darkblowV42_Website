@@ -26,16 +26,10 @@ Class Servercommandmanagement extends CI_Controller
 
     function sendcommand()
     {
-        if (empty($this->input->get('command_type', true)))
-        {
-            redirect(base_url('adm/servercommandmanagement'), 'refresh');
-        }
+        if (empty($this->input->get('command_type', true))) redirect(base_url('adm/servercommandmanagement'), 'refresh');
         else
         {
-            if ($this->input->get('command_type', true) == '')
-            {
-                redirect(base_url('adm/servercommandmanagement'), 'refresh');
-            }
+            if ($this->input->get('command_type', true) == '') redirect(base_url('adm/servercommandmanagement'), 'refresh');
             else
             {
                 switch ($this->input->get('command_type', true))

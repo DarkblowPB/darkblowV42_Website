@@ -26,10 +26,7 @@ Class Attendance extends CI_Controller
         $this->load->model('main/attendance_model', 'attendance');
         $this->load->library('servercommand_library');
 
-        if ($this->getsettings->Get2()->attendance != 1)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if ($this->getsettings->Get2()->attendance != 1) redirect(base_url('home'), 'refresh');
     }
 
     function index()

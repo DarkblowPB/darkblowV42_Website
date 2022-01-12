@@ -25,10 +25,7 @@ Class Exchange_ticket extends CI_Controller
         $this->load->library('lib');
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
-        if ($this->getsettings->Get2()->exchange_ticket != 1)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        if ($this->getsettings->Get2()->exchange_ticket != 1) redirect(base_url('home'), 'refresh');
     }
     
     function index()
@@ -54,10 +51,7 @@ Class Exchange_ticket extends CI_Controller
                 'numeric' => '%s Only Can Contains Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->exchangeticket->ExchangeItemV3();
-        }
+        if ($this->form_validation->run()) $this->exchangeticket->ExchangeItemV3();
         else
         {
             $this->form_validation->set_error_delimiters('', '');

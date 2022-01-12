@@ -49,10 +49,7 @@ class Download extends CI_Controller
 
 			echo json_encode($response);
 		}
-		else
-		{
-			$this->download->GetDownloadData();
-		}
+		else $this->download->GetDownloadData();
 	}
 }
 

@@ -39,10 +39,7 @@ Class Playersmanagement extends CI_Controller
             );
             $this->load->view('admin/layout/wrapper', $data, FALSE);
         }
-        else
-        {
-            redirect(base_url('adm/playersmanagement'), 'refresh');
-        }
+        else redirect(base_url('adm/playersmanagement'), 'refresh');
     }
 
     function createcustomplayer()
@@ -103,10 +100,7 @@ Class Playersmanagement extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->SendItem();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->SendItem();
         else
         {
             $response['response'] = 'false';
@@ -128,10 +122,7 @@ Class Playersmanagement extends CI_Controller
             array('require' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
 
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->FixInventory();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->FixInventory();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -154,10 +145,7 @@ Class Playersmanagement extends CI_Controller
             array('require' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
 
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->BannedPlayer();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->BannedPlayer();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -180,10 +168,7 @@ Class Playersmanagement extends CI_Controller
             array('require' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
 
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->UnbannedPlayer();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->UnbannedPlayer();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -205,10 +190,7 @@ Class Playersmanagement extends CI_Controller
             'required|numeric',
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->ResetPlayer();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->ResetPlayer();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -230,10 +212,7 @@ Class Playersmanagement extends CI_Controller
             'required|numeric',
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->DeletePlayer();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->DeletePlayer();
         else
         {
             $this->form_validation->set_error_delimiters('', '');
@@ -323,10 +302,7 @@ Class Playersmanagement extends CI_Controller
                 'max_length' => '%s Only Can Using 6 Digits Numeric Value.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->playersmanagement->RegisterCustomPlayer();
-        }
+        if ($this->form_validation->run()) $this->playersmanagement->RegisterCustomPlayer();
         else
         {
             $this->form_validation->set_error_delimiters('', '');

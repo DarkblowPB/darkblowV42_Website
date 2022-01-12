@@ -22,10 +22,7 @@ class Project extends RestController
         $project = @file_get_contents('./darkblow_config.json');
         $parse = json_decode($project);
 
-        foreach ($parse as $row)
-        {
-            $project_version = $row->ProjectVersion->Version;
-        }
+        foreach ($parse as $row) $project_version = $row->ProjectVersion->Version;
 
         $this->response(["status" => 'Success', "project_version" => $project_version], 200);
     }

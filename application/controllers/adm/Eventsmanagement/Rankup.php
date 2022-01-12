@@ -65,10 +65,7 @@ Class Rankup extends CI_Controller
                 'max_length' => '%s Can Be Set Up To 9999.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsrankup->UpdateEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsrankup->UpdateEvents();
         else
         {
             $response['response'] = 'false';

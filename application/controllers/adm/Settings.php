@@ -68,10 +68,7 @@ Class Settings extends CI_Controller
                     'in_list' => 'Invalid %s.'
                 )
             );
-            if ($this->form_validation->run())
-            {
-                $this->settings->SetCondition();
-            }
+            if ($this->form_validation->run()) $this->settings->SetCondition();
             else
             {
                 $this->form_validation->set_error_delimiters('', '');
@@ -108,10 +105,7 @@ Class Settings extends CI_Controller
                 'required',
                 array('required' => '%s Cannot Be Empty.')
             );
-            if ($this->form_validation->run())
-            {
-                $this->settings->SetGeneral();
-            }
+            if ($this->form_validation->run()) $this->settings->SetGeneral();
             else
             {
                 $this->form_validation->set_error_delimiters('', '');
@@ -185,10 +179,7 @@ Class Settings extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->settings->SetFeature();
-        }
+        if ($this->form_validation->run()) $this->settings->SetFeature();
         else
         {
             $response['response'] = 'false';

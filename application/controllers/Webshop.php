@@ -95,10 +95,7 @@ class Webshop extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run())
-		{
-			$this->login->LoginValidationV2();
-		}
+		if ($this->form_validation->run()) $this->login->LoginValidationV2();
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');
@@ -131,10 +128,7 @@ class Webshop extends CI_Controller
 			'numeric|required',
 			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run())
-		{
-			$this->webshop->BuyItemV2();
-		}
+		if ($this->form_validation->run()) $this->webshop->BuyItemV2();
 		else
 		{
 			$this->form_validation->set_error_delimiters('', '');

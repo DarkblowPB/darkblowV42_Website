@@ -92,10 +92,7 @@ Class Mapbonus extends CI_Controller
                 'numeric' => '%s Only Can Using Numeric Characters.'
             )
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsmapbonus->AddNewEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsmapbonus->AddNewEvents();
         else
         {
             $response['response'] = 'false';
@@ -123,10 +120,7 @@ Class Mapbonus extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run())
-        {
-            $this->eventsmapbonus->DeleteEvents();
-        }
+        if ($this->form_validation->run()) $this->eventsmapbonus->DeleteEvents();
         else
         {
             $response['response'] = 'false';

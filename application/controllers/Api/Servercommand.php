@@ -838,10 +838,7 @@ class Servercommand extends RestController {
                             $data['count'] = $query->item_count;
 
                         }
-                        if ($query->type == 'Cash')
-                        {
-                            $data['cash'] = $query->cash;
-                        }
+                        if ($query->type == 'Cash') $data['cash'] = $query->cash;
 
                         if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success')
                         {
@@ -852,14 +849,8 @@ class Servercommand extends RestController {
                                 'item_code' => $query->item_code,
                                 'date_redeemed' => date('d-m-Y h:i:s')
                             ));
-                            if ($insert && $query->type == 'Item')
-                            {
-                                $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). ', You Received '.$query->item_name. '.';
-                            }
-                            if ($insert && $query->type == 'Cash')
-                            {
-                                $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). 'You Received '. number_format($query->cash, 0, ',', '.'). ' DR-Cash';
-                            }
+                            if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). ', You Received '.$query->item_name. '.';
+                            if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). 'You Received '. number_format($query->cash, 0, ',', '.'). ' DR-Cash';
 
                             $this->response($response, 200);
                         }
@@ -891,14 +882,8 @@ class Servercommand extends RestController {
                                 'item_code' => $query->item_code,
                                 'date_redeemed' => date('d-m-Y h:i:s')
                             ));
-                            if ($insert && $query->type == 'Item')
-                            {
-                                $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). ', You Received '.$query->item_name. '.';
-                            }
-                            if ($insert && $query->type == 'Cash')
-                            {
-                                $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). 'You Received '. number_format($query->cash, 0, ',', '.'). ' DR-Cash';
-                            }
+                            if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). ', You Received '.$query->item_name. '.';
+                            if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations '.$this->session->userdata('player_name'). 'You Received '. number_format($query->cash, 0, ',', '.'). ' DR-Cash';
     
                             $this->response($response, 200);
                         }
