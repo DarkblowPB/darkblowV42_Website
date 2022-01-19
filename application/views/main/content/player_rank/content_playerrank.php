@@ -18,58 +18,32 @@
 						?>
 						<tr>
 							<td><?php echo ++$start; ?></td>
-							<td><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt="Rank Player"></td>
+							<td><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/img_rank/<?php echo $row['rank'] ?>.gif" alt="<?php echo $row['rank'] ?>"></td>
 							<td>
 								<?php
-								if ($row['player_name'] == null) 
-								{
-									echo 'New Player';
-								}
-								if ($row['player_name'] != null) 
-								{
-									echo $row['player_name'];
-								}
+								if ($row['player_name'] == null) echo 'New Player';
+								else echo $row['player_name'];
 								?>
 							</td>
 							<td>
 								<?php
-								if ($row['pc_cafe'] == "1") 
-								{
-									echo '<button type="button" title="Default Badges For Player" class="nk-btn nk-btn-outline nk-btn-color-success">Member</button>';
-								}
-								else if ($row['pc_cafe'] == "2") 
-								{
-									echo '<button type="button" title="Badges For Donator Player" class="nk-btn nk-btn-outline nk-btn-color-warning">Special Member</button>';
-								}
-								else if ($row['pc_cafe'] == "5")
-								{
-									echo '<button type="button" title="Developer & Game Master Badges" class="nk-btn nk-btn-outline nk-btn-color-danger">DEV & GM</button>';
-								}
+								if ($row['pc_cafe'] == "1") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_91').'" class="nk-btn nk-btn-outline nk-btn-color-success">'.$this->lang->line('STR_DARKBLOW_92').'</button>';
+								else if ($row['pc_cafe'] == "2") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_91').'" class="nk-btn nk-btn-outline nk-btn-color-warning">'.$this->lang->line('STR_DARKBLOW_93').'</button>';
+								else if ($row['pc_cafe'] == "5") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_94').'" class="nk-btn nk-btn-outline nk-btn-color-danger">'.$this->lang->line('STR_DARKBLOW_129').'</button>';
+								else echo $this->lang->line('STR_DARKBLOW_191');
 								?>
 							</td>
 							<td><strong><?php echo number_format($row['exp'], '0',',','.') ?></strong></td>
 							<td>
 								<?php
-								if ($row['access_level'] == "-1") 
-								{
-									echo '<span class="text-main-1">BANNED</span>';
-								}
-								else if ($row['access_level'] == "0") 
-								{
-									echo '<span class="text-main-3" style="font-weight: bold;">ACTIVE</span>';
-								}
-								else if ($row['access_level'] == "4")
-								{
-									echo '<span class="text-secondary" style="font-weight: bold;">UNKNOWN</span>';
-								}
-								else if ($row['access_level'] == "5")
-								{
-									echo '<span class="text-secondary" style="font-weight: bold;">UNKNOWN</span>';
-								}
-								else if ($row['access_level'] == "6")
-								{
-									echo '<span class="text-secondary" style="font-weight: bold;">UNKNOWN</span>';
-								}
+								if ($row['access_level'] == "-1") echo '<p class="text-main-1" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_192').'</p>';
+								else if ($row['access_level'] == "0") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_193').'</p>';
+								else if ($row['access_level'] == "1") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_193').'</p>';
+								else if ($row['access_level'] == "2") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_194').'</p>';
+								else if ($row['access_level'] == "3") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_195').'</p>';
+								else if ($row['access_level'] == "4") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_196').'</p>';
+								else if ($row['access_level'] == "5") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_197').'</p>';
+								else if ($row['access_level'] == "6") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_198').'</p>';
 								?>
 							</td>
 						</tr>

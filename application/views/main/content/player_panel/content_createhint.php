@@ -1,14 +1,14 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap-2"></div>
-		<h3 class="nk-decorated-h-2"><span class="text-main-1">Create <span class="text-white">New Hint</span></span></h3>
+		<h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_183') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_184') ?></span></span></h3>
 		<div class="nk-gap-2"></div>
 		<div class="nk-gap-2"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-6">
 				<?php echo form_open('', 'id="createhint_form" autocomplete="off"') ?>
 					<div class="form-group">
-						<label>Hint Question</label>
+						<label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
 						<select class="form-control" id="hint_question" required>
 							<option value="" disabled selected>
 								Select Your Hint Question
@@ -62,15 +62,15 @@
 					</div>
 					<div class="form-group">
 						<label>Hint Answer</label>
-						<input type="text" id="hint_answer" class="form-control" placeholder="Enter Your Hint Answer">
+						<input type="text" id="hint_answer" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>">
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="password" id="password" class="form-control" placeholder="Enter Your Password" minlength="4" maxlength="16">
+						<input type="password" id="password" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
 					</div>
 					<div class="nk-gap-1"></div>
 					<div class="form-group text-center">
-						<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit New Hint">
+						<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_185') ?>">
 					</div>
 				<?php echo form_close() ?>
 				<script>
@@ -81,24 +81,25 @@
 							e.preventDefault();
 
 							return Do_CreateNewHint();
+						});
 					});
 
 					function Do_CreateNewHint()
 					{
 						if ($('#hint_question').val() == ""){
-							ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_10') ?>');
 							return;
 						}
 						else if ($('#hint_answer').val() == ""){
-							ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
 							return;
 						}
 						else if ($('#password').val() == ""){
-							ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
 							return;
 						}
 						else{
-							SetAttribute('submit', 'button', 'Processing...');
+							SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 							$.ajax({
 								url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
 								type: 'POST',
@@ -114,7 +115,7 @@
 									var decodeParse = JSON.parse(decodeString);
 
 									if (decodeParse.response == 'true'){
-										SetAttribute('submit', 'submit', 'Submit New Hint');
+										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
 										CSRF_TOKEN = decodeParse.token;
 										ShowToast(2000, 'success', decodeParse.message);
 										setTimeout(() => {
@@ -122,7 +123,7 @@
 										}, 2000);
 									}
 									else{
-										SetAttribute('submit', 'submit', 'Submit New Hint');
+										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
 										CSRF_TOKEN = decodeParse.token;
 										ShowToast(2000, 'error', decodeParse.message);
 										return;
@@ -130,8 +131,8 @@
 								},
 								error: function(){
 									if (RETRY >= 3){
-										SetAttribute('submit', 'submit', 'Submit New Hint');
-										ShowToast(2000, 'error', 'Failed To Submit New Hint.');
+										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
+										ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_21') ?>');
 										setTimeout(() => {
 											window.location.reload();
 										}, 2000);
@@ -155,7 +156,7 @@
                                                 return Do_CreateNewHint();
                                             },
                                             error: function(){
-                                                ShowToast(2000, 'error', 'Failed To Create New Hint.');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_21') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);

@@ -31,7 +31,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <a href="<?php echo base_url() ?>"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="DarkblowPB"></a>
+                    <a href="<?php echo base_url() ?>"><img src="<?php echo base_url() ?>/assets/goodgames/assets/images/weblogo.png" alt="<?php echo $this->getsettings->Get2()->project_name ?>"></a>
                     <div class="nk-gap-2"></div>
                 </div>
             </div>

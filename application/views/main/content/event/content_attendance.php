@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-5 text-center">
-                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="Claim Today" onclick="ClaimReward('<?php echo $this->attendance->GetTodayEventID() ?>', '<?php echo date('d-m-Y') ?>')">
+                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="<?php echo $this->lang->line('STR_DARKBLOW_179') ?>" onclick="ClaimReward('<?php echo $this->attendance->GetTodayEventID() ?>', '<?php echo date('d-m-Y') ?>')">
             </div>
             <script>
                 var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -89,15 +89,15 @@
                 function ClaimReward(event_id, date, item_id)
                 {
                     if (event_id == '' || event_id == null){
-                        ShowToast(2000, 'warning', 'Invalid Attendance Event.');
+                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
                         return;
                     }
                     else if (date == '' || event_id == null){
-                        ShowToast(2000, 'warning', 'Invalid Attendance Event.');
+                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
                         return;
                     }
                     else{
-                        SetAttribute('claim_today', 'button', 'Processing...');
+                        SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 
                         $.ajax({
                             url: '<?php echo base_url('api/servercommand/attendance') ?>',
@@ -117,7 +117,7 @@
                                 var Result = JSON.parse(GetString);
 
                                 if (Result.status == 'success'){
-                                    SetAttribute('claim_today', 'button', 'Claim Today');
+                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     setTimeout(() => {
@@ -125,13 +125,13 @@
                                     }, 2000);
                                 }
                                 else if (Result.status == 'error'){
-                                    SetAttribute('claim_today', 'button', 'Claim Today');
+                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     return;
                                 }
                                 else{
-                                    SetAttribute('claim_today', 'button', 'Claim Today');
+                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     return;
@@ -140,7 +140,7 @@
                             error: function(){
                                 if (RETRY >= 3)
                                 {
-                                    SetAttribute('claim_today', 'button', 'Claim TOday');
+                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', 'Failed To Claim Reward.');
                                     setTimeout(() => {
                                         window.location.reload();
@@ -149,7 +149,7 @@
                                 else
                                 {
                                     RETRY += 1;
-                                    ShowToast(1000, 'info', 'Generate New Request Token...');
+                                    ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
     
                                     $.ajax({
                                         url: '<?php echo base_url('api/security/csrf') ?>',
@@ -166,7 +166,7 @@
                                             return ClaimReward(event_id, date);
                                         },
                                         error: function(){
-                                            SetAttribute('claim_today', 'button', 'Claim Today');
+                                            SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
                                             ShowToast(2000, 'error', 'Failed To Claim Reward.');
                                             setTimeout(() => {
                                                 window.location.reload();

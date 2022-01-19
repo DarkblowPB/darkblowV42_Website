@@ -15,7 +15,7 @@
                                     <input type="text" id="voucher_code" class="form-control" placeholder="Enter Your Voucher Code">
                                 </div>
                                 <div class="form-group text-center">
-                                    <input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit Voucher">
+                                    <input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_201') ?>">
                                 </div>
                             <?php echo form_close() ?>
                             <script>
@@ -51,19 +51,19 @@
                                                 var Result = JSON.parse(GetString);
     
                                                 if (Result.response == 'true'){
-                                                    SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                    SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_201') ?>');
                                                     ShowToast(2000, 'success', Result.message);
                                                     CSRF_TOKEN = Result.token;
                                                     return;
                                                 }
                                                 else if (Result.response == 'false'){
-                                                    SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                    SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_201') ?>');
                                                     ShowToast(2000, 'error', Result.message);
                                                     CSRF_TOKEN = Result.token;
                                                     return;
                                                 }
                                                 else{
-                                                    SetAttribute('submit', 'submit', 'Submit Voucher');
+                                                    SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_201') ?>');
                                                     ShowToast(2000, 'error', Result.message);
                                                     CSRF_TOKEN = Result.token;
                                                     return;
@@ -71,15 +71,15 @@
                                             },
                                             error: function(){
                                                 if (RETRY >= 3){
-                                                    SetAttribute('submit', 'submit', 'Submit Voucher');
-                                                    ShowToast(2000, 'error', 'Failed To Submit Voucher.');
+                                                    SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_201') ?>');
+                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_23') ?>');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);
                                                 }
                                                 else{
                                                     RETRY += 1;
-                                                    ShowToast(1000, 'info', 'Generate New Request Token...');
+                                                    ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                                     $.ajax({
                                                         url: '<?php echo base_url('api/security/csrf') ?>',
@@ -99,8 +99,8 @@
                                                             return Do_SubmitVoucher();
                                                         },
                                                         error: function(){
-                                                            SetAttribute('submit', 'submit', 'Submit Voucher');
-                                                            ShowToast(2000, 'error', 'Failed To Sumbit Voucher');
+                                                            SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_201') ?>');
+                                                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_23') ?>');
                                                             setTimeout(() => {
                                                                 window.location.reload();
                                                             }, 2000);

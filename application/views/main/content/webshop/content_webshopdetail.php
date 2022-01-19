@@ -38,10 +38,10 @@
 									<div class="form-group">
 										<label class="col-form-label">Select Duration:</label>
 										<select id="price_option" class="form-control">
-											<option value="<?php echo $detail->webshop_itemprice_3days ?>">3 Days</option>
-											<option value="<?php echo $detail->webshop_itemprice_7days ?>">7 Days</option>
-											<option value="<?php echo $detail->webshop_itemprice_30days ?>" selected>30 Days</option>
-											<option value="<?php echo $detail->webshop_itemprice_permanent ?>">Permanent</option>
+											<option value="<?php echo $detail->webshop_itemprice_3days ?>"><?php echo $this->lang->line('STR_DARKBLOW_209') ?></option>
+											<option value="<?php echo $detail->webshop_itemprice_7days ?>"><?php echo $this->lang->line('STR_DARKBLOW_210') ?></option>
+											<option value="<?php echo $detail->webshop_itemprice_30days ?>" selected><?php echo $this->lang->line('STR_DARKBLOW_211') ?></option>
+											<option value="<?php echo $detail->webshop_itemprice_permanent ?>"><?php echo $this->lang->line('STR_DARKBLOW_80') ?></option>
 										</select>
 									</div>
 									<div class="form-group text-center">
@@ -49,7 +49,7 @@
 											<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal"><?php echo $this->lang->line('STR_DARKBLOW_152') ?></a>
 										<?php endif; ?>
 										<?php if (!empty($this->session->userdata('uid'))) : ?>
-												<input id="submit_buy" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Buy">
+												<input id="submit_buy" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_207') ?>">
 										<?php endif; ?>
 									</div>
 								<?php echo form_close() ?>
@@ -65,7 +65,7 @@
 										$('#buy_form').on('submit', function(e){
 											e.preventDefault();
 											<?php if (!empty($this->session->userdata('uid'))) : ?>
-												SetAttribute('submit_buy', 'button', 'Processing...');
+												SetAttribute('submit_buy', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 												
 												$.ajax({
 													url: '<?php echo base_url('webshop/do_buy') ?>',
@@ -82,19 +82,19 @@
 														var Result = JSON.parse(GetString);
 
 														if (Result.response == 'true'){
-															SetAttribute('submit_buy', 'submit', 'Buy');
+															SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 															ShowToast(2000, 'success', Result.message);
 															CSRF_TOKEN = Result.token;
 															return;
 														}
 														else if (Result.response == 'false'){
-															SetAttribute('submit_buy', 'submit', 'Buy');
+															SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 															ShowToast(2000, 'error', Result.message);
 															CSRF_TOKEN = Result.token;
 															return;
 														}
 														else{
-															SetAttribute('submit_buy', 'submit', 'Buy');
+															SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 															ShowToast(2000, 'error', Result.message);
 															CSRF_TOKEN = Result.token;
 															return;
@@ -119,8 +119,8 @@
 																Do_Buy();
 															},
 															error: function(){
-																SetAttribute('submit_buy', 'submit', 'Buy');
-																ShowToast(2000, 'error', 'Failed To Buy This Item.');
+																SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
+																ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_16') ?>');
 																setTimeout(() => {
 																	window.location.reload();
 																}, 2000);
@@ -146,26 +146,26 @@
 															var Result = JSON.parse(GetString);
 
 															if (Result.response == 'true'){
-																SetAttribute('submit_buy', 'submit', 'Buy');
+																SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 																ShowToast(2000, 'success', Result.message);
 																CSRF_TOKEN = Result.token;
 																return;
 															}
 															else if (Result.response == 'false'){
-																SetAttribute('submit_buy', 'submit', 'Buy');
+																SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 																ShowToast(2000, 'error', Result.message);
 																CSRF_TOKEN = Result.token;
 																return;
 															}
 															else{
-																SetAttribute('submit_buy', 'submit', 'Buy');
+																SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 																ShowToast(2000, 'error', Result.message);
 																CSRF_TOKEN = Result.token;
 																return;
 															}
 														},
 														error: function(){
-															SetAttribute('submit_buy', 'submiy', 'Buy');
+															SetAttribute('submit_buy', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_207') ?>');
 															ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
 															setTimeout(() => {
 																window.location.reload();
@@ -266,7 +266,7 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="card bg-dark-2">
 									<div class="card-body text-center">
-										No Related Webshop Data Available
+										<?php echo $this->lang->line('STR_DARKBLOW_211') ?>
 									</div>
 								</div>
 							</div>
@@ -303,9 +303,9 @@
 							<div class="nk-gap-1"></div>
 							<div class="row vertical-gap">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-									<input id="submit_login" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-main-5" value="Login">
+									<input id="submit_login" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_155') ?>">
 									<div class="nk-gap"></div>
-									<a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-outline nk-btn-block nk-btn-color-main-3">Register</a>
+									<a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-outline nk-btn-block nk-btn-color-main-3"><?php echo $this->lang->line('STR_DARKBLOW_44') ?></a>
 								</div>
 							</div>
 						<?php echo form_close() ?>
@@ -324,7 +324,7 @@
 									}
 									else{
 
-										SetAttribute('submit_login', 'button', 'Processing...');
+										SetAttribute('submit_login', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 
 										$.ajax({
 											url: '<?php echo base_url('webshop/do_login') ?>',
@@ -340,7 +340,7 @@
 												var Result = JSON.parse(GetString);
 												
 												if (Result.response == 'true'){
-													SetAttribute('submit_login', 'submit', 'Login');
+													SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 													ShowToast(2000, 'success', Result.message);
 													FLOAT_CSRF = Result.token;
 													setTimeout(() => {
@@ -348,13 +348,13 @@
 													}, 2000);
 												}
 												else if (Result.response == 'false'){
-													SetAttribute('submit_login', 'submit', 'Login');
+													SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 													ShowToast(2000, 'error', Result.message);
 													FLOAT_CSRF = Result.token;
 													return;
 												}
 												else{
-													SetAttribute('submit_login', 'submit', 'Login');
+													SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 													ShowToast(2000, 'error', Result.message);
 													FLOAT_CSRF = Result.token;
 													return;
@@ -379,7 +379,7 @@
 														return Do_Login();
 													},
 													error: function(){
-														SetAttribute('submit_login', 'submit', 'Login');
+														SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 														ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
 														setTimeout(() => {
 															window.location.reload();
@@ -408,7 +408,7 @@
 										var Result = JSON.parse(GetString);
 
 										if (Result.response == 'true'){
-											SetAttribute('submit_login', 'submit', 'Login');
+											SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 											ShowToast(2000, 'success', Result.message);
 											FLOAT_CSRF = Result.token;
 											setTimeout(() => {
@@ -416,20 +416,20 @@
 											}, 2000);
 										}
 										else if (Result.response == 'false'){
-											SetAttribute('submit_login', 'submit', 'Login');
+											SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 											ShowToast(2000, 'error', Result.message);
 											FLOAT_CSRF = Result.token;
 											return;
 										}
 										else{
-											SetAttribute('submit_login', 'submit', 'Login');
+											SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 											ShowToast(2000, 'error', Result.message);
 											FLOAT_CSRF = Result.token;
 											return;
 										}
 									},
 									error: function(){
-										SetAttribute('submit_login', 'submit', 'Login');
+										SetAttribute('submit_login', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_155') ?>');
 										ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
 										setTimeout(() => {
 											window.location.reload();

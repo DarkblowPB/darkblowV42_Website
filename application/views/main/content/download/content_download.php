@@ -17,7 +17,6 @@
                                         <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                         <p>Size : <?php echo $row['size'] ?><br></p>
                                         <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
-                                        <!-- <a href="https://<?php echo $row['file_url'] ?>" target="_blank" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a> -->
                                     </div>
                                 </div>
                             <?php $num++; endforeach; ?>
@@ -31,8 +30,7 @@
                                 <div class="nk-feature-cont text-center">
                                     <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                     <p>Size : <?php echo $row['size'] ?><br></p>
-                                        <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
-                                    <!-- <a href="https://<?php echo $row['file_url'] ?>" target="_blank" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a> -->
+                                    <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
                                 </div>
                             </div>
                             <?php $num++; endforeach; ?>
@@ -57,8 +55,7 @@
                             <div class="nk-feature-cont text-center">
                                 <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                 <p>Size : <?php echo $row['size'] ?><br></p>
-                                        <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
-                                <!-- <a href="https://<?php echo $row['file_url'] ?>" target="_blank" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary"><span class="fa fa-download"></span>&nbsp; Download</a> -->
+                                <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
                             </div>
                         </div>
                         <?php $num++; endforeach; ?>
@@ -87,7 +84,7 @@
                                 <div class="nk-feature-cont text-center">
                                     <h3 class="nk-feature-title"><?php echo $row['file_name'] ?></h3>
                                     <p>Size : <?php echo $row['size'] ?><br></p>
-                                    <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
+                                    <input type="button" id="button_<?php echo $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?php echo $this->lang->line('STR_DARKBLOW_10') ?>" onclick="GetDownloadUrl('data_<?php echo $num ?>', 'button_<?php echo $num ?>', '<?php echo $row['id'] ?>')">
                                 </div>
                             </div>
                         </div>
@@ -103,19 +100,19 @@
             function GetDownloadUrl(data_id, button_id, package_id)
             {
                 if (data_id == '' || data_id == null){
-                    ShowToast(2000, 'warning', 'Invalid Download Data.');
+                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_16') ?>');
                     return;
                 }
                 else if (button_id == '' || button_id == null){
-                    ShowToast(2000, 'warning', 'Invalid Download Data.');
+                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_16') ?>');
                     return;
                 }
                 else if (package_id == '' || package_id == null){
-                    ShowToast(2000, 'warning', 'Invalid Download Data.');
+                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_16') ?>');
                     return;
                 }
                 else{
-                    SetAttribute(button_id, 'button', 'Processing...');
+                    SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 
                     $.ajax({
                         url: '<?php echo base_url('download/do_download') ?>',
@@ -129,21 +126,21 @@
                             var Result = JSON.parse(GetString);
 
                             if (Result.response == 'true'){
-                                SetAttribute(button_id, 'button', 'Download');
+                                SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_10') ?>');
                                 ShowToast(2000, 'info', Result.message);
                                 setTimeout(() => {
                                     window.open(Result.url);
                                 }, 2000);
                             }
                             else{
-                                SetAttribute(button_id, 'button', 'Download');
+                                SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_10') ?>');
                                 ShowToast(2000, 'error', Result.message);
                                 return;
                             }
                         },
                         error: function(){
-                            SetAttribute(button_id, 'button', 'Download');
-                            ShowToast(2000, 'error', 'Failed To Generate Download Link.');
+                            SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_10') ?>');
+                            ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_17') ?>');
                             setTimeout(() => {
                                 window.location.reload();
                             }, 2000);

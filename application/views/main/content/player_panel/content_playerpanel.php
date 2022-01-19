@@ -43,22 +43,10 @@
                                                   <td><?php echo $this->lang->line('STR_DARKBLOW_90') ?></td>
                                                   <td>
                                                        <?php
-                                                       if ($row['pc_cafe'] == "1") 
-                                                       {
-                                                            echo '<button type="button" title="Default Badges For Player" class="nk-btn nk-btn-outline nk-btn-color-success">Member</button>';
-                                                       }
-                                                       else if ($row['pc_cafe'] == "2") 
-                                                       {
-                                                            echo '<button type="button" title="Default Badges For Player" class="nk-btn nk-btn-outline nk-btn-color-warning">Special Member</button>';
-                                                       }
-                                                       else if ($row['pc_cafe'] == "5")
-                                                       {
-                                                            echo '<button type="button" title="Developer & Game Master Badges" class="nk-btn nk-btn-outline nk-btn-color-danger">DEV & GM</button>';
-                                                       }
-                                                       else
-                                                       {
-                                                            echo 'INVALID';
-                                                       }
+                                                       if ($row['pc_cafe'] == "1") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_91').'" class="nk-btn nk-btn-outline nk-btn-color-success">'.$this->lang->line('STR_DARKBLOW_92').'</button>';
+                                                       else if ($row['pc_cafe'] == "2") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_91').'" class="nk-btn nk-btn-outline nk-btn-color-warning">'.$this->lang->line('STR_DARKBLOW_93').'</button>';
+                                                       else if ($row['pc_cafe'] == "5") echo '<button type="button" title="'.$this->lang->line('STR_DARKBLOW_94').'" class="nk-btn nk-btn-outline nk-btn-color-danger">'.$this->lang->line('STR_DARKBLOW_129').'</button>';
+                                                       else echo $this->lang->line('STR_DARKBLOW_191');
                                                        ?>
                                                   </td>
                                              </tr>
@@ -66,38 +54,15 @@
                                                   <td><?php echo $this->lang->line('STR_DARKBLOW_165') ?></td>
                                                   <td>
                                                        <?php
-                                                       if ($row['access_level'] == "-1") 
-                                                       {
-                                                            echo '<p class="text-main-1" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">BANNED</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "0") 
-                                                       {
-                                                            echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">ACTIVE</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "1") 
-                                                       {
-                                                            echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">ACTIVE</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "2")
-                                                       {
-                                                            echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">STREAMER</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "3")
-                                                       {
-                                                            echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">MODERATOR</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "4")
-                                                       {
-                                                            echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">GAME MASTER</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "5")
-                                                       {
-                                                            echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">ADMIN</p>';
-                                                       }
-                                                       else if ($row['access_level'] == "6") 
-                                                       {
-                                                            echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">DEVELOPER</p>';
-                                                       }
+                                                       if ($row['access_level'] == "-1") echo '<p class="text-main-1" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_192').'</p>';
+                                                       else if ($row['access_level'] == "0") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_193').'</p>';
+                                                       else if ($row['access_level'] == "1") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_193').'</p>';
+                                                       else if ($row['access_level'] == "2") echo '<p class="text-success" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_194').'</p>';
+                                                       else if ($row['access_level'] == "3") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_195').'</p>';
+                                                       else if ($row['access_level'] == "4") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_196').'</p>';
+                                                       else if ($row['access_level'] == "5") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_197').'</p>';
+                                                       else if ($row['access_level'] == "6") echo '<p class="text-main-6" style="font-weight: bold; font-style: italic; margin-bottom: -10px;">'.$this->lang->line('STR_DARKBLOW_198').'</p>';
+                                                       else echo $this->lang->line('STR_DARKBLOW_191');
                                                        ?>
                                                   </td>
                                              </tr>
@@ -199,7 +164,7 @@
                                                             </tr>
                                                        </tbody>
                                                   </table>
-                                                  <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Request See Hint" onclick="RequestHint()">
+                                                  <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_199') ?>" onclick="RequestHint()">
                                                   <script>
                                                        var RETRY = 0;
                                                        $(document).ready(function(){
@@ -212,7 +177,7 @@
 
                                                        function RequestHint()
                                                        {
-                                                            SetAttribute('request_hint', 'button', 'Processing...');
+                                                            SetAttribute('request_hint', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                                                             $.ajax({
                                                                  url : '<?php echo base_url('player_panel/home/do_requesthint') ?>',
                                                                  type: 'GET',
@@ -224,17 +189,17 @@
 
                                                                       if (Result.response == 'true'){
                                                                            ShowToast(3000, 'info', Result.message);
-                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
+                                                                           SetAttribute('request_hint', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       }
                                                                       else if (Result.response == 'false'){
                                                                            ShowToast(3000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
+                                                                           SetAttribute('request_hint', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       }
                                                                       else{
                                                                            ShowToast(2000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', 'Request See Hint');
+                                                                           SetAttribute('request_hint', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       }
                                                                  },

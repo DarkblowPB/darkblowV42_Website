@@ -12,7 +12,7 @@
                             <input type="hidden" id="hidden_email" value="<?php echo $player->email ?>">
                         <?php endif; ?>
                         <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                            <label class="form-control"><button type="button" id="resend_email" onclick="return ShowToast(2000, 'info', 'This Feature Is Unavailable Right Now.')" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">Resend Email Verification</button></label>
+                            <label class="form-control"><button type="button" id="resend_email" onclick="return ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_2') ?>')" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5"><?php echo $this->lang->line('STR_DARKBLOW_48') ?></button></label>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group text-center">
                         <?php if ($this->changeemail->IsConfirmEmail($player->email)) : ?>
-                            <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Change Email">
+                            <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="<?php echo $this->lang->line('STR_DARKBLOW_181') ?>">
                         <?php endif; ?>
                         <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
                             <label class="form-control bg-main-1 mt-50"><?php echo $this->lang->line('STR_DARKBLOW_54') ?></label>
@@ -51,7 +51,7 @@
                                     var Result = JSON.parse(GetString);
 
                                     if (Result.response == 'true'){
-                                        SetAttribute('resend_email', 'button', 'Resend Email Verification');
+                                        SetAttribute('resend_email', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_48') ?>');
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'success', Result.message);
                                         setTimeout(() => {
@@ -59,7 +59,7 @@
                                         }, 2000);
                                     }
                                     else{
-                                        SetAttribute('resend_email', 'button', 'Resend Email Verification');
+                                        SetAttribute('resend_email', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_48') ?>');
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
                                         return;
@@ -67,13 +67,13 @@
                                 },
                                 error: function(data){
                                     if (RETRY >= 3){
-                                        SetAttribute('resend_email', 'button', 'Resend Email Verification')
-                                        ShowToast(2000, 'error', 'Failed To Resend Email Verification.');
+                                        SetAttribute('resend_email', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_48') ?>')
+                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_19') ?>');
                                         return;
                                     }
                                     else{
                                         RETRY += 1;
-                                        ShowToast(1000, 'info', 'Getting New Request Token...');
+                                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                         $.ajax({
                                             url: '<?php echo base_url('api/security/csrf') ?>',
@@ -149,7 +149,7 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            SetAttribute('submit', 'submit', 'Change Email');
+                                            SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_181') ?>');
                                             ShowToast(2000, 'success', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             setTimeout(() => {
@@ -159,13 +159,13 @@
                                     },
                                     error: function(data){
                                         if (RETRY >= 3){
-                                            SetAttribute('submit', 'submit', 'Change Email');
-                                            ShowToast(2000, 'error', 'Failed To Change Email.');
+                                            SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_181') ?>');
+                                            ShowToast(2000, 'error', 'Failed To <?php echo $this->lang->line('STR_DARKBLOW_181') ?>.');
                                             return;
                                         }
                                         else{
                                             RETRY += 1;
-                                            ShowToast(2000, 'info', 'Generate New Request Token...');
+                                            ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                             $.ajax({
                                                 url: '<?php echo base_url('api/security/csrf') ?>',
@@ -185,8 +185,8 @@
                                                     return ChangeEmail();
                                                 },
                                                 error: function(){
-                                                    SetAttribute('submit', 'submit', 'Change Email');
-                                                    ShowToast(2000, 'error', 'Failed To Change Email.');
+                                                    SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_181') ?>');
+                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_20') ?>');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);

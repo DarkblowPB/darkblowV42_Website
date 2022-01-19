@@ -77,7 +77,7 @@
                     }
                 },
                 error: function(){
-                    ShowToast(2000, 'error', 'Failed to Logout.');
+                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_28') ?>');
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
@@ -110,7 +110,7 @@
                     }
                 },
                 erorr: function(){
-                    ShowToast(2000, 'error', 'Failed To Reach Server.');
+                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_26') ?>');
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);

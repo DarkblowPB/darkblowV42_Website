@@ -40,7 +40,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/ldbtn.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/goodgames/assets/css/loading.min.css">
         <noscript>
-            Your Browser Does Not Support Javascript.
+            <?php echo $this->lang->line('STR_WARNING_23') ?>
         </noscript>
     </head>
     <body>
@@ -165,7 +165,7 @@
                             ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel" || $this->uri->segment(1) == "event"){echo 'active';} ?>">
                                 <a href="javascript:void(0)">
-                                    User Area
+                                    <?php echo $this->lang->line('STR_MENU_6') ?>
                                 </a>
                                 <ul class="dropdown">
                                     <li class="<?php if($this->uri->segment(2)== "home"){echo 'active';}?>">

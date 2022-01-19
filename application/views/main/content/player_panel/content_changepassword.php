@@ -48,7 +48,7 @@
                             </div>
                             <div class="nk-gap"></div>
                             <div class="form-group text-center">
-                                <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Change Password">
+                                <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?php echo $this->lang->line('STR_DARKBLOW_182') ?>">
                             </div>
                         <?php echo form_close() ?>
                         <script>
@@ -85,7 +85,7 @@
                                     return;
                                 }
                                 else{
-                                    SetAttribute('submit', 'button', 'Processing...');
+                                    SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                                     $.ajax({
                                         url: '<?php echo base_url('player_panel/changepassword/do_changepassword') ?>',
                                         type: 'POST',
@@ -104,7 +104,7 @@
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Change Password');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_182') ?>');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
@@ -112,7 +112,7 @@
                                                 }, 2000);
                                             }
                                             else{
-                                                SetAttribute('submit', 'submit', 'Change Password');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_182') ?>');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
@@ -120,15 +120,15 @@
                                         },
                                         error: function(){
                                             if (RETRY >= 3){
-                                                SetAttribute('submit', 'submit', 'Change Password.');
-                                                ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_182') ?>.');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
                                             }
                                             else{
                                                 RETRY += 1;
-                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+                                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                                 $.ajax({
                                                 url: '<?php echo base_url('api/security/csrf') ?>',
@@ -147,7 +147,7 @@
                                                     return Do_ChangePassword();
                                                 },
                                                 error: function(){
-                                                    ShowToast(2000, 'error', 'Failed To Change Password.');
+                                                    ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_5') ?>');
                                                     setTimeout(() => {
                                                         window.location.reload();
                                                     }, 2000);

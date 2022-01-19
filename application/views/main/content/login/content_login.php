@@ -16,7 +16,7 @@
                     </div>
                     <div class="nk-gap-3"></div>
                     <div class="form-group text-center">
-                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" value="Login">
+                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" value="<?php echo $this->lang->line('STR_DARKBLOW_38') ?>">
                     </div>
                     <div class="form-group text-center text-white">
                         OR
@@ -39,15 +39,15 @@
                     function DoLogin()
                     {
                         if ($('#username').val() == '' || $('#username').val() == null){
-                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
                             document.getElementById('username').focus();
                         }
                         else if ($('#password').val() == '' || $('#password').val() == null){
-                            ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
                             document.getElementById('password').focus();
                         }
                         else{
-                            SetAttribute('submit', 'button', 'Processing...');
+                            SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                             $.ajax({
                                 url: '<?php echo base_url('login/do_login') ?>',
                                 type: 'POST',
@@ -62,7 +62,7 @@
                                     var Result = JSON.parse(GetString);
 
                                     if (Result.response == 'true'){
-                                        SetAttribute('submit', 'submit', 'Login');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'success', Result.message);
@@ -72,14 +72,14 @@
                                         return;
                                     }
                                     else if (Result.response == 'false'){
-                                        SetAttribute('submit', 'submit', 'Login');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
                                         return;
                                     }
                                     else{
-                                        SetAttribute('submit', 'submit', 'Login');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
@@ -88,14 +88,14 @@
                                 },
                                 error: function(){
                                     if (RETRY >= 3){
-                                        ShowToast(2000, 'error', 'Failed To Logged In.');
-                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_18') ?>');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
                                     }
                                     else{
-                                        ShowToast(1000, 'info', 'Getting New Request Token...');
+                                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
                                         $.ajax({
                                             url: '<?php echo base_url('api/security/csrf') ?>',
                                             type: 'GET',
@@ -115,7 +115,7 @@
                                                 }
                                             },
                                             error: function(){
-                                                SetAttribute('submit', 'submit', 'Login');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
                                                 ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();

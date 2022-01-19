@@ -41,7 +41,7 @@
 				<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 					<div class="nk-product-cat">
 						<a class="nk-product-image" href="<?php echo base_url('webshop/details/'.$row['id']) ?>">
-							<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="So saying he unbuckled">
+							<img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" alt="">
 						</a>
 						<div class="nk-product-cont">
 							<h3 class="nk-product-title h5"><a href="<?php echo base_url('webshop/details/'.$row['id']) ?>"><?php echo $row['webshop_itemname'] ?></a></h3>
@@ -168,7 +168,7 @@
 							<div class="nk-gap-1"></div>
 							<div class="nk-product-price">&#8373; <?php echo number_format($row['webshop_itemprice_30days'], 0, ',', '.') ?></div>
 							<div class="nk-gap-1"></div>
-							<a href="<?php echo base_url('webshop/details/'.$row['id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 btn-block"><i class="fa fa-shopping-cart mr-2"></i>Buy</a>
+							<a href="<?php echo base_url('webshop/details/'.$row['id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 btn-block"><i class="fa fa-shopping-cart mr-2"></i><?php echo $this->lang->line('STR_DARKBLOW_207') ?></a>
 						</div>
 					</div>
 				</div>
@@ -178,7 +178,7 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 				<div class="card bg-dark-2">
 					<div class="card-body text-center">
-						No Webshop Data Available
+						<?php echo $this->lang->line('STR_DARKBLOW_208') ?>
 					</div>
 				</div>
 			</div>

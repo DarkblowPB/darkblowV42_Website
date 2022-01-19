@@ -16,7 +16,7 @@
                                         <input type="text" class="form-control" id="login" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
                                     </div>
                                     <div class="col-3">
-                                        <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Check" onclick="CheckUsername()">
+                                        <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
                                     </div>
                                 </div>
                             </div>
@@ -64,8 +64,8 @@
                                 </div>
                             <div class="nk-gap"></div>
                             <div class="form-group text-center">
-                                <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Register" onclick="ShowToast(2000, 'warning', 'Please Check Your Username First.');">
-                                <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success">Login</a>
+                                <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_44') ?>" onclick="ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_20') ?>');">
+                                <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success"><?php echo $this->lang->line('STR_DARKBLOW_155') ?></a>
                             </div>
                         <?php echo form_close(); ?>
                         <div class="form-group text-center">
@@ -73,13 +73,13 @@
                         </div>
                         <div class="form-group text-center">
                             <?php if (isset($_SESSION['g_email'])) : ?>
-                                <input type="button" id="cancelgoogleregistration" value="Cancel Google Registration" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
+                                <input type="button" id="cancelgoogleregistration" value="<?php echo $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
                             <?php endif; ?>
                             <?php if (!isset($_SESSION['g_email'])) : ?>
                                 <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
                             <?php endif; ?>
                             <div class="nk-gap-1"></div>
-                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" onclick="ShowToast(2000, 'info', 'This Feature Not Available This Moment.')"><i class="fa fa-facebook-square mr-2"></i> Login With Facebook</button>
+                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" onclick="ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_2') ?>')"><i class="fa fa-facebook-square mr-2"></i> <?php echo $this->lang->line('STR_DARKBLOW_203') ?></button>
                         </div>
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
@@ -92,7 +92,7 @@
                                     return;
                                 }
                                 else{
-                                    SetAttribute('check_username', 'button', 'Processing...');
+                                    SetAttribute('check_username', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_checkusername') ?>',
                                         type: 'POST',
@@ -107,14 +107,14 @@
 
                                             if (Result.response == 'true'){
                                                 document.getElementById('submit').setAttribute('onclick', '');
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                SetAttribute('submit', 'submit', 'Register');
+                                                SetAttribute('check_username', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_202') ?>');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_44') ?>');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                             else{
-                                                SetAttribute('check_username', 'button', 'Check');
+                                                SetAttribute('check_username', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_202') ?>');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
@@ -122,8 +122,8 @@
                                         },
                                         error: function(){
                                             if (RETRY >= 3){
-                                                SetAttribute('check_username', 'button', 'Check');
-                                                ShowToast(2000, 'error', 'Failed To Check Nickname.');
+                                                SetAttribute('check_username', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_202') ?>');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_24') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
@@ -148,7 +148,7 @@
                                                         return CheckUsername();
                                                     },
                                                     error: function(){
-                                                        SetAttribute('check_username', 'button', 'Check');
+                                                        SetAttribute('check_username', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_202') ?>');
                                                         ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_13') ?>');
                                                         setTimeout(() => {
                                                             window.location.reload();
@@ -192,15 +192,15 @@
                                     document.getElementById('re_password').focus();
                                 }
                                 else if ($('#hint_question').val() == '' || $('#hint_question').val() == null){
-                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_10') ?>');
                                     document.getElementById('hint_question').focus();
                                 }
                                 else if ($('#hint_answer').val() == ''){
-                                    ShowToast(2000, 'warning', 'Hint Answer Cannot Be Empty.');
+                                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
                                     document.getElementById('hint_answer').focus();
                                 }
                                 else{
-                                    SetAttribute('submit', 'button', 'Processing...');
+                                    SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                                     $.ajax({
                                         url: '<?php echo base_url('register/do_register') ?>',
                                         type: 'POST',
@@ -225,7 +225,7 @@
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Register');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_44') ?>');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
@@ -234,7 +234,7 @@
                                                 return;
                                             }
                                             else{
-                                                SetAttribute('submit', 'submit', 'Register');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_44') ?>');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
@@ -242,15 +242,15 @@
                                         },
                                         error: function(){
                                             if (RETRY >= 3){
-                                                SetAttribute('submit', 'submit', 'Register');
-                                                ShowToast(2000, 'error', 'Failed To Register.');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_44') ?>');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_25') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
                                             }
                                             else{
                                                 RETRY += 1;
-                                                ShowToast(1000, 'info', 'Generate New Request Token...');
+                                                ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                                 $.ajax({
                                                     url: '<?php echo base_url('api/security/csrf') ?>',
@@ -268,7 +268,7 @@
                                                         return Do_Register();
                                                     },
                                                     error: function(){
-                                                        ShowToast(2000, 'error', 'Failed To Register Your Account.');
+                                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_12') ?>');
                                                         setTimeout(() => {
                                                             window.location.reload();
                                                         }, 2000);
@@ -282,7 +282,7 @@
 
                             function CancelGoogleRegistration()
                             {
-                                SetAttribute('cancelgoogleregistration', 'button', 'Processing...');
+                                SetAttribute('cancelgoogleregistration', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                                 $.ajax({
                                     url: '<?php echo base_url('register/do_cancelgoogleregistration') ?>',
                                     type: 'GET',
@@ -293,7 +293,7 @@
                                         var Result = JSON.parse(GetString);
 
                                         if (Result.response == 'true'){
-                                            SetAttribute('cancelgoogleregistration', 'button', 'Cancel Google Registration');
+                                            SetAttribute('cancelgoogleregistration', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_204') ?>');
                                             ShowToast(2000, 'success', Result.message);
                                             setTimeout(() => {
                                                 window.location.reload();
@@ -301,8 +301,8 @@
                                         }
                                     },
                                     erorr: function(){
-                                        SetAttribute('cancelgoogleregistration', 'button', 'Cancel Google Registration');
-                                        ShowToast(2000, 'error', 'Failed To Reach Server.');
+                                        SetAttribute('cancelgoogleregistration', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_204') ?>');
+                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_26') ?>');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);

@@ -87,7 +87,7 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12 col-12">
-                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Top #5</span> Players & Clans</span></h3>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_177') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_178') ?></span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
                     <div class="col-lg-6 col-12">

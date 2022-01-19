@@ -23,13 +23,13 @@
                         </div>
                         <div class="nk-feature-cont text-center">
                             <h3 class="nk-feature-title text-main-1"><?php echo $row['item_name'] ?></h3>
-                            <p><?php echo $this->lang->line('STR_DARKBLOW_61') ?> <?php echo $row['item_price'] ?> <?php echo $this->lang->line('STR_DARKBLOW_59') ?>s</p>
+                            <p><?php echo $this->lang->line('STR_DARKBLOW_61') ?> <?php echo $row['item_price'] ?> <?php echo $this->lang->line('STR_DARKBLOW_59') ?></p>
                             <p style="margin-top: -20px">
                                 <?php echo $this->lang->line('STR_DARKBLOW_62') ?> <?php echo $this->lib->GetItemDuration($this->lib->GetBuyType($row['item_id']), $row['item_count'], 1); ?>
                             </p>
                             <p style="margin-top: -20px"><?php echo $this->lang->line('STR_DARKBLOW_63') ?> <?php if ($row['stock'] > 0){echo $row['stock']." Qty";}else{echo "Out Of Stock";} ?></p>
                             
-                            <input type="button" id="submit_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" onclick="Exchange('submit_<?php echo $num ?>', '<?php echo $row['id'] ?>')" value="Exchange">
+                            <input type="button" id="submit_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" onclick="Exchange('submit_<?php echo $num ?>', '<?php echo $row['id'] ?>')" value="<?php echo $this->lang->line('STR_DARKBLOW_58') ?>">
                         </div>
                     </div>
                 </div>
@@ -42,11 +42,11 @@
             function Exchange(button_id, item_id)
             {
                 if (item_id == '' || item_id == null){
-                    ShowToast(2000, 'warning', 'Invalid Package.');
+                    ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_18') ?>');
                     return;
                 }
                 else{
-                    SetAttribute(button_id, 'button', 'Processing...');
+                    SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
                     $.ajax({
                         url: '<?php echo base_url('player_panel/exchange_ticket/do_exchange') ?>',
                         type: 'POST',
@@ -60,19 +60,19 @@
                             var Result = JSON.parse(GetString);
 
                             if (Result.response == 'true'){
-                                SetAttribute(button_id, 'button', 'Exchange');
+                                SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_58') ?>');
                                 ShowToast(2000, 'success', Result.message);
                                 CSRF_TOKEN = Result.token;
                                 $('#ticket_information').html(Result.ticket);
                                 return;
                             }
                             else if (Result.response == 'false'){
-                                SetAttribute(button_id, 'button', 'Exchange');
+                                SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_58') ?>');
                                 ShowToast(2000, 'error', Result.message);
                                 CSRF_TOKEN = Result.Token;
                             }
                             else{
-                                SetAttribute(button_id, 'button', 'Exchange');
+                                SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_58') ?>');
                                 ShowToast(2000, 'error', Result.message);
                                 CSRF_TOKEN = Result.Token;
                             }

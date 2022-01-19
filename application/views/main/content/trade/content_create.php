@@ -20,11 +20,11 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_139') ?></label>
-                        <label class="form-control"><?php echo $this->trade->GetDurationLeftEachMonth() ?> Days</label>
+                        <label class="form-control"><?php echo $this->trade->GetDurationLeftEachMonth() ?> <?php echo $this->lang->line('STR_DARKBLOW_140') ?></label>
                     </div>
                     <div class="form-group text-center">
                         <a href="<?php echo base_url('trade') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Back</a>
-                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit Your Item">
+                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_205') ?>">
                     </div>
                 <?php echo form_close() ?>
                 <script>
@@ -41,15 +41,15 @@
                     function Do_SubmitTrade()
                     {
                         if ($('#item_id').val() == '' || $('#item_id').val() == null){
-                            ShowToast(2000, 'warning', 'Please Select Your Item First.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_21') ?>');
                             return;
                         }
                         else if ($('#item_price').val() == '' || $('#item_price').val() == null){
-                            ShowToast(2000, 'warning', 'Please Enter Your Item Price.');
+                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_22') ?>');
                             return;
                         }
                         else{
-                            SetAttribute('submit', 'button', 'Processing...');
+                            SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 
                             $.ajax({
                                 url: '<?php echo base_url('trade/do_post') ?>',
@@ -65,7 +65,7 @@
                                     var Result = JSON.parse(GetString);
     
                                     if (Result.response == 'true'){
-                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_205') ?>');
                                         ShowToast(2000, 'success', Result.message);
                                         CSRF_TOKEN = Result.token;
                                         setTimeout(() => {
@@ -73,13 +73,13 @@
                                         }, 2000);
                                     }
                                     else if (Result.response == 'false'){
-                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_205') ?>');
                                         ShowToast(2000, 'error', Result.message);
                                         CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                     else{
-                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_205') ?>');
                                         ShowToast(2000, 'error', Result.message);
                                         CSRF_TOKEN = Result.token;
                                         return;
@@ -87,14 +87,14 @@
                                 },
                                 error: function(){
                                     if (RETRY >= 3){
-                                        SetAttribute('submit', 'submit', 'Submit Your Item');
+                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_205') ?>');
                                         ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_14') ?>');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
                                     }
                                     else{
-                                        ShowToast(1000, 'info', 'Generate New Request Token...');
+                                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
                                         $.ajax({
                                             url: '<?php echo base_url('api/security/csrf') ?>',
@@ -114,8 +114,8 @@
                                                 return Do_SubmitTrade();
                                             },
                                             error: function(){
-                                                SetAttribute('submit', 'submit', 'Submit Your Item');
-                                                ShowToast(2000, 'error', 'Failed To Sumbit Your Item');
+                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_204') ?>');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_27') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);

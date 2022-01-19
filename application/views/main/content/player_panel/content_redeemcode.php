@@ -12,7 +12,7 @@
 						<input type="text" id="code" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_123') ?>" autofocus>
 					</div>
 					<div class="form-group text-center">
-						<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Submit Code">
+						<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_200') ?>">
 					</div>
 				<?php echo form_close() ?>
 				<script>
@@ -29,11 +29,11 @@
 					function Do_RedeemCode()
 					{
 						if ($('#code').val() == '' || $('#code').val() == null){
-							ShowToast(2000, 'warning', 'Code Cannot Be Empty.');
+							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_11') ?>');
 							return;
 						}
 						else{
-							SetAttribute('submit', 'button', 'Processing...');
+							SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
 
 							$.ajax({
 								url: '<?php echo base_url('api/servercommand/redeemcode') ?>',
@@ -51,7 +51,7 @@
 									var GetString = JSON.stringify(data);
 									var Result = JSON.parse(GetString);
 
-									SetAttribute('submit', 'submit', 'Submit Code');
+									SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_200') ?>');
 									ShowToast(2000, Result.status, Result.message);
 									CSRF_TOKEN = Result.token;
 									return;
@@ -65,7 +65,7 @@
 									}
 									else{
 										RETRY += 1;
-										ShowToast(2000, 'info', 'Generate New Request Token...');
+										ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
 										$.ajax({
                                             url: '<?php echo base_url('api/security/csrf') ?>',
@@ -83,7 +83,7 @@
                                                 return Do_RedeemCode();
                                             },
                                             error: function(){
-                                                ShowToast(2000, 'error', 'Failed To Redeem The Code.');
+                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_22') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);

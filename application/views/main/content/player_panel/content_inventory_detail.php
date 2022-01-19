@@ -35,23 +35,23 @@
 										{
 											case '1':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Main</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_74') .'</button>';
 													break;
 												}
 											case '2':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Character / Headgear</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_186') .'</button>';
 													break;
 												}
 											case '3':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">Items</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_136') .'</button>';
 													break;
 												}
 											
 											default:
 												{
-													echo "Invalid";
+													echo $this->lang->line('STR_DARKBLOW_77');
 													break;
 												}
 										}
@@ -66,23 +66,23 @@
 										{
 											case '1':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">NOT USE</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">'. $this->lang->line('STR_DARKBLOW_187') .'</button>';
 													break;
 												}
 											case '2':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">IN USE</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">'. $this->lang->line('STR_DARKBLOW_188') .'</button>';
 													break;
 												}
 											case '3':
 												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">PERMANENT</button>';
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">'. $this->lang->line('STR_DARKBLOW_189') .'</button>';
 													break;
 												}
 											
 											default:
 												{
-													echo "Invalid";
+													echo $this->lang->line('STR_DARKBLOW_77');
 													break;
 												}
 										}
