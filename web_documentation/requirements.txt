@@ -3,6 +3,6 @@
 **************
 
 - WEB SERVER : XAMPP
-- MINIMUN PHP VERSION : 5.6
+- MIN PHP VERSION : 5.6
 - DATABASE TYPE : PostgreSQL
 - FRAMEWORK : CodeIgniter3
