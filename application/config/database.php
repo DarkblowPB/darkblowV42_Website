@@ -95,7 +95,6 @@ foreach ($database_parse as $row)
 				break;
 			}
 	}
-}
 
 $query_builder = TRUE;
 
@@ -111,7 +110,7 @@ $db['1.15.42.30'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject',
+	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname='. $row->Database->Old,
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
@@ -165,7 +164,7 @@ $db['3.24.1801.1'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname=darkblowproject_evo',
+	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname='. $row->Database->Evo,
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
@@ -206,3 +205,5 @@ $db['3.24.1801.1'] = array(
 	// Do Not Change This Line
 	'port' => 5432
 );
+
+}

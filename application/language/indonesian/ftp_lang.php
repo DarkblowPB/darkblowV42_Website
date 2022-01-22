@@ -37,15 +37,15 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['ftp_no_connection']		= 'Unable to locate a valid connection ID. Please make sure you are connected before performing any file routines.';
-$lang['ftp_unable_to_connect']		= 'Unable to connect to your FTP server using the supplied hostname.';
-$lang['ftp_unable_to_login']		= 'Unable to login to your FTP server. Please check your username and password.';
-$lang['ftp_unable_to_mkdir']		= 'Unable to create the directory you have specified.';
-$lang['ftp_unable_to_changedir']	= 'Unable to change directories.';
-$lang['ftp_unable_to_chmod']		= 'Unable to set file permissions. Please check your path.';
-$lang['ftp_unable_to_upload']		= 'Unable to upload the specified file. Please check your path.';
-$lang['ftp_unable_to_download']		= 'Unable to download the specified file. Please check your path.';
-$lang['ftp_no_source_file']		= 'Unable to locate the source file. Please check your path.';
-$lang['ftp_unable_to_rename']		= 'Unable to rename the file.';
-$lang['ftp_unable_to_delete']		= 'Unable to delete the file.';
-$lang['ftp_unable_to_move']		= 'Unable to move the file. Please make sure the destination directory exists.';
+$lang['ftp_no_connection'] = 'Tidak dapat menemukan ID koneksi yang valid. Pastikan Anda terhubung sebelum melakukan rutinitas file apa pun.';
+$lang['ftp_unable_to_connect'] = 'Tidak dapat terhubung ke server FTP Anda menggunakan nama host yang disediakan.';
+$lang['ftp_unable_to_login'] = 'Tidak dapat masuk ke server FTP Anda. Silakan periksa nama pengguna dan kata sandi Anda.';
+$lang['ftp_unable_to_mkdir'] = 'Tidak dapat membuat direktori yang telah Anda tentukan.';
+$lang['ftp_unable_to_changedir'] = 'Tidak dapat mengubah direktori.';
+$lang['ftp_unable_to_chmod'] = 'Tidak dapat mengatur izin file. Silakan periksa jalur Anda.';
+$lang['ftp_unable_to_upload'] = 'Tidak dapat mengunggah file yang ditentukan. Silakan periksa jalur Anda.';
+$lang['ftp_unable_to_download'] = 'Tidak dapat mengunduh file yang ditentukan. Silakan periksa jalur Anda.';
+$lang['ftp_no_source_file'] = 'Tidak dapat menemukan file sumber. Silakan periksa jalur Anda.';
+$lang['ftp_unable_to_rename'] = 'Tidak dapat mengganti nama file.';
+$lang['ftp_unable_to_delete'] = 'Tidak dapat menghapus file.';
+$lang['ftp_unable_to_move'] = 'Tidak dapat memindahkan berkas. Harap pastikan direktori tujuan ada.';

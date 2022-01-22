@@ -37,19 +37,19 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['upload_userfile_not_set'] = 'Unable to find a post variable called userfile.';
-$lang['upload_file_exceeds_limit'] = 'The uploaded file exceeds the maximum allowed size in your PHP configuration file.';
-$lang['upload_file_exceeds_form_limit'] = 'The uploaded file exceeds the maximum size allowed by the submission form.';
-$lang['upload_file_partial'] = 'The file was only partially uploaded.';
-$lang['upload_no_temp_directory'] = 'The temporary folder is missing.';
-$lang['upload_unable_to_write_file'] = 'The file could not be written to disk.';
-$lang['upload_stopped_by_extension'] = 'The file upload was stopped by extension.';
-$lang['upload_no_file_selected'] = 'You did not select a file to upload.';
-$lang['upload_invalid_filetype'] = 'The filetype you are attempting to upload is not allowed.';
-$lang['upload_invalid_filesize'] = 'The file you are attempting to upload is larger than the permitted size.';
-$lang['upload_invalid_dimensions'] = 'The image you are attempting to upload doesn\'t fit into the allowed dimensions.';
-$lang['upload_destination_error'] = 'A problem was encountered while attempting to move the uploaded file to the final destination.';
-$lang['upload_no_filepath'] = 'The upload path does not appear to be valid.';
-$lang['upload_no_file_types'] = 'You have not specified any allowed file types.';
-$lang['upload_bad_filename'] = 'The file name you submitted already exists on the server.';
-$lang['upload_not_writable'] = 'The upload destination folder does not appear to be writable.';
+$lang['upload_userfile_not_set'] = 'ไม่พบตัวแปร post ชื่อ userfile';
+$lang['upload_file_exceeds_limit'] = 'ไฟล์ที่อัพโหลดเกินขนาดสูงสุดที่อนุญาตในไฟล์กำหนดค่า PHP ของคุณ';
+$lang['upload_file_exceeds_form_limit'] = 'ไฟล์ที่อัพโหลดเกินขนาดสูงสุดที่อนุญาตโดยแบบฟอร์มการส่ง';
+$lang['upload_file_partial'] = 'ไฟล์ถูกอัพโหลดเพียงบางส่วนเท่านั้น';
+$lang['upload_no_temp_directory'] = 'ไม่มีโฟลเดอร์ชั่วคราว';
+$lang['upload_unable_to_write_file'] = 'ไม่สามารถเขียนไฟล์ลงดิสก์ได้';
+$lang['upload_stopped_by_extension'] = 'การอัปโหลดไฟล์ถูกหยุดโดยส่วนขยาย';
+$lang['upload_no_file_selected'] = 'คุณไม่ได้เลือกไฟล์ที่จะอัปโหลด';
+$lang['upload_invalid_filetype'] = 'ประเภทไฟล์ที่คุณพยายามจะอัปโหลดไม่ได้รับอนุญาต';
+$lang['upload_invalid_filesize'] = 'ไฟล์ที่คุณพยายามจะอัปโหลดมีขนาดใหญ่กว่าขนาดที่อนุญาต';
+$lang['upload_invalid_dimensions'] = 'รูปภาพที่คุณพยายามอัปโหลดไม่พอดีกับขนาดที่อนุญาต';
+$lang['upload_destination_error'] = 'พบปัญหาขณะพยายามย้ายไฟล์ที่อัปโหลดไปยังปลายทางสุดท้าย';
+$lang['upload_no_filepath'] = 'เส้นทางอัพโหลดไม่ถูกต้อง';
+$lang['upload_no_file_types'] = 'คุณยังไม่ได้ระบุประเภทไฟล์ที่อนุญาต';
+$lang['upload_bad_filename'] = 'ชื่อไฟล์ที่คุณส่งมีอยู่แล้วบนเซิร์ฟเวอร์';
+$lang['upload_not_writable'] = 'โฟลเดอร์ปลายทางอัพโหลดไม่สามารถเขียนได้';
