@@ -124,8 +124,9 @@ if ( ! function_exists('form_open'))
 			}
 
 			$form .= sprintf(
-				'%s<input type="hidden" name="%s" value="%s" />%s%s',
+				'%s<input type="hidden" id="%s" name="%s" value="%s" />%s%s',
 				$prepend,
+				$CI->security->get_csrf_token_name(),
 				$CI->security->get_csrf_token_name(),
 				$CI->security->get_csrf_hash(),
 				$append,

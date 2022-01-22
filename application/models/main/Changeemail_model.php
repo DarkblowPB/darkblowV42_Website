@@ -25,23 +25,11 @@ class Changeemail_model extends CI_Model
         $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'email' => $email))->row();
         if ($query)
         {
-            if ($query->email_verification == 0)
-            {
-                return false;
-            }
-            else if ($query->email_verification == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if ($query->email_verification == 0) return false;
+            else if ($query->email_verification == 1) return true;
+            else return false;
         }
-        else
-        {
-            return false;
-        }
+        else return false;
     }
 
     function ChangeEmailValidation()

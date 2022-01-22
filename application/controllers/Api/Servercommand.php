@@ -14,7 +14,6 @@ class Servercommand extends RestController {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('main/attendance_model', 'attendance');
         $this->load->library('servercommand_library');
     }
 
@@ -666,7 +665,7 @@ class Servercommand extends RestController {
                         $data['command_type'] = "Attendance";
                         $data['player_id'] = $this->session->userdata('uid');
                         $data['item_id'] = $query->item_id;
-                        $data['category'] = $this->attendance->GetItemCategory($query->item_id);
+                        $data['category'] = $this->lib->GetItemCategory($query->item_id);
                         $data['item_name'] = $query->item_name;
                         $data['count'] = $query->item_count;
                         if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success')
@@ -704,7 +703,7 @@ class Servercommand extends RestController {
                             $data['command_type'] = "Attendance";
                             $data['player_id'] = $this->session->userdata('uid');
                             $data['item_id'] = $query->item_id;
-                            $data['category'] = $this->attendance->GetItemCategory($query->item_id);
+                            $data['category'] = $this->lib->GetItemCategory($query->item_id);
                             $data['item_name'] = $query->item_name;
                             $data['count'] = $query->item_count;
                             if ($this->servercommand_library->SendTcpCommand('secondary', $data) == 'Success')
@@ -833,7 +832,7 @@ class Servercommand extends RestController {
                         if ($query->type == 'Item')
                         {
                             $data['item_id'] = $query->item_id;
-                            $data['category'] = $this->attendance->GetItemCategory($query->item_id);
+                            $data['category'] = $this->lib->GetItemCategory($query->item_id);
                             $data['item_name'] = $query->item_name;
                             $data['count'] = $query->item_count;
 
@@ -869,7 +868,7 @@ class Servercommand extends RestController {
                         $data['command_type'] = 'Redeem Code';
                         $data['redeemcode_type'] = $query->type;
                         $data['item_id'] = $query->item_id;
-                        $data['category'] = $this->attendance->GetItemCategory($query->item_id);
+                        $data['category'] = $this->lib->GetItemCategory($query->item_id);
                         $data['item_name'] = $query->item_name;
                         $data['count'] = $query->item_count;
     

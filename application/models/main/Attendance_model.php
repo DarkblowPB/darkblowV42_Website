@@ -12,7 +12,6 @@ class Attendance_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->library('lib');
     }
 
     function GetAttendData()
@@ -31,13 +30,6 @@ class Attendance_model extends CI_Model
         $query = $this->db->get_where('events_attendance', array('date' => date('d-m-Y')))->row();
         if ($query) return $query->id;
         else return "0";
-    }
-
-    function GetItemCategory($item_id)
-    {
-        if ($item_id >= 100003001 && $item_id <= 904007069) return '1';
-        else if ($item_id >= 1001001007 && $item_id <= 1105003032) return '2';
-        else return '3';
     }
 }
 

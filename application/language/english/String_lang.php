@@ -219,7 +219,7 @@ $lang = array(
     'STR_DARKBLOW_209' => '3 Days',
     'STR_DARKBLOW_210' => '7 Days',
     'STR_DARKBLOW_211' => '30 Days',
-    'STR_DARKBLOW_211' => 'No Related Webshop Data Available',
+    'STR_DARKBLOW_212' => 'No Related Webshop Data Available',
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

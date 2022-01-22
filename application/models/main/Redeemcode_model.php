@@ -23,14 +23,6 @@ class Redeemcode_model extends CI_Model
         else return "";
     }
 
-	function GetItemCategory($item_id)
-	{
-		if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
-		else return "0";
-	}
-
 	function CodeValidationV2()
 	{
 		sleep(1);
@@ -68,7 +60,7 @@ class Redeemcode_model extends CI_Model
 						$buffer = array(
 							'command_type' => 'RedeemCode',
 							'item_id' => $check->item_id,
-							'category' => $this->GetItemCategory($check->item_id),
+							'category' => $this->lib->GetItemCategory($check->item_id),
 							'item_name' => $this->GetItemName($check->item_id),
 							'item_count' => $check->item_count,
 							'player_id' => $this->encryption->decrypt($data['player_id']),

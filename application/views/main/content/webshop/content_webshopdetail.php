@@ -266,7 +266,7 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="card bg-dark-2">
 									<div class="card-body text-center">
-										<?php echo $this->lang->line('STR_DARKBLOW_211') ?>
+										<?php echo $this->lang->line('STR_DARKBLOW_212') ?>
 									</div>
 								</div>
 							</div>

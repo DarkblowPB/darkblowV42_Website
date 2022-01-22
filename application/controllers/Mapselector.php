@@ -18,7 +18,7 @@ Class Mapselector extends CI_Controller
     function index()
     {
         $data['title'] = 'Map Selector';
-        $this->load->view('main/content/mapselector/content_mapselector', $data, TRUE);
+        $this->load->view('main/content/mapselector/content_mapselector', $data, FALSE);
     }
 }
 

@@ -22,14 +22,6 @@ class Playersmanagement_model extends CI_Model
         if ($query) return $query->item_name; else return "???";
     }
 
-    function GetItemCategory($item_id)
-	{
-		if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
-		else return "-1";
-	}
-
     function GetAllShop()
     {
         return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
@@ -66,7 +58,7 @@ class Playersmanagement_model extends CI_Model
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
                         'count' => $this->encryption->decrypt($data['item_count']),
-                        'category' => $this->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'category' => $this->lib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
                         'equip' => '1'));
                     if ($query3)
                     {
@@ -99,7 +91,7 @@ class Playersmanagement_model extends CI_Model
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
                         'count' => $this->encryption->decrypt($data['item_count']),
-                        'category' => $this->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'category' => $this->lib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
                         'equip' => '3'));
                     if ($query3)
                     {
