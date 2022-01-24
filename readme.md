@@ -78,32 +78,12 @@ for installing you can using Git or Clone this project into your local machine.
 	3. Copy this project to "htdocs" folder (every local web server have different folder name).
 	4. Done.
 
-And how to configure database settings? follow this step clearly:
+And how to configure this website? follow this step clearly:
 
-	1. Expand application folder.
-	2. Expand config folder.
-	3. Open database.php .
-	4. Scroll down to line 88. (DO NOT CHANGE ANY LINE ON THIS FILE. JUST LINE 88)
-	5. Setup your credentials server.
-	6. Done.
-
-And how to configure website language? follow this step more clearly:
-
-  	1. Expand application folder.
-  	2. Expand config folder.
-  	3. Open config.php .
-  	4. Scroll down to line 84. (Available Language: 'english' & 'indonesian')
-  	5. Done.
-
-Configure Google Registration:
-
-	1. Expand application folder.
-	2. Expand controller folder.
-	3. Open Register.php
-	4. Scroll down to line 160 (Client ID) -> Set Your Client ID.
-	5. Scroll down to line 163 (Client Secret) -> Set Your Client Secret.
-	6. Done.
-
+	1. Open "darkblow_config.json".
+	2. Setup your credentials server.
+	3. Done.
+	
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
