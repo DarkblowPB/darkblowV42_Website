@@ -33,12 +33,24 @@
       "ciphering": "AES-128-CTR",
       "options": 0,
       "encryption_iv": "2539435361336837",
-      "encryption_key": "eyetracker_protection"
+      "encryption_key": "insert_your_encryption_key_here"
     },
     "LanguageConfig": "english",
     "Database": {
-      "Old": "darkblowproject",
-      "Evo": "darkblowproject_evo"
+      "Old": {
+        "Host": "127.0.0.1",
+        "Port": "5432",
+        "User": "postgres",
+        "Password": "123456",
+        "Name": "darkblowproject"
+      },
+      "Evo": {
+        "Host": "127.0.0.1",
+        "Port": "5432",
+        "User": "postgres",
+        "Password": "123456",
+        "Name": "darkblowproject_evo"
+      }
     }
   }
 ]

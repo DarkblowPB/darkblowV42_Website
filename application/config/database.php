@@ -110,7 +110,7 @@ $db['1.15.42.30'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname='. $row->Database->Old,
+	'dsn'	=> 'host='. $row->Database->Old->Host .' port='. $row->Database->Old->Port .' user='. $row->Database->Old->User .' password='.$row->Database->Old->Password.' dbname='. $row->Database->Old->Name,
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
@@ -164,7 +164,7 @@ $db['3.24.1801.1'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host=127.0.0.1 port=5432 user=postgres password=123456 dbname='. $row->Database->Evo,
+	'dsn'	=> 'host='. $row->Database->Evo->Host .' port='. $row->Database->Evo->Port .' user='. $row->Database->Evo->User .' password='.$row->Database->Evo->Password.' dbname='. $row->Database->Evo->Name,
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
