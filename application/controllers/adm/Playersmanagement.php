@@ -27,19 +27,15 @@ Class Playersmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function details()
+    function details($player_id)
     {
-        if (!empty($this->input->get('player_id', true)))
-        {
-            $data = array(
-                'title' => 'Player Details',
-                'header' => 'Player Details',
-                'player' => $this->playersmanagement->GetSpecifiedPlayer($this->input->get('player_id', true)),
-                'content' => 'admin/content/playersmanagement/content_details'
-            );
-            $this->load->view('admin/layout/wrapper', $data, FALSE);
-        }
-        else redirect(base_url('adm/playersmanagement'), 'refresh');
+        $data['title'] = 'Player Details';
+        $data['header'] = $data['title'];
+        
+        $data['player'] = $this->playersmanagement->GetSpecifiedPlayer($player_id);
+        
+        $data['content'] = 'admin/content/playersmanagement/content_details';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function createcustomplayer()

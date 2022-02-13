@@ -28,7 +28,7 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="<?php echo base_url('adm/playersmanagement/details?player_id='.$row['player_id']) ?>">Details</a>
+                                                <a class="dropdown-item" href="<?php echo base_url('adm/playersmanagement/details/'.$row['player_id']) ?>">Details</a>
                                                 
                                                 <?php if ($row['access_level'] == '-1') : ?>
                                                     <input type="button" id="submit_<?php echo $num ?>" class="dropdown-item" value="Unbanned" onclick="Do_UnbannedPlayer('<?php echo 'submit_'.$num ?>', '<?php echo $row['player_id'] ?>')">
@@ -52,7 +52,7 @@
 
                         function Do_DeletePlayer(data_id, button_id, player_id)
                         {
-                            if (player_id == ''){
+                            if (player_id == '' || player_id == null){
                                 ShowToast(2000, 'warning', 'Please Select Players.');
                                 return;
                             }
@@ -143,7 +143,7 @@
 
                         function Do_ResetPlayer(button_id, player_id)
                         {
-                            if (player_id == ''){
+                            if (player_id == '' || player_id == null){
                                 ShowToast(2000, 'warning', 'Please Select Players.');
                                 return;
                             }
@@ -225,7 +225,7 @@
 
                         function Do_BannedPlayer(button_id, player_id)
                         {
-                            if (player_id == ''){
+                            if (player_id == '' || player_id == null){
                                 ShowToast(2000, 'warning', 'Please Select Players.');
                                 return;
                             }
@@ -308,7 +308,7 @@
 
                         function Do_UnbannedPlayer(button_id, player_id)
                         {
-                            if (player_id == ''){
+                            if (player_id == '' || player_id == null){
                                 ShowToast(2000, 'warning', 'Please Select Players.');
                                 return;
                             }
