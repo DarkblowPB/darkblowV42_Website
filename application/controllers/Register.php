@@ -142,7 +142,6 @@ class Register extends CI_Controller
 
 	function g_register()
 	{
-		include_once APPPATH . "../vendor/autoload.php";
 		$google_client = new Google_Client();
 
 		$g_config = read_file('./darkblow_config.json');
@@ -186,7 +185,7 @@ class Register extends CI_Controller
 			}
 		}
 
-		if (!$this->session->userdata('access_token')) redirect($google_client->createAuthUrl(), 'refresh'); else redirect(base_url('register'), 'refresh');
+		if (!$this->session->userdata('access_token')) redirect(base_url('register'), 'refresh'); else redirect(base_url('register'), 'refresh');
 	}
 
 	function do_cancelgoogleregistration()

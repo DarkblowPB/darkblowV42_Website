@@ -1,18 +1,18 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Postgres 5432
+ Source Server         : PostgreSQL 5432
  Source Server Type    : PostgreSQL
- Source Server Version : 140000
+ Source Server Version : 140001
  Source Host           : localhost:5432
  Source Catalog        : darkblowproject
  Source Schema         : public
 
  Target Server Type    : PostgreSQL
- Target Server Version : 140000
+ Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 11/01/2022 21:57:16
+ Date: 13/02/2022 13:02:20
 */
 
 
@@ -142,28 +142,6 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."clan_seq";
 CREATE SEQUENCE "public"."clan_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for clans_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."clans_id_seq";
-CREATE SEQUENCE "public"."clans_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for contas_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."contas_seq";
-CREATE SEQUENCE "public"."contas_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -446,6 +424,28 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_battlepass_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_battlepass_id_seq";
+CREATE SEQUENCE "public"."web_battlepass_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_battlepass_list_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_battlepass_list_id_seq";
+CREATE SEQUENCE "public"."web_battlepass_list_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_download_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_download_seq";
@@ -646,23 +646,27 @@ CREATE TABLE "public"."accounts" (
   "last_mac" macaddr NOT NULL DEFAULT '00:00:00:00:00:00'::macaddr,
   "ban_obj_id" int8 NOT NULL DEFAULT 0,
   "kuyraicoin" int4 NOT NULL DEFAULT 1000,
-  "hint_question" text COLLATE "pg_catalog"."default",
-  "hint_answer" text COLLATE "pg_catalog"."default",
+  "hint_question" text COLLATE "pg_catalog"."default" NOT NULL,
+  "hint_answer" text COLLATE "pg_catalog"."default" NOT NULL,
   "date_registered" varchar COLLATE "pg_catalog"."default",
-  "email_verification" int4 DEFAULT 0
+  "email_verification" int4 NOT NULL DEFAULT 0,
+  "battlepass_type" int4 NOT NULL DEFAULT 0,
+  "facebook" varchar(255) COLLATE "pg_catalog"."default",
+  "twitter" varchar(255) COLLATE "pg_catalog"."default",
+  "instagram" varchar(255) COLLATE "pg_catalog"."default",
+  "github" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('darkblow003', 'd250ed959463e3a789bba1a3ad1dfdfc', 195, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidbackup@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 0);
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1);
-INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 184092, 1690112, 1, 2, 0, 1, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid@gmail.com', 1010000, 99997410, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002004, 1104003246, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 2201011543, 0, 0, '28:39:26:0f:73:84', 0, 123, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1);
-INSERT INTO "public"."accounts" VALUES ('darkblow005', 'd250ed959463e3a789bba1a3ad1dfdfc', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0);
-INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0);
-INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0);
-INSERT INTO "public"."accounts" VALUES ('deni24pmk', 'ea4c03400aaa4b8f5c4901474fb91278', 6, 'Test', 0, 0, 31, 250103, 1690130, 1, 2, 1, 0, 0, 0, 0, 0, -1, '26.116.228.153', 'deni@gmail.com', 1010000, 99999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 2112291339, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'Komodo', '29-12-2021 01:25:09', 0);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 184092, 1690112, 1, 2, 0, 1, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid@gmail.com', 1010000, 99997410, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002004, 1104003246, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 2201011543, 0, 0, '28:39:26:0f:73:84', 0, 123, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow005', 'd250ed959463e3a789bba1a3ad1dfdfc', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, -1, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow003', 'd250ed959463e3a789bba1a3ad1dfdfc', 195, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidbackup@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 0, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -678,10 +682,6 @@ CREATE TABLE "public"."ban_history" (
   "end_date" timestamp(6) NOT NULL DEFAULT '2000-01-01 00:00:00'::timestamp without time zone
 )
 ;
-
--- ----------------------------
--- Records of ban_history
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for check_user_attendance
@@ -720,6 +720,7 @@ CREATE TABLE "public"."check_user_itemcode" (
 -- ----------------------------
 INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-2KZR-88VN-BLOW', NULL, '19-12-2021 01:14:35', 33);
 INSERT INTO "public"."check_user_itemcode" VALUES (6, 'DARK-3Y0L-WUG5-BLOW', NULL, '29-12-2021 01:47:55', 34);
+INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-3Y0L-WUG5-BLOW', NULL, '12-01-2022 09:16:49', 36);
 
 -- ----------------------------
 -- Table structure for check_user_voucher
@@ -732,10 +733,6 @@ CREATE TABLE "public"."check_user_voucher" (
   "date" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of check_user_voucher
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for clan_data
@@ -770,10 +767,6 @@ CREATE TABLE "public"."clan_data" (
 ;
 
 -- ----------------------------
--- Records of clan_data
--- ----------------------------
-
--- ----------------------------
 -- Table structure for clan_invites
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."clan_invites";
@@ -784,10 +777,6 @@ CREATE TABLE "public"."clan_invites" (
   "text" varchar COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::character varying
 )
 ;
-
--- ----------------------------
--- Records of clan_invites
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for events_attendance
@@ -805,10 +794,6 @@ CREATE TABLE "public"."events_attendance" (
 ;
 
 -- ----------------------------
--- Records of events_attendance
--- ----------------------------
-
--- ----------------------------
 -- Table structure for events_login
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_login";
@@ -823,7 +808,7 @@ CREATE TABLE "public"."events_login" (
 -- ----------------------------
 -- Records of events_login
 -- ----------------------------
-INSERT INTO "public"."events_login" VALUES (2111241814, 2111241815, 100003002, 2592000);
+INSERT INTO "public"."events_login" VALUES (2202101943, 2202101943, 100003001, 604800);
 
 -- ----------------------------
 -- Table structure for events_mapbonus
@@ -838,10 +823,6 @@ CREATE TABLE "public"."events_mapbonus" (
   "percent_gp" int4 NOT NULL DEFAULT 0
 )
 ;
-
--- ----------------------------
--- Records of events_mapbonus
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for events_playtime
@@ -860,10 +841,6 @@ CREATE TABLE "public"."events_playtime" (
 ;
 
 -- ----------------------------
--- Records of events_playtime
--- ----------------------------
-
--- ----------------------------
 -- Table structure for events_quest
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_quest";
@@ -872,10 +849,6 @@ CREATE TABLE "public"."events_quest" (
   "end_date" int8 NOT NULL DEFAULT 0
 )
 ;
-
--- ----------------------------
--- Records of events_quest
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for events_rankup
@@ -932,10 +905,6 @@ CREATE TABLE "public"."events_visit" (
 ;
 
 -- ----------------------------
--- Records of events_visit
--- ----------------------------
-
--- ----------------------------
 -- Table structure for events_xmas
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_xmas";
@@ -948,10 +917,6 @@ CREATE TABLE "public"."events_xmas" (
 ;
 
 -- ----------------------------
--- Records of events_xmas
--- ----------------------------
-
--- ----------------------------
 -- Table structure for friends
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."friends";
@@ -962,10 +927,6 @@ CREATE TABLE "public"."friends" (
   "removed" bool NOT NULL DEFAULT false
 )
 ;
-
--- ----------------------------
--- Records of friends
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for info_basic_items
@@ -1029,10 +990,6 @@ CREATE TABLE "public"."info_cupons_flags" (
   "effect_flag" int8 NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of info_cupons_flags
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for info_gameservers
@@ -1258,10 +1215,6 @@ CREATE TABLE "public"."item_goods_sets" (
 ;
 
 -- ----------------------------
--- Records of item_goods_sets
--- ----------------------------
-
--- ----------------------------
 -- Table structure for item_goods_sets_items
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."item_goods_sets_items";
@@ -1277,10 +1230,6 @@ CREATE TABLE "public"."item_goods_sets_items" (
 ;
 
 -- ----------------------------
--- Records of item_goods_sets_items
--- ----------------------------
-
--- ----------------------------
 -- Table structure for item_voucher
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."item_voucher";
@@ -1293,10 +1242,6 @@ CREATE TABLE "public"."item_voucher" (
   "active" bool
 )
 ;
-
--- ----------------------------
--- Records of item_voucher
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for launcher_launcherkey
@@ -1360,10 +1305,6 @@ CREATE TABLE "public"."launcher_version_control" (
   "date_created" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of launcher_version_control
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for nick_history
@@ -1488,8 +1429,7 @@ CREATE TABLE "public"."player_items" (
 -- Records of player_items
 -- ----------------------------
 INSERT INTO "public"."player_items" VALUES (2, 6, 200004214, 'OA-93 PBNC2015 U.S. - Redeem Code', 2592000, 1, 1);
-INSERT INTO "public"."player_items" VALUES (3, 1, 1104003246, 'Meia-Mask PBTC2016', 2201041652, 2, 2);
-INSERT INTO "public"."player_items" VALUES (4, 1, 1001002004, 'Keen Eyes', 100, 2, 1);
+INSERT INTO "public"."player_items" VALUES (6, 1, 200004214, 'OA-93 PBNC2015 U.S. - Redeem Code', 2592000, 1, 1);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -1508,10 +1448,6 @@ CREATE TABLE "public"."player_messages" (
   "cb" int4 NOT NULL DEFAULT 0
 )
 ;
-
--- ----------------------------
--- Records of player_messages
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for player_missions
@@ -1552,10 +1488,6 @@ CREATE TABLE "public"."player_titles" (
   "titleslots" int4 NOT NULL DEFAULT 1
 )
 ;
-
--- ----------------------------
--- Records of player_titles
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for shop
@@ -6966,10 +6898,6 @@ CREATE TABLE "public"."shop_set" (
 ;
 
 -- ----------------------------
--- Records of shop_set
--- ----------------------------
-
--- ----------------------------
 -- Table structure for tournament_rules
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."tournament_rules";
@@ -6978,10 +6906,6 @@ CREATE TABLE "public"."tournament_rules" (
   "name_exception" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
-
--- ----------------------------
--- Records of tournament_rules
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for trade_market
@@ -7045,10 +6969,6 @@ CREATE TABLE "public"."web_api_limits" (
 ;
 
 -- ----------------------------
--- Records of web_api_limits
--- ----------------------------
-
--- ----------------------------
 -- Table structure for web_api_logs
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_api_logs";
@@ -7067,8 +6987,42 @@ CREATE TABLE "public"."web_api_logs" (
 ;
 
 -- ----------------------------
--- Records of web_api_logs
+-- Table structure for web_battlepass
 -- ----------------------------
+DROP TABLE IF EXISTS "public"."web_battlepass";
+CREATE TABLE "public"."web_battlepass" (
+  "id" int4 NOT NULL DEFAULT nextval('web_battlepass_id_seq'::regclass),
+  "battlepass_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "battlepass_type" int4 NOT NULL,
+  "battlepass_reward" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT nextval('web_battlepass_id_seq'::regclass),
+  "battlepass_status" int4,
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_battlepass
+-- ----------------------------
+INSERT INTO "public"."web_battlepass" VALUES (1, 'DarkblowPB Battlepass', 0, '-', 1, '-', '-');
+INSERT INTO "public"."web_battlepass" VALUES (2, 'DarkblowPB Battlepass', 1, '-', 1, '-', '-');
+
+-- ----------------------------
+-- Table structure for web_battlepass_list
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_battlepass_list";
+CREATE TABLE "public"."web_battlepass_list" (
+  "id" int4 NOT NULL,
+  "battlepass_level" int4 DEFAULT nextval('web_battlepass_list_id_seq'::regclass),
+  "battlepass_totalexp" int4,
+  "battlepass_reward_item" int4,
+  "battlepass_reward_duration" int4,
+  "battlepass_type" int4,
+  "battlepass_total_claimed" int4 DEFAULT 0,
+  "date_created" int4,
+  "date_updated" int4
+)
+;
 
 -- ----------------------------
 -- Table structure for web_download_clientlauncher
@@ -7142,10 +7096,6 @@ CREATE TABLE "public"."web_ipbanned" (
 ;
 
 -- ----------------------------
--- Records of web_ipbanned
--- ----------------------------
-
--- ----------------------------
 -- Table structure for web_log
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_log";
@@ -7159,10 +7109,6 @@ CREATE TABLE "public"."web_log" (
   "last_visit" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of web_log
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for web_quickslide
@@ -7286,7 +7232,8 @@ CREATE TABLE "public"."web_settings" (
   "attendance" varchar(255) COLLATE "pg_catalog"."default",
   "redeemcode" varchar(255) COLLATE "pg_catalog"."default",
   "change_email" varchar(255) COLLATE "pg_catalog"."default",
-  "event_ticket" varchar(255) COLLATE "pg_catalog"."default"
+  "event_ticket" varchar(255) COLLATE "pg_catalog"."default",
+  "email_verification" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
@@ -7294,7 +7241,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'Darkblow Test', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Testing', '1', '1', '1', '1', '1', '1', '0', '1', '0', '1', '0', NULL);
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'Test Project', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '1');
 
 -- ----------------------------
 -- Table structure for web_tokenkey
@@ -7420,7 +7367,8 @@ INSERT INTO "public"."web_tokenkey" VALUES (111, 'OxIs5NG7dYQ30zzbPVxLrGT1syGyaS
 INSERT INTO "public"."web_tokenkey" VALUES (112, 'gAC5wV5Qfytif5YyRcrtxi3YdwHGIGQXCzL2lBO6O8ZEfVrDSe2skoplWZ7mEJNZ', 0);
 INSERT INTO "public"."web_tokenkey" VALUES (113, 'mi76Ftf5RibcHqEauCfw1WL16AazgQkkmMqtMUyBgDjR14QF8JoxQ5bGwt32laJV', 0);
 INSERT INTO "public"."web_tokenkey" VALUES (114, 'PYSkOE9AtsycFdMTlCL4t5gDfx8Hm5VULXybZCLcTrHActbgheOrcQlje40D3H1B', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (115, '9lcyLABAXvqrDo5AA5MwClBhAyEOFY0hCZsvmMtK35HC0IfbtkpQhh9uoVVdaQzO', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (115, '9lcyLABAXvqrDo5AA5MwClBhAyEOFY0hCZsvmMtK35HC0IfbtkpQhh9uoVVdaQzO', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (117, 'JFOSyWi1AlqD5gDTjw5WXUU88gJoJdRzrebaAESDDSc1f5HfjhYSbXOifRjT1ZEt', 1);
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7474,262 +7422,58 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 7, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."api_keys_id_seq"', 2, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."api_keys_limit_id_seq"', 2, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."api_keys_logs_id_seq"', 6529, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."auto_ban_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."ban_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."channels_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."check_event_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."check_user_attendance_id_seq"', 35, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."check_user_itemcode_seq"', 35, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."check_user_voucher_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."clan_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."clans_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."contas_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."event_attendance_id_seq"', 85, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."gameservers_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."gift_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."ipsystem_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."item_voucher_id_seq"', 6, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."items_id_seq"', 5, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."jogador_amigo_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."jogador_inventario_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."jogador_mensagem_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 16, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."launcher_loghistory_id_seq"', 13, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."launcher_version_control_id_seq"', 2, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."loja_seq"', 7, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."message_id_seq"', 9, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."player_characters_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."player_eqipment_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."player_friends_player_account_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."player_topups_seq"', 8, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."players_id_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."storage_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."templates_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."trade_id_seq"', 12, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_adminpanel_id_seq"', 197, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_all_log_id_seq"', 4, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_api_data_id_seq"', 2, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_download_seq"', 17, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_email_confirmation_id_seq"', 9, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_exchangeticket_seq"', 12, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_giftitem_log_seq"', 11, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_launcher_ipaddress_id"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_news_id_seq"', 18, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_quickslide_id_seq"', 21, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_rankinfo_id_seq"', 67, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_recharge_id_seq"', 24, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_report_id_seq"', 8, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."web_tokenkey_id_seq"', 116, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."webdata_news_seq"', 4, true);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-SELECT setval('"public"."webshop_id_seq"', 20, true);
+SELECT setval('"public"."account_id_seq"', 8, true);
+SELECT setval('"public"."api_keys_id_seq"', 3, true);
+SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
+SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
+SELECT setval('"public"."auto_ban_seq"', 5, true);
+SELECT setval('"public"."ban_seq"', 5, false);
+SELECT setval('"public"."channels_id_seq"', 5, false);
+SELECT setval('"public"."check_event_seq"', 5, true);
+SELECT setval('"public"."check_user_attendance_id_seq"', 36, true);
+SELECT setval('"public"."check_user_itemcode_seq"', 37, true);
+SELECT setval('"public"."check_user_voucher_id_seq"', 5, true);
+SELECT setval('"public"."clan_seq"', 5, true);
+SELECT setval('"public"."event_attendance_id_seq"', 93, true);
+SELECT setval('"public"."gameservers_id_seq"', 5, false);
+SELECT setval('"public"."gift_id_seq"', 5, true);
+SELECT setval('"public"."ipsystem_id_seq"', 5, false);
+SELECT setval('"public"."item_voucher_id_seq"', 7, true);
+SELECT setval('"public"."items_id_seq"', 7, true);
+SELECT setval('"public"."jogador_amigo_seq"', 5, true);
+SELECT setval('"public"."jogador_inventario_seq"', 5, true);
+SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 17, true);
+SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
+SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
+SELECT setval('"public"."loja_seq"', 8, true);
+SELECT setval('"public"."message_id_seq"', 10, true);
+SELECT setval('"public"."player_characters_id_seq"', 5, true);
+SELECT setval('"public"."player_eqipment_id_seq"', 5, true);
+SELECT setval('"public"."player_friends_player_account_id_seq"', 5, false);
+SELECT setval('"public"."player_topups_seq"', 9, true);
+SELECT setval('"public"."players_id_seq"', 5, true);
+SELECT setval('"public"."storage_seq"', 5, true);
+SELECT setval('"public"."templates_id_seq"', 5, false);
+SELECT setval('"public"."trade_id_seq"', 13, true);
+SELECT setval('"public"."web_adminpanel_id_seq"', 198, true);
+SELECT setval('"public"."web_all_log_id_seq"', 5, false);
+SELECT setval('"public"."web_api_data_id_seq"', 3, false);
+SELECT setval('"public"."web_battlepass_id_seq"', 3, true);
+SELECT setval('"public"."web_battlepass_list_id_seq"', 5, true);
+SELECT setval('"public"."web_download_seq"', 18, true);
+SELECT setval('"public"."web_email_confirmation_id_seq"', 10, true);
+SELECT setval('"public"."web_exchangeticket_seq"', 13, true);
+SELECT setval('"public"."web_giftitem_log_seq"', 12, true);
+SELECT setval('"public"."web_launcher_ipaddress_id"', 5, true);
+SELECT setval('"public"."web_news_id_seq"', 19, true);
+SELECT setval('"public"."web_quickslide_id_seq"', 22, true);
+SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
+SELECT setval('"public"."web_recharge_id_seq"', 25, true);
+SELECT setval('"public"."web_report_id_seq"', 9, true);
+SELECT setval('"public"."web_tokenkey_id_seq"', 118, true);
+SELECT setval('"public"."webdata_news_seq"', 5, true);
+SELECT setval('"public"."webshop_id_seq"', 21, true);
 
 -- ----------------------------
 -- Primary Key structure for table accounts
@@ -7810,6 +7554,16 @@ ALTER TABLE "public"."web_api_limits" ADD CONSTRAINT "limits_pkey" PRIMARY KEY (
 -- Primary Key structure for table web_api_logs
 -- ----------------------------
 ALTER TABLE "public"."web_api_logs" ADD CONSTRAINT "web_api_logs2_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table web_battlepass
+-- ----------------------------
+ALTER TABLE "public"."web_battlepass" ADD CONSTRAINT "web_battlepass_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table web_battlepass_list
+-- ----------------------------
+ALTER TABLE "public"."web_battlepass_list" ADD CONSTRAINT "web_battlepass_list_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table web_download_clientlauncher

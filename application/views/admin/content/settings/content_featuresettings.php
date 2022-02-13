@@ -60,6 +60,13 @@
                                 <option value="1" <?php if ($this->getsettings->Get2()->attendance == 1){echo 'selected';} ?>>Enabled</option>
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Email Verification</label>
+                            <select name="enable_email_verification" id="enable_email_verification" class="form-control col-9">
+                                <option value="0" <?php if ($this->getsettings->Get2()->email_verification == 0){echo 'selected';} ?>>Disabled</option>
+                                <option value="1" <?php if ($this->getsettings->Get2()->email_verification == 1){echo 'selected';} ?>>Enabled</option>
+                            </select>
+                        </div>
                         <div class="form-group text-right">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
                         </div>
@@ -70,108 +77,7 @@
                             $('#featuresettings_form').on('submit', function(e){
                                 e.preventDefault();
 
-                                if ($('#enable_webshop').val() == '' || $('#enable_webshop').val() == null){
-                                    ShowToast(2000, 'warning', 'Webshop State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_trademarket').val() == '' || $('#enable_trademarket').val() == null){
-                                    ShowToast(2000, 'warning', 'Trade Market State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_exchangeticket').val() == '' || $('#enable_exchangeticket').val() == null){
-                                    ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_redeemcode').val() == '' || $('#enable_redeemcode').val() == null){
-                                    ShowToast(2000, 'warning', 'Redeem Code State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_voucher').val() == '' || $('#enable_voucher').val() == null){
-                                    ShowToast(2000, 'warning', 'Voucher State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_forgotpassword').val() == '' || $('#enable_forgotpassword').val() == null){
-                                    ShowToast(2000, 'warning', 'Forgot Password State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_register').val() == '' || $('#enable_register').val() == null){
-                                    ShowToast(2000, 'warning', 'Register State Cannot Be Empty.');
-                                    return;
-                                }
-                                else if ($('#enable_attendance').val() == '' || $('#enable_register').val() == null){
-                                    ShowToast(2000, 'warning', 'Attendance State Cannot Be Empty.');
-                                    return;
-                                }
-                                else{
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?php echo base_url('adm/settings/do_submit_featuresettings') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'enable_webshop' : $('#enable_webshop').val(),
-                                            'enable_trademarket' : $('#enable_trademarket').val(),
-                                            'enable_exchangeticket' : $('#enable_exchangeticket').val(),
-                                            'enable_redeemcode' : $('#enable_redeemcode').val(),
-                                            'enable_voucher' : $('#enable_voucher').val(),
-                                            'enable_forgotpassword' : $('#enable_forgotpassword').val(),
-                                            'enable_register' : $('#enable_register').val(),
-                                            'enable_attendance' : $('#enable_attendance').val()
-                                        },
-                                        success: function(data){
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true'){
-                                                SetAttribute('submit', 'submit', 'Submit Feature');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'success', Result.message);
-                                                return;
-                                            }
-                                            else if (Result.response == 'false'){
-                                                SetAttribute('submit', 'submit', 'Submit Feature');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            }
-                                            else{
-                                                SetAttribute('submit', 'submit', 'Submit Feature');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            }
-                                        },
-                                        error: function(){
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                success: function(data){
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true'){
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return SubmitSettings();
-                                                },
-                                                error: function(){
-                                                    SetAttribute('submit', 'submit', 'Submit Feature');
-                                                    ShowToast(2000, 'error', 'Failed To Submit Settings.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return SubmitSettings();
                             });
                         });
 
@@ -213,9 +119,12 @@
                                         'enable_webshop' : $('#enable_webshop').val(),
                                         'enable_trademarket' : $('#enable_trademarket').val(),
                                         'enable_exchangeticket' : $('#enable_exchangeticket').val(),
+                                        'enable_redeemcode' : $('#enable_redeemcode').val(),
                                         'enable_voucher' : $('#enable_voucher').val(),
                                         'enable_forgotpassword' : $('#enable_forgotpassword').val(),
-                                        'enable_register' : $('#enable_register').val()
+                                        'enable_register' : $('#enable_register').val(),
+                                        'enable_attendance' : $('#enable_attendance').val(),
+                                        'enable_email_verification' : $('#enable_email_verification').val()
                                     },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);

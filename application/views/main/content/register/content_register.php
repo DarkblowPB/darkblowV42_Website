@@ -68,19 +68,31 @@
                                 <a href="<?php echo base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success"><?php echo $this->lang->line('STR_DARKBLOW_155') ?></a>
                             </div>
                         <?php echo form_close(); ?>
-                        <div class="form-group text-center">
-                            <label style="font-weight: bold; font-style: italic;">OR</label>
-                        </div>
-                        <div class="form-group text-center">
-                            <?php if (isset($_SESSION['g_email'])) : ?>
-                                <input type="button" id="cancelgoogleregistration" value="<?php echo $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
-                            <?php endif; ?>
-                            <?php if (!isset($_SESSION['g_email'])) : ?>
-                                <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
-                            <?php endif; ?>
-                            <div class="nk-gap-1"></div>
-                            <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" onclick="ShowToast(2000, 'info', '<?php echo $this->lang->line('STR_INFO_2') ?>')"><i class="fa fa-facebook-square mr-2"></i> <?php echo $this->lang->line('STR_DARKBLOW_203') ?></button>
-                        </div>
+                        <?php
+                        $configFile = @file_get_contents('./darkblow_config.json');
+                        $configFile_parse = json_decode($configFile);
+                        foreach ($configFile_parse as $row)
+                        {
+                            if ($row->GoogleConfig->ClientID != '' && $row->GoogleConfig->ClientSecret != '')
+                            {
+                                
+                                ?>
+                                <div class="form-group text-center">
+                                    <label style="font-weight: bold; font-style: italic;">OR</label>
+                                </div>
+                                <div class="form-group text-center">
+                                    <?php if (isset($_SESSION['g_email'])) : ?>
+                                        <input type="button" id="cancelgoogleregistration" value="<?php echo $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
+                                    <?php endif; ?>
+                                    <?php if (!isset($_SESSION['g_email'])) : ?>
+                                        <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?php echo base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?php echo $this->lang->line('STR_DARKBLOW_156') ?></button>
+                                    <?php endif; ?>
+                                    <div class="nk-gap-1"></div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
                         <script>
                             var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                             var RETRY = 0;

@@ -446,35 +446,57 @@ class Register_model extends CI_Model
 									'equip' => '1'
 								));
 								$query5 = $this->db->where('id', $query->id)->update('events_register', array('stock' => ($query->stock - 1)));
-								$query6 = $this->db->insert('web_email_confirmation', array(
-									'account_id' => $this->encryption->decrypt($data['login']),
-									'email' => $this->encryption->decrypt($data['email']),
-									'token' => $data['token'],
-									'valid' => '1'
-								));
-								if ($query4 && $query5 && $query6)
+								if ($this->getsettings->Get2()->email_verification == 0)
 								{
-									if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
+									if ($query4 && $query5)
 									{
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+										$response['message'] = 'Successfully Registered.';
+
 										echo json_encode($response);
 									}
 									else
 									{
-										$response['response'] = 'true';
+										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+										$response['message'] = 'Failed Register Your Account.';
+
 										echo json_encode($response);
 									}
 								}
 								else
 								{
-									$response['response'] = 'true';
-									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Registered (2). Please Check Your Email For Activated Your Account.';
-									echo json_encode($response);
+									$query6 = $this->db->insert('web_email_confirmation', array(
+										'account_id' => $this->encryption->decrypt($data['login']),
+										'email' => $this->encryption->decrypt($data['email']),
+										'token' => $data['token'],
+										'valid' => '1'
+									));
+									if ($query4 && $query5 && $query6)
+									{
+										if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
+										{
+											$response['response'] = 'true';
+											$response['token'] = $this->security->get_csrf_hash();
+											$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+											echo json_encode($response);
+										}
+										else
+										{
+											$response['response'] = 'true';
+											$response['token'] = $this->security->get_csrf_hash();
+											$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+											echo json_encode($response);
+										}
+									}
+									else
+									{
+										$response['response'] = 'true';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Successfully Registered (2). Please Check Your Email For Activated Your Account.';
+										echo json_encode($response);
+									}
 								}
 							}
 							else
@@ -506,13 +528,99 @@ class Register_model extends CI_Model
 							'date_registered' => date('d-m-Y h:i:s'),
 							'email_verification' => '0'
 						), true);
+						if ($this->getsettings->Get2()->email_verification == 0)
+						{
+							if ($query2 && $query99)
+							{
+								$response['response'] = 'true';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Successfully Registered';
+								
+								echo json_encode($response);
+							}
+							else
+							{
+								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Failed To Register Your Account.';
+
+								echo json_encode($response);
+							}
+						}
+						else
+						{
+							$query6 = $this->db->insert('web_email_confirmation', array(
+								'account_id' => $this->encryption->decrypt($data['login']),
+								'email' => $this->encryption->decrypt($data['email']),
+								'token' => $data['token'],
+								'valid' => '1'
+							));
+							if ($query2 && $query99 && $query6)
+							{
+								if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
+								{
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+									echo json_encode($response);
+								}
+								else
+								{
+									$response['response'] = 'true';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+								}
+							}
+							else
+							{
+								$response['response'] = 'false';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Failed To Register Your Account.';
+								echo json_encode($response);
+							}
+						}
+					}
+				}
+				else
+				{
+					$query2 = $this->db->insert('accounts', array(
+						'login' => $this->encryption->decrypt($data['login']),
+						'lastip' => $this->input->ip_address(),
+						'email' => $this->encryption->decrypt($data['email']),
+						'password' => $this->encryption->decrypt($data['password']),
+						'hint_question' => $this->encryption->decrypt($data['hint_question']),
+						'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
+						'date_registered' => date('d-m-Y h:i:s'),
+						'email_verification' => '0'
+					), true);
+					if ($this->getsettings->Get2()->email_verification == 0)
+					{
+						if ($query2)
+						{
+							$response['response'] = 'true';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered';
+
+							echo json_encode($response);
+						}
+						else
+						{
+							$response['response'] = 'false';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Failed To Register Your Account.';
+
+							echo json_encode($response);
+						}
+					}
+					else
+					{
 						$query6 = $this->db->insert('web_email_confirmation', array(
 							'account_id' => $this->encryption->decrypt($data['login']),
 							'email' => $this->encryption->decrypt($data['email']),
 							'token' => $data['token'],
 							'valid' => '1'
 						));
-						if ($query2 && $query99 && $query6)
+						if ($query2 && $query6)
 						{
 							if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
 							{
@@ -535,48 +643,6 @@ class Register_model extends CI_Model
 							$response['message'] = 'Failed To Register Your Account.';
 							echo json_encode($response);
 						}
-					}
-				}
-				else
-				{
-					$query2 = $this->db->insert('accounts', array(
-						'login' => $this->encryption->decrypt($data['login']),
-						'lastip' => $this->input->ip_address(),
-						'email' => $this->encryption->decrypt($data['email']),
-						'password' => $this->encryption->decrypt($data['password']),
-						'hint_question' => $this->encryption->decrypt($data['hint_question']),
-						'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-						'date_registered' => date('d-m-Y h:i:s'),
-						'email_verification' => '0'
-					), true);
-					$query6 = $this->db->insert('web_email_confirmation', array(
-						'account_id' => $this->encryption->decrypt($data['login']),
-						'email' => $this->encryption->decrypt($data['email']),
-						'token' => $data['token'],
-						'valid' => '1'
-					));
-					if ($query2 && $query6)
-					{
-						if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
-						{
-							$response['response'] = 'true';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
-							echo json_encode($response);
-						}
-						else
-						{
-							$response['response'] = 'true';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
-						}
-					}
-					else
-					{
-						$response['response'] = 'false';
-						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Failed To Register Your Account.';
-						echo json_encode($response);
 					}
 				}
 			}

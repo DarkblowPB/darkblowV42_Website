@@ -221,7 +221,8 @@ class Settings_model extends CI_Model
             'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true)),
             'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true)),
             'enable_register' => $this->encryption->encrypt($this->input->post('enable_register', true)),
-            'enable_attendance' => $this->encryption->encrypt($this->input->post('enable_attendance', true))
+            'enable_attendance' => $this->encryption->encrypt($this->input->post('enable_attendance', true)),
+            'enable_email_verification' => $this->encryption->encrypt($this->input->post('enable_email_verification', true))
         );
 
         $response = array();
@@ -237,7 +238,8 @@ class Settings_model extends CI_Model
                 'voucher' => $this->encryption->decrypt($data['enable_voucher']),
                 'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword']),
                 'register' => $this->encryption->decrypt($data['enable_register']),
-                'attendance' => $this->encryption->decrypt($data['enable_attendance'])
+                'attendance' => $this->encryption->decrypt($data['enable_attendance']),
+                'email_verification' => $this->encryption->decrypt($data['enable_email_verification'])
             ));
 
             if ($update)
