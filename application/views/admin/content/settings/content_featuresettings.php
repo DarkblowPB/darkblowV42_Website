@@ -67,6 +67,13 @@
                                 <option value="1" <?php if ($this->getsettings->Get2()->email_verification == 1){echo 'selected';} ?>>Enabled</option>
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3">Google Register</label>
+                            <select name="enable_google_register" id="enable_google_register" class="form-control col-9">
+                                <option value="0" <?php if ($this->getsettings->Get2()->google_register == 0){echo 'selected';} ?>>Disabled</option>
+                                <option value="1" <?php if ($this->getsettings->Get2()->google_register == 1){echo 'selected';} ?>>Enabled</option>
+                            </select>
+                        </div>
                         <div class="form-group text-right">
                             <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
                         </div>
@@ -95,6 +102,10 @@
                                 ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
                                 return;
                             }
+                            else if ($('#enable_redeemcode').val() == '' || $('#enable_redeemcode').val() == null){
+                                ShowToast(2000, 'warning', 'Redeem Code State Cannot Be Empty.');
+                                return;
+                            }
                             else if ($('#enable_voucher').val() == '' || $('#enable_voucher').val() == null){
                                 ShowToast(2000, 'warning', 'Exchange Ticket State Cannot Be Empty.');
                                 return;
@@ -105,6 +116,18 @@
                             }
                             else if ($('#enable_register').val() == '' || $('#enable_register').val() == null){
                                 ShowToast(2000, 'warning', 'Register State Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#enable_attendance').val() == '' || $('#enable_attendance').val() == null){
+                                ShowToast(2000, 'warning', 'Attendance State Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#enable_email_verification').val() == '' || $('#enable_email_verification').val() == null){
+                                ShowToast(2000, 'warning', 'Email Verification State Cannot Be Empty.');
+                                return;
+                            }
+                            else if ($('#enable_google_register').val() == '' || $('#enable_google_register').val() == null){
+                                ShowToast(2000, 'warning', 'Google Register State Cannot Be Empty.');
                                 return;
                             }
                             else{
@@ -124,7 +147,8 @@
                                         'enable_forgotpassword' : $('#enable_forgotpassword').val(),
                                         'enable_register' : $('#enable_register').val(),
                                         'enable_attendance' : $('#enable_attendance').val(),
-                                        'enable_email_verification' : $('#enable_email_verification').val()
+                                        'enable_email_verification' : $('#enable_email_verification').val(),
+                                        'enable_google_register' : $('#enable_google_register').val()
                                     },
                                     success: function(data){
                                         var GetString = JSON.stringify(data);
