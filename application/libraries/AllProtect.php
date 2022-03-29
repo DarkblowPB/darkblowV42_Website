@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class AllProtect
 {
@@ -13,7 +13,7 @@ class AllProtect
 
     public function __construct()
     {
-        $this->ci =& get_instance();
+        $this->ci = &get_instance();
         $this->ci->load->database();
     }
 
@@ -38,7 +38,7 @@ class AllProtect
         //     set_status_header(403);
         // }
     }
-    
+
     /**
      * Model Protection
      * 
@@ -52,9 +52,8 @@ class AllProtect
     public function Model_Protection()
     {
         $response = array();
-        
-        if ($this->IsBannedIpAddress())
-        {
+
+        if ($this->IsBannedIpAddress()) {
             $response['status'] = 'error';
             $response['token'] = $this->ci->security->get_csrf_hash();
             $response['message'] = 'You Cannot Force Execute Function To Our Database.';
@@ -66,7 +65,8 @@ class AllProtect
     public function IsBannedIpAddress()
     {
         $query = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
-        if ($query) return true; else return false;
+        if ($query) return true;
+        else return false;
     }
 
     /**
@@ -92,26 +92,21 @@ class AllProtect
     }
 
     public function Changepassword_Protection()
-	{
-        if (!empty($this->ci->session->userdata('uid')))
-        {
+    {
+        if (!empty($this->ci->session->userdata('uid'))) {
             $check = $this->ci->db->get_where('accounts', array('player_id' => $this->ci->session->userdata('uid')));
             $result = $check->row();
-            if ($result) 
-            {
+            if ($result) {
                 if ($result->hint_question == null) redirect(base_url('player_panel/create_hint'), 'refresh');
                 if ($result->hint_answer == null) redirect(base_url('player_panel/create_hint'), 'refresh');
             }
-        }
-        else redirect(base_url('login'), 'refresh');
-	}
+        } else redirect(base_url('login'), 'refresh');
+    }
 
     public function BlockedAccount_Protection()
     {
-        if (!empty($this->ci->session->userdata('access_level')))
-        {
-            if ($this->ci->session->userdata('access_level') == '-1')
-            {
+        if (!empty($this->ci->session->userdata('access_level'))) {
+            if ($this->ci->session->userdata('access_level') == '-1') {
                 $this->ci->session->unset_userdata('uid');
                 $this->ci->session->unset_userdata('player_name');
                 $this->ci->session->unset_userdata('access_level');
@@ -133,13 +128,10 @@ class AllProtect
 
     public function AdminDashboard_Protection()
     {
-        // if (empty($this->ci->session->userdata('admin_id')))
-        // {
-        //     redirect(base_url('adm/login'), 'refresh');
-        // }
+        if (empty($this->ci->session->userdata('admin_id'))) {
+            redirect(base_url('adm/login'), 'refresh');
+        }
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>
