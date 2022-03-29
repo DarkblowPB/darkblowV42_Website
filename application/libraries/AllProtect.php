@@ -123,12 +123,12 @@ class AllProtect
 
     public function AdminLogin_Protection()
     {
-        if (!empty($this->ci->session->userdata('admin_id'))) redirect(base_url('adm/dashboard'), 'refresh');
+        if (!empty($this->ci->session->userdata('admin_uid'))) redirect(base_url('adm/dashboard'), 'refresh');
     }
 
     public function AdminDashboard_Protection()
     {
-        if (empty($this->ci->session->userdata('admin_id'))) {
+        if (empty($this->ci->session->userdata('admin_uid'))) {
             redirect(base_url('adm/login'), 'refresh');
         }
     }
