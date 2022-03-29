@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Servercommand_library
 {
@@ -13,7 +13,7 @@ class Servercommand_library
 
     public function __construct()
     {
-        $this->ci =& get_instance();
+        $this->ci = &get_instance();
         $this->ci->load->helper('file');
     }
 
@@ -22,8 +22,7 @@ class Servercommand_library
         $host_config = read_file('./darkblow_config.json');
         $host_decode = json_decode($host_config);
 
-        foreach ($host_decode as $row)
-        {
+        foreach ($host_decode as $row) {
             $data = array(
                 'host' => $row->CredentialsConfig->primary_host->host,
                 'port' => $row->CredentialsConfig->primary_host->port
@@ -38,8 +37,7 @@ class Servercommand_library
         $host_config = read_file('./darkblow_config.json');
         $host_decode = json_decode($host_config);
 
-        foreach ($host_decode as $row)
-        {
+        foreach ($host_decode as $row) {
             $data = array(
                 'host' => $row->CredentialsConfig->secondary_host->host,
                 'port' => $row->CredentialsConfig->secondary_host->port
@@ -48,14 +46,13 @@ class Servercommand_library
 
         return $data;
     }
-    
+
     public function ThirdHost()
     {
         $host_config = read_file('./darkblow_config.json');
         $host_decode = json_decode($host_config);
 
-        foreach ($host_decode as $row)
-        {
+        foreach ($host_decode as $row) {
             $data = array(
                 'host' => $row->CredentialsConfig->third_host->host,
                 'port' => $row->CredentialsConfig->third_host->port
@@ -64,182 +61,95 @@ class Servercommand_library
 
         return $data;
     }
-    
+
     public function SendTcpCommand($host = null, $data = null)
     {
         if ($host == null)
             return "Failed";
         else if ($data == null)
             return "Failed";
-        else
-        {
-            if ($host == 'primary')
-            {
+        else {
+            if ($host == 'primary') {
                 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                if ($socket)
-                {
+                if ($socket) {
                     $connect = socket_connect($socket, $this->PrimaryHost()['host'], $this->PrimaryHost()['port']);
-                    if ($connect)
-                    {
+                    if ($connect) {
                         $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
-                        if ($write)
-                        {
+                        if ($write) {
                             $read = socket_read($socket, 2048);
                             // $read = Success
-                            if ($read == 'Success')
-                                return "Success";
-                            else
-                                return "Failed";
-                        }
-                        else
-                        {
-                            return "Failed";
-                        }
-                    }
-                    else
-                    {
-                        return "Failed";
-                    }
-                }
-                else
-                {
-                    return "Failed";
-                }
-            }
-            else if ($host == 'secondary')
-            {
+                            if ($read == 'Success') return "Success";
+                            else return "Failed";
+                        } else return "Failed";
+                    } else return "Failed";
+                } else return "Failed";
+            } else if ($host == 'secondary') {
                 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                if ($socket)
-                {
+                if ($socket) {
                     $connect = socket_connect($socket, $this->SecondaryHost()['host'], $this->SecondaryHost()['port']);
-                    if ($connect)
-                    {
+                    if ($connect) {
                         $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
-                        if ($write)
-                        {
+                        if ($write) {
                             $read = socket_read($socket, 2048);
                             // $read = Success
-                            if ($read == 'Success')
-                                return "Success";
-                            else
-                                return "Failed";
-                        }
-                        else
-                        {
-                            return "Failed";
-                        }
-                    }
-                    else
-                    {
-                        return "Failed";
-                    }
-                }
-                else
-                {
-                    return "Failed";
-                }
-            }
-            else if ($host == 'third')
-            {
+                            if ($read == 'Success') return "Success";
+                            else return "Failed";
+                        } else return "Failed";
+                    } else return "Failed";
+                } else return "Failed";
+            } else if ($host == 'third') {
                 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                if ($socket)
-                {
+                if ($socket) {
                     $connect = socket_connect($socket, $this->ThirdHost()['host'], $this->ThirdHost()['port']);
-                    if ($connect)
-                    {
+                    if ($connect) {
                         $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
-                        if ($write)
-                        {
+                        if ($write) {
                             $read = socket_read($socket, 2048);
                             // $read = Success
-                            if ($read == 'Success')
-                                return "Success";
-                            else
-                                return "Failed";
-                        }
-                        else
-                        {
-                            return "Failed";
-                        }
-                    }
-                    else
-                    {
-                        return "Failed";
-                    }
-                }
-                else
-                {
-                    return "Failed";
-                }
-            }
-            else
-            {
-                return "Failed";
+                            if ($read == 'Success') return "Success";
+                            else return "Failed";
+                        } else return "Failed";
+                    } else return "Failed";
+                } else return "Failed";
             }
         }
     }
 
     public function CheckOpenPort($host)
-	{
-        if ($host == 'primary')
-        {
+    {
+        if ($host == 'primary') {
             $connection = @fsockopen($this->PrimaryHost()['host'], $this->PrimaryHost()['port']);
-    
-            if (is_resource($connection))
-            {
+
+            if (is_resource($connection)) {
                 return TRUE;
-    
+
                 fclose($connection);
-            }
-    
-            else
-            {
-                return FALSE;
-            }
-        }
-        else if ($host == 'secondary')
-        {
+            } else return FALSE;
+        } else if ($host == 'secondary') {
             $connection = @fsockopen($this->SecondaryHost()['host'], $this->SecondaryHost()['port']);
-    
-            if (is_resource($connection))
-            {
+
+            if (is_resource($connection)) {
                 return TRUE;
-    
+
                 fclose($connection);
-            }
-    
-            else
-            {
-                return FALSE;
-            }
-        }
-        else if ($host == 'third')
-        {
+            } else return FALSE;
+        } else if ($host == 'third') {
             $connection = @fsockopen($this->ThirdHost()['host'], $this->ThirdHost()['port']);
-    
-            if (is_resource($connection))
-            {
+
+            if (is_resource($connection)) {
                 return TRUE;
-    
+
                 fclose($connection);
-            }
-    
-            else
-            {
-                return FALSE;
-            }
-        }
-        else return FALSE;
-	}
+            } else return FALSE;
+        } else return FALSE;
+    }
 
     public function GenerateOpcode($command_type = null)
     {
         if ($command_type == null)
             return 0;
-        else
-        {
-            switch ($command_type) 
-            {
+        else {
+            switch ($command_type) {
                 case 'Start Server':
                     return 1;
                 case 'Shutdown Server':
@@ -256,7 +166,7 @@ class Servercommand_library
                     return 7;
                 case 'Redeem Code':
                     return 8;
-                
+
                 default:
                     return 0;
             }
@@ -289,5 +199,3 @@ class Servercommand_library
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

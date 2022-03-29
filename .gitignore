@@ -39,3 +39,6 @@ application/controllers/Encrypt.php
 application/libraries/Theme.php
 application/controllers/Event/Opencase.php
 application/views/main/content/event/content_opencase.php
+application/controllers/Event/Battlepass.php
+application/models/main/Battlepass_model.php
+application/views/main/content/event/content_battlepass.php

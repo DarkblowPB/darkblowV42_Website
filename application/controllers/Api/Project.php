@@ -19,15 +19,17 @@ class Project extends RestController
 
     function index_get()
     {
+        $response = array();
+
         $project = @file_get_contents('./darkblow_config.json');
         $parse = json_decode($project);
 
         foreach ($parse as $row) $project_version = $row->ProjectVersion->Version;
 
-        $this->response(["status" => 'Success', "project_version" => $project_version], 200);
+        $response['status'] = 'Success';
+        $response['project_version'] = $project_version;
+        $this->response($response, 200);
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

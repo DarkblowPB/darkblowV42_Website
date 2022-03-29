@@ -19,11 +19,15 @@ class Updater extends RestController
 
     function version_get()
     {
+        $response = array();
+
         $launcherversion = @file_get_contents('./pblauncher/version/launcher_version.ini');
-        $this->response(["status" => 'Success', 'updater_version' => $launcherversion], 200);
+
+        $response['status'] = 'Success';
+        $response['updater_version'] = $launcherversion;
+
+        $this->response($response, 200);
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>
