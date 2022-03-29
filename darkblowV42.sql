@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 13/02/2022 13:02:20
+ Date: 29/03/2022 20:58:29
 */
 
 
@@ -153,6 +153,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."event_attendance_id_seq";
 CREATE SEQUENCE "public"."event_attendance_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for events_login_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."events_login_id_seq";
+CREATE SEQUENCE "public"."events_login_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -661,12 +672,12 @@ CREATE TABLE "public"."accounts" (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
+INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 184092, 1690112, 1, 2, 0, 1, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyidw@gmail.com', 1010000, 99997410, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 1203281844, 0, 0, '28:39:26:0f:73:84', 0, 123, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 184092, 1690112, 1, 2, 0, 1, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid@gmail.com', 1010000, 99997410, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002004, 1104003246, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 2201011543, 0, 0, '28:39:26:0f:73:84', 0, 123, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow005', 'd250ed959463e3a789bba1a3ad1dfdfc', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, -1, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow003', 'd250ed959463e3a789bba1a3ad1dfdfc', 195, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidbackup@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -730,7 +741,7 @@ CREATE TABLE "public"."check_user_voucher" (
   "id" int4 NOT NULL DEFAULT nextval('check_user_voucher_id_seq'::regclass),
   "uid" int4,
   "voucher" varchar(255) COLLATE "pg_catalog"."default",
-  "date" varchar(255) COLLATE "pg_catalog"."default"
+  "date_claimed" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -798,17 +809,13 @@ CREATE TABLE "public"."events_attendance" (
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_login";
 CREATE TABLE "public"."events_login" (
-  "start_date" int8 NOT NULL DEFAULT 0,
-  "end_date" int8 NOT NULL DEFAULT 0,
-  "reward_id" int4 NOT NULL DEFAULT 0,
-  "reward_count" int4 NOT NULL DEFAULT 0
+  "id" int8 DEFAULT nextval('events_login_id_seq'::regclass),
+  "start_date" int8,
+  "end_date" int8,
+  "reward_id" int4,
+  "reward_count" int4
 )
 ;
-
--- ----------------------------
--- Records of events_login
--- ----------------------------
-INSERT INTO "public"."events_login" VALUES (2202101943, 2202101943, 100003001, 604800);
 
 -- ----------------------------
 -- Table structure for events_mapbonus
@@ -1257,13 +1264,8 @@ CREATE TABLE "public"."launcher_launcherkey" (
 -- ----------------------------
 -- Records of launcher_launcherkey
 -- ----------------------------
-INSERT INTO "public"."launcher_launcherkey" VALUES (9, 91291707, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (10, 868373180, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (11, 616959124, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (12, 95895454, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (13, 805483974, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (14, 189975010, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (15, 158914754, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (17, 695489391, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (18, 429728031, 0);
 
 -- ----------------------------
 -- Table structure for launcher_loghistory
@@ -1277,32 +1279,16 @@ CREATE TABLE "public"."launcher_loghistory" (
 ;
 
 -- ----------------------------
--- Records of launcher_loghistory
--- ----------------------------
-INSERT INTO "public"."launcher_loghistory" VALUES (1, '::1', '25-12-2021 07:54:37');
-INSERT INTO "public"."launcher_loghistory" VALUES (2, '::1', '25-12-2021 09:02:46');
-INSERT INTO "public"."launcher_loghistory" VALUES (3, '::1', '25-12-2021 09:04:11');
-INSERT INTO "public"."launcher_loghistory" VALUES (4, '::1', '25-12-2021 09:06:46');
-INSERT INTO "public"."launcher_loghistory" VALUES (5, '::1', '25-12-2021 18:55:31');
-INSERT INTO "public"."launcher_loghistory" VALUES (6, '::1', '25-12-2021 18:58:23');
-INSERT INTO "public"."launcher_loghistory" VALUES (7, '::1', '25-12-2021 22:54:40');
-INSERT INTO "public"."launcher_loghistory" VALUES (8, '::1', '25-12-2021 22:56:10');
-INSERT INTO "public"."launcher_loghistory" VALUES (9, '::1', '25-12-2021 22:56:34');
-INSERT INTO "public"."launcher_loghistory" VALUES (10, '::1', '25-12-2021 23:14:03');
-INSERT INTO "public"."launcher_loghistory" VALUES (11, '::1', '25-12-2021 23:14:47');
-INSERT INTO "public"."launcher_loghistory" VALUES (12, '::1', '25-12-2021 23:42:31');
-
--- ----------------------------
 -- Table structure for launcher_version_control
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."launcher_version_control";
 CREATE TABLE "public"."launcher_version_control" (
   "id" int4 NOT NULL DEFAULT nextval('launcher_version_control_id_seq'::regclass),
   "ip_address" varchar(255) COLLATE "pg_catalog"."default",
-  "mac_address" varchar(255) COLLATE "pg_catalog"."default",
   "current_patch_version" int4,
   "current_launcher_version" int4,
-  "date_created" varchar(255) COLLATE "pg_catalog"."default"
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -7233,7 +7219,8 @@ CREATE TABLE "public"."web_settings" (
   "redeemcode" varchar(255) COLLATE "pg_catalog"."default",
   "change_email" varchar(255) COLLATE "pg_catalog"."default",
   "event_ticket" varchar(255) COLLATE "pg_catalog"."default",
-  "email_verification" varchar(255) COLLATE "pg_catalog"."default"
+  "email_verification" varchar(255) COLLATE "pg_catalog"."default",
+  "google_register" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
@@ -7241,7 +7228,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'Test Project', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '1');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '0', '0');
 
 -- ----------------------------
 -- Table structure for web_tokenkey
@@ -7257,118 +7244,7 @@ CREATE TABLE "public"."web_tokenkey" (
 -- ----------------------------
 -- Records of web_tokenkey
 -- ----------------------------
-INSERT INTO "public"."web_tokenkey" VALUES (35, '30zOsyF5Z6fOHsqmtZQgR9WEOqvfljVdA25pDPpyJNfe6AzzMyq28W0xdZevRkOV', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (36, '139Tc5TmXM85hjOF2BbEmfdLFyDRXSqAGDiMh0BfQmmHSFKtfZvGj7eUz0ZM82Ya', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (37, '3ikZXlVWDFHSh2Qh4uKdZ69HmqgeCJ4MMYJB3LCRoxK1th9xRZ50lpfGvbeSWaxy', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (5, 'e9UupLwzsBFVggThdHX3r0O7zwFQb9VMiqt5GaxIsM2E3OSPsuLeNs1qCHLzHKEI', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (6, 'cdN2cEu3MEpCmHk4KgOSAYlsCb0WrTciWF1SMMHLA0RZEUBq1Or46NfQdy8DoWsT', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (7, 'wNid4Ccso0kdaVFAOZvLk1fucJVmyTQjvFz10Hf5qhafVaGVFjH4WLpJ73g2f2eS', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (8, 'JbAbHYfZzSw2g30fqsskMFgPPPVZPKB9DJBM2yADyUwuwrhHBq5MOozwpbaRX09V', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (9, '5ffgO6MwTcxeEo11MMJP4CWqP68dAxoaA8Zfi1dtSvmfX2sCyFjABo8Y2qFM3XYA', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (10, 'joamDrqRT6Z6zYZb42Yajj5f4i8k6xeFV5Qoe1RlBiDCf0KryPkVmKyqT3XsL8WQ', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (11, '41vEWoG2t6k9A6GSZ2dYUZ48qDkR1N8LYeBZIM3zUCDsCTq3Y55j07voPj2GeJGP', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (12, 'BEzl6BzkFpHwuTdOPZhmYRhZpvBudLidUeFIWscCqNWSy841Y9ipkOIbNmaJUOh0', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (13, 'or2k14VKRr7Hixi205GDVICIZAmAUszvGMoSe5JOJ5jdUpac84HgNI2Md5c2hZpX', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (14, 'd0x5QEJpgZh0cL3LdisF5wivSNWkCZySW9u2JuPZ9N8qA7sWqVZxeCVAtaI6sNpS', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (15, '2etxTcXDtr5U6ZehSgzz5kGtU5aQMfmFaw3lgGx1Plm26AMp7e3C9yeZcT9aBZ3c', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (16, 'Slhf5vtXWi2X0Xyqyl858TyvsagbLLtI7phw3e0E14VOk7Juz1wfbQPe2PWEOjXI', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (17, 'izOpOzwTJJL99qh2ikArEB8L8KC74iqzTWMOLke5SlLvt7Hel0OPGCHXz5YRNQZT', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (18, 'mFHeiS7x51Bz1TOukebSM0xtDLyAVYDsCw1lkVxXuqXykEKBtcdy9rwQ5RCc7Dor', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (19, 'qjG4w5KQBd8s2DZLogcP4oC4KVYKoJK4XS6zYy9bQfzSSWdDFciNHtLrPoKtFLkj', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (20, '4uw6S3mqTqlllPPj9pE3CKcPqJbAwAhqUaX5pmRdoZik7O2IJPuXoZxSYaoY0Wul', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (21, 'OH0Nv4Iz28zxMvuljEll8ddivt608Qdlm9Bx2LYuYXtLVFi48iHtKMEbjVQJgBER', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (22, 'PpWYFSVYDU9KHfvj0AedVdjANGEgNRtX3xQgHZteTwDFlXu7Nirka2C9SZ2DTFFE', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (23, 'FRXvvayS0uUwUAR5wHKiNTalEW5m3dAHxYvEFSB1kh5y5Wq13IKRyT6wby2iGqHX', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (24, 'ZuBGOM9SdOy9TRkpGfWaq9yj02YgM896zN82ReVOYNFmuWKN7NOa5dV17yYO9q7m', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (25, 'IIWKRRmzxEH4hMT1RhchgeecLDfrSob2DE7KT7CbqYSWSVcCZKaevDRLjeA4Dssx', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (26, 'f1hUoFSjSH0bzEHVCaEf1GLVjCumCrE6iuq6Suy47rmEMoQdo0BzyZwa942hmzxc', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (27, 'lIy2V0aJoIKkprUY5KlH8l9fgXWBTrbEWvc9rCyamm9Ej3dNsGguwsFFQgyvbMWq', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (28, 'z6GjOd7PVV5TAoMlK2Io3jE6mI3lrtZbCSaZSdbk93h2rfi9Uc3CSbVr7LGfyloj', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (29, 'q3xj5VGHE7J6j7ogOt1CoWscNDLMIZPAxqG46welVYdGjeq0JLMuz6RAFEjN9Hsw', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (30, 'dg3R5Wv2XOeYgp84uXNZj80mc5UsUzRBEz2TMa4bX96IU9sDGj2Z2llvzxaSro3v', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (31, 'Cil6T6PcO4FgqtSW2AcrhfHN4u7WyRiQg2m6Djao4IJuGebQxxUBmAlUYAR2s4Ko', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (32, 'BS55ZBke8duQwFc39LuBJpscvbR4Ghrdqw7PwGQdE9ZXdRexCJhCplqxjTsG7Amv', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (33, 'eqYBbYhKKWHM33Pg1wq5mOasGdajXAOMOwtYoAGDw9Uh33712rAEjxGMI6YGlFDv', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (34, 'o1toXTNsxzLIpVKNmaDdlMXLf12WZxvFr1oLpRVP11cvWdr86MIq2SNm1HX9kfAa', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (38, 'Q3VB8VXK1oimBYylgwNyP1fOHyGEqZ0VNTW704moqHlBlGS624pJ777P6VZ4QOsu', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (39, 'fO2gRmlgNtaEzjgeFzq083Hk2yueV2MEYKp0JbBHmxHBB7xk3o24DJv38Gdu8jLC', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (40, 'uiscGlI9jVewSt47rIswGZsYGbRmGqSoEH0H8kmyPEXdiPbzK7O1COL0CAuMm4Si', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (41, 'qmy8CXDN93GDlfSLEPjltRRTR60msTa1W1bfs5Zp5NGfFEEWevR5oeTFpooUor6U', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (42, 'Jc95Rf1ETRWL4Ell4d6mKd2EH25xUdQ0OIOatTlemMjE1rQH1JOAt1XidGv9AyL9', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (43, 'UBB9PDombP7HWKpAxaVtUPzkVKbEoTquq37S0g2j74ffjJOMTIyFWNQql38Mxl9u', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (44, 'TAaRWeYcUG68eqRAapJp7jr9IiKBdJOsqeCCWypiuFPYeG6aoUCO15uIpqq7LjHG', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (45, 'czwVQpSgiEUawdBiYjd6tbAJHebu10gLVDESde3xLHRxJabRK2uLjNwT8LbHs8OR', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (46, 'ogQM3MWf5OCWRPgPf3PCLR97NToZQLr9zU7C7FcLlc9cYUYakggSl2U356xAkPPT', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (47, 'YgGxGFHr3tF9LaSG37eNzLGlIH9dT8D4IAB2DK07ifbJRr0WXgmqPrFeRK6AlgQL', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (48, 'J7TaPdrub1ESoimBKMkqsIPOuM33gfselcm9Jk5y1UabMMG7ZUyhe2hiHm5YoN0U', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (49, '05eFrmv4LRsqRTx5Yc0qR1jzSa7SSfr5zIkI2Uz4IKwmzgalTL3dUOx1ZbB1XD95', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (50, '9uJx5o0YwzooWEGLiEbNPXAPBxf7J4ahcwY1ibDI4AD1aZhtMtWs80Vspv4A0JBw', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (51, '3DLStj2CeBpEcLDcEpRi1WHYCj7e1T36tVMzyZCfLa0IYwZfdkwXWz2we5xaWQ57', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (52, 'PL6zup2BuftKQFaXF3V1mMUzbgSIG0zpXHjlV09r0qsiA00YSSkZKxXHh0wzazUp', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (53, '5mNCsx54XMZlkACmZ1BgGJ6Fv6FLFMbMokiGpCJt2ldvs8CX0Um7rQgM3SOlq0ZO', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (54, 'KhhGQ34C6jWqgpc6es0kSlWbsEFyZQd5ZcYkpC9jyY7SaxZPiudaKW8o7lNP4q46', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (55, 'jhNAXfT0BIobY4jZbbFV381fZ5bOjvmhB7TbU5JrYaQh8BJiU4NTkQQwuJYVYzkR', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (56, 'WIEP04y5ygw4w67ZdKKChkGcvlyN8OfHt0cTKzcCLzkUC5iS1kttW5wHT914jK54', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (57, 'kB8ulllqiwkXyG0KOcAwCXxDfMKwVjO1vFtWqHAywe8ZIkDLOQLpTFxQVDzAokAA', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (58, 'mYNlN2Tzg9twK7ckU1Qh4sS6suUsxCPcMpGkTcUzrXkyLigHCxBEiXzwCCbOrLJV', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (59, 'r4N6CpZhMKG9r4lwTudlDYYLiyLo3wrLM309CZx1zIFtL0O5Jww7NGXxx5gBBLQs', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (60, 'gED9FKexorU1MJAxpDrPxblg4X8r02KQmdQgIPG7q8GjiTdxFxzeHjV7fcu0PtRT', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (61, '3ILXbcN6QKEMswgNM7uTfIaLNXH3t5u7hh5HeuiA7Ghr8qgWb6aVp7klxB5P0iU9', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (62, 'vewk7LVaw8fhD4xB7gUuebXKEtCMOvI4jsxwmkuYyfbEEOWCiLgUesGBICwUvFip', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (63, 'lvSRD2pULlILYco2uNYJboUx2PNC79wGjtdSBWFoc267DcLFel1RXsxMoZk0QfWb', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (64, 'gydYtKR8C1xCrzV91msxdsP2Xeooy0o0lNYD0rIMjKXAGeyd0Qus5s4UMwmJAJaR', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (65, '571l0Eu5gUN2Gc9aWoyfCEQ1W5Zd18DVeJgX2zymmV716GamHAY518dop6wJlFFg', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (66, 'h1I8OAeif2bfQd7AaD6UuE0NjU7K41x7UBbKy0gs4NtWwWMJED2LmK2g9g7dpVqy', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (67, 'EJLNfvNjJe8PaK421uAqcFg5DWg2zvhizPygZQ0WBgSKIgAXbCoa0hMaI7GgZANz', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (68, '8eyp0rewE6zyYy5hbEJHlzdLQsgBQhCW1pmTVrpUiLAfNgBP926bshi9qZkdxilx', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (69, 'dhxTrNM2Se5Gfb1M5EblB18P7zWuzY0844WAMqLWNQNqcusFDGW1CBzqXkH0XUMT', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (70, 'ZIWeFkqNLfK5f4xxsyIPmGOqXC5yoKcIvQWHDVxcKiB66lOzamyumm4flcUzo5oN', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (71, 'Fc0c9StdjBLAAMzppjyg9Pp3g3iEExHf61q9TVsmx0vuLwxeti08HHO4QkI1hJYh', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (72, 'gr7S7vJCqN279khxYSEOTJm88RlfczrQslYfobKwlhPtSuebujE1Lcs7aFYIl23o', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (73, 'utq246FbQKkDBClueWaFtFO4U4XsDvS6lNoGzGqv4t1HgffO6qBI0Za3CKRjxqdi', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (74, 'VO5jDH33L4mRwiPumUudKITX0DBlPAb2vCeXqmYP8EFOzfCoreIPhxOq9viWYx6h', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (75, 'L74X7Xoi6P5ugvO1GgrOkZYooKXlHk2C4IbC2Tcd8GHfVGbL5ROWHBzmMNksSWQI', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (76, 'vmeYgJzK2mc5p2iBZkyS8I3PrvILHSbCxcGoLsttHfKfMljjII0xAulvPmS7Bk85', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (77, '1z1et5iX540Nuz3c1VNqhQ1vewG8LbF5Miw0fJgTkZF4pakyUEWu4kweg6c337Fw', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (78, 'tjfjRvPZvk4vNBZJrKUOvHrfSAw8iZ8xLhQKWCqLuf6AGIU4JZBqzEh76s7KSlHx', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (79, 'N1rKmKNfg7xvFbZeNfYUwE7yysSUDDIOlXemPTYEFflrbNLdc79roGZVYe4MarAu', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (80, '5HhaZIyvgFxquIfqRoQ25PKTFeW3ubyigIp54wxT4xNq6vOsJMyhmEiPXOMZC3Rx', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (81, '6MSVEBfZPsvmQjHMc5B0M3t1hrRK7i0QYtaC6zIZl4Y4Cpp1WmKXwsccK530kxLc', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (82, 'ctSwgNZBi5bC8TU09tHpIoUvkHQMT4G2A07wwuIHD6yWafc2rMocFv3SXeVCIGy0', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (83, 'zdG2odO2lqij8y4h51bLE4ZdHABD80aO0VgmR9IzjgrRIed6hNX6z229bbHwbJY1', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (84, 'oqQ8t2q7XECKG1ZENpMxaHHDVDS1MvSr4eG7vdpdvae6tuaGiLQeM0pSVwzSt0JY', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (85, 'swo9UdcpgLcIXGFUkjxZ3HT0f3h03SEqc1y2ApJ1gfpGoYFVDGBMu5WRErK33Uvg', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (86, 'QCsOuIwBsHxSp8iCabaykhA2aUWsIMrwk24fglrsjGtG2k0k5bNOHH8C5D9xJF9f', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (87, 'v0Diak3R0YkTA9eBQClFK504gbjTaNTcqLTVlHoOQHvAyKG8skjWpqMLY7uNWFM4', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (88, 'YIySDKvB3Iooq962OBDdKBkj8U1uHSzA8k058XAgNsRH67A61HuuUvc5K60eLRik', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (89, 'yiPhsZEUb2aCaPNqFa67E9CeDACqHLAujcLS0uFLKKqvpco5Oolud7se7UoA0OCk', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (90, 'OtYP03yrHoo1EurkMl3ElN0mu3A0gvMitxEvE3LUB1xdyAF3vjyLmHRPltDuMPm7', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (91, 'XPOJZJ0Y34fmCVDEzDcZtKB3cFmAbdEPoTQDul7XOZ8u7XGKAlIIdsiCLFmdQQw6', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (92, '5eazoDIPfJly8MxA6d8Pq1tEZrFwIzRKiQcZdwyxEhNF4HzKNLsd4CtMV0NeaP5R', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (93, 'GkWKZ2SOS9DJ4e5X0foXjMvv6YGDmRxFhrfFKSuKyi5oVHlOHu7g6juBXO5fqe29', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (94, 'qfKt4ZLQD8kAFcIxNdU1W76YyCWJxbxkybCx8e2GujaMhtRKkkCLjQ5fSv9VSEDm', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (95, 'Q0GXYkIdpjQI1eTPOIvod2XCLpaCfTjMhWRsC8WZhF4WOUaPsck6N7xtp6VgS6ck', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (96, 'aeEYSfIFtk6EeXRmgfFaC9w6IKe5Qi4BWezhwG8W2lhM62pSjZHz4RlB24txhlYh', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (97, 'KSDz6RMPDw50IDBwjNw4Q7MMe5rOSI2MHE06PtUfaOhp9DiyQQPCaPJeKlCNZsbx', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (98, 'ZJlUSy5vhAtIxcZxFVq44uRKrEYW6Yyd5EvNqhlEwu5tPjfmzeoR125gtFdCyqYo', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (99, 'pPzYpXUfbdNHRIoa1kxsTzfmNiMSzspyPjlqqg5v1tqorw8yUyJZIVvwHwQbjhcP', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (100, '2uLbhQyAhCVfzKY2rDSgmLEAfTp07QbLNPbYsAjwc9qGB4swJLhDsKV4OUgGaog9', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (101, 'Aqqr7sYdGdTNwB61fTKmHbhaCXWjW0plMGzwULtHxQ4HjHzoQdWYYr1UcWyQvZWl', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (102, 'l7IaOOxEW6mNwRHgj8qvW55GDPgobQEGw3d2xxf0Q6Tf0GOR7CEMEsbMsXdeBLLE', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (103, 'zWAe6BRy0Sx1W5RUMCo9MpS20SyGqv1zWz3Z8iZrjOl7cN9fbTBFZVreKfOMCyQ7', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (104, 'kIvgJvOfmhI4whDIQiBH8sAZluuMDIEHIZaBZNewev0FZrpKkrXaZXhlHK6JqzoF', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (105, 'mG3BKfDLM3ei8fzwSgE6i6xOzY1aZFFcA6JeEmEfCOO9ScqTAS5cc76tR9voBpji', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (106, 'lHgCTR4P0f0qCl8CSJoZSgqM3hFJzRaAjK4XlI7tNJRuAA1P3mcL6rWlVKdRYbza', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (107, 'o793WwJh9s5peYzBSvjEBo7a41AlTV7SxMQhPbKJT7ifv2QiMZ6CtTSo93s1tB21', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (108, 'qiKOz9PIIYLMwCBoJxTjIWqPSUbm9mDIMygEJIT51RdSUJZQayTzBV2yfmaY9yGa', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (109, 'lRcV3xVXfQ7pVm4el8KeYrG5qzL4RayEqSdTbDktH6wICH1cMsZyRWRQ7psasLGV', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (110, 'GEO2H63Fjy8SSOg3VP26UjaRAaikR0Qvr05UqXwQVt0EUDo3tvOiwm4z0AZeV46f', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (111, 'OxIs5NG7dYQ30zzbPVxLrGT1syGyaS5YStQwVrcvOMzEERb27s28BIN9MwYN9GSF', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (112, 'gAC5wV5Qfytif5YyRcrtxi3YdwHGIGQXCzL2lBO6O8ZEfVrDSe2skoplWZ7mEJNZ', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (113, 'mi76Ftf5RibcHqEauCfw1WL16AazgQkkmMqtMUyBgDjR14QF8JoxQ5bGwt32laJV', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (114, 'PYSkOE9AtsycFdMTlCL4t5gDfx8Hm5VULXybZCLcTrHActbgheOrcQlje40D3H1B', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (115, '9lcyLABAXvqrDo5AA5MwClBhAyEOFY0hCZsvmMtK35HC0IfbtkpQhh9uoVVdaQzO', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (117, 'JFOSyWi1AlqD5gDTjw5WXUU88gJoJdRzrebaAESDDSc1f5HfjhYSbXOifRjT1ZEt', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (118, 'pb5m5P8MIgoPgw9r6HQwGRhHgZuWzoVK8LyGm4mZtHGwVR4Up3N4gyUv1SOT1BA8', 1);
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7434,7 +7310,8 @@ SELECT setval('"public"."check_user_attendance_id_seq"', 36, true);
 SELECT setval('"public"."check_user_itemcode_seq"', 37, true);
 SELECT setval('"public"."check_user_voucher_id_seq"', 5, true);
 SELECT setval('"public"."clan_seq"', 5, true);
-SELECT setval('"public"."event_attendance_id_seq"', 93, true);
+SELECT setval('"public"."event_attendance_id_seq"', 96, true);
+SELECT setval('"public"."events_login_id_seq"', 2, false);
 SELECT setval('"public"."gameservers_id_seq"', 5, false);
 SELECT setval('"public"."gift_id_seq"', 5, true);
 SELECT setval('"public"."ipsystem_id_seq"', 5, false);
@@ -7443,7 +7320,7 @@ SELECT setval('"public"."items_id_seq"', 7, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 17, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 19, true);
 SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
 SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
 SELECT setval('"public"."loja_seq"', 8, true);
@@ -7471,7 +7348,7 @@ SELECT setval('"public"."web_quickslide_id_seq"', 22, true);
 SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
 SELECT setval('"public"."web_recharge_id_seq"', 25, true);
 SELECT setval('"public"."web_report_id_seq"', 9, true);
-SELECT setval('"public"."web_tokenkey_id_seq"', 118, true);
+SELECT setval('"public"."web_tokenkey_id_seq"', 119, true);
 SELECT setval('"public"."webdata_news_seq"', 5, true);
 SELECT setval('"public"."webshop_id_seq"', 21, true);
 
