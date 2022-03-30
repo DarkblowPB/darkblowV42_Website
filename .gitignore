@@ -42,3 +42,7 @@ application/views/main/content/event/content_opencase.php
 application/controllers/Event/Battlepass.php
 application/models/main/Battlepass_model.php
 application/views/main/content/event/content_battlepass.php
+node_modules/*
+application/controllers/adm2/*
+models/admin2/*
+views/admin2/*
