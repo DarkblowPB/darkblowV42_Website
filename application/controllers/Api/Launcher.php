@@ -52,8 +52,50 @@ class Launcher extends RestController
         else $this->response(["status" => 'Success', "server_status" => 'OFFLINE'], 200);
     }
 
+    function updatetoken_get($player_id = null)
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyz1234567890';
+        $charaLengths = strlen($characters);
+        $tokenlengths = 32;
+        $token = '';
+
+        for ($i = 0; $i < $tokenlengths; $i++) $token .= $characters[rand(0, $charaLengths - 1)];
+
+        $response = array();
+        if ($player_id == null || $token == null) {
+            $response['status'] = 'Failed';
+            $response['message'] = '';
+            $this->response($response, 200);
+        } else {
+            $query = $this->db->get_where('accounts', array('player_id' => $player_id))->row();
+            if ($query) {
+                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('token' => $token));
+                if ($update) {
+                    $response['status'] = 'Success';
+                    $response['message'] = '';
+                    $this->response($response, 200);
+                } else {
+                    $response['status'] = 'Failed';
+                    $response['message'] = '';
+                    $this->response($response, 200);
+                }
+            } else {
+                $response['status'] = 'Failed';
+                $response['message'] = '';
+                $this->response($response, 200);
+            }
+        }
+    }
+
     function validate_get($username = null, $password = null)
     {
+        $characters = 'abcdefghijklmnopqrstuvwxyz1234567890';
+        $charaLengths = strlen($characters);
+        $tokenlengths = 32;
+        $token = '';
+
+        for ($i = 0; $i < $tokenlengths; $i++) $token .= $characters[rand(0, $charaLengths - 1)];
+
         $response = array();
         if ($username == null || $password == null) {
             $response['status'] = 'Failed';
@@ -63,7 +105,8 @@ class Launcher extends RestController
                 'login' => $username,
                 'password' => $password
             ));
-            if ($query) {
+            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('token' => $token));
+            if ($query && $update) {
                 $response['status'] = 'Success';
                 $response['login'] = $query->login;
                 $response['token'] = $query->token;
