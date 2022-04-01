@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Bannedvisitor_model extends CI_Model
 {
@@ -14,7 +14,7 @@ class Bannedvisitor_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
-    
+
     function GetAllIPAddress()
     {
         return $this->db->get('web_ipbanned')->result_array();
@@ -29,28 +29,22 @@ class Bannedvisitor_model extends CI_Model
         );
 
         $query = $this->db->get_where('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where('ip_address', $query->ip_address)->delete('web_ipbanned');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Deleted IP Address.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete IP Address.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid IP Address.';
@@ -68,27 +62,21 @@ class Bannedvisitor_model extends CI_Model
         );
 
         $query = $this->db->get_where('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'This IP Address Already Exists.';
 
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $insert = $this->db->insert('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])));
-            if ($insert)
-            {
+            if ($insert) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Add New IP Address.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add New IP Address';
@@ -100,5 +88,3 @@ class Bannedvisitor_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

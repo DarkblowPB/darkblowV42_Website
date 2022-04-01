@@ -44,5 +44,5 @@ application/models/main/Battlepass_model.php
 application/views/main/content/event/content_battlepass.php
 node_modules/*
 application/controllers/adm2/*
-models/admin2/*
-views/admin2/*
+application/models/admin2/*
+application/views/admin2/*

@@ -7,24 +7,24 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Logout extends CI_Controller
+class Logout extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->lib->GetVisitorData('Logout');
+	function __construct()
+	{
+		parent::__construct();
+		$this->lib->GetVisitorData('Logout');
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
-        if (empty($this->session->userdata('uid'))) redirect(base_url('home'), 'refresh');
-    }
 
-    function index()
-    {
-        redirect(base_url('home'), 'refresh');
-    }
+		if (empty($this->session->userdata('uid'))) redirect(base_url('home'), 'refresh');
+	}
+
+	function index()
+	{
+		redirect(base_url('home'), 'refresh');
+	}
 
 	function do_logout()
 	{
@@ -41,5 +41,3 @@ Class Logout extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

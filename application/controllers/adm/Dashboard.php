@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Dashboard extends CI_Controller
+class Dashboard extends CI_Controller
 {
     function __construct()
     {
@@ -44,5 +44,3 @@ Class Dashboard extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

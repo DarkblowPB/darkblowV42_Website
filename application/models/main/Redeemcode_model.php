@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Redeemcode_model extends CI_Model 
+class Redeemcode_model extends CI_Model
 {
 	function __construct()
 	{
@@ -17,11 +17,11 @@ class Redeemcode_model extends CI_Model
 	}
 
 	function GetItemName($item_id)
-    {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
-    }
+	{
+		$query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+		if ($query) return $query->item_name;
+		else return "";
+	}
 
 	function CodeValidationV2()
 	{
@@ -32,28 +32,22 @@ class Redeemcode_model extends CI_Model
 		);
 
 		$response = array();
-		
+
 		// Check Code From Database Table
 		$check = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['code'])))->row();
-		if ($check)
-		{
+		if ($check) {
 			// If Code Found
 			// Check History Redeem Code
 			$check2 = $this->db->get_where('check_user_itemcode', array('uid' => $this->session->userdata('uid'), 'item_code' => $check->item_code))->row();
-			if ($check2)
-			{
+			if ($check2) {
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['response'] = 'false';
 				$response['message'] = 'This Code Already Used.';
 				echo json_encode($response);
-			}
-			else
-			{
-				if ($check->type == "Item")
-				{
+			} else {
+				if ($check->type == "Item") {
 					$insert = $this->db->insert('check_user_itemcode', array('uid' => $this->encryption->decrypt($data['player_id']), 'item_code' => $check->item_code, 'username' => '', 'date_redeemed' => date('d-m-Y h:i:s')));
-					if ($insert)
-					{
+					if ($insert) {
 						$config = array(
 							'separator' => '>'
 						);
@@ -67,44 +61,33 @@ class Redeemcode_model extends CI_Model
 							'type' => 'Item',
 							'cash' => '0'
 						);
-						if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1')))
-						{
-							if ($this->lib->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), $buffer['command_type'].$config['separator'].$buffer['item_id'].$config['separator'].$buffer['category'].$config['separator'].$buffer['item_name'].$config['separator'].$buffer['item_count'].$config['separator'].$buffer['player_id'].$config['separator'].$buffer['type'].$config['separator'].$buffer['cash']) == 'Success')
-							{
+						if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'))) {
+							if ($this->lib->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), $buffer['command_type'] . $config['separator'] . $buffer['item_id'] . $config['separator'] . $buffer['category'] . $config['separator'] . $buffer['item_name'] . $config['separator'] . $buffer['item_count'] . $config['separator'] . $buffer['player_id'] . $config['separator'] . $buffer['type'] . $config['separator'] . $buffer['cash']) == 'Success') {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations '.$this->session->userdata('player_name').', You Received '.$this->GetItemName($check->item_id).'.';
+								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->GetItemName($check->item_id) . '.';
 
 								echo json_encode($response);
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Redeem The Code.';
 							}
-						}
-						else
-						{
-							if ($this->lib->SendSocket($this->lib->HostLibrary('side', 'ip_address'), $this->lib->HostLibrary('side', 'port_1'), $buffer['command_type'].$config['separator'].$buffer['item_id'].$config['separator'].$buffer['category'].$config['separator'].$buffer['item_name'].$config['separator'].$buffer['item_count'].$config['separator'].$buffer['player_id'].$config['separator'].$buffer['type'].$config['separator'].$buffer['cash']) == 'Success')
-							{
+						} else {
+							if ($this->lib->SendSocket($this->lib->HostLibrary('side', 'ip_address'), $this->lib->HostLibrary('side', 'port_1'), $buffer['command_type'] . $config['separator'] . $buffer['item_id'] . $config['separator'] . $buffer['category'] . $config['separator'] . $buffer['item_name'] . $config['separator'] . $buffer['item_count'] . $config['separator'] . $buffer['player_id'] . $config['separator'] . $buffer['type'] . $config['separator'] . $buffer['cash']) == 'Success') {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations '.$this->session->userdata('player_name').', You Received '.$this->GetItemName($check->item_id).'.';
+								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->GetItemName($check->item_id) . '.';
 
 								echo json_encode($response);
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Redeem The Code.';
 							}
 						}
 					}
-				}
-				else if ($check->type == "Cash")
-				{
+				} else if ($check->type == "Cash") {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Sorry, This Reward Is Cash, And We Under Development.';
@@ -112,9 +95,7 @@ class Redeemcode_model extends CI_Model
 					echo json_encode($response);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['response'] = 'false';
 			$response['message'] = 'Code Doesnt Exists.';

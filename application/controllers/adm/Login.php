@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Login extends CI_Controller
+class Login extends CI_Controller
 {
     function __construct()
     {
@@ -40,8 +40,7 @@ Class Login extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->login->LoginValidation();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
@@ -52,5 +51,3 @@ Class Login extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

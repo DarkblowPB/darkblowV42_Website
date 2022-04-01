@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Eventsplaytime_model extends CI_Model
+class Eventsplaytime_model extends CI_Model
 {
     function __construct()
     {
@@ -40,17 +40,14 @@ Class Eventsplaytime_model extends CI_Model
             'reward_count' => $this->encryption->encrypt($this->input->post('reward_count', true))
         );
 
-        if ($data['reward_1'] == '' && $data['reward_2'] == '')
-        {
+        if ($data['reward_1'] == '' && $data['reward_2'] == '') {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Reward 1 & 2 Cannot Be Empty.';
-        }
-        else
-        {
+        } else {
             $query = $this->db->insert('events_playtime', array(
-                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
+                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
                 'title' => $this->encryption->decrypt($data['title']),
                 'seconds_target' => $this->encryption->decrypt($data['seconds_target']),
                 'good_reward1' => $data['reward_1'],
@@ -59,17 +56,14 @@ Class Eventsplaytime_model extends CI_Model
                 'good_count1' => $this->encryption->decrypt($data['reward_count'])
             ));
 
-            if ($query)
-            {
+            if ($query) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Created Events.';
 
                 echo json_encode($response);
-            }
-            else
-            {
-                
+            } else {
+
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Created Events.';
@@ -88,28 +82,22 @@ Class Eventsplaytime_model extends CI_Model
         );
 
         $query = $this->db->get_where('events_playtime', array('title' => $this->encryption->decrypt($data['title'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where('title', $query->title)->delete('events_playtime');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Events.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Events.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Events.';
@@ -120,5 +108,3 @@ Class Eventsplaytime_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

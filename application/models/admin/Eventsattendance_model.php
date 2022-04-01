@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Eventsattendance_model extends CI_Model
 {
@@ -29,8 +29,7 @@ class Eventsattendance_model extends CI_Model
 
     function GetItemDuration($duration)
     {
-        switch ($duration) 
-        {
+        switch ($duration) {
             case '64800':
                 return "1 Day";
             case '259200':
@@ -53,28 +52,22 @@ class Eventsattendance_model extends CI_Model
         );
 
         $query = $this->db->get_where('events_attendance', array('id' => $this->encryption->decrypt($data['event_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where('id', $query->id)->delete('events_attendance');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Event.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Event.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Events Found.';
@@ -115,22 +108,22 @@ class Eventsattendance_model extends CI_Model
             'fail' => 0
         );
 
-        for ($i=1; $i <= 7; $i++)
-        {
+        for ($i = 1; $i <= 7; $i++) {
             $query = $this->db->insert('events_attendance', array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
                 'item_name' => $this->GetItemName($this->encryption->decrypt($data[$i])),
                 'item_count' => $this->encryption->decrypt($data[8]),
                 'total_claim' => '0',
-                'date' => ($date['day']++).'-'.$date['month'].'-'.$date['year']
+                'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']
             ));
-            if ($query) $state['success']++; else $state['fail']++;
+            if ($query) $state['success']++;
+            else $state['fail']++;
         }
 
         $response['response'] = 'true';
         $response['token'] = $this->security->get_csrf_hash();
-        $response['message'] = 'Successfully Create ['.$state['success'].'] Events. Failed ['.$state['fail'].']';
+        $response['message'] = 'Successfully Create [' . $state['success'] . '] Events. Failed [' . $state['fail'] . ']';
 
         echo json_encode($response);
     }
@@ -169,22 +162,22 @@ class Eventsattendance_model extends CI_Model
             'fail' => 0
         );
 
-        for ($i=1; $i <= 15; $i++)
-        {
+        for ($i = 1; $i <= 15; $i++) {
             $query = $this->db->insert('events_attendance', array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
                 'item_name' => $this->GetItemName($this->encryption->decrypt($data[$i])),
                 'item_count' => $this->encryption->decrypt($data[8]),
                 'total_claim' => '0',
-                'date' => ($date['day']++).'-'.$date['month'].'-'.$date['year']
+                'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']
             ));
-            if ($query) $state['success']++; else $state['fail']++;
+            if ($query) $state['success']++;
+            else $state['fail']++;
         }
 
         $response['response'] = 'true';
         $response['token'] = $this->security->get_csrf_hash();
-        $response['message'] = 'Successfully Create ['.$state['success'].'] Events. Failed ['.$state['fail'].']';
+        $response['message'] = 'Successfully Create [' . $state['success'] . '] Events. Failed [' . $state['fail'] . ']';
 
         echo json_encode($response);
     }
@@ -198,16 +191,13 @@ class Eventsattendance_model extends CI_Model
             1 => $this->db->where('id', '1')->update('web_settings', array('attendance' => '0'))
         );
 
-        if ($query[0] && $query[1])
-        {
+        if ($query[0] && $query[1]) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Disabled The Event.';
 
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Disabled The Event.';
@@ -218,5 +208,3 @@ class Eventsattendance_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

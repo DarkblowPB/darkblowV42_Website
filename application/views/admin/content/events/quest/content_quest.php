@@ -13,22 +13,22 @@
                             <?php foreach ($events as $row) : ?>
                                 <tr>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2]. // Days
-                                                    '-'.$this->lib->ConvertDate($row['start_date'])[1]. // Month
-                                                '-'.'20'.$this->lib->ConvertDate($row['start_date'])[0]. // Years
-                                                    ' '.$this->lib->ConvertDate($row['start_date'])[3]. // Hours
-                                                    ':'.$this->lib->ConvertDate($row['start_date'])[4] // Minutes
+                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2] . // Days
+                                            '-' . $this->lib->ConvertDate($row['start_date'])[1] . // Month
+                                            '-' . '20' . $this->lib->ConvertDate($row['start_date'])[0] . // Years
+                                            ' ' . $this->lib->ConvertDate($row['start_date'])[3] . // Hours
+                                            ':' . $this->lib->ConvertDate($row['start_date'])[4] // Minutes
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2]. // Days
-                                                    '-'.$this->lib->ConvertDate($row['end_date'])[1]. // Month
-                                                '-'.'20'.$this->lib->ConvertDate($row['end_date'])[0]. // Years
-                                                    ' '.$this->lib->ConvertDate($row['end_date'])[3]. // Hours
-                                                    ':'.$this->lib->ConvertDate($row['end_date'])[4] // Minutes
+                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2] . // Days
+                                            '-' . $this->lib->ConvertDate($row['end_date'])[1] . // Month
+                                            '-' . '20' . $this->lib->ConvertDate($row['end_date'])[0] . // Years
+                                            ' ' . $this->lib->ConvertDate($row['end_date'])[3] . // Hours
+                                            ':' . $this->lib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete" onclick="Do_Delete('delete', '<?php echo $this->lib->ConvertDate($row['start_date'])[0].$this->lib->ConvertDate($row['start_date'])[1].$this->lib->ConvertDate($row['start_date'])[2].$this->lib->ConvertDate($row['start_date'])[3].$this->lib->ConvertDate($row['start_date'])[4] ?>')"></td>
+                                    <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete" onclick="Do_Delete('delete', '<?php echo $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>')"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -40,37 +40,36 @@
             <div class="card">
                 <div class="card-body">
                     <?php echo form_open('', 'id="update_form" autocomplete="off"') ?>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">Start Date</label>
-                            <input type="datetime-local" id="start_date" class="form-control col-9">
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-3">End Date</label>
-                            <input type="datetime-local" id="end_date" class="form-control col-9">
-                        </div>
-                        <div class="form-group text-center">
-                            <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
-                        </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">Start Date</label>
+                        <input type="datetime-local" id="start_date" class="form-control">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">End Date</label>
+                        <input type="datetime-local" id="end_date" class="form-control">
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
+                    </div>
                     <?php echo form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
 
-                        function Do_Delete(button_id, start_date)
-                        {
+                        function Do_Delete(button_id, start_date) {
                             SetAttribute(button_id, 'button', 'Processing...');
                             $.ajax({
                                 url: '<?php echo base_url('adm/eventsmanagement/quest/do_delete') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                    'start_date' : start_date
+                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'start_date': start_date
                                 },
-                                success: function(data){
+                                success: function(data) {
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
-                                    
+
                                     SetAttribute(button_id, 'button', 'Delete');
                                     ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
@@ -78,7 +77,7 @@
                                         window.location.reload();
                                     }, 2000);
                                 },
-                                error: function(){
+                                error: function() {
                                     SetAttribute(button_id, 'button', 'Delete');
                                     ShowToast(2000, 'error', 'Failed To Delete This Events.');
                                     setTimeout(() => {
@@ -87,19 +86,17 @@
                                 }
                             });
                         }
-                        $(document).ready(function(e){
-                            $('#update_form').on('submit', function(e){
+                        $(document).ready(function(e) {
+                            $('#update_form').on('submit', function(e) {
                                 e.preventDefault();
 
-                                if ($('#start_date').val() == '' || $('#start_date').val() == null){
+                                if ($('#start_date').val() == '' || $('#start_date').val() == null) {
                                     ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
                                     return;
-                                }
-                                else if ($('#end_date').val() == '' || $('#end_date').val() == null){
+                                } else if ($('#end_date').val() == '' || $('#end_date').val() == null) {
                                     ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
                                     return;
-                                }
-                                else{
+                                } else {
                                     SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
@@ -107,55 +104,55 @@
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                            'start_date' : $('#start_date').val(),
-                                            'end_date' : $('#end_date').val()
+                                            '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                            'start_date': $('#start_date').val(),
+                                            'end_date': $('#end_date').val()
                                         },
-                                        success: function(data){
+                                        success: function(data) {
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true'){
+                                            if (Result.response == 'true') {
                                                 SetAttribute('submit', 'submit', 'Submit');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
-                                            }
-                                            else if (Result.response == 'false'){
+                                            } else if (Result.response == 'false') {
                                                 SetAttribute('submit', 'submit', 'Submit');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
-                                            }
-                                            else{
+                                            } else {
                                                 SetAttribute('submit', 'submit', 'Submit');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
                                             }
                                         },
-                                        error: function(){
+                                        error: function() {
                                             ShowToast(1000, 'info', 'Generate Request Token...');
 
                                             $.ajax({
                                                 url: '<?php echo base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
-                                                data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                                success: function(data){
+                                                data: {
+                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                },
+                                                success: function(data) {
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
 
-                                                    if (Result.response == 'true'){
+                                                    if (Result.response == 'true') {
                                                         CSRF_TOKEN = Result.token;
                                                     }
 
                                                     return Do_Update();
 
                                                 },
-                                                error: function(){
+                                                error: function() {
                                                     SetAttribute('submit', 'submit', 'Submit');
                                                     ShowToast(2000, 'error', 'Failed To Update Events.');
                                                     setTimeout(() => {
@@ -169,17 +166,14 @@
                             });
                         })
 
-                        function Do_Update()
-                        {
-                            if ($('#start_date').val() == '' || $('#start_date').val() == null){
+                        function Do_Update() {
+                            if ($('#start_date').val() == '' || $('#start_date').val() == null) {
                                 ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
                                 return;
-                            }
-                            else if ($('#end_date').val() == '' || $('#end_date').val() == null){
+                            } else if ($('#end_date').val() == '' || $('#end_date').val() == null) {
                                 ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
                                 return;
-                            }
-                            else{
+                            } else {
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
@@ -187,36 +181,34 @@
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                        'start_date' : $('#start_date').val(),
-                                        'end_date' : $('#end_date').val()
+                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        'start_date': $('#start_date').val(),
+                                        'end_date': $('#end_date').val()
                                     },
-                                    success: function(data){
+                                    success: function(data) {
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true'){
+                                        if (Result.response == 'true') {
                                             SetAttribute('submit', 'submit', 'Submit');
                                             ShowToast(2000, 'success', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                        }
-                                        else if (Result.response == 'false'){
+                                        } else if (Result.response == 'false') {
                                             SetAttribute('submit', 'submit', 'Submit');
                                             ShowToast(2000, 'error', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             return;
-                                        }
-                                        else{
+                                        } else {
                                             SetAttribute('submit', 'submit', 'Submit');
                                             ShowToast(2000, 'error', Result.message);
                                             CSRF_TOKEN = Result.token;
                                             return;
                                         }
                                     },
-                                    error: function(){
+                                    error: function() {
                                         SetAttribute('submit', 'submit', 'Submit');
                                         ShowToast(2000, 'error', 'Failed To Update Events.');
                                         setTimeout(() => {

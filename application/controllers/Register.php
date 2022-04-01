@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Register extends CI_Controller 
+class Register extends CI_Controller
 {
 	function __construct()
 	{
@@ -15,24 +15,24 @@ class Register extends CI_Controller
 
 		$this->load->helper('file');
 
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Register');
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Register');
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->main_protect->mainProtectB();
 
 		$this->load->model('main/register_model', 'register');
 	}
-	
+
 	function index()
 	{
 		$data['title'] = 'Register';
 		$data['isi'] = 'main/content/register/content_register';
-		$this->load->view('main/layout/wrapper', $data, FALSE);	
+		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
 	function do_checkusername()
@@ -52,8 +52,7 @@ class Register extends CI_Controller
 			)
 		);
 		if ($this->form_validation->run()) $this->register->CheckUsername();
-		else
-		{
+		else {
 			$this->form_validation->set_error_delimiters('', '');
 
 			$response['response'] = 'false';
@@ -128,9 +127,9 @@ class Register extends CI_Controller
 			'required',
 			array('required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run()) if (!empty($this->session->userdata('g_email'))) $this->register->GoogleRegisterValidation(); else $this->register->RegisterValidationV3();
-		else
-		{
+		if ($this->form_validation->run()) if (!empty($this->session->userdata('g_email'))) $this->register->GoogleRegisterValidation();
+		else $this->register->RegisterValidationV3();
+		else {
 			$this->form_validation->set_error_delimiters('', '');
 
 			$response['response'] = 'false';
@@ -146,29 +145,25 @@ class Register extends CI_Controller
 
 		$g_config = read_file('./darkblow_config.json');
 		$g_decode = json_decode($g_config);
-		
-		foreach ($g_decode as $row)
-		{
+
+		foreach ($g_decode as $row) {
 			// Enter Your Client ID
 			$google_client->setClientId($row->GoogleConfig->ClientID);
-			
+
 			// Enter Your Client Secret Code
 			$google_client->setClientSecret($row->GoogleConfig->ClientSecret);
 		}
-		
+
 		$google_client->setRedirectUri(base_url('register/g_register'));
 		$google_client->addScope('email');
 		$google_client->addScope('profile');
-		
-		if (!empty($this->input->get('code', true)))
-		{
+
+		if (!empty($this->input->get('code', true))) {
 			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
-			if (!empty($token['error']))
-			{
+			if (!empty($token['error'])) {
 				$google_client->setAccessToken($token['access_token']);
 				$google_service = new Google_Service_Oauth2($google_client);
 				$data = $google_service->userinfo->get();
-				$date = date('d-m-Y h:i:s');
 				$user_data = array(
 					'g_email' => $data['email']
 				);
@@ -176,16 +171,16 @@ class Register extends CI_Controller
 				$this->session->set_userdata('g_email', $user_data['g_email']);
 
 				if ($this->register->CheckRegisteredAccount($user_data['g_email'])) redirect(base_url('register'), 'refresh');
-				else
-				{
+				else {
 					$this->session->unset_userdata('access_token');
 					$this->session->unset_userdata('g_email');
-					echo "<script>alert('This Email Already Registered. Please Use Another Email.');window.location='".base_url('register')."'</script>";
+					echo "<script>alert('This Email Already Registered. Please Use Another Email.');window.location='" . base_url('register') . "'</script>";
 				}
 			}
 		}
 
-		if (!$this->session->userdata('access_token')) redirect(base_url('register'), 'refresh'); else redirect(base_url('register'), 'refresh');
+		if (!$this->session->userdata('access_token')) redirect(base_url('register'), 'refresh');
+		else redirect(base_url('register'), 'refresh');
 	}
 
 	function do_cancelgoogleregistration()
@@ -204,7 +199,8 @@ class Register extends CI_Controller
 
 	function verification()
 	{
-		if (empty($this->input->get('token_key', true))) redirect(base_url('home'), 'refresh'); else $this->register->AccountVerification();
+		if (empty($this->input->get('token_key', true))) redirect(base_url('home'), 'refresh');
+		else $this->register->AccountVerification();
 	}
 }
 

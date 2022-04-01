@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Eventsvisit_model extends CI_Model
 {
@@ -19,7 +19,7 @@ class Eventsvisit_model extends CI_Model
     {
         return $this->db->order_by('event_id', 'desc')->get('events_visit')->result_array();
     }
-    
+
     function GetAllItems()
     {
         return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
@@ -27,5 +27,3 @@ class Eventsvisit_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

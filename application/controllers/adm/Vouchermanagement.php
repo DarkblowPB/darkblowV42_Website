@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Vouchermanagement extends CI_Controller
+class Vouchermanagement extends CI_Controller
 {
     function __construct()
     {
@@ -27,28 +27,31 @@ Class Vouchermanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function details()
+    function details($voucher_id = null)
     {
-        $data = array(
-            'voucher_id' => $this->encryption->encrypt($this->input->get('voucher_id', true))
-        );
-        
-        $data['title'] = 'Voucher Details';
-        $data['header'] = 'Voucher Details';
+        if ($voucher_id == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
+        else {
+            $data['title'] = 'Voucher Details';
+            $data['header'] = 'Voucher Details';
 
-        $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($this->encryption->decrypt($data['voucher_id']));
+            $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($voucher_id);
 
-        $data['content'] = 'admin/content/vouchermanagement/content_details';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+            $data['content'] = 'admin/content/vouchermanagement/content_details';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
+        }
     }
 
-    function add()
+    function add($type = null)
     {
-        $data['title'] = 'Add New Voucher';
-        $data['header'] = 'Add New Voucher';
-        $data['items'] = $this->vouchermanagement->GetAllItems();
-        $data['content'] = 'admin/content/vouchermanagement/content_add';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+        if ($type == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
+        else {
+            $data['title'] = 'Add New Voucher';
+            $data['header'] = 'Add New Voucher';
+            $data['type'] = $type;
+            $data['items'] = $this->vouchermanagement->GetAllItems();
+            $data['content'] = 'admin/content/vouchermanagement/content_add';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
+        }
     }
 
     function do_add()
@@ -61,10 +64,8 @@ Class Vouchermanagement extends CI_Controller
 
         $this->form_validation->set_error_delimiters('', '');
 
-        switch ($this->encryption->decrypt($data['type']))
-        {
-            case 'small':
-                {
+        switch ($this->encryption->decrypt($data['type'])) {
+            case 'small': {
                     $this->form_validation->set_rules(
                         'reward_1',
                         'Reward 1',
@@ -122,8 +123,7 @@ Class Vouchermanagement extends CI_Controller
                         )
                     );
                     if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('small');
-                    else
-                    {
+                    else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
@@ -132,8 +132,7 @@ Class Vouchermanagement extends CI_Controller
                     }
                     break;
                 }
-            case 'medium':
-                {
+            case 'medium': {
                     $this->form_validation->set_rules(
                         'reward_1',
                         'Reward 1',
@@ -209,8 +208,7 @@ Class Vouchermanagement extends CI_Controller
                         )
                     );
                     if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('medium');
-                    else
-                    {
+                    else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
@@ -219,8 +217,7 @@ Class Vouchermanagement extends CI_Controller
                     }
                     break;
                 }
-            case 'large':
-                {
+            case 'large': {
                     $this->form_validation->set_rules(
                         'reward_1',
                         'Reward 1',
@@ -314,8 +311,7 @@ Class Vouchermanagement extends CI_Controller
                         )
                     );
                     if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('large');
-                    else
-                    {
+                    else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
@@ -324,8 +320,7 @@ Class Vouchermanagement extends CI_Controller
                     }
                     break;
                 }
-            case 'extra_large':
-                {
+            case 'extra_large': {
                     $this->form_validation->set_rules(
                         'reward_1',
                         'Reward 1',
@@ -437,8 +432,7 @@ Class Vouchermanagement extends CI_Controller
                         )
                     );
                     if ($this->form_validation->run()) $this->vouchermanagement->AddNewVoucher('extra_large');
-                    else
-                    {
+                    else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
@@ -447,9 +441,8 @@ Class Vouchermanagement extends CI_Controller
                     }
                     break;
                 }
-            
-            default:
-                {
+
+            default: {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Hehe Error :)';
@@ -463,8 +456,7 @@ Class Vouchermanagement extends CI_Controller
     function print()
     {
         if (empty($this->input->get('id', true))) echo "<script>self.history.back()</script>";
-        else
-        {
+        else {
             $data['title'] = 'Voucher Information';
             $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($this->input->get('id', true));
             $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
@@ -489,8 +481,7 @@ Class Vouchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->vouchermanagement->DeleteVoucher();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -501,5 +492,3 @@ Class Vouchermanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

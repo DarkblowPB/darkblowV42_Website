@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Mapselector extends CI_Controller
+class Mapselector extends CI_Controller
 {
     function __construct()
     {
@@ -23,5 +23,3 @@ Class Mapselector extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

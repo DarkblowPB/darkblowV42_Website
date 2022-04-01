@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Newsmanagement extends CI_Controller
+class Newsmanagement extends CI_Controller
 {
     function __construct()
     {
@@ -27,15 +27,18 @@ Class Newsmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function details()
+    function details($post_id = null)
     {
-        $data['title'] = 'News Details';
-        $data['header'] = 'News Details';
-        
-        $data['news'] = $this->newsmanagement->GetDetails($this->input->get('post_id', true));
+        if ($post_id == null) redirect(base_url('adm/newsmanagement'), 'refresh');
+        else {
+            $data['title'] = 'News Details';
+            $data['header'] = 'News Details';
 
-        $data['content'] = 'admin/content/newsmanagement/content_details';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+            $data['news'] = $this->newsmanagement->GetDetails($post_id);
+
+            $data['content'] = 'admin/content/newsmanagement/content_details';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
+        }
     }
 
     function add()
@@ -56,8 +59,7 @@ Class Newsmanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
-        else
-        {
+        else {
             $data['title'] = 'Create New News';
             $data['header'] = 'Create New News';
             $data['content'] = 'admin/content/newsmanagement/content_add';
@@ -65,14 +67,10 @@ Class Newsmanagement extends CI_Controller
         }
     }
 
-    function edit()
+    function edit($news_id = null)
     {
-        if (empty($this->input->get('news_id', true)))
-        {
-            redirect(base_url('adm/newsmanagement'), 'refresh');
-        }
-        else
-        {
+        if ($news_id == null) redirect(base_url('adm/newsmanagement'), 'refresh');
+        else {
             $this->form_validation->set_rules(
                 'quickslide_title',
                 'Title',
@@ -89,13 +87,12 @@ Class Newsmanagement extends CI_Controller
                 array('required' => '%s Cannot Be Empty.')
             );
             if ($this->form_validation->run()) $this->newsmanagement->EditNews();
-            else
-            {
+            else {
                 $data['title'] = 'Edit News';
                 $data['header'] = 'Edit News';
-        
+
                 $data['news'] = $this->newsmanagement->GetDetails($this->input->get('news_id', true));
-        
+
                 $data['content'] = 'admin/content/newsmanagement/content_edit';
                 $this->load->view('admin/layout/wrapper', $data, FALSE);
             }
@@ -120,8 +117,7 @@ Class Newsmanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
-        else
-        {
+        else {
             $this->session->set_flashdata('false', 'Hehe Error :)');
             redirect(base_url('adm/newsmanagement/add'), 'refresh');
         }
@@ -143,8 +139,7 @@ Class Newsmanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->newsmanagement->DeleteNews();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -155,5 +150,3 @@ Class Newsmanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -5,22 +5,22 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller 
+class Home extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Home');
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Home');
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');
 	}
@@ -34,7 +34,7 @@ class Home extends CI_Controller
 
 		$data['quickslide'] = $this->home->GetNews();
 		$data['webshop'] = $this->home->GetPopularWebshop();
-		
+
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

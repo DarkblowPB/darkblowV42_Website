@@ -7,23 +7,24 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Register extends CI_Controller
+class Register extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/eventsregister_model', 'eventsregister');
+        $this->load->library('lib');
     }
 
     function index()
     {
         $data['title'] = 'Register Events';
         $data['header'] = 'Register Events';
-        
+
         $data['events'] = $this->eventsregister->GetEvents();
         $data['items'] = $this->eventsregister->GetAllItems();
-        
+
         $data['content'] = 'admin/content/events/register/content_register';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
@@ -31,7 +32,7 @@ Class Register extends CI_Controller
     function do_update()
     {
         $response = array();
-        
+
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'item_id',
@@ -61,8 +62,7 @@ Class Register extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->eventsregister->UpdateEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -78,5 +78,3 @@ Class Register extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Trade extends CI_Controller
+class Trade extends CI_Controller
 {
     function __construct()
     {
@@ -17,10 +17,10 @@ Class Trade extends CI_Controller
         $this->lib->GetVisitorData('Trade Market');
 
         $this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
+        $this->allprotect->DarkblowCopierGuard();
+
         $this->load->model('main/trade_model', 'trade');
 
         if ($this->getsettings->Get2()->trade_market != 1) redirect(base_url('home'), 'refresh');
@@ -38,7 +38,7 @@ Class Trade extends CI_Controller
 
     function addpost()
     {
-		$this->main_protect->mainProtectA();
+        $this->main_protect->mainProtectA();
         $data['title'] = 'Post New Items';
 
         $data['items'] = $this->trade->GetPlayerInventoryItems();
@@ -68,8 +68,7 @@ Class Trade extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->trade->CreateNewItem();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -94,8 +93,7 @@ Class Trade extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->trade->BuyItem();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -106,5 +104,3 @@ Class Trade extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

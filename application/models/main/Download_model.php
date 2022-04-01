@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Download_model extends CI_Model 
+class Download_model extends CI_Model
 {
 	function __construct()
 	{
@@ -22,7 +22,7 @@ class Download_model extends CI_Model
 
 	function GetPartialClient()
 	{
-		return $this->db->where('type','partial')->get('web_download_clientlauncher')->result_array();
+		return $this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array();
 	}
 
 	function GetLauncher()
@@ -32,7 +32,7 @@ class Download_model extends CI_Model
 
 	function GetSupportApp()
 	{
-		return $this->db->where('type','support')->get('web_download_clientlauncher')->result_array();
+		return $this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array();
 	}
 
 	function GetDownloadData()
@@ -45,16 +45,13 @@ class Download_model extends CI_Model
 		);
 
 		$query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['package_id'])))->row();
-		if ($query)
-		{
+		if ($query) {
 			$response['response'] = 'true';
 			$response['url'] = $query->file_url;
 			$response['message'] = 'Redirecting To Download Page...';
 
 			echo json_encode($response);
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['url'] = '';
 			$response['message'] = 'Invalid Download Data.';

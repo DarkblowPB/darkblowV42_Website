@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Servercommandmanagement_model extends CI_Model
 {
@@ -19,7 +19,8 @@ class Servercommandmanagement_model extends CI_Model
     function GetServerState()
     {
         if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), '39190') && $this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), '39191'))
-            return TRUE; else return FALSE;
+            return TRUE;
+        else return FALSE;
     }
 
     function GetAllPlayers()
@@ -42,32 +43,24 @@ class Servercommandmanagement_model extends CI_Model
             'command_type' => $this->encryption->encrypt($this->input->post('command_type', true))
         );
 
-        switch ($this->encryption->decrypt($data['command_type'])) 
-        {
-            case 'SendAnnouncement':
-                {
-                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1')))
-                    {
-                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'SendAnnouncement>'.$this->input->post('message', true)) == 'Success')
-                        {
+        switch ($this->encryption->decrypt($data['command_type'])) {
+            case 'SendAnnouncement': {
+                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'))) {
+                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'SendAnnouncement>' . $this->input->post('message', true)) == 'Success') {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Send Announcement.';
-    
+
                             echo json_encode($response);
                             break;
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'false';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Send Announcement.';
-        
+
                             echo json_encode($response);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Server Is Not Started. Failed Send Request.';
@@ -77,29 +70,22 @@ class Servercommandmanagement_model extends CI_Model
                     break;
                 }
 
-            case 'BannedPlayers':
-                {
-                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1')))
-                    {
-                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'BannedPlayers>'.$this->input->post('player_id', true)) == 'Success')
-                        {
+            case 'BannedPlayers': {
+                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'))) {
+                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'BannedPlayers>' . $this->input->post('player_id', true)) == 'Success') {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Banned Players.';
-    
+
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'false';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Banned Players.';
-        
+
                             echo json_encode($response);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Server Is Not Started. Failed Send Request.';
@@ -109,29 +95,22 @@ class Servercommandmanagement_model extends CI_Model
                     break;
                 }
 
-            case 'KickAllPlayers':
-                {
-                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1')))
-                    {
-                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'KickAllPlayers') == 'Success')
-                        {
+            case 'KickAllPlayers': {
+                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'))) {
+                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), 'KickAllPlayers') == 'Success') {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Kick All Players.';
-    
+
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'false';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Kick All Players.';
-    
+
                             echo json_encode($response);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Server Is Not Started. Failed Send Request.';
@@ -141,29 +120,22 @@ class Servercommandmanagement_model extends CI_Model
                     break;
                 }
 
-            case 'StartServer':
-                {
-                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2')))
-                    {
-                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'), 'Start') == 'Success')
-                        {
+            case 'StartServer': {
+                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'))) {
+                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'), 'Start') == 'Success') {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Start Server.';
-    
+
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'false';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Start Server.';
-    
+
                             echo json_encode($response);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Server Command Management Is Not Started. Failed Send Request.';
@@ -173,29 +145,22 @@ class Servercommandmanagement_model extends CI_Model
                     break;
                 }
 
-            case 'StopServer':
-                {
-                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2')))
-                    {
-                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'), 'Close') == 'Success')
-                        {
+            case 'StopServer': {
+                    if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'))) {
+                        if ($this->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_2'), 'Close') == 'Success') {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Stop Server.';
-    
+
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'false';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Stop Server.';
-    
+
                             echo json_encode($response);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Server Command Management Is Not Started. Failed Send Request.';
@@ -204,7 +169,7 @@ class Servercommandmanagement_model extends CI_Model
                     }
                     break;
                 }
-            
+
             default:
                 break;
         }
@@ -213,25 +178,17 @@ class Servercommandmanagement_model extends CI_Model
     function SendSocket($ip_address, $port, $buffer)
     {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        if ($socket)
-        {
+        if ($socket) {
             $connect = socket_connect($socket, $ip_address, $port);
-            if ($connect)
-            {
+            if ($connect) {
                 $write = socket_write($socket, $buffer, strlen($buffer));
-                if ($write)
-                {
+                if ($write) {
                     $read = socket_read($socket, 2048);
                     return $read;
-                }
-                else return "Failed";
-            }
-            else return "Failed";
-        }
-        else return "Failed";
+                } else return "Failed";
+            } else return "Failed";
+        } else return "Failed";
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -6,28 +6,27 @@
 // ==================== //
 
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Webshop extends CI_Controller 
+class Webshop extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-        
+
 		$this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Webshop');
+		$this->lib->GetVisitorData('Webshop');
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->load->library('pagination');
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->model('main/login_model', 'login');
 
-		if ($this->getsettings->Get2()->webshop != 1)
-		{
+		if ($this->getsettings->Get2()->webshop != 1) {
 			redirect(base_url('home'), 'refresh');
 		}
 	}
@@ -35,31 +34,31 @@ class Webshop extends CI_Controller
 	{
 		// Pagination Section
 
-			// Load Config
-				$config['base_url'] = base_url('webshop/index');
-				$config['total_rows'] = $this->webshop->GetWebshopCount();
-				$config['per_page'] = 9;
-			// End Load Config
+		// Load Config
+		$config['base_url'] = base_url('webshop/index');
+		$config['total_rows'] = $this->webshop->GetWebshopCount();
+		$config['per_page'] = 9;
+		// End Load Config
 
-			// Pagination Styling
-				$config['full_tag_open'] = '<div class="nk-pagination nk-pagination-center"><nav>';
-				$config['full_tag_close'] = '</nav></div>';
+		// Pagination Styling
+		$config['full_tag_open'] = '<div class="nk-pagination nk-pagination-center"><nav>';
+		$config['full_tag_close'] = '</nav></div>';
 
-				$config['next_link'] = '<span class="ion-ios-arrow-forward"></span>';
-				$config['next_tag_open'] = '';
-				$config['next_tag_close'] = '</a>';
+		$config['next_link'] = '<span class="ion-ios-arrow-forward"></span>';
+		$config['next_tag_open'] = '';
+		$config['next_tag_close'] = '</a>';
 
-				$config['prev_link'] = '<span class="ion-ios-arrow-back"></span>';
-				$config['prev_tag_open'] = '';
-				$config['prev_tag_close'] = '</a>';
+		$config['prev_link'] = '<span class="ion-ios-arrow-back"></span>';
+		$config['prev_tag_open'] = '';
+		$config['prev_tag_close'] = '</a>';
 
-				$config['cur_tag_open'] = '<a class="nk-pagination-current" href="javascript:void(0)">';
-				$config['cur_tag_close'] = '</a>';
-			// End Pagination Styling
+		$config['cur_tag_open'] = '<a class="nk-pagination-current" href="javascript:void(0)">';
+		$config['cur_tag_close'] = '</a>';
+		// End Pagination Styling
 
-			// Initialize Pagination
-				$this->pagination->initialize($config);
-			// End Initialize Pagination
+		// Initialize Pagination
+		$this->pagination->initialize($config);
+		// End Initialize Pagination
 
 		// End Pagination Section
 
@@ -96,8 +95,7 @@ class Webshop extends CI_Controller
 			array('required' => '%s Cannot Be Empty.')
 		);
 		if ($this->form_validation->run()) $this->login->LoginValidationV2();
-		else
-		{
+		else {
 			$this->form_validation->set_error_delimiters('', '');
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
@@ -129,8 +127,7 @@ class Webshop extends CI_Controller
 			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
 		);
 		if ($this->form_validation->run()) $this->webshop->BuyItemV2();
-		else
-		{
+		else {
 			$this->form_validation->set_error_delimiters('', '');
 
 			$response['response'] = 'false';

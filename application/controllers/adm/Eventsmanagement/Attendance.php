@@ -7,12 +7,13 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Attendance extends CI_Controller
+class Attendance extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->allprotect->AdminDashboard_Protection();
+        $this->load->library('lib');
         $this->load->model('admin/eventsattendance_model', 'attendance');
     }
 
@@ -27,18 +28,38 @@ Class Attendance extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function create()
+    function create($type = null)
     {
-        if (empty($this->input->get('type', true))) redirect(base_url('adm/eventsmanagement/attendance'), 'refresh');
-        else
-        {
-            $data['title'] = 'Create Attendace Event';
-            $data['header'] = 'Create Attendance Event';
+        if ($type == null) redirect(base_url('adm/eventsmanagement/attendance'), 'refresh');
+        else {
+            switch ($type) {
+                case '7days': {
+                        $data = array(
+                            'title' => 'Create 7 Days Attendance Event',
+                            'reward' => $this->attendance->GetRewardItemList(),
+                            'header' => 'Create 7 Days Attendance Event',
+                            'content' => 'admin/content/events/attendance/content_create_7days'
+                        );
+                        $this->load->view('admin/layout/wrapper', $data, FALSE);
+                        break;
+                    }
 
-            $data['reward'] = $this->attendance->GetRewardItemList();
+                case '14days': {
+                        $data = array(
+                            'title' => 'Create 7 Days Attendance Event',
+                            'reward' => $this->attendance->GetRewardItemList(),
+                            'header' => 'Create 7 Days Attendance Event',
+                            'content' => 'admin/content/events/attendance/content_create_14days'
+                        );
+                        $this->load->view('admin/layout/wrapper', $data, FALSE);
+                        break;
+                    }
 
-            $data['content'] = 'admin/content/events/attendance/content_create';
-            $this->load->view('admin/layout/wrapper', $data, FALSE);
+                default: {
+                        redirect(base_url('adm/eventsmanagement/attendance'), 'refresh');
+                        break;
+                    }
+            }
         }
     }
 
@@ -122,8 +143,7 @@ Class Attendance extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->attendance->CreateEvents7Days();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -275,8 +295,7 @@ Class Attendance extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->attendance->CreateEvents14Days();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -301,8 +320,7 @@ Class Attendance extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->attendance->DeleteEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -318,5 +336,3 @@ Class Attendance extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

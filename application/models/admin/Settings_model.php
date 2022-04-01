@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Settings_model extends CI_Model
 {
@@ -31,30 +31,24 @@ class Settings_model extends CI_Model
         $response = array();
 
         $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('id', $query->id)->update('web_settings', array(
                 'server_condition' => $this->encryption->decrypt($data['server_condition']),
                 'website_condition' => $this->encryption->decrypt($data['website_condition'])
             ));
 
-            if ($update)
-            {
+            if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Server & Website Condition';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Server & Website Condition';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Get Website Settings Data.';
@@ -76,8 +70,7 @@ class Settings_model extends CI_Model
         );
 
         $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('id', $query->id)->update('web_settings', array(
                 'project_name' => $this->encryption->decrypt($data['project_name']),
                 'meta_author' => $this->encryption->decrypt($data['meta_author']),
@@ -85,23 +78,18 @@ class Settings_model extends CI_Model
                 'meta_keywords' => $this->encryption->decrypt($data['meta_keywords']),
                 'running_text' => $this->encryption->decrypt($data['running_text'])
             ));
-            if ($update)
-            {
+            if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Website Credentials.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Website Credentials.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Update Website Credentials.';
@@ -124,35 +112,28 @@ class Settings_model extends CI_Model
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('project_logo'))
-        {
+        if ($this->upload->do_upload('project_logo')) {
             $fileData = $this->upload->data();
 
             $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
-            if ($query)
-            {
+            if ($query) {
                 $update = $this->db->where('id', $query->id)->update('web_settings', array(
                     'project_logo' => $fileData['file_name']
                 ));
                 if ($update) $this->SetImage2();
-                else
-                {
+                else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Upload Project Logo.';
                     echo json_encode($response);
                 }
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Get Web Settings.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->upload->display_errors();
@@ -175,33 +156,26 @@ class Settings_model extends CI_Model
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('project_icon'))
-        {
+        if ($this->upload->do_upload('project_icon')) {
             $fileData = $this->upload->data();
 
             $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
-            if ($query)
-            {
+            if ($query) {
                 $update = $this->db->where('id', $query->id)->update('web_settings', array(
                     'project_icon' => $fileData['file_name']
                 ));
-                if ($update)
-                {
+                if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Updated Website Images.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Upload Project Icon.';
                     echo json_encode($response);
                 }
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Get Web Settings.';
@@ -229,8 +203,7 @@ class Settings_model extends CI_Model
         $response = array();
 
         $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('id', $query->id)->update('web_settings', array(
                 'webshop' => $this->encryption->decrypt($data['enable_webshop']),
                 'trade_market' => $this->encryption->decrypt($data['enable_trademarket']),
@@ -244,23 +217,18 @@ class Settings_model extends CI_Model
                 'google_register' => $this->encryption->decrypt($data['enable_google_register'])
             ));
 
-            if ($update)
-            {
+            if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Updated Feature Settings.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Updated Feature Settings.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Get Web Settings.';
@@ -270,5 +238,3 @@ class Settings_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

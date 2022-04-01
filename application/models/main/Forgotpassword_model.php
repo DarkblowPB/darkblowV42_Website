@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Forgotpassword_model extends CI_Model
 {
@@ -24,12 +24,9 @@ class Forgotpassword_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'hint_question' => $this->encryption->decrypt($data['hint_question']), 'hint_answer' => $this->encryption->decrypt($data['hint_answer'])))->row();
-        if ($query)
-        {
+        if ($query) {
             // Send Verification Email.
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('false', 'Cannot Find Any Account.');
             redirect(base_url('forgotpassword'), 'refresh');
         }
@@ -37,5 +34,3 @@ class Forgotpassword_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

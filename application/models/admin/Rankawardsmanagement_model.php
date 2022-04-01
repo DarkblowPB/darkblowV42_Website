@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rankawardsmanagement_model extends CI_Model
 {
@@ -35,7 +35,6 @@ class Rankawardsmanagement_model extends CI_Model
         $query = $this->db->get_where('web_rankinfo', array('id' => $rank_id))->row();
         if ($query) return $query->rank_name;
         else return "";
-        
     }
 
     function GetItemName($item_id)
@@ -63,20 +62,17 @@ class Rankawardsmanagement_model extends CI_Model
             'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
             'item_equip' => $data['item_equip']
         ));
-        if ($query)
-        {
+        if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Add New Awards.';
 
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add New Awards.';
-    
+
             echo json_encode($response);
         }
     }
@@ -91,29 +87,23 @@ class Rankawardsmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('info_rank_awards', array('rank_id' => $this->encryption->decrypt($data['rank_id']), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             // Delete
             $delete = $this->db->where(array('rank_id' => $query->rank_id, 'item_id' => $query->item_id))->delete('info_rank_awards');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Awards.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Awards.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Data.';
@@ -124,5 +114,3 @@ class Rankawardsmanagement_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

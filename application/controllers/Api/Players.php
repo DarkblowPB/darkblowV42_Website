@@ -73,17 +73,11 @@ class Players extends RestController
 
     function getip_get()
     {
-        // if (!empty($this->input->get('token', true)))
-        // {
-        //     if ($this->input->get('token', true) == 'darkblowpbreborn_2021')
-        //     {
-        //         $this->db->insert('launcher_loghistory', array(
-        //             'ip_address' => $this->input->ip_address(),
-        //             'date_created' => date('d-m-Y H:i:s')
-        //         ));
-        //     }
-        // }
-        $this->response(["status" => 'Success', "ip_address" => $this->input->ip_address()], 200);
+        $response = array();
+
+        $response['status'] = 'Success';
+        $response['ip_address'] = $this->input->ip_address();
+        $this->response($response, 200);
     }
 
     function getversioncontrol_get($current_patch_version, $current_launcher_version)

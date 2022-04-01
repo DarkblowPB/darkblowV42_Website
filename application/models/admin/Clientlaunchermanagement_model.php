@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Clientlaunchermanagement_model extends CI_Model
 {
@@ -21,14 +21,13 @@ class Clientlaunchermanagement_model extends CI_Model
     {
         sleep(1);
         $response = array();
-        
+
         $data = array(
             'files_id' => $this->encryption->encrypt($this->input->post('files_id', true))
         );
 
         $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['files_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['url'] = $query->file_url;
@@ -51,11 +50,9 @@ class Clientlaunchermanagement_model extends CI_Model
             'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
         );
 
-        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url'])))
-        {
+        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
             $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['file_id'])))->row();
-            if ($query)
-            {
+            if ($query) {
                 $update = $this->db->where('id', $query->id)->update('web_download_clientlauncher', array(
                     'file_name' => $this->encryption->decrypt($data['file_name']),
                     'file_url' => $this->encryption->decrypt($data['file_url']),
@@ -63,31 +60,24 @@ class Clientlaunchermanagement_model extends CI_Model
                     'size' => $this->encryption->decrypt($data['file_size']),
                     'version' => $this->encryption->decrypt($data['file_version'])
                 ));
-                if ($update)
-                {
+                if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Edit The File.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Edit The File.';
                     echo json_encode($response);
                 }
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'File Not Found.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Cannot Reach Url. Please Use Another URL';
@@ -99,26 +89,20 @@ class Clientlaunchermanagement_model extends CI_Model
         $response = array();
 
         $query = $this->db->get_where('web_download_clientlauncher', array('id' => $files_id))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where('id', $query->id)->delete('web_download_clientlauncher');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Selected File.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Selected File.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'File Not Found.';
@@ -150,8 +134,7 @@ class Clientlaunchermanagement_model extends CI_Model
             'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
         );
 
-        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url'])))
-        {
+        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
             $query = $this->db->insert('web_download_clientlauncher', array(
                 'file_name' => $this->encryption->decrypt($data['file_name']),
                 'file_url' => $this->encryption->decrypt($data['file_url']),
@@ -160,23 +143,18 @@ class Clientlaunchermanagement_model extends CI_Model
                 'version' => $this->encryption->decrypt($data['file_version']),
                 'date' => date('d-m-Y')
             ));
-            if ($query)
-            {
+            if ($query) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Added New Files.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add New Files.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Cannot Reach Url. Please Use Another Url.';
@@ -200,8 +178,7 @@ class Clientlaunchermanagement_model extends CI_Model
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('file'))
-        {
+        if ($this->upload->do_upload('file')) {
             $data = $this->upload->data();
             $query = $this->db->insert('web_download_clientlauncher', array(
                 'file_name' => $data['raw_name'],
@@ -211,23 +188,18 @@ class Clientlaunchermanagement_model extends CI_Model
                 'version' => '',
                 'date' => date('d-m-Y')
             ));
-            if ($query)
-            {
+            if ($query) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Uploaded New Files.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Upload New Files.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->upload->display_errors();
@@ -237,5 +209,3 @@ class Clientlaunchermanagement_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

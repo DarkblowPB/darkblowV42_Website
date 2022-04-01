@@ -5,26 +5,26 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends CI_Controller 
+class Login extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Login');
-		
+		$this->lib->GetVisitorData('Login');
+
 		$this->main_protect->mainProtectB();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->load->model('main/login_model', 'login');
 	}
-	
+
 	function index()
 	{
 		$data['title'] = 'Login';
@@ -59,8 +59,7 @@ class Login extends CI_Controller
 			)
 		);
 		if ($this->form_validation->run()) $this->login->LoginValidationV2();
-		else
-		{
+		else {
 			$this->form_validation->set_error_delimiters('', '');
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
@@ -78,7 +77,6 @@ class Login extends CI_Controller
 
 		echo json_encode($response);
 	}
-
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Createhint_model extends CI_Model 
+class Createhint_model extends CI_Model
 {
 	function __construct()
 	{
@@ -27,29 +27,23 @@ class Createhint_model extends CI_Model
 		$response = array();
 
 		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['password'])))->row();
-		if ($query)
-		{
+		if ($query) {
 			$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array(
 				'hint_question' => $this->encryption->decrypt($data['hint_question']),
 				'hint_answer' => $this->encryption->decrypt($data['hint_answer'])
 			));
-			if ($update)
-			{
+			if ($update) {
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Successfully Create Hint.';
 				echo json_encode($response);
-			}
-			else
-			{
+			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Failed To Create Hint.';
 				echo json_encode($response);
 			}
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Invalid Password.';

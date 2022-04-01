@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Querylib
 {
@@ -13,7 +13,7 @@ class Querylib
 
     public function __construct()
     {
-        $this->ci =& get_instance();
+        $this->ci = &get_instance();
         $this->ci->load->database();
     }
 
@@ -35,8 +35,7 @@ class Querylib
             'PHP_Version' => $this->ci->encryption->encrypt('7.4')
         );
 
-        switch ($param) 
-        {
+        switch ($param) {
             case 'Author':
                 return $string['Author'];
 
@@ -48,10 +47,10 @@ class Querylib
 
             case 'Framework':
                 return $string['Framework'];
-            
+
             case 'PHP_Version':
                 return $string['PHP_Version'];
-            
+
             default:
                 return '';
         }
@@ -77,7 +76,8 @@ class Querylib
             'equip' => $equip
         ));
 
-        if ($query) return TRUE; else return FALSE;
+        if ($query) return TRUE;
+        else return FALSE;
     }
 
     /**
@@ -91,7 +91,8 @@ class Querylib
     public function DeleteItem(int $player_id, int $item_id)
     {
         $query = $this->ci->db->where(array('owner_id' => $player_id, 'item_id' => $item_id))->delete('player_items');
-        if ($query) return TRUE; else return FALSE;
+        if ($query) return TRUE;
+        else return FALSE;
     }
 
     /**
@@ -105,17 +106,16 @@ class Querylib
     public function InsertCash(int $player_id, int $amount)
     {
         $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
-        if ($query)
-        {
+        if ($query) {
             $base_cash = $query->money;
             $total_cash = $base_cash + $amount;
-            
+
             $update = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('money' => $total_cash));
-            if ($update) return TRUE; else return FALSE;
-        }
-        else return FALSE;
+            if ($update) return TRUE;
+            else return FALSE;
+        } else return FALSE;
     }
-    
+
     /**
      * Banned Player
      * 
@@ -127,14 +127,13 @@ class Querylib
     public function BannedPlayer(int $player_id)
     {
         $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
-        if ($query)
-        {
+        if ($query) {
             $banned = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
-            if ($banned) return TRUE; else return FALSE;
-        }
-        else return FALSE;
+            if ($banned) return TRUE;
+            else return FALSE;
+        } else return FALSE;
     }
-    
+
     /**
      * Unbanned Player
      * 
@@ -146,12 +145,11 @@ class Querylib
     public function UnbannedPlayer(int $player_id)
     {
         $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
-        if ($query)
-        {
+        if ($query) {
             $banned = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
-            if ($banned) return TRUE; else return FALSE;
-        }
-        else return FALSE;
+            if ($banned) return TRUE;
+            else return FALSE;
+        } else return FALSE;
     }
 
     /**
@@ -165,7 +163,8 @@ class Querylib
     public function ClearNoActivityPlayer()
     {
         $query = $this->ci->db->delete('accounts', array('last_login' => '0'));
-        if ($query) return TRUE; else return FALSE;
+        if ($query) return TRUE;
+        else return FALSE;
     }
 
     /**
@@ -194,14 +193,13 @@ class Querylib
         $this->load->library('email');
 
         $this->email->initialize($config);
-        $this->email->from('no_reply@'.$this->ci->getsettings->Get2()->project_name.'.com', $this->ci->getsettings->Get2()->project_name);
+        $this->email->from('no_reply@' . $this->ci->getsettings->Get2()->project_name . '.com', $this->ci->getsettings->Get2()->project_name);
         $this->email->to($email_address);
         $this->email->subject('Email Verification');
         $this->email->message('');
-        if ($this->email->send()) return TRUE; else return FALSE;
+        if ($this->email->send()) return TRUE;
+        else return FALSE;
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Eventslogin_model extends CI_Model
 {
@@ -66,21 +66,18 @@ class Eventslogin_model extends CI_Model
         $defaultDate2 = $this->encryption->decrypt($data['end_date']); // End Date
 
         $query = $this->db->insert('events_login', array(
-            'start_date' => $this->lib->ExplodeDate($defaultDate)['years'].$this->lib->ExplodeDate($defaultDate)['month'].$this->lib->ExplodeDate($defaultDate)['days'].$this->lib->ExplodeDate($defaultDate)['hours'].$this->lib->ExplodeDate($defaultDate)['minutes'],
-            'end_date' => $this->lib->ExplodeDate($defaultDate2)['years'].$this->lib->ExplodeDate($defaultDate2)['month'].$this->lib->ExplodeDate($defaultDate2)['days'].$this->lib->ExplodeDate($defaultDate2)['hours'].$this->lib->ExplodeDate($defaultDate2)['minutes'],
+            'start_date' => $this->lib->ExplodeDate($defaultDate)['years'] . $this->lib->ExplodeDate($defaultDate)['month'] . $this->lib->ExplodeDate($defaultDate)['days'] . $this->lib->ExplodeDate($defaultDate)['hours'] . $this->lib->ExplodeDate($defaultDate)['minutes'],
+            'end_date' => $this->lib->ExplodeDate($defaultDate2)['years'] . $this->lib->ExplodeDate($defaultDate2)['month'] . $this->lib->ExplodeDate($defaultDate2)['days'] . $this->lib->ExplodeDate($defaultDate2)['hours'] . $this->lib->ExplodeDate($defaultDate2)['minutes'],
             'reward_id' => $this->encryption->decrypt($data['reward_id']),
             'reward_count' => $this->encryption->decrypt($data['reward_count'])
         ));
 
-        if ($query)
-        {
+        if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Created New Login Events.';
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Created New Login Events.';
@@ -102,26 +99,20 @@ class Eventslogin_model extends CI_Model
             'start_date' => $this->encryption->decrypt($data['start_date']),
             'end_date' => $this->encryption->decrypt($data['end_date'])
         ))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete('events_login');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Events.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Events.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Events Not Found.';
@@ -131,5 +122,3 @@ class Eventslogin_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

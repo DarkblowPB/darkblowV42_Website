@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Inventory_model extends CI_Model 
+class Inventory_model extends CI_Model
 {
 	function __construct()
 	{
@@ -28,17 +28,17 @@ class Inventory_model extends CI_Model
 		if ($query) return $query->item_name;
 		else return "";
 	}
-	
+
 	function GetInventoryPerPage($limit, $start)
 	{
 		return $this->db->where('owner_id', $this->session->userdata('uid'))->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
 	}
-	
+
 	function GetInventoryCount()
 	{
 		return $this->db->where('owner_id', $this->session->userdata('uid'))->get('player_items')->num_rows();
 	}
-	
+
 	function DeleteItem()
 	{
 		sleep(1);
@@ -50,26 +50,20 @@ class Inventory_model extends CI_Model
 		);
 
 		$query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
-		if ($query)
-		{
+		if ($query) {
 			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');
-			if ($delete)
-			{
+			if ($delete) {
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Successfully Delete This Item.';
 				echo json_encode($response);
-			}
-			else
-			{
+			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Failed To Delete This Item.';
 				echo json_encode($response);
 			}
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Failed To Delete This Item.';

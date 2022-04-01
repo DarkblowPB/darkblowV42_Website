@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Getsettings
 {
@@ -13,7 +13,7 @@ class Getsettings
 
     public function __construct()
     {
-        $this->ci =& get_instance();
+        $this->ci = &get_instance();
         $this->ci->load->database();
     }
 
@@ -31,32 +31,24 @@ class Getsettings
     {
         $response = array();
         $query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
-        if ($query)
-        {
-            if ($query->server_condition == 0)
-            {
+        if ($query) {
+            if ($query->server_condition == 0) {
                 $response['response'] = 'true';
                 $response['token'] = $this->ci->security->get_csrf_hash();
                 $response['message'] = 'OFFLINE';
                 echo json_encode($response);
-            }
-            else if ($query->server_condition == 1)
-            {
+            } else if ($query->server_condition == 1) {
                 $response['response'] = 'true';
                 $response['token'] = $this->ci->security->get_csrf_hash();
                 $response['message'] = 'ONLINE';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->ci->security->get_csrf_hash();
                 $response['message'] = 'OFFLINE';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'true';
             $response['token'] = $this->ci->security->get_csrf_hash();
             $response['message'] = 'INVALID';
@@ -82,5 +74,3 @@ class Getsettings
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Servercommandmanagement extends CI_Controller
+class Servercommandmanagement extends CI_Controller
 {
     function __construct()
     {
@@ -24,49 +24,24 @@ Class Servercommandmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function sendcommand()
+    function sendannouncement()
     {
-        if (empty($this->input->get('command_type', true))) redirect(base_url('adm/servercommandmanagement'), 'refresh');
-        else
-        {
-            if ($this->input->get('command_type', true) == '') redirect(base_url('adm/servercommandmanagement'), 'refresh');
-            else
-            {
-                switch ($this->input->get('command_type', true))
-                {
-                    case 'SendAnnouncement':
-                        {
-                            $data['title'] = 'Send Announcement';
-                            $data['header'] = 'Send Announcement';
-                            $data['content'] = 'admin/content/servercommandmanagement/content_sendannouncement';
+        $data['title'] = 'Send Announcement';
+        $data['header'] = 'Send Announcement';
+        $data['content'] = 'admin/content/servercommandmanagement/content_announcement';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
 
-                            break;
-                        }
+    function bannedplayers()
+    {
+        $data['title'] = 'Banned Players';
+        $data['header'] = 'Banned Players';
 
-                    case 'BannedPlayers':
-                        {
-                            $data['title'] = 'Banned Players';
-                            $data['header'] = 'Banned Players';
+        $data['players'] = $this->servercommandmanagement->GetAllPlayers();
 
-                            $data['players'] = $this->servercommandmanagement->GetAllPlayers();
-
-                            $data['content'] = 'admin/content/servercommandmanagement/content_bannedplayers';
-                            break;
-                        }
-                    
-                    default:
-                        {
-                            redirect(base_url('adm/dashboard'), 'refresh');
-                            break;
-                        }
-                }
-
-                $this->load->view('admin/layout/wrapper', $data, FALSE);
-            }
-        }
+        $data['content'] = 'admin/content/servercommandmanagement/content_bannedplayers';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

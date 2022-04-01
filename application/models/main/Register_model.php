@@ -5,10 +5,10 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Register_model extends CI_Model 
-{	
+class Register_model extends CI_Model
+{
 	function __construct()
 	{
 		parent::__construct();
@@ -29,8 +29,8 @@ class Register_model extends CI_Model
 		$length = strlen($character);
 		$tokenlength = 128;
 		$token = '';
-		
-		for ($i=0; $i < $tokenlength; $i++) $token .= $character[rand(0, $length - 1)];
+
+		for ($i = 0; $i < $tokenlength; $i++) $token .= $character[rand(0, $length - 1)];
 
 		return $token;
 	}
@@ -39,9 +39,8 @@ class Register_model extends CI_Model
 	{
 		$SmtpConfig = @file_get_contents('./darkblow_config.json');
 		$SmtpParse = json_decode($SmtpConfig);
-		
-		foreach ($SmtpParse as $row)
-		{
+
+		foreach ($SmtpParse as $row) {
 			$config = array(
 				'mailtype'  => 'html',
 				'charset'   => 'utf-8',
@@ -132,15 +131,15 @@ class Register_model extends CI_Model
 		<body>
 			<table>
 				<thead class="bg-primary">
-					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="'.base_url().'assets/goodgames/assets/images/settings/'.$this->getsettings->Get2()->project_logo.'" alt="'.$this->getsettings->Get2()->project_name.'"></a></th>
+					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="' . base_url() . 'assets/goodgames/assets/images/settings/' . $this->getsettings->Get2()->project_logo . '" alt="' . $this->getsettings->Get2()->project_name . '"></a></th>
 				</thead>
 				<tbody class="bg-light">
 					<tr>
-						<td colspan="2" id="header" align="center">Email Confirmation - '.$this->getsettings->Get2()->project_name.'</td>
+						<td colspan="2" id="header" align="center">Email Confirmation - ' . $this->getsettings->Get2()->project_name . '</td>
 					</tr>
 					<tr>
 						<td align="center">
-							Hi '.$email.', Thank You For Registering Account On Our Project. <br>For Confirmation, Please Activate Your Account To Play Our Game.
+							Hi ' . $email . ', Thank You For Registering Account On Our Project. <br>For Confirmation, Please Activate Your Account To Play Our Game.
 						</td>
 					</tr>
 					<tr>
@@ -150,35 +149,32 @@ class Register_model extends CI_Model
 									<tr>
 										<td width="35%">Username</td>
 										<td width="5%">:</td>
-										<td id="data">'.$username.'</td>
+										<td id="data">' . $username . '</td>
 									</tr>
 									<tr>
 										<td width="35%">Email</td>
 										<td width="5%">:</td>
-										<td id="data">'.$email.'</td>
+										<td id="data">' . $email . '</td>
 									</tr>
 									<tr>
 										<td width="35%">Verification</td>
 										<td>:</td>
-										<td><a href="'.base_url('register/verification?token_key='.$token).'" class="btn">Click Here</a></td>
+										<td><a href="' . base_url('register/verification?token_key=' . $token) . '" class="btn">Click Here</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class="bg-primary">Copyright &copy; <b>'.$this->getsettings->Get2()->project_name.'</b> 2021. All rights reserved.</td>
+						<td align="center" class="bg-primary">Copyright &copy; <b>' . $this->getsettings->Get2()->project_name . '</b> 2021. All rights reserved.</td>
 					</tr>
 				</tbody>
 			</table>
 		</body>
 		</html>');
-		if ($this->email->send())
-		{
+		if ($this->email->send()) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
@@ -192,15 +188,12 @@ class Register_model extends CI_Model
 		);
 
 		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();
-		if ($query)
-		{
+		if ($query) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Username Already Registered.';
 			echo json_encode($response);
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'true';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Username Available.';
@@ -223,26 +216,20 @@ class Register_model extends CI_Model
 			'token' => $this->GenerateRandomToken()
 		);
 
-		if ($this->getsettings->Get2()->register != 1)
-		{
+		if ($this->getsettings->Get2()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Register Disabled By Server.';
 
 			echo json_encode($response);
-		}
-		else
-		{
-	
+		} else {
+
 			// Check Register Events.
 			$query = $this->db->get_where('events_register', array('id' => '1'))->row();
-			if ($query)
-			{
+			if ($query) {
 				// Trigger When Register Events In Active State.
-				if ($query->is_active == 1)
-				{
-					if ($query->stock >= 1)
-					{
+				if ($query->is_active == 1) {
+					if ($query->stock >= 1) {
 						$query2 = $this->db->insert('accounts', array(
 							'login' => $this->encryption->decrypt($data['login']),
 							'lastip' => $this->input->ip_address(),
@@ -253,12 +240,10 @@ class Register_model extends CI_Model
 							'date_registered' => date('d-m-Y h:i:s'),
 							'email_verification' => '1'
 						), true);
-						if ($query2)
-						{
+						if ($query2) {
 							// Get Registered Accounts.
 							$query3 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
-							if ($query3)
-							{
+							if ($query3) {
 								// Insert Register Events Reward To Player Inventory.
 								$query4 = $this->db->insert('player_items', array(
 									'owner_id' => $query3->player_id,
@@ -275,39 +260,30 @@ class Register_model extends CI_Model
 									'token' => $data['token'],
 									'valid' => '1'
 								));
-								if ($query4 && $query5 && $query6)
-								{
+								if ($query4 && $query5 && $query6) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = 'Successfully Registered.';
 									echo json_encode($response);
-								}
-								else
-								{
+								} else {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = 'Successfully Registered (2).';
 									echo json_encode($response);
 								}
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Successfully Registered (3).';
 								echo json_encode($response);
 							}
-						}
-						else
-						{
+						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Register Your Account.';
 							echo json_encode($response);
 						}
-					}
-					else
-					{
+					} else {
 						$query99 = $this->db->where('id', $query->id)->update('events_register', array('is_active' => 'f'));
 						$query2 = $this->db->insert('accounts', array(
 							'login' => $this->encryption->decrypt($data['login']),
@@ -325,24 +301,19 @@ class Register_model extends CI_Model
 							'token' => $data['token'],
 							'valid' => '1'
 						));
-						if ($query2 && $query99 && $query6)
-						{
+						if ($query2 && $query99 && $query6) {
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Successfully Registered.';
 							echo json_encode($response);
-						}
-						else
-						{
+						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Register Your Account.';
 							echo json_encode($response);
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$query2 = $this->db->insert('accounts', array(
 						'login' => $this->encryption->decrypt($data['login']),
 						'lastip' => $this->input->ip_address(),
@@ -359,24 +330,19 @@ class Register_model extends CI_Model
 						'token' => $data['token'],
 						'valid' => '1'
 					));
-					if ($query2 && $query6)
-					{
+					if ($query2 && $query6) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Successfully Registered.';
 						echo json_encode($response);
-					}
-					else
-					{
+					} else {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Failed To Register Your Account.';
 						echo json_encode($response);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Failed To Get Register Events.';
@@ -400,26 +366,20 @@ class Register_model extends CI_Model
 			'token' => $this->GenerateRandomToken()
 		);
 
-		if ($this->getsettings->Get2()->register != 1)
-		{
+		if ($this->getsettings->Get2()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Register Disabled By Server.';
 
 			echo json_encode($response);
-		}
-		else
-		{
-	
+		} else {
+
 			// Check Register Events.
 			$query = $this->db->get_where('events_register', array('id' => '1'))->row();
-			if ($query)
-			{
+			if ($query) {
 				// Trigger When Register Events In Active State.
-				if ($query->is_active == 1)
-				{
-					if ($query->stock >= 1)
-					{
+				if ($query->is_active == 1) {
+					if ($query->stock >= 1) {
 						$query2 = $this->db->insert('accounts', array(
 							'login' => $this->encryption->decrypt($data['login']),
 							'lastip' => $this->input->ip_address(),
@@ -430,12 +390,10 @@ class Register_model extends CI_Model
 							'date_registered' => date('d-m-Y h:i:s'),
 							'email_verification' => '0'
 						), true);
-						if ($query2)
-						{
+						if ($query2) {
 							// Get Registered Accounts.
 							$query3 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
-							if ($query3)
-							{
+							if ($query3) {
 								// Insert Register Events Reward To Player Inventory.
 								$query4 = $this->db->insert('player_items', array(
 									'owner_id' => $query3->player_id,
@@ -446,77 +404,59 @@ class Register_model extends CI_Model
 									'equip' => '1'
 								));
 								$query5 = $this->db->where('id', $query->id)->update('events_register', array('stock' => ($query->stock - 1)));
-								if ($this->getsettings->Get2()->email_verification == 0)
-								{
-									if ($query4 && $query5)
-									{
+								if ($this->getsettings->Get2()->email_verification == 0) {
+									if ($query4 && $query5) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = 'Successfully Registered.';
 
 										echo json_encode($response);
-									}
-									else
-									{
+									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = 'Failed Register Your Account.';
 
 										echo json_encode($response);
 									}
-								}
-								else
-								{
+								} else {
 									$query6 = $this->db->insert('web_email_confirmation', array(
 										'account_id' => $this->encryption->decrypt($data['login']),
 										'email' => $this->encryption->decrypt($data['email']),
 										'token' => $data['token'],
 										'valid' => '1'
 									));
-									if ($query4 && $query5 && $query6)
-									{
-										if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
-										{
+									if ($query4 && $query5 && $query6) {
+										if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 											$response['response'] = 'true';
 											$response['token'] = $this->security->get_csrf_hash();
 											$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
 											echo json_encode($response);
-										}
-										else
-										{
+										} else {
 											$response['response'] = 'true';
 											$response['token'] = $this->security->get_csrf_hash();
 											$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
 											echo json_encode($response);
 										}
-									}
-									else
-									{
+									} else {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = 'Successfully Registered (2). Please Check Your Email For Activated Your Account.';
 										echo json_encode($response);
 									}
 								}
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Successfully Registered (3). Please Check Your Email For Activated Your Account.';
 								echo json_encode($response);
 							}
-						}
-						else
-						{
+						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Register Your Account.';
 							echo json_encode($response);
 						}
-					}
-					else
-					{
+					} else {
 						$query99 = $this->db->where('id', $query->id)->update('events_register', array('is_active' => 'f'));
 						$query2 = $this->db->insert('accounts', array(
 							'login' => $this->encryption->decrypt($data['login']),
@@ -528,51 +468,39 @@ class Register_model extends CI_Model
 							'date_registered' => date('d-m-Y h:i:s'),
 							'email_verification' => '0'
 						), true);
-						if ($this->getsettings->Get2()->email_verification == 0)
-						{
-							if ($query2 && $query99)
-							{
+						if ($this->getsettings->Get2()->email_verification == 0) {
+							if ($query2 && $query99) {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Successfully Registered';
-								
+
 								echo json_encode($response);
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Register Your Account.';
 
 								echo json_encode($response);
 							}
-						}
-						else
-						{
+						} else {
 							$query6 = $this->db->insert('web_email_confirmation', array(
 								'account_id' => $this->encryption->decrypt($data['login']),
 								'email' => $this->encryption->decrypt($data['email']),
 								'token' => $data['token'],
 								'valid' => '1'
 							));
-							if ($query2 && $query99 && $query6)
-							{
-								if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
-								{
+							if ($query2 && $query99 && $query6) {
+								if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
 									echo json_encode($response);
-								}
-								else
-								{
+								} else {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
 								}
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Register Your Account.';
@@ -580,9 +508,7 @@ class Register_model extends CI_Model
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$query2 = $this->db->insert('accounts', array(
 						'login' => $this->encryption->decrypt($data['login']),
 						'lastip' => $this->input->ip_address(),
@@ -593,51 +519,39 @@ class Register_model extends CI_Model
 						'date_registered' => date('d-m-Y h:i:s'),
 						'email_verification' => '0'
 					), true);
-					if ($this->getsettings->Get2()->email_verification == 0)
-					{
-						if ($query2)
-						{
+					if ($this->getsettings->Get2()->email_verification == 0) {
+						if ($query2) {
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Successfully Registered';
 
 							echo json_encode($response);
-						}
-						else
-						{
+						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Register Your Account.';
 
 							echo json_encode($response);
 						}
-					}
-					else
-					{
+					} else {
 						$query6 = $this->db->insert('web_email_confirmation', array(
 							'account_id' => $this->encryption->decrypt($data['login']),
 							'email' => $this->encryption->decrypt($data['email']),
 							'token' => $data['token'],
 							'valid' => '1'
 						));
-						if ($query2 && $query6)
-						{
-							if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token']))
-							{
+						if ($query2 && $query6) {
+							if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
 								echo json_encode($response);
-							}
-							else
-							{
+							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
 							}
-						}
-						else
-						{
+						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Register Your Account.';
@@ -645,9 +559,7 @@ class Register_model extends CI_Model
 						}
 					}
 				}
-			}
-			else
-			{
+			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Failed To Get Register Events.';
@@ -663,21 +575,18 @@ class Register_model extends CI_Model
 		);
 
 		$query = $this->db->get_where('web_email_confirmation', array('token' => $this->encryption->decrypt($data['token'])))->row();
-		if ($query)
-		{
-			if ($query->valid == 0) echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
-			else
-			{
+		if ($query) {
+			if ($query->valid == 0) echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
+			else {
 				$update = array(
 					'01' => $this->db->where('id', $query->id)->update('web_email_confirmation', array('valid' => '0')),
 					'02' => $this->db->where('login', $query->account_id)->update('accounts', array('email_verification' => '1'))
 				);
 
-				if ($update['01'] && $update['02']) echo "<script>alert('Successfully Verify Your Account. You Can Play The Game Now.');window.location='".base_url('login')."'</script>";
-				else echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
+				if ($update['01'] && $update['02']) echo "<script>alert('Successfully Verify Your Account. You Can Play The Game Now.');window.location='" . base_url('login') . "'</script>";
+				else echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
 			}
-		}
-		else echo "<script>alert('Failed To Verify Your Account.');window.location='".base_url('home')."'</script>";
+		} else echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
 	}
 }
 

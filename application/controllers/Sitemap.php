@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Sitemap extends CI_Controller
+class Sitemap extends CI_Controller
 {
     function __construct()
     {
@@ -24,5 +24,3 @@ Class Sitemap extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

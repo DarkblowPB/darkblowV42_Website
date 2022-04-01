@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Playersmanagement_model extends CI_Model
 {
@@ -19,7 +19,8 @@ class Playersmanagement_model extends CI_Model
     function GetItemName($item_id)
     {
         $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name; else return "???";
+        if ($query) return $query->item_name;
+        else return "???";
     }
 
     function GetAllShop()
@@ -38,83 +39,64 @@ class Playersmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $query2 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
-            if ($query2)
-            {
+            if ($query2) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Send Item. Player Already Have This Item.';
 
                 echo json_encode($response);
-            }
-            else
-            {
-                if ($this->encryption->decrypt($data['item_count']) != '1')
-                {
+            } else {
+                if ($this->encryption->decrypt($data['item_count']) != '1') {
                     $query3 = $this->db->insert('player_items', array(
                         'owner_id' => $query->player_id,
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
                         'count' => $this->encryption->decrypt($data['item_count']),
                         'category' => $this->lib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
-                        'equip' => '1'));
-                    if ($query3)
-                    {
+                        'equip' => '1'
+                    ));
+                    if ($query3) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name != '')
-                        {
-                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->player_name.'".';
-                        }
-                        else
-                        {
-                            $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->login.'".';
-                        }
-    
+                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->player_name . '".';
+                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->login . '".';
+
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Failed To Send Item.';
-    
+
                         echo json_encode($response);
                     }
-                }
-                else
-                {
+                } else {
                     $query3 = $this->db->insert('player_items', array(
                         'owner_id' => $query->player_id,
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
                         'count' => $this->encryption->decrypt($data['item_count']),
                         'category' => $this->lib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
-                        'equip' => '3'));
-                    if ($query3)
-                    {
+                        'equip' => '3'
+                    ));
+                    if ($query3) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name != '') $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->player_name.'".';
-                        else $response['message'] = 'Successfully Send "'.$this->GetItemName($this->encryption->decrypt($data['item_id'])).'" To "'.$query->login.'".';
-    
+                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->player_name . '".';
+                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->login . '".';
+
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Failed To Send Item.';
-    
+
                         echo json_encode($response);
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Find Account.';
@@ -163,15 +145,12 @@ class Playersmanagement_model extends CI_Model
             'money' => $this->encryption->decrypt($data['money'])
         ));
 
-        if ($query)
-        {
+        if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Created Custom Player.';
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Create Custom Player.';
@@ -183,41 +162,32 @@ class Playersmanagement_model extends CI_Model
     {
         sleep(1);
         $response = array();
-        
+
         $data = array(
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
-            if ($query->player_name == "[DEV] EyeTracker")
-            {
+        if ($query) {
+            if ($query->player_name == "[DEV] EyeTracker") {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Player.';
-            }
-            else
-            {
+            } else {
                 $delete = $this->db->where('player_id', $query->player_id)->delete('accounts');
-                if ($delete)
-                {
+                if ($delete) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Delete This Player.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Delete This Player.';
                     echo json_encode($response);
                 }
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Player Found.';
@@ -253,26 +223,20 @@ class Playersmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('player_id', $query->player_id)->update('accounts', $defaultData);
-            if ($update)
-            {
+            if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Reset This Player.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Reset This Player.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Player Found.';
@@ -290,36 +254,27 @@ class Playersmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
-            if ($query->access_level != '-1')
-            {
+        if ($query) {
+            if ($query->access_level != '-1') {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'This Player Not In Banned Condition.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
-                if ($update)
-                {
+                if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Unbanned This Player.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Unbanned This Player.';
                     echo json_encode($response);
                 }
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Player Found.';
@@ -337,36 +292,27 @@ class Playersmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
-            if ($query->access_level == '-1')
-            {
+        if ($query) {
+            if ($query->access_level == '-1') {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'This Player Already In Banned Condition.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
-                if ($update)
-                {
+                if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Banned This Player.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Banned This Player.';
                     echo json_encode($response);
                 }
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Player Found.';
@@ -384,8 +330,7 @@ class Playersmanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
                 'weapon_primary' => '100003004',
                 'weapon_secondary' => '601002003',
@@ -398,23 +343,18 @@ class Playersmanagement_model extends CI_Model
                 'char_dino' => '1006003041',
                 'char_beret' => '0'
             ));
-            if ($update)
-            {
+            if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Reset Equipment To Default.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Reset Equipment.';
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Player Not Found.';
@@ -432,10 +372,9 @@ class Playersmanagement_model extends CI_Model
     function GetSpecifiedPlayer($player_id)
     {
         $query = $this->db->get_where('accounts', array('player_id' => $player_id))->row();
-        if ($query) return $query; else redirect(base_url('adm/playersmanagement'), 'refresh');
+        if ($query) return $query;
+        else redirect(base_url('adm/playersmanagement'), 'refresh');
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Trade_model extends CI_Model
 {
@@ -18,9 +18,9 @@ class Trade_model extends CI_Model
     function SetCategory($item_id)
     {
         if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
-		else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
-		else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
-		else return "0";
+        else if ($item_id >= 1001001003 && $item_id <= 1105003032) return "2";
+        else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
+        else return "0";
     }
 
     function ConvertBaseNameItem($item_id)
@@ -40,7 +40,6 @@ class Trade_model extends CI_Model
     function GetAllItems()
     {
         return $this->db->get_where('trade_market', array('month' => date('m'), 'year' => date('Y')))->result_array();
-
     }
 
     function GetDurationLeftEachMonth()
@@ -68,29 +67,22 @@ class Trade_model extends CI_Model
         );
 
         $query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
-        if ($query)
-        {
-            if ($query->equip != 1)
-            {
+        if ($query) {
+            if ($query->equip != 1) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'You Cannot Trade This Item.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $query2 = $this->db->get_where('trade_market', array('item_owner' => $query->owner_id, 'item_id' => $query->item_id))->row();
-                if ($query2)
-                {
+                if ($query2) {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'You Already Trade This Item.';
 
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $insertitem = $this->db->insert('trade_market', array(
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->ConvertBaseNameItem($this->encryption->decrypt($data['item_id'])),
@@ -104,16 +96,13 @@ class Trade_model extends CI_Model
                         'valid_duration' => '1 Month'
                     ));
                     $deletefrominventory = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');
-                    if ($insertitem && $deletefrominventory)
-                    {
+                    if ($insertitem && $deletefrominventory) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Successfully Post New Item.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Failed To Post New Item.';
@@ -122,9 +111,7 @@ class Trade_model extends CI_Model
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'You Dont Have This Item.';
@@ -142,69 +129,52 @@ class Trade_model extends CI_Model
         );
 
         $query = $this->db->get_where('trade_market', array('id' => $this->encryption->decrypt($data['trade_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $fetchaccount2 = $this->db->get_where('accounts', array('player_id' => $query->item_owner))->row();
             $fetchaccount = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
-            if ($fetchaccount)
-            {
-                if ($fetchaccount->player_id == $query->item_owner)
-                {
+            if ($fetchaccount) {
+                if ($fetchaccount->player_id == $query->item_owner) {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'You Cannot Buy Your Own Item';
 
                     echo json_encode($response);
-                }
-                else
-                {
-                    if ($fetchaccount->kuyraicoin < ($query->item_price + 250))
-                    {
+                } else {
+                    if ($fetchaccount->kuyraicoin < ($query->item_price + 250)) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Your Webcoin Not Enough For Buy This Item.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $query2 = $this->db->get_where('player_items', array('owner_id' => $fetchaccount->player_id, 'item_id' => $query->item_id))->row();
-                        if ($query2)
-                        {
-                            if ($query2->equip == 1)
-                            {
+                        if ($query2) {
+                            if ($query2->equip == 1) {
                                 $updatecount = $this->db->where(array('owner_id' => $query2->owner_id, 'item_id' => $query2->item_id))->update('player_items', array('count' => ($query2->count + $query->item_duration)));
                                 $updatewebcoin = $this->db->where('player_id', $query2->owner_id)->update('accounts', array('kuyraicoin' => ($fetchaccount->kuyraicoin - ($query->item_price + 250))));
                                 $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update('trade_market', array('year' => '1970'));
                                 $updateitemownercash = $this->db->where('player_id', $query->item_owner)->update('accounts', array('kuyraicoin' => ($fetchaccount2->kuyraicoin + ($query->item_price + 500))));
-                                if ($updatecount && $updatewebcoin && $updatetradeitem && $updateitemownercash)
-                                {
+                                if ($updatecount && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
                                     $response['response'] = 'true';
                                     $response['token'] = $this->security->get_csrf_hash();
                                     $response['message'] = 'Successfully Buy This Item. Please Check Your Inventory.';
 
                                     echo json_encode($response);
-                                }
-                                else
-                                {
+                                } else {
                                     $response['token'] = 'false';
                                     $response['token'] = $this->security->get_csrf_hash();
                                     $response['message'] = 'Failed To Buy This Item. Please Contact DEV / GM For Detail Information.';
 
                                     echo json_encode($response);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 $response['response'] = 'false';
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = 'Failed To Buy This Item. You Already Have & Used This Item.';
 
                                 echo json_encode($response);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             $insertnewitem = $this->db->insert('player_items', array(
                                 'owner_id' => $this->session->userdata('uid'),
                                 'item_id' => $query->item_id,
@@ -216,17 +186,14 @@ class Trade_model extends CI_Model
                             $updatewebcoin = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('kuyraicoin' => ($fetchaccount->kuyraicoin - ($query->item_price + 250))));
                             $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update('trade_market', array('year' => '1970'));
                             $updateitemownercash = $this->db->where('player_id', $query->item_owner)->update('accounts', array('kuyraicoin' => ($fetchaccount2->kuyraicoin + ($query->item_price + 500))));
-                            
-                            if ($insertnewitem && $updatewebcoin && $updatetradeitem && $updateitemownercash)
-                            {
+
+                            if ($insertnewitem && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
                                 $response['response'] = 'true';
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = 'Successfully Buy This Item. Please Check Your Inventory.';
 
                                 echo json_encode($response);
-                            }
-                            else
-                            {
+                            } else {
                                 $response['response'] = 'true';
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = 'Failed To Buy This Item.';
@@ -236,18 +203,14 @@ class Trade_model extends CI_Model
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Fetch Your Account.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'This Item Not Available.';
@@ -258,5 +221,3 @@ class Trade_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

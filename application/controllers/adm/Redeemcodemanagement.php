@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Redeemcodemanagement extends CI_Controller
+class Redeemcodemanagement extends CI_Controller
 {
     function __construct()
     {
@@ -50,8 +50,7 @@ Class Redeemcodemanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->redeemcodemanagement->DeleteCode();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -106,8 +105,7 @@ Class Redeemcodemanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->redeemcodemanagement->CreateNewRedeemCode();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -118,5 +116,3 @@ Class Redeemcodemanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -40,74 +40,72 @@
                     <script>
                         var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
-                        $(document).ready(function(){
-                            $('#check_visibility').click(function(){
-                                
+                        $(document).ready(function() {
+                            $('#check_visibility').click(function() {
+
                                 return Do_CheckVisibility();
                             });
                         });
 
-                        function Do_CheckVisibility()
-                        {
+                        function Do_CheckVisibility() {
                             SetAttribute('check_visibility', 'button', 'Processing...');
                             $.ajax({
                                 url: '<?php echo base_url('adm/clientlaunchermanagement/do_geturl') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                    'files_id' : '<?php echo $this->input->get('files_id', true) ?>'
+                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'files_id': '<?php echo $this->input->get('files_id', true) ?>'
                                 },
-                                success: function(data){
+                                success: function(data) {
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true'){
+                                    if (Result.response == 'true') {
                                         SetAttribute('check_visibility', 'button', 'Check Visibility');
                                         CSRF_TOKEN = Result.token;
                                         window.open(Result.url);
                                         return;
-                                    }
-                                    else if (Result.response == 'false'){
+                                    } else if (Result.response == 'false') {
                                         SetAttribute('check_visibility', 'button', 'Check Visibility');
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
                                         return;
-                                    }
-                                    else{
+                                    } else {
                                         SetAttribute('check_visibility', 'button', 'Check Visibility');
                                         ShowToast(2000, 'error', Result.message);
                                         CSRF_TOKEN = Result.token;
                                         return;
                                     }
                                 },
-                                error: function(){
-                                    if (RETRY >= 3){
+                                error: function() {
+                                    if (RETRY >= 3) {
                                         SetAttribute('check_visibility', 'button', 'Check Visibility');
                                         ShowToast(2000, 'error', 'Failed To Check Visibility.');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
-                                    }
-                                    else{
+                                    } else {
                                         ShowToast(2000, 'info', 'Generate New Request Token...');
 
                                         $.ajax({
                                             url: '<?php echo base_url('api/security/csrf') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
-                                            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                            success: function(){
+                                            data: {
+                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                            },
+                                            success: function() {
                                                 var GetString = JSON.stringify(data);
                                                 var Result = JSON.parse(GetString);
 
-                                                if (Result.response == 'true'){
+                                                if (Result.response == 'true') {
                                                     CSRF_TOKEN = Result.token;
                                                 }
 
                                                 return Do_CheckVisibility();
                                             },
-                                            error: function(){
+                                            error: function() {
                                                 SetAttribute('check_visibility', 'button', 'Check Visibility');
                                                 ShowToast(2000, 'error', 'Failed To Check Visibility.');
                                                 setTimeout(() => {

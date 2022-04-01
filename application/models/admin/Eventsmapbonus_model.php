@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Eventsmapbonus_model extends CI_Model
 {
@@ -193,24 +193,21 @@ class Eventsmapbonus_model extends CI_Model
         );
 
         $query = $this->db->insert('events_mapbonus', array(
-            'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-            'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'].$this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'].$this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+            'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+            'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
             'map_id' => $this->encryption->decrypt($data['map_id']),
             'stage_type' => $this->encryption->decrypt($data['stage_type']),
             'percent_xp' => $this->encryption->decrypt($data['percent_xp']),
             'percent_gp' => $this->encryption->decrypt($data['percent_gp'])
         ));
-        
-        if ($query)
-        {
+
+        if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Add New Events.';
 
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add New Events.';
@@ -222,44 +219,36 @@ class Eventsmapbonus_model extends CI_Model
     function DeleteEvents()
     {
         $response = array();
-        
+
         $data = array(
             'start_date' => $this->encryption->encrypt($this->input->post('start_date', true)),
             'end_date' => $this->encryption->encrypt($this->input->post('end_date', true))
         );
 
         $query = $this->db->get_where('events_mapbonus', array('start_date' => $this->encryption->decrypt($data['start_date']), 'end_date' => $this->encryption->decrypt($data['end_date'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete('events_mapbonus');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Events.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Events.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Events.';
-    
+
             echo json_encode($response);
         }
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Quest extends CI_Controller
+class Quest extends CI_Controller
 {
     function __construct()
     {
@@ -40,8 +40,7 @@ Class Quest extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->eventsquest->DeleteEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -69,17 +68,14 @@ Class Quest extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->eventsquest->UpdateEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            
+
             echo json_encode($response);
         }
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

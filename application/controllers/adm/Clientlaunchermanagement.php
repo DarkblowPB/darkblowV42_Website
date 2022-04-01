@@ -7,11 +7,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Clientlaunchermanagement extends CI_Controller
+class Clientlaunchermanagement extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
+        $this->load->library('lib');
         $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/clientlaunchermanagement_model', 'clientlauncher');
     }
@@ -27,56 +28,60 @@ Class Clientlaunchermanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function details()
+    function details($files_id = null)
     {
-        if (!empty($this->input->get('files_id')))
-        {
+        if ($files_id == null) redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
+        else {
             $data['title'] = 'File Details';
             $data['header'] = 'File Details';
 
-            $data['files'] = $this->clientlauncher->GetSpecifiedFile($this->input->get('files_id'));
+            $data['files'] = $this->clientlauncher->GetSpecifiedFile($files_id);
 
             $data['content'] = 'admin/content/clientlaunchermanagement/content_details';
             $this->load->view('admin/layout/wrapper', $data, FALSE);
         }
-        else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
 
-    function edit()
+    function edit($files_id = null)
     {
-        if (!empty($this->input->get('files_id')))
-        {
+        if ($files_id == null) redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
+        else {
             $data['title'] = 'Edit File';
             $data['header'] = 'Edit File';
 
-            $data['files'] = $this->clientlauncher->GetSpecifiedFile($this->input->get('files_id'));
+            $data['files'] = $this->clientlauncher->GetSpecifiedFile($files_id);
 
             $data['content'] = 'admin/content/clientlaunchermanagement/content_edit';
             $this->load->view('admin/layout/wrapper', $data, FALSE);
         }
     }
 
-    function upload()
+    function upload($type = null)
     {
-        if (!empty($this->input->get('type')))
-        {
-            if ($this->input->get('type') == "external_url")
-            {
-                $data['title'] = 'Upload New Files (External URL)';
-                $data['header'] = 'Upload New Files (External URL)';
-                $data['content'] = 'admin/content/clientlaunchermanagement/content_upload_external';
-                $this->load->view('admin/layout/wrapper', $data, FALSE);
+        if ($type == null) redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
+        else {
+            switch ($type) {
+                case 'external': {
+                        $data['title'] = 'Upload New Files (External URL)';
+                        $data['header'] = 'Upload New Files (External URL)';
+                        $data['content'] = 'admin/content/clientlaunchermanagement/content_upload_external';
+                        $this->load->view('admin/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+                case 'direct': {
+                        $data['title'] = 'Upload New Files (Direct URL)';
+                        $data['header'] = 'Upload New Files (Direct URL)';
+                        $data['content'] = 'admin/content/clientlaunchermanagement/content_upload_direct';
+                        $this->load->view('admin/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+
+                default: {
+                        redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
+                        break;
+                    }
             }
-            else if ($this->input->get('type') == "direct_url")
-            {
-                $data['title'] = 'Upload New Files (Direct URL)';
-                $data['header'] = 'Upload New Files (Direct URL)';
-                $data['content'] = 'admin/content/clientlaunchermanagement/content_upload_direct';
-                $this->load->view('admin/layout/wrapper', $data, FALSE);
-            }
-            else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
         }
-        else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
 
     function do_upload_directurl()
@@ -113,8 +118,7 @@ Class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty')
         );
         if ($this->form_validation->run()) $this->clientlauncher->UploadFiles_ExternalURL();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
@@ -152,8 +156,7 @@ Class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->clientlauncher->EditFiles($this->input->post('file_id'));
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -174,8 +177,7 @@ Class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->clientlauncher->DeleteFiles($this->input->post('files_id', true));
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -188,7 +190,7 @@ Class Clientlaunchermanagement extends CI_Controller
     function do_geturl()
     {
         $response = array();
-        
+
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'files_id',
@@ -197,8 +199,7 @@ Class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Only Can Using Numeric Characters.')
         );
         if ($this->form_validation->run()) $this->clientlauncher->GetFilesURL();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['url'] = '';
@@ -210,5 +211,3 @@ Class Clientlaunchermanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

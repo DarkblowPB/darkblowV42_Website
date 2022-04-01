@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Changeemail_model extends CI_Model
 {
@@ -19,17 +19,15 @@ class Changeemail_model extends CI_Model
     {
         return $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
     }
-    
+
     function IsConfirmEmail($email)
     {
         $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'email' => $email))->row();
-        if ($query)
-        {
+        if ($query) {
             if ($query->email_verification == 0) return false;
             else if ($query->email_verification == 1) return true;
             else return false;
-        }
-        else return false;
+        } else return false;
     }
 
     function ChangeEmailValidation()
@@ -43,34 +41,27 @@ class Changeemail_model extends CI_Model
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'email' => $this->encryption->decrypt($data['old_email'])))->row();
-        if ($query)
-        {
-            if ($query->email_verification == 0)
-            {
+        if ($query) {
+            if ($query->email_verification == 0) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Please Confirm Your Email First.';
 
                 echo json_encode($response);
-            }
-            else if ($query->email_verification == 1)
-            {
+            } else if ($query->email_verification == 1) {
                 // If Email Verification Is 1
                 $update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('email' => $this->encryption->decrypt($data['new_email']), 'email_verification' => '0'));
-                if ($update)
-                {
+                if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Change Email';
 
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed Change Email';
-    
+
                     echo json_encode($response);
                 }
             }
@@ -79,5 +70,3 @@ class Changeemail_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login_model extends CI_Model 
+class Login_model extends CI_Model
 {
 	function __construct()
 	{
@@ -27,17 +27,13 @@ class Login_model extends CI_Model
 		$response = array();
 
 		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])))->row();
-		if ($query)
-		{
-			if ($query->access_level == '-1')
-			{
+		if ($query) {
+			if ($query->access_level == '-1') {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Your Account Has Been Blocked. Login Failed.';
 				echo json_encode($response);
-			}
-			else
-			{
+			} else {
 				// Set Session
 				$sessionData = array(
 					'uid' => $query->player_id,
@@ -48,14 +44,12 @@ class Login_model extends CI_Model
 				$this->session->set_userdata($sessionData);
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				if ($this->session->userdata('player_name') == '') $response['message'] = 'Successfully Logged In. Welcome '.$query->login.'.';
-				if ($this->session->userdata('player_name') != '') $response['message'] = 'Successfully Logged In. Welcome '.$this->session->userdata('player_name').'.';
-				
+				if ($this->session->userdata('player_name') == '') $response['message'] = 'Successfully Logged In. Welcome ' . $query->login . '.';
+				if ($this->session->userdata('player_name') != '') $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('player_name') . '.';
+
 				echo json_encode($response);
 			}
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Invalid Username or Password.';

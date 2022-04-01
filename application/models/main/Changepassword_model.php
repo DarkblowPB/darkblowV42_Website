@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Changepassword_model extends CI_Model 
+class Changepassword_model extends CI_Model
 {
 	public function __construct()
 	{
@@ -28,53 +28,42 @@ class Changepassword_model extends CI_Model
 		);
 
 		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
-		if ($query)
-		{
-			if ($query->email_verification == '0')
-			{
+		if ($query) {
+			if ($query->email_verification == '0') {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Please Confirm Your Email First.';
 
 				echo json_encode($response);
 			}
-			if ($query->email_verification == '1')
-			{
-				if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password']))
-				{
+			if ($query->email_verification == '1') {
+				if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'New Password Cannot Be Same Like Old Password.';
 
 					echo json_encode($response);
-				}
-				else
-				{
+				} else {
 					$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
 						'password' => $this->encryption->decrypt($data['new_password'])
 					));
 
-					if ($update)
-					{
+					if ($update) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Successfully Change Password.';
-	
+
 						echo json_encode($response);
-					}
-					else
-					{
+					} else {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Failed To Change Password.';
-	
+
 						echo json_encode($response);
 					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Invalid Old Password.';
@@ -82,7 +71,7 @@ class Changepassword_model extends CI_Model
 			echo json_encode($response);
 		}
 	}
-	
+
 	/**
 	 * Changepassword Validation
 	 * 
@@ -105,49 +94,37 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'),'password' => $this->encryption->decrypt($data['old_password'])))->row();
-		if ($query)
-		{
-			if ($this->encryption->decrypt($data['new_password']) == $query->password)
-			{
+		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
+		if ($query) {
+			if ($this->encryption->decrypt($data['new_password']) == $query->password) {
 				// If New Password Same Like Old Password
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'New Password Cannot Be Same As Old Password.';
 				echo json_encode($response);
-			}
-			else
-			{
-				if ($this->encryption->decrypt($data['hint_question']) != $query->hint_question)
-				{
+			} else {
+				if ($this->encryption->decrypt($data['hint_question']) != $query->hint_question) {
 					// If Wrong Hint Question
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Invalid Hint Question.';
 					echo json_encode($response);
-				}
-				else if ($this->encryption->decrypt($data['hint_answer']) != $query->hint_answer)
-				{
+				} else if ($this->encryption->decrypt($data['hint_answer']) != $query->hint_answer) {
 					// If Wrong Hint Answer
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Invalid Hint Answer';
 					echo json_encode($response);
-				}
-				else
-				{
+				} else {
 					// Update Password
 					$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('password' => $this->encryption->decrypt($data['new_password'])));
-					if ($update)
-					{
+					if ($update) {
 						// If Successfully Update Password
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Successfully Change The Password.';
 						echo json_encode($response);
-					}
-					else
-					{
+					} else {
 						// If Failed Update Password
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
@@ -156,9 +133,7 @@ class Changepassword_model extends CI_Model
 					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			// If Wrong Old Password
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();

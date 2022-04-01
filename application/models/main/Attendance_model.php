@@ -5,7 +5,7 @@
 //     Lolsecs#2192     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Attendance_model extends CI_Model
 {
@@ -22,7 +22,8 @@ class Attendance_model extends CI_Model
     function GetPlayerAttendDate($event_id)
     {
         $query = $this->db->get_where('check_user_attendance', array('player_id' => $this->session->userdata('uid'), 'event_id' => $event_id))->row();
-        if ($query) return TRUE; else return FALSE;
+        if ($query) return TRUE;
+        else return FALSE;
     }
 
     function GetTodayEventID()
@@ -34,5 +35,3 @@ class Attendance_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

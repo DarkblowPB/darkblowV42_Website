@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Playerrank_model extends CI_Model 
+class Playerrank_model extends CI_Model
 {
 	function __construct()
 	{
@@ -19,7 +19,7 @@ class Playerrank_model extends CI_Model
 	{
 		return $this->db->order_by('exp', 'desc')->where(array('email !=' => 'empty@empty.empty', 'access_level <' => '3', 'access_level !=' => '-1'))->get('accounts', $limit, $start)->result_array();
 	}
-	
+
 	function GetPlayerCount()
 	{
 		return $this->db->get('accounts')->num_rows();

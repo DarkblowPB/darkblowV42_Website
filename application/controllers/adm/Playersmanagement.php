@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Playersmanagement extends CI_Controller
+class Playersmanagement extends CI_Controller
 {
     function __construct()
     {
@@ -27,15 +27,18 @@ Class Playersmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
-    function details($player_id)
+    function details($player_id = null)
     {
-        $data['title'] = 'Player Details';
-        $data['header'] = $data['title'];
-        
-        $data['player'] = $this->playersmanagement->GetSpecifiedPlayer($player_id);
-        
-        $data['content'] = 'admin/content/playersmanagement/content_details';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+        if ($player_id == null) redirect(base_url('adm/playersmanagement'), 'refresh');
+        else {
+            $data['title'] = 'Player Details';
+            $data['header'] = $data['title'];
+
+            $data['player'] = $this->playersmanagement->GetSpecifiedPlayer($player_id);
+
+            $data['content'] = 'admin/content/playersmanagement/content_details';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
+        }
     }
 
     function createcustomplayer()
@@ -97,8 +100,7 @@ Class Playersmanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->playersmanagement->SendItem();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -119,8 +121,7 @@ Class Playersmanagement extends CI_Controller
         );
 
         if ($this->form_validation->run()) $this->playersmanagement->FixInventory();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -142,8 +143,7 @@ Class Playersmanagement extends CI_Controller
         );
 
         if ($this->form_validation->run()) $this->playersmanagement->BannedPlayer();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -165,8 +165,7 @@ Class Playersmanagement extends CI_Controller
         );
 
         if ($this->form_validation->run()) $this->playersmanagement->UnbannedPlayer();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -187,8 +186,7 @@ Class Playersmanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
         if ($this->form_validation->run()) $this->playersmanagement->ResetPlayer();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -209,8 +207,7 @@ Class Playersmanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.', 'numeric' => '%s Must Be Numeric Character.')
         );
         if ($this->form_validation->run()) $this->playersmanagement->DeletePlayer();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -264,7 +261,7 @@ Class Playersmanagement extends CI_Controller
             'required|in_list[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54]',
             array(
                 'required' => '%s Cannot Be Empty.',
-                'in_list'=> 'Invalid %s.'
+                'in_list' => 'Invalid %s.'
             )
         );
         $this->form_validation->set_rules(
@@ -299,8 +296,7 @@ Class Playersmanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->playersmanagement->RegisterCustomPlayer();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
@@ -312,5 +308,3 @@ Class Playersmanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

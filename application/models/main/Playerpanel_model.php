@@ -5,9 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Playerpanel_model extends CI_Model 
+class Playerpanel_model extends CI_Model
 {
 	function __construct()
 	{
@@ -24,14 +24,11 @@ class Playerpanel_model extends CI_Model
 		$response = array();
 
 		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
-		if ($query)
-		{
+		if ($query) {
 			$response['response'] = 'true';
-			$response['message'] = 'Your Hint : '.$query->hint_answer;
+			$response['message'] = 'Your Hint : ' . $query->hint_answer;
 			echo json_encode($response);
-		}
-		else
-		{
+		} else {
 			$response['response'] = 'false';
 			$response['message'] = 'Failed To Get Your Hint.';
 			echo json_encode($response);

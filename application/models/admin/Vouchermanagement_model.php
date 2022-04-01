@@ -5,7 +5,7 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Vouchermanagement_model extends CI_Model
 {
@@ -27,17 +27,16 @@ class Vouchermanagement_model extends CI_Model
     function GetVoucherDetails($voucher_id)
     {
         $query = $this->db->get_where('item_voucher', array('id' => $voucher_id))->row();
-        if ($query) return $query; else redirect(base_url('adm/vouchermanagement'), 'refresh');
+        if ($query) return $query;
+        else redirect(base_url('adm/vouchermanagement'), 'refresh');
     }
 
     function AddNewVoucher($type)
     {
         $response = array();
 
-        switch ($type) 
-        {
-            case 'small':
-                {
+        switch ($type) {
+            case 'small': {
                     $data = array(
                         'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
                         'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
@@ -48,36 +47,30 @@ class Vouchermanagement_model extends CI_Model
                     );
 
                     $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
-                    if ($query)
-                    {
+                    if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $insert = $this->db->insert('item_voucher', array(
-                            'voucher_item' => $this->encryption->decrypt($data['reward_1']).','
-                                             .$this->encryption->decrypt($data['reward_2']).','
-                                             .$this->encryption->decrypt($data['reward_3']),
+                            'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
+                                . $this->encryption->decrypt($data['reward_2']) . ','
+                                . $this->encryption->decrypt($data['reward_3']),
                             'voucher_cash' => $this->encryption->decrypt($data['cash_amount']),
                             'voucher_webcoin' => $this->encryption->decrypt($data['webcoin_amount']),
                             'voucher_code' => $this->encryption->decrypt($data['voucher_code']),
                             'active' => 't'
                         ));
 
-                        if ($insert)
-                        {
+                        if ($insert) {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
@@ -87,8 +80,7 @@ class Vouchermanagement_model extends CI_Model
                     }
                     break;
                 }
-            case 'medium':
-                {
+            case 'medium': {
                     $data = array(
                         'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
                         'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
@@ -101,38 +93,32 @@ class Vouchermanagement_model extends CI_Model
                     );
 
                     $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
-                    if ($query)
-                    {
+                    if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $insert = $this->db->insert('item_voucher', array(
-                            'voucher_item' => $this->encryption->decrypt($data['reward_1']).','
-                                             .$this->encryption->decrypt($data['reward_2']).','
-                                             .$this->encryption->decrypt($data['reward_3']).','
-                                             .$this->encryption->decrypt($data['reward_4']).','
-                                             .$this->encryption->decrypt($data['reward_5']),
+                            'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
+                                . $this->encryption->decrypt($data['reward_2']) . ','
+                                . $this->encryption->decrypt($data['reward_3']) . ','
+                                . $this->encryption->decrypt($data['reward_4']) . ','
+                                . $this->encryption->decrypt($data['reward_5']),
                             'voucher_cash' => $this->encryption->decrypt($data['cash_amount']),
                             'voucher_webcoin' => $this->encryption->decrypt($data['webcoin_amount']),
                             'voucher_code' => $this->encryption->decrypt($data['voucher_code']),
                             'active' => 't'
                         ));
 
-                        if ($insert)
-                        {
+                        if ($insert) {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
@@ -142,8 +128,7 @@ class Vouchermanagement_model extends CI_Model
                     }
                     break;
                 }
-            case 'large':
-                {
+            case 'large': {
                     $data = array(
                         'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
                         'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
@@ -158,40 +143,34 @@ class Vouchermanagement_model extends CI_Model
                     );
 
                     $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
-                    if ($query)
-                    {
+                    if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $insert = $this->db->insert('item_voucher', array(
-                            'voucher_item' => $this->encryption->decrypt($data['reward_1']).','
-                                             .$this->encryption->decrypt($data['reward_2']).','
-                                             .$this->encryption->decrypt($data['reward_3']).','
-                                             .$this->encryption->decrypt($data['reward_4']).','
-                                             .$this->encryption->decrypt($data['reward_5']).','
-                                             .$this->encryption->decrypt($data['reward_6']).','
-                                             .$this->encryption->decrypt($data['reward_7']),
+                            'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
+                                . $this->encryption->decrypt($data['reward_2']) . ','
+                                . $this->encryption->decrypt($data['reward_3']) . ','
+                                . $this->encryption->decrypt($data['reward_4']) . ','
+                                . $this->encryption->decrypt($data['reward_5']) . ','
+                                . $this->encryption->decrypt($data['reward_6']) . ','
+                                . $this->encryption->decrypt($data['reward_7']),
                             'voucher_cash' => $this->encryption->decrypt($data['cash_amount']),
                             'voucher_webcoin' => $this->encryption->decrypt($data['webcoin_amount']),
                             'voucher_code' => $this->encryption->decrypt($data['voucher_code']),
                             'active' => 't'
                         ));
 
-                        if ($insert)
-                        {
+                        if ($insert) {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
@@ -201,8 +180,7 @@ class Vouchermanagement_model extends CI_Model
                     }
                     break;
                 }
-            case 'extra_large':
-                {
+            case 'extra_large': {
                     $data = array(
                         'reward_1' => $this->encryption->encrypt($this->input->post('reward_1', true)),
                         'reward_2' => $this->encryption->encrypt($this->input->post('reward_2', true)),
@@ -219,42 +197,36 @@ class Vouchermanagement_model extends CI_Model
                     );
 
                     $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
-                    if ($query)
-                    {
+                    if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $insert = $this->db->insert('item_voucher', array(
-                            'voucher_item' => $this->encryption->decrypt($data['reward_1']).','
-                                             .$this->encryption->decrypt($data['reward_2']).','
-                                             .$this->encryption->decrypt($data['reward_3']).','
-                                             .$this->encryption->decrypt($data['reward_4']).','
-                                             .$this->encryption->decrypt($data['reward_5']).','
-                                             .$this->encryption->decrypt($data['reward_6']).','
-                                             .$this->encryption->decrypt($data['reward_7']).','
-                                             .$this->encryption->decrypt($data['reward_8']).','
-                                             .$this->encryption->decrypt($data['reward_9']),
+                            'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
+                                . $this->encryption->decrypt($data['reward_2']) . ','
+                                . $this->encryption->decrypt($data['reward_3']) . ','
+                                . $this->encryption->decrypt($data['reward_4']) . ','
+                                . $this->encryption->decrypt($data['reward_5']) . ','
+                                . $this->encryption->decrypt($data['reward_6']) . ','
+                                . $this->encryption->decrypt($data['reward_7']) . ','
+                                . $this->encryption->decrypt($data['reward_8']) . ','
+                                . $this->encryption->decrypt($data['reward_9']),
                             'voucher_cash' => $this->encryption->decrypt($data['cash_amount']),
                             'voucher_webcoin' => $this->encryption->decrypt($data['webcoin_amount']),
                             'voucher_code' => $this->encryption->decrypt($data['voucher_code']),
                             'active' => 't'
                         ));
 
-                        if ($insert)
-                        {
+                        if ($insert) {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
                             echo json_encode($response);
-                        }
-                        else
-                        {
+                        } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
@@ -264,9 +236,8 @@ class Vouchermanagement_model extends CI_Model
                     }
                     break;
                 }
-            
-            default:
-                {
+
+            default: {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Hehe Error :)';
@@ -298,17 +269,17 @@ class Vouchermanagement_model extends CI_Model
             'part_5' => ''
         );
 
-        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_1'] .= $characters[rand(0, $length['characters_length'] - 1)];
+        for ($i = 0; $i < $length['serial_number']; $i++) $pure_code['part_1'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_2'] .= $characters[rand(0, $length['characters_length'] - 1)];
+        for ($i = 0; $i < $length['serial_number']; $i++) $pure_code['part_2'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_3'] .= $characters[rand(0, $length['characters_length'] - 1)];
+        for ($i = 0; $i < $length['serial_number']; $i++) $pure_code['part_3'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_4'] .= $characters[rand(0, $length['characters_length'] - 1)];
+        for ($i = 0; $i < $length['serial_number']; $i++) $pure_code['part_4'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        for ($i=0; $i < $length['serial_number']; $i++) $pure_code['part_5'] .= $characters[rand(0, $length['characters_length'] - 1)];
+        for ($i = 0; $i < $length['serial_number']; $i++) $pure_code['part_5'] .= $characters[rand(0, $length['characters_length'] - 1)];
 
-        $response['code'] = $pure_code['part_1'].$separator.$pure_code['part_2'].$separator.$pure_code['part_3'].$separator.$pure_code['part_4'].$separator.$pure_code['part_5'];
+        $response['code'] = $pure_code['part_1'] . $separator . $pure_code['part_2'] . $separator . $pure_code['part_3'] . $separator . $pure_code['part_4'] . $separator . $pure_code['part_5'];
 
         echo json_encode($response);
     }
@@ -322,19 +293,15 @@ class Vouchermanagement_model extends CI_Model
         );
 
         $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $delete = $this->db->where('voucher_code', $query->voucher_code)->delete('item_voucher');
-            if ($delete)
-            {
+            if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Voucher.';
 
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Voucher.';
@@ -353,5 +320,3 @@ class Vouchermanagement_model extends CI_Model
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

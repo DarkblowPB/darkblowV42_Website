@@ -7,19 +7,19 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Maintenance extends CI_Controller
+class Maintenance extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        
+
         $this->lang->load(array('header', 'string'));
         $this->lib->GetVisitorData('Maintenance');
 
         $this->allprotect->Web_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
+        $this->allprotect->DarkblowCopierGuard();
+
         if ($this->getsettings->Get2()->website_condition != 0) redirect(base_url('home'), 'refresh');
     }
 
@@ -31,5 +31,3 @@ Class Maintenance extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>
