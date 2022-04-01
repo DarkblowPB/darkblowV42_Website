@@ -35,13 +35,13 @@ class Download_model extends CI_Model
 		return $this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array();
 	}
 
-	function GetDownloadData()
+	function GetDownloadData($package_id)
 	{
 		sleep(1);
 		$response = array();
 
 		$data = array(
-			'package_id' => $this->encryption->encrypt($this->input->get('package_id', true))
+			'package_id' => $this->encryption->encrypt($package_id)
 		);
 
 		$query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['package_id'])))->row();
