@@ -65,6 +65,28 @@ class Playersmanagement extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
+    function do_resetpassword()
+    {
+        $response = array();
+        $this->form_validation->set_rules(
+            'player_id',
+            'Player ID',
+            'required|numeric',
+            array(
+                'required' => '%s cannot be empty.',
+                'numeric' => '%s only numeric allowed.'
+            )
+        );
+        if ($this->form_validation->run()) {
+        } else {
+            $response['response'] = 'false';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
+    }
+
     function do_senditem()
     {
         $response = array();

@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 29/03/2022 20:58:29
+ Date: 18/04/2022 09:13:52
 */
 
 
@@ -369,6 +369,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for server_license_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."server_license_id_seq";
+CREATE SEQUENCE "public"."server_license_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for storage_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."storage_seq";
@@ -672,9 +683,10 @@ CREATE TABLE "public"."accounts" (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 184092, 1690112, 1, 2, 0, 1, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyidw@gmail.com', 1010000, 99997410, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4294967295, 1203281844, 0, 0, '28:39:26:0f:73:84', 0, 123, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 999999999, 999999999, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 0, 0, 0, 1, 0, 0, 999999999, 999999999, 4294967295, 1204121931, 0, 0, '28:39:26:0f:73:84', 0, 999999999, '', '', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testingakun123', '9063f7c14a7721b35a2b730a42ff3e9e', 8, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'test@test.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '18-04-2022 09:12:44', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, -1, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow005', 'd250ed959463e3a789bba1a3ad1dfdfc', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow003', 'd250ed959463e3a789bba1a3ad1dfdfc', 195, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidbackup@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0, 0, NULL, NULL, NULL, NULL);
@@ -892,7 +904,7 @@ CREATE TABLE "public"."events_register" (
 -- ----------------------------
 -- Records of events_register
 -- ----------------------------
-INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 10, 't');
+INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 10, 'f');
 
 -- ----------------------------
 -- Table structure for events_visit
@@ -1266,6 +1278,8 @@ CREATE TABLE "public"."launcher_launcherkey" (
 -- ----------------------------
 INSERT INTO "public"."launcher_launcherkey" VALUES (17, 695489391, 0);
 INSERT INTO "public"."launcher_launcherkey" VALUES (18, 429728031, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (19, 878732868, 1);
+INSERT INTO "public"."launcher_launcherkey" VALUES (20, 412214350, 0);
 
 -- ----------------------------
 -- Table structure for launcher_loghistory
@@ -1472,6 +1486,26 @@ CREATE TABLE "public"."player_titles" (
   "titleequiped3" int4 NOT NULL DEFAULT 0,
   "titleflags" int8 NOT NULL DEFAULT 0,
   "titleslots" int4 NOT NULL DEFAULT 1
+)
+;
+
+-- ----------------------------
+-- Table structure for server_license
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."server_license";
+CREATE TABLE "public"."server_license" (
+  "id" int4 NOT NULL DEFAULT nextval('server_license_id_seq'::regclass),
+  "username" varchar(255) COLLATE "pg_catalog"."default",
+  "password" varchar(255) COLLATE "pg_catalog"."default",
+  "ip_address" varchar(255) COLLATE "pg_catalog"."default",
+  "mac_address" varchar(255) COLLATE "pg_catalog"."default",
+  "secret_token" varchar(255) COLLATE "pg_catalog"."default",
+  "secret_keys" varchar(255) COLLATE "pg_catalog"."default",
+  "opcode" varchar(255) COLLATE "pg_catalog"."default",
+  "start_date" varchar(255) COLLATE "pg_catalog"."default",
+  "end_date" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -7026,11 +7060,6 @@ CREATE TABLE "public"."web_download_clientlauncher" (
 ;
 
 -- ----------------------------
--- Records of web_download_clientlauncher
--- ----------------------------
-INSERT INTO "public"."web_download_clientlauncher" VALUES (16, 'asdasd', 'https://www.google.com', 'client', '123', '123', '2021-12-20');
-
--- ----------------------------
 -- Table structure for web_email_confirmation
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_email_confirmation";
@@ -7298,7 +7327,7 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 8, true);
+SELECT setval('"public"."account_id_seq"', 9, true);
 SELECT setval('"public"."api_keys_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
@@ -7320,7 +7349,7 @@ SELECT setval('"public"."items_id_seq"', 7, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 19, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 21, true);
 SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
 SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
 SELECT setval('"public"."loja_seq"', 8, true);
@@ -7330,6 +7359,7 @@ SELECT setval('"public"."player_eqipment_id_seq"', 5, true);
 SELECT setval('"public"."player_friends_player_account_id_seq"', 5, false);
 SELECT setval('"public"."player_topups_seq"', 9, true);
 SELECT setval('"public"."players_id_seq"', 5, true);
+SELECT setval('"public"."server_license_id_seq"', 2, false);
 SELECT setval('"public"."storage_seq"', 5, true);
 SELECT setval('"public"."templates_id_seq"', 5, false);
 SELECT setval('"public"."trade_id_seq"', 13, true);
@@ -7411,6 +7441,11 @@ ALTER TABLE "public"."launcher_version_control" ADD CONSTRAINT "launcher_version
 -- Primary Key structure for table player_configs
 -- ----------------------------
 ALTER TABLE "public"."player_configs" ADD CONSTRAINT "player_configs_pkey" PRIMARY KEY ("owner_id");
+
+-- ----------------------------
+-- Primary Key structure for table server_license
+-- ----------------------------
+ALTER TABLE "public"."server_license" ADD CONSTRAINT "server_license_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table trade_market

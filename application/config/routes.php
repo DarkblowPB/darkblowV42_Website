@@ -57,6 +57,6 @@ $route['adm2'] = 'adm2/dashboard';
 
 $route['sitemap\.xml'] = 'sitemap';
 
-$route['404_override'] = 'notFound';
+$route['404_override'] = 'notfound';
 
 $route['translate_uri_dashes'] = FALSE;

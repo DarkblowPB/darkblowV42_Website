@@ -12,29 +12,19 @@ class Home extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-
 		$this->lang->load(array('header', 'string', 'message'));
+		$this->load->library('lib');
 		$this->lib->GetVisitorData('Home');
-
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-
-		$this->load->library('lib');
 		$this->load->model('main/home_model', 'home');
 	}
 
 	function index()
 	{
 		$data['title'] = 'Home';
-
-		$data['account'] = $this->home->GetPlayerRanking();
-		$data['clan'] = $this->home->GetClanRanking();
-
-		$data['quickslide'] = $this->home->GetNews();
-		$data['webshop'] = $this->home->GetPopularWebshop();
-
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

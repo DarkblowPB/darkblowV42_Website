@@ -48,16 +48,6 @@ class Download extends CI_Controller
 
 			echo json_encode($response);
 		} else $this->download->GetDownloadData($package_id);
-
-		// if (empty($this->input->get('package_id', true)))
-		// {
-		// 	$response['response'] = 'false';
-		// 	$response['url'] = '';
-		// 	$response['message'] = 'Invalid Download Data.';
-
-		// 	echo json_encode($response);
-		// }
-		// else $this->download->GetDownloadData();
 	}
 }
 

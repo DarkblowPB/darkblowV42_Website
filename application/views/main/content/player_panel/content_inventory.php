@@ -17,40 +17,34 @@
 					</thead>
 					<tbody>
 						<?php
-						if ($inventory != null)
-						{
+						if ($inventory != null) {
 							$num = 1;
-							foreach ($inventory as $row ) :
-								?>
+							foreach ($inventory as $row) :
+						?>
 								<tr id="data_<?php echo $num ?>">
 									<td><?php echo ++$start; ?></td>
 									<td>
 										<?php
-											echo $this->inventory->GetItemRealName($row['item_id']);
+										echo $this->inventory->GetItemRealName($row['item_id']);
 										?>
 									</td>
 									<td>
 										<?php
-										switch ($row['category']) 
-										{
-											case '1':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_74') .'</button>';
+										switch ($row['category']) {
+											case '1': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_74') . '</button>';
 													break;
 												}
-											case '2':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_186') .'</button>';
+											case '2': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_186') . '</button>';
 													break;
 												}
-											case '3':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">'. $this->lang->line('STR_DARKBLOW_136') .'</button>';
+											case '3': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_136') . '</button>';
 													break;
 												}
-											
-											default:
-												{
+
+											default: {
 													echo $this->lang->line('STR_DARKBLOW_77');
 													break;
 												}
@@ -59,26 +53,21 @@
 									</td>
 									<td>
 										<?php
-										switch ($row['equip']) 
-										{
-											case '1':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">'. $this->lang->line('STR_DARKBLOW_187') .'</button>';
+										switch ($row['equip']) {
+											case '1': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">' . $this->lang->line('STR_DARKBLOW_187') . '</button>';
 													break;
 												}
-											case '2':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">'. $this->lang->line('STR_DARKBLOW_188') .'</button>';
+											case '2': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">' . $this->lang->line('STR_DARKBLOW_188') . '</button>';
 													break;
 												}
-											case '3':
-												{
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">'. $this->lang->line('STR_DARKBLOW_189') .'</button>';
+											case '3': {
+													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">' . $this->lang->line('STR_DARKBLOW_189') . '</button>';
 													break;
 												}
-											
-											default:
-												{
+
+											default: {
 													echo $this->lang->line('STR_DARKBLOW_77');
 													break;
 												}
@@ -86,16 +75,14 @@
 										?>
 									</td>
 									<td>
-										<a href="<?php echo base_url('player_panel/inventory/detail?idx='. $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="<?php echo $this->lang->line('STR_DARKBLOW_81') ?>"><span class="fa fa-info-circle mr-2"></span><?php echo $this->lang->line('STR_DARKBLOW_82') ?></a>
+										<a href="<?php echo base_url('player_panel/inventory/detail?idx=' . $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="<?php echo $this->lang->line('STR_DARKBLOW_81') ?>"><span class="fa fa-info-circle mr-2"></span><?php echo $this->lang->line('STR_DARKBLOW_82') ?></a>
 										<?php
-										if ($row['equip'] == 3) 
-										{
+										if ($row['equip'] == 3) {
 										?>
 											<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_INFO_8') ?>');"></span><?php echo $this->lang->line('STR_DARKBLOW_190') ?></button>
 										<?php
 										}
-										if ($row['equip'] >= 1 && $row['equip'] < 3) 
-										{
+										if ($row['equip'] >= 1 && $row['equip'] < 3) {
 										?>
 											<input type="button" id="DeleteButton_<?php echo $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="DeleteItem('data_<?php echo $num ?>', 'DeleteButton_<?php echo $num ?>','<?php echo $this->session->userdata('uid') ?>', '<?php echo $row['item_id'] ?>')" value="<?php echo $this->lang->line('STR_DARKBLOW_190') ?>">
 										<?php
@@ -103,17 +90,15 @@
 										?>
 									</td>
 								</tr>
-								<?php
+							<?php
 								$num++;
 							endforeach;
-						}
-						else
-						{
+						} else {
 							?>
 							<tr>
 								<td colspan="5" class="text-center"><?php echo $this->lang->line('STR_INFO_4') ?></td>
 							</tr>
-							<?php
+						<?php
 						}
 						?>
 						<?php if ($inventory != null) : ?>
@@ -121,62 +106,55 @@
 								var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
 								var RETRY = 0;
 
-								function DeleteItem(data_id, button_id, player_id, item_id)
-								{
-									if (data_id == '' || data_id == null){
+								function DeleteItem(data_id, button_id, player_id, item_id) {
+									if (data_id == '' || data_id == null) {
 										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_19') ?>');
 										return;
-									}
-									else if (button_id == '' || button_id == null){
+									} else if (button_id == '' || button_id == null) {
 										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_19') ?>');
 										return;
-									}
-									else if (player_id == '' || player_id == null){
+									} else if (player_id == '' || player_id == null) {
 										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_19') ?>');
 										return;
-									}
-									else if (item_id == '' || item_id == null){
+									} else if (item_id == '' || item_id == null) {
 										ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_19') ?>');
 										return;
-									}
-									else{
+									} else {
 										SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
-										
+
 										$.ajax({
 											url: '<?php echo base_url('player_panel/inventory/do_delete') ?>',
 											type: 'POST',
 											dataType: 'JSON',
 											data: {
-												'<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-												'player_id' : player_id,
-												'item_id' : item_id
+												'<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+												'player_id': player_id,
+												'item_id': item_id
 											},
-											success: function(data){
+											success: function(data) {
 												var GetString = JSON.stringify(data);
 												var Result = JSON.parse(GetString);
-	
-												if (Result.response == 'true'){
+
+												if (Result.response == 'true') {
 													document.getElementById(data_id).remove();
 													ShowToast(2000, 'success', Result.message);
 													CSRF_TOKEN = Result.token;
 													return;
-												}
-												else{
+												} else {
 													SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_190') ?>');
 													ShowToast(2000, 'error', Result.message);
 													CSRF_TOKEN = Result.token;
 													return;
 												}
 											},
-											error: function(){
-												if (RETRY >= 3){
+											error: function() {
+												if (RETRY >= 3) {
 													SetAttribute(button_id, 'button', '<?php echo $this->lang->line('STR_DARKBLOW_190') ?>');
 													ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_15') ?>');
 													setTimeout(() => {
 														window.location.reload();
 													}, 2000);
-												}
-												else{
+												} else {
 													ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
 
 													$.ajax({
@@ -184,19 +162,19 @@
 														type: 'GET',
 														dataType: 'JSON',
 														data: {
-															'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'
+															'<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
 														},
-														success: function(data){
+														success: function(data) {
 															var GetString = JSON.stringify(data);
 															var Result = JSON.parse(GetString);
 
-															if (Result.response == 'true'){
+															if (Result.response == 'true') {
 																CSRF_TOKEN = Result.token;
 															}
 
 															return DeleteItem(data_id, button_id, player_id, item_id);
 														},
-														error: function(){
+														error: function() {
 															SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_181') ?>');
 															ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_8') ?>');
 															setTimeout(() => {
