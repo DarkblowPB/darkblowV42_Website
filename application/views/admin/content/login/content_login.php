@@ -36,123 +36,45 @@
                 <p class="login-box-msg text-uppercase text-bold text-primary">
                     <marquee>Are You Admin? Prove It!</marquee>
                 </p>
-                <= form_open('', 'id="login_form" autocomplete="off"' ) ?>
-                    <div class="input-group mb-3">
-                        <input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
+                <?= form_open('', 'id="login_form" autocomplete="off"') ?>
+                <div class="input-group mb-3">
+                    <input type="text" id="username" class="form-control" placeholder="Enter Your Username" autofocus>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" id="password" class="form-control" placeholder="Enter Your Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" id="password" class="form-control" placeholder="Enter Your Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember" disabled>
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" disabled>
+                            <label for="remember">
+                                Remember Me
+                            </label>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <input type="submit" id="submit" class="btn btn-outline-primary btn-block text-white" value="Login">
-                        </div>
-                        <!-- /.col -->
                     </div>
-                    <?= form_close() ?>
-                    <script>
-                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
-                        $(document).ready(function() {
-                            $('#login_form').on('submit', function(e) {
-                                e.preventDefault();
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <input type="submit" id="submit" class="btn btn-outline-primary btn-block text-white" value="Login">
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <?= form_close() ?>
+                <script>
+                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
+                    $(document).ready(function() {
+                        $('#login_form').on('submit', function(e) {
+                            e.preventDefault();
 
-                                if ($('#username').val() == "") {
-                                    ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
-                                    return;
-                                } else if ($('#password').val() == "") {
-                                    ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
-                                    return;
-                                } else {
-
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/login/do_login') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'username': $('#username').val(),
-                                            'password': $('#password').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Login');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                setTimeout(() => {
-                                                    window.location = '<?= base_url('adm/dashboard') ?>';
-                                                }, 2000);
-                                                return;
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Login');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Login');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    Do_Login();
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'submit', 'Login');
-                                                    ShowToast(2000, 'error', 'Failed To Login.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        });
-
-                        function Do_Login() {
                             if ($('#username').val() == "") {
                                 ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
                                 return;
@@ -161,7 +83,7 @@
                                 return;
                             } else {
 
-                                SetAttribute('submit', 'submit', 'Processing...');
+                                SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
                                     url: '<?= base_url('adm/login/do_login') ?>',
@@ -197,16 +119,94 @@
                                         }
                                     },
                                     error: function() {
-                                        SetAttribute('submit', 'submit', 'Login');
-                                        ShowToast(2000, 'error', 'Failed To Login.');
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
+                                        ShowToast(1000, 'info', 'Generate New Request Token...');
+
+                                        $.ajax({
+                                            url: '<?= base_url('api/security/csrf') ?>',
+                                            type: 'GET',
+                                            dataType: 'JSON',
+                                            data: {
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            },
+                                            success: function(data) {
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+
+                                                if (Result.response == 'true') {
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+
+                                                Do_Login();
+                                            },
+                                            error: function() {
+                                                SetAttribute('submit', 'submit', 'Login');
+                                                ShowToast(2000, 'error', 'Failed To Login.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
                                     }
                                 });
                             }
+                        });
+                    });
+
+                    function Do_Login() {
+                        if ($('#username').val() == "") {
+                            ShowToast(2000, 'warning', 'Username Cannot Be Empty.');
+                            return;
+                        } else if ($('#password').val() == "") {
+                            ShowToast(2000, 'warning', 'Password Cannot Be Empty.');
+                            return;
+                        } else {
+
+                            SetAttribute('submit', 'submit', 'Processing...');
+
+                            $.ajax({
+                                url: '<?= base_url('adm/login/do_login') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'username': $('#username').val(),
+                                    'password': $('#password').val()
+                                },
+                                success: function(data) {
+                                    var GetString = JSON.stringify(data);
+                                    var Result = JSON.parse(GetString);
+
+                                    if (Result.response == 'true') {
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'success', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        setTimeout(() => {
+                                            window.location = '<?= base_url('adm/dashboard') ?>';
+                                        }, 2000);
+                                        return;
+                                    } else if (Result.response == 'false') {
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    } else {
+                                        SetAttribute('submit', 'submit', 'Login');
+                                        ShowToast(2000, 'error', Result.message);
+                                        CSRF_TOKEN = Result.token;
+                                        return;
+                                    }
+                                },
+                                error: function() {
+                                    SetAttribute('submit', 'submit', 'Login');
+                                    ShowToast(2000, 'error', 'Failed To Login.');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            });
                         }
-                    </script>
+                    }
+                </script>
             </div>
             <!-- /.card-body -->
         </div>
