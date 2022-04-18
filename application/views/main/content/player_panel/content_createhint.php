@@ -1,14 +1,20 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap-2"></div>
-		<h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_183') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_184') ?></span></span></h3>
+		<h3 class="nk-decorated-h-2"><span class="text-main-1">
+				<?= $this->lang->line('STR_DARKBLOW_183') ?> <span class="text-white">
+					<?= $this->lang->line('STR_DARKBLOW_184') ?>
+				</span>
+			</span></h3>
 		<div class="nk-gap-2"></div>
 		<div class="nk-gap-2"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-6">
-				<?php echo form_open('', 'id="createhint_form" autocomplete="off"') ?>
+				<?= form_open('', 'id="createhint_form" autocomplete="off"') ?>
 				<div class="form-group">
-					<label><?php echo $this->lang->line('STR_DARKBLOW_21') ?></label>
+					<label>
+						<?= $this->lang->line('STR_DARKBLOW_21') ?>
+					</label>
 					<select class="form-control" id="hint_question" required>
 						<option value="" disabled selected>
 							Select Your Hint Question
@@ -62,19 +68,19 @@
 				</div>
 				<div class="form-group">
 					<label>Hint Answer</label>
-					<input type="text" id="hint_answer" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_24') ?>">
+					<input type="text" id="hint_answer" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>">
 				</div>
 				<div class="form-group">
 					<label>Password</label>
-					<input type="password" id="password" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
+					<input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
 				</div>
 				<div class="nk-gap-1"></div>
 				<div class="form-group text-center">
-					<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?php echo $this->lang->line('STR_DARKBLOW_185') ?>">
+					<input id="submit" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_185') ?>">
 				</div>
-				<?php echo form_close() ?>
+				<?= form_close() ?>
 				<script>
-					var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+					var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 					var RETRY = 0;
 					$(document).ready(function() {
 						$('#createhint_form').on('submit', function(e) {
@@ -86,22 +92,22 @@
 
 					function Do_CreateNewHint() {
 						if ($('#hint_question').val() == "") {
-							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_10') ?>');
+							ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_10') ?>');
 							return;
 						} else if ($('#hint_answer').val() == "") {
-							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
+							ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_3') ?>');
 							return;
 						} else if ($('#password').val() == "") {
-							ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_4') ?>');
+							ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_4') ?>');
 							return;
 						} else {
-							SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
+							SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 							$.ajax({
-								url: '<?php echo base_url('player_panel/create_hint/do_create') ?>',
+								url: '<?= base_url('player_panel/create_hint/do_create') ?>',
 								type: 'POST',
 								dataType: 'JSON',
 								data: {
-									'<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+									'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
 									'hint_question': $('#hint_question').val(),
 									'hint_answer': $('#hint_answer').val(),
 									'password': $('#password').val()
@@ -111,14 +117,14 @@
 									var decodeParse = JSON.parse(decodeString);
 
 									if (decodeParse.response == 'true') {
-										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
+										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_185') ?>');
 										CSRF_TOKEN = decodeParse.token;
 										ShowToast(2000, 'success', decodeParse.message);
 										setTimeout(() => {
-											window.location = '<?php echo base_url('player_panel/home') ?>';
+											window.location = '<?= base_url('player_panel/home') ?>';
 										}, 2000);
 									} else {
-										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
+										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_185') ?>');
 										CSRF_TOKEN = decodeParse.token;
 										ShowToast(2000, 'error', decodeParse.message);
 										return;
@@ -126,8 +132,8 @@
 								},
 								error: function() {
 									if (RETRY >= 3) {
-										SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_185') ?>');
-										ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_21') ?>');
+										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_185') ?>');
+										ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_21') ?>');
 										setTimeout(() => {
 											window.location.reload();
 										}, 2000);
@@ -135,11 +141,11 @@
 										RETRY += 1;
 
 										$.ajax({
-											url: '<?php echo base_url('api/security/csrf') ?>',
+											url: '<?= base_url('api/security/csrf') ?>',
 											type: 'GET',
 											dataType: 'JSON',
 											data: {
-												'<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+												'<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
 											},
 											success: function(data) {
 												var GetString = JSON.stringify(data);
@@ -152,7 +158,7 @@
 												return Do_CreateNewHint();
 											},
 											error: function() {
-												ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_21') ?>');
+												ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_21') ?>');
 												setTimeout(() => {
 													window.location.reload();
 												}, 2000);

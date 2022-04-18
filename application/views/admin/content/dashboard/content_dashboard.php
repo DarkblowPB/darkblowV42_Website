@@ -5,7 +5,9 @@
                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Players</span>
-                    <span class="info-box-number"><?php echo $registeredplayers; ?></span>
+                    <span class="info-box-number">
+                        <?= $registeredplayers; ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -14,7 +16,9 @@
                 <span class="info-box-icon"><i class="fas fa-user-check"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Online Players</span>
-                    <span class="info-box-number"><?php echo $onlineplayers ?></span>
+                    <span class="info-box-number">
+                        <?= $onlineplayers ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -23,7 +27,9 @@
                 <span class="info-box-icon"><i class="fas fa-newspaper"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total News</span>
-                    <span class="info-box-number"><?php echo $news ?></span>
+                    <span class="info-box-number">
+                        <?= $news ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -32,7 +38,9 @@
                 <span class="info-box-icon"><i class="fas fa-users-slash"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Blocked Players</span>
-                    <span class="info-box-number"><?php echo $blockedplayers ?></span>
+                    <span class="info-box-number">
+                        <?= $blockedplayers ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -45,7 +53,9 @@
                 </div>
                 <div class="card-body text-center">
                     <input type="text" class="knob" value="100" data-skin="tron" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-width="120" data-height="120" data-fgColor="#00c0ef" readonly>
-                    <div class="knob-label text-bold"><?php echo $onlineplayers ?> / <?php echo $fullservers->max_players ?></div>
+                    <div class="knob-label text-bold">
+                        <?= $onlineplayers ?> / <?= $fullservers->max_players ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,29 +88,36 @@
                         </thead>
                         <tbody>
                             <?php
-                            if ($last_players != null)
-                            {
+                            if ($last_players != null) {
                                 $num = 1;
                                 foreach ($last_players as $row) :
-                                    ?>
+                            ?>
                                     <tr>
-                                        <td><?php echo $num ?></td>
-                                        <td><?php echo $row['login'] ?></td>
-                                        <td><?php echo $row['email'] ?></td>
-                                        <td><?php echo $row['lastip'] ?></td>
-                                        <td><?php echo $row['date_registered'] ?></td>
+                                        <td>
+                                            <?= $num ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['login'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['email'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['lastip'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['date_registered'] ?>
+                                        </td>
                                     </tr>
-                                    <?php
+                                <?php
                                     $num++;
                                 endforeach;
-                            }
-                            else
-                            {
+                            } else {
                                 ?>
                                 <tr>
                                     <td colspan="5">No Data Found.</td>
                                 </tr>
-                                <?php
+                            <?php
                             }
                             ?>
                         </tbody>
@@ -124,34 +141,39 @@
                         </thead>
                         <tbody>
                             <?php
-                            if ($last_redeem != null)
-                            {
+                            if ($last_redeem != null) {
                                 $num = 1;
                                 foreach ($last_redeem as $row) :
-                                    ?>
+                            ?>
                                     <tr>
-                                        <td><?php echo $num ?></td>
-                                        <td><?php echo $row['username'] ?></td>
-                                        <td><?php echo $row['item_code'] ?></td>
-                                        <td><?php echo $row['date_redeemed'] ?></td>
+                                        <td>
+                                            <?= $num ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['username'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['item_code'] ?>
+                                        </td>
+                                        <td>
+                                            <?= $row['date_redeemed'] ?>
+                                        </td>
                                         <td>Success</td>
                                     </tr>
-                                    <?php
+                                <?php
                                     $num++;
                                 endforeach;
-                            }
-                            else
-                            {
+                            } else {
                                 ?>
                                 <tr>
                                     <td colspan="5">No Data Found.</td>
                                 </tr>
-                                <?php
+                            <?php
                             }
                             ?>
                         </tbody>
                     </table>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

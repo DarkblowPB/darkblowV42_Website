@@ -10,7 +10,9 @@
                         <tbody>
                             <tr>
                                 <td>Voucher Code</td>
-                                <td><?php echo $voucher->voucher_code ?></td>
+                                <td>
+                                    <?= $voucher->voucher_code ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Reward List</td>
@@ -20,8 +22,7 @@
                                     $count = count($split);
                                     $string = '';
 
-                                    for ($i=0; $i < $count; $i++)
-                                    {
+                                    for ($i = 0; $i < $count; $i++) {
                                         $string .= $this->vouchermanagement->GetItemName($split[$i]);
                                         $string .= '<br>';
                                     }
@@ -32,29 +33,30 @@
                             </tr>
                             <tr>
                                 <td>Total Cash</td>
-                                <td><?php echo number_format($voucher->voucher_cash, 0, ',', '.') ?></td>
+                                <td>
+                                    <?= number_format($voucher->voucher_cash, 0, ',', '.') ?>
+                                </td>
                             </tr>
                             <tr style="border-bottom: 1px solid gray;">
                                 <td>Total Webcoin</td>
-                                <td><?php echo number_format($voucher->voucher_webcoin, 0, ',', '.') ?></td>
+                                <td>
+                                    <?= number_format($voucher->voucher_webcoin, 0, ',', '.') ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Status</td>
                                 <td>
                                     <?php
-                                    switch ($voucher->active)
-                                    {
-                                        case 't':
-                                            {
+                                    switch ($voucher->active) {
+                                        case 't': {
                                                 echo '<span class="text-success">Active</span>';
                                                 break;
                                             }
-                                        case 'f':
-                                            {
+                                        case 'f': {
                                                 echo '<span class="text-danger">Expired</span>';
                                                 break;
                                             }
-                                        
+
                                         default:
                                             break;
                                     }
@@ -65,7 +67,7 @@
                     </table>
                     <div class="mt-3 text-center">
                         <button type="button" class="btn btn-outline-primary text-white" onclick="self.history.back();"><i class="fas fa-arrow-left mr-2"></i>Back</button>
-                        <a href="<?php if ($voucher->active == 't'){ ?><?php echo base_url('adm/vouchermanagement/print?id='.$voucher->id) ?><?php }else{ ?>javascript:void(0)<?php } ?>" target="_blank" class="btn btn-outline-primary text-white"><i class="fas fa-print mr-2"></i>Print</a>
+                        <a href="<?php if ($voucher->active == 't') { ?><?= base_url('adm/vouchermanagement/print?id=' . $voucher->id) ?><?php } else { ?>javascript:void(0)<?php } ?>" target="_blank" class="btn btn-outline-primary text-white"><i class="fas fa-print mr-2"></i>Print</a>
                     </div>
                 </div>
             </div>

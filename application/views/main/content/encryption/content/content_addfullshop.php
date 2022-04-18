@@ -4,38 +4,42 @@
             FORCE ADD FULL SHOP
         </div>
         <div class="card-body">
-            <?php echo form_open('', 'id="add_fullshop" autocomplete="off"') ?>
-                <div class="form-group">
-                    <label class="col-form-label">Player</label>
-                    <select id="player_id" class="form-control">
-                        <option value="" disabled selected>Select Player</option>
-                        <?php foreach ($players as $row) : ?>
-                            <option value="<?php echo $row['player_id'] ?>"><?php if ($row['player_name'] == '' || empty($row['player_name'])){echo $row['login'];}else{echo $row['player_name'];} ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group text-center mt-5">
-                    <input type="submit" id="submit" class="btn btn-outline-primary" value="Submit">
-                </div>
-            <?php echo form_close() ?>
+            <?= form_open('', 'id="add_fullshop" autocomplete="off"') ?>
+            <div class="form-group">
+                <label class="col-form-label">Player</label>
+                <select id="player_id" class="form-control">
+                    <option value="" disabled selected>Select Player</option>
+                    <?php foreach ($players as $row) : ?>
+                        <option value="<?= $row['player_id'] ?>"><?php if ($row['player_name'] == '' || empty($row['player_name'])) {
+                                                                        echo $row['login'];
+                                                                    } else {
+                                                                        echo $row['player_name'];
+                                                                    } ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group text-center mt-5">
+                <input type="submit" id="submit" class="btn btn-outline-primary" value="Submit">
+            </div>
+            <?= form_close() ?>
             <script>
-                var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
-                $(document).ready(function(){
-                    $('#add_fullshop').on('submit', function(e){
+                var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
+                $(document).ready(function() {
+                    $('#add_fullshop').on('submit', function(e) {
                         e.preventDefault();
-                        
+
                         document.getElementById('submit').setAttribute('type', 'button');
                         document.getElementById('submit').setAttribute('value', 'Processing...');
 
                         $.ajax({
-                            url: '<?php echo base_url('encryption/do_addfullshop') ?>',
+                            url: '<?= base_url('encryption/do_addfullshop') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                'player_id' : $('#player_id').val()
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'player_id': $('#player_id').val()
                             },
-                            success: function(data){
+                            success: function(data) {
                                 var GetString = JSON.stringify(data);
                                 var Result = JSON.parse(GetString);
 
@@ -46,23 +50,25 @@
                                 alert(Result.message);
                                 return;
                             },
-                            error: function(){
+                            error: function() {
                                 $.ajax({
-                                    url: '<?php echo base_url('api/security/csrf') ?>',
+                                    url: '<?= base_url('api/security/csrf') ?>',
                                     type: 'GET',
                                     dataType: 'JSON',
-                                    data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                    success: function(data){
+                                    data: {
+                                        '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                    },
+                                    success: function(data) {
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true'){
+                                        if (Result.response == 'true') {
                                             CSRF_TOKEN = Result.token;
                                         }
 
                                         Do_AddFullShop();
                                     },
-                                    error: function(){
+                                    error: function() {
                                         alert('Failed To Add Full Shop');
                                         window.location.reload();
                                     }
@@ -72,20 +78,20 @@
                     });
                 });
 
-                function Do_AddFullShop(){
+                function Do_AddFullShop() {
 
                     document.getElementById('submit').setAttribute('type', 'button');
                     document.getElementById('submit').setAttribute('value', 'Processing...');
 
                     $.ajax({
-                        url: '<?php echo base_url('encryption/do_addfullshop') ?>',
+                        url: '<?= base_url('encryption/do_addfullshop') ?>',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {
-                            '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                            'player_id' : $('#player_id').val()
+                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                            'player_id': $('#player_id').val()
                         },
-                        success: function(data){
+                        success: function(data) {
                             var GetString = JSON.stringify(data);
                             var Result = JSON.parse(GetString);
 
@@ -95,7 +101,7 @@
                             alert(Result.message);
                             return;
                         },
-                        error: function(){
+                        error: function() {
                             alert('Failed To Add Full Shop');
                             window.location.reload();
                         }

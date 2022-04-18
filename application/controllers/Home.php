@@ -31,17 +31,47 @@ class Home extends CI_Controller
 
 	function do_getservercondition()
 	{
-		$this->getsettings->Fetch();
+		$response = array();
+		$query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+		if ($query) {
+			if ($query->server_condition == 0) {
+				$response['response'] = 'true';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'OFFLINE';
+				echo json_encode($response);
+			} else if ($query->server_condition == 1) {
+				$response['response'] = 'true';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'ONLINE';
+				echo json_encode($response);
+			} else {
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'OFFLINE';
+				echo json_encode($response);
+			}
+		} else {
+			$response['response'] = 'true';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'INVALID';
+			echo json_encode($response);
+		}
 	}
 
 	function do_getonline()
 	{
-		$this->getsettings->GetOnlinePlayers();
+		$response = array();
+
+		$response['response'] = $this->db->get_where('accounts', array('online' => 't'))->num_rows();
+		echo json_encode($response);
 	}
 
 	function do_getregistered()
 	{
-		$this->getsettings->GetRegisteredPlayers();
+		$response = array();
+
+		$response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->num_rows();
+		echo json_encode($response);
 	}
 }
 

@@ -118,7 +118,7 @@ class AllProtect
 
     public function Maintenance_Protection()
     {
-        if ($this->ci->getsettings->Get2()->website_condition != 1) redirect(base_url('maintenance'), 'refresh');
+        if ($this->ci->getsettings->Get()->website_condition != 1) redirect(base_url('maintenance'), 'refresh');
     }
 
     public function AdminLogin_Protection()

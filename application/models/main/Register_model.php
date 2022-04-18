@@ -131,11 +131,11 @@ class Register_model extends CI_Model
 		<body>
 			<table>
 				<thead class="bg-primary">
-					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="' . base_url() . 'assets/goodgames/assets/images/settings/' . $this->getsettings->Get2()->project_logo . '" alt="' . $this->getsettings->Get2()->project_name . '"></a></th>
+					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="' . base_url() . 'assets/goodgames/assets/images/settings/' . $this->getsettings->Get()->project_logo . '" alt="' . $this->getsettings->Get()->project_name . '"></a></th>
 				</thead>
 				<tbody class="bg-light">
 					<tr>
-						<td colspan="2" id="header" align="center">Email Confirmation - ' . $this->getsettings->Get2()->project_name . '</td>
+						<td colspan="2" id="header" align="center">Email Confirmation - ' . $this->getsettings->Get()->project_name . '</td>
 					</tr>
 					<tr>
 						<td align="center">
@@ -166,7 +166,7 @@ class Register_model extends CI_Model
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class="bg-primary">Copyright &copy; <b>' . $this->getsettings->Get2()->project_name . '</b> 2021. All rights reserved.</td>
+						<td align="center" class="bg-primary">Copyright &copy; <b>' . $this->getsettings->Get()->project_name . '</b> 2021. All rights reserved.</td>
 					</tr>
 				</tbody>
 			</table>
@@ -216,7 +216,7 @@ class Register_model extends CI_Model
 			'token' => $this->GenerateRandomToken()
 		);
 
-		if ($this->getsettings->Get2()->register != 1) {
+		if ($this->getsettings->Get()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Register Disabled By Server.';
@@ -366,7 +366,7 @@ class Register_model extends CI_Model
 			'token' => $this->GenerateRandomToken()
 		);
 
-		if ($this->getsettings->Get2()->register != 1) {
+		if ($this->getsettings->Get()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Register Disabled By Server.';
@@ -404,7 +404,7 @@ class Register_model extends CI_Model
 									'equip' => '1'
 								));
 								$query5 = $this->db->where('id', $query->id)->update('events_register', array('stock' => ($query->stock - 1)));
-								if ($this->getsettings->Get2()->email_verification == 0) {
+								if ($this->getsettings->Get()->email_verification == 0) {
 									if ($query4 && $query5) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
@@ -468,7 +468,7 @@ class Register_model extends CI_Model
 							'date_registered' => date('d-m-Y h:i:s'),
 							'email_verification' => '0'
 						), true);
-						if ($this->getsettings->Get2()->email_verification == 0) {
+						if ($this->getsettings->Get()->email_verification == 0) {
 							if ($query2 && $query99) {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
@@ -519,7 +519,7 @@ class Register_model extends CI_Model
 						'date_registered' => date('d-m-Y h:i:s'),
 						'email_verification' => '0'
 					), true);
-					if ($this->getsettings->Get2()->email_verification == 0) {
+					if ($this->getsettings->Get()->email_verification == 0) {
 						if ($query2) {
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();

@@ -24,7 +24,7 @@ Class Voucher extends CI_Controller
         $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
 
-        if ($this->getsettings->Get2()->voucher != 1)
+        if ($this->getsettings->Get()->voucher != 1)
         {
             redirect(base_url('home'), 'refresh');
         }
@@ -65,5 +65,3 @@ Class Voucher extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

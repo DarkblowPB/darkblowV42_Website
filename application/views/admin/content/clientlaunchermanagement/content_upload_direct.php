@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="clientlauncher_upload_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="clientlauncher_upload_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label">File</label>
                         <input type="file" name="file" id="file" class="form-control-file" required>
@@ -11,9 +11,9 @@
                     <div class="form-group text-right">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Upload Files">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
                         $(document).ready(function() {
                             $('#clientlauncher_upload_form').on('submit', function(e) {
@@ -32,7 +32,7 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/clientlaunchermanagement/do_upload_directurl') ?>',
+                                    url: '<?= base_url('adm/clientlaunchermanagement/do_upload_directurl') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     timeout: 0,
@@ -64,11 +64,11 @@
                                             }, 2000);
                                         } else {
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

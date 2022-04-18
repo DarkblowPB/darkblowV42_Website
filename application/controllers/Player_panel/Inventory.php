@@ -5,22 +5,22 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Inventory extends CI_Controller 
+class Inventory extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Inventory');
-		
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Inventory');
+
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->main_protect->mainProtectA();
 		$this->load->library('lib');
 		$this->load->model('main/inventory_model', 'inventory');
@@ -29,7 +29,7 @@ class Inventory extends CI_Controller
 	function index()
 	{
 		$this->load->library('pagination');
-		
+
 		$config['base_url'] = base_url('player_panel/inventory/index');
 		$config['total_rows'] = $this->inventory->GetInventoryCount();
 		$config['per_page'] = 10;
@@ -45,20 +45,19 @@ class Inventory extends CI_Controller
 		$config['cur_tag_close'] = '</a>';
 		$this->pagination->initialize($config);
 
-		$data['title'] = 'DarkblowPB || '.$this->session->userdata('player_name').' Inventory';
+		$data['title'] = 'DarkblowPB || ' . $this->session->userdata('player_name') . ' Inventory';
 		$data['start'] = $this->uri->segment(4);
 		$data['inventory'] = $this->inventory->GetInventoryPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_panel/content_inventory';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
-	function detail()
+	function detail($idx = null)
 	{
-		if (empty($this->input->get('idx', true))) redirect(base_url('player_panel/inventory'), 'refresh');
-		if (!empty($this->input->get('idx',true)))
-		{
+		if ($idx == null) redirect(base_url('player_panel'), 'refresh');
+		else {
 			$data['title'] = 'DarkblowPB || Details Item';
-			$data['details'] = $this->inventory->GetItemRealName2($this->input->get('idx', true));
+			$data['details'] = $this->inventory->GetItemRealName2($idx);
 			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 			$this->load->view('main/layout/wrapper', $data, FALSE);
 		}
@@ -79,7 +78,8 @@ class Inventory extends CI_Controller
 			'numeric|required',
 			array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
 		);
-		if ($this->form_validation->run()) $this->inventory->DeleteItem(); else echo validation_errors();
+		if ($this->form_validation->run()) $this->inventory->DeleteItem();
+		else echo validation_errors();
 	}
 }
 

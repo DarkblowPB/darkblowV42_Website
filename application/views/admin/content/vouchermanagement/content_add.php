@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="add_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="add_form" autocomplete="off"') ?>
                     <?php
                     switch ($type) {
                         case 'small': {
@@ -13,7 +13,9 @@
                                     <select id="reward_1" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 1</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -22,7 +24,9 @@
                                     <select id="reward_2" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 2</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -31,7 +35,9 @@
                                     <select id="reward_3" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 3</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -62,7 +68,9 @@
                                     <select id="reward_1" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 1</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -71,7 +79,9 @@
                                     <select id="reward_2" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 2</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -80,7 +90,9 @@
                                     <select id="reward_3" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 3</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -89,7 +101,9 @@
                                     <select id="reward_4" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 4</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -98,7 +112,9 @@
                                     <select id="reward_5" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 5</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -129,7 +145,9 @@
                                     <select id="reward_1" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 1</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -138,7 +156,9 @@
                                     <select id="reward_2" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 2</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -147,7 +167,9 @@
                                     <select id="reward_3" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 3</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -156,7 +178,9 @@
                                     <select id="reward_4" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 4</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -165,7 +189,9 @@
                                     <select id="reward_5" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 5</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -174,7 +200,9 @@
                                     <select id="reward_6" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 6</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -183,7 +211,9 @@
                                     <select id="reward_7" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 7</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -214,7 +244,9 @@
                                     <select id="reward_1" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 1</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -223,7 +255,9 @@
                                     <select id="reward_2" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 2</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -232,7 +266,9 @@
                                     <select id="reward_3" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 3</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -241,7 +277,9 @@
                                     <select id="reward_4" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 4</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -250,7 +288,9 @@
                                     <select id="reward_5" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 5</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -259,7 +299,9 @@
                                     <select id="reward_6" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 6</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -268,7 +310,9 @@
                                     <select id="reward_7" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 7</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -277,7 +321,9 @@
                                     <select id="reward_8" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 8</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -286,7 +332,9 @@
                                     <select id="reward_9" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward 9</option>
                                         <?php foreach ($items as $row) : ?>
-                                            <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                            <option value="<?= $row['item_id'] ?>">
+                                                <?= $row['item_name'] ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -311,21 +359,21 @@
                             }
                     }
                     ?>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <?php
                     switch ($this->input->get('type')) {
                         case 'small': {
                     ?>
                                 <script>
-                                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 
                                     function GenerateVoucherCode() {
                                         $.ajax({
-                                            url: '<?php echo base_url('adm/vouchermanagement/do_generatecode') ?>',
+                                            url: '<?= base_url('adm/vouchermanagement/do_generatecode') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -366,11 +414,11 @@
                                                 SetAttribute('submit', 'button', 'Processing...');
 
                                                 $.ajax({
-                                                    url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                    url: <?= base_url('adm/vouchermanagement/do_add') ?>,
                                                     type: 'POST',
                                                     dataType: 'JSON',
                                                     data: {
-                                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                         'type': 'small',
                                                         'reward_1': $('#reward_1').val(),
                                                         'reward_2': $('#reward_2').val(),
@@ -406,11 +454,11 @@
                                                         ShowToast(1000, 'info', 'Generate New Request Token...');
 
                                                         $.ajax({
-                                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                                            url: '<?= base_url('api/security/csrf') ?>',
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -456,11 +504,11 @@
                                             SetAttribute('submit', 'button', 'Processing...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                url: '<?= base_url('adm/vouchermanagement/do_add') ?>',
                                                 type: 'POST',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                     'type': 'small',
                                                     'reward_1': $('#reward_1').val(),
                                                     'reward_2': $('#reward_2').val(),
@@ -509,15 +557,15 @@
                         case 'medium': {
                             ?>
                                 <script>
-                                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 
                                     function GenerateVoucherCode() {
                                         $.ajax({
-                                            url: '<?php echo base_url('adm/vouchermanagement/do_generatecode') ?>',
+                                            url: '<?= base_url('adm/vouchermanagement/do_generatecode') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -564,11 +612,11 @@
                                                 SetAttribute('submit', 'button', 'Processing...');
 
                                                 $.ajax({
-                                                    url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                    url: '<?= base_url('adm/vouchermanagement/do_add ') ?>',
                                                     type: 'POST',
                                                     dataType: 'JSON',
                                                     data: {
-                                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                         'type': 'medium',
                                                         'reward_1': $('#reward_1').val(),
                                                         'reward_2': $('#reward_2').val(),
@@ -606,11 +654,11 @@
                                                         ShowToast(1000, 'info', 'Generate New Request Token...');
 
                                                         $.ajax({
-                                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                                            url: '<?= base_url('api/security/csrf') ?>',
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -662,11 +710,11 @@
                                             SetAttribute('submit', 'button', 'Processing...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                url: '<?= base_url('adm/vouchermanagement/do_add') ?>',
                                                 type: 'POST',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                     'type': 'medium',
                                                     'reward_1': $('#reward_1').val(),
                                                     'reward_2': $('#reward_2').val(),
@@ -717,15 +765,15 @@
                         case 'large': {
                             ?>
                                 <script>
-                                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 
                                     function GenerateVoucherCode() {
                                         $.ajax({
-                                            url: '<?php echo base_url('adm/vouchermanagement/do_generatecode') ?>',
+                                            url: '<?= base_url('adm/vouchermanagement/do_generatecode') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -778,11 +826,11 @@
                                                 SetAttribute('submit', 'button', 'Processing...');
 
                                                 $.ajax({
-                                                    url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                    url: '<?= base_url('adm/vouchermanagement/do_add ') ?>',
                                                     type: 'POST',
                                                     dataType: 'JSON',
                                                     data: {
-                                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                         'type': 'large',
                                                         'reward_1': $('#reward_1').val(),
                                                         'reward_2': $('#reward_2').val(),
@@ -822,11 +870,11 @@
                                                         ShowToast(1000, 'info', 'Generate New Request Token...');
 
                                                         $.ajax({
-                                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                                            url: '<?= base_url('api/security/csrf') ?>',
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -884,11 +932,11 @@
                                             SetAttribute('submit', 'button', 'Processing...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                url: '<?= base_url('adm/vouchermanagement/do_add') ?>',
                                                 type: 'POST',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                     'type': 'large',
                                                     'reward_1': $('#reward_1').val(),
                                                     'reward_2': $('#reward_2').val(),
@@ -941,15 +989,15 @@
                         case 'extra_large': {
                             ?>
                                 <script>
-                                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 
                                     function GenerateVoucherCode() {
                                         $.ajax({
-                                            url: '<?php echo base_url('adm/vouchermanagement/do_generatecode') ?>',
+                                            url: '<?= base_url('adm/vouchermanagement/do_generatecode') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -1008,11 +1056,11 @@
                                                 SetAttribute('submit', 'button', 'Processing...');
 
                                                 $.ajax({
-                                                    url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                    url: '<?= base_url('adm/vouchermanagement/do_add ') ?>',
                                                     type: 'POST',
                                                     dataType: 'JSON',
                                                     data: {
-                                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                         'type': 'extra_large',
                                                         'reward_1': $('#reward_1').val(),
                                                         'reward_2': $('#reward_2').val(),
@@ -1054,11 +1102,11 @@
                                                         ShowToast(1000, 'info', 'Generate New Request Token...');
 
                                                         $.ajax({
-                                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                                            url: '<?= base_url('api/security/csrf') ?>',
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -1122,11 +1170,11 @@
                                             SetAttribute('submit', 'button', 'Processing...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('adm/vouchermanagement/do_add') ?>',
+                                                url: '<?= base_url('adm/vouchermanagement/do_add') ?>',
                                                 type: 'POST',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                                     'type': 'extra_large',
                                                     'reward_1': $('#reward_1').val(),
                                                     'reward_2': $('#reward_2').val(),
@@ -1176,11 +1224,6 @@
                                     }
                                 </script>
                     <?php
-                                break;
-                            }
-
-                        default: {
-                                redirect(base_url('adm/vouchermanagement'), 'refresh');
                                 break;
                             }
                     }

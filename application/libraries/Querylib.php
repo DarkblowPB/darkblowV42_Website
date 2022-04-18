@@ -193,7 +193,7 @@ class Querylib
         $this->load->library('email');
 
         $this->email->initialize($config);
-        $this->email->from('no_reply@' . $this->ci->getsettings->Get2()->project_name . '.com', $this->ci->getsettings->Get2()->project_name);
+        $this->email->from('no_reply@' . $this->ci->getsettings->Get()->project_name . '.com', $this->ci->getsettings->Get()->project_name);
         $this->email->to($email_address);
         $this->email->subject('Email Verification');
         $this->email->message('');

@@ -1,7 +1,11 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_175') ?> <span class="text-white"><?php echo $this->lang->line('STR_DARKBLOW_176') ?></span></span></h3>
+        <h3 class="nk-decorated-h-2"><span class="text-main-1">
+                <?= $this->lang->line('STR_DARKBLOW_175') ?> <span class="text-white">
+                    <?= $this->lang->line('STR_DARKBLOW_176') ?>
+                </span>
+            </span></h3>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
@@ -19,61 +23,43 @@
                             </div>
                             <div class="calendar__week">
                                 <?php foreach ($attend as $row) : ?>
-                                    <div id="<?php echo $row['id'] ?>" class="calendar__day
+                                    <div id="<= $row['id'] ?>" class="calendar__day
                                     <?php
-                                    if ($row['date'] == date('d-m-Y'))
-                                    {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id']))
-                                        {
+                                    if ($row['date'] == date('d-m-Y')) {
+                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) {
                                             echo 'claimed';
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             echo 'today';
                                         }
-                                    }
-                                    else if ($row['date'] < date('d-m-Y'))
-                                    {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id']))
-                                        {
+                                    } else if ($row['date'] < date('d-m-Y')) {
+                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) {
                                             echo 'passed';
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             echo 'claimed';
                                         }
                                     }
                                     ?>
                                     " title="
                                     <?php
-                                    if ($row['date'] == date('d-m-Y'))
-                                    {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id']))
-                                        {
+                                    if ($row['date'] == date('d-m-Y')) {
+                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) {
                                             echo 'Already Claimed';
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             echo 'Today';
                                         }
-                                    }
-                                    else if ($row['date'] < date('d-m-Y'))
-                                    {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id']))
-                                        {
+                                    } else if ($row['date'] < date('d-m-Y')) {
+                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) {
                                             echo 'Passed';
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             echo 'Already Claimed';
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         echo 'Tomorrow';
                                     }
                                     ?>
-                                    "><?php echo $row['day'] ?></div>
+                                    ">
+                                        <= $row['day'] ?>
+                                    </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -81,92 +67,87 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-5 text-center">
-                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="<?php echo $this->lang->line('STR_DARKBLOW_179') ?>" onclick="ClaimReward('<?php echo $this->attendance->GetTodayEventID() ?>', '<?php echo date('d-m-Y') ?>')">
+                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="<?= $this->lang->line('STR_DARKBLOW_179') ?>" onclick="ClaimReward('<?= $this->attendance->GetTodayEventID() ?>', '<= date('d-m-Y') ?>')">
             </div>
             <script>
-                var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash(); ?>';
+                var CSRF_TOKEN = '<?= $this->security->get_csrf_hash(); ?>';
                 var RETRY = 0;
-                function ClaimReward(event_id, date, item_id)
-                {
-                    if (event_id == '' || event_id == null){
-                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
+
+                function ClaimReward(event_id, date, item_id) {
+                    if (event_id == '' || event_id == null) {
+                        ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_17') ?>');
                         return;
-                    }
-                    else if (date == '' || event_id == null){
-                        ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
+                    } else if (date == '' || event_id == null) {
+                        ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_17') ?>');
                         return;
-                    }
-                    else{
-                        SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
+                    } else {
+                        SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
                         $.ajax({
-                            url: '<?php echo base_url('api/servercommand/attendance') ?>',
+                            url: '<?= base_url('api/servercommand/attendance') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                'opcode' : '<?php echo $this->servercommand_library->GenerateOpcode("Attendance") ?>',
-                                'secret_token' : '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys' : '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
-                                'command_type' : 'Attendance',
-                                'event_id' : event_id
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Attendance") ?>',
+                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
+                                'command_type': 'Attendance',
+                                'event_id': event_id
                             },
                             timeout: 0,
-                            success: function(data){
+                            success: function(data) {
                                 var GetString = JSON.stringify(data);
                                 var Result = JSON.parse(GetString);
 
-                                if (Result.status == 'success'){
-                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
+                                if (Result.status == 'success') {
+                                    SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     setTimeout(() => {
-                                        document.getElementById('<?php echo $this->attendance->GetTodayEventID() ?>').setAttribute('class', 'calendar__day claimed');
+                                        document.getElementById('<?= $this->attendance->GetTodayEventID() ?>').setAttribute('class', 'calendar__day claimed');
                                     }, 2000);
-                                }
-                                else if (Result.status == 'error'){
-                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
+                                } else if (Result.status == 'error') {
+                                    SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     return;
-                                }
-                                else{
-                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
+                                } else {
+                                    SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     return;
                                 }
                             },
-                            error: function(){
-                                if (RETRY >= 3)
-                                {
-                                    SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
+                            error: function() {
+                                if (RETRY >= 3) {
+                                    SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', 'Failed To Claim Reward.');
                                     setTimeout(() => {
                                         window.location.reload();
                                     }, 2000);
-                                }
-                                else
-                                {
+                                } else {
                                     RETRY += 1;
-                                    ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_WARNING_17') ?>');
-    
+                                    ShowToast(1000, 'info', '<?= $this->lang->line('STR_WARNING_17') ?>');
+
                                     $.ajax({
-                                        url: '<?php echo base_url('api/security/csrf') ?>',
+                                        url: '<?= base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
-                                        data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                        success: function(data){
+                                        data: {
+                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                        },
+                                        success: function(data) {
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
-    
-                                            if (Result.response == 'true'){
+
+                                            if (Result.response == 'true') {
                                                 CSRF_TOKEN = Result.token;
                                             }
                                             return ClaimReward(event_id, date);
                                         },
-                                        error: function(){
-                                            SetAttribute('claim_today', 'button', '<?php echo $this->lang->line('STR_DARKBLOW_179') ?>');
+                                        error: function() {
+                                            SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                             ShowToast(2000, 'error', 'Failed To Claim Reward.');
                                             setTimeout(() => {
                                                 window.location.reload();

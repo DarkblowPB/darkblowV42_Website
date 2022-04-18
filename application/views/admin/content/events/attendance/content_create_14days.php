@@ -3,13 +3,15 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="attendance_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="attendance_form" autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Reward Day 1</label>
                         <select id="reward_day_1" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -18,7 +20,9 @@
                         <select id="reward_day_2" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -27,7 +31,9 @@
                         <select id="reward_day_3" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -36,7 +42,9 @@
                         <select id="reward_day_4" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -45,7 +53,9 @@
                         <select id="reward_day_5" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -54,7 +64,9 @@
                         <select id="reward_day_6" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -63,7 +75,9 @@
                         <select id="reward_day_7" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -72,7 +86,9 @@
                         <select id="reward_day_8" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -81,7 +97,9 @@
                         <select id="reward_day_9" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -90,7 +108,9 @@
                         <select id="reward_day_10" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -99,7 +119,9 @@
                         <select id="reward_day_11" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -108,7 +130,9 @@
                         <select id="reward_day_12" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -117,7 +141,9 @@
                         <select id="reward_day_13" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -126,7 +152,9 @@
                         <select id="reward_day_14" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Your Reward</option>
                             <?php foreach ($reward as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -140,9 +168,9 @@
                     <div class="form-group text-right">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash(); ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash(); ?>';
                         var RETRY = 0;
 
                         $(document).ready(function() {
@@ -200,11 +228,11 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/attendance/do_create14days') ?>',
+                                    url: '<?= base_url('adm/eventsmanagement/attendance/do_create14days') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                         'reward_day_1': $('#reward_day_1').val(),
                                         'reward_day_2': $('#reward_day_2').val(),
                                         'reward_day_3': $('#reward_day_3').val(),
@@ -257,11 +285,11 @@
                                             ShowToast(1000, 'info', 'Generating New Request Token...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

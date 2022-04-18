@@ -10,7 +10,9 @@
                         <tbody>
                             <?php foreach ($ip as $row) : ?>
                                 <tr>
-                                    <td><?php echo $row['ip_address'] ?></td>
+                                    <td>
+                                        <= $row['ip_address'] ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -21,7 +23,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="add_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="add_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label">IP ADDRESS</label>
                         <input type="text" id="ip_address" class="form-control" placeholder="Enter IP Address">
@@ -29,9 +31,9 @@
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
                         $(document).ready(function() {
                             $('#add_form').on('submit', function(e) {
@@ -49,11 +51,11 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/bannedvisitor/do_add') ?>',
+                                    url: '<?= base_url('adm/bannedvisitor/do_add') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                         'ip_address': $('#ip_address').val()
                                     },
                                     success: function(data) {
@@ -83,11 +85,11 @@
                                             }, 2000);
                                         } else {
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

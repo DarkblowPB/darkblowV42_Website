@@ -14,10 +14,18 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?php echo $this->eventsregister->GetItemName($events->item_id) ?></td>
-                                <td><?php echo $this->eventsregister->GetItemCategory($events->item_id) ?></td>
-                                <td><?php echo ($events->item_count / 24 / 60 / 60) . ' Days' ?></td>
-                                <td><?php echo $events->stock ?></td>
+                                <td>
+                                    <?= $this->eventsregister->GetItemName($events->item_id) ?>
+                                </td>
+                                <td>
+                                    <?= $this->eventsregister->GetItemCategory($events->item_id) ?>
+                                </td>
+                                <td>
+                                    <?= ($events->item_count / 24 / 60 / 60) . ' Days' ?>
+                                </td>
+                                <td>
+                                    <?= $events->stock ?>
+                                </td>
                                 <td><?php if ($events->is_active == 'f') {
                                         echo '<span class="text-danger">DISABLED</span>';
                                     } else {
@@ -41,13 +49,15 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="update_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="update_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label">Reward</label>
                         <select id="item_id" class="form-control reward_selection">
                             <option value="" disabled selected>Select Reward</option>
                             <?php foreach ($items as $row) : ?>
-                                <option value="<?php echo $row['item_id'] ?>"><?php echo $row['item_name'] ?></option>
+                                <option value="<?= $row['item_id'] ?>">
+                                    <?= $row['item_name'] ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -65,9 +75,9 @@
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Update Events">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(function() {
                             $('#update_form').on('submit', function(e) {
                                 e.preventDefault();
@@ -85,11 +95,11 @@
                                     SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
-                                        url: '<?php echo base_url('adm/eventsmanagement/register/do_update') ?>',
+                                        url: '<?= base_url('adm/eventsmanagement/register/do_update') ?>',
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                             'item_id': $('#item_id').val(),
                                             'item_count': $('#item_count').val(),
                                             'stock': $('#stock').val()
@@ -121,11 +131,11 @@
                                             ShowToast(1000, 'info', 'Getting New Request Token...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);
@@ -153,11 +163,11 @@
 
                         function Do_SetState() {
                             $.ajax({
-                                url: '<?php echo base_url('adm/eventsmanagement/register/do_updatestate') ?>',
+                                url: '<?= base_url('adm/eventsmanagement/register/do_updatestate') ?>',
                                 type: 'GET',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                 },
                                 success: function(data) {
                                     var GetString = JSON.stringify(data);
@@ -191,11 +201,11 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/register/do_update') ?>',
+                                    url: '<?= base_url('adm/eventsmanagement/register/do_update') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                         'item_id': $('#item_id').val(),
                                         'item_count': $('#item_count').val(),
                                         'stock': $('#stock').val()

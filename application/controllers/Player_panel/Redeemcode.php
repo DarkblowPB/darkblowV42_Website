@@ -5,31 +5,30 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Redeemcode extends CI_Controller 
+class Redeemcode extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Redeem Code');
-		
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Redeem Code');
+
 		$this->main_protect->mainProtectA();
 		$this->allprotect->Web_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->load->library('servercommand_library');
 
-		if ($this->getsettings->Get2()->redeemcode != 1)
-		{
+		if ($this->getsettings->Get()->redeemcode != 1) {
 			redirect(base_url('player_panel'), 'refresh');
 		}
 	}
-	
+
 	function index()
 	{
 		$data['title'] = 'Redeem Code';
@@ -53,8 +52,7 @@ class Redeemcode extends CI_Controller
 			)
 		);
 		if ($this->form_validation->run()) $this->redeemcode->CodeValidationV2();
-		else
-		{
+		else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = validation_errors();

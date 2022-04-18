@@ -23,7 +23,7 @@ class Trade extends CI_Controller
 
         $this->load->model('main/trade_model', 'trade');
 
-        if ($this->getsettings->Get2()->trade_market != 1) redirect(base_url('home'), 'refresh');
+        if ($this->getsettings->Get()->trade_market != 1) redirect(base_url('home'), 'refresh');
     }
 
     function index()

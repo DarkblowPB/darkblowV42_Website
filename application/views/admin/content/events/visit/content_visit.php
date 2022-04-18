@@ -15,32 +15,42 @@
                             <th>Menu</th>
                         </thead>
                         <tbody>
-                            <?php $num = 1; foreach ($this->visit->GetAllVisitEvents() as $row) : ?>
+                            <?php $num = 1;
+                            foreach ($this->visit->GetAllVisitEvents() as $row) : ?>
                                 <tr>
-                                    <td><?php echo $num ?></td>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2]. // Days
-                                                    '-'.$this->lib->ConvertDate($row['start_date'])[1]. // Month
-                                               '-'.'20'.$this->lib->ConvertDate($row['start_date'])[0]. // Years
-                                                    ' '.$this->lib->ConvertDate($row['start_date'])[3]. // Hours
-                                                    ':'.$this->lib->ConvertDate($row['start_date'])[4] // Minutes
+                                        <= $num ?>
+                                    </td>
+                                    <td>
+                                        <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
+                                            '-' . $this->lib->ConvertDate($row['start_date'])[1] . // Month
+                                            '-' . '20' . $this->lib->ConvertDate($row['start_date'])[0] . // Years
+                                            ' ' . $this->lib->ConvertDate($row['start_date'])[3] . // Hours
+                                            ':' . $this->lib->ConvertDate($row['start_date'])[4] // Minutes
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2]. // Days
-                                                    '-'.$this->lib->ConvertDate($row['end_date'])[1]. // Month
-                                               '-'.'20'.$this->lib->ConvertDate($row['end_date'])[0]. // Years
-                                                    ' '.$this->lib->ConvertDate($row['end_date'])[3]. // Hours
-                                                    ':'.$this->lib->ConvertDate($row['end_date'])[4] // Minutes
+                                        <?= $this->lib->ConvertDate($row['end_date'])[2] . // Days
+                                            '-' . $this->lib->ConvertDate($row['end_date'])[1] . // Month
+                                            '-' . '20' . $this->lib->ConvertDate($row['end_date'])[0] . // Years
+                                            ' ' . $this->lib->ConvertDate($row['end_date'])[3] . // Hours
+                                            ':' . $this->lib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td><?php echo $row['title'] ?></td>
-                                    <td><?php echo $row['checks'] ?></td>
-                                    <td><?php echo $row['good1'] ?> </td>
+                                    <td>
+                                        <= $row['title'] ?>
+                                    </td>
+                                    <td>
+                                        <= $row['checks'] ?>
+                                    </td>
+                                    <td>
+                                        <= $row['good1'] ?>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
-                            <?php $num++; endforeach; ?>
+                            <?php $num++;
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>

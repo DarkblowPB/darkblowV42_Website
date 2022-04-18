@@ -15,10 +15,13 @@
                             <th width="15%">Menu</th>
                         </thead>
                         <tbody>
-                            <?php $num = 1; foreach ($webshop as $row) : ?>
+                            <?php $num = 1;
+                            foreach ($webshop as $row) : ?>
                                 <tr>
-                                    <td><?php echo $num ?></td>
-                                    <td><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_webshop/<?php echo $row['webshop_itemimg'] ?>" class="img img-fluid" alt="<?php echo $row['webshop_itemname'] ?>"></td>
+                                    <td>
+                                        <= $num ?>
+                                    </td>
+                                    <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_webshop/<= $row['webshop_itemimg'] ?>" class="img img-fluid" alt="<= $row['webshop_itemname'] ?>"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

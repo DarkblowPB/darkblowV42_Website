@@ -1,123 +1,128 @@
 <div class="nk-main">
     <div class="nk-gap-2"></div>
     <div class="container">
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?php echo $this->lang->line('STR_DARKBLOW_38') ?></span> <?php echo $this->lang->line('STR_DARKBLOW_39') ?></span></h3>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">
+                    <?= $this->lang->line('STR_DARKBLOW_38') ?>
+                </span>
+                <?= $this->lang->line('STR_DARKBLOW_39') ?>
+            </span></h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="nk-gap-3"></div>
-                <?php echo form_open('', 'id="login_form" autocomplete="off"') ?>
-                    <div class="form-group">
-                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_40') ?></label>
-                        <input type="text" id="username" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_41') ?>" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label"><?php echo $this->lang->line('STR_DARKBLOW_42') ?></label>
-                        <input type="password" id="password" class="form-control" placeholder="<?php echo $this->lang->line('STR_DARKBLOW_43') ?>">
-                    </div>
-                    <div class="nk-gap-3"></div>
-                    <div class="form-group text-center">
-                        <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" value="<?php echo $this->lang->line('STR_DARKBLOW_38') ?>">
-                    </div>
-                    <div class="form-group text-center text-white">
-                        OR
-                    </div>
-                    <div class="form-group text-center">
-                        <a href="<?php echo base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-success"><?php echo $this->lang->line('STR_DARKBLOW_44') ?></a>
-                    </div>
-                <?php echo form_close() ?>
+                <?= form_open('', 'id="login_form" autocomplete="off"') ?>
+                <div class="form-group">
+                    <label class="col-form-label">
+                        <?= $this->lang->line('STR_DARKBLOW_40') ?>
+                    </label>
+                    <input type="text" id="username" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" autofocus>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">
+                        <?= $this->lang->line('STR_DARKBLOW_42') ?>
+                    </label>
+                    <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>">
+                </div>
+                <div class="nk-gap-3"></div>
+                <div class="form-group text-center">
+                    <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_38') ?>">
+                </div>
+                <div class="form-group text-center text-white">
+                    OR
+                </div>
+                <div class="form-group text-center">
+                    <a href="<?= base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-success">
+                        <?= $this->lang->line('STR_DARKBLOW_44') ?>
+                    </a>
+                </div>
+                <?= form_close() ?>
                 <script>
-                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                     var RETRY = 0;
-                    $(document).ready(function(){
-                        $('#login_form').on('submit', function(e){
+                    $(document).ready(function() {
+                        $('#login_form').on('submit', function(e) {
                             e.preventDefault();
 
                             return DoLogin();
                         });
                     });
-                    
-                    function DoLogin()
-                    {
-                        if ($('#username').val() == '' || $('#username').val() == null){
-                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_1') ?>');
+
+                    function DoLogin() {
+                        if ($('#username').val() == '' || $('#username').val() == null) {
+                            ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_1') ?>');
                             document.getElementById('username').focus();
-                        }
-                        else if ($('#password').val() == '' || $('#password').val() == null){
-                            ShowToast(2000, 'warning', '<?php echo $this->lang->line('STR_WARNING_3') ?>');
+                        } else if ($('#password').val() == '' || $('#password').val() == null) {
+                            ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_3') ?>');
                             document.getElementById('password').focus();
-                        }
-                        else{
-                            SetAttribute('submit', 'button', '<?php echo $this->lang->line('STR_INFO_8') ?>');
+                        } else {
+                            SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
                             $.ajax({
-                                url: '<?php echo base_url('login/do_login') ?>',
+                                url: '<?= base_url('login/do_login') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>' : CSRF_TOKEN,
-                                    'username' : $('#username').val(),
-                                    'password' : $('#password').val()
+                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'username': $('#username').val(),
+                                    'password': $('#password').val()
                                 },
-                                success: function(data){
+                                success: function(data) {
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true'){
-                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
+                                    if (Result.response == 'true') {
+                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'success', Result.message);
                                         setTimeout(() => {
-                                            window.location = '<?php echo base_url('player_panel') ?>';
+                                            window.location = '<?= base_url('player_panel') ?>';
                                         }, 2000);
                                         return;
-                                    }
-                                    else if (Result.response == 'false'){
-                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
+                                    } else if (Result.response == 'false') {
+                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
                                         return;
-                                    }
-                                    else{
-                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
+                                    } else {
+                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
 
                                         CSRF_TOKEN = Result.token;
                                         ShowToast(2000, 'error', Result.message);
                                         return;
                                     }
                                 },
-                                error: function(){
-                                    if (RETRY >= 3){
-                                        ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_18') ?>');
-                                        SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
+                                error: function() {
+                                    if (RETRY >= 3) {
+                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_18') ?>');
+                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
-                                    }
-                                    else{
+                                    } else {
                                         RETRY += 1;
-                                        ShowToast(1000, 'info', '<?php echo $this->lang->line('STR_INFO_1') ?>');
+                                        ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
                                         $.ajax({
-                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                            url: '<?= base_url('api/security/csrf') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
-                                            data: {'<?php echo $this->lib->GetTokenName() ?>' : '<?php echo $this->lib->GetTokenKey() ?>'},
-                                            success: function(data){
+                                            data: {
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            },
+                                            success: function(data) {
                                                 var GetString2 = JSON.stringify(data);
                                                 var Result2 = JSON.parse(GetString2);
 
-                                                if (Result2.response == 'true'){
+                                                if (Result2.response == 'true') {
                                                     CSRF_TOKEN = Result2.token;
-                                                    
+
                                                     return DoLogin();
-                                                }
-                                                else{
+                                                } else {
                                                     window.location.reload();
                                                 }
                                             },
-                                            error: function(){
-                                                SetAttribute('submit', 'submit', '<?php echo $this->lang->line('STR_DARKBLOW_38') ?>');
-                                                ShowToast(2000, 'error', '<?php echo $this->lang->line('STR_ERROR_2') ?>');
+                                            error: function() {
+                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
+                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_2') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);

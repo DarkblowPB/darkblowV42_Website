@@ -13,7 +13,7 @@
                             <?php foreach ($events as $row) : ?>
                                 <tr>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['start_date'])[2] . // Days
+                                        <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
                                             '-' . $this->lib->ConvertDate($row['start_date'])[1] . // Month
                                             '-' . '20' . $this->lib->ConvertDate($row['start_date'])[0] . // Years
                                             ' ' . $this->lib->ConvertDate($row['start_date'])[3] . // Hours
@@ -21,14 +21,14 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo      $this->lib->ConvertDate($row['end_date'])[2] . // Days
+                                        <?= $this->lib->ConvertDate($row['end_date'])[2] . // Days
                                             '-' . $this->lib->ConvertDate($row['end_date'])[1] . // Month
                                             '-' . '20' . $this->lib->ConvertDate($row['end_date'])[0] . // Years
                                             ' ' . $this->lib->ConvertDate($row['end_date'])[3] . // Hours
                                             ':' . $this->lib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete" onclick="Do_Delete('delete', '<?php echo $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>')"></td>
+                                    <td><input type="button" id="delete" class="btn btn-outline-danger text-white" value="Delete" onclick="Do_Delete('delete', '<?= $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>')"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -39,7 +39,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="update_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="update_form" autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label">Start Date</label>
                         <input type="datetime-local" id="start_date" class="form-control">
@@ -51,19 +51,19 @@
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
 
                         function Do_Delete(button_id, start_date) {
                             SetAttribute(button_id, 'button', 'Processing...');
                             $.ajax({
-                                url: '<?php echo base_url('adm/eventsmanagement/quest/do_delete') ?>',
+                                url: '<?= base_url('adm/eventsmanagement/quest/do_delete') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                     'start_date': start_date
                                 },
                                 success: function(data) {
@@ -100,11 +100,11 @@
                                     SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
-                                        url: '<?php echo base_url('adm/eventsmanagement/quest/do_update') ?>',
+                                        url: '<?= base_url('adm/eventsmanagement/quest/do_update') ?>',
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                             'start_date': $('#start_date').val(),
                                             'end_date': $('#end_date').val()
                                         },
@@ -135,11 +135,11 @@
                                             ShowToast(1000, 'info', 'Generate Request Token...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);
@@ -177,11 +177,11 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/quest/do_update') ?>',
+                                    url: '<?= base_url('adm/eventsmanagement/quest/do_update') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                         'start_date': $('#start_date').val(),
                                         'end_date': $('#end_date').val()
                                     },

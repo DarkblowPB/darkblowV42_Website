@@ -10,19 +10,25 @@
                         <tbody>
                             <tr>
                                 <td width="25%">Title</td>
-                                <td><?php echo $news->quickslide_title ?></td>
+                                <td>
+                                    <= $news->quickslide_title ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Description</td>
-                                <td><?php echo $news->quickslide_description ?></td>
+                                <td>
+                                    <= $news->quickslide_description ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Image</td>
-                                <td><img src="<?php echo base_url() ?>assets/goodgames/assets/images/img_slider/<?php echo $news->quickslide_img ?>" class="img img-fluid" style="max-width: 500px" alt=""></td>
+                                <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_slider/<= $news->quickslide_img ?>" class="img img-fluid" style="max-width: 500px" alt=""></td>
                             </tr>
                             <tr>
                                 <td>Date Created</td>
-                                <td><?php echo $news->quickslide_date ?></td>
+                                <td>
+                                    <= $news->quickslide_date ?>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

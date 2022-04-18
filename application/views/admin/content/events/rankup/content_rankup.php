@@ -30,8 +30,12 @@
                                         ':' . $this->lib->ConvertDate($rankup->end_date)[4] // Minutes
                                     ?>
                                 </td>
-                                <td id="data_point_boost"><?php echo $rankup->percent_gp ?></td>
-                                <td id="data_exp_boost"><?php echo $rankup->percent_xp ?></td>
+                                <td id="data_point_boost">
+                                    <?= $rankup->percent_gp ?>
+                                </td>
+                                <td id="data_exp_boost">
+                                    <?= $rankup->percent_xp ?>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -41,7 +45,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open('', 'id="edit_form" autocomplete="off"') ?>
+                    <?= form_open('', 'id="edit_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label">Start Date</label>
                         <input type="datetime-local" id="start_date" class="form-control">
@@ -61,9 +65,9 @@
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Update Events">
                     </div>
-                    <?php echo form_close() ?>
+                    <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(function() {
                             $('#edit_form').on('submit', function(e) {
                                 e.preventDefault();
@@ -84,11 +88,11 @@
                                     SetAttribute('submit', 'button', 'Processing...');
 
                                     $.ajax({
-                                        url: '<?php echo base_url('adm/eventsmanagement/rankup/do_update') ?>',
+                                        url: '<?= base_url('adm/eventsmanagement/rankup/do_update') ?>',
                                         type: 'POST',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                             'start_date': $('#start_date').val(),
                                             'end_date': $('#end_date').val(),
                                             'point': $('#point').val(),
@@ -120,11 +124,11 @@
                                             ShowToast(1000, 'info', 'Generating New Request Token...');
 
                                             $.ajax({
-                                                url: '<?php echo base_url('api/security/csrf') ?>',
+                                                url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);
@@ -166,11 +170,11 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?php echo base_url('adm/eventsmanagement/rankup/do_update') ?>',
+                                    url: '<?= base_url('adm/eventsmanagement/rankup/do_update') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
-                                        '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
                                         'start_date': $('#start_date').val(),
                                         'end_date': $('#end_date').val(),
                                         'point': $('#point').val(),

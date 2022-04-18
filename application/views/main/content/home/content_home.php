@@ -165,7 +165,7 @@
                 </div>
             </div>
         </div>
-        <?php if ($this->getsettings->Get2()->webshop == 1) : ?>
+        <?php if ($this->getsettings->Get()->webshop == 1) : ?>
             <?php if ($this->home->GetPopularWebshop() != null) : ?>
                 <div class="nk-gap-3"></div>
                 <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_35') ?></span> <?= $this->lang->line('STR_DARKBLOW_36') ?></span></h3>

@@ -9,25 +9,25 @@
                         <input type="button" id="startserver" class="btn btn-outline-primary text-white" value="Start Server" onclick="StartServer()">
                     <?php } ?>
                     <input type="button" id="reloadevents" class="btn btn-outline-primary text-white" value="Reload Events" onclick="ReloadEvents()">
-                    <a href="<?php echo base_url('adm/servercommandmanagement/sendannouncement') ?>" class="btn btn-outline-primary text-white">Send Announcement</a>
+                    <a href="<?= base_url('adm/servercommandmanagement/sendannouncement') ?>" class="btn btn-outline-primary text-white">Send Announcement</a>
                     <input type="button" id="kickallplayers" class="btn btn-outline-primary text-white" value="Kick All Players" onclick="KickAllPlayers()">
-                    <a href="<?php echo base_url('adm/servercommandmanagement/bannedplayers') ?>" class="btn btn-outline-primary text-white">Banned Players</a>
+                    <a href="<?= base_url('adm/servercommandmanagement/bannedplayers') ?>" class="btn btn-outline-primary text-white">Banned Players</a>
                 </div>
                 <script>
-                    var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                     var RETRY = 0;
 
                     function ReloadEvents() {
                         SetAttribute('reloadevents', 'button', 'Processing...');
                         $.ajax({
-                            url: '<?php echo base_url('api/servercommand/reloadevents') ?>',
+                            url: '<?= base_url('api/servercommand/reloadevents') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                'opcode': '<?php echo $this->servercommand_library->GenerateOpcode("Reload Events") ?>',
-                                'secret_token': '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys': '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Reload Events") ?>',
+                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
                                 'command_type': 'Reload Events',
                             },
                             timeout: 0,
@@ -51,11 +51,11 @@
                                     RETRY += 1;
                                     ShowToast(1000, 'info', 'Generate New Request Token...');
                                     $.ajax({
-                                        url: '<?php echo base_url('api/security/csrf') ?>',
+                                        url: '<?= base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
@@ -83,14 +83,14 @@
                     function KickAllPlayers() {
                         SetAttribute('kickallplayers', 'button', 'Processing...');
                         $.ajax({
-                            url: '<?php echo base_url('api/servercommand/kickallplayers') ?>',
+                            url: '<?= base_url('api/servercommand/kickallplayers') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                'opcode': '<?php echo $this->servercommand_library->GenerateOpcode("Kick All Players") ?>',
-                                'secret_token': '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys': '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Kick All Players") ?>',
+                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
                                 'command_type': 'Kick All Players',
                             },
                             timeout: 0,
@@ -114,11 +114,11 @@
                                     RETRY += 1;
                                     ShowToast(1000, 'info', 'Generate New Request Token...');
                                     $.ajax({
-                                        url: '<?php echo base_url('api/security/csrf') ?>',
+                                        url: '<?= base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
@@ -147,14 +147,14 @@
                     function StartServer() {
                         SetAttribute('startserver', 'button', 'Processing...');
                         $.ajax({
-                            url: '<?php echo base_url('api/servercommand/startserver') ?>',
+                            url: '<?= base_url('api/servercommand/startserver') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                'opcode': '<?php echo $this->servercommand_library->GenerateOpcode("Start Server") ?>',
-                                'secret_token': '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys': '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Start Server") ?>',
+                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
                                 'command_type': 'Start Server',
                             },
                             timeout: 0,
@@ -180,11 +180,11 @@
                                 } else {
                                     RETRY += 1;
                                     $.ajax({
-                                        url: '<?php echo base_url('api/security/csrf') ?>',
+                                        url: '<?= base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
@@ -212,14 +212,14 @@
                     function StopServer() {
                         SetAttribute('stopserver', 'button', 'Processing...');
                         $.ajax({
-                            url: '<?php echo base_url('api/servercommand/shutdownserver') ?>',
+                            url: '<?= base_url('api/servercommand/shutdownserver') ?>',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
-                                '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                'opcode': '<?php echo $this->servercommand_library->GenerateOpcode("Shutdown Server") ?>',
-                                'secret_token': '<?php echo $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys': '<?php echo $this->servercommand_library->GenerateSecretKeys() ?>',
+                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Shutdown Server") ?>',
+                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
                                 'command_type': 'Shutdown Server',
                             },
                             timeout: 0,
@@ -244,11 +244,11 @@
                                 } else {
                                     RETRY += 1;
                                     $.ajax({
-                                        url: '<?php echo base_url('api/security/csrf') ?>',
+                                        url: '<?= base_url('api/security/csrf') ?>',
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);

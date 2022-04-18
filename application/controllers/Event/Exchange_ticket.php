@@ -25,14 +25,14 @@ Class Exchange_ticket extends CI_Controller
         $this->load->library('lib');
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
-        if ($this->getsettings->Get2()->exchange_ticket != 1) redirect(base_url('home'), 'refresh');
+        if ($this->getsettings->Get()->exchange_ticket != 1) redirect(base_url('home'), 'refresh');
     }
     
     function index()
     {
         $data['title'] = 'Exchange Ticket';
         $data['item_list'] = $this->exchangeticket->GetAllItems();
-        $data['ticket'] = $this->exchangeticket->GetTicketID($this->session->userdata('uid'), $this->getsettings->Get2()->event_ticket);
+        $data['ticket'] = $this->exchangeticket->GetTicketID($this->session->userdata('uid'), $this->getsettings->Get()->event_ticket);
 
         $data['isi'] = 'main/content/event/content_exchangeticket';
         $this->load->view('main/layout/wrapper', $data, FALSE);
@@ -65,5 +65,3 @@ Class Exchange_ticket extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

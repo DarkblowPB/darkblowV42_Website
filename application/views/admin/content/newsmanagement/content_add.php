@@ -3,15 +3,21 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo form_open_multipart(base_url('adm/newsmanagement/add'), 'id="add_form" autocomplete="off"') ?>
+                    <= form_open_multipart(base_url('adm/newsmanagement/add'), 'id="add_form" autocomplete="off"' ) ?>
                         <?php if ($this->session->flashdata('true')) : ?>
-                            <div class="alert alert-success" role="alert"><?php echo $this->session->flashdata('true') ?></div>
+                            <div class="alert alert-success" role="alert">
+                                <?= $this->session->flashdata('true') ?>
+                            </div>
                         <?php endif; ?>
                         <?php if ($this->session->flashdata('false')) : ?>
-                            <div class="alert alert-danger" role="alert"><?php echo $this->session->flashdata('false') ?></div>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $this->session->flashdata('false') ?>
+                            </div>
                         <?php endif; ?>
                         <?php if ($this->session->flashdata('error')) : ?>
-                            <div class="alert alert-warning" role="alert"><?php echo $this->session->flashdata('error') ?></div>
+                            <div class="alert alert-warning" role="alert">
+                                <?= $this->session->flashdata('error') ?>
+                            </div>
                         <?php endif; ?>
                         <div class="form-group row">
                             <label class="col-form-label col-3">News Title</label>
@@ -28,7 +34,7 @@
                         <div class="form-group text-right">
                             <button type="submit" class="btn btn-outline-primary text-white"><i class="fas fa-paper-plane mr-2"></i>Submit News</button>
                         </div>
-                    <?php echo form_close() ?>
+                        <?= form_close() ?>
                 </div>
             </div>
         </div>

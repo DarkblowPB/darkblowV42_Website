@@ -5,7 +5,9 @@
                 <div class="card-body">
                     <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead>
-                            <th colspan="2" class="text-bold text-uppercase"><?php echo $files->file_name ?></th>
+                            <th colspan="2" class="text-bold text-uppercase">
+                                <= $files->file_name ?>
+                            </th>
                         </thead>
                         <tbody>
                             <tr>
@@ -14,11 +16,15 @@
                             </tr>
                             <tr>
                                 <td>File Type</td>
-                                <td class="text-uppercase"><?php echo $files->type ?></td>
+                                <td class="text-uppercase">
+                                    <= $files->type ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>File Size</td>
-                                <td><?php echo $files->size ?></td>
+                                <td>
+                                    <= $files->size ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Version</td>
@@ -27,18 +33,20 @@
                                         0
                                     <?php endif; ?>
                                     <?php if ($files->version != "" || $files->version != null) : ?>
-                                        <?php echo $files->version ?>
-                                    <?php endif; ?>
+                                        <= $files->version ?>
+                                        <?php endif; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Date Upload</td>
-                                <td><?php echo $files->date ?></td>
+                                <td>
+                                    <= $files->date ?>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                     <script>
-                        var CSRF_TOKEN = '<?php echo $this->security->get_csrf_hash() ?>';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
                         $(document).ready(function() {
                             $('#check_visibility').click(function() {
@@ -50,12 +58,12 @@
                         function Do_CheckVisibility() {
                             SetAttribute('check_visibility', 'button', 'Processing...');
                             $.ajax({
-                                url: '<?php echo base_url('adm/clientlaunchermanagement/do_geturl') ?>',
+                                url: '<?= base_url('adm/clientlaunchermanagement/do_geturl') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?php echo $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                    'files_id': '<?php echo $this->input->get('files_id', true) ?>'
+                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'files_id': '<?= $this->input->get('files_id ', true) ?>'
                                 },
                                 success: function(data) {
                                     var GetString = JSON.stringify(data);
@@ -89,11 +97,11 @@
                                         ShowToast(2000, 'info', 'Generate New Request Token...');
 
                                         $.ajax({
-                                            url: '<?php echo base_url('api/security/csrf') ?>',
+                                            url: '<?= base_url('api/security/csrf') ?>',
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?php echo $this->lib->GetTokenName() ?>': '<?php echo $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
                                             },
                                             success: function() {
                                                 var GetString = JSON.stringify(data);
