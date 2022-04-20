@@ -17,7 +17,7 @@
                         <select id="map_id" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Map</option>
                             <?php for ($i = 0; $i <= 121; $i++) : ?>
-                                <option value="<= $i ?>">
+                                <option value="<?= $i ?>">
                                     <?= $this->eventsmapbonus->GetMap($i) ?>
                                 </option>
                             <?php endfor; ?>
@@ -28,7 +28,7 @@
                         <select id="stage_type" class="form-control col-9">
                             <option value="" disabled selected>Select Gameplay Type</option>
                             <?php for ($i = 0; $i <= 14; $i++) : ?>
-                                <option value="<= $i ?>">
+                                <option value="<?= $i ?>">
                                     <?= $this->eventsmapbonus->GetStageType($i) ?>
                                 </option>
                             <?php endfor; ?>

@@ -67,9 +67,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
 	<div id="container">
 		<h1>
-			<= $heading; ?>
+			<?= $heading; ?>
 		</h1>
-		<= $message; ?>
+		<?= $message; ?>
 	</div>
 </body>
 

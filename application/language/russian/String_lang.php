@@ -220,6 +220,7 @@ $lang = array(
     'STR_DARKBLOW_210' => '7 дней',
     'STR_DARKBLOW_211' => '30 дней',
     'STR_DARKBLOW_212' => 'Нет доступных данных о связанных интернет-магазинах',
+    'STR_DARKBLOW_213' => 'Kosong'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

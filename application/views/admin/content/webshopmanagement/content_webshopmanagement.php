@@ -19,9 +19,9 @@
                             foreach ($webshop as $row) : ?>
                                 <tr>
                                     <td>
-                                        <= $num ?>
+                                        <?= $num ?>
                                     </td>
-                                    <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_webshop/<= $row['webshop_itemimg'] ?>" class="img img-fluid" alt="<= $row['webshop_itemname'] ?>"></td>
+                                    <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_webshop/<?= $row['webshop_itemimg'] ?>" class="img img-fluid" alt="<?= $row['webshop_itemname'] ?>"></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

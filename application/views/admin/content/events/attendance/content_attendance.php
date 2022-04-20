@@ -91,7 +91,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-                                                    <input type="button" id="delete_<= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['id'] ?>')">
+                                                    <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['id'] ?>')">
                                                 </div>
                                             </div>
                                         </td>

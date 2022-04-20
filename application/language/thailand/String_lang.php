@@ -220,6 +220,7 @@ $lang = array(
     'STR_DARKBLOW_210' => '7 วัน',
     'STR_DARKBLOW_211' => '30 วัน',
     'STR_DARKBLOW_212' => 'ไม่มีข้อมูล Webshop ที่เกี่ยวข้อง',
+    'STR_DARKBLOW_213' => 'Kosong'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

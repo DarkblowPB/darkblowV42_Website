@@ -243,7 +243,7 @@
                                             <?= $this->lang->line('STR_MENU_14') ?>
                                         </a>
                                     </li>
-                                    <?php if ($this->session->userdata('access_level') >= 3 && $this->session->userdata('access_level') <= 6) : ?>
+                                    <?php if ($this->session->userdata('access_level') >= 3 && $this->session->userdata('access_level') <?= 6) : ?>
                                         <li>
                                             <a href="javascript:void(0)" onclick="AutomaticLogin()">
                                                 <?= $this->lang->line('STR_MENU_15') ?>

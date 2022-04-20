@@ -220,6 +220,7 @@ $lang = array(
     'STR_DARKBLOW_210' => '7 Gün',
     'STR_DARKBLOW_211' => '30 Gün',
     'STR_DARKBLOW_212' => 'İlgili Web Mağazası Verisi Yok',
+    'STR_DARKBLOW_213' => 'Kosong'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

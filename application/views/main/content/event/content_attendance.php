@@ -23,7 +23,7 @@
                             </div>
                             <div class="calendar__week">
                                 <?php foreach ($attend as $row) : ?>
-                                    <div id="<= $row['id'] ?>" class="calendar__day
+                                    <div id="<?= $row['id'] ?>" class="calendar__day
                                     <?php
                                     if ($row['date'] == date('d-m-Y')) {
                                         if ($this->attendance->GetPlayerAttendDate($row['id'])) {
@@ -58,7 +58,7 @@
                                     }
                                     ?>
                                     ">
-                                        <= $row['day'] ?>
+                                        <?= $row['day'] ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-5 text-center">
-                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="<?= $this->lang->line('STR_DARKBLOW_179') ?>" onclick="ClaimReward('<?= $this->attendance->GetTodayEventID() ?>', '<= date('d-m-Y') ?>')">
+                <input type="button" id="claim_today" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1 nk-btn-lg" value="<?= $this->lang->line('STR_DARKBLOW_179') ?>" onclick="ClaimReward('<?= $this->attendance->GetTodayEventID() ?>', '<?= date('d-m-Y') ?>')">
             </div>
             <script>
                 var CSRF_TOKEN = '<?= $this->security->get_csrf_hash(); ?>';

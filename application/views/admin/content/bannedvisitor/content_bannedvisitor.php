@@ -11,7 +11,7 @@
                             <?php foreach ($ip as $row) : ?>
                                 <tr>
                                     <td>
-                                        <= $row['ip_address'] ?>
+                                        <?= $row['ip_address'] ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

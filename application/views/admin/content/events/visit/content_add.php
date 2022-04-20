@@ -25,8 +25,8 @@
                         <select id="reward1" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Reward 1</option>
                             <?php foreach ($this->visit->GetAllItems() as $row) : ?>
-                                <option value="<= $row['good_id'] ?>">
-                                    <= $row['item_name'] ?>
+                                <option value="<?= $row['good_id'] ?>">
+                                    <?= $row['item_name'] ?>
                                 </option>
                             <?php endforeach ?>
                         </select>
@@ -36,8 +36,8 @@
                         <select id="reward2" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Reward 2</option>
                             <?php foreach ($this->visit->GetAllItems() as $row) : ?>
-                                <option value="<= $row['good_id'] ?>">
-                                    <= $row['item_name'] ?>
+                                <option value="<?= $row['good_id'] ?>">
+                                    <?= $row['item_name'] ?>
                                 </option>
                             <?php endforeach ?>
                         </select>

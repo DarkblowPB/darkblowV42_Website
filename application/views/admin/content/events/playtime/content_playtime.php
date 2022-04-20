@@ -22,9 +22,9 @@
                         <tbody>
                             <?php $num = 1;
                             foreach ($playtime as $row) : ?>
-                                <tr id="data_<= $num ?>">
+                                <tr id="data_<?= $num ?>">
                                     <td>
-                                        <= $num ?>
+                                        <?= $num ?>
                                     </td>
                                     <td>
                                         <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
@@ -43,10 +43,10 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <= $row['title'] ?>
+                                        <?= $row['title'] ?>
                                     </td>
                                     <td>
-                                        <= number_format($row['seconds_target'], '0' ,',','.') ?>
+                                        <?= number_format($row['seconds_target'], '0', ',', '.') ?>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
@@ -54,7 +54,7 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <input type="button" id="delete_<= $num ?>" class="dropdown-item" value="Delete" onclick="Do_Delete('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['title'] ?>')">
+                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="Do_Delete('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['title'] ?>')">
                                             </div>
                                         </div>
                                     </td>

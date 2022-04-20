@@ -320,13 +320,13 @@
                                                                  <td>
                                                                       <?= $this->lang->line('STR_DARKBLOW_21') ?>
                                                                  </td>
-                                                                 <td class="text-main-1">Empty</td>
+                                                                 <td class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_213') ?></td>
                                                             </tr>
                                                             <tr>
                                                                  <td>
                                                                       <?= $this->lang->line('STR_DARKBLOW_23') ?>
                                                                  </td>
-                                                                 <td class="text-main-1">Empty</td>
+                                                                 <td class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_213') ?></td>
                                                             </tr>
                                                             <tr>
                                                                  <td colspan="2" class="text-main-1">

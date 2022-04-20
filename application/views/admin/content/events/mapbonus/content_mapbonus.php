@@ -24,9 +24,9 @@
                         <tbody>
                             <?php $num = 1;
                             foreach ($events as $row) : ?>
-                                <tr id="data_<= $num ?>">
+                                <tr id="data_<?= $num ?>">
                                     <td>
-                                        <= $num ?>
+                                        <?= $num ?>
                                     </td>
                                     <td>
                                         <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
@@ -51,10 +51,10 @@
                                         <?= $this->eventsmapbonus->GetStageType($row['stage_type']) ?>
                                     </td>
                                     <td>
-                                        <= number_format($row['percent_xp'], 0, ',' , '.' ) ?>
+                                        <?= number_format($row['percent_xp'], 0, ',', '.') ?>
                                     </td>
                                     <td>
-                                        <= number_format($row['percent_gp'], 0, ',' , '.' ) ?>
+                                        <?= number_format($row['percent_gp'], 0, ',', '.') ?>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
@@ -63,7 +63,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-                                                <input type="button" id="delete_<= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<= $num ?>', 'delete_<= $num ?>', '<?= $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>', '<?= $this->lib->ConvertDate($row['end_date'])[0] . $this->lib->ConvertDate($row['end_date'])[1] . $this->lib->ConvertDate($row['end_date'])[2] . $this->lib->ConvertDate($row['end_date'])[3] . $this->lib->ConvertDate($row['end_date'])[4] ?>')">
+                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>', '<?= $this->lib->ConvertDate($row['end_date'])[0] . $this->lib->ConvertDate($row['end_date'])[1] . $this->lib->ConvertDate($row['end_date'])[2] . $this->lib->ConvertDate($row['end_date'])[3] . $this->lib->ConvertDate($row['end_date'])[4] ?>')">
                                             </div>
                                         </div>
                                     </td>

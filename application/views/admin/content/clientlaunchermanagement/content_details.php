@@ -6,7 +6,7 @@
                     <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead>
                             <th colspan="2" class="text-bold text-uppercase">
-                                <= $files->file_name ?>
+                                <?= $files->file_name ?>
                             </th>
                         </thead>
                         <tbody>
@@ -17,13 +17,13 @@
                             <tr>
                                 <td>File Type</td>
                                 <td class="text-uppercase">
-                                    <= $files->type ?>
+                                    <?= $files->type ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>File Size</td>
                                 <td>
-                                    <= $files->size ?>
+                                    <?= $files->size ?>
                                 </td>
                             </tr>
                             <tr>
@@ -33,14 +33,14 @@
                                         0
                                     <?php endif; ?>
                                     <?php if ($files->version != "" || $files->version != null) : ?>
-                                        <= $files->version ?>
-                                        <?php endif; ?>
+                                        <?= $files->version ?>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Date Upload</td>
                                 <td>
-                                    <= $files->date ?>
+                                    <?= $files->date ?>
                                 </td>
                             </tr>
                         </tbody>

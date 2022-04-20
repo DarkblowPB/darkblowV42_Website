@@ -114,7 +114,7 @@ $lang = array(
     'STR_DARKBLOW_103' => 'D-Cash',
     'STR_DARKBLOW_104' => 'MAC Terakhir',
     'STR_DARKBLOW_105' => 'Koin Web',
-    'STR_DARKBLOW_106' => 'Cocok',
+    'STR_DARKBLOW_106' => 'Pertandingan',
     'STR_DARKBLOW_107' => 'Jumlah',
     'STR_DARKBLOW_108' => 'Menang',
     'STR_DARKBLOW_109' => 'Kalah',
@@ -179,7 +179,7 @@ $lang = array(
     'STR_DARKBLOW_169' => 'Jumlah Kematian',
     'STR_DARKBLOW_170' => 'Total Headshot',
     'STR_DARKBLOW_171' => 'Total Lolos',
-    'STR_DARKBLOW_172' => 'Total Cocok',
+    'STR_DARKBLOW_172' => 'Total Pertandingan',
     'STR_DARKBLOW_173' => 'Buat Yang Baru',
     'STR_DARKBLOW_174' => 'Harga',
     'STR_DARKBLOW_175' => 'Kehadiran',
@@ -220,6 +220,7 @@ $lang = array(
     'STR_DARKBLOW_210' => '7 Hari',
     'STR_DARKBLOW_211' => '30 Hari',
     'STR_DARKBLOW_212' => 'Tidak Tersedia Data Toko Web Terkait',
+    'STR_DARKBLOW_213' => 'Kosong'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -19,7 +19,7 @@
                             foreach ($this->visit->GetAllVisitEvents() as $row) : ?>
                                 <tr>
                                     <td>
-                                        <= $num ?>
+                                        <?= $num ?>
                                     </td>
                                     <td>
                                         <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
@@ -38,13 +38,13 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <= $row['title'] ?>
+                                        <?= $row['title'] ?>
                                     </td>
                                     <td>
-                                        <= $row['checks'] ?>
+                                        <?= $row['checks'] ?>
                                     </td>
                                     <td>
-                                        <= $row['good1'] ?>
+                                        <?= $row['good1'] ?>
                                     </td>
                                     <td></td>
                                     <td></td>
