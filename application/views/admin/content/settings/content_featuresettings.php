@@ -6,7 +6,7 @@
                     <?= form_open('', 'id="featuresettings_form" autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Webshop</label>
-                        <select id="enable_webshop" class="form-control col-9">
+                        <select id="enable_webshop" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->webshop == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Trade Market</label>
-                        <select id="enable_trademarket" class="form-control col-9">
+                        <select id="enable_trademarket" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->trade_market == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Exchange Ticket (Experimental)</label>
-                        <select id="enable_exchangeticket" class="form-control col-9">
+                        <select id="enable_exchangeticket" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->exchange_ticket == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Redeem Code</label>
-                        <select id="enable_redeemcode" class="form-control col-9">
+                        <select id="enable_redeemcode" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->redeemcode == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Voucher</label>
-                        <select id="enable_voucher" class="form-control col-9">
+                        <select id="enable_voucher" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->voucher == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Forgot Password</label>
-                        <select id="enable_forgotpassword" class="form-control col-9">
+                        <select id="enable_forgotpassword" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->forgot_password == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Register</label>
-                        <select id="enable_register" class="form-control col-9">
+                        <select id="enable_register" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->register == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Attendance</label>
-                        <select id="enable_attendance" class="form-control col-9">
+                        <select id="enable_attendance" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->attendance == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Email Verification</label>
-                        <select name="enable_email_verification" id="enable_email_verification" class="form-control col-9">
+                        <select name="enable_email_verification" id="enable_email_verification" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->email_verification == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Google Register</label>
-                        <select name="enable_google_register" id="enable_google_register" class="form-control col-9">
+                        <select name="enable_google_register" id="enable_google_register" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->google_register == 0) {
                                                     echo 'selected';
                                                 } ?>>Disabled</option>

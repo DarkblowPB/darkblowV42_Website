@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-3">Playtime</label>
-                                    <select id="seconds_target" class="form-control col-9">
+                                    <select id="seconds_target" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Playtime</option>
                                         <option value="1800">Half Hours</option>
                                         <option value="3600">1 Hour</option>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-3">Reward Duration</label>
-                                    <select id="reward_duration" class="form-control col-9">
+                                    <select id="reward_duration" class="form-control col-9 reward_selection">
                                         <option value="" disabled selected>Select Reward Duration</option>
                                         <option value="64800">1 Days</option>
                                         <option value="259200">3 Days</option>

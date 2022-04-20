@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Gameplay Type</label>
-                        <select id="stage_type" class="form-control col-9">
+                        <select id="stage_type" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Gameplay Type</option>
                             <?php for ($i = 0; $i <= 14; $i++) : ?>
                                 <option value="<?= $i ?>">

@@ -9,7 +9,7 @@
                     <?= form_open('', 'id="generalsettings01_form" autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Server Condition</label>
-                        <select id="server_condition" class="form-control col-9">
+                        <select id="server_condition" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($settings->server_condition == 0) {
                                                     echo 'selected';
                                                 } ?>>OFFLINE</option>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Website Condition</label>
-                        <select id="website_condition" class="form-control col-9">
+                        <select id="website_condition" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($settings->website_condition == 0) {
                                                     echo 'selected';
                                                 } ?>>OFFLINE</option>

@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">File Type</label>
-                        <select id="file_type" class="form-control">
+                        <select id="file_type" class="form-control reward_selection">
                             <option value="" disabled selected>Select Your File Type</option>
                             <option value="client">Client (Single Link)</option>
                             <option value="partial">Client (Partial)</option>

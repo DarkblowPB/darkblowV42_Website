@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">File Type</label>
-                        <select id="file_type" class="form-control">
+                        <select id="file_type" class="form-control reward_selection">
                             <option value="client" <?php if ($files->type == "client") {
                                                         echo 'selected';
                                                     } ?>>Client (Single Link)</option>

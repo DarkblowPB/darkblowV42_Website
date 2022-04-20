@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Item Duration</label>
-                        <select id="item_count" class="form-control col-9">
+                        <select id="item_count" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Please Select Item Duration</option>
                             <option value="64800">1 Day</option>
                             <option value="259200">3 Days</option>
