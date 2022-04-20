@@ -75,7 +75,7 @@ $lang = array(
     'STR_DARKBLOW_64' => 'Подробности',
     'STR_DARKBLOW_65' => 'Элемент:',
     'STR_DARKBLOW_66' => 'Название предмета',
-    'STR_DARKBLOW_67' => 'Продолжительность',
+    'STR_DARKBLOW_67' => '«Продолжительность»',
     'STR_DARKBLOW_68' => 'Категория',
     'STR_DARKBLOW_69' => 'Статус элемента',
     'STR_DARKBLOW_70' => 'Назад',
@@ -223,5 +223,3 @@ $lang = array(
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

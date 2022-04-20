@@ -223,5 +223,3 @@ $lang = array(
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

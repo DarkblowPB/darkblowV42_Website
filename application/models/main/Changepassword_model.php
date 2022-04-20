@@ -13,6 +13,7 @@ class Changepassword_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('lib');
+		$this->lang->load('message');
 	}
 
 	function ChangePasswordV2()
@@ -32,7 +33,7 @@ class Changepassword_model extends CI_Model
 			if ($query->email_verification == '0') {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Please Confirm Your Email First.';
+				$response['message'] = $this->lang->line('STR_WARNING_24');
 
 				echo json_encode($response);
 			}
@@ -40,7 +41,7 @@ class Changepassword_model extends CI_Model
 				if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'New Password Cannot Be Same Like Old Password.';
+					$response['message'] = $this->lang->line('STR_ERROR_30');
 
 					echo json_encode($response);
 				} else {
@@ -51,13 +52,13 @@ class Changepassword_model extends CI_Model
 					if ($update) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Successfully Change Password.';
+						$response['message'] = $this->lang->line('STR_SUCCESS_3');
 
 						echo json_encode($response);
 					} else {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Failed To Change Password.';
+						$response['message'] = $this->lang->line('STR_ERROR_31');
 
 						echo json_encode($response);
 					}
@@ -66,7 +67,7 @@ class Changepassword_model extends CI_Model
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Invalid Old Password.';
+			$response['message'] = $this->lang->line('STR_ERROR_32');
 
 			echo json_encode($response);
 		}

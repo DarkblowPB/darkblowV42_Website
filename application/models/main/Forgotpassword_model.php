@@ -12,23 +12,18 @@ class Forgotpassword_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     function ForgotPasswordValidationV1()
     {
+        $response = array();
+
         $data = array(
-            'username' => $this->encryption->encrypt($this->input->post('username', true)),
-            'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
-            'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
+            'email' => $this->input->post('email', true)
         );
 
-        $query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'hint_question' => $this->encryption->decrypt($data['hint_question']), 'hint_answer' => $this->encryption->decrypt($data['hint_answer'])))->row();
+        $query = $this->db->get_where('accounts', array('email' => $data['email']))->row();
         if ($query) {
-            // Send Verification Email.
-        } else {
-            $this->session->set_flashdata('false', 'Cannot Find Any Account.');
-            redirect(base_url('forgotpassword'), 'refresh');
         }
     }
 }

@@ -12,7 +12,7 @@ class Download_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
+		$this->lang->load('message');
 	}
 
 	function GetClient()
@@ -48,13 +48,13 @@ class Download_model extends CI_Model
 		if ($query) {
 			$response['response'] = 'true';
 			$response['url'] = $query->file_url;
-			$response['message'] = 'Redirecting To Download Page...';
+			$response['message'] = $this->lang->line('STR_INFO_9');
 
 			echo json_encode($response);
 		} else {
 			$response['response'] = 'false';
 			$response['url'] = '';
-			$response['message'] = 'Invalid Download Data.';
+			$response['message'] = $this->lang->line('STR_ERROR_35');
 
 			echo json_encode($response);
 		}

@@ -19,7 +19,7 @@
                 </div>
                 <?= form_close() ?>
                 <script>
-                    var CSRF_TOKEN = $('#<?= $this->security->get_csrf_token_name() ?>');
+                    var CSRF_TOKEN = $('#<?= $this->security->get_csrf_hash() ?>');
                     var RETRY = 0;
 
                     $(document).ready(() => {
@@ -31,12 +31,12 @@
                     });
 
                     function Do_ForgotPassword() {
-                        if ($('#email').val() == '' || $('#email').val() == null) return ShowToast(2000, 'warning', 'Email Cannot Be Empty.');
+                        if ($('#email').val() == '' || $('#email').val() == null) return ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_13') ?>');
                         else {
-                            SetAttribute('submit', 'button', 'Processing...');
+                            SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
                             $.ajax({
-                                url: '<?= base_url('forgotpassword / do_forgotpassword ') ?>',
+                                url: '<?= base_url('forgotpassword/do_forgotpassword') ?>',
                                 type: 'POST',
                                 dataType: 'JSON',
                                 data: {
@@ -44,7 +44,20 @@
                                     'email': $('#email').val()
                                 },
                                 success: (response) => {
+                                    var GetString = JSON.stringify(response);
+                                    var Result = JSON.parse(GetString);
 
+                                    SetAttribute('submit', 'submit', 'Submit');
+                                    ShowToast(2000, Result.response, Result.message);
+                                    CSRF_TOKEN = Result.token;
+                                    return;
+                                },
+                                error: () => {
+                                    SetAttribute('submit', 'submit', 'Submit');
+                                    ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_3') ?>');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
                                 }
                             });
                         }

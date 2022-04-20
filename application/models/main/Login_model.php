@@ -12,8 +12,8 @@ class Login_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 		$this->load->library('lib');
+		$this->lang->load('message');
 	}
 
 	function LoginValidationV2()
@@ -31,7 +31,7 @@ class Login_model extends CI_Model
 			if ($query->access_level == '-1') {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Your Account Has Been Blocked. Login Failed.';
+				$response['message'] = $this->lang->line('STR_ERROR_37');
 				echo json_encode($response);
 			} else {
 				// Set Session
@@ -44,15 +44,16 @@ class Login_model extends CI_Model
 				$this->session->set_userdata($sessionData);
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				if ($this->session->userdata('player_name') == '') $response['message'] = 'Successfully Logged In. Welcome ' . $query->login . '.';
-				if ($this->session->userdata('player_name') != '') $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('player_name') . '.';
+				// if ($this->session->userdata('player_name') == '') $response['message'] = ' ' . $query->login . '.';
+				// if ($this->session->userdata('player_name') != '') $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('player_name') . '.';
+				$this->session->userdata('player_name') == '' ? $response['message'] = $this->lang->line('STR_SUCCESS_6') . $query->login : $response['message'] = $this->lang->line('STR_SUCCESS_6') . $this->session->userdata('player_name');
 
 				echo json_encode($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Invalid Username or Password.';
+			$response['message'] = $this->lang->line('STR_ERROR_38');
 			echo json_encode($response);
 		}
 	}

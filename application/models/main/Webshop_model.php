@@ -12,7 +12,7 @@ class Webshop_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
+		$this->lang->load('message');
 	}
 
 	function GetWebshopDetails($id)
@@ -83,7 +83,7 @@ class Webshop_model extends CI_Model
 			if ($query->webshop_itemstatus != 1) {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Cannot Find This Webshop Item.';
+				$response['message'] = $this->lang->line('STR_ERROR_56');
 				echo json_encode($response);
 			} else {
 				// Fetch Player Data
@@ -92,7 +92,7 @@ class Webshop_model extends CI_Model
 					if ($fetch->kuyraicoin < $this->encryption->decrypt($data['item_price'])) {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Your Webcoin Not Enough For Buying This Item.';
+						$response['message'] = $this->lang->line('STR_ERROR_57');
 						echo json_encode($response);
 					} else {
 						// Fetch Player Item
@@ -110,12 +110,12 @@ class Webshop_model extends CI_Model
 									if ($update && $update2) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Bought This Item.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_18');
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed To Buy This Item.';
+										$response['message'] = $this->lang->line('STR_ERROR_16');
 										echo json_encode($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days") {
@@ -128,12 +128,12 @@ class Webshop_model extends CI_Model
 									if ($update && $update2) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Bought This Item.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_18');
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed To Buy This Item.';
+										$response['message'] = $this->lang->line('STR_ERROR_16');
 										echo json_encode($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days") {
@@ -146,12 +146,12 @@ class Webshop_model extends CI_Model
 									if ($update && $update2) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Bought This Item.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_18');
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed To Buy This Item.';
+										$response['message'] = $this->lang->line('STR_ERROR_16');
 										echo json_encode($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent") {
@@ -164,18 +164,18 @@ class Webshop_model extends CI_Model
 									if ($update && $update2) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Bought This Item.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_18');
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed To Buy This Item.';
+										$response['message'] = $this->lang->line('STR_ERROR_16');
 										echo json_encode($response);
 									}
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Invalid Item Duration. Do You Change It From Inspect Element?';
+									$response['message'] = $this->lang->line('STR_ERROR_58');
 									echo json_encode($response);
 								}
 							} else if ($fetch2->equip == 2) {
@@ -190,24 +190,24 @@ class Webshop_model extends CI_Model
 									if ($update && $update2) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Bought This Item.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_18');
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed To Buy This Item.';
+										$response['message'] = $this->lang->line('STR_ERROR_16');
 										echo json_encode($response);
 									}
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'You Only Can Buy This Item With Permanent Duration.';
+									$response['message'] = $this->lang->line('STR_INFO_15');
 									echo json_encode($response);
 								}
 							} else if ($fetch2->equip == 3) {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'You Already Have This Item With Permanent Duration.';
+								$response['message'] = $this->lang->line('STR_ERROR_59');
 								echo json_encode($response);
 							}
 						} else {
@@ -220,12 +220,12 @@ class Webshop_model extends CI_Model
 								if ($insert && $update) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Bought This Item.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_18');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Failed To Buy This Item.';
+									$response['message'] = $this->lang->line('STR_ERROR_16');
 									echo json_encode($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days") {
@@ -237,12 +237,12 @@ class Webshop_model extends CI_Model
 								if ($insert && $update) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Bought This Item.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_18');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Failed To Buy This Item.';
+									$response['message'] = $this->lang->line('STR_ERROR_16');
 									echo json_encode($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days") {
@@ -254,12 +254,12 @@ class Webshop_model extends CI_Model
 								if ($insert && $update) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Bought This Item.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_18');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Failed To Buy This Item.';
+									$response['message'] = $this->lang->line('STR_ERROR_16');
 									echo json_encode($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent") {
@@ -271,18 +271,18 @@ class Webshop_model extends CI_Model
 								if ($insert && $update) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Bought This Item.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_18');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Failed To Buy This Item.';
+									$response['message'] = $this->lang->line('STR_ERROR_16');
 									echo json_encode($response);
 								}
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Invalid Item Duration. Do You Change It From Inspect Element?';
+								$response['message'] = $this->lang->line('STR_ERROR_58');
 								echo json_encode($response);
 							}
 						}
@@ -290,14 +290,14 @@ class Webshop_model extends CI_Model
 				} else {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Invalid Account. Do You Execute This From Another Method? Like Postman? Or Anything Else?';
+					$response['message'] = $this->lang->line('STR_ERROR_60');
 					echo json_encode($response);
 				}
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Cannot Find This Webshop Item.';
+			$response['message'] = $this->lang->line('STR_ERROR_61');
 			echo json_encode($response);
 		}
 	}

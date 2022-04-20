@@ -12,8 +12,8 @@ class Redeemcode_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 		$this->load->library('lib');
+		$this->lang->load('message');
 	}
 
 	function GetItemName($item_id)
@@ -42,7 +42,7 @@ class Redeemcode_model extends CI_Model
 			if ($check2) {
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['response'] = 'false';
-				$response['message'] = 'This Code Already Used.';
+				$response['message'] = $this->lang->line('STR_ERROR_40');
 				echo json_encode($response);
 			} else {
 				if ($check->type == "Item") {
@@ -65,13 +65,13 @@ class Redeemcode_model extends CI_Model
 							if ($this->lib->SendSocket($this->lib->HostLibrary('main', 'ip_address'), $this->lib->HostLibrary('main', 'port_1'), $buffer['command_type'] . $config['separator'] . $buffer['item_id'] . $config['separator'] . $buffer['category'] . $config['separator'] . $buffer['item_name'] . $config['separator'] . $buffer['item_count'] . $config['separator'] . $buffer['player_id'] . $config['separator'] . $buffer['type'] . $config['separator'] . $buffer['cash']) == 'Success') {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->GetItemName($check->item_id) . '.';
+								$response['message'] = $this->lang->line('STR_SUCCESS_8') . $this->session->userdata('player_name') . ',' . $this->lang->line('STR_SUCCESS_9') . $this->GetItemName($check->item_id) . '.';
 
 								echo json_encode($response);
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Redeem The Code.';
+								$response['message'] = $this->lang->line('STR_ERROR_22');
 							}
 						} else {
 							if ($this->lib->SendSocket($this->lib->HostLibrary('side', 'ip_address'), $this->lib->HostLibrary('side', 'port_1'), $buffer['command_type'] . $config['separator'] . $buffer['item_id'] . $config['separator'] . $buffer['category'] . $config['separator'] . $buffer['item_name'] . $config['separator'] . $buffer['item_count'] . $config['separator'] . $buffer['player_id'] . $config['separator'] . $buffer['type'] . $config['separator'] . $buffer['cash']) == 'Success') {
@@ -83,14 +83,14 @@ class Redeemcode_model extends CI_Model
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Redeem The Code.';
+								$response['message'] = $this->lang->line('STR_ERROR_22');
 							}
 						}
 					}
 				} else if ($check->type == "Cash") {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Sorry, This Reward Is Cash, And We Under Development.';
+					$response['message'] = $this->lang->line('STR_ERROR_41');
 
 					echo json_encode($response);
 				}
@@ -98,7 +98,7 @@ class Redeemcode_model extends CI_Model
 		} else {
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['response'] = 'false';
-			$response['message'] = 'Code Doesnt Exists.';
+			$response['message'] = $this->lang->line('STR_ERROR_42');
 			echo json_encode($response);
 		}
 	}

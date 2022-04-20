@@ -12,7 +12,7 @@ class Trade_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
+        $this->lang->load('message');
     }
 
     function SetCategory($item_id)
@@ -71,7 +71,7 @@ class Trade_model extends CI_Model
             if ($query->equip != 1) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'You Cannot Trade This Item.';
+                $response['message'] = $this->lang->line('STR_ERROR_46');
 
                 echo json_encode($response);
             } else {
@@ -79,7 +79,7 @@ class Trade_model extends CI_Model
                 if ($query2) {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'You Already Trade This Item.';
+                    $response['message'] = $this->lang->line('STR_ERROR_47');
 
                     echo json_encode($response);
                 } else {
@@ -99,13 +99,13 @@ class Trade_model extends CI_Model
                     if ($insertitem && $deletefrominventory) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
-                        $response['message'] = 'Successfully Post New Item.';
+                        $response['message'] = $this->lang->line('STR_SUCCESS_13');
 
                         echo json_encode($response);
                     } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
-                        $response['message'] = 'Failed To Post New Item.';
+                        $response['message'] = $this->lang->line('STR_ERROR_48');
 
                         echo json_encode($response);
                     }
@@ -114,7 +114,7 @@ class Trade_model extends CI_Model
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'You Dont Have This Item.';
+            $response['message'] = $this->lang->line('STR_ERROR_49');
 
             echo json_encode($response);
         }
@@ -136,14 +136,14 @@ class Trade_model extends CI_Model
                 if ($fetchaccount->player_id == $query->item_owner) {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'You Cannot Buy Your Own Item';
+                    $response['message'] = $this->lang->line('STR_ERROR_50');
 
                     echo json_encode($response);
                 } else {
                     if ($fetchaccount->kuyraicoin < ($query->item_price + 250)) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
-                        $response['message'] = 'Your Webcoin Not Enough For Buy This Item.';
+                        $response['message'] = $this->lang->line('STR_ERROR_51');
 
                         echo json_encode($response);
                     } else {
@@ -157,20 +157,20 @@ class Trade_model extends CI_Model
                                 if ($updatecount && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
                                     $response['response'] = 'true';
                                     $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Successfully Buy This Item. Please Check Your Inventory.';
+                                    $response['message'] = $this->lang->line('STR_SUCCESS_14');
 
                                     echo json_encode($response);
                                 } else {
                                     $response['token'] = 'false';
                                     $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Failed To Buy This Item. Please Contact DEV / GM For Detail Information.';
+                                    $response['message'] = $this->lang->line('STR_FATAL_ERROR_1');
 
                                     echo json_encode($response);
                                 }
                             } else {
                                 $response['response'] = 'false';
                                 $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Failed To Buy This Item. You Already Have & Used This Item.';
+                                $response['message'] = $this->lang->line('STR_ERROR_52');
 
                                 echo json_encode($response);
                             }
@@ -190,13 +190,13 @@ class Trade_model extends CI_Model
                             if ($insertnewitem && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
                                 $response['response'] = 'true';
                                 $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Successfully Buy This Item. Please Check Your Inventory.';
+                                $response['message'] = $this->lang->line('STR_SUCCESS_14');
 
                                 echo json_encode($response);
                             } else {
                                 $response['response'] = 'true';
                                 $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Failed To Buy This Item.';
+                                $response['message'] = $this->lang->line('STR_ERROR_52');
 
                                 echo json_encode($response);
                             }
@@ -206,14 +206,14 @@ class Trade_model extends CI_Model
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Failed To Fetch Your Account.';
+                $response['message'] = $this->lang->line('STR_ERROR_53');
 
                 echo json_encode($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'This Item Not Available.';
+            $response['message'] = $this->lang->line('STR_ERROR_54');
 
             echo json_encode($response);
         }

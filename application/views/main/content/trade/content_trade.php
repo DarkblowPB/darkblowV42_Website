@@ -59,7 +59,7 @@
                                                                 <?= $this->lang->line('STR_DARKBLOW_145') ?> &nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;">
                                                                     <?= $this->trade->GetPlayerName($row['item_owner']) ?>
                                                                 </span><br>
-                                                                <?= $this->lang->line('STR_DARKBLOW_174') ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;">&#8373; <= number_format(($row['item_price'] + 250), '0' ,',','.') ?></span><br>
+                                                                <?= $this->lang->line('STR_DARKBLOW_174') ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="text-white" style="font-weight: bold;">&#8373; <?= number_format(($row['item_price'] + 250), '0', ',', '.') ?></span><br>
                                                                 <div class="text-center mt-25">
                                                                     <input type="button" id="submit_<= $num ?>" onclick="Buy_Item('submit_<= $num ?>', '<= $row['id'] ?>')" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-sm nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_206') ?>">
                                                                 </div>

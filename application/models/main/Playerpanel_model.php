@@ -12,6 +12,7 @@ class Playerpanel_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
+		$this->lang->load('message');
 	}
 
 	function GetDetailsAccount()
@@ -26,11 +27,11 @@ class Playerpanel_model extends CI_Model
 		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
 		if ($query) {
 			$response['response'] = 'true';
-			$response['message'] = 'Your Hint : ' . $query->hint_answer;
+			$response['message'] = $this->lang->line('STR_SUCCESS_7') . $query->hint_answer;
 			echo json_encode($response);
 		} else {
 			$response['response'] = 'false';
-			$response['message'] = 'Failed To Get Your Hint.';
+			$response['message'] = $this->lang->line('STR_ERROR_39');
 			echo json_encode($response);
 		}
 	}

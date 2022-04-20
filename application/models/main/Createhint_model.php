@@ -12,8 +12,8 @@ class Createhint_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
 		$this->load->library('lib');
+		$this->lang->load('message');
 	}
 
 	function CreateHintValidationV2()
@@ -35,18 +35,18 @@ class Createhint_model extends CI_Model
 			if ($update) {
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Successfully Create Hint.';
+				$response['message'] = $this->lang->line('STR_SUCCESS_4');
 				echo json_encode($response);
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Failed To Create Hint.';
+				$response['message'] = $this->lang->line('STR_ERROR_33');
 				echo json_encode($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Invalid Password.';
+			$response['message'] = $this->lang->line('STR_ERROR_34');
 			echo json_encode($response);
 		}
 	}

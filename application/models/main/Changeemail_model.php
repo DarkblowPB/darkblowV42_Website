@@ -12,7 +12,7 @@ class Changeemail_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
+        $this->lang->load('message');
     }
 
     function GetPlayerData()
@@ -45,7 +45,7 @@ class Changeemail_model extends CI_Model
             if ($query->email_verification == 0) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Please Confirm Your Email First.';
+                $response['message'] = $this->lang->line('STR_WARNING_24');
 
                 echo json_encode($response);
             } else if ($query->email_verification == 1) {
@@ -54,13 +54,13 @@ class Changeemail_model extends CI_Model
                 if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Change Email';
+                    $response['message'] = $this->lang->line('STR_SUCCESS_2');
 
                     echo json_encode($response);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed Change Email';
+                    $response['message'] = $this->lang->line('STR_ERROR_29');
 
                     echo json_encode($response);
                 }

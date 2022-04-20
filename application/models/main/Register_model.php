@@ -14,6 +14,7 @@ class Register_model extends CI_Model
 		parent::__construct();
 		$this->load->library('lib');
 		$this->load->library('email');
+		$this->lang->load('message');
 	}
 
 	function CheckRegisteredAccount($email)
@@ -191,12 +192,12 @@ class Register_model extends CI_Model
 		if ($query) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Username Already Registered.';
+			$response['message'] = $this->lang->line('STR_ERROR_43');
 			echo json_encode($response);
 		} else {
 			$response['response'] = 'true';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Username Available.';
+			$response['message'] = $this->lang->line('STR_INFO_11');
 			echo json_encode($response);
 		}
 	}
@@ -219,7 +220,7 @@ class Register_model extends CI_Model
 		if ($this->getsettings->Get()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Register Disabled By Server.';
+			$response['message'] = $this->lang->line('STR_INFO_12');
 
 			echo json_encode($response);
 		} else {
@@ -263,24 +264,24 @@ class Register_model extends CI_Model
 								if ($query4 && $query5 && $query6) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Registered.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_10');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Registered (2).';
+									$response['message'] = $this->lang->line('STR_SUCCESS_10');
 									echo json_encode($response);
 								}
 							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Successfully Registered (3).';
+								$response['message'] = $this->lang->line('STR_SUCCESS_10');
 								echo json_encode($response);
 							}
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Failed To Register Your Account.';
+							$response['message'] = $this->lang->line('STR_ERROR_12');
 							echo json_encode($response);
 						}
 					} else {
@@ -304,12 +305,12 @@ class Register_model extends CI_Model
 						if ($query2 && $query99 && $query6) {
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered.';
+							$response['message'] = $this->lang->line('STR_SUCCESS_10');
 							echo json_encode($response);
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Failed To Register Your Account.';
+							$response['message'] = $this->lang->line('STR_ERROR_12');
 							echo json_encode($response);
 						}
 					}
@@ -333,19 +334,19 @@ class Register_model extends CI_Model
 					if ($query2 && $query6) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Successfully Registered.';
+						$response['message'] = $this->lang->line('STR_SUCCESS_10');
 						echo json_encode($response);
 					} else {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Failed To Register Your Account.';
+						$response['message'] = $this->lang->line('STR_ERROR_12');
 						echo json_encode($response);
 					}
 				}
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Failed To Get Register Events.';
+				$response['message'] = $this->lang->line('STR_ERROR_44');
 				echo json_encode($response);
 			}
 		}
@@ -369,7 +370,7 @@ class Register_model extends CI_Model
 		if ($this->getsettings->Get()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Register Disabled By Server.';
+			$response['message'] = $this->lang->line('STR_INFO_12');
 
 			echo json_encode($response);
 		} else {
@@ -408,13 +409,13 @@ class Register_model extends CI_Model
 									if ($query4 && $query5) {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Registered.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_10');
 
 										echo json_encode($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Failed Register Your Account.';
+										$response['message'] = $this->lang->line('STR_ERROR_12');
 
 										echo json_encode($response);
 									}
@@ -429,31 +430,31 @@ class Register_model extends CI_Model
 										if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 											$response['response'] = 'true';
 											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+											$response['message'] = $this->lang->line('STR_SUCCESS_11');
 											echo json_encode($response);
 										} else {
 											$response['response'] = 'true';
 											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+											$response['message'] = $this->lang->line('STR_INFO_14');
 											echo json_encode($response);
 										}
 									} else {
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Successfully Registered (2). Please Check Your Email For Activated Your Account.';
+										$response['message'] = $this->lang->line('STR_SUCCESS_11');
 										echo json_encode($response);
 									}
 								}
 							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Successfully Registered (3). Please Check Your Email For Activated Your Account.';
+								$response['message'] = $this->lang->line('STR_SUCCESS_11');
 								echo json_encode($response);
 							}
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Failed To Register Your Account.';
+							$response['message'] = $this->lang->line('STR_ERROR_12');
 							echo json_encode($response);
 						}
 					} else {
@@ -472,13 +473,13 @@ class Register_model extends CI_Model
 							if ($query2 && $query99) {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Successfully Registered';
+								$response['message'] = $this->lang->line('STR_SUCCESS_10');
 
 								echo json_encode($response);
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Register Your Account.';
+								$response['message'] = $this->lang->line('STR_ERROR_12');
 
 								echo json_encode($response);
 							}
@@ -493,17 +494,17 @@ class Register_model extends CI_Model
 								if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+									$response['message'] = $this->lang->line('STR_SUCCESS_11');
 									echo json_encode($response);
 								} else {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+									$response['message'] = $this->lang->line('STR_INFO_14');
 								}
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Register Your Account.';
+								$response['message'] = $this->lang->line('STR_ERROR_12');
 								echo json_encode($response);
 							}
 						}
@@ -523,13 +524,13 @@ class Register_model extends CI_Model
 						if ($query2) {
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered';
+							$response['message'] = $this->lang->line('STR_SUCCESS_10');
 
 							echo json_encode($response);
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Failed To Register Your Account.';
+							$response['message'] = $this->lang->line('STR_ERROR_12');
 
 							echo json_encode($response);
 						}
@@ -544,17 +545,17 @@ class Register_model extends CI_Model
 							if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Successfully Registered. Please Check Your Email For Activated Your Account.';
+								$response['message'] = $this->lang->line('STR_SUCCESS_11');
 								echo json_encode($response);
 							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Successfully Registered. But Failed To Send Activation Email.';
+								$response['message'] = $this->lang->line('STR_INFO_14');
 							}
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Failed To Register Your Account.';
+							$response['message'] = $this->lang->line('STR_ERROR_12');
 							echo json_encode($response);
 						}
 					}
@@ -562,9 +563,51 @@ class Register_model extends CI_Model
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Failed To Get Register Events.';
+				$response['message'] = $this->lang->line('STR_INFO_14');
 				echo json_encode($response);
 			}
+		}
+	}
+
+	function RegisterValidationV4()
+	{
+		$response = array();
+		$data = array(
+			'login' => $this->input->post('login', true),
+			'email' => $this->input->post('email', true),
+			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+			're_password' => $this->lib->password_encrypt($this->input->post('re_password', true)),
+			'hint_question' => $this->input->post('hint_question', true),
+			'hint_answer' => $this->input->post('hint_answer', true)
+		);
+
+		$insert = $this->db->insert('accounts', $data);
+		if ($insert) {
+			$query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+			$events = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+			if ($events) {
+				if ($events->stock > 0) {
+					$this->db->insert('player_items', array(
+						'owner_id' => $query->player_id,
+						'item_id' => $events->item_id,
+						'item_name' => $events->item_name,
+						'count' => $events->item_count,
+						'category' => $events->item_category,
+						'equip' => '1'
+					));
+				}
+				$response['response'] = 'success';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = $this->lang->line('STR_SUCCESS_10');
+
+				echo json_encode($response);
+			}
+		} else {
+			$response['response'] = 'error';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = $this->lang->line('STR_SUCCESS_25');
+
+			echo json_encode($response);
 		}
 	}
 
@@ -576,17 +619,17 @@ class Register_model extends CI_Model
 
 		$query = $this->db->get_where('web_email_confirmation', array('token' => $this->encryption->decrypt($data['token'])))->row();
 		if ($query) {
-			if ($query->valid == 0) echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
+			if ($query->valid == 0) echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
 			else {
 				$update = array(
 					'01' => $this->db->where('id', $query->id)->update('web_email_confirmation', array('valid' => '0')),
 					'02' => $this->db->where('login', $query->account_id)->update('accounts', array('email_verification' => '1'))
 				);
 
-				if ($update['01'] && $update['02']) echo "<script>alert('Successfully Verify Your Account. You Can Play The Game Now.');window.location='" . base_url('login') . "'</script>";
-				else echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
+				if ($update['01'] && $update['02']) echo "<script>alert('" . $this->lang->line('STR_SUCCESS_12') . "');window.location='" . base_url('login') . "'</script>";
+				else echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
 			}
-		} else echo "<script>alert('Failed To Verify Your Account.');window.location='" . base_url('home') . "'</script>";
+		} else echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
 	}
 }
 

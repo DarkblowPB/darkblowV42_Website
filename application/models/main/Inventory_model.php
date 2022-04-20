@@ -12,7 +12,7 @@ class Inventory_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
+		$this->lang->load('message');
 	}
 
 	function GetItemRealName2($id)
@@ -55,18 +55,18 @@ class Inventory_model extends CI_Model
 			if ($delete) {
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Successfully Delete This Item.';
+				$response['message'] = $this->lang->line('STR_SUCCESS_5');
 				echo json_encode($response);
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Failed To Delete This Item.';
+				$response['message'] = $this->lang->line('STR_ERROR_36');
 				echo json_encode($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Failed To Delete This Item.';
+			$response['message'] = $this->lang->line('STR_ERROR_36');
 			echo json_encode($response);
 		}
 	}

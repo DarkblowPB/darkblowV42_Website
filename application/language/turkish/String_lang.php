@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 $lang = array(
     'STR_DARKBLOW_0' => 'Üzgünüm',
-    'STR_DARKBLOW_1' => 'IP niz Bu Web Sitesini Görüntülemeyi Engelledi',
+    'STR_DARKBLOW_1' => 'IP\'niz Bu Web Sitesini Görüntülemeyi Engelledi',
     'STR_DARKBLOW_2' => 'Detaylı Bilgi İçin Discord Sunucusuna Katılın',
     'STR_DARKBLOW_3' => 'Sıralama',
     'STR_DARKBLOW_4' => 'Klan Sıralaması',
@@ -206,7 +206,7 @@ $lang = array(
     'STR_DARKBLOW_196' => 'YÖNETİCİ',
     'STR_DARKBLOW_197' => 'OYUN USTASI',
     'STR_DARKBLOW_198' => 'DEVELOPER',
-    'STR_DARKBLOW_199' => 'İpucu Görmeyi İste',
+    'STR_DARKBLOW_199' => 'İpucu Görmek İste',
     'STR_DARKBLOW_200' => 'Kodu Gönder',
     'STR_DARKBLOW_201' => 'Fiş Gönder',
     'STR_DARKBLOW_202' => 'Kontrol Et',
@@ -223,5 +223,3 @@ $lang = array(
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

@@ -31,13 +31,13 @@
 				?>
 						<tr>
 							<td>
-								<= ++$start; ?>
+								<?= ++$start; ?>
 							</td>
 							<td>
-								<img src="<?= base_url() ?>/assets/goodgames/assets/images/img_clan/<= $row['clan_rank'] ?>.jpg" alt="Clan Rank">
+								<img src="<?= base_url() ?>/assets/goodgames/assets/images/img_clan/<?= $row['clan_rank'] ?>.jpg" alt="Clan Rank">
 							</td>
 							<td>
-								<= $row['clan_name'] ?>
+								<?= $row['clan_name'] ?>
 							</td>
 							<td>
 								<?php
@@ -47,7 +47,7 @@
 								?>
 							</td>
 							<td>
-								<= number_format($row['clan_exp'], 0, ',' , '.' ) ?>
+								<?= number_format($row['clan_exp'], 0, ',', '.') ?>
 							</td>
 						</tr>
 					<?php

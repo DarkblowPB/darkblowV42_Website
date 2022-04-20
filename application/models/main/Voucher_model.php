@@ -12,8 +12,7 @@ class Voucher_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
-		$this->load->library('encryption');
+		$this->lang->load('message');
 	}
 
 	function SetCategory($item_id)
@@ -52,7 +51,7 @@ class Voucher_model extends CI_Model
 			if ($query->active == 'f') {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Invalid Voucher Code.';
+				$response['message'] = $this->lang->line('STR_ERROR_55');
 
 				echo json_encode($response);
 			} else {
@@ -71,7 +70,7 @@ class Voucher_model extends CI_Model
 				} else {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Failed To Fetch Account.';
+					$response['message'] = $this->lang->line('STR_ERROR_53');
 
 					echo json_encode($response);
 				}
@@ -94,7 +93,7 @@ class Voucher_model extends CI_Model
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Fetch Account.';
+								$response['message'] = $this->lang->line('STR_ERROR_53');
 
 								echo json_encode($response);
 							}
@@ -117,14 +116,14 @@ class Voucher_model extends CI_Model
 
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $state['success'] . ' New Items, ' . $state['total_cash'] . ' Cash, ' . $state['total_webcoin'] . ' Webcoin. Failed [' . $state['failed'] . ']';
+				$response['message'] = $this->lang->line('STR_SUCCESS_8') . $this->session->userdata('player_name') . ',' . $this->lang->line('STR_SUCCESS_9') . $state['success'] . $this->lang->line('STR_SUCCESS_15') . $state['total_cash'] . $this->lang->line('STR_SUCCESS_16') . $state['total_webcoin'] . $this->lang->line('STR_SUCCESS_17') . '[' . $state['failed'] . ']';
 
 				echo json_encode($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Invalid Voucher Code';
+			$response['message'] = $this->lang->line('STR_ERROR_55');
 
 			echo json_encode($response);
 		}
