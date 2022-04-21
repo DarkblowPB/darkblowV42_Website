@@ -84,7 +84,7 @@
                         SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
                         $.ajax({
-                            url: '<?= base_url('api/servercommand/attendance') ?>',
+                            url: '<?= base_url('api/servercommand/attendance') ?> ',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {

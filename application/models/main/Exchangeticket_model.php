@@ -12,7 +12,6 @@ class Exchangeticket_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     function GetTicketID($p_id, $ticket_id)
