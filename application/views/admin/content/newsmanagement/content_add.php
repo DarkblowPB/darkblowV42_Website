@@ -25,11 +25,11 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">News Description</label>
-                        <textarea name="quickslide_description" class="form-control col-9" rows="10" placeholder="Enter News Description" required></textarea>
+                        <textarea name="quickslide_description" class="form-control col-9 summernote_editor" rows="10" placeholder="Enter News Description" required></textarea>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Image</label>
-                        <input type="file" name="image" class="form-control-file col-9">
+                        <input type="file" name="test" class="form-control-file col-9">
                     </div>
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-outline-primary text-white"><i class="fas fa-paper-plane mr-2"></i>Submit News</button>

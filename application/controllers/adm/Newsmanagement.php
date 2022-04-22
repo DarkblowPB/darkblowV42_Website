@@ -58,7 +58,7 @@ class Newsmanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
+        if ($this->form_validation->run()) $this->newsmanagement->Test();
         else {
             $data['title'] = 'Create New News';
             $data['header'] = 'Create New News';
@@ -91,7 +91,7 @@ class Newsmanagement extends CI_Controller
                 $data['title'] = 'Edit News';
                 $data['header'] = 'Edit News';
 
-                $data['news'] = $this->newsmanagement->GetDetails($this->input->get('news_id', true));
+                $data['news'] = $this->newsmanagement->GetDetails($news_id);
 
                 $data['content'] = 'admin/content/newsmanagement/content_edit';
                 $this->load->view('admin/layout/wrapper', $data, FALSE);
@@ -116,7 +116,7 @@ class Newsmanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run()) $this->newsmanagement->AddNewNews();
+        if ($this->form_validation->run()) $this->newsmanagement->Test();
         else {
             $this->session->set_flashdata('false', 'Hehe Error :)');
             redirect(base_url('adm/newsmanagement/add'), 'refresh');

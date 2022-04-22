@@ -184,6 +184,10 @@
     $(document).on('select2:open', () => {
       document.querySelector('.select2-search__field').focus();
     });
+    $('.summernote_editor').summernote({
+      disableResizeEditor: true,
+      airMode: false,
+    });
   })
 </script>
 </body>

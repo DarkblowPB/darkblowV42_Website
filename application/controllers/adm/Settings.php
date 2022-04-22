@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Settings extends CI_Controller
+class Settings extends CI_Controller
 {
     function __construct()
     {
@@ -40,15 +40,14 @@ Class Settings extends CI_Controller
     function do_submit_generalsettings()
     {
         $response = array();
-        
+
         $this->form_validation->set_error_delimiters('', '');
 
         $data = array(
             'submit_form' => $this->input->post('submit_form')
         );
 
-        if ($data['submit_form'] == "submit01")
-        {
+        if ($data['submit_form'] == "submit01") {
 
             $this->form_validation->set_rules(
                 'server_condition',
@@ -69,18 +68,15 @@ Class Settings extends CI_Controller
                 )
             );
             if ($this->form_validation->run()) $this->settings->SetCondition();
-            else
-            {
+            else {
                 $this->form_validation->set_error_delimiters('', '');
-                
+
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = validation_errors();
                 echo json_encode($response);
             }
-        }
-        else if ($data['submit_form'] == "submit02")
-        {    
+        } else if ($data['submit_form'] == "submit02") {
             $this->form_validation->set_rules(
                 'project_name',
                 'Project Name',
@@ -106,17 +102,14 @@ Class Settings extends CI_Controller
                 array('required' => '%s Cannot Be Empty.')
             );
             if ($this->form_validation->run()) $this->settings->SetGeneral();
-            else
-            {
+            else {
                 $this->form_validation->set_error_delimiters('', '');
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = validation_errors();
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -140,48 +133,104 @@ Class Settings extends CI_Controller
         $this->form_validation->set_rules(
             'enable_webshop',
             'Webshop State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_trademarket',
             'Trade Market State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_exchangeticket',
             'Exchange Ticket State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_redeemcode',
             'Redeem Code State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_voucher',
             'Voucher State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'enable_forgotpassword',
+            'Forgot Password State',
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_register',
             'Register State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'enable_attendance',
             'Attendance State',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'enable_email_verification',
+            'Email Verification State',
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'enable_google_register',
+            'Google Register State',
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'enable_log_system',
+            'Log System State',
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         if ($this->form_validation->run()) $this->settings->SetFeature();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
@@ -192,5 +241,3 @@ Class Settings extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

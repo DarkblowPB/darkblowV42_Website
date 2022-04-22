@@ -10,11 +10,11 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">News Description</label>
-                        <textarea name="quickslide_description" rows="10" class="form-control col-9" required><?= $news->quickslide_description ?></textarea>
+                        <textarea name="quickslide_description" rows="10" class="form-control col-9 summernote_editor" required><?= $news->quickslide_description ?></textarea>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Old Image</label>
-                        <img src="<?= base_url() ?>assets/goodgames/assets/images/img_news/<?= $news->quickslide_img ?>" style="max-width: 100px" alt="Old Image">
+                        <img src="<?= base_url() ?>assets/goodgames/assets/images/img_slider/<?= $news->quickslide_img ?>" style="max-width: 500px" alt="Old Image">
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">New Image</label>

@@ -26,6 +26,26 @@ class Newsmanagement_model extends CI_Model
         else redirect(base_url('adm/newsmanagement'), 'refresh');
     }
 
+    function AddNewNewsV2()
+    {
+        $config = array(
+            'upload_path' => './assets/goodgames/assets/images/img_slider/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'max_size' => 4086,
+        );
+        $data = array(
+            'quickslide_title' => $this->input->post('quickslide_title', true),
+            'quickslide_description' => $this->input->post('quickslide_description', true)
+        );
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('image'))
+        {
+            
+        }
+    }
+
     function AddNewNews()
     {
         $data = array(
@@ -34,7 +54,7 @@ class Newsmanagement_model extends CI_Model
         );
 
         $config = array(
-            'upload_path' => './assets/goodgames/assets/images/img_news/',
+            'upload_path' => './assets/goodgames/assets/images/img_slider/',
             'allowed_types' => 'gif|jpg|jpeg|png',
             'max_size' => 2048,
             'max_width' => 1920,
