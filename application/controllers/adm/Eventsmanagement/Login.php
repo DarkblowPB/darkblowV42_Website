@@ -117,5 +117,3 @@ Class Login extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

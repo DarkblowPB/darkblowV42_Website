@@ -22,7 +22,7 @@
                         <tbody>
                             <?php $num = 1;
                             foreach ($items as $row) : ?>
-                                <tr id="<?= 'data' . $num ?>">
+                                <tr id="<?= 'data_' . $num ?>">
                                     <td>
                                         <?= $num ?>
                                     </td>
@@ -85,7 +85,6 @@
 
                                     if (Result.response == 'true') {
                                         document.getElementById(data_id).remove();
-                                        SetAttribute(button_id, 'button', 'Delete');
                                         ShowToast(2000, 'success', Result.message);
                                         CSRF_TOKEN = Result.token;
                                         return;

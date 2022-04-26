@@ -197,14 +197,14 @@
                     <p>Create Custom Player</p>
                   </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="<?= base_url('adm/playersmanagement/senditem') ?>" class="nav-link <?php if ($title == "Send Item Player") {
                                                                                                 echo 'active';
                                                                                               } ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Send Item Player</p>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </li>
             <li class="nav-item <?php if ($this->uri->segment(2) == "eventsmanagement") {

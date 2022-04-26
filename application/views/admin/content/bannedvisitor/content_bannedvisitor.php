@@ -3,15 +3,25 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
+                    <?php if ($this->session->flashdata('success')) : ?>
+                        <div class="alert alert-success" role="alert"><?= $this->session->flashdata('success') ?></div>
+                    <?php endif; ?>
+                    <?php if ($this->session->flashdata('error')) : ?>
+                        <div class="alert alert-error" role="alert"><?= $this->session->flashdata('error') ?></div>
+                    <?php endif; ?>
                     <table id="bannedvisitor_table" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead class="bg-primary">
-                            <th>IP ADDRESS</th>
+                            <th>IP Address</th>
+                            <th width="20%">Action</th>
                         </thead>
                         <tbody>
                             <?php foreach ($ip as $row) : ?>
                                 <tr>
                                     <td>
                                         <?= $row['ip_address'] ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?= base_url('adm/bannedvisitor/do_delete/' . $row['ip_address']) ?>" class="btn btn-outline-danger"><i class="fa fa-trash mr-2"></i> Unban IP Address</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -62,7 +62,7 @@ class Home extends CI_Controller
 	{
 		$response = array();
 
-		$response['response'] = $this->db->get_where('accounts', array('online' => 't'))->num_rows();
+		$response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email !=' => 'empty@empty.empty', 'online' => 't'))->num_rows();
 		echo json_encode($response);
 	}
 

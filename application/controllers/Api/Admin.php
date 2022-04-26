@@ -15,7 +15,6 @@ class Admin extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->lang->load('string');
     }
 
     function loginpanel_get()

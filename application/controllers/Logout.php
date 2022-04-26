@@ -30,9 +30,7 @@ class Logout extends CI_Controller
 	{
 		$response = array();
 
-		$this->session->unset_userdata('uid');
-		$this->session->unset_userdata('player_name');
-		$this->session->unset_userdata('access_level');
+		$this->session->sess_destroy();
 
 		$response['response'] = 'true';
 		$response['message'] = 'Successfully Logged Out.';

@@ -10,10 +10,10 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap justify-content-center">
-                    <?php if ($client != null || $partial != null) : ?>
+                    <?php if ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() != null || $this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() != null) : ?>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($client as $row) : ?>
+                            foreach ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($partial as $row) : ?>
+                            foreach ($this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -48,7 +48,7 @@
                             endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if ($client == null && $partial == null) : ?>
+                    <?php if ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() == null && $this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_5') ?>
                         </div>
@@ -63,10 +63,10 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap justify-content-center">
-                    <?php if ($launcher != null) : ?>
+                    <?php if ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() != null) : ?>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($launcher as $row) : ?>
+                            foreach ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -83,7 +83,7 @@
                             endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if ($launcher == null) : ?>
+                    <?php if ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_6') ?>
                         </div>
@@ -102,9 +102,9 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap">
-                    <?php if ($support != null) : ?>
+                    <?php if ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() != null) : ?>
                         <?php $num = 1;
-                        foreach ($support as $row) : ?>
+                        foreach ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() as $row) : ?>
                             <div class="col-lg-4 text-white">
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
@@ -122,7 +122,7 @@
                         <?php $num++;
                         endforeach; ?>
                     <?php endif; ?>
-                    <?php if ($support == null) : ?>
+                    <?php if ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_7') ?>
                         </div>

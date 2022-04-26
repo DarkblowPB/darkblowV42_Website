@@ -54,15 +54,16 @@ class Playersmanagement extends CI_Controller
 
     function senditem()
     {
-        $data['title'] = 'Send Item Player';
-        $data['header'] = 'Send Item Player';
+        redirect(base_url('adm/playersmanagement'), 'refresh');
+        // $data['title'] = 'Send Item Player';
+        // $data['header'] = 'Send Item Player';
 
-        $data['players'] = $this->playersmanagement->GetAllPlayers2();
-        $data['items'] = $this->playersmanagement->GetAllShop();
+        // $data['players'] = $this->playersmanagement->GetAllPlayers2();
+        // $data['items'] = $this->playersmanagement->GetAllShop();
 
-        $data['content'] = 'admin/content/playersmanagement/content_senditem';
+        // $data['content'] = 'admin/content/playersmanagement/content_senditem';
 
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
+        // $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function do_resetpassword()
