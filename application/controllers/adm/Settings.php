@@ -229,6 +229,15 @@ class Settings extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
+        $this->form_validation->set_rules(
+            'enable_packshop',
+            'Packshop',
+            'required|in_list[0,1]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
         if ($this->form_validation->run()) $this->settings->SetFeature();
         else {
             $response['response'] = 'false';

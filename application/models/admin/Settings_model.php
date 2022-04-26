@@ -197,7 +197,8 @@ class Settings_model extends CI_Model
             'enable_attendance' => $this->encryption->encrypt($this->input->post('enable_attendance', true)),
             'enable_email_verification' => $this->encryption->encrypt($this->input->post('enable_email_verification', true)),
             'enable_google_register' => $this->encryption->encrypt($this->input->post('enable_google_register', true)),
-            'enable_log_system' => $this->encryption->encrypt($this->input->post('enable_log_system', true))
+            'enable_log_system' => $this->encryption->encrypt($this->input->post('enable_log_system', true)),
+            'enable_packshop' => $this->encryption->encrypt($this->input->post('enable_packshop', true))
         );
 
         $response = array();
@@ -215,7 +216,8 @@ class Settings_model extends CI_Model
                 'attendance' => $this->encryption->decrypt($data['enable_attendance']),
                 'email_verification' => $this->encryption->decrypt($data['enable_email_verification']),
                 'google_register' => $this->encryption->decrypt($data['enable_google_register']),
-                'web_log' => $this->encryption->decrypt($data['enable_log_system'])
+                'web_log' => $this->encryption->decrypt($data['enable_log_system']),
+                'packshop' => $this->encryption->decrypt($data['packshop'])
             ));
 
             if ($update) {

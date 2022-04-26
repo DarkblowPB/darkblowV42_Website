@@ -125,6 +125,17 @@
                                                 } ?>>Enabled</option>
                         </select>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-3">Log System</label>
+                        <select name="enable_packshop" id="enable_packshop" class="form-control col-9 reward_selection">
+                            <option value="0" <?php if ($this->getsettings->Get()->packshop == 0) {
+                                                    echo 'selected';
+                                                } ?>>Disabled</option>
+                            <option value="1" <?php if ($this->getsettings->Get()->packshop == 1) {
+                                                    echo 'selected';
+                                                } ?>>Enabled</option>
+                        </select>
+                    </div>
                     <div class="form-group text-right">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
                     </div>
@@ -173,6 +184,9 @@
                             } else if ($('#enable_log_system').val() == '' || $('#enable_log_system').val() == null) {
                                 ShowToast(2000, 'warning', 'Log System State Cannot Be Empty.');
                                 return;
+                            } else if ($('#enable_packshop').val() == '' || $('#enable_packshop').val() == null) {
+                                ShowToast(2000, 'warning', 'Log System State Cannot Be Empty.');
+                                return;
                             } else {
                                 SetAttribute('submit', 'button', 'Processing...');
 
@@ -192,7 +206,8 @@
                                         'enable_attendance': $('#enable_attendance').val(),
                                         'enable_email_verification': $('#enable_email_verification').val(),
                                         'enable_google_register': $('#enable_google_register').val(),
-                                        'enable_log_system': $('#enable_log_system').val()
+                                        'enable_log_system': $('#enable_log_system').val(),
+                                        'enable_packshop': $('#enable_packshop').val()
                                     },
                                     success: function(data) {
                                         var GetString = JSON.stringify(data);

