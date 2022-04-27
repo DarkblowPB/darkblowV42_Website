@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 18/04/2022 09:13:52
+ Date: 27/04/2022 07:43:36
 */
 
 
@@ -534,6 +534,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_packshop_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_packshop_id_seq";
+CREATE SEQUENCE "public"."web_packshop_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_quickslide_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_quickslide_id_seq";
@@ -683,13 +694,15 @@ CREATE TABLE "public"."accounts" (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 0, 54, 999999999, 999999999, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 0, 0, 0, 1, 0, 0, 999999999, 999999999, 4294967295, 1204121931, 0, 0, '28:39:26:0f:73:84', 0, 999999999, '', '', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('testingakun123', '9063f7c14a7721b35a2b730a42ff3e9e', 8, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'test@test.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '18-04-2022 09:12:44', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 1204262132, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('testakun', 'ea4c03400aaa4b8f5c4901474fb91278', 4, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:16', 0, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 206000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, -1, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 2000029997, 'f', 0, 601034001, 702001237, 803007075, 904007043, 1001001286, 1001002287, 1102003008, 1006003041, 1103003010, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2111220659, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow005', 'd250ed959463e3a789bba1a3ad1dfdfc', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 5, 53, 999950000, 1000000000, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4278320896, 1204262138, 0, 0, '28:39:26:0f:73:84', 0, 999993999, '', '', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow005', 'b057c5469ed59c3b6843b8cb756b1bce', 196, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidhorizon@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '23-12-2021 12:19:40', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('testingakun123', '9063f7c14a7721b35a2b730a42ff3e9e', 8, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'test@test.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '18-04-2022 09:12:44', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow003', 'd250ed959463e3a789bba1a3ad1dfdfc', 195, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'imamrasyidbackup@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 0, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('testakun24', 'ea4c03400aaa4b8f5c4901474fb91278', 5, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '::1', 'testakun24@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'testakun', '29-12-2021 01:24:32', 0, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('cpq0r66g0pz', 'a59f55eea123dd9ffb007aeb549fb772', 9, '', 0, 0, 31, 999999999, 598097, 5, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 999999999, 'What was your childhood nickname?', 'asd', NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('as8oo6yxymn', 'bcbef9680ff64dc4e12e60868aa15d36', 10, '', 0, 0, 31, 999999999, 773213, 5, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 999999999, 'What was your childhood nickname?', 'asd', NULL, 1, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -741,9 +754,8 @@ CREATE TABLE "public"."check_user_itemcode" (
 -- ----------------------------
 -- Records of check_user_itemcode
 -- ----------------------------
-INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-2KZR-88VN-BLOW', NULL, '19-12-2021 01:14:35', 33);
-INSERT INTO "public"."check_user_itemcode" VALUES (6, 'DARK-3Y0L-WUG5-BLOW', NULL, '29-12-2021 01:47:55', 34);
-INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-3Y0L-WUG5-BLOW', NULL, '12-01-2022 09:16:49', 36);
+INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-2KZR-88VN-BLOW', NULL, '26-04-2022 09:40:27', 38);
+INSERT INTO "public"."check_user_itemcode" VALUES (1, 'DARK-LQ7H-QE31-BLOW', NULL, '26-04-2022 09:43:10', 39);
 
 -- ----------------------------
 -- Table structure for check_user_voucher
@@ -790,6 +802,11 @@ CREATE TABLE "public"."clan_data" (
 ;
 
 -- ----------------------------
+-- Records of clan_data
+-- ----------------------------
+INSERT INTO "public"."clan_data" VALUES (5, 0, 'STAFF', 1, 0, 0, 'Official Clan', '', 20220426, 0, 0, 0, 0, 0, 0, 0, 1000, 50, 0, '0-0', '0-0', '0-0', '0-0', '0-0');
+
+-- ----------------------------
 -- Table structure for clan_invites
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."clan_invites";
@@ -828,6 +845,11 @@ CREATE TABLE "public"."events_login" (
   "reward_count" int4
 )
 ;
+
+-- ----------------------------
+-- Records of events_login
+-- ----------------------------
+INSERT INTO "public"."events_login" VALUES (6, 2204260000, 2204272359, 100003005, 2592000);
 
 -- ----------------------------
 -- Table structure for events_mapbonus
@@ -1221,6 +1243,8 @@ INSERT INTO "public"."item_code" VALUES ('200004196', 'Kriss S.V Harimau - Redee
 INSERT INTO "public"."item_code" VALUES (NULL, NULL, NULL, '50000 DR-Cash', 'DARK-MKNS-997X-BLOW', '50000', 'Cash');
 INSERT INTO "public"."item_code" VALUES ('200004214', 'OA-93 PBNC2015 U.S. - Redeem Code', '2592000', 'OA-93 PBNC2015 U.S. 30Days', 'DARK-3Y0L-WUG5-BLOW', NULL, 'Item');
 INSERT INTO "public"."item_code" VALUES ('100003002', 'AK-47 Ext. - Redeem Code', '259200', 'AK-47 Ext. 3Days', 'DARK-OF2O-318V-BLOW', NULL, 'Item');
+INSERT INTO "public"."item_code" VALUES ('200004168', 'Kriss S.V X-MAS - Redeem Code', '2592000', 'Kriss S.V X-MAS 30Days', 'DARK-OCU9-73PY-BLOW', NULL, 'Item');
+INSERT INTO "public"."item_code" VALUES ('1103003010', 'PBTN Champion Beret - Redeem Code', '2592000', 'PBTN Champion Beret 30Days', 'DARK-LQ7H-QE31-BLOW', NULL, 'Item');
 
 -- ----------------------------
 -- Table structure for item_goods_sets
@@ -1276,10 +1300,9 @@ CREATE TABLE "public"."launcher_launcherkey" (
 -- ----------------------------
 -- Records of launcher_launcherkey
 -- ----------------------------
-INSERT INTO "public"."launcher_launcherkey" VALUES (17, 695489391, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (18, 429728031, 0);
-INSERT INTO "public"."launcher_launcherkey" VALUES (19, 878732868, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (20, 412214350, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (21, 756508067, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (22, 28694310, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (23, 351281468, 0);
 
 -- ----------------------------
 -- Table structure for launcher_loghistory
@@ -1379,8 +1402,8 @@ CREATE TABLE "public"."player_configs" (
 -- ----------------------------
 INSERT INTO "public"."player_configs" VALUES (177, 55, 3, 2, 0, 30, 60, 6, 10, 80, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\000\\032\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\001\\002\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 INSERT INTO "public"."player_configs" VALUES (2, 55, 1, 0, 0, 100, 60, 6, 50, 70, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\001\\002\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\000\\032\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
-INSERT INTO "public"."player_configs" VALUES (1, 55, 3, 2, 0, 50, 15, 6, 10, 80, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\000\\032\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\001\\002\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 INSERT INTO "public"."player_configs" VALUES (6, 55, 1, 0, 0, 100, 60, 6, 50, 70, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\001\\002\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\000\\032\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
+INSERT INTO "public"."player_configs" VALUES (1, 55, 3, 2, 0, 50, 15, 6, 10, 80, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\000\\032\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\001\\002\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 
 -- ----------------------------
 -- Table structure for player_events
@@ -1428,8 +1451,152 @@ CREATE TABLE "public"."player_items" (
 -- ----------------------------
 -- Records of player_items
 -- ----------------------------
-INSERT INTO "public"."player_items" VALUES (2, 6, 200004214, 'OA-93 PBNC2015 U.S. - Redeem Code', 2592000, 1, 1);
-INSERT INTO "public"."player_items" VALUES (6, 1, 200004214, 'OA-93 PBNC2015 U.S. - Redeem Code', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (31, 1, 100003090, 'Famas G2 Digital', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (32, 1, 702015025, 'Dual Knife M9 Digital', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (33, 1, 100003275, 'AUG A3 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (34, 1, 100003276, 'SC-2010 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (35, 1, 200004289, 'Kriss S.V Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (36, 1, 200004291, 'P90 Ext Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (37, 1, 300005168, 'Cheytac M200 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (38, 1, 300005169, 'L115A1 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (39, 1, 400006072, 'M1887 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (40, 1, 100003453, 'AUG A3 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (41, 1, 200004603, 'Kriss S.V Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (42, 1, 200004605, 'OA-93 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (43, 1, 300005303, 'Cheytac M200 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (44, 1, 400006145, '', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (45, 1, 100003347, 'AUG A3 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (46, 1, 100003348, 'SC-2010 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (47, 1, 200004400, 'Kriss S.V Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (48, 1, 300005216, 'Tactilite T2 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (49, 1, 400006102, 'M1887 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (50, 1, 702001182, 'Fang Blade Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (51, 1, 1103003026, 'Green Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (52, 1, 100003315, 'AUG A3 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (53, 1, 100003316, 'Pindad SS2 V5 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (54, 1, 200004342, 'Kriss S.V Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (55, 1, 200004344, 'P90 Ext. Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (56, 1, 300005194, 'Cheytac M200 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (57, 1, 400006088, 'Zombie Slayer Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (58, 1, 601002106, 'C. Python Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (59, 1, 702001069, 'Ice Fork', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (60, 1, 702001167, 'Fang Blade Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (61, 1, 803007070, 'K-413 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (62, 1, 100003120, 'AUG A3 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (63, 1, 100003121, 'M4A1 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (64, 1, 100003122, 'AK47 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (65, 1, 200004103, 'Kriss S.V PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (66, 1, 300005032, 'Barrett M82A1', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (67, 1, 300005232, 'Barrett M82A1 Premium', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (68, 1, 300005268, 'Barrett M82A1 Black', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (69, 1, 300005272, 'Barrett M82A1 Red', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (70, 1, 300005277, 'Barrett M82A1 Blue', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (71, 1, 300005292, 'Barrett M28A1 Nusantara', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (72, 1, 200004513, 'T77.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (73, 1, 200004515, 'T77 SI.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (74, 1, 200004517, 'T77 G.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (75, 1, 100003147, 'AUG A3 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (76, 1, 200004126, 'Kriss S.V Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (77, 1, 200004128, 'P90 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (78, 1, 300005079, 'Cheytac M200 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (79, 1, 702001057, 'Fang Blade Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (80, 1, 100003091, 'Famas G2 Commando PBTN', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (81, 1, 200004078, 'P90 PBTN ', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (82, 1, 200004079, 'Kriss S.V PBTN ', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (83, 1, 300005050, 'L115A1 PBTN', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (84, 1, 1103003010, 'PBTN Champion Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (85, 1, 100003227, 'AUG A3 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (86, 1, 200004232, 'OA-93 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (87, 1, 300005127, 'L115A1 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (88, 1, 601002073, 'R.B 454 SS8M+S Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (89, 1, 702001108, 'Fang Blade Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (90, 1, 1103003015, 'Cobra Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (91, 1, 1104003213, 'Mask Cobra', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (92, 1, 904007011, 'Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (93, 1, 904007014, 'Halloween Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (94, 1, 904007015, 'Chocolate Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (95, 1, 904007021, 'Medical Kit Lotus', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (96, 1, 904007025, 'Medical Kit Opor Ayam', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (97, 1, 904007029, 'Medical Kit PBNC5', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (98, 1, 904007031, 'Easter Day Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (99, 1, 904007032, 'Medical Kit Lotus2014', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (100, 1, 904007043, 'Medical Kit Kurma', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (101, 1, 904007046, 'Medical Kit PBNC6', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (102, 1, 904007048, 'Medical Kit [Noname] [BUG]', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (103, 1, 904007051, 'Medical Kit PBNC2015', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (104, 1, 803007066, 'Soccer Ball Bomb', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (105, 1, 803007075, 'Volley Ball Grenade', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (106, 1, 803007053, 'Water Bomb', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (107, 1, 1001001003, 'Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (108, 1, 1001001007, 'D-Fox (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (109, 1, 1001001010, 'Viper Red Boost (+30% Points)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (110, 1, 1001001011, 'Reinforced D-Fox', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (111, 1, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (112, 1, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (113, 1, 1001001021, 'Reinforced Red Bulls', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (114, 1, 1001001022, 'Reinforced Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (115, 1, 1001001025, 'D-Fox', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (116, 1, 1001001028, 'Viper Red', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (117, 1, 1001001034, 'Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (118, 1, 1001001036, 'Reinforced Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (119, 1, 1001001049, 'Tarantula -  RED (20% Exp)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (120, 1, 1001001050, 'Red Bulls Point+20%', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (121, 1, 1001001054, 'World Tarantula [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (122, 1, 1001001055, 'Viper Shadow [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (123, 1, 1001001068, 'Viper Kopassus [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (124, 1, 1001001069, 'Bella FBI [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (125, 1, 1001001084, 'Viper Red Pirate [BUG]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (126, 1, 1001001087, 'Gangstar ViperRed', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (127, 1, 1001001095, 'Viper Red Demolition', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (128, 1, 1001001127, 'Red Bulls Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (129, 1, 1001001137, 'D-Fox Hitman', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (130, 1, 1001001268, 'Tarantula CrocSuit', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (131, 1, 1001001275, 'Captain Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (132, 1, 1001001283, 'Pirate Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (133, 1, 1001001286, 'General Viper Red', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (134, 1, 1001001302, 'P1000 Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (135, 1, 1001001320, 'Infiltrate Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (136, 1, 1001001356, 'Viper Red Summer Vacation', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (137, 1, 1001001394, 'Tarantula Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (138, 1, 1001001415, 'Bella HalloweenNurse [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (139, 1, 1001001421, 'Bella Rangda', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (140, 1, 1001001436, 'ViperRed Rudolph', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (141, 1, 1001001465, 'Bella PinkChoco [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (142, 1, 1001002004, 'Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (143, 1, 1001002008, 'Leopard (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (144, 1, 1001002009, 'Hide (+30% Gold)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (145, 1, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (146, 1, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (147, 1, 1001002026, 'Leopard Normal', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (148, 1, 1001002027, 'Hide Normal', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (149, 1, 1001002033, 'Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (150, 1, 1001002035, 'Reinforced Chou [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (151, 1, 1001002047, 'Keen Eyes - Garena (20%Exp)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (152, 1, 1001002051, 'Hide Kopassus [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (153, 1, 1001002052, 'Leopard Bope', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (154, 1, 1001002053, 'Hide World Cup 2014', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (155, 1, 1001002053, 'Hide World Cup 2014', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (156, 1, 1001002056, 'Hide Commando', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (157, 1, 1001002062, 'Infected Acid Paul', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (158, 1, 1001002063, 'Infected Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (159, 1, 1001002064, 'Infected Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (160, 1, 1001002065, 'Infected Leopard', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (161, 1, 1001002067, 'Hide Strike [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (162, 1, 1001002144, 'Chou FBI [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (163, 1, 1001002156, 'Keen Eyes Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (164, 1, 1001002157, 'Swat-Sniper Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (165, 1, 1001002175, 'Gengster Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (166, 1, 1001002183, 'Jumpsuit Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (167, 1, 1001002225, 'Leopard Hitman', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (168, 1, 1001002270, 'Keen Eyes SAS', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (169, 1, 1001002278, 'Captain Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (170, 1, 1001002287, 'General Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (171, 1, 1001002305, 'P1000 Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (172, 1, 1001002311, 'Infiltrate Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (173, 1, 1001002353, 'Hide Summer Vacation', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (174, 1, 1001002413, 'Chou Pocong', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (175, 1, 1001002418, 'Chou HalloweenNurse [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (176, 1, 1001002439, 'Hide Rudolph', 1, 2, 3);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -1532,467 +1699,432 @@ CREATE TABLE "public"."shop" (
 -- ----------------------------
 -- Records of shop
 -- ----------------------------
-INSERT INTO "public"."shop" VALUES (10011, 100003010, 'M4A1 S.', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10048, 100003036, 'AUG A3', 38000, 0, 100, 1, 1, 2, 0, 12, 0);
-INSERT INTO "public"."shop" VALUES (10016, 100003017, 'AK-47 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10018, 100003021, 'M4A1 SI.', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10014, 100003014, 'SG-550 S.', 24000, 0, 100, 1, 1, 2, 0, 8, 0);
-INSERT INTO "public"."shop" VALUES (10017, 100003019, 'SG-550 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10020, 100003021, 'M4A1 SI.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10019, 100003021, 'M4A1 SI.', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10023, 100003022, 'M4A1 Wh.', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10024, 100003023, 'M4A1 Gold', 0, 9000, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10028, 100003025, 'AK-47 SI.+', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10026, 100003025, 'AK-47 SI.+', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10025, 100003023, 'M4A1 Gold', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10027, 100003025, 'AK-47 SI.+', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10030, 100003027, 'G36C Ext. [D-Cash]', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10032, 100003029, 'G36C Silver', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10029, 100003027, 'G36C Ext. [D-Cash]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10034, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10033, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10035, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10038, 100003032, 'F2000 SI.', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10036, 100003032, 'F2000 SI.', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10037, 100003032, 'F2000 SI.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10041, 100003033, 'AK SOPMOD +20%', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10039, 100003033, 'AK SOPMOD +20%', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10044, 100003034, 'G36C SI. +20% [EXP+]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10040, 100003033, 'AK SOPMOD +20%', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10043, 100003034, 'G36C SI. +20% [EXP+]', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10046, 100003035, 'SG 550 S D.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10045, 100003035, 'SG 550 S D.', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10003, 100003003, 'M4A1 Ext.', 26000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10004, 100003004, 'K-2', 23000, 0, 100, 0, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10005, 100003005, 'F2000 Ext.', 24000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10006, 100003009, 'AK-47 G.', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10007, 100003009, 'AK-47 G.', 0, 3200, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10008, 100003009, 'AK-47 G.', 0, 1499, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10009, 100003010, 'M4A1 S.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10010, 100003010, 'M4A1 S.', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10011, 100003010, 'M4A1 S.', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10013, 100003013, 'G36C Ext.', 38000, 0, 100, 1, 1, 2, 0, 10, 0);
-INSERT INTO "public"."shop" VALUES (10051, 100003037, 'AUG A3 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10050, 100003037, 'AUG A3 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10049, 100003037, 'AUG A3 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10054, 100003038, 'G36C D.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10052, 100003038, 'G36C D.', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10053, 100003038, 'G36C D.', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10057, 100003039, 'AK SOPMOD D', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10055, 100003039, 'AK SOPMOD D', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10058, 100003040, 'AUG A3 D', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10060, 100003040, 'AUG A3 D', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10059, 100003040, 'AUG A3 D', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10062, 100003041, 'AK SOPMOD CG.', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10061, 100003041, 'AK SOPMOD CG.', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10065, 100003042, 'M4 SR-16 Lv1', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10063, 100003041, 'AK SOPMOD CG.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10064, 100003042, 'M4 SR-16 Lv1', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10066, 100003042, 'M4 SR-16 Lv1', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10069, 100003043, 'M4 SR-16 Lv2', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10067, 100003043, 'M4 SR-16 Lv2', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10068, 100003043, 'M4 SR-16 Lv2', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10080, 100003049, 'FAMAS G2', 0, 9000, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10070, 100003044, 'M4 SR-16 Lv3', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10072, 100003044, 'M4 SR-16 Lv3', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10075, 100003045, 'M4 SR-16 F.C.', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10071, 100003044, 'M4 SR-16 Lv3', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10073, 100003045, 'M4 SR-16 F.C.', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10076, 100003046, 'F2000 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10078, 100003048, 'AUG A3 Black', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10077, 100003048, 'AUG A3 Black', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10079, 100003048, 'AUG A3 Black', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10081, 100003049, 'FAMAS G2', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10084, 100003050, 'FAMAS G2 Commando', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10083, 100003050, 'FAMAS G2 Commando', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10082, 100003050, 'FAMAS G2 Commando', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10087, 100003051, 'FAMAS G2 Sniper', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10085, 100003051, 'FAMAS G2 Sniper', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10086, 100003051, 'FAMAS G2 Sniper', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10088, 100003052, 'FAMAS G2 M203', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10090, 100003052, 'FAMAS G2 M203', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10089, 100003052, 'FAMAS G2 M203', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10009, 100003010, 'M4A1 S.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10091, 100003053, 'SS2-V4 Para Sniper', 36000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10092, 100003054, 'AK-47 Gold D', 1, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10014, 100003014, 'SG-550 S.', 24000, 0, 100, 1, 1, 2, 0, 8, 0);
 INSERT INTO "public"."shop" VALUES (10015, 100003015, 'AK SOPMOD Ext.', 38000, 0, 100, 1, 1, 2, 0, 12, 0);
-INSERT INTO "public"."shop" VALUES (10003, 100003003, 'M4A1 Ext.', 26000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10004, 100003004, 'K-2', 23000, 0, 100, 0, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10005, 100003005, 'F2000 Ext.', 24000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10002, 100003002, 'AK-47 Ext.', 28000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10007, 100003009, 'AK-47 G.', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10010, 100003010, 'M4A1 S.', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10006, 100003009, 'AK-47 G.', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10008, 100003009, 'AK-47 G.', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10102, 100003062, 'FAMAS G2 Commando E-Sports', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10103, 100003063, 'AUG A3 E-Sports', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10106, 100003064, 'Famas G2 Commando Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10109, 100003065, 'AUG A3 Blue', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10108, 100003064, 'Famas G2 Commando Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10107, 100003064, 'Famas G2 Commando Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10112, 100003068, 'AK-47 FC Red', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10096, 100003060, 'M4A1.', 0, 999, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10113, 100003068, 'AK-47 FC Red', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10119, 100003086, 'AK-47 Goddess', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10115, 100003069, 'SCAR-H CQC', 34000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10111, 100003065, 'AUG A3 Blue', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10114, 100003068, 'AK-47 FC Red', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10116, 100003071, 'AUG A3 PBIC', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10121, 100003090, 'Famas G2 Digital', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10123, 100003090, 'Famas G2 Digital', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10122, 100003090, 'Famas G2 Digital', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10117, 100003071, 'AUG A3 PBIC', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10120, 100003087, 'Famas G2 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10124, 100003091, 'Famas G2 Commando PBTN', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10133, 100003094, 'SCAR-L Carbine', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10128, 100003092, 'AK SOPMOD R', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10129, 100003092, 'AK SOPMOD R', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10125, 100003091, 'Famas G2 Commando PBTN', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10127, 100003092, 'AK SOPMOD R', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10135, 100003094, 'SCAR-L Carbine', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10130, 100003093, 'AUG A3 Blitz', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10132, 100003093, 'AUG A3 Blitz', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10137, 100003095, 'SCAR-L Recon', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10136, 100003095, 'SCAR-L Recon', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10134, 100003094, 'SCAR-L Carbine', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10131, 100003093, 'AUG A3 Blitz', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10140, 100003096, 'SCAR-L FC', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10146, 100003098, 'M4A1 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10143, 100003097, 'AUG A3 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10141, 100003096, 'SCAR-L FC', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10139, 100003096, 'SCAR-L FC', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10138, 100003095, 'SCAR-L Recon', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10147, 100003098, 'M4A1 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10144, 100003097, 'AUG A3 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10145, 100003098, 'M4A1 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10142, 100003097, 'AUG A3 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10150, 100003099, 'AK SOPMOD GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10148, 100003099, 'AK SOPMOD GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10149, 100003099, 'AK SOPMOD GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10152, 100003100, 'Famas G2 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10164, 100003106, 'AUG A3 GSL', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10156, 100003103, 'M4 SR-16 D Hunter', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10155, 100003103, 'M4 SR-16 D Hunter', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10151, 100003100, 'Famas G2 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10158, 100003104, 'AUG A3 GSL', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10157, 100003103, 'M4 SR-16 D Hunter', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10154, 100003102, 'HK-417', 36000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10159, 100003104, 'AUG A3 GSL', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10161, 100003105, 'Famas G2 Commando GSL', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10163, 100003105, 'Famas G2 Commando GSL', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10160, 100003104, 'AUG A3 GSL', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10162, 100003105, 'Famas G2 Commando GSL', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10169, 100003109, 'AUG A3 TW1st', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10165, 100003106, 'AUG A3 GSL', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10171, 100003111, 'AUG A3 Commando', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10174, 100003112, 'AUG A3 Turkey', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10177, 100003114, 'M4A1 Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10166, 100003106, 'AUG A3 GSL', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10167, 100003109, 'AUG A3 TW1st', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10168, 100003109, 'AUG A3 TW1st', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10172, 100003111, 'AUG A3 Commando', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10170, 100003111, 'AUG A3 Commando', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10175, 100003112, 'AUG A3 Turkey', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10178, 100003114, 'M4A1 Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10176, 100003114, 'M4A1 Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10179, 100003115, 'AN-94', 32000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10181, 100003117, 'SG550 Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10182, 100003118, 'Pindad SS2-V4 Para Sniper Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10093, 100003057, 'Vz. 52', 0, 9000, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10104, 100003063, 'AUG A3 E-Sports', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10180, 100003116, 'F2000 Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10095, 100003060, 'M4A1.', 0, 650, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10097, 100003060, 'M4A1.', 0, 1799, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10118, 100003071, 'AUG A3 PBIC', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10099, 100003061, 'SS2-V4 Para Sniper Gold', 0, 9000, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10105, 100003063, 'AUG A3 E-Sports', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10101, 100003062, 'FAMAS G2 Commando E-Sports', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10110, 100003065, 'AUG A3 Blue', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10098, 100003061, 'SS2-V4 Para Sniper Gold', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10205, 100003130, 'AUG A3 G Bloody', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10201, 100003128, 'AUG A3 Azerbaijan', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10196, 100003125, 'AK-47 F.C', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10198, 100003125, 'AK-47 F.C', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10194, 100003122, 'AK47 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10200, 100003128, 'AUG A3 Azerbaijan', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10199, 100003128, 'AUG A3 Azerbaijan', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10197, 100003125, 'AK-47 F.C', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10202, 100003129, 'AUG A3 Bloody', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10206, 100003130, 'AUG A3 G Bloody', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10204, 100003129, 'AUG A3 Bloody', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10203, 100003129, 'AUG A3 Bloody', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10213, 100003142, 'AUG A3 TH 1st Anniversary', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10207, 100003130, 'AUG A3 G Bloody', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10208, 100003131, 'AUG A3 LATIN3', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10209, 100003131, 'AUG A3 LATIN3', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10211, 100003142, 'AUG A3 TH 1st Anniversary', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10215, 100003143, 'FG 42', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10214, 100003143, 'FG 42', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10212, 100003142, 'AUG A3 TH 1st Anniversary', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10218, 100003144, 'AUG A3 R', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10216, 100003143, 'FG 42', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10219, 100003144, 'AUG A3 R', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10221, 100003146, 'G36C Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10228, 100003148, 'AUG A3 CS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10222, 100003146, 'G36C Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10217, 100003144, 'AUG A3 R', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10224, 100003147, 'AUG A3 Inferno', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10225, 100003147, 'AUG A3 Inferno', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10220, 100003146, 'G36C Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10226, 100003148, 'AUG A3 CS', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10234, 100003151, 'TAR-21 BR Camo', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10229, 100003149, 'AUG A3 GSL2014', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10233, 100003151, 'TAR-21 BR Camo', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10223, 100003147, 'AUG A3 Inferno', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10227, 100003148, 'AUG A3 CS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10237, 100003152, 'AK SOPMOD BR Camo', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10238, 100003153, 'SC-2010', 36000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10232, 100003151, 'TAR-21 BR Camo', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10231, 100003149, 'AUG A3 GSL2014', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10235, 100003152, 'AK SOPMOD BR Camo', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10252, 100003159, 'AUG A3 PBIC2014', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10239, 100003154, 'SC-2010 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10243, 100003155, 'AUG A3 Brazuca', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10241, 100003154, 'SC-2010 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10236, 100003152, 'AK SOPMOD BR Camo', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10244, 100003155, 'AUG A3 Brazuca', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10242, 100003155, 'AUG A3 Brazuca', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10240, 100003154, 'SC-2010 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10246, 100003157, 'AUG A3 Champion', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10247, 100003157, 'AUG A3 Champion', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10256, 100003160, 'AUG A3 BR 4th Anniversary', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10245, 100003157, 'AUG A3 Champion', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10248, 100003158, 'AUG A3 W.O.E', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10249, 100003158, 'AUG A3 W.O.E', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10250, 100003158, 'AUG A3 W.O.E', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10253, 100003159, 'AUG A3 PBIC2014', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10255, 100003160, 'AUG A3 BR 4th Anniversary', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10251, 100003159, 'AUG A3 PBIC2014', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10259, 100003161, 'AUG A3 Pied', 0, 1799, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10257, 100003161, 'AUG A3 Pied', 0, 999, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10258, 100003161, 'AUG A3 Pied', 0, 650, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10260, 100003163, 'AUG A3 PC Cafe', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10261, 100003164, 'AUG A3 G E-Sport', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10263, 100003164, 'AUG A3 G E-Sport', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10262, 100003164, 'AUG A3 G E-Sport', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10266, 100003165, 'AUG A3 Toy', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10268, 100003167, 'AN-94 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10265, 100003165, 'AUG A3 Toy', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10269, 100003167, 'AN-94 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10272, 100003168, 'HK-417 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10267, 100003167, 'AN-94 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10264, 100003165, 'AUG A3 Toy', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10273, 100003169, 'TAR-21 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10270, 100003168, 'HK-417 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10192, 100003122, 'AK47 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10185, 100003119, 'AK-47 Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10184, 100003119, 'AK-47 Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10271, 100003168, 'HK-417 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10190, 100003121, 'M4A1 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10188, 100003120, 'AUG A3 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10186, 100003120, 'AUG A3 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10189, 100003121, 'M4A1 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10195, 100003123, 'TAR-21', 34000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10191, 100003121, 'M4A1 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10193, 100003122, 'AK47 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10288, 100003175, 'SCAR-L Carbine D.', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10286, 100003175, 'SCAR-L Carbine D.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10290, 100003176, 'SCAR-L Recon D. (Noname)', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10293, 100003177, 'XM8 GOLD', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10287, 100003175, 'SCAR-L Carbine D.', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10289, 100003176, 'SCAR-L Recon D. (Noname)', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10301, 100003181, 'AUG A3 Sheep', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10294, 100003177, 'XM8 GOLD', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10291, 100003176, 'SCAR-L Recon D. (Noname)', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10295, 100003178, 'AUG A3 CoupleBreaker', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10297, 100003178, 'AUG A3 CoupleBreaker', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10302, 100003181, 'AUG A3 Sheep', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10292, 100003177, 'XM8 GOLD', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10298, 100003180, 'AUG A3 CNY 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10300, 100003180, 'AUG A3 CNY 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10299, 100003180, 'AUG A3 CNY 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10306, 100003182, 'TAR-21 Sheep', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10304, 100003182, 'TAR-21 Sheep', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10312, 100003184, 'AUG A3 Newborn 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10303, 100003181, 'AUG A3 Sheep', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10305, 100003182, 'TAR-21 Sheep', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10311, 100003184, 'AUG A3 Newborn 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10308, 100003183, 'AUG A3 GRS2', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10313, 100003185, 'SC-2010 Newborn 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10318, 100003186, 'AUG A3 GSL 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10309, 100003183, 'AUG A3 GRS2', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10310, 100003184, 'AUG A3 Newborn 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10307, 100003183, 'AUG A3 GRS2', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10314, 100003185, 'SC-2010 Newborn 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10316, 100003186, 'AUG A3 GSL 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10315, 100003185, 'SC-2010 Newborn 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10320, 100003187, 'AUG A3 PBNC 6', 0, 999, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10324, 100003188, 'AUG A3 Ongame', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10323, 100003188, 'AUG A3 Ongame', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10317, 100003186, 'AUG A3 GSL 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10319, 100003187, 'AUG A3 PBNC 6', 0, 650, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10321, 100003187, 'AUG A3 PBNC 6', 0, 1799, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10327, 100003189, 'AUG A3 Redemption', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10329, 100003190, 'AUG A3 Summer', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10331, 100003191, 'SC-2010 Rose', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10326, 100003189, 'AUG A3 Redemption', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10325, 100003189, 'AUG A3 Redemption', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10332, 100003191, 'SC-2010 Rose', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10328, 100003190, 'AUG A3 Summer', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10281, 100003171, 'AUG A3 LATIN4', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10333, 100003191, 'SC-2010 Rose', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10334, 100003192, 'AUG A3 Rose', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10335, 100003192, 'AUG A3 Rose', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10336, 100003192, 'AUG A3 Rose', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10339, 100003193, 'AUG A3 LionFlame', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10340, 100003194, 'AUG A3 Independence', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10338, 100003193, 'AUG A3 Lion Flame', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10344, 100003195, 'AUG A3 Brazil', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10343, 100003195, 'AUG A3 Brazil', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10341, 100003194, 'AUG A3 Independence', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10337, 100003193, 'AUG A3 Lion Flame', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10342, 100003194, 'AUG A3 Independence', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10351, 100003197, 'AUG A3 4Game', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10347, 100003196, 'AUG A3 PBST2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10352, 100003198, 'AUG A3 4Game SE', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10345, 100003195, 'AUG A3 Brazil', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10348, 100003196, 'AUG A3 PBST2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10350, 100003197, 'AUG A3 4Game', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10354, 100003198, 'AUG A3 4Game SE', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10353, 100003198, 'AUG A3 4Game SE', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10356, 100003199, 'AUG A3 México', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10349, 100003197, 'AUG A3 4Game', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10355, 100003199, 'AUG A3 México', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10358, 100003200, 'AUG A3 Bolivia', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10357, 100003199, 'AUG A3 México', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10359, 100003200, 'AUG A3 Bolivia', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10361, 100003201, 'AUG A3 Equador', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10360, 100003200, 'AUG A3 Bolivia', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10362, 100003201, 'AUG A3 Equador', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10275, 100003169, 'TAR-21 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10277, 100003170, 'SCAR-L Carbine Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10280, 100003171, 'AUG A3 LATIN4', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10278, 100003170, 'SCAR-L Carbine Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10330, 100003190, 'AUG A3 Summer', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10279, 100003171, 'AUG A3 LATIN4', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10283, 100003173, 'AUG A3 Carnival', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10285, 100003174, 'XM8', 28000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10284, 100003173, 'AUG A3 Carnival', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10282, 100003173, 'AUG A3 Carnival', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10381, 100003207, 'AUG A3 Lebaran2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10371, 100003204, 'AUG A3 Argentina', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10374, 100003205, 'AUG A3 Chile', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10382, 100003209, 'Vz.52 BlackPearl', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10376, 100003206, 'AUG A3 Peru', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10379, 100003207, 'AUG A3 Lebaran2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10378, 100003206, 'AUG A3 Peru', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10385, 100003210, 'AUG A3 Egypt', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10388, 100003211, 'AUG A3 Jordan', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10380, 100003207, 'AUG A3 Lebaran2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10384, 100003209, 'Vz.52 BlackPearl', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10387, 100003210, 'AUG A3 Egypt', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10383, 100003209, 'Vz.52 BlackPearl', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10389, 100003211, 'AUG A3 Jordan', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10393, 100003212, 'AUG A3 Saudi', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10386, 100003210, 'AUG A3 Egypt', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10392, 100003212, 'AUG A3 Saudi', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10390, 100003211, 'AUG A3 Jordan', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10391, 100003212, 'AUG A3 Saudi', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10395, 100003213, 'AUG A3 UAE', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10394, 100003213, 'AUG A3 UAE', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10399, 100003214, 'AUG A3 PBNC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10398, 100003214, 'AUG A3 PBNC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10396, 100003213, 'AUG A3 UAE', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10405, 100003216, 'AUG A3 Mech', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10402, 100003215, 'AUG A3 PBTC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10401, 100003215, 'AUG A3 PBTC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10403, 100003216, 'AUG A3 Mech', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10400, 100003215, 'AUG A3 PBTC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10404, 100003216, 'AUG A3 Mech', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10411, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10406, 100003217, 'AUG A3 DarkDays', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10408, 100003217, 'AUG A3 DarkDays', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10407, 100003217, 'AUG A3 DarkDays', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10412, 100003219, 'AUG A3 PBIC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10409, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10410, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10413, 100003219, 'AUG A3 PBIC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10414, 100003219, 'AUG A3 PBIC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10417, 100003221, 'AK-47 SOPMOD Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10420, 100003222, 'AUG A3 VeraCruz', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10421, 100003223, 'M14-EBR', 34000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10415, 100003221, 'AK-47 SOPMOD Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10416, 100003221, 'AK-47 SOPMOD Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10423, 100003224, 'AUG A3 Basketball', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10424, 100003224, 'AUG A3 Basketball', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10425, 100003225, 'AK-47 SOPMOD Medical', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10422, 100003224, 'AUG A3 Basketball', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10418, 100003222, 'AUG A3 VeraCruz', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10426, 100003225, 'AK-47 SOPMOD Medical', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10430, 100003226, 'SC-2010 Medical', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10431, 100003227, 'AUG A3 Cobra', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10427, 100003225, 'AK-47 SOPMOD Medical', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10428, 100003226, 'SC-2010 Medical', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10432, 100003227, 'AUG A3 Cobra', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10439, 100003229, 'G36C Ext. Camo Soldier', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10434, 100003228, 'AUG A3 Camo Soldier', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10433, 100003227, 'AUG A3 Cobra', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10429, 100003226, 'SC-2010 Medical', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10441, 100003231, 'AUG A3 Steam', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10435, 100003228, 'AUG A3 Camo Soldier', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10436, 100003228, 'AUG A3 Camo Soldier', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10438, 100003229, 'G36C Ext. Camo Soldier', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10437, 100003229, 'G36C Ext. Camo Soldier', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10443, 100003232, 'AUG A3 Fear', 0, 36, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10442, 100003231, 'AUG A3 Steam', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10444, 100003232, 'AUG A3 Fear', 0, 34, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10450, 100003234, 'AUG A3 Latin5', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10446, 100003233, 'AUG A3 SPY', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10447, 100003233, 'AUG A3 SPY', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10448, 100003233, 'AUG A3 SPY', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10445, 100003232, 'AUG A3 Fear', 0, 35, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10451, 100003234, 'AUG A3 Latin5', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10365, 100003202, 'AUG A3 Colombia', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10368, 100003203, 'AUG A3 Venezuela', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10449, 100003234, 'AUG A3 Latin5', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10370, 100003204, 'AUG A3 Argentina', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10364, 100003202, 'AUG A3 Colombia', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10366, 100003202, 'AUG A3 Colombia', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10375, 100003205, 'AUG A3 Chile', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10369, 100003203, 'AUG A3 Venezuela', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10372, 100003204, 'AUG A3 Argentina', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10377, 100003206, 'AUG A3 Peru', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10367, 100003203, 'AUG A3 Venezuela', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10466, 100003242, 'SC-2010 XMAS2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10469, 100003243, 'AUG A3 Monkey', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10459, 100003240, 'AUG A3 DFN', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10467, 100003242, 'SC-2010 XMAS2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10463, 100003241, 'AUG A3 XMAS2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10468, 100003243, 'AUG A3 Monkey', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10476, 100003245, 'AUG A3 Arena Deluxe', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10471, 100003244, 'AUG A3 Arena Normal', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10473, 100003244, 'AUG A3 Arena Normal', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10472, 100003244, 'AUG A3 Arena Normal', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10470, 100003243, 'AUG A3 Monkey', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10478, 100003247, 'AK-12 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10479, 100003247, 'AK-12 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10474, 100003245, 'AUG A3 Arena Deluxe', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10477, 100003246, 'AK-12', 26000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10480, 100003247, 'AK-12 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10475, 100003245, 'AUG A3 Arena Deluxe', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10486, 100003249, 'AUG A3 Silence', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10483, 100003248, 'AUG A3 VeraCruz 2016', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10484, 100003249, 'AUG A3 Silence', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10482, 100003248, 'AUG A3 VeraCruz 2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10481, 100003248, 'AUG A3 VeraCruz 2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10489, 100003250, 'AUG A3 Cupid', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10487, 100003250, 'AUG A3 Cupid', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10485, 100003249, 'AUG A3 Silence', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10495, 100003252, 'AK SOPMOD Sakura', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10490, 100003251, 'AUG A3 Sakura', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10491, 100003251, 'AUG A3 Sakura', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10492, 100003251, 'AUG A3 Sakura', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10494, 100003252, 'AK SOPMOD Sakura', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10493, 100003252, 'AK SOPMOD Sakura', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10496, 100003253, 'AUG A3 Serpent', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10498, 100003253, 'AUG A3 Serpent', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10497, 100003253, 'AUG A3 Serpent', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10500, 100003254, 'WaterGun 2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10499, 100003254, 'WaterGun 2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10016, 100003017, 'AK-47 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10017, 100003019, 'SG-550 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10018, 100003021, 'M4A1 SI.', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10019, 100003021, 'M4A1 SI.', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10020, 100003021, 'M4A1 SI.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10023, 100003022, 'M4A1 Wh.', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10024, 100003023, 'M4A1 Gold', 0, 9000, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10026, 100003025, 'AK-47 SI.+', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10027, 100003025, 'AK-47 SI.+', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10028, 100003025, 'AK-47 SI.+', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10029, 100003027, 'G36C Ext. [D-Cash]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10030, 100003027, 'G36C Ext. [D-Cash]', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10032, 100003029, 'G36C Silver', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10033, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10034, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10035, 100003031, 'G36C SI. +20% [EXP&POINTS]', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10036, 100003032, 'F2000 SI.', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10037, 100003032, 'F2000 SI.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10038, 100003032, 'F2000 SI.', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10039, 100003033, 'AK SOPMOD +20%', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10040, 100003033, 'AK SOPMOD +20%', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10041, 100003033, 'AK SOPMOD +20%', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10043, 100003034, 'G36C SI. +20% [EXP+]', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10045, 100003035, 'SG 550 S D.', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10046, 100003035, 'SG 550 S D.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10048, 100003036, 'AUG A3', 38000, 0, 100, 1, 1, 2, 0, 12, 0);
+INSERT INTO "public"."shop" VALUES (10049, 100003037, 'AUG A3 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10050, 100003037, 'AUG A3 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10051, 100003037, 'AUG A3 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10052, 100003038, 'G36C D.', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10053, 100003038, 'G36C D.', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10054, 100003038, 'G36C D.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10055, 100003039, 'AK SOPMOD D', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10057, 100003039, 'AK SOPMOD D', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10058, 100003040, 'AUG A3 D', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10059, 100003040, 'AUG A3 D', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10060, 100003040, 'AUG A3 D', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10061, 100003041, 'AK SOPMOD CG.', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10062, 100003041, 'AK SOPMOD CG.', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10063, 100003041, 'AK SOPMOD CG.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10064, 100003042, 'M4 SR-16 Lv1', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10065, 100003042, 'M4 SR-16 Lv1', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10066, 100003042, 'M4 SR-16 Lv1', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10067, 100003043, 'M4 SR-16 Lv2', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10068, 100003043, 'M4 SR-16 Lv2', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10069, 100003043, 'M4 SR-16 Lv2', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10070, 100003044, 'M4 SR-16 Lv3', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10071, 100003044, 'M4 SR-16 Lv3', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10072, 100003044, 'M4 SR-16 Lv3', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10075, 100003045, 'M4 SR-16 F.C.', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10076, 100003046, 'F2000 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10077, 100003048, 'AUG A3 Black', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10078, 100003048, 'AUG A3 Black', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10079, 100003048, 'AUG A3 Black', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10080, 100003049, 'FAMAS G2', 0, 9000, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10081, 100003049, 'FAMAS G2', 0, 2100, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10082, 100003050, 'FAMAS G2 Commando', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10083, 100003050, 'FAMAS G2 Commando', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10084, 100003050, 'FAMAS G2 Commando', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10085, 100003051, 'FAMAS G2 Sniper', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10086, 100003051, 'FAMAS G2 Sniper', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10087, 100003051, 'FAMAS G2 Sniper', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10088, 100003052, 'FAMAS G2 M203', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10089, 100003052, 'FAMAS G2 M203', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10090, 100003052, 'FAMAS G2 M203', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10091, 100003053, 'SS2-V4 Para Sniper', 36000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10092, 100003054, 'AK-47 Gold D', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10096, 100003060, 'M4A1.', 0, 999, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10102, 100003062, 'FAMAS G2 Commando E-Sports', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10103, 100003063, 'AUG A3 E-Sports', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10107, 100003064, 'Famas G2 Commando Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10108, 100003064, 'Famas G2 Commando Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10109, 100003065, 'AUG A3 Blue', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10112, 100003068, 'AK-47 FC Red', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10095, 100003060, 'M4A1.', 0, 650, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10097, 100003060, 'M4A1.', 0, 1799, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10098, 100003061, 'SS2-V4 Para Sniper Gold', 0, 2100, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10099, 100003061, 'SS2-V4 Para Sniper Gold', 0, 9000, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10101, 100003062, 'FAMAS G2 Commando E-Sports', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10104, 100003063, 'AUG A3 E-Sports', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10105, 100003063, 'AUG A3 E-Sports', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10110, 100003065, 'AUG A3 Blue', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10111, 100003065, 'AUG A3 Blue', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10113, 100003068, 'AK-47 FC Red', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10114, 100003068, 'AK-47 FC Red', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10115, 100003069, 'SCAR-H CQC', 34000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10116, 100003071, 'AUG A3 PBIC', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10117, 100003071, 'AUG A3 PBIC', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10118, 100003071, 'AUG A3 PBIC', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10119, 100003086, 'AK-47 Goddess', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10120, 100003087, 'Famas G2 Silver', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10121, 100003090, 'Famas G2 Digital', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10123, 100003090, 'Famas G2 Digital', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10124, 100003091, 'Famas G2 Commando PBTN', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10125, 100003091, 'Famas G2 Commando PBTN', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10127, 100003092, 'AK SOPMOD R', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10128, 100003092, 'AK SOPMOD R', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10129, 100003092, 'AK SOPMOD R', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10130, 100003093, 'AUG A3 Blitz', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10131, 100003093, 'AUG A3 Blitz', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10132, 100003093, 'AUG A3 Blitz', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10133, 100003094, 'SCAR-L Carbine', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10134, 100003094, 'SCAR-L Carbine', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10135, 100003094, 'SCAR-L Carbine', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10136, 100003095, 'SCAR-L Recon', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10137, 100003095, 'SCAR-L Recon', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10138, 100003095, 'SCAR-L Recon', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10139, 100003096, 'SCAR-L FC', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10140, 100003096, 'SCAR-L FC', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10141, 100003096, 'SCAR-L FC', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10142, 100003097, 'AUG A3 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10143, 100003097, 'AUG A3 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10144, 100003097, 'AUG A3 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10145, 100003098, 'M4A1 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10146, 100003098, 'M4A1 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10147, 100003098, 'M4A1 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10149, 100003099, 'AK SOPMOD GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10150, 100003099, 'AK SOPMOD GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10151, 100003100, 'Famas G2 GRS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10152, 100003100, 'Famas G2 GRS', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10154, 100003102, 'HK-417', 36000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10155, 100003103, 'M4 SR-16 D Hunter', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10156, 100003103, 'M4 SR-16 D Hunter', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10157, 100003103, 'M4 SR-16 D Hunter', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10158, 100003104, 'AUG A3 GSL', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10159, 100003104, 'AUG A3 GSL', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10160, 100003104, 'AUG A3 GSL', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10161, 100003105, 'Famas G2 Commando GSL', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10162, 100003105, 'Famas G2 Commando GSL', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10163, 100003105, 'Famas G2 Commando GSL', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10164, 100003106, 'AUG A3 GSL', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10165, 100003106, 'AUG A3 GSL', 0, 1499, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10166, 100003106, 'AUG A3 GSL', 0, 3200, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10167, 100003109, 'AUG A3 TW1st', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10168, 100003109, 'AUG A3 TW1st', 0, 3200, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10169, 100003109, 'AUG A3 TW1st', 0, 1499, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10171, 100003111, 'AUG A3 Commando', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10172, 100003111, 'AUG A3 Commando', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10174, 100003112, 'AUG A3 Turkey', 0, 1499, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10175, 100003112, 'AUG A3 Turkey', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10176, 100003114, 'M4A1 Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10177, 100003114, 'M4A1 Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10178, 100003114, 'M4A1 Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10179, 100003115, 'AN-94', 32000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10180, 100003116, 'F2000 Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10181, 100003117, 'SG550 Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10182, 100003118, 'Pindad SS2-V4 Para Sniper Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10194, 100003122, 'AK47 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10196, 100003125, 'AK-47 F.C', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10197, 100003125, 'AK-47 F.C', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10198, 100003125, 'AK-47 F.C', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10199, 100003128, 'AUG A3 Azerbaijan', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10200, 100003128, 'AUG A3 Azerbaijan', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10201, 100003128, 'AUG A3 Azerbaijan', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10202, 100003129, 'AUG A3 Bloody', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10203, 100003129, 'AUG A3 Bloody', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10204, 100003129, 'AUG A3 Bloody', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10205, 100003130, 'AUG A3 G Bloody', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10213, 100003142, 'AUG A3 TH 1st Anniversary', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10185, 100003119, 'AK-47 Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10186, 100003120, 'AUG A3 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10188, 100003120, 'AUG A3 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10189, 100003121, 'M4A1 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10190, 100003121, 'M4A1 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10191, 100003121, 'M4A1 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10192, 100003122, 'AK47 PBIC2013', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10193, 100003122, 'AK47 PBIC2013', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10195, 100003123, 'TAR-21', 34000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10207, 100003130, 'AUG A3 G Bloody', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10208, 100003131, 'AUG A3 LATIN3', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10209, 100003131, 'AUG A3 LATIN3', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10211, 100003142, 'AUG A3 TH 1st Anniversary', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10212, 100003142, 'AUG A3 TH 1st Anniversary', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10214, 100003143, 'FG 42', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10215, 100003143, 'FG 42', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10216, 100003143, 'FG 42', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10217, 100003144, 'AUG A3 R', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10219, 100003144, 'AUG A3 R', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10220, 100003146, 'G36C Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10221, 100003146, 'G36C Elite', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10222, 100003146, 'G36C Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10223, 100003147, 'AUG A3 Inferno', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10224, 100003147, 'AUG A3 Inferno', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10225, 100003147, 'AUG A3 Inferno', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10226, 100003148, 'AUG A3 CS', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10227, 100003148, 'AUG A3 CS', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10228, 100003148, 'AUG A3 CS', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10229, 100003149, 'AUG A3 GSL2014', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10231, 100003149, 'AUG A3 GSL2014', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10232, 100003151, 'TAR-21 BR Camo', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10233, 100003151, 'TAR-21 BR Camo', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10234, 100003151, 'TAR-21 BR Camo', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10235, 100003152, 'AK SOPMOD BR Camo', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10236, 100003152, 'AK SOPMOD BR Camo', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10237, 100003152, 'AK SOPMOD BR Camo', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10238, 100003153, 'SC-2010', 36000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10240, 100003154, 'SC-2010 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10241, 100003154, 'SC-2010 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10242, 100003155, 'AUG A3 Brazuca', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10243, 100003155, 'AUG A3 Brazuca', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10244, 100003155, 'AUG A3 Brazuca', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10245, 100003157, 'AUG A3 Champion', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10246, 100003157, 'AUG A3 Champion', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10247, 100003157, 'AUG A3 Champion', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10248, 100003158, 'AUG A3 W.O.E', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10249, 100003158, 'AUG A3 W.O.E', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10250, 100003158, 'AUG A3 W.O.E', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10251, 100003159, 'AUG A3 PBIC2014', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10252, 100003159, 'AUG A3 PBIC2014', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10253, 100003159, 'AUG A3 PBIC2014', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10255, 100003160, 'AUG A3 BR 4th Anniversary', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10256, 100003160, 'AUG A3 BR 4th Anniversary', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10257, 100003161, 'AUG A3 Pied', 0, 999, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10258, 100003161, 'AUG A3 Pied', 0, 650, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10259, 100003161, 'AUG A3 Pied', 0, 1799, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10260, 100003163, 'AUG A3 PC Cafe', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10261, 100003164, 'AUG A3 G E-Sport', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10263, 100003164, 'AUG A3 G E-Sport', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10264, 100003165, 'AUG A3 Toy', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10265, 100003165, 'AUG A3 Toy', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10266, 100003165, 'AUG A3 Toy', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10267, 100003167, 'AN-94 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10268, 100003167, 'AN-94 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10269, 100003167, 'AN-94 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10270, 100003168, 'HK-417 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10271, 100003168, 'HK-417 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10272, 100003168, 'HK-417 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10273, 100003169, 'TAR-21 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10286, 100003175, 'SCAR-L Carbine D.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10287, 100003175, 'SCAR-L Carbine D.', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10288, 100003175, 'SCAR-L Carbine D.', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10289, 100003176, 'SCAR-L Recon D. (Noname)', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10290, 100003176, 'SCAR-L Recon D. (Noname)', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10291, 100003176, 'SCAR-L Recon D. (Noname)', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10292, 100003177, 'XM8 GOLD', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10293, 100003177, 'XM8 GOLD', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10294, 100003177, 'XM8 GOLD', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10297, 100003178, 'AUG A3 CoupleBreaker', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10298, 100003180, 'AUG A3 CNY 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10299, 100003180, 'AUG A3 CNY 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10300, 100003180, 'AUG A3 CNY 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10301, 100003181, 'AUG A3 Sheep', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10302, 100003181, 'AUG A3 Sheep', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10306, 100003182, 'TAR-21 Sheep', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10277, 100003170, 'SCAR-L Carbine Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10278, 100003170, 'SCAR-L Carbine Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10279, 100003171, 'AUG A3 LATIN4', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10280, 100003171, 'AUG A3 LATIN4', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10281, 100003171, 'AUG A3 LATIN4', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10282, 100003173, 'AUG A3 Carnival', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10283, 100003173, 'AUG A3 Carnival', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10284, 100003173, 'AUG A3 Carnival', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10285, 100003174, 'XM8', 28000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10303, 100003181, 'AUG A3 Sheep', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10304, 100003182, 'TAR-21 Sheep', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10305, 100003182, 'TAR-21 Sheep', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10307, 100003183, 'AUG A3 GRS2', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10308, 100003183, 'AUG A3 GRS2', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10309, 100003183, 'AUG A3 GRS2', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10311, 100003184, 'AUG A3 Newborn 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10312, 100003184, 'AUG A3 Newborn 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10313, 100003185, 'SC-2010 Newborn 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10314, 100003185, 'SC-2010 Newborn 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10315, 100003185, 'SC-2010 Newborn 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10316, 100003186, 'AUG A3 GSL 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10317, 100003186, 'AUG A3 GSL 2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10318, 100003186, 'AUG A3 GSL 2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10319, 100003187, 'AUG A3 PBNC 6', 0, 650, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10320, 100003187, 'AUG A3 PBNC 6', 0, 999, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10321, 100003187, 'AUG A3 PBNC 6', 0, 1799, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10323, 100003188, 'AUG A3 Ongame', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10324, 100003188, 'AUG A3 Ongame', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10325, 100003189, 'AUG A3 Redemption', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10326, 100003189, 'AUG A3 Redemption', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10327, 100003189, 'AUG A3 Redemption', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10328, 100003190, 'AUG A3 Summer', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10329, 100003190, 'AUG A3 Summer', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10330, 100003190, 'AUG A3 Summer', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10331, 100003191, 'SC-2010 Rose', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10333, 100003191, 'SC-2010 Rose', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10334, 100003192, 'AUG A3 Rose', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10335, 100003192, 'AUG A3 Rose', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10336, 100003192, 'AUG A3 Rose', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10337, 100003193, 'AUG A3 Lion Flame', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10338, 100003193, 'AUG A3 Lion Flame', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10339, 100003193, 'AUG A3 LionFlame', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10340, 100003194, 'AUG A3 Independence', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10341, 100003194, 'AUG A3 Independence', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10342, 100003194, 'AUG A3 Independence', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10343, 100003195, 'AUG A3 Brazil', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10344, 100003195, 'AUG A3 Brazil', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10345, 100003195, 'AUG A3 Brazil', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10347, 100003196, 'AUG A3 PBST2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10348, 100003196, 'AUG A3 PBST2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10349, 100003197, 'AUG A3 4Game', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10350, 100003197, 'AUG A3 4Game', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10351, 100003197, 'AUG A3 4Game', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10352, 100003198, 'AUG A3 4Game SE', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10353, 100003198, 'AUG A3 4Game SE', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10354, 100003198, 'AUG A3 4Game SE', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10355, 100003199, 'AUG A3 México', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10357, 100003199, 'AUG A3 México', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10358, 100003200, 'AUG A3 Bolivia', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10359, 100003200, 'AUG A3 Bolivia', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10360, 100003200, 'AUG A3 Bolivia', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10361, 100003201, 'AUG A3 Equador', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10362, 100003201, 'AUG A3 Equador', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10371, 100003204, 'AUG A3 Argentina', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10374, 100003205, 'AUG A3 Chile', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10376, 100003206, 'AUG A3 Peru', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10378, 100003206, 'AUG A3 Peru', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10379, 100003207, 'AUG A3 Lebaran2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10380, 100003207, 'AUG A3 Lebaran2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10381, 100003207, 'AUG A3 Lebaran2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10382, 100003209, 'Vz.52 BlackPearl', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10383, 100003209, 'Vz.52 BlackPearl', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10384, 100003209, 'Vz.52 BlackPearl', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10385, 100003210, 'AUG A3 Egypt', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10386, 100003210, 'AUG A3 Egypt', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10387, 100003210, 'AUG A3 Egypt', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10388, 100003211, 'AUG A3 Jordan', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10389, 100003211, 'AUG A3 Jordan', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10390, 100003211, 'AUG A3 Jordan', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10392, 100003212, 'AUG A3 Saudi', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10393, 100003212, 'AUG A3 Saudi', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10394, 100003213, 'AUG A3 UAE', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10395, 100003213, 'AUG A3 UAE', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10399, 100003214, 'AUG A3 PBNC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10365, 100003202, 'AUG A3 Colombia', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10366, 100003202, 'AUG A3 Colombia', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10367, 100003203, 'AUG A3 Venezuela', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10368, 100003203, 'AUG A3 Venezuela', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10369, 100003203, 'AUG A3 Venezuela', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10372, 100003204, 'AUG A3 Argentina', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10375, 100003205, 'AUG A3 Chile', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10377, 100003206, 'AUG A3 Peru', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10396, 100003213, 'AUG A3 UAE', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10398, 100003214, 'AUG A3 PBNC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10400, 100003215, 'AUG A3 PBTC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10401, 100003215, 'AUG A3 PBTC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10402, 100003215, 'AUG A3 PBTC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10403, 100003216, 'AUG A3 Mech', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10404, 100003216, 'AUG A3 Mech', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10405, 100003216, 'AUG A3 Mech', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10406, 100003217, 'AUG A3 DarkDays', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10407, 100003217, 'AUG A3 DarkDays', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10408, 100003217, 'AUG A3 DarkDays', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10409, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10410, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10411, 100003218, 'SCAR-L  F.C PBNC2015US', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10412, 100003219, 'AUG A3 PBIC2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10413, 100003219, 'AUG A3 PBIC2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10414, 100003219, 'AUG A3 PBIC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10415, 100003221, 'AK-47 SOPMOD Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10416, 100003221, 'AK-47 SOPMOD Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10418, 100003222, 'AUG A3 VeraCruz', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10420, 100003222, 'AUG A3 VeraCruz', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10421, 100003223, 'M14-EBR', 34000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10422, 100003224, 'AUG A3 Basketball', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10423, 100003224, 'AUG A3 Basketball', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10424, 100003224, 'AUG A3 Basketball', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10425, 100003225, 'AK-47 SOPMOD Medical', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10426, 100003225, 'AK-47 SOPMOD Medical', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10427, 100003225, 'AK-47 SOPMOD Medical', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10428, 100003226, 'SC-2010 Medical', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10429, 100003226, 'SC-2010 Medical', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10430, 100003226, 'SC-2010 Medical', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10431, 100003227, 'AUG A3 Cobra', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10432, 100003227, 'AUG A3 Cobra', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10433, 100003227, 'AUG A3 Cobra', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10434, 100003228, 'AUG A3 Camo Soldier', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10435, 100003228, 'AUG A3 Camo Soldier', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10436, 100003228, 'AUG A3 Camo Soldier', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10437, 100003229, 'G36C Ext. Camo Soldier', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10438, 100003229, 'G36C Ext. Camo Soldier', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10441, 100003231, 'AUG A3 Steam', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10442, 100003231, 'AUG A3 Steam', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10443, 100003232, 'AUG A3 Fear', 0, 36, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10444, 100003232, 'AUG A3 Fear', 0, 34, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10445, 100003232, 'AUG A3 Fear', 0, 35, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10446, 100003233, 'AUG A3 SPY', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10447, 100003233, 'AUG A3 SPY', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10448, 100003233, 'AUG A3 SPY', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10449, 100003234, 'AUG A3 Latin5', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10450, 100003234, 'AUG A3 Latin5', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10451, 100003234, 'AUG A3 Latin5', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10459, 100003240, 'AUG A3 DFN', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10463, 100003241, 'AUG A3 XMAS2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10466, 100003242, 'SC-2010 XMAS2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10467, 100003242, 'SC-2010 XMAS2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10468, 100003243, 'AUG A3 Monkey', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10469, 100003243, 'AUG A3 Monkey', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10470, 100003243, 'AUG A3 Monkey', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10471, 100003244, 'AUG A3 Arena Normal', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10472, 100003244, 'AUG A3 Arena Normal', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10473, 100003244, 'AUG A3 Arena Normal', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10474, 100003245, 'AUG A3 Arena Deluxe', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10475, 100003245, 'AUG A3 Arena Deluxe', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10476, 100003245, 'AUG A3 Arena Deluxe', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10477, 100003246, 'AK-12', 26000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10478, 100003247, 'AK-12 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10479, 100003247, 'AK-12 Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10480, 100003247, 'AK-12 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10482, 100003248, 'AUG A3 VeraCruz 2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10483, 100003248, 'AUG A3 VeraCruz 2016', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10484, 100003249, 'AUG A3 Silence', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10485, 100003249, 'AUG A3 Silence', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10486, 100003249, 'AUG A3 Silence', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10487, 100003250, 'AUG A3 Cupid', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10489, 100003250, 'AUG A3 Cupid', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10490, 100003251, 'AUG A3 Sakura', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10495, 100003252, 'AK SOPMOD Sakura', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10503, 100003255, 'AUG A3 GRS3', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10502, 100003255, 'AUG A3 GRS3', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10501, 100003254, 'WaterGun 2016', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10507, 100003256, 'AUG A3 Beast', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10504, 100003255, 'AUG A3 GRS3', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10510, 100003257, 'AUG A3 PBGC', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
@@ -2025,19 +2157,9 @@ INSERT INTO "public"."shop" VALUES (10534, 100003265, 'AUG A3 Dragon', 0, 3650, 
 INSERT INTO "public"."shop" VALUES (10539, 100003267, 'AUG A3 Mummy', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10536, 100003266, 'AUG A3 PBWC2016', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10537, 100003266, 'AUG A3 PBWC2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10455, 100003236, 'K2C', 24000, 0, 100, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10533, 100003265, 'AUG A3 Dragon', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10454, 100003235, 'AUG A3 Obsidian', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10540, 100003267, 'AUG A3 Mummy', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10458, 100003238, 'AUG A3 Spy-Deluxe', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10538, 100003267, 'AUG A3 Mummy', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10452, 100003235, 'AUG A3 Obsidian', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10456, 100003238, 'AUG A3 Spy-Deluxe', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10457, 100003238, 'AUG A3 Spy-Deluxe', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10464, 100003241, 'AUG A3 XMAS2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10462, 100003241, 'AUG A3 XMAS2015', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10461, 100003240, 'AUG A3 DFN', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10460, 100003240, 'AUG A3 DFN', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10548, 100003271, 'AUG A3 ID 1stAnni', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10552, 100003272, 'AUG A3 Strike', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10553, 100003272, 'AUG A3 Strike', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
@@ -2070,6 +2192,24 @@ INSERT INTO "public"."shop" VALUES (10582, 100003282, 'Famas G2 Newborn2016', 0,
 INSERT INTO "public"."shop" VALUES (10581, 100003282, 'Famas G2 Newborn2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10586, 100003283, 'AUG A3 Puzzle', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10590, 100003285, 'Groza Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10454, 100003235, 'AUG A3 Obsidian', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10455, 100003236, 'K2C', 24000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10456, 100003238, 'AUG A3 Spy-Deluxe', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10457, 100003238, 'AUG A3 Spy-Deluxe', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10458, 100003238, 'AUG A3 Spy-Deluxe', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10460, 100003240, 'AUG A3 DFN', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10461, 100003240, 'AUG A3 DFN', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10462, 100003241, 'AUG A3 XMAS2015', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10464, 100003241, 'AUG A3 XMAS2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10492, 100003251, 'AUG A3 Sakura', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10493, 100003252, 'AK SOPMOD Sakura', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10494, 100003252, 'AK SOPMOD Sakura', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10496, 100003253, 'AUG A3 Serpent', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10497, 100003253, 'AUG A3 Serpent', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10498, 100003253, 'AUG A3 Serpent', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10499, 100003254, 'WaterGun 2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10500, 100003254, 'WaterGun 2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10501, 100003254, 'WaterGun 2016', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10585, 100003283, 'AUG A3 Puzzle', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10584, 100003283, 'AUG A3 Puzzle', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10587, 100003284, 'Groza', 26000, 0, 100, 1, 1, 2, 0, 0, 2);
@@ -6489,40 +6629,31 @@ INSERT INTO "public"."shop" VALUES (15371, 1500002003, 'Point 3,200 [NOT VISIBLE
 INSERT INTO "public"."shop" VALUES (15372, 1501000000, 'Point 1,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15373, 1503000000, 'Point 3,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15374, 1508000000, 'Point 8,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10012, 100003011, 'K-201 Ext.', 1, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10056, 100003039, 'AK SOPMOD D', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10126, 100003091, 'Famas G2 Commando PBTN', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10100, 100003062, 'FAMAS G2 Commando E-Sports', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10153, 100003100, 'Famas G2 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10173, 100003112, 'AUG A3 Turkey', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10183, 100003119, 'AK-47 Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10210, 100003131, 'AUG A3 LATIN3', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10230, 100003149, 'AUG A3 GSL2014', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10254, 100003160, 'AUG A3 BR 4th Anniversary', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10274, 100003169, 'TAR-21 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10322, 100003188, 'AUG A3 Ongame', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10296, 100003178, 'AUG A3 CoupleBreaker', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10346, 100003196, 'AUG A3 PBST2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10363, 100003201, 'AUG A3 Equador', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10419, 100003222, 'AUG A3 VeraCruz', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10373, 100003205, 'AUG A3 Chile', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10397, 100003214, 'AUG A3 PBNC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10440, 100003231, 'AUG A3 Steam', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10453, 100003235, 'AUG A3 Obsidian', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10465, 100003242, 'SC-2010 XMAS2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10488, 100003250, 'AUG A3 Cupid', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10100, 100003062, 'FAMAS G2 Commando E-Sports', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10126, 100003091, 'Famas G2 Commando PBTN', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10153, 100003100, 'Famas G2 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10173, 100003112, 'AUG A3 Turkey', 0, 3200, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10183, 100003119, 'AK-47 Elite', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10210, 100003131, 'AUG A3 LATIN3', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10230, 100003149, 'AUG A3 GSL2014', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10254, 100003160, 'AUG A3 BR 4th Anniversary', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10274, 100003169, 'TAR-21 Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10296, 100003178, 'AUG A3 CoupleBreaker', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10322, 100003188, 'AUG A3 Ongame', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10346, 100003196, 'AUG A3 PBST2015', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10363, 100003201, 'AUG A3 Equador', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10373, 100003205, 'AUG A3 Chile', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10397, 100003214, 'AUG A3 PBNC2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10419, 100003222, 'AUG A3 VeraCruz', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10440, 100003231, 'AUG A3 Steam', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10453, 100003235, 'AUG A3 Obsidian', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10513, 100003258, 'AUG A3 GSL2016', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10535, 100003266, 'AUG A3 PBWC2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15322, 1301852000, 'Random Box Character A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10001, 100003001, 'SG-550 Ext.', 24000, 0, 100, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10031, 100003027, 'G36C Ext. [D-Cash]', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15323, 1301853000, 'Random Box Character B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15324, 1301854000, 'Random Box Camo Soldier', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10074, 100003045, 'M4 SR-16 F.C.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10276, 100003170, 'SCAR-L Carbine Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15326, 1301901000, 'Random Box Horror', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15325, 1301895000, 'Random Box Monkey', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10094, 100003057, 'Vz. 52', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10695, 100003324, 'AUG A3 Beyond', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11968, 200004655, 'Kriss S.V Latin Championship 2', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11939, 200004637, 'OA-93 GunZeeD', 0, 650, 259200, 2, 1, 2, 0, 0, 2);
@@ -6596,6 +6727,12 @@ INSERT INTO "public"."shop" VALUES (12082, 300005058, 'CheyTac M200 GRS EV', 0, 
 INSERT INTO "public"."shop" VALUES (12105, 300005075, 'PSG1 Elite', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10627, 100003298, 'AUG A3 PBST2016', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12126, 300005083, 'Cheytac M200 Brazuca', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (10031, 100003027, 'G36C Ext. [D-Cash]', 0, 1399, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10074, 100003045, 'M4 SR-16 F.C.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10094, 100003057, 'Vz. 52', 0, 2100, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10276, 100003170, 'SCAR-L Carbine Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10465, 100003242, 'SC-2010 XMAS2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10488, 100003250, 'AUG A3 Cupid', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (12127, 300005084, 'Cheytac M200 Champion', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12136, 300005087, 'Cheytac M200 PBIC2014', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11070, 200004013, 'Kriss S.V', 48000, 0, 100, 1, 1, 2, 0, 24, 0);
@@ -6784,7 +6921,6 @@ INSERT INTO "public"."shop" VALUES (10835, 100003373, 'Tar-21 Newborn 2017', 0, 
 INSERT INTO "public"."shop" VALUES (12060, 300005050, 'L115A1 PBTN', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12059, 300005050, 'L115A1 PBTN', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12062, 300005052, 'Cheytac M200 GRS', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10187, 100003120, 'AUG A3 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12066, 300005053, 'L115A1 PBNC', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12067, 300005053, 'L115A1 PBNC', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12165, 300005097, 'Cheytac M200 Carnival', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
@@ -6858,10 +6994,6 @@ INSERT INTO "public"."shop" VALUES (12951, 400006053, 'M1887 PBNC2015', 0, 1, 25
 INSERT INTO "public"."shop" VALUES (12955, 400006054, 'SPAS-15 PBNC2015', 0, 4999, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12274, 300005135, 'Cheytac M200 Obsidian', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12284, 300005138, 'Cheytac M200 XMAS2015', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10022, 100003022, 'M4A1 Wh.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10021, 100003022, 'M4A1 Wh.', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10042, 100003034, 'G36C SI. +20% [EXP+]', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (10047, 100003035, 'SG 550 S D.', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11161, 200004089, 'P90 GSL', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11163, 200004089, 'P90 GSL', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11166, 200004098, 'Spectre Reload', 32000, 0, 100, 1, 1, 2, 0, 0, 2);
@@ -6896,6 +7028,41 @@ INSERT INTO "public"."shop" VALUES (14836, 1104003159, 'GSL 2014 Mask (BUGTRAP)'
 INSERT INTO "public"."shop" VALUES (14936, 1105003006, 'Fes Hat', 0, 1230, 604800, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (14937, 1105003006, 'Fes Hat', 0, 2340, 2592000, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (14938, 1105003006, 'Fes Hat', 0, 790, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10001, 100003001, 'SG-550 Ext.', 24000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10002, 100003002, 'AK-47 Ext.', 28000, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10012, 100003011, 'K-201 Ext.', 1, 0, 100, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10021, 100003022, 'M4A1 Wh.', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10022, 100003022, 'M4A1 Wh.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10025, 100003023, 'M4A1 Gold', 0, 2100, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10042, 100003034, 'G36C SI. +20% [EXP+]', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10044, 100003034, 'G36C SI. +20% [EXP+]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10047, 100003035, 'SG 550 S D.', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10056, 100003039, 'AK SOPMOD D', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10073, 100003045, 'M4 SR-16 F.C.', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10093, 100003057, 'Vz. 52', 0, 9000, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10106, 100003064, 'Famas G2 Commando Gold', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10122, 100003090, 'Famas G2 Digital', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10148, 100003099, 'AK SOPMOD GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10170, 100003111, 'AUG A3 Commando', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10184, 100003119, 'AK-47 Elite', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10187, 100003120, 'AUG A3 PBIC2013', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10206, 100003130, 'AUG A3 G Bloody', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10218, 100003144, 'AUG A3 R', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10239, 100003154, 'SC-2010 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10262, 100003164, 'AUG A3 G E-Sport', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10275, 100003169, 'TAR-21 Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10295, 100003178, 'AUG A3 CoupleBreaker', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10310, 100003184, 'AUG A3 Newborn 2015', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10332, 100003191, 'SC-2010 Rose', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10356, 100003199, 'AUG A3 México', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10364, 100003202, 'AUG A3 Colombia', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10370, 100003204, 'AUG A3 Argentina', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10391, 100003212, 'AUG A3 Saudi', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10417, 100003221, 'AK-47 SOPMOD Gold', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10439, 100003229, 'G36C Ext. Camo Soldier', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10452, 100003235, 'AUG A3 Obsidian', 0, 3650, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10481, 100003248, 'AUG A3 VeraCruz 2016', 0, 1350, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (10491, 100003251, 'AUG A3 Sakura', 0, 900, 259200, 2, 1, 2, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for shop_set
@@ -7060,6 +7227,11 @@ CREATE TABLE "public"."web_download_clientlauncher" (
 ;
 
 -- ----------------------------
+-- Records of web_download_clientlauncher
+-- ----------------------------
+INSERT INTO "public"."web_download_clientlauncher" VALUES (18, 'Client 42', 'https://google.com', 'client', '1', '1', '2022-04-26');
+
+-- ----------------------------
 -- Table structure for web_email_confirmation
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_email_confirmation";
@@ -7124,6 +7296,28 @@ CREATE TABLE "public"."web_log" (
   "last_visit" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
+
+-- ----------------------------
+-- Table structure for web_packshop
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_packshop";
+CREATE TABLE "public"."web_packshop" (
+  "id" int4 NOT NULL DEFAULT nextval('web_packshop_id_seq'::regclass),
+  "package_name" varchar(255) COLLATE "pg_catalog"."default",
+  "package_reward" varchar(255) COLLATE "pg_catalog"."default",
+  "package_duration" varchar(255) COLLATE "pg_catalog"."default",
+  "package_qty" int4,
+  "package_price" int4,
+  "package_status" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_packshop
+-- ----------------------------
+INSERT INTO "public"."web_packshop" VALUES (1, 'Dolphin Package Box', '100003275,100003276,200004289,200004291,300005168,300005169,400006072', '2592000', 97, 3000, '1', '-', '-');
 
 -- ----------------------------
 -- Table structure for web_quickslide
@@ -7249,7 +7443,9 @@ CREATE TABLE "public"."web_settings" (
   "change_email" varchar(255) COLLATE "pg_catalog"."default",
   "event_ticket" varchar(255) COLLATE "pg_catalog"."default",
   "email_verification" varchar(255) COLLATE "pg_catalog"."default",
-  "google_register" varchar(255) COLLATE "pg_catalog"."default"
+  "google_register" varchar(255) COLLATE "pg_catalog"."default",
+  "web_log" varchar(255) COLLATE "pg_catalog"."default",
+  "packshop" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
@@ -7257,7 +7453,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '0', '0');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', '0', '0', '0', '1', '0', '1', '0', '0', '0', NULL, '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for web_tokenkey
@@ -7273,7 +7469,7 @@ CREATE TABLE "public"."web_tokenkey" (
 -- ----------------------------
 -- Records of web_tokenkey
 -- ----------------------------
-INSERT INTO "public"."web_tokenkey" VALUES (118, 'pb5m5P8MIgoPgw9r6HQwGRhHgZuWzoVK8LyGm4mZtHGwVR4Up3N4gyUv1SOT1BA8', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (119, '1wqmUZ56Wuarr3zMRfRY7ViOoKw1lwSH1BAEL9EH96c3bVoxHIsRKtptGIs7Rr91', 1);
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7327,7 +7523,7 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 9, true);
+SELECT setval('"public"."account_id_seq"', 11, true);
 SELECT setval('"public"."api_keys_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
@@ -7336,20 +7532,20 @@ SELECT setval('"public"."ban_seq"', 5, false);
 SELECT setval('"public"."channels_id_seq"', 5, false);
 SELECT setval('"public"."check_event_seq"', 5, true);
 SELECT setval('"public"."check_user_attendance_id_seq"', 36, true);
-SELECT setval('"public"."check_user_itemcode_seq"', 37, true);
+SELECT setval('"public"."check_user_itemcode_seq"', 40, true);
 SELECT setval('"public"."check_user_voucher_id_seq"', 5, true);
-SELECT setval('"public"."clan_seq"', 5, true);
+SELECT setval('"public"."clan_seq"', 6, true);
 SELECT setval('"public"."event_attendance_id_seq"', 96, true);
-SELECT setval('"public"."events_login_id_seq"', 2, false);
+SELECT setval('"public"."events_login_id_seq"', 7, true);
 SELECT setval('"public"."gameservers_id_seq"', 5, false);
 SELECT setval('"public"."gift_id_seq"', 5, true);
 SELECT setval('"public"."ipsystem_id_seq"', 5, false);
 SELECT setval('"public"."item_voucher_id_seq"', 7, true);
-SELECT setval('"public"."items_id_seq"', 7, true);
+SELECT setval('"public"."items_id_seq"', 177, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 21, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 24, true);
 SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
 SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
 SELECT setval('"public"."loja_seq"', 8, true);
@@ -7368,17 +7564,18 @@ SELECT setval('"public"."web_all_log_id_seq"', 5, false);
 SELECT setval('"public"."web_api_data_id_seq"', 3, false);
 SELECT setval('"public"."web_battlepass_id_seq"', 3, true);
 SELECT setval('"public"."web_battlepass_list_id_seq"', 5, true);
-SELECT setval('"public"."web_download_seq"', 18, true);
+SELECT setval('"public"."web_download_seq"', 19, true);
 SELECT setval('"public"."web_email_confirmation_id_seq"', 10, true);
 SELECT setval('"public"."web_exchangeticket_seq"', 13, true);
 SELECT setval('"public"."web_giftitem_log_seq"', 12, true);
 SELECT setval('"public"."web_launcher_ipaddress_id"', 5, true);
 SELECT setval('"public"."web_news_id_seq"', 19, true);
-SELECT setval('"public"."web_quickslide_id_seq"', 22, true);
+SELECT setval('"public"."web_packshop_id_seq"', 2, true);
+SELECT setval('"public"."web_quickslide_id_seq"', 23, true);
 SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
 SELECT setval('"public"."web_recharge_id_seq"', 25, true);
 SELECT setval('"public"."web_report_id_seq"', 9, true);
-SELECT setval('"public"."web_tokenkey_id_seq"', 119, true);
+SELECT setval('"public"."web_tokenkey_id_seq"', 120, true);
 SELECT setval('"public"."webdata_news_seq"', 5, true);
 SELECT setval('"public"."webshop_id_seq"', 21, true);
 
@@ -7491,6 +7688,11 @@ ALTER TABLE "public"."web_email_confirmation" ADD CONSTRAINT "web_email_confirma
 -- Primary Key structure for table web_exchangeticket
 -- ----------------------------
 ALTER TABLE "public"."web_exchangeticket" ADD CONSTRAINT "web_exchangeticket_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table web_packshop
+-- ----------------------------
+ALTER TABLE "public"."web_packshop" ADD CONSTRAINT "web_packshop_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table web_quickslide

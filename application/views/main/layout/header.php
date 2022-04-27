@@ -66,7 +66,7 @@
                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>" width="199">
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
-                        <li class="<?php if (empty($this->uri->segment(1)) || $this->uri->segment(1) == "home") {
+                        <li class="<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'home') {
                                         echo 'active';
                                     } ?>">
                             <a href="<?= base_url('home') ?>">
@@ -80,14 +80,14 @@
                                 <?= $this->lang->line('STR_MENU_2') ?>
                             </a>
                             <ul class="dropdown">
-                                <li class="<?php if ($this->uri->segment(1) == "player_rank") {
+                                <li class="<?php if ($this->uri->segment(1) == 'player_rank') {
                                                 echo 'active';
                                             } ?>">
                                     <a href="<?= base_url('player_rank') ?>">
                                         <?= $this->lang->line('STR_MENU_7') ?>
                                     </a>
                                 </li>
-                                <li class="<?php if ($this->uri->segment(1) == "clan_rank") {
+                                <li class="<?php if ($this->uri->segment(1) == 'clan_rank') {
                                                 echo 'active';
                                             } ?>">
                                     <a href="<?= base_url('clan_rank') ?>">
@@ -96,7 +96,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="<?php if ($this->uri->segment(1) == "download") {
+                        <li class="<?php if ($this->uri->segment(1) == 'download') {
                                         echo 'active';
                                     } ?>">
                             <a href="<?= base_url('download') ?>">

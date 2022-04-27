@@ -48,7 +48,7 @@ class Download_model extends CI_Model
 		if ($query) {
 			$response['response'] = 'true';
 			$response['url'] = $query->file_url;
-			$response['message'] = $this->lang->line('STR_INFO_9');
+			$response['message'] = $this->lang->line('STR_INFO_10');
 
 			echo json_encode($response);
 		} else {

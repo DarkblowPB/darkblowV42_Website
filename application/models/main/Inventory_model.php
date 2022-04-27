@@ -12,21 +12,8 @@ class Inventory_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('lib');
 		$this->lang->load('message');
-	}
-
-	function GetItemRealName2($id)
-	{
-		$query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'object_id' => $id))->row();
-		if ($query) return $query;
-		else redirect(base_url('player_panel/inventory'), 'refresh');
-	}
-
-	function GetItemRealName($item_id)
-	{
-		$query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-		if ($query) return $query->item_name;
-		else return "";
 	}
 
 	function GetInventoryPerPage($limit, $start)
@@ -37,6 +24,16 @@ class Inventory_model extends CI_Model
 	function GetInventoryCount()
 	{
 		return $this->db->where('owner_id', $this->session->userdata('uid'))->get('player_items')->num_rows();
+	}
+
+	function GetItemNameFromInventory($idx)
+	{
+		$query = $this->db->get_where('player_items', array(
+			'object_id' => $idx,
+			'owner_id' => $this->session->userdata('uid')
+		))->row();
+		if ($query) return $query;
+		else return '';
 	}
 
 	function DeleteItem()

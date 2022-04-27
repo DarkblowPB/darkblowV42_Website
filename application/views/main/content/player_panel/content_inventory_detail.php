@@ -4,7 +4,7 @@
 		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">
 					<?= $this->lang->line('STR_DARKBLOW_64') ?>
 				</span>
-				<?= $this->lang->line('STR_DARKBLOW_65') ?> <?= $this->inventory->GetItemRealName($details->item_id); ?>
+				<?= $this->lang->line('STR_DARKBLOW_65') ?> <?= $this->lib->GetItemName($details->item_id); ?>
 			</span></h3>
 		<div class="row vertical-gap">
 			<div class="col-lg-6 offset-lg-3">

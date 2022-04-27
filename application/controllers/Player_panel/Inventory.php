@@ -45,7 +45,7 @@ class Inventory extends CI_Controller
 		$config['cur_tag_close'] = '</a>';
 		$this->pagination->initialize($config);
 
-		$data['title'] = 'DarkblowPB || ' . $this->session->userdata('player_name') . ' Inventory';
+		$data['title'] = $this->session->userdata('player_name') . ' Inventory';
 		$data['start'] = $this->uri->segment(4);
 		$data['inventory'] = $this->inventory->GetInventoryPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_panel/content_inventory';
@@ -56,8 +56,8 @@ class Inventory extends CI_Controller
 	{
 		if ($idx == null) redirect(base_url('player_panel'), 'refresh');
 		else {
-			$data['title'] = 'DarkblowPB || Details Item';
-			$data['details'] = $this->inventory->GetItemRealName2($idx);
+			$data['title'] = 'Details Item';
+			$data['details'] = $this->inventory->GetItemNameFromInventory($idx);
 			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 			$this->load->view('main/layout/wrapper', $data, FALSE);
 		}
@@ -65,6 +65,7 @@ class Inventory extends CI_Controller
 
 	function do_delete()
 	{
+		$response = array();
 		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules(
 			'player_id',
@@ -79,7 +80,13 @@ class Inventory extends CI_Controller
 			array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
 		);
 		if ($this->form_validation->run()) $this->inventory->DeleteItem();
-		else echo validation_errors();
+		else {
+			$response['response'] = 'false';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors();
+
+			echo json_encode($response);
+		}
 	}
 }
 

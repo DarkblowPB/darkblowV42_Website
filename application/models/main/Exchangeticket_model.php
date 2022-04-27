@@ -43,21 +43,6 @@ class Exchangeticket_model extends CI_Model
         if ($check) return "Already Own";
         else return "Not Own";
     }
-
-    function GetItemName($item_id)
-    {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
-    }
-
-    function GetItemCategory($item_id)
-    {
-        if ($item_id >= 100003001 && $item_id <= 904007069) return "1";
-        else if ($item_id >= 1001001007 && $item_id <= 1105003032) return "2";
-        else if ($item_id >= 1300002003 && $item_id <= 1302379000) return "3";
-        else return "-1";
-    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

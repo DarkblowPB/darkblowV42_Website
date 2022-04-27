@@ -44,8 +44,6 @@ class Login_model extends CI_Model
 				$this->session->set_userdata($sessionData);
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
-				// if ($this->session->userdata('player_name') == '') $response['message'] = ' ' . $query->login . '.';
-				// if ($this->session->userdata('player_name') != '') $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('player_name') . '.';
 				$this->session->userdata('player_name') == '' ? $response['message'] = $this->lang->line('STR_SUCCESS_6') . $query->login : $response['message'] = $this->lang->line('STR_SUCCESS_6') . $this->session->userdata('player_name');
 
 				echo json_encode($response);

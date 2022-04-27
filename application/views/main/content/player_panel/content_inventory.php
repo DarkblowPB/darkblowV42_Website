@@ -39,11 +39,7 @@
 									<td>
 										<?= ++$start; ?>
 									</td>
-									<td>
-										<?php
-										echo $this->inventory->GetItemRealName($row['item_id']);
-										?>
-									</td>
+									<td><?= $this->lib->GetItemName($row['item_id']) ?></td>
 									<td>
 										<?php
 										switch ($row['category']) {
