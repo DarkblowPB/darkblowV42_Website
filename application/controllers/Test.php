@@ -34,7 +34,7 @@ class Test extends CI_Controller
 
     function index2()
     {
-        $token = 'eyJhbGciOiJSUzI1NiJ9.eyJleHBpcnlJbk1pbGxpU2Vjb25kcyI6NjA0ODAwMDAwLCJjcmVhdGVUaW1lIjoxNjUwMjQ0NTIyMTEzLCJzZWNyZXQiOiJod3Y3ZHFtdWMrekQ1MjBaRGVBemZxRG1HV21qOHplaTNxM043V2NjZjhKczhZdktzblVoc3FEUm5UMjcwanhabTBZNUJXSGlrOFJJVGIxK21zeWp2ZkhXTlBLSkg5TFpiMHJJMEdXdnhlamhWRURTR3BwMHkyNTNwMDN3cUY4Y2lCYXQvamp3UWZDdEl4cW1rL2xEVTBmb21XS2dqcElQOUFaVzNPaGh2RDcrZ0pxQmRwS3BHZHNETUlRV1NORWNtZ1VwZUt6N2ZrVWt4NmduMTM1TFE3ZUtFY3NXeWQyUitScUVxZ1gxR1R1aHNuMko2bmV6b2Y2eEhwQXRueTREa0czVXl2ODhoWkJqbkdKVk4wUHQ3VWdQYVZNMnJ2dWZmZk8xUFNpKzI0YlVwOS9rM2RYdUxhc3VBQkpkV2l5ejVXYkwyK3hhdGRxenQrNFFkL1RtNitkR0wzcnhNQ09jekVrcVZGanBpNUk9In0.gpflPkyBK-k44bWdaj6dHOeUujm723nodfT-BdbJJreWItU-6-A0wJPI1nQGileYi7vYk2aNmmvZtw5HBLugbxIPuWDDBwWNs9hLjy03flnlr51oq984wyxyeUH_uIeztu8YE6gdIXcnbvc2lKj0IpMCpHGuRpDyC5o5aL0jG8Tc2xEUiGe2jgAmJDl4zluifoSPVKlrqGYKJClqJLKKIkukoCLSJdu9iynINiTnMVnX_Kyfp4DLaNmtmswydnd19NxXRqEmFx61ScXHzCSLwoJInRPnPoeFW-ziAd_8xUnTWqSmXPqW89lDApEAFggguHNpd0R6lrtRDMLsHb8F_w';
+        $token = '';
         $app = new Ovo($token);
         echo $app->getOvoCash();
         // $decode = json_decode($app->transactionHistory(), true);
