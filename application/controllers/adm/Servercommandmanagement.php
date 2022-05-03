@@ -42,6 +42,28 @@ class Servercommandmanagement extends CI_Controller
         $data['content'] = 'admin/content/servercommandmanagement/content_bannedplayers';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
+
+    function sendcashid()
+    {
+        $data['title'] = 'Send Cash By ID';
+        $data['header'] = $data['title'];
+
+        $data['players'] = $this->servercommandmanagement->GetAllPlayers();
+
+        $data['content'] = 'admin/content/servercommandmanagement/content_sendcashid';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
+
+    function sendpointid()
+    {
+        $data['title'] = 'Send Point By ID';
+        $data['header'] = $data['title'];
+
+        $data['players'] = $this->servercommandmanagement->GetAllPlayers();
+
+        $data['content'] = 'admin/content/servercommandmanagement/content_sendpointid';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

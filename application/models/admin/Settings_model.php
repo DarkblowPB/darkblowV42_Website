@@ -217,7 +217,7 @@ class Settings_model extends CI_Model
                 'email_verification' => $this->encryption->decrypt($data['enable_email_verification']),
                 'google_register' => $this->encryption->decrypt($data['enable_google_register']),
                 'web_log' => $this->encryption->decrypt($data['enable_log_system']),
-                'packshop' => $this->encryption->decrypt($data['packshop'])
+                'packshop' => $this->encryption->decrypt($data['enable_packshop'])
             ));
 
             if ($update) {

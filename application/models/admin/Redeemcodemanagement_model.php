@@ -12,6 +12,7 @@ class Redeemcodemanagement_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->load->library('lib');
     }
 
     /**
@@ -1091,7 +1092,8 @@ class Redeemcodemanagement_model extends CI_Model
             'item_count' => $this->encryption->encrypt($this->input->post('item_count', true)),
             'item_code' => $this->encryption->encrypt($this->input->post('item_code', true)),
             'cash' => $this->encryption->encrypt($this->input->post('cash', true)),
-            'type' => $this->encryption->encrypt($this->input->post('type', true))
+            'type' => $this->encryption->encrypt($this->input->post('type', true)),
+            'valid_date' => $this->encryption->encrypt($this->input->post('valid_date', true))
         );
 
         if ($this->encryption->decrypt($data['type']) == 'Item') {
@@ -1110,7 +1112,8 @@ class Redeemcodemanagement_model extends CI_Model
                     'item_alert' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' ' . ($this->encryption->decrypt($data['item_count']) / 24 / 60 / 60) . 'Days',
                     'item_code' => $this->encryption->decrypt($data['item_code']),
                     'cash' => null,
-                    'type' => $this->encryption->decrypt($data['type'])
+                    'type' => $this->encryption->decrypt($data['type']),
+                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
                 ));
 
                 if ($insert) {
@@ -1143,7 +1146,8 @@ class Redeemcodemanagement_model extends CI_Model
                     'item_alert' => $this->encryption->decrypt($data['cash']) . ' DR-Cash',
                     'item_code' => $this->encryption->decrypt($data['item_code']),
                     'cash' => $this->encryption->decrypt($data['cash']),
-                    'type' => $this->encryption->decrypt($data['type'])
+                    'type' => $this->encryption->decrypt($data['type']),
+                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
                 ));
 
                 if ($insert) {
@@ -1176,7 +1180,8 @@ class Redeemcodemanagement_model extends CI_Model
                     'item_alert' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' ' . ($this->encryption->decrypt($data['item_count']) / 24 / 60 / 60) . 'Days & ' . $this->encryption->decrypt($data['cash']) . ' DR-Cash',
                     'item_code' => $this->encryption->decrypt($data['item_code']),
                     'cash' => $this->encryption->decrypt($data['cash']),
-                    'type' => $this->encryption->decrypt($data['type'])
+                    'type' => $this->encryption->decrypt($data['type']),
+                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
                 ));
 
                 if ($insert) {
@@ -1193,6 +1198,42 @@ class Redeemcodemanagement_model extends CI_Model
                     echo json_encode($response);
                 }
             }
+        }
+    }
+
+    function InsertData()
+    {
+        $response = array();
+        $data = array(
+            'item_id' => $this->input->post('item_id', true),
+            'item_count' => $this->input->post('item_count', true),
+            'item_code' => $this->input->post('item_code', true),
+            'cash' => $this->input->post('cash', true),
+            'type' => $this->input->post('type', true),
+            'qty' => $this->input->post('qty', true),
+            'valid_date' => $this->input->post('valid_date', true)
+        );
+
+        $now = time();
+        $valid_date = $this->input->post('valid_date', true);
+
+        $fixvalid_date = strtotime('+' . $valid_date . ' Day', $now);
+
+        $query = $this->db->insert('item_code', array(
+            'item_id' => $data['item_id'],
+            'item_name' => $this->lib->GetItemName($data['item_id']) . ' - Redeem Code',
+            'item_count' => $data['item_count'],
+            'item_alert' => 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($data['item_id']) . '.',
+            'item_code' => $data['item_code'],
+            'cash' => $data['cash'],
+            'type' => $data['type'],
+            'qty' => $data['qty'],
+            'valid_date' => $fixvalid_date
+        ));
+        if ($query) {
+            $response['response'] = 'success';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = '';
         }
     }
 

@@ -166,6 +166,12 @@ class Servercommand_library
                     return 7;
                 case 'Redeem Code':
                     return 8;
+                case 'Send Cash ID':
+                    return 9;
+                case 'Refill Shop':
+                    return 10;
+                case 'Send Point ID':
+                    return 11;
 
                 default:
                     return 0;

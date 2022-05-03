@@ -9,7 +9,7 @@
                         <select id="player_id" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Players</option>
                             <?php foreach ($players as $row) : ?>
-                                <option value="<?= $row['player_id'] ?>">Player ID: <?= $row['player_id'] ?> | Nick: <?= $row['player_name'] ?>
+                                <option value="<?= $row['player_id'] ?>">Player ID: <?= $row['player_id'] ?> | Nick: <?= $row['player_name'] != '' ? $row['player_name'] : $row['login'] ?>
                                 </option>
                             <?php endforeach ?>
                         </select>
@@ -38,7 +38,7 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?= base_url('api/servercommand/bannedplayer') ?>',
+                                    url: '<?= base_url('api/servercommand/send') ?>',
                                     type: 'POST',
                                     timeout: 0,
                                     dataType: 'JSON',

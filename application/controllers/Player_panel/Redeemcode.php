@@ -51,11 +51,13 @@ class Redeemcode extends CI_Controller
 				'max_length' => '%s Only Can Accepted 19 Characters.'
 			)
 		);
-		if ($this->form_validation->run()) $this->redeemcode->CodeValidationV2();
+		if ($this->form_validation->run()) $this->redeemcode->CodeValidationManual();
 		else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = validation_errors();
+
+			echo json_encode($response);
 		}
 	}
 }

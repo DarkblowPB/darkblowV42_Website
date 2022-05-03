@@ -67,6 +67,29 @@ class Webshop_model extends CI_Model
 		}
 	}
 
+	function GetItemDurationV3($id, $item_price)
+	{
+		$query = $this->db->get_where('webshop', array('id' => $id))->row();
+		if ($query) {
+			$price = array(
+				'3' => $query->webshop_itemprice_3days,
+				'7' => $query->webshop_itemprice_7days,
+				'30' => $query->webshop_itemprice_30days,
+				'permanent' => $query->webshop_itemprice_permanent
+			);
+
+			switch ($item_price) {
+				case 'value':
+					# code...
+					break;
+
+				default:
+					# code...
+					break;
+			}
+		}
+	}
+
 	function BuyItemV2()
 	{
 		sleep(2);
@@ -299,6 +322,41 @@ class Webshop_model extends CI_Model
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_61');
 			echo json_encode($response);
+		}
+	}
+
+	function BuyItemV3()
+	{
+		$data = array(
+			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
+			'item_id' => $this->encryption->encrypt($this->input->post('item_id')),
+			'item_price' => $this->encryption->encrypt($this->input->post('item_price'))
+		);
+
+		$data = array(
+			'player_id' => $this->input->post('player_id', true),
+			'item_id' => $this->input->post('item_id', true),
+			'item_price' => $this->input->post('item_price', true)
+		);
+
+		$query = $this->db->get_where('accounts', array('player_id' => $data['player_id']))->row();
+		if ($query) {
+			$query2 = $this->db->get_where('webshop', array('id' => $data['item_id']))->row();
+			if ($query2) {
+				$query3 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $query2->webshop_itemid))->row();
+				if ($query3) {
+					switch ($query3->equip) {
+						case '1': {
+
+								break;
+							}
+
+						default: {
+								break;
+							}
+					}
+				}
+			}
 		}
 	}
 }

@@ -42,7 +42,7 @@
 							SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
 							$.ajax({
-								url: '<?= base_url('api/servercommand/redeemcode') ?>',
+								url: '<?= $this->redeemcode->GetCodeSystem() ?>',
 								type: 'POST',
 								dataType: 'JSON',
 								data: {
@@ -58,7 +58,7 @@
 									var Result = JSON.parse(GetString);
 
 									SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');
-									ShowToast(2000, Result.status, Result.message);
+									ShowToast(2000, Result.response, Result.message);
 									CSRF_TOKEN = Result.token;
 									return;
 								},

@@ -126,7 +126,7 @@
                         </select>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-3">Log System</label>
+                        <label class="col-form-label col-3">Pack Shop</label>
                         <select name="enable_packshop" id="enable_packshop" class="form-control col-9 reward_selection">
                             <option value="0" <?php if ($this->getsettings->Get()->packshop == 0) {
                                                     echo 'selected';

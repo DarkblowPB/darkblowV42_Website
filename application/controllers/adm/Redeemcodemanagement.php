@@ -86,9 +86,27 @@ class Redeemcodemanagement extends CI_Controller
 
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
+            'item_id',
+            'Item ID',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Only Can Use Numeric Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'item_count',
+            'Duration',
+            'required|in_list[64800,259200,604800,2592000]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s'
+            )
+        );
+        $this->form_validation->set_rules(
             'item_code',
             'Code',
-            'required|min_length[19]|max_length[19]',
+            'required|min_length[19]|max_length[19]|is_unique[item_code.item_code]',
             array(
                 'required' => '%s Cannot Be Empty.',
                 'min_length' => '%s Must Contains 19 Characters Or More.',
@@ -104,7 +122,16 @@ class Redeemcodemanagement extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run()) $this->redeemcodemanagement->CreateNewRedeemCode();
+        $this->form_validation->set_rules(
+            'valid_date',
+            'Valid Date',
+            'required|in_list[1,3,7,15,30]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
+        );
+        if ($this->form_validation->run()) $this->redeemcodemanagement->InsertData();
         else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
