@@ -65,7 +65,8 @@ class Settings_model extends CI_Model
             'meta_author' => $this->encryption->encrypt($this->input->post('meta_author', true)),
             'meta_description' => $this->encryption->encrypt($this->input->post('meta_description', true)),
             'meta_keywords' => $this->encryption->encrypt($this->input->post('meta_keywords', true)),
-            'running_text' => $this->encryption->encrypt($this->input->post('running_text', true))
+            'running_text' => $this->encryption->encrypt($this->input->post('running_text', true)),
+            'discord_embed_link' => $this->encryption->encrypt($this->input->post('discord_embed_link', true))
         );
 
         $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
@@ -75,7 +76,8 @@ class Settings_model extends CI_Model
                 'meta_author' => $this->encryption->decrypt($data['meta_author']),
                 'meta_description' => $this->encryption->decrypt($data['meta_description']),
                 'meta_keywords' => $this->encryption->decrypt($data['meta_keywords']),
-                'running_text' => $this->encryption->decrypt($data['running_text'])
+                'running_text' => $this->encryption->decrypt($data['running_text']),
+                'discord_embed_link' => $this->encryption->decrypt($data['discord_embed_link'])
             ));
             if ($update) {
                 $response['response'] = 'true';

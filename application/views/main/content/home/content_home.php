@@ -196,11 +196,13 @@
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_37') ?></span> <?= $this->lang->line('STR_DARKBLOW_159') ?></span></h3>
         <div class="nk-gap-2"></div>
-        <div class="row vertical-gap">
-            <div class="col-lg-12">
-                <iframe src="https://discord.com/widget?id=713091347711524955&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        <?php if ($this->getsettings->Get()->discord_embed_link != '' || $this->settings->Get()->discord_embed_link != null) : ?>
+            <div class="row vertical-gap">
+                <div class="col-lg-12">
+                    <iframe src="<?= $this->getsettings->Get()->discord_embed_link ?>" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                </div>
             </div>
-        </div>
+        <?php endif ?>
     </div>
 </div>
 <script>

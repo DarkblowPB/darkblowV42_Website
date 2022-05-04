@@ -63,6 +63,10 @@
                         <label class="col-form-label col-3">Running Text</label>
                         <input type="text" id="running_text" class="form-control col-9" value="<?= $settings->running_text ?>" placeholder="Enter Your Running Text">
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-3">Discord Embed Link</label>
+                        <input type="url" name="discord_embed_link" id="discord_embed_link" class="form-control col-9" value="<?= $settings->discord_embed_link ?>" placeholder="Enter Your Discord Embed Link">
+                    </div>
                     <div class="form-group text-right">
                         <input type="submit" id="submit_generalsettings02" class="btn btn-outline-primary text-white" value="Submit Settings">
                     </div>
@@ -269,7 +273,8 @@
                         'meta_author': $('#meta_author').val(),
                         'meta_description': $('#meta_description').val(),
                         'meta_keywords': $('#meta_keywords').val(),
-                        'running_text': $('#running_text').val()
+                        'running_text': $('#running_text').val(),
+                        'discord_embed_link': $('#discord_embed_link').val()
                     },
                     success: function(data) {
                         var GetString = JSON.stringify(data);
@@ -356,7 +361,8 @@
                     'meta_author': $('#meta_author').val(),
                     'meta_description': $('#meta_description').val(),
                     'meta_keywords': $('#meta_keywords').val(),
-                    'running_text': $('#running_text').val()
+                    'running_text': $('#running_text').val(),
+                    'discord_embed_link': $('#discord_embed_link').val()
                 },
                 success: function(data) {
                     var GetString = JSON.stringify(data);
