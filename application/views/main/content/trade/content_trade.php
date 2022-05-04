@@ -95,7 +95,7 @@
                                                         window.location = '<?= base_url('login') ?>';
                                                     }, 2500);
                                                 } else {
-                                                    SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_INFO_8 ') ?>');
+                                                    SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
                                                     $.ajax({
                                                         url: '<?= base_url('trade/do_buy') ?>',
                                                         type: 'POST',

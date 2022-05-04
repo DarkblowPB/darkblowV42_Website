@@ -62,7 +62,7 @@
                             ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_22 ') ?>');
                             return;
                         } else {
-                            SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8 ') ?>');
+                            SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
                             $.ajax({
                                 url: '<?= base_url('trade/do_post') ?>',

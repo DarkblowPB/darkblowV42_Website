@@ -18,6 +18,7 @@ class Changepassword_model extends CI_Model
 
 	function ChangePasswordV2()
 	{
+		sleep(1);
 		$response = array();
 
 		$data = array(
@@ -30,38 +31,29 @@ class Changepassword_model extends CI_Model
 
 		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
 		if ($query) {
-			if ($query->email_verification == '0') {
+			if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = $this->lang->line('STR_WARNING_24');
+				$response['message'] = $this->lang->line('STR_ERROR_30');
 
 				echo json_encode($response);
-			}
-			if ($query->email_verification == '1') {
-				if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
-					$response['response'] = 'false';
+			} else {
+				$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
+					'password' => $this->encryption->decrypt($data['new_password'])
+				));
+
+				if ($update) {
+					$response['response'] = 'true';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = $this->lang->line('STR_ERROR_30');
+					$response['message'] = $this->lang->line('STR_SUCCESS_3');
 
 					echo json_encode($response);
 				} else {
-					$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
-						'password' => $this->encryption->decrypt($data['new_password'])
-					));
+					$response['response'] = 'false';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = $this->lang->line('STR_ERROR_31');
 
-					if ($update) {
-						$response['response'] = 'true';
-						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = $this->lang->line('STR_SUCCESS_3');
-
-						echo json_encode($response);
-					} else {
-						$response['response'] = 'false';
-						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = $this->lang->line('STR_ERROR_31');
-
-						echo json_encode($response);
-					}
+					echo json_encode($response);
 				}
 			}
 		} else {

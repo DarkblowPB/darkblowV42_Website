@@ -14,7 +14,7 @@ class Shop extends RestController
         //Do your magic here
     }
 
-    public function buyrec_post()
+    public function buyitem_post()
     {
         $response = array();
 

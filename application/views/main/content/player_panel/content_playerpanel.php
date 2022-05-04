@@ -271,7 +271,7 @@
                                                        });
 
                                                        function RequestHint() {
-                                                            SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_INFO_8 ') ?>');
+                                                            SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
                                                             $.ajax({
                                                                  url: '<?= base_url('player_panel/home/do_requesthint') ?>',
                                                                  type: 'GET',
@@ -285,21 +285,21 @@
 
                                                                       if (Result.response == 'true') {
                                                                            ShowToast(3000, 'info', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199 ') ?>');
+                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       } else if (Result.response == 'false') {
                                                                            ShowToast(3000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199 ') ?>');
+                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       } else {
                                                                            ShowToast(2000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199 ') ?>');
+                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                            return;
                                                                       }
                                                                  },
                                                                  error: function() {
                                                                       if (RETRY >= 3) {
-                                                                           ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_9 ') ?>');
+                                                                           ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_9') ?>');
                                                                            setTimeout(() => {
                                                                                 window.location.reload();
                                                                            }, 2000);

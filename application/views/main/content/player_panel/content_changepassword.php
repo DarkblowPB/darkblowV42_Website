@@ -80,24 +80,24 @@
 
                             function Do_ChangePassword() {
                                 if ($('#old_password').val() == '' || $('#old_password').val() == null) {
-                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_7 ') ?>');
+                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_7') ?>');
                                     return;
                                 } else if ($('#new_password').val() == '' || $('#new_password').val() == null) {
-                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_8 ') ?>');
+                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_8') ?>');
                                     return;
                                 } else if ($('#confirm_password').val() == '' || $('#confirm_password').val() == null) {
-                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_9 ') ?>');
+                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_9') ?>');
                                     return;
                                 } else if ($('#hint_question').val() == '' || $('#hint_question').val() == null) {
-                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_10 ') ?>');
+                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_10') ?>');
                                     return;
                                 } else if ($('#hint_answer').val() == '' || $('#hint_answer').val() == null) {
-                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_3 ') ?>');
+                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_DARKBLOW_3') ?>');
                                     return;
                                 } else {
-                                    SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8 ') ?>');
+                                    SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
                                     $.ajax({
-                                        url: '<?= base_url('player_panel / changepassword / do_changepassword ') ?>',
+                                        url: '<?= base_url('player_panel/changepassword/do_changepassword') ?>',
                                         type: 'POST',
                                         timeout: 0,
                                         dataType: 'JSON',
@@ -114,14 +114,14 @@
                                             var Result = JSON.parse(GetString);
 
                                             if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182 ') ?>');
+                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182') ?>');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 setTimeout(() => {
-                                                    // Logout Function
+                                                    Logout();
                                                 }, 2000);
                                             } else {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182 ') ?>');
+                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182') ?>');
                                                 ShowToast(2000, 'error', Result.message);
                                                 CSRF_TOKEN = Result.token;
                                                 return;
@@ -129,8 +129,8 @@
                                         },
                                         error: function() {
                                             if (RETRY >= 3) {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182 ') ?>.');
-                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5 ') ?>');
+                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182') ?>.');
+                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);
@@ -157,7 +157,7 @@
                                                         return Do_ChangePassword();
                                                     },
                                                     error: function() {
-                                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5 ') ?>');
+                                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5') ?>');
                                                         setTimeout(() => {
                                                             window.location.reload();
                                                         }, 2000);

@@ -67,6 +67,17 @@ class Security extends RestController
 			}
 		}
 	}
+
+	function licensevalidate_post()
+	{
+		$data = array(
+			'username' => $this->input->post('username', true),
+			'password' => $this->input->post('password', true),
+			'ip_address' => $this->input->ip_address()
+		);
+
+		$query = $this->db->get_where('');
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
