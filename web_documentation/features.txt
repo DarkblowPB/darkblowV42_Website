@@ -1,5 +1,5 @@
 =============================================
-Primary Web (http://localhost:8080/webpb-ci3)
+Primary Web 
 =============================================
 
 Features List :
@@ -8,7 +8,7 @@ Features List :
 		- Login
 			- Login
 			- Register
-			- Forgot Password
+			- Forgot Password (Under Development)
 		- Rank List
 			- Player Rank
 			- Clan Rank
@@ -16,31 +16,50 @@ Features List :
 		- Featured
 			- Webshop
 			- Trade Market
+			- Packshop (Under Development)
 
 	- Private Features (Logged In User Features)
 		- All General Features Included
 		- User Area
 			- Player Panel
-			- Moderator Panel (Only For Admin & Staff)
+				- Change Email (Under Development)
+				- Change Password
+				- Create Hint Security
+			- Administrator Panel (Only For Admin & Staff)
 			- Redeem Code
-			- Attendance (Events Only!)
-			- Exchange Ticket (Events Only!)
-			- Voucher (Topup / Events)
+			- Attendance (Under Development)
+			- Exchange Ticket (Under Development)
+			- Voucher
 			- Inventory
 
 ==========================================================
-Administrator Panel  (http://localhost:8080/webpb-ci3/adm)
+Administrator Panel 
 ==========================================================
 
 Features List :
 
 	- Dashboard
+	- Server Command Management
+		- Start Server (API)
+		- Shutdown Server (API)
+		- Reload Events (API)
+		- Send Announcement (API)
+		- Kick All Players (API)
+		- Banned Players (API)
+		- Refill Shop (API)
+		- Send Point By ID (API)
+		- Send Cash By ID (API)
 	- Banned Visitor
 	- Settings
 		- General Settings
 		- Feature Settings
+	- News Management
 	- Players Management
-		- All Players (Details, Banned, Unbanned, Reset, Delete)
+		- All Players
+			- Details Player
+			- Banned Players
+			- Unbanned Players
+			- Delete Players
 		- Create Custom Player
 	- Events Management
 		- Login Events
