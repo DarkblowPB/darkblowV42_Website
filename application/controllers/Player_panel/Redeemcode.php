@@ -24,9 +24,7 @@ class Redeemcode extends CI_Controller
 		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->load->library('servercommand_library');
 
-		if ($this->getsettings->Get()->redeemcode != 1) {
-			redirect(base_url('player_panel'), 'refresh');
-		}
+		$this->lib->FeatureControl('redeem_code', 'player_panel');
 	}
 
 	function index()

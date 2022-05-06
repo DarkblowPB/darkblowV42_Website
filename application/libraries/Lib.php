@@ -241,41 +241,6 @@ class Lib
 		return $encrypt_result;
 	}
 
-	public function FeatureControl($param)
-	{
-		$query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
-
-		switch ($param) {
-			case 'webshop': {
-					if ($query->webshop == 0)
-						return TRUE;
-					if ($query->webshop == 1)
-						return FALSE;
-				}
-			case 'trademarket': {
-					if ($query->trade_market == 0)
-						return TRUE;
-					if ($query->trade_market == 1)
-						return FALSE;
-				}
-			case 'webshop': {
-					if ($query->exchange_ticket == 0)
-						return TRUE;
-					if ($query->exchange_ticket == 1)
-						return FALSE;
-				}
-			case 'webshop': {
-					if ($query->voucher == 0)
-						return TRUE;
-					if ($query->voucher == 1)
-						return FALSE;
-				}
-
-			default:
-				return TRUE;
-		}
-	}
-
 	public function ExplodeDate($defaultDate)
 	{
 		$resultdate = array();
@@ -531,6 +496,60 @@ class Lib
 				redirect(base_url(), 'refresh');
 				break;
 		}
+	}
+
+	public function FeatureControl($page = null, $redirect_page = '')
+	{
+		if ($page == null) redirect(base_url('home'), 'refresh');
+		$query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
+		if ($query) {
+			switch ($page) {
+				case 'webshop': {
+						$query->webshop != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'trade_market': {
+						$query->trade_market != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'exchange_ticket': {
+						$query->exchange_ticket != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'voucher': {
+						$query->voucher != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'forgot_password': {
+						$query->forgot_password != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'register': {
+						$query->register != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'attendance': {
+						$query->attendance != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'redeemcode': {
+						$query->redeemcode != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'change_email': {
+						$query->change_email != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+						break;
+					}
+				case 'packshop': {
+						$query->packshop != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
+					}
+
+				default: {
+						redirect(base_url(), 'refresh');
+						break;
+					}
+			}
+		} else redirect(base_url(), 'refresh');
 	}
 }
 

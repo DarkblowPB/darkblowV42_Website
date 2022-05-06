@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Voucher extends CI_Controller
+class Voucher extends CI_Controller
 {
     function __construct()
     {
@@ -15,19 +15,16 @@ Class Voucher extends CI_Controller
 
         $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Voucher');
-        
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
+
+        $this->allprotect->Web_Protection();
+        $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
+        $this->allprotect->DarkblowCopierGuard();
+
         $this->main_protect->mainProtectA();
         $this->load->model('main/voucher_model', 'voucher');
 
-        if ($this->getsettings->Get()->voucher != 1)
-        {
-            redirect(base_url('home'), 'refresh');
-        }
+        $this->lib->FeatureControl('voucher', 'player_panel');
     }
 
     function index()
@@ -53,8 +50,7 @@ Class Voucher extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->voucher->RedeemVoucherV3();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();

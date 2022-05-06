@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Changeemail extends CI_Controller
+class Changeemail extends CI_Controller
 {
     function __construct()
     {
@@ -15,19 +15,16 @@ Class Changeemail extends CI_Controller
 
         $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Change Email');
-        
+
         $this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
+        $this->allprotect->DarkblowCopierGuard();
+
         $this->main_protect->mainProtectA();
         $this->load->model('main/changeemail_model', 'changeemail');
 
-        if ($this->getsettings->Get()->change_email != 1)
-        {
-            redirect(base_url('player_panel'), 'refresh');
-        }
+        $this->lib->FeatureControl('change_email', 'player_panel');
     }
 
     function index()
@@ -64,8 +61,7 @@ Class Changeemail extends CI_Controller
             array('required' => '%s Cannot Be Empty.', 'matches' => '%s Not Matches.', 'valid_email' => 'Invalid %s.')
         );
         if ($this->form_validation->run()) $this->changeemail->ChangeEmailValidation();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['meesage'] = validation_errors();
@@ -81,7 +77,8 @@ Class Changeemail extends CI_Controller
             'required|valid_email',
             array('required' => '%s Cannot Be Empty.', 'valid_email' => 'Invalid %s.')
         );
-        if ($this->form_validation->run()) $this->changeemail->SendEmail(); else echo validation_errors();
+        if ($this->form_validation->run()) $this->changeemail->SendEmail();
+        else echo validation_errors();
     }
 }
 

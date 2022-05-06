@@ -12,6 +12,7 @@ class Servercommandmanagement extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/servercommandmanagement_model', 'servercommandmanagement');
         $this->load->library('servercommand_library');
     }

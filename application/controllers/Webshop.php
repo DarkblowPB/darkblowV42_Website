@@ -26,10 +26,9 @@ class Webshop extends CI_Controller
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->model('main/login_model', 'login');
 
-		if ($this->getsettings->Get()->webshop != 1) {
-			redirect(base_url('home'), 'refresh');
-		}
+		$this->lib->FeatureControl('webshop', '');
 	}
+
 	function index()
 	{
 		// Pagination Section

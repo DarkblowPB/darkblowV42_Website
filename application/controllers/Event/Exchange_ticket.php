@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Exchange_ticket extends CI_Controller
+class Exchange_ticket extends CI_Controller
 {
     function __construct()
     {
@@ -15,19 +15,19 @@ Class Exchange_ticket extends CI_Controller
 
         $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Exchange Ticket');
-        
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
+
+        $this->allprotect->Web_Protection();
+        $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
-		$this->main_protect->mainProtectA();
+        $this->allprotect->DarkblowCopierGuard();
+
+        $this->main_protect->mainProtectA();
         $this->load->library('lib');
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
-        if ($this->getsettings->Get()->exchange_ticket != 1) redirect(base_url('home'), 'refresh');
+        $this->lib->FeatureControl('exchange_ticket', '');
     }
-    
+
     function index()
     {
         $data['title'] = 'Exchange Ticket';
@@ -52,8 +52,7 @@ Class Exchange_ticket extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->exchangeticket->ExchangeItemV3();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';

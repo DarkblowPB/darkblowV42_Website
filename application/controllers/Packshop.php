@@ -18,6 +18,7 @@ class Packshop extends CI_Controller
         $this->allprotect->BlockedAccount_Protection();
         $this->allprotect->DarkblowCopierGuard();
         $this->main_protect->mainProtectA();
+        $this->lib->FeatureControl('packshop', '');
     }
 
     public function index()

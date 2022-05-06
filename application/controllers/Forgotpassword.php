@@ -20,6 +20,7 @@ class Forgotpassword extends CI_Controller
         $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
         $this->allprotect->DarkblowCopierGuard();
+        $this->lib->FeatureControl('forgot_password', '');
     }
 
     function index()

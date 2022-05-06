@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Attendance extends CI_Controller
+class Attendance extends CI_Controller
 {
     function __construct()
     {
@@ -17,16 +17,16 @@ Class Attendance extends CI_Controller
         $this->lib->GetVisitorData('Attendance');
 
         $this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
+        $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		
-		$this->main_protect->mainProtectA();
+        $this->allprotect->DarkblowCopierGuard();
+
+        $this->main_protect->mainProtectA();
 
         $this->load->model('main/attendance_model', 'attendance');
         $this->load->library('servercommand_library');
 
-        if ($this->getsettings->Get()->attendance != 1) redirect(base_url('home'), 'refresh');
+        $this->lib->FeatureControl('attendance', '');
     }
 
     function index()
