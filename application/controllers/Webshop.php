@@ -16,6 +16,7 @@ class Webshop extends CI_Controller
 
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->lib->GetVisitorData('Webshop');
+		$this->main_protect->SessionProtector();
 
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();

@@ -17,6 +17,7 @@ class Login extends CI_Controller
 		$this->lib->GetVisitorData('Login');
 
 		$this->main_protect->mainProtectB();
+		$this->main_protect->SessionProtector();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();

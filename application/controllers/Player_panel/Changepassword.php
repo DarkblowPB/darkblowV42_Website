@@ -5,23 +5,24 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Changepassword extends CI_Controller 
+class Changepassword extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Change Password');
-		
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Change Password');
+		$this->main_protect->SessionProtector();
+
 		$this->allprotect->Changepassword_Protection();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/changepassword_model', 'changepassword');
 	}
@@ -37,7 +38,7 @@ class Changepassword extends CI_Controller
 	{
 		$response = array();
 
-		$this->form_validation->set_error_delimiters('','');
+		$this->form_validation->set_error_delimiters('', '');
 		$this->form_validation->set_rules(
 			'old_password',
 			'Old Password',
@@ -88,8 +89,7 @@ class Changepassword extends CI_Controller
 			array('required' => '%s Cannot Be Empty')
 		);
 		if ($this->form_validation->run()) $this->changepassword->ChangePasswordV2();
-		else 
-		{
+		else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = validation_errors();
@@ -106,7 +106,6 @@ class Changepassword extends CI_Controller
 		$this->session->set_flashdata('success', 'Successfully Logout, Please Relogin To Continue.');
 		redirect(base_url('home'), 'refresh');
 	}
-
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

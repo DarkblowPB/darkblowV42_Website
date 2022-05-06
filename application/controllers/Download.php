@@ -20,6 +20,7 @@ class Download extends CI_Controller
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
+		$this->main_protect->SessionProtector();
 
 		$this->load->model('main/download_model', 'download');
 	}

@@ -22,6 +22,7 @@ class Voucher extends CI_Controller
         $this->allprotect->DarkblowCopierGuard();
 
         $this->main_protect->mainProtectA();
+        $this->main_protect->SessionProtector();
         $this->load->model('main/voucher_model', 'voucher');
 
         $this->lib->FeatureControl('voucher', 'player_panel');

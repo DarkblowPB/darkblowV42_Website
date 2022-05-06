@@ -13,6 +13,7 @@ class Logout extends CI_Controller
 	{
 		parent::__construct();
 		$this->lib->GetVisitorData('Logout');
+		$this->main_protect->SessionProtector();
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();

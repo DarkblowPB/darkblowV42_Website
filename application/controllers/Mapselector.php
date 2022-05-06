@@ -12,7 +12,7 @@ class Mapselector extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // Write Code Here
+        $this->main_protect->SessionProtector();
     }
 
     function index()

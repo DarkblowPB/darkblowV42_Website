@@ -15,6 +15,7 @@ class Redeemcode extends CI_Controller
 
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->lib->GetVisitorData('Redeem Code');
+		$this->main_protect->SessionProtector();
 
 		$this->main_protect->mainProtectA();
 		$this->allprotect->Web_Protection();
@@ -24,7 +25,7 @@ class Redeemcode extends CI_Controller
 		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->load->library('servercommand_library');
 
-		$this->lib->FeatureControl('redeem_code', 'player_panel');
+		$this->lib->FeatureControl('redeemcode', 'player_panel');
 	}
 
 	function index()

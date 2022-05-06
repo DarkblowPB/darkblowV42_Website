@@ -5,21 +5,22 @@
 //     Lolsecs#6289     //
 // ==================== //
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller 
+class Home extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-        $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Player Panel');
-		
+		$this->lang->load(array('header', 'string', 'message'));
+		$this->lib->GetVisitorData('Player Panel');
+		$this->main_protect->SessionProtector();
+
 		$this->allprotect->Web_Protection();
 		$this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		
+
 		$this->main_protect->mainProtectA();
 		$this->load->model('main/playerpanel_model', 'player');
 	}
@@ -36,7 +37,6 @@ class Home extends CI_Controller
 	{
 		$this->player->RequestHint();
 	}
-
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
