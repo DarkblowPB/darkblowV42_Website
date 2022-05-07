@@ -166,6 +166,11 @@ class Redeemcode_model extends CI_Model
 														break;
 													}
 												default:
+													$response['response'] = 'error';
+													$response['token'] = $this->security->get_csrf_hash();
+													$response['message'] = 'Fatal Error.';
+
+													echo json_encode($response);
 													break;
 											}
 										} else {
@@ -194,6 +199,36 @@ class Redeemcode_model extends CI_Model
 										echo json_encode($response);
 										break;
 									}
+							}
+						} else {
+							$insert = $this->db->insert('player_items', array(
+								'owner_id' => $query->player_id,
+								'item_id' => $query2->item_id,
+								'item_name' => $this->lib->GetItemName($query2->item_id),
+								'count' => $query2->item_count,
+								'category' => $this->lib->GetItemCategory($query2->item_id),
+								'equip' => '1'
+							));
+							$insert2 = $this->db->insert('check_user_itemcode', array(
+								'uid' => $query->player_id,
+								'item_code' => $query2->item_code,
+								'username' => $query->login,
+								'date_redeemed' => time()
+							));
+							$update = $this->db->where('id', $query2->id)->update('item_code', array('qty' => ($query2->qty - 1)));
+
+							if ($insert && $insert2 && $update) {
+								$response['response'] = 'success';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+
+								echo json_encode($response);
+							} else {
+								$response['response'] = 'error';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Failed To Redeem Code.';
+
+								echo json_encode($response);
 							}
 						}
 					}

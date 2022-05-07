@@ -457,7 +457,7 @@ foreach ($custom_decode as $row) {
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-    $config['csrf_protection'] = FALSE;
+    $config['csrf_protection'] = TRUE;
     $config['csrf_token_name'] = 'darkblowpbreborn_protector';
     $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
     $config['csrf_expire'] = 1800;
