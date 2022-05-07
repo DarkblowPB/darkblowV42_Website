@@ -14,13 +14,13 @@ class Redeemcode extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		// $this->lib->GetVisitorData('Redeem Code');
-		// $this->main_protect->SessionProtector();
+		$this->lib->GetVisitorData('Redeem Code');
+		$this->main_protect->SessionProtector();
 
-		// $this->main_protect->mainProtectA();
-		// $this->allprotect->Web_Protection();
-		// $this->allprotect->BlockedAccount_Protection();
-		// $this->allprotect->DarkblowCopierGuard();
+		$this->main_protect->mainProtectA();
+		$this->allprotect->Web_Protection();
+		$this->allprotect->BlockedAccount_Protection();
+		$this->allprotect->DarkblowCopierGuard();
 
 		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->load->library('servercommand_library');
