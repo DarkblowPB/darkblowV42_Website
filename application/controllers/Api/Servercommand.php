@@ -244,53 +244,54 @@ class Servercommand extends RestController
                         $data['player_id'] = $this->input->post('player_id', true);
                         $data['code'] = $this->input->post('code', true);
 
-                        $query = $this->db->get_where('accounts', array('player_id' => $data['player_id']))->row();
+                        $query = $this->db->get_where('accounts', array('palyer_id' => $data['player_id']))->row();
                         if ($query) {
                             $query2 = $this->db->get_where('item_code', array('item_code' => $data['code']))->row();
                             if ($query2) {
-                                $codedate = $query2->valid_date;
-                                $datenow = time();
-                                if ($datenow > $codedate && $query2->qty < 1) {
-                                    $response['response'] = 'error';
-                                    $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Code Already Expired / Empty Stock.';
-
-                                    $this->response($response, 200);
-                                } else {
+                                $dateNow = time();
+                                $totalQty = $query2->qty - 1;
+                                if ($dateNow < $query2->valid_date) {
                                     $query3 = $this->db->get_where('check_user_itemcode', array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
                                     if ($query3) {
                                         $response['response'] = 'error';
                                         $response['token'] = $this->security->get_csrf_hash();
-                                        $response['message'] = 'You Already Redeem This Code.';
+                                        $response['message'] = 'Code Already Used.';
 
                                         $this->response($response, 200);
                                     } else {
-                                        $data['item_id'] = $query2->item_id;
-                                        $data['category'] = $this->lib->GetItemCategory($query2->item_id);
-                                        $data['item_name'] = $query2->item_name;
-                                        $data['count'] = $query2->item_count;
-
-                                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                                            $response['response'] = 'success';
+                                        if ($totalQty <= 0) {
+                                            $response['response'] = 'error';
                                             $response['token'] = $this->security->get_csrf_hash();
-                                            $response['message'] = 'Congratulations ' . $query->player_name != '' ? $query->player_name : $query->login . ', You Received ' . $query->item_name . '.';
-
-                                            $this->db->insert('check_user_itemcode', array(
-                                                'uid' => $data['player_id'],
-                                                'item_code' => $query2->item_code,
-                                                'username' => $query->player_name != '' ? $query->player_name : $query->login,
-                                                'date_redeemed' => time()
-                                            ));
+                                            $response['message'] = 'Reward Out Of Stock.';
 
                                             $this->response($response, 200);
                                         } else {
-                                            $response['response'] = 'error';
-                                            $response['token'] = $this->security->get_csrf_hash();
-                                            $response['message'] = 'Failed To Connect Server.';
+                                            $data['item_id'] = $query2->item_id;
+                                            $data['category'] = $this->lib->GetItemCategory($query2->item_id);
+                                            $data['item_name'] = $this->lib->GetItemName($query2->item_id) . ' - Redeem Code';
+                                            $data['count'] = $query2->item_count;
 
-                                            $this->response($response, 200);
+                                            if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+                                                $response['response'] = 'success';
+                                                $response['token'] = $this->security->get_csrf_hash();
+                                                $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+
+                                                $this->response($response, 200);
+                                            } else {
+                                                $response['response'] = 'error';
+                                                $response['token'] = $this->security->get_csrf_hash();
+                                                $response['message'] = 'Failed To Redeem The Code.';
+
+                                                $this->response($response, 200);
+                                            }
                                         }
                                     }
+                                } else {
+                                    $response['response'] = 'error';
+                                    $response['token'] = $this->security->get_csrf_hash();
+                                    $response['message'] = 'Code Already Expired.';
+
+                                    $this->response($response, 200);
                                 }
                             } else {
                                 $response['response'] = 'error';
@@ -299,12 +300,6 @@ class Servercommand extends RestController
 
                                 $this->response($response, 200);
                             }
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Get Your Account Data.';
-
-                            $this->response($response, 200);
                         }
                         break;
                     }

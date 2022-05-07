@@ -236,7 +236,7 @@
                                     <?= $this->lang->line('STR_MENU_6') ?>
                                 </a>
                                 <ul class="dropdown">
-                                    <li class="<?php if ($this->uri->segment(2) == "home") {
+                                    <li class="<?php if ($this->uri->segment(2) == "home" || $this->uri->segment(2) == 'changepassword') {
                                                     echo 'active';
                                                 } ?>">
                                         <a href="<?= base_url('player_panel/home') ?>">

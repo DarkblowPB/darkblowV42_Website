@@ -86,7 +86,10 @@
                 }
             });
         }
-
+    </script>
+<?php endif ?>
+<?php if ($this->session->userdata('uid') != '' && $this->session->userdata('access_level') >= 3 && $this->session->userdata('access_level') <= 7) : ?>
+    <script>
         function AutomaticLogin() {
             $.ajax({
                 url: '<?= base_url('api/admin/loginpanel') ?>',

@@ -29,7 +29,7 @@
                                         <?= $num ?>
                                     </td>
                                     <td>
-                                        <?= $this->redeemcodemanagement->GetItemName($row['item_id']) ?>
+                                        <?= $this->lib->GetItemName($row['item_id']) ?>
                                     </td>
                                     <td>
                                         <?= number_format($row['cash'], '0', ',', '.') ?>

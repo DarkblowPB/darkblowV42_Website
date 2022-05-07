@@ -131,9 +131,9 @@ class Redeemcodemanagement extends CI_Controller
                 'in_list' => 'Invalid %s.'
             )
         );
-        if ($this->form_validation->run()) $this->redeemcodemanagement->InsertData();
+        if ($this->form_validation->run()) $this->redeemcodemanagement->CreateNewRedeemCodeV2();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

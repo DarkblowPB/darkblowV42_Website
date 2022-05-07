@@ -1083,158 +1083,64 @@ class Redeemcodemanagement_model extends CI_Model
         echo json_encode($response);
     }
 
-    function CreateNewRedeemCode()
+    function CreateNewRedeemCodeV2()
     {
         $response = array();
 
-        $data = array(
-            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true)),
-            'item_count' => $this->encryption->encrypt($this->input->post('item_count', true)),
-            'item_code' => $this->encryption->encrypt($this->input->post('item_code', true)),
-            'cash' => $this->encryption->encrypt($this->input->post('cash', true)),
-            'type' => $this->encryption->encrypt($this->input->post('type', true)),
-            'valid_date' => $this->encryption->encrypt($this->input->post('valid_date', true))
-        );
-
-        if ($this->encryption->decrypt($data['type']) == 'Item') {
-            $query = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
-            if ($query) {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'This Code Already Exists.';
-
-                echo json_encode($response);
-            } else {
-                $insert = $this->db->insert('item_code', array(
-                    'item_id' => $this->encryption->decrypt($data['item_id']),
-                    'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' - Redeem Code',
-                    'item_count' => $this->encryption->decrypt($data['item_count']),
-                    'item_alert' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' ' . ($this->encryption->decrypt($data['item_count']) / 24 / 60 / 60) . 'Days',
-                    'item_code' => $this->encryption->decrypt($data['item_code']),
-                    'cash' => null,
-                    'type' => $this->encryption->decrypt($data['type']),
-                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
-                ));
-
-                if ($insert) {
-                    $response['response'] = 'true';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Created New Redeem Code.';
-
-                    echo json_encode($response);
-                } else {
-                    $response['response'] = 'false';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Create New Redeem Code';
-
-                    echo json_encode($response);
-                }
-            }
-        } else if ($this->encryption->decrypt($data['type']) == 'Cash') {
-            $query = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
-            if ($query) {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'This Code Already Exists.';
-
-                echo json_encode($response);
-            } else {
-                $insert = $this->db->insert('item_code', array(
-                    'item_id' => null,
-                    'item_name' => null,
-                    'item_count' => null,
-                    'item_alert' => $this->encryption->decrypt($data['cash']) . ' DR-Cash',
-                    'item_code' => $this->encryption->decrypt($data['item_code']),
-                    'cash' => $this->encryption->decrypt($data['cash']),
-                    'type' => $this->encryption->decrypt($data['type']),
-                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
-                ));
-
-                if ($insert) {
-                    $response['response'] = 'true';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Created New Redeem Code.';
-
-                    echo json_encode($response);
-                } else {
-                    $response['response'] = 'false';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Create New Redeem Code';
-
-                    echo json_encode($response);
-                }
-            }
-        } else {
-            $query = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
-            if ($query) {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'This Code Already Exists.';
-
-                echo json_encode($response);
-            } else {
-                $insert = $this->db->insert('item_code', array(
-                    'item_id' => $this->encryption->decrypt($data['item_id']),
-                    'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' - Redeem Code',
-                    'item_count' => $this->encryption->decrypt($data['item_count']),
-                    'item_alert' => $this->GetItemName($this->encryption->decrypt($data['item_id'])) . ' ' . ($this->encryption->decrypt($data['item_count']) / 24 / 60 / 60) . 'Days & ' . $this->encryption->decrypt($data['cash']) . ' DR-Cash',
-                    'item_code' => $this->encryption->decrypt($data['item_code']),
-                    'cash' => $this->encryption->decrypt($data['cash']),
-                    'type' => $this->encryption->decrypt($data['type']),
-                    'valid_date' => $this->encryption->decrypt($data['valid_date'])
-                ));
-
-                if ($insert) {
-                    $response['response'] = 'true';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Created New Redeem Code.';
-
-                    echo json_encode($response);
-                } else {
-                    $response['response'] = 'false';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Create New Redeem Code';
-
-                    echo json_encode($response);
-                }
-            }
-        }
-    }
-
-    function InsertData()
-    {
-        $response = array();
         $data = array(
             'item_id' => $this->input->post('item_id', true),
+            'item_name' => $this->lib->GetItemName($this->input->post('item_id', true)) . ' - Redeem Code',
             'item_count' => $this->input->post('item_count', true),
             'item_code' => $this->input->post('item_code', true),
             'cash' => $this->input->post('cash', true),
             'type' => $this->input->post('type', true),
             'qty' => $this->input->post('qty', true),
-            'valid_date' => $this->input->post('valid_date', true)
+            'valid_date' => $this->GetValidDate($this->input->post('valid_date', true)),
+            'date_created' => time(),
+            'date_updated' => '0',
         );
 
-        $now = time();
-        $valid_date = $this->input->post('valid_date', true);
-
-        $fixvalid_date = strtotime('+' . $valid_date . ' Day', $now);
-
-        $query = $this->db->insert('item_code', array(
-            'item_id' => $data['item_id'],
-            'item_name' => $this->lib->GetItemName($data['item_id']) . ' - Redeem Code',
-            'item_count' => $data['item_count'],
-            'item_alert' => 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($data['item_id']) . '.',
-            'item_code' => $data['item_code'],
-            'cash' => $data['cash'],
-            'type' => $data['type'],
-            'qty' => $data['qty'],
-            'valid_date' => $fixvalid_date
-        ));
+        $query = $this->db->get_where('item_code', array('item_code' => $data['item_code']))->row();
         if ($query) {
-            $response['response'] = 'success';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = '';
+            $data['item_code'] = $this->GenerateCode2();
+
+            $insert = $this->db->insert('item_code', $data);
+            if ($insert) {
+                $response['response'] = 'success';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Create New Redeem Code.';
+
+                echo json_encode($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed Create New Redeem Code.';
+
+                echo json_encode($response);
+            }
+        } else {
+            $insert = $this->db->insert('item_code', $data);
+            if ($insert) {
+                $response['response'] = 'success';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Create New Redeem Code.';
+
+                echo json_encode($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed Create New Redeem Code.';
+
+                echo json_encode($response);
+            }
         }
+    }
+
+    function GetValidDate($valid_date)
+    {
+        $dateNow = time();
+        $fixDate = strtotime('+ ' . $valid_date . ' day', $dateNow);
+        return $fixDate;
     }
 
     function GetAllItems()
@@ -1245,13 +1151,6 @@ class Redeemcodemanagement_model extends CI_Model
     function GetAllRedeemCode()
     {
         return $this->db->get('item_code')->result_array();
-    }
-
-    function GetItemName($item_id)
-    {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
     }
 
     function GetTotalRedeem($item_code)

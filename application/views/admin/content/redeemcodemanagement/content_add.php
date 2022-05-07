@@ -16,9 +16,9 @@
                         </select>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-3">Duration</label>
+                        <label class="col-form-label col-3">Reward Count</label>
                         <select id="item_count" class="form-control col-9 reward_selection" required>
-                            <option value="" disabled selected>Select Reward Duration</option>
+                            <option value="" disabled selected>Select Reward Count</option>
                             <option value="64800">1 Day</option>
                             <option value="259200">3 Day</option>
                             <option value="604800">7 Day</option>
@@ -26,13 +26,13 @@
                         </select>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-3">Code</label>
-                        <input type="text" id="item_code" class="form-control col-7" placeholder="Enter The Code" required>
+                        <label class="col-form-label col-3">Item Code</label>
+                        <input type="text" id="item_code" class="form-control col-7" placeholder="Enter Item Code" required>
                         <input type="button" id="generate_randomcode" class="btn btn-outline-primary text-white ml-3 col-1" value="Generate" onclick="GenerateCode()">
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-3">Cash</label>
-                        <input type="number" id="cash" class="form-control col-9" placeholder="Enter Cash">
+                        <label class="col-form-label col-3">Cash Amount</label>
+                        <input type="number" id="cash" class="form-control col-9" placeholder="Enter Cash Amount" value="0">
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Type</label>
@@ -149,9 +149,7 @@
                                                 var GetString = JSON.stringify(data);
                                                 var Result = JSON.parse(GetString);
 
-                                                if (Result.response == 'true') {
-                                                    CSRF_TOKEN = Result.token;
-                                                }
+                                                if (Result.response == 'true') CSRF_TOKEN = Result.token;
 
                                                 return CreateRedeemCode();
                                             },
