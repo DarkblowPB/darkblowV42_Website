@@ -20,7 +20,7 @@ class Clan_rank extends CI_Controller
 		$this->allprotect->Maintenance_Protection();
 		$this->allprotect->BlockedAccount_Protection();
 		$this->allprotect->DarkblowCopierGuard();
-		$this->main_protect->SessionProtect();
+		$this->main_protect->SessionProtector();
 
 		$this->load->library('pagination');
 		$this->load->model('main/clanrank_model', 'clanrank');

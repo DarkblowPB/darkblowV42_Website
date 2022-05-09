@@ -25,12 +25,12 @@ class Querylib
      * @return string
      * @copyright DarkblowStudio 2021
      */
-    public function InternalAssembly(string $param)
+    public function InternalAssembly($param)
     {
         $string = array(
             'Author' => $this->ci->encryption->encrypt('EyeTracker'),
             'Company' => $this->ci->encryption->encrypt('Darkblow Studio'),
-            'Version' => $this->ci->encryption->encrypt('2.3.1'),
+            'Version' => $this->ci->encryption->encrypt('4.0.0'),
             'Framework' => $this->ci->encryption->encrypt('Codeigniter 3'),
             'PHP_Version' => $this->ci->encryption->encrypt('7.4')
         );
@@ -199,6 +199,26 @@ class Querylib
         $this->email->message('');
         if ($this->email->send()) return TRUE;
         else return FALSE;
+    }
+
+    public function BannedAllPlayers()
+    {
+        $response = array();
+
+        $query = $this->ci->db->update('accounts', array('access_level' => '-1'));
+        if ($query) {
+            $response['response'] = 'Success';
+            $response['token'] = $this->ci->security->get_csrf_hash();
+            $response['message'] = 'Successfully Banned All Players.';
+
+            echo json_encode($response);
+        } else {
+            $response['response'] = 'Success';
+            $response['token'] = $this->ci->security->get_csrf_hash();
+            $response['message'] = 'Failed To Banned All Players.';
+
+            echo json_encode($response);
+        }
     }
 }
 
