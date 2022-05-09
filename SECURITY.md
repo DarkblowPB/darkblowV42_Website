@@ -7,7 +7,7 @@ This project is depends to much repo & library, this how to describe that suppor
 | Version | Supported          |
 | ------- | ------------------ |
 | 4.0.x   | :white_check_mark: |
-| 3.0.x   | :x:                |
+| 3.0.x   | :white_check_mark: |
 | 2.0.x   | :white_check_mark: |
 | < 1.3   | :x:                |
 
