@@ -118,3 +118,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <a href="https://facebook.com/Ultimate.Defacer">Facebook</a><br>
 <a href="https://instagram.com/dev_eyetracker">Instagram</a><br>
 <a href="https://discord.gg/zcwBaK9rRG">Discord</a>
+
+<!-- REFERENCE -->
+## Reference
+<a href="https://stackoverflow.com/questions/1361925/how-to-enable-socket-in-php">Xampp Socket</a><br>
+<a href="https://codeigniter.com/userguide3/">Codeigniter 3 User Guide</a><br>
