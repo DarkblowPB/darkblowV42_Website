@@ -20,6 +20,7 @@ class Exchange_ticket extends CI_Controller
         $this->allprotect->Maintenance_Protection();
         $this->allprotect->BlockedAccount_Protection();
         $this->allprotect->DarkblowCopierGuard();
+        $this->main_protect->SessionProtector();
 
         $this->main_protect->mainProtectA();
         $this->load->library('lib');
