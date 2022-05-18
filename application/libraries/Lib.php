@@ -264,7 +264,7 @@ class Lib
 		$explode6 = $explode5[1];
 
 		// The Result
-		$resultdate['years'] = $split1[1];
+		$resultdate['years'] = $split1[1] - 10;
 		$resultdate['month'] = $explode2;
 		$resultdate['days'] = $split2[0];
 		$resultdate['hours'] = $explode5[0];
@@ -550,6 +550,11 @@ class Lib
 					}
 			}
 		} else redirect(base_url(), 'refresh');
+	}
+
+	public function ParseUnixTimeStamp($unixtimestamp)
+	{
+		return date('d-m-Y H:i:s', $unixtimestamp);
 	}
 }
 

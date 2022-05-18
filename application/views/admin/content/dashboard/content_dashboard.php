@@ -156,7 +156,7 @@
                                             <?= $row['item_code'] ?>
                                         </td>
                                         <td>
-                                            <?= $row['date_redeemed'] ?>
+                                            <?= $this->lib->ParseUnixTimeStamp($row['date_redeemed']) ?>
                                         </td>
                                         <td>Success</td>
                                     </tr>

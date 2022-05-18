@@ -19,27 +19,9 @@ class Eventsattendance_model extends CI_Model
         return $this->db->get('events_attendance')->result_array();
     }
 
-    function GetItemName($item_id)
+    function GetRewardItemList()
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
-    }
-
-    function GetItemDuration($duration)
-    {
-        switch ($duration) {
-            case '64800':
-                return "1 Day";
-            case '259200':
-                return "3 Days";
-            case '604800':
-                return "7 Days";
-            case '2592000':
-                return "30 Days";
-            default:
-                return "-1 Day";
-        }
+        return $this->db->where('buy_type', '2')->order_by('item_id', 'asc')->get('shop')->result_array();
     }
 
     function DeleteEvents()
@@ -75,11 +57,6 @@ class Eventsattendance_model extends CI_Model
         }
     }
 
-    function GetRewardItemList()
-    {
-        return $this->db->where('buy_type', '2')->order_by('item_id', 'asc')->get('shop')->result_array();
-    }
-
     function CreateEvents7Days()
     {
         $response = array();
@@ -111,7 +88,7 @@ class Eventsattendance_model extends CI_Model
             $query = $this->db->insert('events_attendance', array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
-                'item_name' => $this->GetItemName($this->encryption->decrypt($data[$i])),
+                'item_name' => $this->lib->GetItemName($this->encryption->decrypt($data[$i])),
                 'item_count' => $this->encryption->decrypt($data[8]),
                 'total_claim' => '0',
                 'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']
@@ -165,7 +142,7 @@ class Eventsattendance_model extends CI_Model
             $query = $this->db->insert('events_attendance', array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
-                'item_name' => $this->GetItemName($this->encryption->decrypt($data[$i])),
+                'item_name' => $this->lib->GetItemName($this->encryption->decrypt($data[$i])),
                 'item_count' => $this->encryption->decrypt($data[8]),
                 'total_claim' => '0',
                 'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']

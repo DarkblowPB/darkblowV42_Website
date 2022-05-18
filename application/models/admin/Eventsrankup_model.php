@@ -41,7 +41,6 @@ class Eventsrankup_model extends CI_Model
         ));
 
         if ($query) {
-            $getdbdata = $this->db->get('events_rankup')->result_array();
 
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();

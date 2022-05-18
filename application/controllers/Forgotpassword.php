@@ -51,7 +51,7 @@ class Forgotpassword extends CI_Controller
         );
         if ($this->form_validation->run()) {
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

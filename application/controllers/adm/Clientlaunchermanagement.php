@@ -93,6 +93,7 @@ class Clientlaunchermanagement extends CI_Controller
     {
         $response = array();
 
+        $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'file_name',
             'File Name',
@@ -100,10 +101,13 @@ class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.', 'is_unique' => 'Please Use Another %s')
         );
         $this->form_validation->set_rules(
-            'file_url',
-            'File URL',
-            'required|valid_url',
-            array('required' => '%s Cannot Be Empty.', 'valid_url' => 'Invalid %s')
+            'file_cloud_type',
+            'Cloud Type',
+            'required|in_list[googledrive,mediafire,sendspace,other]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'file_type',
@@ -112,15 +116,20 @@ class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty', 'in_list' => 'Invalid %s')
         );
         $this->form_validation->set_rules(
+            'file_url',
+            'File URL',
+            'required|valid_url',
+            array('required' => '%s Cannot Be Empty.', 'valid_url' => 'Invalid %s')
+        );
+        $this->form_validation->set_rules(
             'file_size',
             'File Size',
             'required',
             array('required' => '%s Cannot Be Empty')
         );
-        if ($this->form_validation->run()) $this->clientlauncher->UploadFiles_ExternalURL();
+        if ($this->form_validation->run()) $this->clientlauncher->UploadFiles_ExternalURLV2();
         else {
-            $this->form_validation->set_error_delimiters('', '');
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
             echo json_encode($response);
@@ -131,6 +140,7 @@ class Clientlaunchermanagement extends CI_Controller
     {
         $response = array();
 
+        $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'file_name',
             'File Name',
@@ -138,28 +148,36 @@ class Clientlaunchermanagement extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         $this->form_validation->set_rules(
-            'file_url',
-            'File URL',
-            'required|valid_url',
-            array('required' => '%s Cannot Be Empty.', 'valid_url' => 'Invalid %s.')
+            'file_cloud_type',
+            'Cloud Type',
+            'required|in_list[googledrive,mediafire,sendspace,other]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'in_list' => 'Invalid %s.'
+            )
         );
         $this->form_validation->set_rules(
             'file_type',
             'File Type',
             'required|in_list[client,partial,launcher,support]',
-            array('required' => '%s Cannot Be Empty.', 'in_list' => 'Invalid %s.')
+            array('required' => '%s Cannot Be Empty', 'in_list' => 'Invalid %s')
+        );
+        $this->form_validation->set_rules(
+            'file_url',
+            'File URL',
+            'required|valid_url',
+            array('required' => '%s Cannot Be Empty.', 'valid_url' => 'Invalid %s')
         );
         $this->form_validation->set_rules(
             'file_size',
             'File Size',
             'required',
-            array('required' => '%s Cannot Be Empty.')
+            array('required' => '%s Cannot Be Empty')
         );
         if ($this->form_validation->run()) $this->clientlauncher->EditFiles($this->input->post('file_id'));
         else {
-            $this->form_validation->set_error_delimiters('', '');
 
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
             echo json_encode($response);
@@ -170,6 +188,7 @@ class Clientlaunchermanagement extends CI_Controller
     {
         $response = array();
 
+        $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'files_id',
             'Files ID',
@@ -178,9 +197,7 @@ class Clientlaunchermanagement extends CI_Controller
         );
         if ($this->form_validation->run()) $this->clientlauncher->DeleteFiles($this->input->post('files_id', true));
         else {
-            $this->form_validation->set_error_delimiters('', '');
-
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
             echo json_encode($response);
@@ -200,7 +217,7 @@ class Clientlaunchermanagement extends CI_Controller
         );
         if ($this->form_validation->run()) $this->clientlauncher->GetFilesURL();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['url'] = '';
             $response['message'] = validation_errors();

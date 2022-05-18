@@ -37,7 +37,7 @@ class Clientlaunchermanagement_model extends CI_Model
         }
     }
 
-    function EditFiles($files_id)
+    function EditFiles()
     {
         $response = array();
 
@@ -92,18 +92,18 @@ class Clientlaunchermanagement_model extends CI_Model
         if ($query) {
             $delete = $this->db->where('id', $query->id)->delete('web_download_clientlauncher');
             if ($delete) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Selected File.';
                 echo json_encode($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Selected File.';
                 echo json_encode($response);
             }
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'File Not Found.';
             echo json_encode($response);
@@ -144,20 +144,52 @@ class Clientlaunchermanagement_model extends CI_Model
                 'date' => date('d-m-Y')
             ));
             if ($query) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Added New Files.';
                 echo json_encode($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add New Files.';
                 echo json_encode($response);
             }
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Cannot Reach Url. Please Use Another Url.';
+
+            echo json_encode($response);
+        }
+    }
+
+    function UploadFiles_ExternalURLV2()
+    {
+        $response = array();
+
+        $data = array(
+            'file_name' => $this->input->post('file_name', true),
+            'file_description' => $this->input->post('file_description', true),
+            'file_cloud_type' => $this->input->post('file_cloud_type', true),
+            'file_type' => $this->input->post('file_type', true),
+            'file_url' => $this->input->post('file_url', true),
+            'file_size' => $this->input->post('file_size', true),
+            'file_total_download' => '0',
+            'date_created' => time(),
+            'date_updated' => '0'
+        );
+
+        $query = $this->db->insert('web_download_clientlauncher', $data);
+        if ($query) {
+            $response['response'] = 'success';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Successfully Upload File.';
+
+            echo json_encode($response);
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Upload File.';
 
             echo json_encode($response);
         }

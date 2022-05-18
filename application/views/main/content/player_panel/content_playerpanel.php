@@ -169,7 +169,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_172') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights'] ?>
+                                                                      <?= number_format($row['fights'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -177,7 +177,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_166') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights_win'] ?>
+                                                                      <?= number_format($row['fights_win'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -185,7 +185,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_167') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights_lost'] ?>
+                                                                      <?= number_format($row['fights_lost'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -193,7 +193,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_168') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['kills_count'] ?>
+                                                                      <?= number_format($row['kills_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -201,7 +201,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_169') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['deaths_count'] ?>
+                                                                      <?= number_format($row['deaths_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -209,7 +209,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_170') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['headshots_count'] ?>
+                                                                      <?= number_format($row['headshots_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -217,7 +217,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_171') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['escapes'] ?>
+                                                                      <?= number_format($row['escapes'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                        <?php endforeach; ?>

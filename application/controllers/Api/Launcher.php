@@ -117,41 +117,31 @@ class Launcher extends RestController
         }
     }
 
-    function validatekey_get($param = null)
+    function validatekey_post()
     {
         $response = array();
         $data = array(
-            'key' => $param
+            'key' => $this->input->post('key', true)
         );
 
-        if ($param == null) {
-            $response['status'] = 'Failed';
-            $response['message'] = 'Failed Update Launcher Key';
-            $this->response($response, 200);
-        } else {
-            $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
-            if ($query) {
-                if ($query->status == 0) {
-                    $response['status'] = 'Failed';
-                    $response['message'] = 'Failed Update Launcher Key (0)';
+        $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
+        if ($query) {
+            if ($query->status == 0) {
+                $response['status'] = 'Failed';
+                $this->response($response, 200);
+            } else {
+                $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
+                if ($update) {
+                    $response['status'] = 'Success';
                     $this->response($response, 200);
                 } else {
-                    $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
-                    if ($update) {
-                        $response['status'] = 'Success';
-                        $response['message'] = 'Successfully Update Launcher Key';
-                        $this->response($response, 200);
-                    } else {
-                        $response['status'] = 'Failed';
-                        $response['message'] = 'Failed Update Launcher Key (1)';
-                        $this->response($response, 200);
-                    }
+                    $response['status'] = 'Failed';
+                    $this->response($response, 200);
                 }
-            } else {
-                $response['status'] = 'Failed';
-                $response['message'] = 'Failed Update Launcher Key (2)';
-                $this->response($response, 200);
             }
+        } else {
+            $response['status'] = 'Failed';
+            $this->response($response, 200);
         }
     }
 
@@ -182,42 +172,41 @@ class Launcher extends RestController
         }
     }
 
-    function getversioncontrol_get($current_patch_version, $current_launcher_version)
+    function fetchuserdata_post()
     {
         $response = array();
 
         $data = array(
-            'current_patch_version' => $current_patch_version,
-            'current_launcher_version' => $current_launcher_version
+            'ip_address' => $this->input->post('ip_address', true),
+            'hwid' => $this->input->post('hwid', true),
+            'current_patch_version' => $this->input->post('current_patch_version', true),
+            'current_launcher_version' => $this->input->post('current_launcher_version', true),
+            'date_created' => time(),
+            'date_updated' => '0'
         );
 
-        $query = $this->db->get_where('launcher_version_control', array('ip_address' => $this->input->ip_address()))->row();
+        $query = $this->db->get_where('launcher_version_control', array('hwid' => $data['hwid']))->row();
         if ($query) {
-            $update = $this->db->where('id', $query->id)->update('launcher_version_control', $data);
-            if ($update) {
+            $insert = $this->db->insert('launcher_version_control', $data);
+            if ($insert) {
                 $response['status'] = 'Success';
-                $response['message'] = 'Successfully update launcher version control.';
                 $this->response($response, 200);
             } else {
                 $response['status'] = 'Failed';
-                $response['message'] = 'Failed to update launcher version control.';
                 $this->response($response, 200);
             }
         } else {
-            $insert = $this->db->insert('launcher_version_control', array(
-                'ip_address' => $this->input->ip_address(),
+            $update = $this->db->where('hwid', $data['hwid'])->update('launcher_version_control', array(
+                'ip_address' => $data['ip_address'],
                 'current_patch_version' => $data['current_patch_version'],
                 'current_launcher_version' => $data['current_launcher_version'],
-                'date_created' => date('d/m/Y H:i:s'),
-                'date_updated' => '0'
+                'date_updated' => time()
             ));
-            if ($insert) {
+            if ($update) {
                 $response['status'] = 'Success';
-                $response['message'] = 'Successfully update launcher version control.';
                 $this->response($response, 200);
             } else {
                 $response['status'] = 'Failed';
-                $response['message'] = 'Failed to update launcher version control.';
                 $this->response($response, 200);
             }
         }

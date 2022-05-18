@@ -10,10 +10,10 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap justify-content-center">
-                    <?php if ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() != null || $this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() != null) : ?>
+                    <?php if ($this->download->GetClient() != null || $this->download->GetPartialClient() != null) : ?>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() as $row) : ?>
+                            foreach ($this->download->GetClient() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -22,7 +22,7 @@
                                         <h3 class="nk-feature-title">
                                             <?= $row['file_name'] ?>
                                         </h3>
-                                        <p>Size : <?= $row['size'] ?><br></p>
+                                        <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() as $row) : ?>
+                            foreach ($this->download->GetPartialClient() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -40,7 +40,7 @@
                                         <h3 class="nk-feature-title">
                                             <?= $row['file_name'] ?>
                                         </h3>
-                                        <p>Size : <?= $row['size'] ?><br></p>
+                                        <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                             endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if ($this->db->where('type', 'client')->get('web_download_clientlauncher')->result_array() == null && $this->db->where('type', 'partial')->get('web_download_clientlauncher')->result_array() == null) : ?>
+                    <?php if ($this->download->GetClient() == null && $this->download->GetPartialClient() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_5') ?>
                         </div>
@@ -63,10 +63,10 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap justify-content-center">
-                    <?php if ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() != null) : ?>
+                    <?php if ($this->download->GetLauncher() != null) : ?>
                         <div class="col-lg-4 text-white">
                             <?php $num = 1;
-                            foreach ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() as $row) : ?>
+                            foreach ($this->download->GetLauncher() as $row) : ?>
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
@@ -75,7 +75,7 @@
                                         <h3 class="nk-feature-title">
                                             <?= $row['file_name'] ?>
                                         </h3>
-                                        <p>Size : <?= $row['size'] ?><br></p>
+                                        <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                             endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if ($this->db->where('type', 'launcher')->get('web_download_clientlauncher')->result_array() == null) : ?>
+                    <?php if ($this->download->GetLauncher() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_6') ?>
                         </div>
@@ -102,9 +102,9 @@
                     </span></h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap">
-                    <?php if ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() != null) : ?>
+                    <?php if ($this->download->GetSupportApp() != null) : ?>
                         <?php $num = 1;
-                        foreach ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() as $row) : ?>
+                        foreach ($this->download->GetSupportApp() as $row) : ?>
                             <div class="col-lg-4 text-white">
                                 <div id="data_<?= $num ?>" class="nk-feature-2">
                                     <div class="nk-feature-icon">
@@ -114,7 +114,7 @@
                                         <h3 class="nk-feature-title">
                                             <?= $row['file_name'] ?>
                                         </h3>
-                                        <p>Size : <?= $row['size'] ?><br></p>
+                                        <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_10') ?>" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                         <?php $num++;
                         endforeach; ?>
                     <?php endif; ?>
-                    <?php if ($this->db->where('type', 'support')->get('web_download_clientlauncher')->result_array() == null) : ?>
+                    <?php if ($this->download->GetSupportApp() == null) : ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
                             <?= $this->lang->line('STR_INFO_7') ?>
                         </div>
@@ -157,17 +157,14 @@
                             var GetString = JSON.stringify(data);
                             var Result = JSON.parse(GetString);
 
-                            if (Result.response == 'true') {
-                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_10') ?>');
-                                ShowToast(2000, 'info', Result.message);
-                                setTimeout(() => {
-                                    window.open(Result.url);
-                                }, 2000);
-                            } else {
-                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_10') ?>');
-                                ShowToast(2000, 'error', Result.message);
-                                return;
-                            }
+                            SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_10') ?>');
+                            ShowToast(2000, Result.response, Result.message);
+                            if (Result.response != 'success') setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                            else setTimeout(() => {
+                                window.open(Result.url, '_blank');
+                            }, 2000);
                         },
                         error: function() {
                             SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_10') ?>');

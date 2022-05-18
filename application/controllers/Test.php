@@ -18,6 +18,11 @@ class Test extends CI_Controller
 
     function index()
     {
+        $formated_date = date('d-m-Y G:i:s');
+        $non_formated_date = time();
+
+        echo 'Date Format: ' . $formated_date;
+        echo '<br><br>Date Non Format: ' . $non_formated_date . '<br>Jika di convert jadi Date Formated: ' . date('d-m-Y H:i:s', $non_formated_date);
     }
 }
 

@@ -83,114 +83,53 @@
 										$('#buy_form').on('submit', function(e) {
 											e.preventDefault();
 											<?php if (!empty($this->session->userdata('uid'))) : ?>
-												SetAttribute('submit_buy', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
-
-												$.ajax({
-													url: '<?= base_url('webshop/do_buy') ?>',
-													type: 'POST',
-													dataType: 'JSON',
-													data: {
-														'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-														'player_id': '<?= $this->session->userdata('uid') ?>',
-														'item_id': '<?= $detail->id ?>',
-														'item_price': $('#price_option').val()
-													},
-													success: function(data) {
-														var GetString = JSON.stringify(data);
-														var Result = JSON.parse(GetString);
-
-														if (Result.response == 'true') {
-															SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-															ShowToast(2000, 'success', Result.message);
-															CSRF_TOKEN = Result.token;
-															return;
-														} else if (Result.response == 'false') {
-															SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-															ShowToast(2000, 'error', Result.message);
-															CSRF_TOKEN = Result.token;
-															return;
-														} else {
-															SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-															ShowToast(2000, 'error', Result.message);
-															CSRF_TOKEN = Result.token;
-															return;
-														}
-													},
-													error: function(data) {
-														ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
-
-														$.ajax({
-															url: '<?= base_url('api/security/csrf') ?>',
-															type: 'GET',
-															dataType: 'JSON',
-															data: {
-																'<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-															},
-															success: function(data) {
-																var GetString = JSON.stringify(data);
-																var Result = JSON.parse(data);
-
-																if (Result.response == 'true') {
-																	CSRF_TOKEN = Result.token;
-																}
-
-																Do_Buy();
-															},
-															error: function() {
-																SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-																ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_16 ') ?>');
-																setTimeout(() => {
-																	window.location.reload();
-																}, 2000);
-															}
-														});
-													}
-												});
-
-												function Do_Buy() {
-													$.ajax({
-														url: '<?= base_url('webshop/do_buy') ?>',
-														type: 'POST',
-														dataType: 'JSON',
-														data: {
-															'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-															'player_id': '<?= $this->session->userdata('uid') ?>',
-															'item_id': '<?= $detail->id ?>',
-															'item_price': $('#price_option').val()
-														},
-														success: function(data) {
-															var GetString = JSON.stringify(data);
-															var Result = JSON.parse(GetString);
-
-															if (Result.response == 'true') {
-																SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-																ShowToast(2000, 'success', Result.message);
-																CSRF_TOKEN = Result.token;
-																return;
-															} else if (Result.response == 'false') {
-																SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-																ShowToast(2000, 'error', Result.message);
-																CSRF_TOKEN = Result.token;
-																return;
-															} else {
-																SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-																ShowToast(2000, 'error', Result.message);
-																CSRF_TOKEN = Result.token;
-																return;
-															}
-														},
-														error: function() {
-															SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
-															ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15') ?>');
-															setTimeout(() => {
-																window.location.reload();
-															}, 2000);
-														}
-													});
-												}
+												return Do_Buy();
 											<?php endif; ?>
 										});
 									});
+
+									function Do_Buy() {
+										SetAttribute('submit_buy', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
+										$.ajax({
+											url: '<?= base_url('webshop/do_buy') ?>',
+											type: 'POST',
+											dataType: 'JSON',
+											data: {
+												'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+												'player_id': '<?= $this->session->userdata('uid') ?>',
+												'item_id': '<?= $detail->id ?>',
+												'item_price': $('#price_option').val()
+											},
+											success: function(data) {
+												var GetString = JSON.stringify(data);
+												var Result = JSON.parse(GetString);
+
+												if (Result.response == 'true') {
+													SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
+													ShowToast(2000, 'success', Result.message);
+													CSRF_TOKEN = Result.token;
+													return;
+												} else if (Result.response == 'false') {
+													SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
+													ShowToast(2000, 'error', Result.message);
+													CSRF_TOKEN = Result.token;
+													return;
+												} else {
+													SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
+													ShowToast(2000, 'error', Result.message);
+													CSRF_TOKEN = Result.token;
+													return;
+												}
+											},
+											error: function() {
+												SetAttribute('submit_buy', 'submit', '<?= $this->lang->line('STR_DARKBLOW_207') ?>');
+												ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15') ?>');
+												setTimeout(() => {
+													window.location.reload();
+												}, 2000);
+											}
+										});
+									}
 								</script>
 								<div class="nk-gap-3"></div>
 							</div>
@@ -332,52 +271,66 @@
 						<?= form_close() ?>
 						<script>
 							var FLOAT_CSRF = '<?= $this->security->get_csrf_hash() ?>';
+							var RETRY
 							$(document).ready(function() {
 								$('#float_login').on('submit', function(e) {
 									e.preventDefault();
-									if ($('#username').val() == '') {
-										ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_1') ?>');
-										return;
-									} else if ($('#password').val() == '') {
-										ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_4') ?>');
-										return;
-									} else {
 
-										SetAttribute('submit_login', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
+								});
+							});
 
-										$.ajax({
-											url: '<?= base_url('webshop/do_login') ?>',
-											type: 'POST',
-											dataType: 'JSON',
-											data: {
-												'<?= $this->security->get_csrf_token_name() ?>': FLOAT_CSRF,
-												'username': $('#username').val(),
-												'password': $('#password').val()
-											},
-											success: function(data) {
-												var GetString = JSON.stringify(data);
-												var Result = JSON.parse(GetString);
+							function Do_Login() {
+								if ($('#username').val() == '') {
+									ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_1') ?>');
+									return;
+								} else if ($('#password').val() == '') {
+									ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_4') ?>');
+									return;
+								} else {
 
-												if (Result.response == 'true') {
-													SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-													ShowToast(2000, 'success', Result.message);
-													FLOAT_CSRF = Result.token;
-													setTimeout(() => {
-														window.location.reload();
-													}, 2000);
-												} else if (Result.response == 'false') {
-													SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-													ShowToast(2000, 'error', Result.message);
-													FLOAT_CSRF = Result.token;
-													return;
-												} else {
-													SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-													ShowToast(2000, 'error', Result.message);
-													FLOAT_CSRF = Result.token;
-													return;
-												}
-											},
-											error: function() {
+									SetAttribute('submit_login', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
+
+									$.ajax({
+										url: '<?= base_url('webshop/do_login') ?>',
+										type: 'POST',
+										dataType: 'JSON',
+										data: {
+											'<?= $this->security->get_csrf_token_name() ?>': FLOAT_CSRF,
+											'username': $('#username').val(),
+											'password': $('#password').val()
+										},
+										success: function(data) {
+											var GetString = JSON.stringify(data);
+											var Result = JSON.parse(GetString);
+
+											if (Result.response == 'true') {
+												SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
+												ShowToast(2000, 'success', Result.message);
+												FLOAT_CSRF = Result.token;
+												setTimeout(() => {
+													window.location.reload();
+												}, 2000);
+											} else if (Result.response == 'false') {
+												SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
+												ShowToast(2000, 'error', Result.message);
+												FLOAT_CSRF = Result.token;
+												return;
+											} else {
+												SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
+												ShowToast(2000, 'error', Result.message);
+												FLOAT_CSRF = Result.token;
+												return;
+											}
+										},
+										error: function() {
+											RETRY += 1;
+											if (RETRY >= 3) {
+												SetAttribute('submit_login', 'submit', 'LOGIN');
+												ShowToast(2000, 'error', 'Failed To Login.');
+												setTimeout(() => {
+													window.location.reload();
+												}, 2000);
+											} else {
 												ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
 
 												$.ajax({
@@ -406,52 +359,9 @@
 													}
 												});
 											}
-										});
-									}
-								});
-							});
-
-							function Do_Login() {
-								$.ajax({
-									url: '<?= base_url('webshop/do_login') ?>',
-									type: 'POST',
-									dataType: 'JSON',
-									data: {
-										'<?= $this->security->get_csrf_token_name() ?>': FLOAT_CSRF,
-										'username': $('#username').val(),
-										'password': $('#password').val()
-									},
-									success: function(data) {
-										var GetString = JSON.stringify(data);
-										var Result = JSON.parse(GetString);
-
-										if (Result.response == 'true') {
-											SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-											ShowToast(2000, 'success', Result.message);
-											FLOAT_CSRF = Result.token;
-											setTimeout(() => {
-												window.location.reload();
-											}, 2000);
-										} else if (Result.response == 'false') {
-											SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-											ShowToast(2000, 'error', Result.message);
-											FLOAT_CSRF = Result.token;
-											return;
-										} else {
-											SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-											ShowToast(2000, 'error', Result.message);
-											FLOAT_CSRF = Result.token;
-											return;
 										}
-									},
-									error: function() {
-										SetAttribute('submit_login', 'submit', '<?= $this->lang->line('STR_DARKBLOW_155') ?>');
-										ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_2') ?>');
-										setTimeout(() => {
-											window.location.reload();
-										}, 2000);
-									}
-								});
+									});
+								}
 							}
 						</script>
 					</div>

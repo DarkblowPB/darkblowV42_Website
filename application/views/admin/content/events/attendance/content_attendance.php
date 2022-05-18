@@ -76,7 +76,7 @@
                                             <?= $row['item_name'] ?>
                                         </td>
                                         <td>
-                                            <?= $this->attendance->GetItemDuration($row['item_count']) ?>
+                                            <?= $this->lib->GetItemDuration($row['item_count']) ?>
                                         </td>
                                         <td>
                                             <?= number_format($row['total_claim'], 0, ',', '.') ?>

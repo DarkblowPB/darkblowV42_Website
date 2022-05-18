@@ -17,7 +17,6 @@
                             <th>File Name</th>
                             <th width="10%">Type</th>
                             <th width="10%">Size</th>
-                            <th width="10%">Version</th>
                             <th width="15%">Menu</th>
                         </thead>
                         <tbody>
@@ -26,9 +25,8 @@
                                 <tr id="data_<?= $num ?>">
                                     <td><?= $num; ?></td>
                                     <td><?= $row['file_name'] ?></td>
-                                    <td class="text-uppercase text-bold"><?= $row['type'] ?></td>
-                                    <td><?= $row['size'] ?></td>
-                                    <td><?= $row['version'] ?></td>
+                                    <td class="text-uppercase text-bold"><?= $row['file_type'] ?></td>
+                                    <td><?= $row['file_size'] ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -8,6 +8,7 @@
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
+      "Host": "",
       "Email": "",
       "Password": ""
     },
