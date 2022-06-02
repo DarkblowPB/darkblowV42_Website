@@ -272,6 +272,40 @@ class Playersmanagement_model extends CI_Model
         }
     }
 
+    function RegisterCustomPlayerV2()
+    {
+        sleep(1);
+        $response = array();
+
+        $data = array(
+            'login' => $this->input->post('login', true),
+            'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+            'player_name' => $this->lib->password_encrypt($this->input->post('player_name', true)),
+            'rank' => $this->input->post('rank', true),
+            'gp' => $this->input->post('gp', true),
+            'pc_cafe' => $this->input->post('pc_cafe', true),
+            'money' => $this->input->post('money', true),
+            'hint_question' => $this->input->post('hint_question', true),
+            'hint_answer' => $this->input->post('hint_answer', true),
+            'date_registered' => time()
+        );
+
+        $query = $this->db->insert('accounts', $data);
+        if ($query) {
+            $response['response'] = 'success';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Successfully Create Custom Player.';
+
+            echo json_encode($response);
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Create Custom Player.';
+
+            echo json_encode($response);
+        }
+    }
+
     function DeletePlayer()
     {
         sleep(1);

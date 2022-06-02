@@ -83,21 +83,28 @@
                             var GetString = JSON.stringify(data);
                             var Result = JSON.parse(GetString);
 
-                            if (Result.response == 'true') {
-                                document.getElementById(data_id).remove();
-                                ShowToast(2000, 'success', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
-                            } else if (Result.response == 'false') {
-                                SetAttribute(button_id, 'button', 'Delete');
-                                ShowToast(2000, 'error', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
-                            } else {
-                                SetAttribute(button_id, 'button', 'Delete');
-                                ShowToast(2000, 'error', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
+                            ShowToast(2000, Result.response, Result.message);
+                            CSRF_TOKEN = Result.token;
+
+                            switch (Result.response) {
+                                case 'success': {
+                                    document.getElementById(data_id).remove();
+                                    break;
+                                }
+                                case 'error': {
+                                    SetAttribute(button_id, 'button', 'Delete');
+                                    setTimeout(() => {
+                                        window.location = '<?= base_url('adm/clientlaunchermanagement') ?>';
+                                    }, 2000);
+                                    break;
+                                }
+
+                                default: {
+                                    setTimeout(() => {
+                                        window.location = '<?= base_url('adm/clientlaunchermanagement') ?>';
+                                    }, 2000);
+                                    break;
+                                }
                             }
                         },
                         error: function(data) {

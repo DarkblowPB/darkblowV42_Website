@@ -14,6 +14,7 @@ class Register_model extends CI_Model
 		parent::__construct();
 		$this->load->library('email');
 		$this->lang->load('message');
+		$this->load->library('lib');
 	}
 
 	function CheckRegisteredAccount($email)
@@ -37,6 +38,11 @@ class Register_model extends CI_Model
 
 	function SendEmailVerification($email, $username, $token)
 	{
+		$SmtpData = array(
+			'from' => 'no-reply@darkblowpbreborn.com',
+			'project_name' => $this->getsettings->Get()->project_name,
+			'subject' => 'Confirmation Email',
+		);
 		$SmtpConfig = @file_get_contents('./darkblow_config.json');
 		$SmtpParse = json_decode($SmtpConfig);
 
@@ -45,7 +51,7 @@ class Register_model extends CI_Model
 				'mailtype'  => 'html',
 				'charset'   => 'utf-8',
 				'protocol'  => 'smtp',
-				'smtp_host' => 'smtp.gmail.com', // Your SMTP Host
+				'smtp_host' => $row->SmtpConfig->Host, // Your SMTP Host
 				'smtp_user' => $row->SmtpConfig->Email,  // Your Email
 				'smtp_pass'   => $row->SmtpConfig->Password,  // Your Password
 				'smtp_crypto' => 'ssl',
@@ -56,9 +62,9 @@ class Register_model extends CI_Model
 		}
 		$this->email->initialize($config);
 
-		$this->email->from('no-reply@yourdomain.com', 'DarkblowPB Reborn');
+		$this->email->from($SmtpData['from'], $SmtpData['project_name']);
 		$this->email->to($email);
-		$this->email->subject('Email Verification');
+		$this->email->subject($SmtpData['subject']);
 		$this->email->message('<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -389,6 +395,147 @@ class Register_model extends CI_Model
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_SUCCESS_25');
+
+			echo json_encode($response);
+		}
+	}
+
+	function RegisterValidationV5()
+	{
+		sleep(1);
+		$response = array();
+
+		$data = array(
+			'login' => $this->input->post('login', true),
+			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+			'email' => $this->input->post('email', true),
+			'hint_question' => $this->input->post('hint_question', true),
+			'hint_answer' => $this->input->post('hint_answer', true)
+		);
+
+		$insert = $this->db->insert('accounts', $data);
+		if ($insert) {
+			$query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+			if ($query) {
+				$events = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+				if ($events) {
+					if ($events->stock > 1) {
+						$insert2 = $this->db->insert('player_items', array(
+							'owner_id' => $query->player_id,
+							'item_id' => $events->item_id,
+							'item_name' => $this->lib->GetItemName($events->item_id),
+							'count' => $events->item_count,
+							'category' => $this->lib->GetItemCategory($events->item_id),
+							'equip' => '1'
+						));
+						$update = $this->db->where('id', $events->id)->update('events_register', array('stock' => ($events->stock - 1)));
+						if ($insert2 && $update) {
+							$response['response'] = 'success';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered. Check Your Inventory For Benefits Rewards.';
+
+							echo json_encode($response);
+						} else {
+							$response['response'] = 'success';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered';
+
+							echo json_encode($response);
+						}
+					} else {
+						$response['response'] = 'success';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Successfully Registered';
+
+						echo json_encode($response);
+					}
+				}
+			} else {
+				$response['response'] = 'success';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Successfully Registered';
+
+				echo json_encode($response);
+			}
+		} else {
+			$response['response'] = 'error';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Failed To Register Your Account.';
+
+			echo json_encode($response);
+		}
+	}
+
+	function RegisterValidationV6()
+	{
+		sleep(1);
+		$response = array();
+		$status = array(
+			'success' => 0,
+			'failed' => 0
+		);
+
+		$data = array(
+			'login' => $this->input->post('login', true),
+			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+			'email' => $this->input->post('email', true),
+			'hint_question' => $this->input->post('hint_question', true),
+			'hint_answer' => $this->input->post('hint_answer', true)
+		);
+
+		// Register Function
+		$query = $this->db->insert('accounts', $data);
+		if ($query) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Fetch Account
+		$query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+		if ($query2) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Fetch Register Events
+		$query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+		if ($query3) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Check & Insert Events Item
+		if ($query3) {
+			if ($query3->stock > 1) {
+				$query4 = $this->db->insert('player_items', array(
+					'owner_id' => $query2->player_id,
+					'item_id' => $query3->item_id,
+					'item_name' => $this->lib->GetItemName($query3->item_id),
+					'count' => $query3->item_count,
+					'category' => $this->lib->GetItemCategory($query3->item_id),
+					'equip' => '1'
+				));
+				$query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => $query3->stock - 1));
+				if ($query4 && $query5) {
+					$status['success'] += 1;
+					$response['response'] = 'success';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
+
+					echo json_encode($response);
+				} else {
+					$status['failed'] += 1;
+					$response['response'] = 'success';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
+
+					echo json_encode($response);
+				}
+			} else {
+				$response['response'] = 'success';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Successfully Registered.';
+
+				echo json_encode($response);
+			}
+		} else {
+			$response['response'] = 'success';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Successfully Registered.';
 
 			echo json_encode($response);
 		}

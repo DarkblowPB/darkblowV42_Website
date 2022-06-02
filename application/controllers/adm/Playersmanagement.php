@@ -318,7 +318,7 @@ class Playersmanagement extends CI_Controller
                 'max_length' => '%s Only Can Using 6 Digits Numeric Value.'
             )
         );
-        if ($this->form_validation->run()) $this->playersmanagement->RegisterCustomPlayer();
+        if ($this->form_validation->run()) $this->playersmanagement->RegisterCustomPlayerV2();
         else {
             $this->form_validation->set_error_delimiters('', '');
 

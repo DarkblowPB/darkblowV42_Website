@@ -121,27 +121,32 @@ class Launcher extends RestController
     {
         $response = array();
         $data = array(
-            'key' => $this->input->post('key', true)
+            'key' => $this->input->post('launcher_key', true)
         );
 
-        $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
-        if ($query) {
-            if ($query->status == 0) {
-                $response['status'] = 'Failed';
-                $this->response($response, 200);
-            } else {
-                $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
-                if ($update) {
-                    $response['status'] = 'Success';
-                    $this->response($response, 200);
-                } else {
-                    $response['status'] = 'Failed';
-                    $this->response($response, 200);
-                }
-            }
-        } else {
+        if ($data['key'] == null) {
             $response['status'] = 'Failed';
             $this->response($response, 200);
+        } else {
+            $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
+            if ($query) {
+                if ($query->status == 0) {
+                    $response['status'] = 'Failed';
+                    $this->response($response, 200);
+                } else {
+                    $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
+                    if ($update) {
+                        $response['status'] = 'Success';
+                        $this->response($response, 200);
+                    } else {
+                        $response['status'] = 'Failed';
+                        $this->response($response, 200);
+                    }
+                }
+            } else {
+                $response['status'] = 'Failed';
+                $this->response($response, 200);
+            }
         }
     }
 

@@ -44,12 +44,37 @@
                         <label class="col-form-label col-3">DR-Cash</label>
                         <input type="number" id="money" class="form-control col-9" placeholder="Enter Your DR-Cash Amounts">
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-3">Hint Question</label>
+                        <select name="hint_question" id="hint_question" class="form-control col-9 reward_selection">
+                            <option value="" disabled selected>Select Hint Question</option>
+                            <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                            <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                            <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                            <option value="What is your favorite team?">What is your favorite team?</option>
+                            <option value="What is your favorite movie?">What is your favorite movie?</option>
+                            <option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+                            <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+                            <option value="What is the first name of the boy or girl that you first kissed?">What is the first name of the boy or girl that you first kissed?</option>
+                            <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                            <option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</option>
+                            <option value="Who is your childhood sports hero?">Who is your childhood sports hero?</option>
+                            <option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
+                            <option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
+                            <option value="In what town was your first job?">In what town was your first job?</option>
+                            <option value="What was the name of the company where you had your first job?">What was the name of the company where you had your first job?</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-3">Hint Answer</label>
+                        <input type="text" name="hint_answer" id="hint_answer" class="form-control col-9" placeholder="Enter Your Hint Answer">
+                    </div>
                     <div class="form-group text-right">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Create New Player">
                     </div>
                     <?= form_close() ?>
                     <script>
-                        var CSRF_TOKEN = '';
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(function() {
                             $('#createcustomplayer_form').on('submit', function(e) {
                                 e.preventDefault();
@@ -74,13 +99,14 @@
                                 } else if ($('#money').val() == '') {
                                     ShowToast(2000, 'warning', 'DR-Cash Cannot Be Empty.');
                                     return;
+                                } else if ($('#hint_question').val() == '' || $('#hint_question').val() == null) {
+                                    ShowToast(2000, 'warning', 'Hint Question Cannot Be Empty.');
+                                    return;
+                                } else if ($('#hint_answer').val() == '' || $('#hint_answer').val() == null) {
+                                    ShowToast(200, 'warning', 'Hint Answer Cannot Be Empty.');
+                                    return;
                                 } else {
-                                    SetButton('false');
-
-                                    if (CSRF_TOKEN == '') {
-                                        CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
-                                    }
-
+                                    SetAttribute('submit', 'button', 'Processing...');
                                     $.ajax({
                                         url: '<?= base_url('adm/playersmanagement/do_createcustomplayer') ?>',
                                         type: 'POST',
@@ -93,34 +119,27 @@
                                             'rank': $('#rank').val(),
                                             'gp': $('#points').val(),
                                             'pc_cafe': $('#pc_cafe').val(),
-                                            'money': $('#money').val()
+                                            'money': $('#money').val(),
+                                            'hint_question': $('#hint_question').val(),
+                                            'hint_answer': $('#hint_answer').val()
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'success', Result.message);
+                                            SetAttribute('submit', 'submit', 'Create New Player');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
+                                            if (Result.response == 'success') {
                                                 setTimeout(() => {
                                                     window.location = '<?= base_url('adm/playersmanagement') ?>';
                                                 }, 2000);
-                                            } else if (Result.response == 'false') {
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            } else {
-                                                SetButton('true');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
                                             }
                                         },
                                         error: function(data) {
-                                            SetButton('true');
-                                            ShowToast(2000, 'error', data.responseText);
+                                            SetAttribute('submit', 'submit', 'Create New Player');
+                                            ShowToast(2000, 'error', 'Error: Failed To Create Custom Player.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
@@ -129,18 +148,6 @@
                                 }
                             });
                         });
-
-                        function SetButton(param) {
-                            var P = document.getElementById('submit');
-                            if (param == 'true') {
-                                P.setAttribute('type', 'button');
-                                P.setAttribute('value', 'Processing...');
-                            }
-                            if (param == 'false') {
-                                P.setAttribute('type', 'submit');
-                                P.setAttribute('value', 'Create New Player');
-                            }
-                        }
                     </script>
                 </div>
             </div>

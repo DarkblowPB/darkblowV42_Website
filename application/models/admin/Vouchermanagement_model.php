@@ -33,6 +33,7 @@ class Vouchermanagement_model extends CI_Model
 
     function AddNewVoucher($type)
     {
+        sleep(1);
         $response = array();
 
         switch ($type) {
@@ -286,6 +287,7 @@ class Vouchermanagement_model extends CI_Model
 
     function DeleteVoucher()
     {
+        sleep(1);
         $response = array();
 
         $data = array(
@@ -309,13 +311,6 @@ class Vouchermanagement_model extends CI_Model
                 echo json_encode($response);
             }
         }
-    }
-
-    function GetItemName($item_id)
-    {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
     }
 }
 

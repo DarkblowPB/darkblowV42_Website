@@ -119,6 +119,10 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
+                                            SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
                                             if (Result.response == 'true') {
                                                 document.getElementById('submit').setAttribute('onclick', '');
                                                 SetAttribute('check_username', 'button', '<?= $this->lang->line('STR_DARKBLOW_202') ?>');
@@ -227,19 +231,14 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
+                                            SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
+                                            if (Result.status == 'success') {
                                                 setTimeout(() => {
                                                     window.location = '<?= base_url('login') ?>';
                                                 }, 2000);
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
                                             }
                                         },
                                         error: function() {

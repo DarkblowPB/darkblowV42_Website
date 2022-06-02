@@ -36,20 +36,20 @@ class Eventsattendance_model extends CI_Model
         if ($query) {
             $delete = $this->db->where('id', $query->id)->delete('events_attendance');
             if ($delete) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Event.';
 
                 echo json_encode($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Event.';
 
                 echo json_encode($response);
             }
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Events Found.';
 

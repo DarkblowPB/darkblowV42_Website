@@ -15,10 +15,10 @@
                 <div class="card-body">
                     <table id="voucher_table" class="table table-borderless table-responsive-lg  table-responsive-md  table-responsive-sm text-center">
                         <thead class="bg-primary">
-                            <th>No.</th>
+                            <th width="5%">No.</th>
                             <th>Voucher Code</th>
-                            <th>Status</th>
-                            <th>Menu</th>
+                            <th width="10%">Status</th>
+                            <th width="10%">Menu</th>
                         </thead>
                         <tbody>
                             <?php $num = 1;
@@ -55,9 +55,9 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="<?= base_url('adm/vouchermanagement/details?voucher_id=' . $row['id']) ?>">Details</a>
+                                                <a class="dropdown-item" href="<?= base_url('adm/vouchermanagement/details/' . $row['id']) ?>">Details</a>
                                                 <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteVoucher('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['voucher_code'] ?>')">
-                                                <a href="<?= base_url('adm/vouchermanagement/print?id=' . $row['id']) ?>" target="_blank" class="dropdown-item">Print</a>
+                                                <a href="<?= base_url('adm/vouchermanagement/print/' . $row['id']) ?>" target="_blank" class="dropdown-item">Print</a>
                                             </div>
                                         </div>
                                     </td>

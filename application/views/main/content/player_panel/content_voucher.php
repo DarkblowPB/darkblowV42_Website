@@ -54,22 +54,9 @@
                                                 var GetString = JSON.stringify(data);
                                                 var Result = JSON.parse(GetString);
 
-                                                if (Result.response == 'true') {
-                                                    SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_201') ?>');
-                                                    ShowToast(2000, 'success', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                } else if (Result.response == 'false') {
-                                                    SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_201') ?>');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                } else {
-                                                    SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_201') ?>');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                }
+                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_201') ?>');
+                                                ShowToast(2000, Result.response, Result.message);
+                                                CSRF_TOKEN = Result.token;
                                             },
                                             error: function() {
                                                 if (RETRY >= 3) {

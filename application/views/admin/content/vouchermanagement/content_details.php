@@ -23,7 +23,7 @@
                                     $string = '';
 
                                     for ($i = 0; $i < $count; $i++) {
-                                        $string .= $this->vouchermanagement->GetItemName($split[$i]);
+                                        $string .= $this->lib->GetItemName($split[$i]);
                                         $string .= '<br>';
                                     }
 
@@ -67,7 +67,7 @@
                     </table>
                     <div class="mt-3 text-center">
                         <button type="button" class="btn btn-outline-primary text-white" onclick="self.history.back();"><i class="fas fa-arrow-left mr-2"></i>Back</button>
-                        <a href="<?php if ($voucher->active == 't') { ?><?= base_url('adm/vouchermanagement/print?id=' . $voucher->id) ?><?php } else { ?>javascript:void(0)<?php } ?>" target="_blank" class="btn btn-outline-primary text-white"><i class="fas fa-print mr-2"></i>Print</a>
+                        <a href="<?php if ($voucher->active == 't') { ?><?= base_url('adm/vouchermanagement/print/' . $voucher->id) ?><?php } else { ?>javascript:void(0)<?php } ?>" target="_blank" class="btn btn-outline-primary text-white"><i class="fas fa-print mr-2"></i>Print</a>
                     </div>
                 </div>
             </div>
