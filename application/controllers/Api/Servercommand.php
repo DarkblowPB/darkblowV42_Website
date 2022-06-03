@@ -1124,7 +1124,7 @@ class Servercommand extends RestController
                             $insert = $this->db->insert('check_user_itemcode', array(
                                 'uid' => $this->session->userdata('uid'),
                                 'item_code' => $query->item_code,
-                                'date_redeemed' => date('d-m-Y h:i:s')
+                                'date_redeemed' => time()
                             ));
                             if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $query->item_name . '.';
                             if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . 'You Received ' . number_format($query->cash, 0, ',', '.') . ' DR-Cash';
@@ -1151,7 +1151,7 @@ class Servercommand extends RestController
                             $insert = $this->db->insert('check_user_itemcode', array(
                                 'uid' => $this->session->userdata('uid'),
                                 'item_code' => $query->item_code,
-                                'date_redeemed' => date('d-m-Y h:i:s')
+                                'date_redeemed' => time()
                             ));
                             if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $query->item_name . '.';
                             if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . 'You Received ' . number_format($query->cash, 0, ',', '.') . ' DR-Cash';
