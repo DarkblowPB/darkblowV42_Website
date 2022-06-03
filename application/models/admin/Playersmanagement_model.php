@@ -280,7 +280,7 @@ class Playersmanagement_model extends CI_Model
         $data = array(
             'login' => $this->input->post('login', true),
             'password' => $this->lib->password_encrypt($this->input->post('password', true)),
-            'player_name' => $this->lib->password_encrypt($this->input->post('player_name', true)),
+            'player_name' => $this->input->post('player_name', true),
             'rank' => $this->input->post('rank', true),
             'gp' => $this->input->post('gp', true),
             'pc_cafe' => $this->input->post('pc_cafe', true),

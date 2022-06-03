@@ -23,7 +23,7 @@
                                             <?= $row['file_name'] ?>
                                         </h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
-                                        <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
+                                        <input type="button" id="button_single_link_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_single_link_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
                             <?php $num++;
@@ -41,7 +41,7 @@
                                             <?= $row['file_name'] ?>
                                         </h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
-                                        <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
+                                        <input type="button" id="button_partial_link_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_partial_link_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
                             <?php $num++;
@@ -76,7 +76,7 @@
                                             <?= $row['file_name'] ?>
                                         </h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
-                                        <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
+                                        <input type="button" id="button_launcher_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_launcher_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
                             <?php $num++;
@@ -115,7 +115,7 @@
                                             <?= $row['file_name'] ?>
                                         </h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
-                                        <input type="button" id="button_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_10') ?>" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_<?= $num ?>', '<?= $row['id'] ?>')">
+                                        <input type="button" id="button_support_app_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_10') ?>" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_support_app_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
                                 </div>
                             </div>

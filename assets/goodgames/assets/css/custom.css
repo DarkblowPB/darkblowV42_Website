@@ -18,26 +18,26 @@
   
   .calendar__day {
     padding: 16px;
-    background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend.png') 0 0 no-repeat;
+    background: url('/darkblowpb/assets/goodgames/assets/images/icon_attend.png') 0 0 no-repeat;
     background-position: center !important;
 }
 
   .claimed {
       color: white;
       background-color: #38a220;
-      background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_check.png') 0 0 no-repeat;
+      background: url('/darkblowpb/assets/goodgames/assets/images/icon_attend_check.png') 0 0 no-repeat;
   }
 
   .today {
       color: white;
       background-color: #0275d8;
-      background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_today.png') 0 0 no-repeat;
+      background: url('/darkblowpb/assets/goodgames/assets/images/icon_attend_today.png') 0 0 no-repeat;
     }
     
   .passed {
     color: white;
     background-color: #dd163b;
-    background: url('/webpb-ci3/assets/goodgames/assets/images/icon_attend_pass.png') 0 0 no-repeat;
+    background: url('/darkblowpb/assets/goodgames/assets/images/icon_attend_pass.png') 0 0 no-repeat;
   }
   
   main {
