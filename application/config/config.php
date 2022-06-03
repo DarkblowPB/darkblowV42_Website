@@ -462,7 +462,7 @@ foreach ($custom_decode as $row) {
     $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
     $config['csrf_expire'] = 1800;
     $config['csrf_regenerate'] = TRUE;
-    $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images');
+    $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images', 'api/server/bandwithupdate');
 
     /*
 |--------------------------------------------------------------------------
