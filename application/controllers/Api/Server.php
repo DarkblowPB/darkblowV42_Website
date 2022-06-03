@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-class Players extends RestController
+class Server extends RestController
 {
 
     function __construct()
@@ -65,6 +65,9 @@ class Players extends RestController
                 $response['status'] = 'error';
                 $this->response($response, 200);
             }
+        } else {
+            $response['status'] = 'error';
+            $this->response($response, 200);
         }
     }
 }

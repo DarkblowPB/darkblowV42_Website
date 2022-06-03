@@ -9,6 +9,7 @@
     },
     "SMTPConfig": {
       "Host": "",
+      "Port" : 465,
       "Email": "",
       "Password": ""
     },

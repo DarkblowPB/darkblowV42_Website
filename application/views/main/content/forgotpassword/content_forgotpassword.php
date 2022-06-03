@@ -19,11 +19,10 @@
                 </div>
                 <?= form_close() ?>
                 <script>
-                    var CSRF_TOKEN = $('#<?= $this->security->get_csrf_hash() ?>');
+                    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                     var RETRY = 0;
-
-                    $(document).ready(() => {
-                        $('#forgotpassword_form').on('submit', (e) => {
+                    $(document).ready(function() {
+                        $('#forgotpassword_form').on('submit', function(e) {
                             e.preventDefault();
 
                             return Do_ForgotPassword();
@@ -31,33 +30,65 @@
                     });
 
                     function Do_ForgotPassword() {
-                        if ($('#email').val() == '' || $('#email').val() == null) return ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_13') ?>');
-                        else {
+                        if ($('#email').val() == '' || $('#email').val() == null) {
+                            ShowToast(2000, 'warning', '<?= 'Email Cannot Be Empty.' ?>');
+                            return;
+                        } else {
                             SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
-
                             $.ajax({
                                 url: '<?= base_url('forgotpassword/do_forgotpassword') ?>',
                                 type: 'POST',
+                                timeout: 0,
                                 dataType: 'JSON',
                                 data: {
                                     '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                    'email': $('#email').val()
+                                    'email': $('#email').val(),
                                 },
-                                success: (response) => {
-                                    var GetString = JSON.stringify(response);
+                                success: function(data) {
+                                    var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
                                     SetAttribute('submit', 'submit', 'Submit');
                                     ShowToast(2000, Result.response, Result.message);
                                     CSRF_TOKEN = Result.token;
-                                    return;
                                 },
-                                error: () => {
-                                    SetAttribute('submit', 'submit', 'Submit');
-                                    ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_3') ?>');
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000);
+                                error: function() {
+                                    if (RETRY >= 3) {
+                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182') ?>.');
+                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5') ?>');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    } else {
+                                        RETRY += 1;
+                                        ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
+
+                                        $.ajax({
+                                            url: '<?= base_url('api/security/csrf') ?>',
+                                            type: 'GET',
+                                            timeout: 0,
+                                            dataType: 'JSON',
+                                            data: {
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            },
+                                            success: function(data) {
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+
+                                                if (Result.response == 'true') {
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+
+                                                return Do_ForgotPassword();
+                                            },
+                                            error: function() {
+                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_5') ?>');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
+                                    }
                                 }
                             });
                         }
