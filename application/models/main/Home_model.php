@@ -33,6 +33,19 @@ class Home_model extends CI_Model
 	{
 		return $this->db->order_by('webshop_totalbuy', 'desc')->limit(7)->get('webshop')->result_array();
 	}
+
+	function VerifyAccountValidator($secret_token)
+	{
+		$query = $this->db->get_where('web_log_verifyaccount', array('secret_token' => $secret_token))->row();
+		if ($query) {
+			if ($query->status == 0) return 'Invalid Secret Token';
+			else if ($query->status == 1 && $query->valid_date < time()) {
+				$update = $this->db->where('id', $query->id)->update('web_log_verifyaccount', array('status' => '0'));
+				if ($update) return 'Successfully Activate Account';
+				else return 'Failed To Activate Account';
+			} else return 'Fatal Error';
+		} else return 'Invalid Secret Token';
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

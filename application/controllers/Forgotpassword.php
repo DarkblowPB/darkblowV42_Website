@@ -15,7 +15,8 @@ class Forgotpassword extends CI_Controller
 
         $this->lang->load(array('header', 'string', 'message'));
         $this->lib->GetVisitorData('Forgot Password');
-        $this->main_protect->SessionProtector();
+        $this->load->model('main/forgotpassword_model', 'forgotpassword');
+        // $this->main_protect->SessionProtector();
 
         $this->allprotect->Web_Protection();
         $this->allprotect->Maintenance_Protection();
@@ -31,11 +32,40 @@ class Forgotpassword extends CI_Controller
         $this->load->view('main/layout/wrapper', $data, FALSE);
     }
 
-    function verifyid()
+    function verifyid($param = null)
     {
+        if ($param == null) redirect(base_url());
+        else {
+            $this->form_validation->set_rules(
+                'new_password',
+                'New Password',
+                'required',
+                array(
+                    'required' => '%s Cannot Be Empty.'
+                )
+            );
+            $this->form_validation->set_rules(
+                'confirm_password',
+                'Confirm Password',
+                'required',
+                array(
+                    'required' => '%s Cannot Be Empty.'
+                )
+            );
+            if ($this->form_validation->run()) $this->forgotpassword->SetNewPassword($param);
+            else {
+                $data = array(
+                    'title' => 'Set New Password',
+                    'secret_token' => $param,
+                    'isi' => 'main/content/forgotpassword/content_setnewpassword'
+                );
+
+                $this->load->view('main/layout/wrapper', $data, FALSE);
+            }
+        }
     }
 
-    function do_sendrequest()
+    function do_forgotpassword()
     {
         $response = array();
         $this->form_validation->set_error_delimiters('', '');
@@ -49,9 +79,9 @@ class Forgotpassword extends CI_Controller
                 'valid_email' => '%s Not Valid.'
             )
         );
-        if ($this->form_validation->run()) {
-        } else {
-            $response['response'] = 'false';
+        if ($this->form_validation->run()) $this->forgotpassword->ForgotPasswordValidationV1();
+        else {
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

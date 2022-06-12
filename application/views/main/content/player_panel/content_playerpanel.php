@@ -113,7 +113,7 @@
                                                        <?= $this->lang->line('STR_DARKBLOW_48') ?>
                                                   </td>
                                                   <td>
-                                                       <?= $row['email'] ?>
+                                                       <?= $this->lib->ObfuscateEmail($row['email']) ?>
                                                   </td>
                                              </tr>
                                              <tr class="text-center">
@@ -169,7 +169,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_172') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights'] ?>
+                                                                      <?= number_format($row['fights'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -177,7 +177,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_166') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights_win'] ?>
+                                                                      <?= number_format($row['fights_win'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -185,7 +185,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_167') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['fights_lost'] ?>
+                                                                      <?= number_format($row['fights_lost'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -193,7 +193,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_168') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['kills_count'] ?>
+                                                                      <?= number_format($row['kills_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -201,7 +201,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_169') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['deaths_count'] ?>
+                                                                      <?= number_format($row['deaths_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -209,7 +209,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_170') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['headshots_count'] ?>
+                                                                      <?= number_format($row['headshots_count'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                             <tr class="text-center">
@@ -217,7 +217,7 @@
                                                                       <?= $this->lang->line('STR_DARKBLOW_171') ?>
                                                                  </td>
                                                                  <td>
-                                                                      <?= $row['escapes'] ?>
+                                                                      <?= number_format($row['escapes'], 0, ',', '.') ?>
                                                                  </td>
                                                             </tr>
                                                        <?php endforeach; ?>
@@ -260,6 +260,9 @@
                                                        </tbody>
                                                   </table>
                                                   <input type="button" id="request_hint" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_199') ?>" onclick="RequestHint()">
+                                                  <?php if ($row['email_verification'] == 0) : ?>
+                                                       <input type="button" id="request_verification_email" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-6" value="Request Verification Email" onclick="RequestVerificationEmail()">
+                                                  <?php endif; ?>
                                                   <script>
                                                        var RETRY = 0;
                                                        $(document).ready(function() {
@@ -268,7 +271,41 @@
 
                                                                  return RequestHint();
                                                             });
+                                                            $('#request_verification_email').on('click', (e) => {
+                                                                 e.preventDefault();
+
+                                                                 return RequestVerificationEmail();
+                                                            })
                                                        });
+
+                                                       function RequestVerificationEmail() {
+                                                            SetAttribute('request_verification_email', 'button', 'Processing...');
+
+                                                            $.ajax({
+                                                                 url: '<?= base_url('player_panel/home/do_requestverificationemail') ?>',
+                                                                 type: 'GET',
+                                                                 dataType: 'JSON',
+                                                                 data: {
+                                                                      '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                 },
+                                                                 success: (response) => {
+                                                                      var GetString = JSON.stringify(response);
+                                                                      var Result = JSON.parse(GetString);
+
+                                                                      ShowToast(2000, Result.response, Result.message);
+                                                                      SetAttribute('request_verification_email', 'button', 'Request Verification Email');
+                                                                 },
+                                                                 error: () => {
+                                                                      if (RETRY >= 3) {
+                                                                           ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_9') ?>');
+                                                                           setTimeout(() => {
+                                                                                window.location.reload();
+                                                                           }, 2000);
+                                                                           return;
+                                                                      } else return RequestVerificationEmail();
+                                                                 }
+                                                            });
+                                                       }
 
                                                        function RequestHint() {
                                                             SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
@@ -283,19 +320,8 @@
                                                                       var GetString = JSON.stringify(data);
                                                                       var Result = JSON.parse(GetString);
 
-                                                                      if (Result.response == 'true') {
-                                                                           ShowToast(3000, 'info', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
-                                                                           return;
-                                                                      } else if (Result.response == 'false') {
-                                                                           ShowToast(3000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
-                                                                           return;
-                                                                      } else {
-                                                                           ShowToast(2000, 'error', Result.message);
-                                                                           SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
-                                                                           return;
-                                                                      }
+                                                                      ShowToast(3000, Result.response, Result.message);
+                                                                      SetAttribute('request_hint', 'button', '<?= $this->lang->line('STR_DARKBLOW_199') ?>');
                                                                  },
                                                                  error: function() {
                                                                       if (RETRY >= 3) {
@@ -304,9 +330,7 @@
                                                                                 window.location.reload();
                                                                            }, 2000);
                                                                            return;
-                                                                      } else {
-                                                                           return RequestHint();
-                                                                      }
+                                                                      } else return RequestHint();
                                                                  }
                                                             });
                                                        }

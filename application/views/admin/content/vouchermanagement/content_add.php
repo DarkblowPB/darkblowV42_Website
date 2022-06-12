@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-3">Webcoin Amount</label>
-                                    <input type="number" id="webcoin_amount" class="form-control col-9" placeholder="Enter Cash Amount">
+                                    <input type="number" id="webcoin_amount" class="form-control col-9" placeholder="Enter Webcoint Amount">
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label col-3">Voucher Code</label>
@@ -361,7 +361,7 @@
                     ?>
                     <?= form_close() ?>
                     <?php
-                    switch ($this->input->get('type')) {
+                    switch ($type) {
                         case 'small': {
                     ?>
                                 <script>
@@ -395,92 +395,7 @@
                                         $('#add_form').on('submit', function(e) {
                                             e.preventDefault();
 
-                                            if ($('#reward_1').val() == '' || $('#reward_1').val() == null) {
-                                                ShowToast(2000, 'warning', 'Reward 1 Cannot Be Empty.');
-                                                return;
-                                            } else if ($('#reward_2').val() == '' || $('#reward_2').val() == null) {
-                                                ShowToast(2000, 'warning', 'Reward 2 Cannot Be Empty.');
-                                                return;
-                                            } else if ($('#reward_3').val() == '' || $('#reward_3').val() == null) {
-                                                ShowToast(2000, 'warning', 'Reward 3 Cannot Be Empty.');
-                                                return;
-                                            } else if ($('#cash_amount').val() == '' || $('#cash_amount').val() == null) {
-                                                ShowToast(2000, 'warning', 'Cash Amount Cannot Be Empty.');
-                                                return;
-                                            } else if ($('#webcoin_amount').val() == '' || $('#webcoin_amount').val() == null) {
-                                                ShowToast(2000, 'warning', 'Webcoin Amount Cannot Be Empty.');
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'button', 'Processing...');
-
-                                                $.ajax({
-                                                    url: <?= base_url('adm/vouchermanagement/do_add') ?>,
-                                                    type: 'POST',
-                                                    dataType: 'JSON',
-                                                    data: {
-                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                                        'type': 'small',
-                                                        'reward_1': $('#reward_1').val(),
-                                                        'reward_2': $('#reward_2').val(),
-                                                        'reward_3': $('#reward_3').val(),
-                                                        'voucher_code': $('#voucher_code').val(),
-                                                        'cash_amount': $('#cash_amount').val(),
-                                                        'webcoin_amount': $('#webcoin_amount').val()
-                                                    },
-                                                    success: function(data) {
-                                                        var GetString = JSON.stringify(data);
-                                                        var Result = JSON.parse(GetString);
-
-                                                        if (Result.response == 'true') {
-                                                            SetAttribute('submit', 'submit', 'Submit New Voucher');
-                                                            ShowToast(2000, 'success', Result.message);
-                                                            CSRF_TOKEN = Result.token;
-                                                            setTimeout(() => {
-                                                                self.history.back();
-                                                            }, 2000);
-                                                        } else if (Result.response == 'false') {
-                                                            SetAttribute('submit', 'submit', 'Submit New Voucher');
-                                                            ShowToast(2000, 'error', Result.message);
-                                                            CSRF_TOKEN = Result.token;
-                                                            return;
-                                                        } else {
-                                                            SetAttribute('submit', 'submit', 'Submit New Voucher');
-                                                            ShowToast(2000, 'error', Result.message);
-                                                            CSRF_TOKEN = Result.token;
-                                                            return;
-                                                        }
-                                                    },
-                                                    error: function() {
-                                                        ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                                        $.ajax({
-                                                            url: '<?= base_url('api/security/csrf') ?>',
-                                                            type: 'GET',
-                                                            dataType: 'JSON',
-                                                            data: {
-                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-                                                            },
-                                                            success: function(data) {
-                                                                var GetString = JSON.stringify(data);
-                                                                var Result = JSON.parse(GetString);
-
-                                                                if (Result.response == 'true') {
-                                                                    CSRF_TOKEN = Result.token;
-                                                                }
-
-                                                                return Do_Add();
-                                                            },
-                                                            error: function() {
-                                                                SetAttribute('submit', 'submit', 'Submit New Voucher');
-                                                                ShowToast(2000, 'error', 'Failed To Submit New Voucher');
-                                                                setTimeout(() => {
-                                                                    window.location.reload();
-                                                                }, 2000);
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
+                                            return Do_Add();
                                         });
                                     });
 

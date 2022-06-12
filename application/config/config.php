@@ -166,7 +166,8 @@ foreach ($custom_decode as $row) {
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-    $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+    // $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+    $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-?';
 
     /*
 |--------------------------------------------------------------------------
@@ -207,7 +208,7 @@ foreach ($custom_decode as $row) {
 |          for backwards compatibility purposes!
 |
 */
-    $config['allow_get_array'] = FALSE;
+    $config['allow_get_array'] = TRUE;
 
     /*
 |--------------------------------------------------------------------------
@@ -462,7 +463,7 @@ foreach ($custom_decode as $row) {
     $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
     $config['csrf_expire'] = 1800;
     $config['csrf_regenerate'] = TRUE;
-    $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images');
+    $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images', 'api/server/bandwithupdate', 'api/launcher/register');
 
     /*
 |--------------------------------------------------------------------------

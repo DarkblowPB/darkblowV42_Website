@@ -17,30 +17,19 @@
                             <tr>
                                 <td>File Type</td>
                                 <td class="text-uppercase">
-                                    <?= $files->type ?>
+                                    <?= $files->file_type ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>File Size</td>
                                 <td>
-                                    <?= $files->size ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Version</td>
-                                <td>
-                                    <?php if ($files->version == "" || $files->version == null) : ?>
-                                        0
-                                    <?php endif; ?>
-                                    <?php if ($files->version != "" || $files->version != null) : ?>
-                                        <?= $files->version ?>
-                                    <?php endif; ?>
+                                    <?= $files->file_size ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Date Upload</td>
                                 <td>
-                                    <?= $files->date ?>
+                                    <?= $this->lib->ParseUnixTimeStamp($files->date_created) ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -63,7 +52,7 @@
                                 dataType: 'JSON',
                                 data: {
                                     '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                    'files_id': '<?= $this->input->get('files_id ', true) ?>'
+                                    'files_id': '<?= $files->id ?>'
                                 },
                                 success: function(data) {
                                     var GetString = JSON.stringify(data);

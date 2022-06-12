@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "datetimepicker": "^0.1.39",
     "jquery": "^3.6.0",
-    "js-datepicker": "^5.18.0"
+    "mpdf": "^1.0.0"
   }
 }

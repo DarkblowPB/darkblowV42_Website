@@ -8,6 +8,8 @@
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
+      "Host": "",
+      "Port" : 465,
       "Email": "",
       "Password": ""
     },

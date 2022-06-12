@@ -68,6 +68,17 @@ class Security extends RestController
 		}
 	}
 
+	function launchercsrf_get()
+	{
+		$response = array();
+
+		$response['status'] = 'success';
+		$response['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$response['csrf_token_hash'] = $this->security->get_csrf_hash();
+
+		$this->response($response, 200);
+	}
+
 	function licensevalidate_post()
 	{
 		$data = array(

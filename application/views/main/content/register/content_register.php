@@ -13,7 +13,7 @@
                             <label for="username"><?= $this->lang->line('STR_DARKBLOW_40') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="text" class="form-control" id="login" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus>
+                                    <input type="text" class="form-control" id="login" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
@@ -26,20 +26,34 @@
                                 <label class="form-control"><?= $_SESSION['g_email'] ?></label>
                             <?php endif; ?>
                             <?php if (empty($this->session->userdata('g_email'))) : ?>
-                                <input type="mail" class="form-control" id="email" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>">
+                                <input type="mail" class="form-control" id="email" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>" required>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label for="password"><?= $this->lang->line('STR_DARKBLOW_42') ?></label>
-                            <input type="password" class="form-control" id="password" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
+                                </div>
+                                <div class="col-3">
+                                    <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="re_password"><?= $this->lang->line('STR_DARKBLOW_57') ?></label>
-                            <input type="password" class="form-control" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="password" class="form-control" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
+                                </div>
+                                <div class="col-3">
+                                    <input type="button" id="show_re_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowRePassword()">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label><?= $this->lang->line('STR_DARKBLOW_21') ?></label>
-                            <select class="form-control" id="hint_question">
+                            <select class="form-control" id="hint_question" required>
                                 <option value="" disabled selected><?= $this->lang->line('STR_DARKBLOW_22') ?></option>
                                 <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                 <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -78,7 +92,7 @@
                                     <input type="button" id="cancelgoogleregistration" value="<?= $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
                                 <?php endif; ?>
                                 <?php if (!isset($_SESSION['g_email'])) : ?>
-                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?= base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?= $this->lang->line('STR_DARKBLOW_156') ?></button>
+                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?= base_url('register/g_register') ?>'"><span class="fa fa-google"></span> &nbsp;<?= $this->lang->line('STR_DARKBLOW_156') ?></button>
                                 <?php endif; ?>
                                 <div class="nk-gap-1"></div>
                             </div>
@@ -104,6 +118,10 @@
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
+
+                                            SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
 
                                             if (Result.response == 'true') {
                                                 document.getElementById('submit').setAttribute('onclick', '');
@@ -213,19 +231,14 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
+                                            SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
+                                            if (Result.status == 'success') {
                                                 setTimeout(() => {
                                                     window.location = '<?= base_url('login') ?>';
                                                 }, 2000);
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
                                             }
                                         },
                                         error: function() {
@@ -296,6 +309,30 @@
                                         }, 2000);
                                     }
                                 });
+                            }
+
+                            function ShowPassword() {
+                                var PasswordField = document.getElementById('password');
+                                var ButtonPasswordField = document.getElementById('show_password');
+                                if (PasswordField.type == 'password') {
+                                    PasswordField.setAttribute('type', 'text');
+                                    ButtonPasswordField.setAttribute('value', 'Hide');
+                                } else {
+                                    PasswordField.setAttribute('type', 'password');
+                                    ButtonPasswordField.setAttribute('value', 'Show');
+                                }
+                            }
+
+                            function ShowRePassword() {
+                                var PasswordField = document.getElementById('re_password');
+                                var ButtonPasswordField = document.getElementById('show_re_password');
+                                if (PasswordField.type == 'password') {
+                                    PasswordField.setAttribute('type', 'text');
+                                    ButtonPasswordField.setAttribute('value', 'Hide');
+                                } else {
+                                    PasswordField.setAttribute('type', 'password');
+                                    ButtonPasswordField.setAttribute('value', 'Show');
+                                }
                             }
                         </script>
                     </div>

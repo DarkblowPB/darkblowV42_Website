@@ -453,12 +453,12 @@ class Vouchermanagement extends CI_Controller
         }
     }
 
-    function print()
+    function print($id = null)
     {
-        if (empty($this->input->get('id', true))) echo "<script>self.history.back()</script>";
+        if ($id == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
         else {
             $data['title'] = 'Voucher Information';
-            $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($this->input->get('id', true));
+            $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($id);
             $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
         }
     }

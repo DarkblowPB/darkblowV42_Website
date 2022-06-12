@@ -43,16 +43,16 @@ class Voucher extends CI_Controller
         $this->form_validation->set_rules(
             'voucher_code',
             'Voucher Code',
-            'required|min_length[19]|max_length[19]',
+            'required|min_length[24]|max_length[24]',
             array(
                 'required' => '%s Cannot Be Empty.',
-                'min_length' => '%s Must Contains 19 Characters Or More.',
-                'max_length' => '%s Only Can Contains 19 Characters.'
+                'min_length' => '%s Must Contains 24 Characters Or More.',
+                'max_length' => '%s Only Can Contains 24 Characters.'
             )
         );
-        if ($this->form_validation->run()) $this->voucher->RedeemVoucherV3();
+        if ($this->form_validation->run()) $this->voucher->RedeemVoucherV4();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

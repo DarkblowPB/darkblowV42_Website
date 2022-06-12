@@ -18,7 +18,9 @@
                             <option value="" disabled selected>Select Map</option>
                             <?php for ($i = 0; $i <= 121; $i++) : ?>
                                 <option value="<?= $i ?>">
-                                    <?= $this->eventsmapbonus->GetMap($i) ?>
+                                    <?php if ($this->eventsmapbonus->GetMap($i) != 'STR_STAGE_EMPTY') : ?>
+                                        <?= $this->eventsmapbonus->GetMap($i) ?>
+                                    <?php endif ?>
                                 </option>
                             <?php endfor; ?>
                         </select>

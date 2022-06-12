@@ -17,7 +17,7 @@ class Lib
 		$this->ci->load->helper('file');
 	}
 
-	public function EncryptDecryptConfig()
+	private function EncryptDecryptConfig()
 	{
 		$encrypt_config = read_file('./darkblow_config.json');
 		$encrypt_decode = json_decode($encrypt_config);
@@ -123,8 +123,10 @@ class Lib
 					break;
 				}
 
-			default:
-				break;
+			default: {
+					echo 'Invalid Duration';
+					break;
+				}
 		}
 	}
 
@@ -264,7 +266,7 @@ class Lib
 		$explode6 = $explode5[1];
 
 		// The Result
-		$resultdate['years'] = $split1[1];
+		$resultdate['years'] = $split1[1] - 10;
 		$resultdate['month'] = $explode2;
 		$resultdate['days'] = $split2[0];
 		$resultdate['hours'] = $explode5[0];
@@ -273,6 +275,10 @@ class Lib
 		return $resultdate;
 	}
 
+	/**
+	 * Date Convert Function
+	 * Enable When Use Date Format (dd/mm/yyyy) / (yyyy/mm/dd)
+	 */
 	public function ConvertDate($param)
 	{
 		return str_split($param, 2); // [0] Years | [1] Month | [2] Days | [3] Hours | [4] Minutes
@@ -323,7 +329,7 @@ class Lib
 	/**
 	 * Get Visitor Data
 	 * 
-	 * Remove "//" To Detect Your Page Visitor.
+	 * Record Every Action By User.
 	 * 
 	 * @return void
 	 * @copyright Darkblow Studio
@@ -550,6 +556,33 @@ class Lib
 					}
 			}
 		} else redirect(base_url(), 'refresh');
+	}
+
+	public function ParseUnixTimeStamp($unixtimestamp)
+	{
+		return date('d-m-Y H:i:s', $unixtimestamp);
+	}
+
+	public function ObfuscateEmail($email)
+	{
+		$em   = explode("@", $email);
+		$name = implode('@', array_slice($em, 0, count($em) - 1));
+		$len  = floor(strlen($name) / 2);
+
+		echo substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($em);
+	}
+
+	public function GenerateRandomTokenV2($token_length = null)
+	{
+		$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$length = strlen($characters);
+		$token = '';
+
+		if ($token_length == null) return "Invalid_Token";
+		else {
+			for ($i = 0; $i < $token_length; $i++) $token .= $characters[rand(0, $length - 1)];
+			return $token;
+		}
 	}
 }
 

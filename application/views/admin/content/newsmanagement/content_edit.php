@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?= form_open_multipart(base_url('adm/newsmanagement/edit?news_id=' . $this->input->get(' news_id', true)), 'autocomplete="off"') ?>
+                    <?= form_open_multipart(base_url('adm/newsmanagement/edit/' . $news->id), 'autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">News Title</label>
                         <input type="text" name="quickslide_title" class="form-control col-9" value="<?= $news->quickslide_title ?>" autofocus required>

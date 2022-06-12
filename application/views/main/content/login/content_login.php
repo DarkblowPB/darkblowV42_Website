@@ -14,13 +14,20 @@
                     <label class="col-form-label">
                         <?= $this->lang->line('STR_DARKBLOW_40') ?>
                     </label>
-                    <input type="text" id="username" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" autofocus>
+                    <input type="text" id="username" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" autofocus required>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">
                         <?= $this->lang->line('STR_DARKBLOW_42') ?>
                     </label>
-                    <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>">
+                    <div class="row">
+                        <div class="col-9">
+                            <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" required>
+                        </div>
+                        <div class="col-3">
+                            <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
+                        </div>
+                    </div>
                 </div>
                 <div class="nk-gap-3"></div>
                 <div class="form-group text-center">
@@ -131,6 +138,18 @@
                                     }
                                 }
                             });
+                        }
+                    }
+
+                    function ShowPassword() {
+                        var PasswordField = document.getElementById('password');
+                        var ButtonPasswordField = document.getElementById('show_password');
+                        if (PasswordField.type == 'password') {
+                            PasswordField.setAttribute('type', 'text');
+                            ButtonPasswordField.setAttribute('value', 'Hide');
+                        } else {
+                            PasswordField.setAttribute('type', 'password');
+                            ButtonPasswordField.setAttribute('value', 'Show');
                         }
                     }
                 </script>

@@ -79,47 +79,6 @@ class Players extends RestController
         $response['ip_address'] = $this->input->ip_address();
         $this->response($response, 200);
     }
-
-    function getversioncontrol_get($current_patch_version, $current_launcher_version)
-    {
-        $response = array();
-
-        $data = array(
-            'current_patch_version' => $current_patch_version,
-            'current_launcher_version' => $current_launcher_version
-        );
-
-        $query = $this->db->get_where('launcher_version_control', array('ip_address' => $this->input->ip_address()))->row();
-        if ($query) {
-            $update = $this->db->where('id', $query->id)->update('launcher_version_control', $data);
-            if ($update) {
-                $response['status'] = 'Success';
-                $response['message'] = 'Successfully update launcher version control.';
-                $this->response($response, 200);
-            } else {
-                $response['status'] = 'Failed';
-                $response['message'] = 'Failed to update launcher version control.';
-                $this->response($response, 200);
-            }
-        } else {
-            $insert = $this->db->insert('launcher_version_control', array(
-                'ip_address' => $this->input->ip_address(),
-                'current_patch_version' => $data['current_patch_version'],
-                'current_launcher_version' => $data['current_launcher_version'],
-                'date_created' => date('d/m/Y H:i:s'),
-                'date_updated' => '0'
-            ));
-            if ($insert) {
-                $response['status'] = 'Success';
-                $response['message'] = 'Successfully update launcher version control.';
-                $this->response($response, 200);
-            } else {
-                $response['status'] = 'Failed';
-                $response['message'] = 'Failed to update launcher version control.';
-                $this->response($response, 200);
-            }
-        }
-    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

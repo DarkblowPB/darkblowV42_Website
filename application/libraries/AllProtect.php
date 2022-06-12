@@ -78,9 +78,8 @@ class AllProtect
      */
     public function Web_Protection()
     {
-        $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()));
-        $result = $check->row();
-        if ($result) redirect(base_url('banned'), 'refresh');
+        $query = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
+        if ($query) redirect(base_url('banned'), 'refresh');
     }
 
 
@@ -106,10 +105,7 @@ class AllProtect
     {
         if (!empty($this->ci->session->userdata('access_level'))) {
             if ($this->ci->session->userdata('access_level') == '-1') {
-                $this->ci->session->unset_userdata('uid');
-                $this->ci->session->unset_userdata('player_name');
-                $this->ci->session->unset_userdata('access_level');
-
+                $this->ci->session->sess_destroy();
                 redirect(base_url('home'), 'refresh');
             }
         }

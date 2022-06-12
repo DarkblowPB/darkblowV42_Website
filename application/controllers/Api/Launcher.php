@@ -117,39 +117,34 @@ class Launcher extends RestController
         }
     }
 
-    function validatekey_get($param = null)
+    function validatekey_post()
     {
         $response = array();
         $data = array(
-            'key' => $param
+            'key' => $this->input->post('launcher_key', true)
         );
 
-        if ($param == null) {
+        if ($data['key'] == null) {
             $response['status'] = 'Failed';
-            $response['message'] = 'Failed Update Launcher Key';
             $this->response($response, 200);
         } else {
             $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
             if ($query) {
                 if ($query->status == 0) {
                     $response['status'] = 'Failed';
-                    $response['message'] = 'Failed Update Launcher Key (0)';
                     $this->response($response, 200);
                 } else {
                     $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
                     if ($update) {
                         $response['status'] = 'Success';
-                        $response['message'] = 'Successfully Update Launcher Key';
                         $this->response($response, 200);
                     } else {
                         $response['status'] = 'Failed';
-                        $response['message'] = 'Failed Update Launcher Key (1)';
                         $this->response($response, 200);
                     }
                 }
             } else {
                 $response['status'] = 'Failed';
-                $response['message'] = 'Failed Update Launcher Key (2)';
                 $this->response($response, 200);
             }
         }
@@ -180,6 +175,111 @@ class Launcher extends RestController
             $response['launcher_key'] = '0';
             $this->response($response, 200);
         }
+    }
+
+    function fetchuserdata_post()
+    {
+        $response = array();
+
+        $data = array(
+            'ip_address' => $this->input->post('ip_address', true),
+            'hwid' => $this->input->post('hwid', true),
+            'current_patch_version' => $this->input->post('current_patch_version', true),
+            'current_launcher_version' => $this->input->post('current_launcher_version', true),
+            'date_created' => time(),
+            'date_updated' => '0'
+        );
+
+        $query = $this->db->get_where('launcher_version_control', array('hwid' => $data['hwid']))->row();
+        if ($query) {
+            $insert = $this->db->insert('launcher_version_control', $data);
+            if ($insert) {
+                $response['status'] = 'Success';
+                $this->response($response, 200);
+            } else {
+                $response['status'] = 'Failed';
+                $this->response($response, 200);
+            }
+        } else {
+            $update = $this->db->where('hwid', $data['hwid'])->update('launcher_version_control', array(
+                'ip_address' => $data['ip_address'],
+                'current_patch_version' => $data['current_patch_version'],
+                'current_launcher_version' => $data['current_launcher_version'],
+                'date_updated' => time()
+            ));
+            if ($update) {
+                $response['status'] = 'Success';
+                $this->response($response, 200);
+            } else {
+                $response['status'] = 'Failed';
+                $this->response($response, 200);
+            }
+        }
+    }
+
+    function register_post()
+    {
+        $response = array();
+
+        $data = array(
+            'login' => $this->input->post('login', true),
+            'email' => $this->input->post('email', true),
+            'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+            'hint_question' => $this->input->post('hint_question', true),
+            'hint_answer' => $this->input->post('hint_answer', true),
+        );
+
+        // State 1 => Find Same Username Value
+        $query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+        if ($query) {
+            $response['status'] = 'error';
+            $response['message'] = 'Username Already Used.';
+
+            $this->response($response, 200);
+        }
+
+        // State 2 => Find Same Email Value
+        $query2 = $this->db->get_where('accounts', array('email' => $data['email']))->row();
+        if ($query2) {
+            $response['status'] = 'error';
+            $response['message'] = 'Email Already Used.';
+
+            $this->response($response, 200);
+        }
+
+        // State 3 => Register Account
+        $query3 = $this->db->insert('accounts', $data);
+        if ($query3) {
+            $response['status'] = 'success';
+            $response['message'] = 'Successfully Registered.';
+
+            $this->response($response, 200);
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed To Register Your Account. Please Register Through Website.';
+
+            $this->response($response, 200);
+        }
+    }
+
+    function generatecustomcsrf_get()
+    {
+        $customCSRFList = array(
+            0 => '11001011100010101100001100000111010101001100011111001101101100101101011111000101110001111011110100001110111011010110001101110000',
+            1 => '00000110101001011110110100111111001000101011000010101110110111011001100001001000011000100011000101010110111100101111010001001011',
+            2 => '10011101001111011101000101110111001101010001011111011011101000101101111010001010101001111010011000110110011011111010011101100110',
+            3 => '10011000010101100011100001010111001011111010111101001100000110001100011101100100111011011111101101110001011100110000000011101010',
+            4 => '11010000010110100101101011101111111111101101111101101100010011111001011101101101001101100100000000001011111000010111001111011010',
+            5 => '01101111000110110101010011100111010111101011100000010111000100001000011011011101010000001000011010011111110001100001000100110101',
+            6 => '11100111111011010010101111000010011111001000101001000110111000011110000110101100110111111100000101000001101011111110010110111001',
+            7 => '01111111111011111011001000100000110101110101100110110111101001000000111000011011010000001111100001000110001110010101110010010010',
+            8 => '11011111001101100100101100110010011100110000111010110011100010100001100010100010110110101010011011011000001010000110111000100100',
+            9 => '11101011110111101111101101010000000100011000110001101101110000110000000010000011110110011110100001110000001110111100011110000011',
+        );
+
+        $randomize = rand(0, 9);
+
+        echo $customCSRFList[$randomize];
     }
 }
 

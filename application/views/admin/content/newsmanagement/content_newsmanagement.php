@@ -38,7 +38,7 @@
                                         <?= $row['quickslide_title'] ?>
                                     </td>
                                     <td>
-                                        <?= $row['quickslide_date'] ?>
+                                        <?= $this->lib->ParseUnixTimeStamp($row['quickslide_date']) ?>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">

@@ -72,7 +72,14 @@
 				</div>
 				<div class="form-group">
 					<label>Password</label>
-					<input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
+					<div class="row">
+						<div class="col-9">
+							<input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16">
+						</div>
+						<div class="col-3">
+							<input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
+						</div>
+					</div>
 				</div>
 				<div class="nk-gap-1"></div>
 				<div class="form-group text-center">
@@ -167,6 +174,19 @@
 									}
 								}
 							});
+						}
+					}
+
+					function ShowPassword() {
+						var Button_01 = document.getElementById('password');
+						var Button_02 = document.getElementById('show_password');
+
+						if (Button_01.type == 'text') {
+							Button_01.setAttribute('type', 'password');
+							Button_02.setAttribute('value', 'Show');
+						} else if (Button_01.type == 'password') {
+							Button_01.setAttribute('type', 'text');
+							Button_02.setAttribute('value', 'Hide');
 						}
 					}
 				</script>

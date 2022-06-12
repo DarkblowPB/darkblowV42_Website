@@ -26,24 +26,6 @@ class Newsmanagement_model extends CI_Model
         else redirect(base_url('adm/newsmanagement'), 'refresh');
     }
 
-    function AddNewNewsV2()
-    {
-        $config = array(
-            'upload_path' => './assets/goodgames/assets/images/img_slider/',
-            'allowed_types' => 'jpg|jpeg|png',
-            'max_size' => 4086,
-        );
-        $data = array(
-            'quickslide_title' => $this->input->post('quickslide_title', true),
-            'quickslide_description' => $this->input->post('quickslide_description', true)
-        );
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('image')) {
-        }
-    }
-
     function AddNewNews()
     {
         $data = array(
@@ -67,7 +49,7 @@ class Newsmanagement_model extends CI_Model
                     'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
                     'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
                     'quickslide_img' => 'no-image.png',
-                    'quickslide_date' => date('d-m-Y'),
+                    'quickslide_date' => time(),
                     'quickslide_state' => '0'
                 ));
                 if ($query) {
@@ -90,7 +72,7 @@ class Newsmanagement_model extends CI_Model
                 'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
                 'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
                 'quickslide_img' => $data2['upload_data']['file_name'],
-                'quickslide_date' => date('d-m-Y'),
+                'quickslide_date' => time(),
                 'quickslide_state' => '0'
             ));
 
@@ -104,7 +86,7 @@ class Newsmanagement_model extends CI_Model
         }
     }
 
-    function EditNews()
+    function EditNews($id)
     {
         $data = array(
             'quickslide_title' => $this->encryption->encrypt($this->input->post('quickslide_title', true)),
@@ -123,19 +105,19 @@ class Newsmanagement_model extends CI_Model
 
         if (!$this->upload->do_upload('image')) {
             if (empty($_FILES['image']['file_name'])) {
-                $query = $this->db->get_where('web_quickslide', array('id' => $this->input->get('news_id', true)))->row();
+                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
                 if ($query) {
                     $query2 = $this->db->where('id', $query->id)->update('web_quickslide', array(
                         'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
                         'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
-                        'quickslide_date' => date('d-m-Y')
+                        'quickslide_date' => time()
                     ));
                     if ($query2) {
                         $this->session->set_flashdata('true', 'Successfully Edit News.');
                         redirect(base_url('adm/newsmanagement'), 'refresh');
                     } else {
                         $this->session->set_flashdata('false', 'Failed To Edit News.');
-                        redirect(base_url('adm/newsmanagement/edit?news_id=' . $query->id), 'refresh');
+                        redirect(base_url('adm/newsmanagement/edit/' . $query->id), 'refresh');
                     }
                 } else {
                     $this->session->set_flashdata('false', 'News Data Not Found.');
@@ -143,27 +125,27 @@ class Newsmanagement_model extends CI_Model
                 }
             } else {
                 $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect(base_url('adm/newsmanagement/edit?news_id=' . $this->input->get('news_id', true)), 'refresh');
+                redirect(base_url('adm/newsmanagement/edit/' . $id), 'refresh');
             }
         } else {
             $data2 = array(
                 'upload_data' => $this->upload->data()
             );
 
-            $query = $this->db->get_where('web_quickslide', array('id' => $this->input->get('news_id', true)))->row();
+            $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
             if ($query) {
                 $query2 = $this->db->where('id', $query->id)->update('web_quickslide', array(
                     'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
                     'quickslide_description' => $this->encryption->decrpyt($data['quickslide_description']),
                     'quickslide_img' => $data2['upload_data']['file_name'],
-                    'quickslide_date' => date('d-m-Y')
+                    'quickslide_date' => time()
                 ));
                 if ($query2) {
                     $this->session->set_flashdata('true', 'Successfully Edit News.');
                     redirect(base_url('adm/newsmanagement'), 'refresh');
                 } else {
                     $this->session->set_flashdata('false', 'Failed To Edit News.');
-                    redirect(base_url('adm/newsmanagement/edit?news_id=' . $query->id), 'refresh');
+                    redirect(base_url('adm/newsmanagement/edit/' . $query->id), 'refresh');
                 }
             } else {
                 $this->session->set_flashdata('false', 'News Data Not Found.');

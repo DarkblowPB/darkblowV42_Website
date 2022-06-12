@@ -17,7 +17,6 @@
                             <th>File Name</th>
                             <th width="10%">Type</th>
                             <th width="10%">Size</th>
-                            <th width="10%">Version</th>
                             <th width="15%">Menu</th>
                         </thead>
                         <tbody>
@@ -26,9 +25,8 @@
                                 <tr id="data_<?= $num ?>">
                                     <td><?= $num; ?></td>
                                     <td><?= $row['file_name'] ?></td>
-                                    <td class="text-uppercase text-bold"><?= $row['type'] ?></td>
-                                    <td><?= $row['size'] ?></td>
-                                    <td><?= $row['version'] ?></td>
+                                    <td class="text-uppercase text-bold"><?= $row['file_type'] ?></td>
+                                    <td><?= $row['file_size'] ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,21 +83,28 @@
                             var GetString = JSON.stringify(data);
                             var Result = JSON.parse(GetString);
 
-                            if (Result.response == 'true') {
-                                document.getElementById(data_id).remove();
-                                ShowToast(2000, 'success', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
-                            } else if (Result.response == 'false') {
-                                SetAttribute(button_id, 'button', 'Delete');
-                                ShowToast(2000, 'error', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
-                            } else {
-                                SetAttribute(button_id, 'button', 'Delete');
-                                ShowToast(2000, 'error', Result.message);
-                                CSRF_TOKEN = Result.token;
-                                return;
+                            ShowToast(2000, Result.response, Result.message);
+                            CSRF_TOKEN = Result.token;
+
+                            switch (Result.response) {
+                                case 'success': {
+                                    document.getElementById(data_id).remove();
+                                    break;
+                                }
+                                case 'error': {
+                                    SetAttribute(button_id, 'button', 'Delete');
+                                    setTimeout(() => {
+                                        window.location = '<?= base_url('adm/clientlaunchermanagement') ?>';
+                                    }, 2000);
+                                    break;
+                                }
+
+                                default: {
+                                    setTimeout(() => {
+                                        window.location = '<?= base_url('adm/clientlaunchermanagement') ?>';
+                                    }, 2000);
+                                    break;
+                                }
                             }
                         },
                         error: function(data) {

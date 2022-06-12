@@ -947,7 +947,7 @@ class Servercommand extends RestController
                 if ($query2) {
                     $response['status'] = 'error';
                     $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'You Already Attendance Today';
+                    $response['message'] = 'You Already Attendance Today.';
 
                     $this->response($response, 200);
                 } else {
@@ -970,61 +970,72 @@ class Servercommand extends RestController
                             if ($insert && $update) {
                                 $response['status'] = 'success';
                                 $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Successfully Attendance. Please Check Your Inventory.';
+                                $response['message'] = 'Successfully Attendance. Please Check Your Inventory. [' . $this->lib->GetItemName($query->item_id) . ']';
 
                                 $this->response($response, 200);
                             } else {
                                 $response['status'] = 'success';
                                 $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed.';
-
-                                $this->response($response, 200);
-                            }
-                        }
-                    } else {
-                        if ($this->servercommand_library->CheckOpenPort('secondary')) {
-                            $data['command_type'] = "Attendance";
-                            $data['player_id'] = $this->session->userdata('uid');
-                            $data['item_id'] = $query->item_id;
-                            $data['category'] = $this->lib->GetItemCategory($query->item_id);
-                            $data['item_name'] = $query->item_name;
-                            $data['count'] = $query->item_count;
-                            if ($this->servercommand_library->SendTcpCommand('secondary', $data) == 'Success') {
-                                $insert = $this->db->insert('check_user_attendance', array(
-                                    'player_id' => $this->session->userdata('uid'),
-                                    'item_reward' => $query->item_id,
-                                    'item_count' => $query->item_count,
-                                    'date_claimed' => $query->date,
-                                    'event_id' => $query->id
-                                ));
-                                $update = $this->db->where('id', $query->id)->update('events_attendance', array('total_claim' => ($query->total_claim + 1)));
-                                if ($insert && $update) {
-                                    $response['status'] = 'success';
-                                    $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Successfully Attendance. Please Check Your Inventory.';
-
-                                    $this->response($response, 200);
-                                } else {
-                                    $response['status'] = 'success';
-                                    $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed.';
-
-                                    $this->response($response, 200);
-                                }
-                            } else {
-                                $response['status'] = 'error';
-                                $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Connection to server canceled.';
+                                $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed. [' . $this->lib->GetItemName($query->item_id) . ']';
 
                                 $this->response($response, 200);
                             }
                         } else {
                             $response['status'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Connection to server canceled.';
+                            $response['message'] = 'Failed To Redeem Code.';
 
                             $this->response($response, 200);
                         }
+                    } else {
+                        $response['status'] = 'error';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Connect To Server.';
+
+                        $this->response($response, 200);
+                        // if ($this->servercommand_library->CheckOpenPort('secondary')) {
+                        //     $data['command_type'] = "Attendance";
+                        //     $data['player_id'] = $this->session->userdata('uid');
+                        //     $data['item_id'] = $query->item_id;
+                        //     $data['category'] = $this->lib->GetItemCategory($query->item_id);
+                        //     $data['item_name'] = $query->item_name;
+                        //     $data['count'] = $query->item_count;
+                        //     if ($this->servercommand_library->SendTcpCommand('secondary', $data) == 'Success') {
+                        //         $insert = $this->db->insert('check_user_attendance', array(
+                        //             'player_id' => $this->session->userdata('uid'),
+                        //             'item_reward' => $query->item_id,
+                        //             'item_count' => $query->item_count,
+                        //             'date_claimed' => $query->date,
+                        //             'event_id' => $query->id
+                        //         ));
+                        //         $update = $this->db->where('id', $query->id)->update('events_attendance', array('total_claim' => ($query->total_claim + 1)));
+                        //         if ($insert && $update) {
+                        //             $response['status'] = 'success';
+                        //             $response['token'] = $this->security->get_csrf_hash();
+                        //             $response['message'] = 'Successfully Attendance. Please Check Your Inventory.';
+
+                        //             $this->response($response, 200);
+                        //         } else {
+                        //             $response['status'] = 'success';
+                        //             $response['token'] = $this->security->get_csrf_hash();
+                        //             $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed.';
+
+                        //             $this->response($response, 200);
+                        //         }
+                        //     } else {
+                        //         $response['status'] = 'error';
+                        //         $response['token'] = $this->security->get_csrf_hash();
+                        //         $response['message'] = 'Connection to server canceled.';
+
+                        //         $this->response($response, 200);
+                        //     }
+                        // } else {
+                        //     $response['status'] = 'error';
+                        //     $response['token'] = $this->security->get_csrf_hash();
+                        //     $response['message'] = 'Connection to server canceled.';
+
+                        //     $this->response($response, 200);
+                        // }
                     }
                 }
             } else {
@@ -1124,7 +1135,7 @@ class Servercommand extends RestController
                             $insert = $this->db->insert('check_user_itemcode', array(
                                 'uid' => $this->session->userdata('uid'),
                                 'item_code' => $query->item_code,
-                                'date_redeemed' => date('d-m-Y h:i:s')
+                                'date_redeemed' => time()
                             ));
                             if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $query->item_name . '.';
                             if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . 'You Received ' . number_format($query->cash, 0, ',', '.') . ' DR-Cash';
@@ -1151,7 +1162,7 @@ class Servercommand extends RestController
                             $insert = $this->db->insert('check_user_itemcode', array(
                                 'uid' => $this->session->userdata('uid'),
                                 'item_code' => $query->item_code,
-                                'date_redeemed' => date('d-m-Y h:i:s')
+                                'date_redeemed' => time()
                             ));
                             if ($insert && $query->type == 'Item') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $query->item_name . '.';
                             if ($insert && $query->type == 'Cash') $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . 'You Received ' . number_format($query->cash, 0, ',', '.') . ' DR-Cash';

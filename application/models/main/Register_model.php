@@ -12,9 +12,10 @@ class Register_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('lib');
-		$this->load->library('email');
 		$this->lang->load('message');
+		$this->load->library('email');
+		$this->load->library('lib');
+		$this->load->library('querylib');
 	}
 
 	function CheckRegisteredAccount($email)
@@ -26,7 +27,7 @@ class Register_model extends CI_Model
 
 	function GenerateRandomToken()
 	{
-		$character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-=?';
+		$character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
 		$length = strlen($character);
 		$tokenlength = 128;
 		$token = '';
@@ -36,31 +37,10 @@ class Register_model extends CI_Model
 		return $token;
 	}
 
-	function SendEmailVerification($email, $username, $token)
+	function SendVerificationEmail($username, $email)
 	{
-		$SmtpConfig = @file_get_contents('./darkblow_config.json');
-		$SmtpParse = json_decode($SmtpConfig);
-
-		foreach ($SmtpParse as $row) {
-			$config = array(
-				'mailtype'  => 'html',
-				'charset'   => 'utf-8',
-				'protocol'  => 'smtp',
-				'smtp_host' => 'smtp.gmail.com', // Your SMTP Host
-				'smtp_user' => $row->SmtpConfig->Email,  // Your Email
-				'smtp_pass'   => $row->SmtpConfig->Password,  // Your Password
-				'smtp_crypto' => 'ssl',
-				'smtp_port'   => 465,
-				'crlf'    => "\r\n",
-				'newline' => "\r\n"
-			);
-		}
-		$this->email->initialize($config);
-
-		$this->email->from('no-reply@yourdomain.com', 'DarkblowPB Reborn');
-		$this->email->to($email);
-		$this->email->subject('Email Verification');
-		$this->email->message('<!DOCTYPE html>
+		$token = $this->GenerateRandomToken();
+		$message = '<!DOCTYPE html>
 		<html lang="en">
 		<head>
 			<meta charset="UTF-8">
@@ -172,12 +152,10 @@ class Register_model extends CI_Model
 				</tbody>
 			</table>
 		</body>
-		</html>');
-		if ($this->email->send()) {
-			return true;
-		} else {
-			return false;
-		}
+		</html>';
+
+		if ($this->querylib->SendEmail('no-reply@darkblowpbreborn.com', $email, 'Verification Account', $message)) return TRUE;
+		else return FALSE;
 	}
 
 	function CheckUsername()
@@ -352,260 +330,76 @@ class Register_model extends CI_Model
 		}
 	}
 
-	function RegisterValidationV3()
+	function RegisterValidationV6()
 	{
+		sleep(1);
 		$response = array();
-
-		$data = array(
-			'login' => $this->encryption->encrypt($this->input->post('login', true)),
-			'email' => $this->encryption->encrypt($this->input->post('email', true)),
-			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true))),
-			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('re_password', true))),
-			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
-			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true)),
-			'email_verification' => '0',
-			'token' => $this->GenerateRandomToken()
+		$status = array(
+			'success' => 0,
+			'failed' => 0
 		);
 
-		if ($this->getsettings->Get()->register != 1) {
-			$response['response'] = 'false';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = $this->lang->line('STR_INFO_12');
-
-			echo json_encode($response);
-		} else {
-
-			// Check Register Events.
-			$query = $this->db->get_where('events_register', array('id' => '1'))->row();
-			if ($query) {
-				// Trigger When Register Events In Active State.
-				if ($query->is_active == 1) {
-					if ($query->stock >= 1) {
-						$query2 = $this->db->insert('accounts', array(
-							'login' => $this->encryption->decrypt($data['login']),
-							'lastip' => $this->input->ip_address(),
-							'email' => $this->encryption->decrypt($data['email']),
-							'password' => $this->encryption->decrypt($data['password']),
-							'hint_question' => $this->encryption->decrypt($data['hint_question']),
-							'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-							'date_registered' => date('d-m-Y h:i:s'),
-							'email_verification' => '0'
-						), true);
-						if ($query2) {
-							// Get Registered Accounts.
-							$query3 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
-							if ($query3) {
-								// Insert Register Events Reward To Player Inventory.
-								$query4 = $this->db->insert('player_items', array(
-									'owner_id' => $query3->player_id,
-									'item_id' => $query->item_id,
-									'item_name' => $query->item_name,
-									'count' => $query->item_count,
-									'category' => $query->item_category,
-									'equip' => '1'
-								));
-								$query5 = $this->db->where('id', $query->id)->update('events_register', array('stock' => ($query->stock - 1)));
-								if ($this->getsettings->Get()->email_verification == 0) {
-									if ($query4 && $query5) {
-										$response['response'] = 'true';
-										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = $this->lang->line('STR_SUCCESS_10');
-
-										echo json_encode($response);
-									} else {
-										$response['response'] = 'false';
-										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = $this->lang->line('STR_ERROR_12');
-
-										echo json_encode($response);
-									}
-								} else {
-									$query6 = $this->db->insert('web_email_confirmation', array(
-										'account_id' => $this->encryption->decrypt($data['login']),
-										'email' => $this->encryption->decrypt($data['email']),
-										'token' => $data['token'],
-										'valid' => '1'
-									));
-									if ($query4 && $query5 && $query6) {
-										if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
-											$response['response'] = 'true';
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = $this->lang->line('STR_SUCCESS_11');
-											echo json_encode($response);
-										} else {
-											$response['response'] = 'true';
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = $this->lang->line('STR_INFO_14');
-											echo json_encode($response);
-										}
-									} else {
-										$response['response'] = 'true';
-										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = $this->lang->line('STR_SUCCESS_11');
-										echo json_encode($response);
-									}
-								}
-							} else {
-								$response['response'] = 'true';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_SUCCESS_11');
-								echo json_encode($response);
-							}
-						} else {
-							$response['response'] = 'false';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = $this->lang->line('STR_ERROR_12');
-							echo json_encode($response);
-						}
-					} else {
-						$query99 = $this->db->where('id', $query->id)->update('events_register', array('is_active' => 'f'));
-						$query2 = $this->db->insert('accounts', array(
-							'login' => $this->encryption->decrypt($data['login']),
-							'lastip' => $this->input->ip_address(),
-							'email' => $this->encryption->decrypt($data['email']),
-							'password' => $this->encryption->decrypt($data['password']),
-							'hint_question' => $this->encryption->decrypt($data['hint_question']),
-							'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-							'date_registered' => date('d-m-Y h:i:s'),
-							'email_verification' => '0'
-						), true);
-						if ($this->getsettings->Get()->email_verification == 0) {
-							if ($query2 && $query99) {
-								$response['response'] = 'true';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_SUCCESS_10');
-
-								echo json_encode($response);
-							} else {
-								$response['response'] = 'false';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_ERROR_12');
-
-								echo json_encode($response);
-							}
-						} else {
-							$query6 = $this->db->insert('web_email_confirmation', array(
-								'account_id' => $this->encryption->decrypt($data['login']),
-								'email' => $this->encryption->decrypt($data['email']),
-								'token' => $data['token'],
-								'valid' => '1'
-							));
-							if ($query2 && $query99 && $query6) {
-								if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
-									$response['response'] = 'true';
-									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = $this->lang->line('STR_SUCCESS_11');
-									echo json_encode($response);
-								} else {
-									$response['response'] = 'true';
-									$response['token'] = $this->security->get_csrf_hash();
-									$response['message'] = $this->lang->line('STR_INFO_14');
-								}
-							} else {
-								$response['response'] = 'false';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_ERROR_12');
-								echo json_encode($response);
-							}
-						}
-					}
-				} else {
-					$query2 = $this->db->insert('accounts', array(
-						'login' => $this->encryption->decrypt($data['login']),
-						'lastip' => $this->input->ip_address(),
-						'email' => $this->encryption->decrypt($data['email']),
-						'password' => $this->encryption->decrypt($data['password']),
-						'hint_question' => $this->encryption->decrypt($data['hint_question']),
-						'hint_answer' => $this->encryption->decrypt($data['hint_answer']),
-						'date_registered' => date('d-m-Y h:i:s'),
-						'email_verification' => '0'
-					), true);
-					if ($this->getsettings->Get()->email_verification == 0) {
-						if ($query2) {
-							$response['response'] = 'true';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = $this->lang->line('STR_SUCCESS_10');
-
-							echo json_encode($response);
-						} else {
-							$response['response'] = 'false';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = $this->lang->line('STR_ERROR_12');
-
-							echo json_encode($response);
-						}
-					} else {
-						$query6 = $this->db->insert('web_email_confirmation', array(
-							'account_id' => $this->encryption->decrypt($data['login']),
-							'email' => $this->encryption->decrypt($data['email']),
-							'token' => $data['token'],
-							'valid' => '1'
-						));
-						if ($query2 && $query6) {
-							if ($this->SendEmailVerification($this->encryption->decrypt($data['email']), $this->encryption->decrypt($data['login']), $data['token'])) {
-								$response['response'] = 'true';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_SUCCESS_11');
-								echo json_encode($response);
-							} else {
-								$response['response'] = 'true';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = $this->lang->line('STR_INFO_14');
-							}
-						} else {
-							$response['response'] = 'false';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = $this->lang->line('STR_ERROR_12');
-							echo json_encode($response);
-						}
-					}
-				}
-			} else {
-				$response['response'] = 'false';
-				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = $this->lang->line('STR_INFO_14');
-				echo json_encode($response);
-			}
-		}
-	}
-
-	function RegisterValidationV4()
-	{
-		$response = array();
 		$data = array(
 			'login' => $this->input->post('login', true),
-			'email' => $this->input->post('email', true),
 			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
-			're_password' => $this->lib->password_encrypt($this->input->post('re_password', true)),
+			'email' => $this->input->post('email', true),
 			'hint_question' => $this->input->post('hint_question', true),
 			'hint_answer' => $this->input->post('hint_answer', true)
 		);
 
-		$insert = $this->db->insert('accounts', $data);
-		if ($insert) {
-			$query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
-			$events = $this->db->get_where('events_register', array('is_active' => 't'))->row();
-			if ($events) {
-				if ($events->stock > 0) {
-					$this->db->insert('player_items', array(
-						'owner_id' => $query->player_id,
-						'item_id' => $events->item_id,
-						'item_name' => $events->item_name,
-						'count' => $events->item_count,
-						'category' => $events->item_category,
-						'equip' => '1'
-					));
+		// Register Function
+		$query = $this->db->insert('accounts', $data);
+		if ($query) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Fetch Account
+		$query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+		if ($query2) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Fetch Register Events
+		$query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+		if ($query3) $status['success'] += 1;
+		else $status['failed'] += 1;
+
+		// Check & Insert Events Item
+		if ($query3) {
+			if ($query3->stock > 1) {
+				$query4 = $this->db->insert('player_items', array(
+					'owner_id' => $query2->player_id,
+					'item_id' => $query3->item_id,
+					'item_name' => $this->lib->GetItemName($query3->item_id),
+					'count' => $query3->item_count,
+					'category' => $this->lib->GetItemCategory($query3->item_id),
+					'equip' => '1'
+				));
+				$query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => $query3->stock - 1));
+				if ($query4 && $query5) {
+					$status['success'] += 1;
+					$response['response'] = 'success';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
+
+					echo json_encode($response);
+				} else {
+					$status['failed'] += 1;
+					$response['response'] = 'success';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
+
+					echo json_encode($response);
 				}
+			} else {
 				$response['response'] = 'success';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = $this->lang->line('STR_SUCCESS_10');
+				$response['message'] = 'Successfully Registered.';
 
 				echo json_encode($response);
 			}
 		} else {
-			$response['response'] = 'error';
+			$response['response'] = 'success';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = $this->lang->line('STR_SUCCESS_25');
+			$response['message'] = 'Successfully Registered.';
 
 			echo json_encode($response);
 		}

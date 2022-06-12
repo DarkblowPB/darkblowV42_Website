@@ -14,7 +14,7 @@ class Querylib
     public function __construct()
     {
         $this->ci = &get_instance();
-        $this->ci->load->database();
+        $this->ci->load->helper('file');
     }
 
     /**
@@ -25,12 +25,12 @@ class Querylib
      * @return string
      * @copyright DarkblowStudio 2021
      */
-    public function InternalAssembly(string $param)
+    public function InternalAssembly($param)
     {
         $string = array(
             'Author' => $this->ci->encryption->encrypt('EyeTracker'),
             'Company' => $this->ci->encryption->encrypt('Darkblow Studio'),
-            'Version' => $this->ci->encryption->encrypt('2.3.1'),
+            'Version' => $this->ci->encryption->encrypt('4.0.0'),
             'Framework' => $this->ci->encryption->encrypt('Codeigniter 3'),
             'PHP_Version' => $this->ci->encryption->encrypt('7.4')
         );
@@ -175,30 +175,55 @@ class Querylib
      * @return bool
      * @copyright DarkblowStudio 2021
      */
-    public function SendEmail($email_address)
+    public function SendEmail($from, $to, $subject, $message)
     {
-        $config = array(
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_user' => 'example@domain.com',
-            'smtp_pass'   => 'example',
-            'smtp_crypto' => 'ssl',
-            'smtp_port'   => 465,
-            'crlf'    => "\r\n",
-            'newline' => "\r\n"
-        );
+        $SmtpConfig = @file_get_contents('./darkblow_config.json');
+        $SmtpParse = json_decode($SmtpConfig);
 
-        $this->load->library('email');
+        foreach ($SmtpParse as $row) {
+            $config = array(
+                'mailtype'  => 'html',
+                'charset'   => 'utf-8',
+                'protocol'  => 'smtp',
+                'smtp_host' => $row->SMTPConfig->Host, // Your SMTP Host
+                'smtp_user' => $row->SMTPConfig->Email,  // Your Email
+                'smtp_pass'   => $row->SMTPConfig->Password,  // Your Password
+                'smtp_crypto' => 'ssl',
+                'smtp_port'   => $row->SMTPConfig->Port, // Your SMTP Port
+                'crlf'    => "\r\n",
+                'newline' => "\r\n"
+            );
+        }
 
-        $this->email->initialize($config);
-        $this->email->from('no_reply@' . $this->ci->getsettings->Get()->project_name . '.com', $this->ci->getsettings->Get()->project_name);
-        $this->email->to($email_address);
-        $this->email->subject('Email Verification');
-        $this->email->message('');
-        if ($this->email->send()) return TRUE;
+        $this->ci->load->library('email');
+
+        $this->ci->email->initialize($config);
+        $this->ci->email->from($from, $this->ci->getsettings->Get()->project_name);
+        $this->ci->email->to($to);
+        $this->ci->email->subject($subject);
+        $this->ci->email->message($message);
+        if ($this->ci->email->send()) return TRUE;
         else return FALSE;
+    }
+
+    public function BannedAllPlayers()
+    {
+        $response = array();
+
+        $query = $this->ci->db->update('accounts', array('access_level' => '-1'));
+        if ($query) {
+            $response['response'] = 'Success';
+            $response['token'] = $this->ci->security->get_csrf_hash();
+            $response['message'] = 'Successfully Banned All Players.';
+
+            echo json_encode($response);
+        } else {
+            $response['response'] = 'Success';
+            $response['token'] = $this->ci->security->get_csrf_hash();
+            $response['message'] = 'Failed To Banned All Players.';
+
+            echo json_encode($response);
+        }
     }
 }
 

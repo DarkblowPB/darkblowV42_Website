@@ -17,19 +17,40 @@
                             <label>
                                 <?= $this->lang->line('STR_DARKBLOW_55') ?>
                             </label>
-                            <input type="password" class="form-control" id="old_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_160') ?>" minlength="4" maxlength="16" autofocus>
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="password" class="form-control" id="old_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_160') ?>" minlength="4" maxlength="16" autofocus required>
+                                </div>
+                                <div class="col-3">
+                                    <input type="button" id="show_old_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword('old_password', 'show_old_password', '0')">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>
                                 <?= $this->lang->line('STR_DARKBLOW_56') ?>
                             </label>
-                            <input type="password" class="form-control" id="new_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_161') ?>" minlength="4" maxlength="16">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="password" class="form-control" id="new_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_161') ?>" minlength="4" maxlength="16" required>
+                                </div>
+                                <div class="col-3">
+                                    <input type="button" id="show_new_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword('new_password', 'show_new_password', '0')">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>
                                 <?= $this->lang->line('STR_DARKBLOW_57') ?>
                             </label>
-                            <input type="password" class="form-control" id="confirm_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" value="<?= set_value('confirm_password') ?>" minlength="4" maxlength="16">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="password" class="form-control" id="confirm_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" value="<?= set_value('confirm_password') ?>" minlength="4" maxlength="16" required>
+                                </div>
+                                <div class="col-3">
+                                    <input type="button" id="show_confirm_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword('confirm_password', 'show_confirm_password', '0')">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>
@@ -60,7 +81,7 @@
                             <label>
                                 <?= $this->lang->line('STR_DARKBLOW_23') ?>
                             </label>
-                            <input type="text" class="form-control" id="hint_answer" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" autocomplete="off">
+                            <input type="text" class="form-control" id="hint_answer" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" required>
                         </div>
                         <div class="nk-gap"></div>
                         <div class="form-group text-center">
@@ -166,6 +187,25 @@
                                             }
                                         }
                                     });
+                                }
+                            }
+
+                            function ShowPassword(button_target, this_button, type) {
+                                var Button = document.getElementById(button_target);
+                                var Button2 = document.getElementById(this_button);
+                                var OnclickValue_01 = "ShowPassword('" + button_target + "', '" + this_button + "', '1')";
+                                var OnclickValue_02 = "ShowPassword('" + button_target + "', '" + this_button + "', '0')";
+
+                                if (type == '0') // Show Password
+                                {
+                                    Button.setAttribute('type', 'text');
+                                    Button2.setAttribute('value', 'Hide');
+                                    Button2.setAttribute('onclick', OnclickValue_01);
+                                } else if (type == '1') // Hide Password
+                                {
+                                    Button.setAttribute('type', 'password');
+                                    Button2.setAttribute('value', 'Show');
+                                    Button2.setAttribute('onclick', OnclickValue_02);
                                 }
                             }
                         </script>

@@ -46,3 +46,4 @@ node_modules/*
 application/controllers/adm2/*
 application/models/admin2/*
 application/views/admin2/*
+application/controllers/Test.php

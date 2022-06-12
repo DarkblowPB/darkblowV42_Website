@@ -73,6 +73,56 @@ class Home extends CI_Controller
 		$response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->num_rows();
 		echo json_encode($response);
 	}
+
+	function verifyaccount($secret_token = null)
+	{
+		if ($secret_token == null) redirect(base_url(), 'refresh');
+		else {
+			switch ($this->home->VerifyAccountValidator($secret_token)) {
+				case 'Successfully Activate Account': {
+						$data = array(
+							'title' => 'Activate Account',
+							'state' => 'success',
+							'isi' => 'main/content/home/content_verifyaccount',
+						);
+						$this->load->view('main/layout/wrapper', $data, FALSE);
+						break;
+					}
+				case 'Failed To Activate Account': {
+
+						$data = array(
+							'title' => 'Activate Account',
+							'state' => 'error_failed',
+							'isi' => 'main/content/home/content_verifyaccount',
+						);
+						$this->load->view('main/layout/wrapper', $data, FALSE);
+						break;
+					}
+				case 'Fatal Error': {
+						$data = array(
+							'title' => 'Activate Account',
+							'state' => 'error_fatal',
+							'isi' => 'main/content/home/content_verifyaccount',
+						);
+						$this->load->view('main/layout/wrapper', $data, FALSE);
+						break;
+					}
+				case 'Invalid Secret Token': {
+						$data = array(
+							'title' => 'Activate Account',
+							'state' => 'error_invalid',
+							'isi' => 'main/content/home/content_verifyaccount',
+						);
+						$this->load->view('main/layout/wrapper', $data, FALSE);
+						break;
+					}
+				default: {
+						redirect(base_url(), 'refresh');
+						break;
+					}
+			}
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

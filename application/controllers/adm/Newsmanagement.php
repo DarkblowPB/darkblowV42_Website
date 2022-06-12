@@ -86,7 +86,7 @@ class Newsmanagement extends CI_Controller
                 'required',
                 array('required' => '%s Cannot Be Empty.')
             );
-            if ($this->form_validation->run()) $this->newsmanagement->EditNews();
+            if ($this->form_validation->run()) $this->newsmanagement->EditNews($news_id);
             else {
                 $data['title'] = 'Edit News';
                 $data['header'] = 'Edit News';
