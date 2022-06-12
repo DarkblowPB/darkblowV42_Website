@@ -104,56 +104,91 @@ class Eventsattendance_model extends CI_Model
         echo json_encode($response);
     }
 
+    function CreateEvents7DaysV2()
+    {
+        $response = array();
+
+        $data = array(
+            0 => $this->input->post('reward_day_1', true),
+            1 => $this->input->post('reward_day_2', true),
+            2 => $this->input->post('reward_day_3', true),
+            3 => $this->input->post('reward_day_4', true),
+            4 => $this->input->post('reward_day_5', true),
+            5 => $this->input->post('reward_day_6', true),
+            6 => $this->input->post('reward_day_7', true),
+            7 => $this->input->post('reward_duration', true)
+        );
+
+        $num = 0;
+        $state = array(
+            'success' => 0,
+            'failed' => 0
+        );
+
+        for ($i = 0; $i < count($data) - 1; $i++) {
+            $query = $this->db->insert('events_attendance', array(
+                'day' => ++$num,
+                'item_id' => $data[$i],
+                'item_name' => $this->lib->GetItemName($data[$i]),
+                'item_count' => $data[7],
+                'total_claim' => '0',
+                'date' => date('d', strtotime('+ ' . $i . ' day', time())) . '-' . date('m') . '-' . date('Y')
+            ));
+            if ($query) $state['success'] += 1;
+            else $state['failed'] += 1;
+        }
+
+        $response['response'] = 'success';
+        $response['token'] = $this->security->get_csrf_hash();
+        $response['message'] = 'Successfully Create Attendance Event [Success: ' . $state['success'] . '] [Failed: ' . $state['failed'] . ']';
+
+        echo json_encode($response);
+    }
+
     function CreateEvents14Days()
     {
         $response = array();
 
         $data = array(
-            1 => $this->encryption->encrypt($this->input->post('reward_day_1', true)),
-            2 => $this->encryption->encrypt($this->input->post('reward_day_2', true)),
-            3 => $this->encryption->encrypt($this->input->post('reward_day_3', true)),
-            4 => $this->encryption->encrypt($this->input->post('reward_day_4', true)),
-            5 => $this->encryption->encrypt($this->input->post('reward_day_5', true)),
-            6 => $this->encryption->encrypt($this->input->post('reward_day_6', true)),
-            7 => $this->encryption->encrypt($this->input->post('reward_day_7', true)),
-            8 => $this->encryption->encrypt($this->input->post('reward_day_8', true)),
-            9 => $this->encryption->encrypt($this->input->post('reward_day_9', true)),
-            10 => $this->encryption->encrypt($this->input->post('reward_day_10', true)),
-            11 => $this->encryption->encrypt($this->input->post('reward_day_11', true)),
-            12 => $this->encryption->encrypt($this->input->post('reward_day_12', true)),
-            13 => $this->encryption->encrypt($this->input->post('reward_day_13', true)),
-            14 => $this->encryption->encrypt($this->input->post('reward_day_14', true)),
-            15 => $this->encryption->encrypt($this->input->post('reward_duration', true))
+            0 => $this->input->post('reward_day_1', true),
+            1 => $this->input->post('reward_day_2', true),
+            2 => $this->input->post('reward_day_3', true),
+            3 => $this->input->post('reward_day_4', true),
+            4 => $this->input->post('reward_day_5', true),
+            5 => $this->input->post('reward_day_6', true),
+            6 => $this->input->post('reward_day_7', true),
+            7 => $this->input->post('reward_day_8', true),
+            8 => $this->input->post('reward_day_9', true),
+            9 => $this->input->post('reward_day_10', true),
+            10 => $this->input->post('reward_day_11', true),
+            11 => $this->input->post('reward_day_12', true),
+            12 => $this->input->post('reward_day_13', true),
+            13 => $this->input->post('reward_day_14', true),
+            14 => $this->input->post('reward_duration', true)
         );
 
-        $date = array(
-            'full_date' => date('d-m-Y'),
-            'day' => date('d'),
-            'month' => date('m'),
-            'year' => date('Y')
-        );
-
+        $num = 0;
         $state = array(
             'success' => 0,
-            'fail' => 0
+            'failed' => 0
         );
 
-        for ($i = 1; $i <= 15; $i++) {
+        for ($i = 0; $i < count($data) - 1; $i++) {
             $query = $this->db->insert('events_attendance', array(
-                'day' => $i,
-                'item_id' => $this->encryption->decrypt($data[$i]),
-                'item_name' => $this->lib->GetItemName($this->encryption->decrypt($data[$i])),
-                'item_count' => $this->encryption->decrypt($data[8]),
+                'day' => ++$num,
+                'item_id' => $data[$i],
+                'item_name' => $this->lib->GetItemName($data[$i]),
+                'item_count' => $data[13],
                 'total_claim' => '0',
-                'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']
+                'date' => date('d', strtotime('+ ' . $i . ' day', time())) . '-' . date('m') . '-' . date('Y')
             ));
-            if ($query) $state['success']++;
-            else $state['fail']++;
+            if ($query) $state['success'] += 1;
+            else $state['failed'] += 1;
         }
 
-        $response['response'] = 'true';
+        $response['response'] = 'success';
         $response['token'] = $this->security->get_csrf_hash();
-        $response['message'] = 'Successfully Create [' . $state['success'] . '] Events. Failed [' . $state['fail'] . ']';
+        $response['message'] = 'Successfully Create Attendance Event [Success: ' . $state['success'] . '] [Failed: ' . $state['failed'] . ']';
 
         echo json_encode($response);
     }

@@ -562,6 +562,28 @@ class Lib
 	{
 		return date('d-m-Y H:i:s', $unixtimestamp);
 	}
+
+	public function ObfuscateEmail($email)
+	{
+		$em   = explode("@", $email);
+		$name = implode('@', array_slice($em, 0, count($em) - 1));
+		$len  = floor(strlen($name) / 2);
+
+		echo substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($em);
+	}
+
+	public function GenerateRandomTokenV2($token_length = null)
+	{
+		$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$length = strlen($characters);
+		$token = '';
+
+		if ($token_length == null) return "Invalid_Token";
+		else {
+			for ($i = 0; $i < $token_length; $i++) $token .= $characters[rand(0, $length - 1)];
+			return $token;
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

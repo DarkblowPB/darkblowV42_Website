@@ -142,7 +142,7 @@ class Attendance extends CI_Controller
                 'in_list' => '%s Invalid.'
             )
         );
-        if ($this->form_validation->run()) $this->attendance->CreateEvents7Days();
+        if ($this->form_validation->run()) $this->attendance->CreateEvents7DaysV2();
         else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();

@@ -14,18 +14,7 @@ class Forgotpassword_model extends CI_Model
         parent::__construct();
         $this->load->library('email');
         $this->load->library('querylib');
-    }
-
-    function GenerateForgotPasswordLink()
-    {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        $characters_length = strlen($characters);
-        $token = '';
-        $token_length = 128;
-
-        for ($i = 0; $i < $token_length; $i++) $token .= $characters[rand(0, $characters_length - 1)];
-
-        return $token;
+        $this->load->library('lib');
     }
 
     function ForgotPasswordValidationV1()
@@ -40,7 +29,7 @@ class Forgotpassword_model extends CI_Model
         if ($query) {
 
             // Required Data
-            $token = $this->GenerateForgotPasswordLink();
+            $token = $this->lib->GenerateRandomTokenV2(128);
             $link = base_url('forgotpassword/verifyid/' . $token);
             $expired_date = strtotime('+3 day', time());
             $message = 'Hey ' . $query->email . ', We confirmed you trying to reset your password at ' . $this->lib->ParseUnixTimeStamp(time()) . '.<br>

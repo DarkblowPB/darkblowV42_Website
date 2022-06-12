@@ -37,6 +37,11 @@ class Home extends CI_Controller
 	{
 		$this->player->RequestHint();
 	}
+
+	function do_requestverificationemail()
+	{
+		$this->player->RequestVerificationEmail();
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -12,9 +12,10 @@ class Register_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('email');
 		$this->lang->load('message');
+		$this->load->library('email');
 		$this->load->library('lib');
+		$this->load->library('querylib');
 	}
 
 	function CheckRegisteredAccount($email)
@@ -26,7 +27,7 @@ class Register_model extends CI_Model
 
 	function GenerateRandomToken()
 	{
-		$character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-=?';
+		$character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
 		$length = strlen($character);
 		$tokenlength = 128;
 		$token = '';
@@ -36,36 +37,10 @@ class Register_model extends CI_Model
 		return $token;
 	}
 
-	function SendEmailVerification($email, $username, $token)
+	function SendVerificationEmail($username, $email)
 	{
-		$SmtpData = array(
-			'from' => 'no-reply@darkblowpbreborn.com',
-			'project_name' => $this->getsettings->Get()->project_name,
-			'subject' => 'Confirmation Email',
-		);
-		$SmtpConfig = @file_get_contents('./darkblow_config.json');
-		$SmtpParse = json_decode($SmtpConfig);
-
-		foreach ($SmtpParse as $row) {
-			$config = array(
-				'mailtype'  => 'html',
-				'charset'   => 'utf-8',
-				'protocol'  => 'smtp',
-				'smtp_host' => $row->SmtpConfig->Host, // Your SMTP Host
-				'smtp_user' => $row->SmtpConfig->Email,  // Your Email
-				'smtp_pass'   => $row->SmtpConfig->Password,  // Your Password
-				'smtp_crypto' => 'ssl',
-				'smtp_port'   => 465,
-				'crlf'    => "\r\n",
-				'newline' => "\r\n"
-			);
-		}
-		$this->email->initialize($config);
-
-		$this->email->from($SmtpData['from'], $SmtpData['project_name']);
-		$this->email->to($email);
-		$this->email->subject($SmtpData['subject']);
-		$this->email->message('<!DOCTYPE html>
+		$token = $this->GenerateRandomToken();
+		$message = '<!DOCTYPE html>
 		<html lang="en">
 		<head>
 			<meta charset="UTF-8">
@@ -177,12 +152,10 @@ class Register_model extends CI_Model
 				</tbody>
 			</table>
 		</body>
-		</html>');
-		if ($this->email->send()) {
-			return true;
-		} else {
-			return false;
-		}
+		</html>';
+
+		if ($this->querylib->SendEmail('no-reply@darkblowpbreborn.com', $email, 'Verification Account', $message)) return TRUE;
+		else return FALSE;
 	}
 
 	function CheckUsername()
@@ -354,115 +327,6 @@ class Register_model extends CI_Model
 				$response['message'] = $this->lang->line('STR_ERROR_44');
 				echo json_encode($response);
 			}
-		}
-	}
-
-	function RegisterValidationV4()
-	{
-		$response = array();
-		$data = array(
-			'login' => $this->input->post('login', true),
-			'email' => $this->input->post('email', true),
-			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
-			're_password' => $this->lib->password_encrypt($this->input->post('re_password', true)),
-			'hint_question' => $this->input->post('hint_question', true),
-			'hint_answer' => $this->input->post('hint_answer', true)
-		);
-
-		$insert = $this->db->insert('accounts', $data);
-		if ($insert) {
-			$query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
-			$events = $this->db->get_where('events_register', array('is_active' => 't'))->row();
-			if ($events) {
-				if ($events->stock > 0) {
-					$this->db->insert('player_items', array(
-						'owner_id' => $query->player_id,
-						'item_id' => $events->item_id,
-						'item_name' => $events->item_name,
-						'count' => $events->item_count,
-						'category' => $events->item_category,
-						'equip' => '1'
-					));
-					$this->db->where('id', $events->id)->update('events_register', array('stock' => ($events->stock - 1)));
-				}
-				$response['response'] = 'success';
-				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = $this->lang->line('STR_SUCCESS_10');
-
-				echo json_encode($response);
-			}
-		} else {
-			$response['response'] = 'error';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = $this->lang->line('STR_SUCCESS_25');
-
-			echo json_encode($response);
-		}
-	}
-
-	function RegisterValidationV5()
-	{
-		sleep(1);
-		$response = array();
-
-		$data = array(
-			'login' => $this->input->post('login', true),
-			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
-			'email' => $this->input->post('email', true),
-			'hint_question' => $this->input->post('hint_question', true),
-			'hint_answer' => $this->input->post('hint_answer', true)
-		);
-
-		$insert = $this->db->insert('accounts', $data);
-		if ($insert) {
-			$query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
-			if ($query) {
-				$events = $this->db->get_where('events_register', array('is_active' => 't'))->row();
-				if ($events) {
-					if ($events->stock > 1) {
-						$insert2 = $this->db->insert('player_items', array(
-							'owner_id' => $query->player_id,
-							'item_id' => $events->item_id,
-							'item_name' => $this->lib->GetItemName($events->item_id),
-							'count' => $events->item_count,
-							'category' => $this->lib->GetItemCategory($events->item_id),
-							'equip' => '1'
-						));
-						$update = $this->db->where('id', $events->id)->update('events_register', array('stock' => ($events->stock - 1)));
-						if ($insert2 && $update) {
-							$response['response'] = 'success';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered. Check Your Inventory For Benefits Rewards.';
-
-							echo json_encode($response);
-						} else {
-							$response['response'] = 'success';
-							$response['token'] = $this->security->get_csrf_hash();
-							$response['message'] = 'Successfully Registered';
-
-							echo json_encode($response);
-						}
-					} else {
-						$response['response'] = 'success';
-						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Successfully Registered';
-
-						echo json_encode($response);
-					}
-				}
-			} else {
-				$response['response'] = 'success';
-				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Successfully Registered';
-
-				echo json_encode($response);
-			}
-		} else {
-			$response['response'] = 'error';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Failed To Register Your Account.';
-
-			echo json_encode($response);
 		}
 	}
 

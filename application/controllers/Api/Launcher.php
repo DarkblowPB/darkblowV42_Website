@@ -216,6 +216,71 @@ class Launcher extends RestController
             }
         }
     }
+
+    function register_post()
+    {
+        $response = array();
+
+        $data = array(
+            'login' => $this->input->post('login', true),
+            'email' => $this->input->post('email', true),
+            'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+            'hint_question' => $this->input->post('hint_question', true),
+            'hint_answer' => $this->input->post('hint_answer', true),
+        );
+
+        // State 1 => Find Same Username Value
+        $query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+        if ($query) {
+            $response['status'] = 'error';
+            $response['message'] = 'Username Already Used.';
+
+            $this->response($response, 200);
+        }
+
+        // State 2 => Find Same Email Value
+        $query2 = $this->db->get_where('accounts', array('email' => $data['email']))->row();
+        if ($query2) {
+            $response['status'] = 'error';
+            $response['message'] = 'Email Already Used.';
+
+            $this->response($response, 200);
+        }
+
+        // State 3 => Register Account
+        $query3 = $this->db->insert('accounts', $data);
+        if ($query3) {
+            $response['status'] = 'success';
+            $response['message'] = 'Successfully Registered.';
+
+            $this->response($response, 200);
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed To Register Your Account. Please Register Through Website.';
+
+            $this->response($response, 200);
+        }
+    }
+
+    function generatecustomcsrf_get()
+    {
+        $customCSRFList = array(
+            0 => '11001011100010101100001100000111010101001100011111001101101100101101011111000101110001111011110100001110111011010110001101110000',
+            1 => '00000110101001011110110100111111001000101011000010101110110111011001100001001000011000100011000101010110111100101111010001001011',
+            2 => '10011101001111011101000101110111001101010001011111011011101000101101111010001010101001111010011000110110011011111010011101100110',
+            3 => '10011000010101100011100001010111001011111010111101001100000110001100011101100100111011011111101101110001011100110000000011101010',
+            4 => '11010000010110100101101011101111111111101101111101101100010011111001011101101101001101100100000000001011111000010111001111011010',
+            5 => '01101111000110110101010011100111010111101011100000010111000100001000011011011101010000001000011010011111110001100001000100110101',
+            6 => '11100111111011010010101111000010011111001000101001000110111000011110000110101100110111111100000101000001101011111110010110111001',
+            7 => '01111111111011111011001000100000110101110101100110110111101001000000111000011011010000001111100001000110001110010101110010010010',
+            8 => '11011111001101100100101100110010011100110000111010110011100010100001100010100010110110101010011011011000001010000110111000100100',
+            9 => '11101011110111101111101101010000000100011000110001101101110000110000000010000011110110011110100001110000001110111100011110000011',
+        );
+
+        $randomize = rand(0, 9);
+
+        echo $customCSRFList[$randomize];
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
