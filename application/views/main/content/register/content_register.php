@@ -92,7 +92,7 @@
                                     <input type="button" id="cancelgoogleregistration" value="<?= $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
                                 <?php endif; ?>
                                 <?php if (!isset($_SESSION['g_email'])) : ?>
-                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?= base_url('register/g_register') ?>';"><span class="fa fa-google"></span> &nbsp;<?= $this->lang->line('STR_DARKBLOW_156') ?></button>
+                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?= base_url('register/g_register') ?>'"><span class="fa fa-google"></span> &nbsp;<?= $this->lang->line('STR_DARKBLOW_156') ?></button>
                                 <?php endif; ?>
                                 <div class="nk-gap-1"></div>
                             </div>

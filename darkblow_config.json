@@ -8,10 +8,10 @@
       "Version": "1.15.42.30"
     },
     "SMTPConfig": {
-      "Host": "trystane.id.rapidplex.com",
+      "Host": "",
       "Port" : 465,
-      "Email": "administrator@darkblowpbreborn.com",
-      "Password": "imamkbm123!@#"
+      "Email": "",
+      "Password": ""
     },
     "CredentialsConfig": {
       "primary_host": {

@@ -147,39 +147,26 @@ class Register extends CI_Controller
 		$g_decode = json_decode($g_config);
 
 		foreach ($g_decode as $row) {
-			// Enter Your Client ID
 			$google_client->setClientId($row->GoogleConfig->ClientID);
-
-			// Enter Your Client Secret Code
 			$google_client->setClientSecret($row->GoogleConfig->ClientSecret);
 		}
 
 		$google_client->setRedirectUri(base_url('register/g_register'));
 		$google_client->addScope('email');
-		$google_client->addScope('profile');
 
-		if (!empty($this->input->get('code', true))) {
-			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
-			if (!empty($token['error'])) {
+		if (!empty($this->input->get('code'))) {
+			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code'));
+			if (!isset($token["error"])) {
 				$google_client->setAccessToken($token['access_token']);
 				$google_service = new Google_Service_Oauth2($google_client);
 				$data = $google_service->userinfo->get();
-				$user_data = array(
-					'g_email' => $data['email']
-				);
-				$this->session->set_userdata('g_access_token', $token['access_token']);
-				$this->session->set_userdata('g_email', $user_data['g_email']);
 
-				if ($this->register->CheckRegisteredAccount($user_data['g_email'])) redirect(base_url('register'), 'refresh');
-				else {
-					$this->session->unset_userdata('access_token');
-					$this->session->unset_userdata('g_email');
-					echo "<script>alert('This Email Already Registered. Please Use Another Email.');window.location='" . base_url('register') . "'</script>";
-				}
+				$this->session->set_userdata('access_token', $token['access_token']);
+				$this->session->set_userdata('g_email', $data['email']);
+				redirect(base_url('register'), 'refresh');
 			}
 		}
-
-		if (!$this->session->userdata('access_token')) redirect(base_url('register'), 'refresh');
+		if ($this->session->userdata('access_token') == '') redirect($google_client->createAuthUrl(), 'refresh');
 		else redirect(base_url('register'), 'refresh');
 	}
 
