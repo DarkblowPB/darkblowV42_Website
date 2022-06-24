@@ -42,6 +42,7 @@
     <!-- END: Styles -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/css/ldbtn.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/css/loading.min.css">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <noscript>
         <?= $this->lang->line('STR_WARNING_23') ?>
     </noscript>

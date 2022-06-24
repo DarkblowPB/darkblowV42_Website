@@ -47,3 +47,7 @@ application/controllers/adm2/*
 application/models/admin2/*
 application/views/admin2/*
 application/controllers/Test.php
+application/config/recaptcha.php
+application/libraries/Recaptcha.php
+application/models/Test_model.php
+application/controllers/Test.php

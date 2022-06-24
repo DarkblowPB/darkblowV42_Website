@@ -584,6 +584,79 @@ class Lib
 			return $token;
 		}
 	}
+
+	public function SetRandomInputFieldName()
+	{
+		$randomstring = $this->GenerateRandomTokenV2(32);
+		$salt = '/x!a@r-$r%an¨.&e&+f*f(f(a)';
+		$result = hash_hmac('gost-crypto', $randomstring, $salt);
+		return $result;
+	}
+
+	public function SetRegisterPageInputProperty()
+	{
+		$login = $this->SetRandomInputFieldName();
+		$password = $this->SetRandomInputFieldName();
+		$re_password = $this->SetRandomInputFieldName();
+		$email = $this->SetRandomInputFieldName();
+		$hint_question = $this->SetRandomInputFieldName();
+		$hint_answer = $this->SetRandomInputFieldName();
+
+		$sessionData = array(
+			'username_field' => $login,
+			'password_field' => $password,
+			're_password_field' => $re_password,
+			'email_field' => $email,
+			'hint_question_field' => $hint_question,
+			'hint_answer_field' => $hint_answer
+		);
+
+		$this->ci->session->set_userdata($sessionData);
+	}
+
+	public function GetRegisterPageInputProperty($session_key = null)
+	{
+		if ($session_key == null) return '';
+		else {
+			switch ($session_key) {
+				case 'username_field':
+					return $this->ci->session->userdata('username_field');
+				case 'password_field':
+					return $this->ci->session->userdata('password_field');
+				case 're_password_field':
+					return $this->ci->session->userdata('re_password_field');
+				case 'email_field':
+					return $this->ci->session->userdata('email_field');
+				case 'hint_question_field':
+					return $this->ci->session->userdata('hint_question_field');
+				case 'hint_answer_field':
+					return $this->ci->session->userdata('hint_answer_field');
+				default:
+					return '';
+			}
+		}
+	}
+
+	public function DestroyRegisterPageInputProperty(bool $isRegenerate = false)
+	{
+		if (!$isRegenerate) {
+			$this->ci->session->unset_userdata('username_field');
+			$this->ci->session->unset_userdata('password_field');
+			$this->ci->session->unset_userdata('re_password_field');
+			$this->ci->session->unset_userdata('email_field');
+			$this->ci->session->unset_userdata('hint_question_field');
+			$this->ci->session->unset_userdata('hint_answer_field');
+		} else {
+			$this->ci->session->unset_userdata('username_field');
+			$this->ci->session->unset_userdata('password_field');
+			$this->ci->session->unset_userdata('re_password_field');
+			$this->ci->session->unset_userdata('email_field');
+			$this->ci->session->unset_userdata('hint_question_field');
+			$this->ci->session->unset_userdata('hint_answer_field');
+
+			$this->SetRegisterPageInputProperty();
+		}
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

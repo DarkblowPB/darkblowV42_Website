@@ -8,12 +8,22 @@
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
-                        <?= form_open('', 'id="register_form" autocomplete="off"'); ?>
+                        <?php if ($this->session->flashdata('success')) : ?>
+                            <div class="alert alert-success" role="alert"><?= $this->session->flashdata('success') ?></div>
+                        <?php endif ?>
+                        <?php if ($this->session->flashdata('error')) : ?>
+                            <div class="alert alert-danger" role="alert"><?= $this->session->flashdata('error') ?></div>
+                        <?php endif ?>
+                        <?= validation_errors('<div class="alert alert-danger" role="alert">', '</div>') ?>
+                        <?= form_open(base_url('register/do_register'), 'id="register_form" autocomplete="off"', array(
+                            'custom_csrf' => $this->lib->GenerateRandomTokenV2(128),
+                            'custom_csrf2' => ''
+                        )); ?>
                         <div class="form-group">
                             <label for="username"><?= $this->lang->line('STR_DARKBLOW_40') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="text" class="form-control" id="login" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
+                                    <input type="text" class="form-control" id="login" name="<?= $this->session->userdata('username_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
@@ -26,14 +36,14 @@
                                 <label class="form-control"><?= $_SESSION['g_email'] ?></label>
                             <?php endif; ?>
                             <?php if (empty($this->session->userdata('g_email'))) : ?>
-                                <input type="mail" class="form-control" id="email" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>" required>
+                                <input type="mail" class="form-control" id="email" name="<?= $this->session->userdata('email_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>" required>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label for="password"><?= $this->lang->line('STR_DARKBLOW_42') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
+                                    <input type="password" id="password" name="<?= $this->session->userdata('password_field') ?>" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
@@ -44,7 +54,7 @@
                             <label for="re_password"><?= $this->lang->line('STR_DARKBLOW_57') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="password" class="form-control" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
+                                    <input type="password" class="form-control" name="<?= $this->session->userdata('re_password_field') ?>" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="show_re_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowRePassword()">
@@ -53,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <label><?= $this->lang->line('STR_DARKBLOW_21') ?></label>
-                            <select class="form-control" id="hint_question" required>
+                            <select class="form-control" id="hint_question" name="<?= $this->session->userdata('hint_question_field') ?>" required>
                                 <option value="" disabled selected><?= $this->lang->line('STR_DARKBLOW_22') ?></option>
                                 <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                 <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -74,7 +84,7 @@
                         </div>
                         <div class="form-group">
                             <label><?= $this->lang->line('STR_DARKBLOW_23') ?></label>
-                            <input type="text" class="form-control" id="hint_answer" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" required>
+                            <input type="text" class="form-control" id="hint_answer" name="<?= $this->session->userdata('hint_answer_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" required>
                         </div>
                         <div class="nk-gap"></div>
                         <div class="form-group text-center">
@@ -119,23 +129,12 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
+                                            if (Result.response == 'success') document.getElementById('submit').setAttribute('onclick', '');
+
+                                            SetAttribute('check_username', 'button', '<?= $this->lang->line('STR_DARKBLOW_202') ?>');
                                             SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
                                             ShowToast(2000, Result.response, Result.message);
                                             CSRF_TOKEN = Result.token;
-
-                                            if (Result.response == 'true') {
-                                                document.getElementById('submit').setAttribute('onclick', '');
-                                                SetAttribute('check_username', 'button', '<?= $this->lang->line('STR_DARKBLOW_202') ?>');
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('check_username', 'button', '<?= $this->lang->line('STR_DARKBLOW_202') ?>');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
                                         },
                                         error: function() {
                                             if (RETRY >= 3) {
@@ -177,12 +176,6 @@
                                 }
                             }
 
-                            $('#register_form').on('submit', function(e) {
-                                e.preventDefault();
-
-                                return Do_Register();
-                            });
-
                             function Do_Register() {
                                 if ($('#login').val() == '') {
                                     ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_1') ?>');
@@ -218,6 +211,8 @@
                                         dataType: 'JSON',
                                         data: {
                                             '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                            'custom_csrf': $('#custom_csrf').val(),
+                                            'custom_csrf2': $('#custom_csrf2').val(),
                                             'login': $('#login').val(),
                                             <?php if (!empty($this->session->userdata('g_email'))) : ?> 'email': '<?= $this->session->userdata('g_email') ?>',
                                             <?php endif; ?>

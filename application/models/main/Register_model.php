@@ -168,12 +168,12 @@ class Register_model extends CI_Model
 
 		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();
 		if ($query) {
-			$response['response'] = 'false';
+			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_43');
 			echo json_encode($response);
 		} else {
-			$response['response'] = 'true';
+			$response['response'] = 'success';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_INFO_11');
 			echo json_encode($response);
@@ -333,75 +333,83 @@ class Register_model extends CI_Model
 	function RegisterValidationV6()
 	{
 		sleep(1);
-		$response = array();
 		$status = array(
 			'success' => 0,
 			'failed' => 0
 		);
 
+
 		$data = array(
-			'login' => $this->input->post('login', true),
-			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
-			'email' => $this->input->post('email', true),
-			'hint_question' => $this->input->post('hint_question', true),
-			'hint_answer' => $this->input->post('hint_answer', true)
+			'custom_csrf' => strlen($this->input->post('custom_csrf', true)),
+			'custom_csrf2' => $this->input->post('custom_csrf2', true),
+			'login' => $this->input->post($this->session->userdata('username_field'), true),
+			'password' => $this->lib->password_encrypt($this->input->post($this->session->userdata('password_field'), true)),
+			'email' => $this->input->post($this->session->userdata('email_field'), true),
+			'hint_question' => $this->input->post($this->session->userdata('hint_question_field'), true),
+			'hint_answer' => $this->input->post($this->session->userdata('hint_answer_field'), true)
 		);
 
-		// Register Function
-		$query = $this->db->insert('accounts', $data);
-		if ($query) $status['success'] += 1;
-		else $status['failed'] += 1;
+		if ($data['custom_csrf'] != 128) {
+			$this->lib->DestroyRegisterPageInputProperty(false);
+			$this->session->set_flashdata('error', 'Failed To Register Your Account');
+			redirect(base_url('register'), 'refresh');
+		} else if ($data['custom_csrf2'] != '') {
+			$this->lib->DestroyRegisterPageInputProperty(false);
+			$this->session->set_flashdata('error', 'Failed To Register Your Account');
+			redirect(base_url('register'), 'refresh');
+		} else {
+			// Register Function
+			$query = $this->db->insert('accounts', array(
+				'login' => $data['login'],
+				'password' => $data['password'],
+				'email' => $data['email'],
+				'hint_question' => $data['hint_question'],
+				'hint_answer' => $data['hint_answer']
+			));
+			if ($query) $status['success'] += 1;
+			else $status['failed'] += 1;
 
-		// Fetch Account
-		$query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
-		if ($query2) $status['success'] += 1;
-		else $status['failed'] += 1;
+			// Fetch Account
+			$query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+			if ($query2) $status['success'] += 1;
+			else $status['failed'] += 1;
 
-		// Fetch Register Events
-		$query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
-		if ($query3) $status['success'] += 1;
-		else $status['failed'] += 1;
+			// Fetch Register Events
+			$query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+			if ($query3) $status['success'] += 1;
+			else $status['failed'] += 1;
 
-		// Check & Insert Events Item
-		if ($query3) {
-			if ($query3->stock > 1) {
-				$query4 = $this->db->insert('player_items', array(
-					'owner_id' => $query2->player_id,
-					'item_id' => $query3->item_id,
-					'item_name' => $this->lib->GetItemName($query3->item_id),
-					'count' => $query3->item_count,
-					'category' => $this->lib->GetItemCategory($query3->item_id),
-					'equip' => '1'
-				));
-				$query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => $query3->stock - 1));
-				if ($query4 && $query5) {
-					$status['success'] += 1;
-					$response['response'] = 'success';
-					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
-
-					echo json_encode($response);
+			// Check & Insert Events Item
+			if ($query3) {
+				if ($query3->stock > 1) {
+					$query4 = $this->db->insert('player_items', array(
+						'owner_id' => $query2->player_id,
+						'item_id' => $query3->item_id,
+						'item_name' => $this->lib->GetItemName($query3->item_id),
+						'count' => $query3->item_count,
+						'category' => $this->lib->GetItemCategory($query3->item_id),
+						'equip' => '1'
+					));
+					$query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => $query3->stock - 1));
+					if ($query4 && $query5) {
+						$this->lib->DestroyRegisterPageInputProperty(false);
+						$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
+						redirect(base_url('register'), 'refresh');
+					} else {
+						$this->lib->DestroyRegisterPageInputProperty(false);
+						$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
+						redirect(base_url('register'), 'refresh');
+					}
 				} else {
-					$status['failed'] += 1;
-					$response['response'] = 'success';
-					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit. [' . $status['success'] . '][' . $status['failed'] . ']';
-
-					echo json_encode($response);
+					$this->lib->DestroyRegisterPageInputProperty(false);
+					$this->session->set_flashdata('success', 'Successfully Registered.');
+					redirect(base_url('register'), 'refresh');
 				}
 			} else {
-				$response['response'] = 'success';
-				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Successfully Registered.';
-
-				echo json_encode($response);
+				$this->lib->DestroyRegisterPageInputProperty(false);
+				$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
+				redirect(base_url('register'), 'refresh');
 			}
-		} else {
-			$response['response'] = 'success';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Successfully Registered.';
-
-			echo json_encode($response);
 		}
 	}
 
