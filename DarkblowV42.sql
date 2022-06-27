@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 02/06/2022 15:12:21
+ Date: 27/06/2022 23:01:34
 */
 
 
@@ -76,6 +76,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."ban_seq";
 CREATE SEQUENCE "public"."ban_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for captcha_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."captcha_id_seq";
+CREATE SEQUENCE "public"."captcha_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -534,6 +545,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_log_verifyaccount_id_sequence
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_log_verifyaccount_id_sequence";
+CREATE SEQUENCE "public"."web_log_verifyaccount_id_sequence" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_news_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_news_id_seq";
@@ -593,6 +615,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_report_id_seq";
 CREATE SEQUENCE "public"."web_report_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_reset_password_sequence_id
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_reset_password_sequence_id";
+CREATE SEQUENCE "public"."web_reset_password_sequence_id" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -727,9 +760,10 @@ CREATE TABLE "public"."accounts" (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 5, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 3, 20220523, 0, 0, 0, 0, 0, 0, 4294967295, 1205232029, 0, 0, 'f0:2f:74:4a:20:3b', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, '1', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 5, 53, 0, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 500000, 'f', 100003155, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002287, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4294967295, 1205240037, 0, 0, 'f0:2f:74:4a:20:3b', 0, 2000000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', '1', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('eyetracker', '9063f7c14a7721b35a2b730a42ff3e9e', 27, '9063f7c14a7721b35a2b730a42ff3e9e', 0, 0, 0, 1, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '', 1010000, 1, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', '1', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('asdasd123', '9063f7c14a7721b35a2b730a42ff3e9e', 32, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'yahahawahyu@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imamkbm123', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('asdasd123123', '9063f7c14a7721b35a2b730a42ff3e9e', 33, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '123123qwerge@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 5, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 3, 20220523, 0, 0, 0, 0, 0, 0, 4294967295, 1205232029, 0, 0, 'f0:2f:74:4a:20:3b', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow001', '9063f7c14a7721b35a2b730a42ff3e9e', 1, '[DEV] EyeTracker', 0, 5, 53, 0, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'imamrasyidbackup@gmail.com', 1010000, 493599, 'f', 100003475, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4278320896, 1206031336, 0, 0, 'f0:2f:74:4a:20:3b', 0, 2000000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', '0', 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -759,6 +793,11 @@ CREATE TABLE "public"."check_user_attendance" (
   "date_claimed" varchar(255) COLLATE "pg_catalog"."default" DEFAULT nextval('check_user_attendance_id_seq'::regclass)
 )
 ;
+
+-- ----------------------------
+-- Records of check_user_attendance
+-- ----------------------------
+INSERT INTO "public"."check_user_attendance" VALUES (36, 97, 1, '100003009', 2592000, '03-06-2022');
 
 -- ----------------------------
 -- Table structure for check_user_itemcode
@@ -946,7 +985,7 @@ CREATE TABLE "public"."events_register" (
 -- ----------------------------
 -- Records of events_register
 -- ----------------------------
-INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 8, 't');
+INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 4, 't');
 
 -- ----------------------------
 -- Table structure for events_visit
@@ -1499,6 +1538,14 @@ CREATE TABLE "public"."player_items" (
 INSERT INTO "public"."player_items" VALUES (244, 1, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (245, 1, 100003002, 'AK-47 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (246, 1, 100003003, 'M4A1 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (247, 1, 100003475, 'SC-2010 Brazuca3', 1207031321, 1, 2);
+INSERT INTO "public"."player_items" VALUES (248, 1, 100003009, 'AK-47 G.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (249, 1, 100003362, 'AUG A3 Brazuca2', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (250, 1, 200004139, 'Kriss S.V Brazuca', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (251, 30, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (252, 31, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (253, 32, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (254, 33, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -7084,7 +7131,7 @@ CREATE TABLE "public"."web_bandwith" (
 -- ----------------------------
 -- Records of web_bandwith
 -- ----------------------------
-INSERT INTO "public"."web_bandwith" VALUES (1, '0', '0', '0', '999999999', '999999999', '999999999', '0');
+INSERT INTO "public"."web_bandwith" VALUES (1, '0', '1', '1', '999999999', '999999999', '999999999', '0');
 
 -- ----------------------------
 -- Table structure for web_battlepass
@@ -7121,6 +7168,19 @@ CREATE TABLE "public"."web_battlepass_list" (
   "battlepass_total_claimed" int4 DEFAULT 0,
   "date_created" int4,
   "date_updated" int4
+)
+;
+
+-- ----------------------------
+-- Table structure for web_customtoken
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_customtoken";
+CREATE TABLE "public"."web_customtoken" (
+  "id" int4 NOT NULL,
+  "csrf_token" varchar(255) COLLATE "pg_catalog"."default",
+  "ip_address" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -7173,6 +7233,26 @@ CREATE TABLE "public"."web_ipbanned" (
 ;
 
 -- ----------------------------
+-- Table structure for web_log_forgotpassword
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_log_forgotpassword";
+CREATE TABLE "public"."web_log_forgotpassword" (
+  "id" int4 NOT NULL DEFAULT nextval('web_reset_password_sequence_id'::regclass),
+  "email" varchar(255) COLLATE "pg_catalog"."default",
+  "secret_token" text COLLATE "pg_catalog"."default",
+  "valid_date" varchar(255) COLLATE "pg_catalog"."default",
+  "status" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_log_forgotpassword
+-- ----------------------------
+INSERT INTO "public"."web_log_forgotpassword" VALUES (7, 'imamrasyidbackup@gmail.com', 'Dnl36w1o3XVmKqtMAs7dNalMGwhi49dqXbLjMspM6s3zLWd8Xix9bNIoK5sZhDk2NmzCvuV7oY7rPGlWLlBKRAcTVOMq2ThFPBdyaMwkiQf3ziZfN3uO3DpGfn7FmQMj', '1654508622', '0', '1654249423', NULL);
+
+-- ----------------------------
 -- Table structure for web_log_general
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_log_general";
@@ -7200,6 +7280,26 @@ CREATE TABLE "public"."web_log_shop" (
   "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
+
+-- ----------------------------
+-- Table structure for web_log_verifyaccount
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_log_verifyaccount";
+CREATE TABLE "public"."web_log_verifyaccount" (
+  "id" int4 NOT NULL DEFAULT nextval('web_log_verifyaccount_id_sequence'::regclass),
+  "email" varchar(255) COLLATE "pg_catalog"."default",
+  "secret_token" text COLLATE "pg_catalog"."default",
+  "valid_date" varchar(255) COLLATE "pg_catalog"."default",
+  "status" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_log_verifyaccount
+-- ----------------------------
+INSERT INTO "public"."web_log_verifyaccount" VALUES (4, 'imamrasyidbackup@gmail.com', 'CVlk2jC6jVbe8XX8aGIGrhxIhosLGoiVcMm1uOfRFzwCIbMJn7sPZnI4Gftp5fb1zp6dBAUp6uubJbxma6tyrlobepwElw2zhZiZqUvyXctA4HiMpYT7tGpw43maXqBW', '1654712198', '1', '0', NULL);
 
 -- ----------------------------
 -- Table structure for web_packshop
@@ -7361,7 +7461,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', NULL, NULL, NULL, '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '0', '0', '0', '0');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', NULL, NULL, NULL, '1', '0', '0', '1', '1', '1', '0', '1', '0', NULL, '0', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for web_shop
@@ -7396,7 +7496,8 @@ CREATE TABLE "public"."web_tokenkey" (
 -- ----------------------------
 -- Records of web_tokenkey
 -- ----------------------------
-INSERT INTO "public"."web_tokenkey" VALUES (120, 'iXaYHBUD3y6Ir4CcKy9y5zEdSWcMovSjB31rwMGgpSJoMw2PjR5qHBJjLcJEd1r7', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (120, 'iXaYHBUD3y6Ir4CcKy9y5zEdSWcMovSjB31rwMGgpSJoMw2PjR5qHBJjLcJEd1r7', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (121, '2fiNFRAGck3dJ0El5S11BmWsoP7HFXJ394Shdv5x2Pl9hx0QGQFbxmgbXvBUHdP4', 1);
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7450,26 +7551,27 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 28, true);
+SELECT setval('"public"."account_id_seq"', 34, true);
 SELECT setval('"public"."api_keys_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
 SELECT setval('"public"."auto_ban_seq"', 5, true);
 SELECT setval('"public"."ban_seq"', 5, false);
+SELECT setval('"public"."captcha_id_seq"', 3, true);
 SELECT setval('"public"."channels_id_seq"', 5, false);
 SELECT setval('"public"."check_event_seq"', 5, true);
-SELECT setval('"public"."check_user_attendance_id_seq"', 36, true);
+SELECT setval('"public"."check_user_attendance_id_seq"', 37, true);
 SELECT setval('"public"."check_user_itemcode_seq"', 45, true);
 SELECT setval('"public"."check_user_voucher_id_seq"', 12, true);
 SELECT setval('"public"."clan_seq"', 6, true);
-SELECT setval('"public"."event_attendance_id_seq"', 97, true);
+SELECT setval('"public"."event_attendance_id_seq"', 133, true);
 SELECT setval('"public"."events_login_id_seq"', 7, true);
 SELECT setval('"public"."gameservers_id_seq"', 5, false);
 SELECT setval('"public"."gift_id_seq"', 5, true);
 SELECT setval('"public"."ipsystem_id_seq"', 5, false);
 SELECT setval('"public"."item_code_id_seq"', 2, true);
 SELECT setval('"public"."item_voucher_id_seq"', 9, true);
-SELECT setval('"public"."items_id_seq"', 247, true);
+SELECT setval('"public"."items_id_seq"', 255, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
@@ -7497,15 +7599,17 @@ SELECT setval('"public"."web_email_confirmation_id_seq"', 10, true);
 SELECT setval('"public"."web_exchangeticket_seq"', 13, true);
 SELECT setval('"public"."web_giftitem_log_seq"', 12, true);
 SELECT setval('"public"."web_launcher_ipaddress_id"', 5, true);
+SELECT setval('"public"."web_log_verifyaccount_id_sequence"', 5, true);
 SELECT setval('"public"."web_news_id_seq"', 19, true);
 SELECT setval('"public"."web_packshop_id_seq"', 2, true);
 SELECT setval('"public"."web_quickslide_id_seq"', 23, true);
 SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
 SELECT setval('"public"."web_recharge_id_seq"', 25, true);
 SELECT setval('"public"."web_report_id_seq"', 9, true);
+SELECT setval('"public"."web_reset_password_sequence_id"', 8, true);
 SELECT setval('"public"."web_shop_id_seq"', 2, false);
 SELECT setval('"public"."web_shop_log_id_seq"', 2, false);
-SELECT setval('"public"."web_tokenkey_id_seq"', 121, true);
+SELECT setval('"public"."web_tokenkey_id_seq"', 122, true);
 SELECT setval('"public"."webdata_news_seq"', 5, true);
 SELECT setval('"public"."webshop_id_seq"', 21, true);
 
@@ -7610,6 +7714,11 @@ ALTER TABLE "public"."web_battlepass" ADD CONSTRAINT "web_battlepass_pkey" PRIMA
 ALTER TABLE "public"."web_battlepass_list" ADD CONSTRAINT "web_battlepass_list_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Primary Key structure for table web_customtoken
+-- ----------------------------
+ALTER TABLE "public"."web_customtoken" ADD CONSTRAINT "web_customtoken_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Primary Key structure for table web_download_clientlauncher
 -- ----------------------------
 ALTER TABLE "public"."web_download_clientlauncher" ADD CONSTRAINT "web_download_pkey" PRIMARY KEY ("id");
@@ -7620,9 +7729,19 @@ ALTER TABLE "public"."web_download_clientlauncher" ADD CONSTRAINT "web_download_
 ALTER TABLE "public"."web_exchangeticket" ADD CONSTRAINT "web_exchangeticket_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Primary Key structure for table web_log_forgotpassword
+-- ----------------------------
+ALTER TABLE "public"."web_log_forgotpassword" ADD CONSTRAINT "web_log_resetpassword_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Primary Key structure for table web_log_shop
 -- ----------------------------
 ALTER TABLE "public"."web_log_shop" ADD CONSTRAINT "web_shop_log_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table web_log_verifyaccount
+-- ----------------------------
+ALTER TABLE "public"."web_log_verifyaccount" ADD CONSTRAINT "web_log_verifyaccount_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table web_packshop
