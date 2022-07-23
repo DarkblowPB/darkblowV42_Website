@@ -1,9 +1,30 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-$custom_config = @file_get_contents('./darkblow_config.json');
-$custom_decode = json_decode($custom_config);
-foreach ($custom_decode as $row) {
-    /*
+
+$config['main_config'] = array(
+    'google_register_clientid' => '704467996300-423omsi33h5g5ehu6r1l7vq96ipjk1bq.apps.googleusercontent.com',
+    'google_register_clientsecret' => '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',
+    'project_version' => '1.15.42.30',
+    'smtp_host' => '', // Your Host ex. trystane.id.rapidplex.com
+    'smtp_port' => 465, // Your Port ex. 465
+    'smtp_email' => '', // Your SMTP Email
+    'smtp_password' => '', // Your SMTP Password,
+    'tcp_primary_server_host' => '127.0.0.1',
+    'tcp_primary_server_port' => 1000,
+    'tcp_secondary_server_host' => '127.0.0.1',
+    'tcp_secondary_server_port' => 1500,
+    'tcp_third_server_host' => '127.0.0.1',
+    'tcp_third_server_port' => 1200,
+    'tcp_side_server_host' => '127.0.0.1',
+    'tcp_side_server_port' => 1700,
+    'encryption_ciphering' => 'AES-128-CTR',
+    'encryption_options' => 0,
+    'encryption_iv' => '2539435361336837',
+    'encryption_key' => 'insert_your_encryption_key',
+    'site_language' => 'english',
+    'codesystem' => 'api',
+);
+/*
 |--------------------------------------------------------------------------
 | Base Site URL
 |--------------------------------------------------------------------------
@@ -26,13 +47,13 @@ foreach ($custom_decode as $row) {
 |
 */
 
-    // $config['base_url'] = 'http://localhost:8080/webpb-ci3/'; Default
+// $config['base_url'] = 'http://localhost:8080/webpb-ci3/'; Default
 
-    $config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-    $config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
-    $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
+$config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Index File
 |--------------------------------------------------------------------------
@@ -42,9 +63,9 @@ foreach ($custom_decode as $row) {
 | variable so that it is blank.
 |
 */
-    $config['index_page'] = 'index.php';
+$config['index_page'] = 'index.php';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
 |--------------------------------------------------------------------------
@@ -59,9 +80,9 @@ foreach ($custom_decode as $row) {
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-    $config['uri_protocol']    = 'REQUEST_URI';
+$config['uri_protocol']    = 'REQUEST_URI';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | URL suffix
 |--------------------------------------------------------------------------
@@ -71,9 +92,9 @@ foreach ($custom_decode as $row) {
 |
 | https://codeigniter.com/user_guide/general/urls.html
 */
-    $config['url_suffix'] = '';
+$config['url_suffix'] = '';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Default Language
 |--------------------------------------------------------------------------
@@ -84,9 +105,9 @@ foreach ($custom_decode as $row) {
 |
 | Available Language = "english", "indonesian", "thailand", "turkish", "russian";
 */
-    $config['language']    = $row->LanguageConfig;
+$config['language']    = $config['main_config']['site_language'];
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Default Character Set
 |--------------------------------------------------------------------------
@@ -97,9 +118,9 @@ foreach ($custom_decode as $row) {
 | See http://php.net/htmlspecialchars for a list of supported charsets.
 |
 */
-    $config['charset'] = 'UTF-8';
+$config['charset'] = 'UTF-8';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Enable/Disable System Hooks
 |--------------------------------------------------------------------------
@@ -108,9 +129,9 @@ foreach ($custom_decode as $row) {
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-    $config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Class Extension Prefix
 |--------------------------------------------------------------------------
@@ -122,9 +143,9 @@ foreach ($custom_decode as $row) {
 | https://codeigniter.com/user_guide/general/creating_libraries.html
 |
 */
-    $config['subclass_prefix'] = 'Extend_';
+$config['subclass_prefix'] = 'Extend_';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Composer auto-loading
 |--------------------------------------------------------------------------
@@ -144,9 +165,9 @@ foreach ($custom_decode as $row) {
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-    $config['composer_autoload'] = FCPATH . 'vendor/autoload.php';
+$config['composer_autoload'] = FCPATH . 'vendor/autoload.php';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Allowed URL Characters
 |--------------------------------------------------------------------------
@@ -166,10 +187,10 @@ foreach ($custom_decode as $row) {
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-    // $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-    $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-?@';
+// $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-?@';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Enable Query Strings
 |--------------------------------------------------------------------------
@@ -191,12 +212,12 @@ foreach ($custom_decode as $row) {
 | use segment based URLs.
 |
 */
-    $config['enable_query_strings'] = FALSE;
-    $config['controller_trigger'] = 'c';
-    $config['function_trigger'] = 'm';
-    $config['directory_trigger'] = 'd';
+$config['enable_query_strings'] = FALSE;
+$config['controller_trigger'] = 'c';
+$config['function_trigger'] = 'm';
+$config['directory_trigger'] = 'd';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Allow $_GET array
 |--------------------------------------------------------------------------
@@ -208,9 +229,9 @@ foreach ($custom_decode as $row) {
 |          for backwards compatibility purposes!
 |
 */
-    $config['allow_get_array'] = TRUE;
+$config['allow_get_array'] = TRUE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Error Logging Threshold
 |--------------------------------------------------------------------------
@@ -232,9 +253,9 @@ foreach ($custom_decode as $row) {
 | your log files will fill up very fast.
 |
 */
-    $config['log_threshold'] = 1;
+$config['log_threshold'] = 1;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Error Logging Directory Path
 |--------------------------------------------------------------------------
@@ -243,9 +264,9 @@ foreach ($custom_decode as $row) {
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-    $config['log_path'] = '';
+$config['log_path'] = '';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Log File Extension
 |--------------------------------------------------------------------------
@@ -257,9 +278,9 @@ foreach ($custom_decode as $row) {
 | Note: Leaving it blank will default to 'php'.
 |
 */
-    $config['log_file_extension'] = 'txt';
+$config['log_file_extension'] = 'txt';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Log File Permissions
 |--------------------------------------------------------------------------
@@ -269,9 +290,9 @@ foreach ($custom_decode as $row) {
 | IMPORTANT: This MUST be an integer (no quotes) and you MUST use octal
 |            integer notation (i.e. 0700, 0644, etc.)
 */
-    $config['log_file_permissions'] = 0644;
+$config['log_file_permissions'] = 0644;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Date Format for Logs
 |--------------------------------------------------------------------------
@@ -280,9 +301,9 @@ foreach ($custom_decode as $row) {
 | codes to set your own date formatting
 |
 */
-    $config['log_date_format'] = 'Y-m-d H:i:s';
+$config['log_date_format'] = 'Y-m-d H:i:s';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Error Views Directory Path
 |--------------------------------------------------------------------------
@@ -291,9 +312,9 @@ foreach ($custom_decode as $row) {
 | application/views/errors/ directory.  Use a full server path with trailing slash.
 |
 */
-    $config['error_views_path'] = '';
+$config['error_views_path'] = '';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Cache Directory Path
 |--------------------------------------------------------------------------
@@ -302,9 +323,9 @@ foreach ($custom_decode as $row) {
 | application/cache/ directory.  Use a full server path with trailing slash.
 |
 */
-    $config['cache_path'] = '';
+$config['cache_path'] = '';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Cache Include Query String
 |--------------------------------------------------------------------------
@@ -320,9 +341,9 @@ foreach ($custom_decode as $row) {
 |	             of query parameters.
 |
 */
-    $config['cache_query_string'] = TRUE;
+$config['cache_query_string'] = TRUE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Encryption Key
 |--------------------------------------------------------------------------
@@ -334,9 +355,9 @@ foreach ($custom_decode as $row) {
 |
 */
 
-    $config['encryption_key'] = $row->EncryptionConfig->encryption_key;
+$config['encryption_key'] = $config['main_config']['encryption_key'];
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Session Variables
 |--------------------------------------------------------------------------
@@ -387,15 +408,15 @@ foreach ($custom_decode as $row) {
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-    $config['sess_driver'] = 'files';
-    $config['sess_cookie_name'] = 'darkblowpbreborn_session';
-    $config['sess_expiration'] = 900;
-    $config['sess_save_path'] = NULL;
-    $config['sess_match_ip'] = FALSE;
-    $config['sess_time_to_update'] = 300;
-    $config['sess_regenerate_destroy'] = TRUE;
+$config['sess_driver'] = 'files';
+$config['sess_cookie_name'] = 'darkblowpbreborn_session';
+$config['sess_expiration'] = 900;
+$config['sess_save_path'] = NULL;
+$config['sess_match_ip'] = FALSE;
+$config['sess_time_to_update'] = 300;
+$config['sess_regenerate_destroy'] = TRUE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
 |--------------------------------------------------------------------------
@@ -410,13 +431,13 @@ foreach ($custom_decode as $row) {
 |       'cookie_httponly') will also affect sessions.
 |
 */
-    $config['cookie_prefix']    = '';
-    $config['cookie_domain']    = '';
-    $config['cookie_path']        = '/';
-    $config['cookie_secure']    = FALSE;
-    $config['cookie_httponly']     = FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Standardize newlines
 |--------------------------------------------------------------------------
@@ -428,9 +449,9 @@ foreach ($custom_decode as $row) {
 |          for backwards compatibility purposes!
 |
 */
-    $config['standardize_newlines'] = FALSE;
+$config['standardize_newlines'] = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Global XSS Filtering
 |--------------------------------------------------------------------------
@@ -442,9 +463,9 @@ foreach ($custom_decode as $row) {
 |          for backwards compatibility purposes!
 |
 */
-    $config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Cross Site Request Forgery
 |--------------------------------------------------------------------------
@@ -458,14 +479,14 @@ foreach ($custom_decode as $row) {
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-    $config['csrf_protection'] = TRUE;
-    $config['csrf_token_name'] = 'darkblowpbreborn_protector';
-    $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
-    $config['csrf_expire'] = 1800;
-    $config['csrf_regenerate'] = TRUE;
-    $config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images', 'api/server/bandwithupdate', 'api/launcher/register', 'register/do_register');
+$config['csrf_protection'] = false;
+$config['csrf_token_name'] = 'darkblowpbreborn_protector';
+$config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
+$config['csrf_expire'] = 1800;
+$config['csrf_regenerate'] = TRUE;
+$config['csrf_exclude_uris'] = array('adm/settings/do_submit_generalsettings_images', 'api/server/bandwithupdate', 'api/launcher/register', 'register/do_register');
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Output Compression
 |--------------------------------------------------------------------------
@@ -485,9 +506,9 @@ foreach ($custom_decode as $row) {
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-    $config['compress_output'] = FALSE;
+$config['compress_output'] = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Master Time Reference
 |--------------------------------------------------------------------------
@@ -498,9 +519,9 @@ foreach ($custom_decode as $row) {
 | helper' page of the user guide for information regarding date handling.
 |
 */
-    $config['time_reference'] = 'Asia/Jakarta';
+$config['time_reference'] = 'Asia/Jakarta';
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
 |--------------------------------------------------------------------------
@@ -512,9 +533,9 @@ foreach ($custom_decode as $row) {
 | Note: You need to have eval() enabled for this to work.
 |
 */
-    $config['rewrite_short_tags'] = FALSE;
+$config['rewrite_short_tags'] = FALSE;
 
-    /*
+/*
 |--------------------------------------------------------------------------
 | Reverse Proxy IPs
 |--------------------------------------------------------------------------
@@ -530,5 +551,4 @@ foreach ($custom_decode as $row) {
 | Comma-separated:	'10.0.1.200,192.168.5.0/24'
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
-    $config['proxy_ips'] = '';
-}
+$config['proxy_ips'] = '';

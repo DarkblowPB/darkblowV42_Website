@@ -30,8 +30,6 @@ class Register extends CI_Controller
 
 	function index()
 	{
-		$this->lib->DestroyRegisterPageInputProperty(true);
-
 		$data['title'] = 'Register';
 		$data['isi'] = 'main/content/register/content_register';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
@@ -67,8 +65,13 @@ class Register extends CI_Controller
 
 	function do_register()
 	{
+		$response = array();
+		if (isset($_SESSION['is_browser'])) $this->session->sess_destroy();
+
+		if ($this->input->is_ajax_request()) $this->session->set_userdata('is_browser', 'TRUE');
+		else $this->session->set_userdata('is_browser', 'FALSE');
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('username_field'),
+			'login',
 			'Username',
 			'trim|strtolower|required|is_unique[accounts.login]|alpha_numeric|min_length[4]|max_length[16]',
 			array(
@@ -80,7 +83,7 @@ class Register extends CI_Controller
 			)
 		);
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('email_field'),
+			'email',
 			'Email',
 			'trim|strtolower|required|is_unique[accounts.email]|valid_email',
 			array(
@@ -90,7 +93,7 @@ class Register extends CI_Controller
 			)
 		);
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('password_field'),
+			'password',
 			'Password',
 			'trim|strtolower|required|alpha_numeric|min_length[4]|max_length[16]',
 			array(
@@ -101,9 +104,9 @@ class Register extends CI_Controller
 			)
 		);
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('re_password_field'),
+			're_password',
 			'Confirmation Password',
-			'trim|strtolower|required|alpha_numeric|min_length[4]|max_length[16]|matches[' . $this->lib->GetRegisterPageInputProperty('password_field') . ']',
+			'trim|strtolower|required|alpha_numeric|min_length[4]|max_length[16]|matches[password]',
 			array(
 				'required' => '%s Cannot Be Empty.',
 				'alpha_numeric' => '%s Can Only Using Alphabetic & Numeric Characters.',
@@ -113,7 +116,7 @@ class Register extends CI_Controller
 			)
 		);
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('hint_question_field'),
+			'hint_question',
 			'Hint Question',
 			'required|in_list[What was your childhood nickname?,What is the name of your favorite childhood friend?,In what city or town did your mother and father meet?,What is your favorite team?,What is your favorite movie?,What was your favorite sport in high school?,What was your favorite food as a child?,What is the first name of the boy or girl that you first kissed?,What was the make and model of your first car?,What was the name of the hospital where you were born?,Who is your childhood sports hero?,What school did you attend for sixth grade?,What was the last name of your third grade teacher?,In what town was your first job?,What was the name of the company where you had your first job?]',
 			array(
@@ -122,7 +125,7 @@ class Register extends CI_Controller
 			)
 		);
 		$this->form_validation->set_rules(
-			$this->lib->GetRegisterPageInputProperty('hint_answer_field'),
+			'hint_answer',
 			'Hint Answer',
 			'required',
 			array('required' => '%s Cannot Be Empty.')
@@ -134,8 +137,9 @@ class Register extends CI_Controller
 				$this->register->RegisterValidationV6();
 			}
 		} else {
-			$this->session->set_flashdata('error', validation_errors());
-			redirect(base_url('register'), 'refresh');
+			$response['response'] = 'error';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = validation_errors('', '');
 		}
 	}
 
@@ -143,19 +147,13 @@ class Register extends CI_Controller
 	{
 		$google_client = new Google_Client();
 
-		$g_config = read_file('./darkblow_config.json');
-		$g_decode = json_decode($g_config);
-
-		foreach ($g_decode as $row) {
-			$google_client->setClientId($row->GoogleConfig->ClientID);
-			$google_client->setClientSecret($row->GoogleConfig->ClientSecret);
-		}
-
+		$google_client->setClientId($this->config->item('main_config', 'google_register_clientid'));
+		$google_client->setClientSecret($this->config->item('main_config', 'google_register_clientsecret'));
 		$google_client->setRedirectUri(base_url('register/g_register'));
 		$google_client->addScope('email');
 
 		if (!empty($this->input->get('code'))) {
-			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code'));
+			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
 			if (!isset($token["error"])) {
 				$google_client->setAccessToken($token['access_token']);
 				$google_service = new Google_Service_Oauth2($google_client);

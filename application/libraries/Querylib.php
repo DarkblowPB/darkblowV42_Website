@@ -177,23 +177,18 @@ class Querylib
      */
     public function SendEmail($from, $to, $subject, $message)
     {
-        $SmtpConfig = @file_get_contents('./darkblow_config.json');
-        $SmtpParse = json_decode($SmtpConfig);
-
-        foreach ($SmtpParse as $row) {
-            $config = array(
-                'mailtype'  => 'html',
-                'charset'   => 'utf-8',
-                'protocol'  => 'smtp',
-                'smtp_host' => $row->SMTPConfig->Host, // Your SMTP Host
-                'smtp_user' => $row->SMTPConfig->Email,  // Your Email
-                'smtp_pass'   => $row->SMTPConfig->Password,  // Your Password
-                'smtp_crypto' => 'ssl',
-                'smtp_port'   => $row->SMTPConfig->Port, // Your SMTP Port
-                'crlf'    => "\r\n",
-                'newline' => "\r\n"
-            );
-        }
+        $config = array(
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'protocol'  => 'smtp',
+            'smtp_host' => $this->ci->config->item('main_config', 'smtp_host'), // Your SMTP Host
+            'smtp_user' => $this->ci->config->item('main_config', 'smtp_email'),  // Your Email
+            'smtp_pass'   => $this->ci->config->item('main_config', 'smtp_password'),  // Your Password
+            'smtp_crypto' => 'ssl',
+            'smtp_port'   => $this->ci->config->item('main_config', 'smtp_port'), // Your SMTP Port
+            'crlf'    => "\r\n",
+            'newline' => "\r\n"
+        );
 
         $this->ci->load->library('email');
 

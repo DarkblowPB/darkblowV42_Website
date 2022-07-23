@@ -19,17 +19,12 @@ class Lib
 
 	private function EncryptDecryptConfig()
 	{
-		$encrypt_config = read_file('./darkblow_config.json');
-		$encrypt_decode = json_decode($encrypt_config);
-
-		foreach ($encrypt_decode as $row) {
-			$config = array(
-				'ciphering' => $row->EncryptionConfig->ciphering,
-				'options' => $row->EncryptionConfig->options,
-				'encryption_iv' => $row->EncryptionConfig->encryption_iv,
-				'encryption_key' => $row->EncryptionConfig->encryption_key
-			);
-		}
+		$config = array(
+			'ciphering' => $this->ci->config->item('main_config', 'encryption_ciphering'),
+			'options' => $this->ci->config->item('main_config'),
+			'encryption_iv' => $this->ci->config->item('main_config', 'encryption_iv'),
+			'encryption_key' => $this->ci->config->item('main_config', 'encryption_key')
+		);
 
 		return $config;
 	}
@@ -176,64 +171,15 @@ class Lib
 
 	public function EncryptedWeb()
 	{
-		$query = array(
-			0 => $this->ci->db->truncate('accounts'),
-			1 => $this->ci->db->truncate('ban_history'),
-			2 => $this->ci->db->truncate('check_user_itemcode'),
-			3 => $this->ci->db->truncate('check_user_voucher'),
-			4 => $this->ci->db->truncate('clan_data'),
-			5 => $this->ci->db->truncate('clan_invites'),
-			6 => $this->ci->db->truncate('events_login'),
-			7 => $this->ci->db->truncate('events_mapbonus'),
-			8 => $this->ci->db->truncate('events_playtime'),
-			9 => $this->ci->db->truncate('events_quest'),
-			10 => $this->ci->db->truncate('events_rankup'),
-			11 => $this->ci->db->truncate('events_register'),
-			12 => $this->ci->db->truncate('events_visit'),
-			13 => $this->ci->db->truncate('events_xmas'),
-			14 => $this->ci->db->truncate('friends'),
-			15 => $this->ci->db->truncate('info_basic_items'),
-			16 => $this->ci->db->truncate('info_channels'),
-			17 => $this->ci->db->truncate('info_cupons_flags'),
-			18 => $this->ci->db->truncate('info_gameservers'),
-			19 => $this->ci->db->truncate('info_launcherkey'),
-			20 => $this->ci->db->truncate('info_login_configs'),
-			21 => $this->ci->db->truncate('info_missions'),
-			22 => $this->ci->db->truncate('info_rank_awards'),
-			23 => $this->ci->db->truncate('item_code'),
-			24 => $this->ci->db->truncate('item_voucher'),
-			25 => $this->ci->db->truncate('nick_history'),
-			26 => $this->ci->db->truncate('player_bonus'),
-			27 => $this->ci->db->truncate('player_configs'),
-			28 => $this->ci->db->truncate('player_events'),
-			29 => $this->ci->db->truncate('player_items'),
-			30 => $this->ci->db->truncate('player_messages'),
-			31 => $this->ci->db->truncate('player_missions'),
-			32 => $this->ci->db->truncate('player_titles'),
-			33 => $this->ci->db->truncate('shop'),
-			34 => $this->ci->db->truncate('shop_set'),
-			35 => $this->ci->db->truncate('tournament_rules'),
-			36 => $this->ci->db->truncate('trade_market'),
-			37 => $this->ci->db->truncate('web_download_clientlauncher'),
-			38 => $this->ci->db->truncate('web_exchangeticket'),
-			39 => $this->ci->db->truncate('web_ipbanned'),
-			40 => $this->ci->db->truncate('web_quickslide'),
-			41 => $this->ci->db->truncate('web_rankinfo'),
-			42 => $this->ci->db->truncate('web_settings'),
-			43 => $this->ci->db->truncate('webshop')
-		);
-
-		$state = array(
+		$data = array(
 			'success' => 0,
 			'failed' => 0
 		);
-
-		$count = count($query);
-
-		for ($i = 0; $i < $count - 1; $i++) if ($query[$i]) $state['success']++;
-		else $state['failed']++;
-
-		echo "Successfully Truncate Database. Success: " . $state['success'] . ", Failed: " . $state['failed'] . ".";
+		$query = $this->ci->db->query('SELECT * FROM information_schema.tables')->result_array();
+		foreach ($query as $row) {
+			if ($this->ci->db->truncate($row['table_name'])) $data['success']++;
+			else $data['failed']++;
+		}
 	}
 
 	public function password_encrypt($password)
@@ -410,22 +356,17 @@ class Lib
 
 	public function HostLibrary($server, $param)
 	{
-		$host_config = read_file('./darkblow_config.json');
-		$host_decode = json_decode($host_config);
+		$main_server = array(
+			'ip_address' => $this->ci->config->item('main_config', 'tcp_primary_server_host'),
+			'port_1' => $this->ci->config->item('main_config', 'tcp_primary_server_port'),
+			'port_2' => $this->ci->config->item('main_config', 'tcp_third_server_port')
+		);
 
-		foreach ($host_decode as $row) {
-			$main_server = array(
-				'ip_address' => $row->CredentialsConfig->primary_host->host,
-				'port_1' => $row->CredentialsConfig->primary_host->port,
-				'port_2' => $row->CredentialsConfig->third_host->port
-			);
-
-			$side_server = array(
-				'ip_address' => $row->CredentialsConfig->side_host->host,
-				'port_1' => $row->CredentialsConfig->secondary_host->port,
-				'port_2' => $row->CredentialsConfig->side_host->port
-			);
-		}
+		$side_server = array(
+			'ip_address' => $this->ci->config->item('main_config', 'tcp_side_server_host'),
+			'port_1' => $this->ci->config->item('main_config', 'tcp_secondary_server_port'),
+			'port_2' => $this->ci->config->item('main_config', 'tcp_side_server_port')
+		);
 
 		switch ($server) {
 			case 'main': {
@@ -593,6 +534,73 @@ class Lib
 		return $result;
 	}
 
+	public function GenerateRandomInputField($page = null, $isRegenerate = false)
+	{
+		$register = array(
+			'username_field' => $this->SetRandomInputFieldName(),
+			'email_field' => $this->SetRandomInputFieldName(),
+			'password_field' => $this->SetRandomInputFieldName(),
+			're_password_field' => $this->SetRandomInputFieldName(),
+			'hint_question_field' => $this->SetRandomInputFieldName(),
+			'hint_answer_field' => $this->SetRandomInputFieldName(),
+		);
+
+		$login = array(
+			'username_field' => $this->SetRandomInputFieldName(),
+			'password_field' => $this->SetRandomInputFieldName()
+		);
+
+		$forgotpassword = array(
+			'email_field' => $this->SetRandomInputFieldName()
+		);
+
+		if ($page != null) {
+			if ($page == 'register') {
+				if ($isRegenerate) {
+					foreach ($register as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+
+					foreach ($register as $key1 => $value1) {
+						$this->ci->session->set_userdata($key1, $value1);
+					}
+				} else {
+					foreach ($register as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+				}
+			} else if ($page == 'login') {
+				if ($isRegenerate) {
+					foreach ($login as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+
+					foreach ($login as $key1 => $value1) {
+						$this->ci->session->set_userdata($key1, $value1);
+					}
+				} else {
+					foreach ($login as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+				}
+			} else if ($page == 'forgotpassword') {
+				if ($isRegenerate) {
+					foreach ($forgotpassword as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+
+					foreach ($forgotpassword as $key1 => $value1) {
+						$this->ci->session->set_userdata($key1, $value1);
+					}
+				} else {
+					foreach ($forgotpassword as $key => $value) {
+						$this->ci->session->unset_userdata($key);
+					}
+				}
+			}
+		}
+	}
+
 	public function SetRegisterPageInputProperty()
 	{
 		$login = $this->SetRandomInputFieldName();
@@ -655,6 +663,46 @@ class Lib
 			$this->ci->session->unset_userdata('hint_answer_field');
 
 			$this->SetRegisterPageInputProperty();
+		}
+	}
+
+	function CustomCaptcha()
+	{
+		$this->ci->load->helper('captcha');
+		$vals = [
+			'word'          => substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'), 0, 10),
+			'img_path'      => './assets/goodgames/assets/images/captcha/',
+			'img_url'       => base_url('assets/goodgames/assets/images/captcha/'),
+			'img_width'     => 200,
+			'img_height'    => 80,
+			'expiration'    => 1800,
+			'word_length'   => 10,
+			'font_size'     => 72,
+			'img_id'        => 'Imageid',
+			'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+			'colors'        => [
+				'background' => [255, 255, 255],
+				'border'    => [255, 255, 255],
+				'text'      => [0, 0, 0],
+				'grid'      => [255, 40, 40]
+			]
+		];
+
+		$captcha = create_captcha($vals);
+
+		$this->ci->session->set_userdata('captcha', $captcha['word']);
+		return $captcha['image'];
+	}
+
+	public function ApiAuthorization($keys = null)
+	{
+		if ($keys == null) return FALSE;
+		else {
+			$query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
+			if ($query) {
+				if ($keys != $query->api_authorization_key) return FALSE;
+				else return TRUE;
+			} else return FALSE;
 		}
 	}
 }

@@ -18,15 +18,11 @@ class Redeemcode_model extends CI_Model
 
 	function GetCodeSystem()
 	{
-
-		$custom_config = @file_get_contents('./darkblow_config.json');
-		$custom_decode = json_decode($custom_config);
-		foreach ($custom_decode as $row) {
-			if ($row->CodeSystem == "API" || $row->CodeSystem == 'api')
-				return base_url('api/servercommand/redeemcode');
-			else if ($row->CodeSystem == 'MANUAL' || $row->CodeSystem == 'Manual')
-				return base_url('player_panel/redeemcode/do_redeem');
-		}
+		if ($this->config->item('main_config', 'codesytem') != null) {
+			if (strtolower($this->config->item('main_config', 'codesystem') == "integrated")) return base_url('api/servercommand/redeemcode');
+			else if (strtolower($this->config->item('main_config', 'codesystem') == "manual")) return base_url('player_panel/redeemcode/do_redeem');
+			else return base_url();
+		} else return base_url();
 	}
 
 	function CodeValidationManual()

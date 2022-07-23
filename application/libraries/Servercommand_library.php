@@ -19,46 +19,28 @@ class Servercommand_library
 
     public function PrimaryHost()
     {
-        $host_config = read_file('./darkblow_config.json');
-        $host_decode = json_decode($host_config);
-
-        foreach ($host_decode as $row) {
-            $data = array(
-                'host' => $row->CredentialsConfig->primary_host->host,
-                'port' => $row->CredentialsConfig->primary_host->port
-            );
-        }
-
+        $data = array(
+            'host' => $this->ci->config->item('main_config', 'tcp_primary_server_host'),
+            'port' => $this->ci->config->item('main_config', 'tcp_primary_server_port')
+        );
         return $data;
     }
 
     public function SecondaryHost()
     {
-        $host_config = read_file('./darkblow_config.json');
-        $host_decode = json_decode($host_config);
-
-        foreach ($host_decode as $row) {
-            $data = array(
-                'host' => $row->CredentialsConfig->secondary_host->host,
-                'port' => $row->CredentialsConfig->secondary_host->port
-            );
-        }
-
+        $data = array(
+            'host' => $this->ci->config->item('main_config', 'tcp_secondary_server_host'),
+            'port' => $this->ci->config->item('main_config', 'tcp_secondary_server_port')
+        );
         return $data;
     }
 
     public function ThirdHost()
     {
-        $host_config = read_file('./darkblow_config.json');
-        $host_decode = json_decode($host_config);
-
-        foreach ($host_decode as $row) {
-            $data = array(
-                'host' => $row->CredentialsConfig->third_host->host,
-                'port' => $row->CredentialsConfig->third_host->port
-            );
-        }
-
+        $data = array(
+            'host' => $this->ci->config->item('main_config', 'tcp_third_server_host'),
+            'port' => $this->ci->config->item('main_config', 'tcp_third_server_port')
+        );
         return $data;
     }
 

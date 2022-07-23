@@ -8,14 +8,7 @@
                 <div class="nk-gap-3"></div>
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
-                        <?php if ($this->session->flashdata('success')) : ?>
-                            <div class="alert alert-success" role="alert"><?= $this->session->flashdata('success') ?></div>
-                        <?php endif ?>
-                        <?php if ($this->session->flashdata('error')) : ?>
-                            <div class="alert alert-danger" role="alert"><?= $this->session->flashdata('error') ?></div>
-                        <?php endif ?>
-                        <?= validation_errors('<div class="alert alert-danger" role="alert">', '</div>') ?>
-                        <?= form_open(base_url('register/do_register'), 'id="register_form" autocomplete="off"', array(
+                        <?= form_open('', 'id="register_form" autocomplete="off"', array(
                             'custom_csrf' => $this->lib->GenerateRandomTokenV2(128),
                             'custom_csrf2' => ''
                         )); ?>
@@ -23,7 +16,7 @@
                             <label for="username"><?= $this->lang->line('STR_DARKBLOW_40') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="text" class="form-control" id="login" name="<?= $this->session->userdata('username_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
+                                    <input type="text" class="form-control" name="login" id="login" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
@@ -36,14 +29,14 @@
                                 <label class="form-control"><?= $_SESSION['g_email'] ?></label>
                             <?php endif; ?>
                             <?php if (empty($this->session->userdata('g_email'))) : ?>
-                                <input type="mail" class="form-control" id="email" name="<?= $this->session->userdata('email_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>" required>
+                                <input type="mail" class="form-control" id="email" name="email" placeholder="<?= $this->lang->line('STR_DARKBLOW_132') ?>" required>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label for="password"><?= $this->lang->line('STR_DARKBLOW_42') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="password" id="password" name="<?= $this->session->userdata('password_field') ?>" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
@@ -54,7 +47,7 @@
                             <label for="re_password"><?= $this->lang->line('STR_DARKBLOW_57') ?></label>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="password" class="form-control" name="<?= $this->session->userdata('re_password_field') ?>" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
+                                    <input type="password" class="form-control" name="re_password" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
                                     <input type="button" id="show_re_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowRePassword()">
@@ -63,7 +56,7 @@
                         </div>
                         <div class="form-group">
                             <label><?= $this->lang->line('STR_DARKBLOW_21') ?></label>
-                            <select class="form-control" id="hint_question" name="<?= $this->session->userdata('hint_question_field') ?>" required>
+                            <select class="form-control" name="hint_question" id="hint_question" required>
                                 <option value="" disabled selected><?= $this->lang->line('STR_DARKBLOW_22') ?></option>
                                 <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                                 <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
@@ -84,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label><?= $this->lang->line('STR_DARKBLOW_23') ?></label>
-                            <input type="text" class="form-control" id="hint_answer" name="<?= $this->session->userdata('hint_answer_field') ?>" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" required>
+                            <input type="text" class="form-control" name="hint_answer" id="hint_answer" placeholder="<?= $this->lang->line('STR_DARKBLOW_24') ?>" required>
                         </div>
                         <div class="nk-gap"></div>
                         <div class="form-group text-center">
@@ -110,6 +103,14 @@
                         <script>
                             var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                             var RETRY = 0;
+
+                            $(document).ready(() => {
+                                $('#register_form').on('submit', (e) => {
+                                    e.preventDefault();
+
+                                    return Do_Register();
+                                });
+                            });
 
                             function CheckUsername() {
                                 if ($('#login').val() == '') {
@@ -211,8 +212,7 @@
                                         dataType: 'JSON',
                                         data: {
                                             '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'custom_csrf': $('#custom_csrf').val(),
-                                            'custom_csrf2': $('#custom_csrf2').val(),
+                                            'Authorization': 'd29e177565f9e00ca24a1f6273374110', // memek tembem
                                             'login': $('#login').val(),
                                             <?php if (!empty($this->session->userdata('g_email'))) : ?> 'email': '<?= $this->session->userdata('g_email') ?>',
                                             <?php endif; ?>
@@ -237,41 +237,10 @@
                                             }
                                         },
                                         error: function() {
-                                            if (RETRY >= 3) {
-                                                SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_44') ?>');
-                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_25') ?>');
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                            } else {
-                                                RETRY += 1;
-                                                ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
-
-                                                $.ajax({
-                                                    url: '<?= base_url('api/security/csrf') ?>',
-                                                    type: 'GET',
-                                                    dataType: 'JSON',
-                                                    data: {
-                                                        '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-                                                    },
-                                                    success: function(data) {
-                                                        var GetString = JSON.stringify(data);
-                                                        var Result = JSON.parse(GetString);
-
-                                                        if (Result.response == 'true') {
-                                                            CSRF_TOKEN = Result.token;
-                                                        }
-
-                                                        return Do_Register();
-                                                    },
-                                                    error: function() {
-                                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_12') ?>');
-                                                        setTimeout(() => {
-                                                            window.location.reload();
-                                                        }, 2000);
-                                                    }
-                                                });
-                                            }
+                                            ShowToast(2000, 'error', 'The Server Cannot Respond To Your Request At This Time.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
                                         }
                                     });
                                 }

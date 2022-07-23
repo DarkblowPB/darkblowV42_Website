@@ -332,84 +332,64 @@ class Register_model extends CI_Model
 
 	function RegisterValidationV6()
 	{
-		sleep(1);
-		$status = array(
-			'success' => 0,
-			'failed' => 0
-		);
-
+		$responses = array();
 
 		$data = array(
-			'custom_csrf' => strlen($this->input->post('custom_csrf', true)),
-			'custom_csrf2' => $this->input->post('custom_csrf2', true),
-			'login' => $this->input->post($this->session->userdata('username_field'), true),
-			'password' => $this->lib->password_encrypt($this->input->post($this->session->userdata('password_field'), true)),
-			'email' => $this->input->post($this->session->userdata('email_field'), true),
-			'hint_question' => $this->input->post($this->session->userdata('hint_question_field'), true),
-			'hint_answer' => $this->input->post($this->session->userdata('hint_answer_field'), true)
+			'login' => $this->input->post('login', true),
+			'password' => $this->lib->password_encrypt('password', true),
+			'email' => $this->input->post('email', true),
+			'hint_question' => $this->input->post('hint_question', true),
+			'hint_answer' => $this->input->post('hint_answer', true)
 		);
 
-		if ($data['custom_csrf'] != 128) {
-			$this->lib->DestroyRegisterPageInputProperty(false);
-			$this->session->set_flashdata('error', 'Failed To Register Your Account');
-			redirect(base_url('register'), 'refresh');
-		} else if ($data['custom_csrf2'] != '') {
-			$this->lib->DestroyRegisterPageInputProperty(false);
-			$this->session->set_flashdata('error', 'Failed To Register Your Account');
-			redirect(base_url('register'), 'refresh');
+		$data2 = array(
+			're_password' => $this->input->post('re_password', true),
+			'authorization' => $this->input->post('authorization', true)
+		);
+
+		$curl = curl_init();
+
+		if (!$this->input->is_ajax_request()) {
+			$this->session->sess_destroy();
+
+			$responses['response'] = 'error';
+			$responses['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Error: 400 - Bad Request.';
+
+			echo json_encode($responses);
+		}
+
+		if (empty($this->session->userdata('is_browser'))) {
+			$this->session->sess_destroy();
+
+			$responses['response'] = 'error';
+			$responses['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Error: 400 - Bad Request.';
+
+			echo json_encode($responses);
 		} else {
-			// Register Function
-			$query = $this->db->insert('accounts', array(
-				'login' => $data['login'],
-				'password' => $data['password'],
-				'email' => $data['email'],
-				'hint_question' => $data['hint_question'],
-				'hint_answer' => $data['hint_answer']
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => base_url('api/web/register'),
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => '' . $this->security->get_csrf_token_name() . '=' . $this->security->get_csrf_hash() . '&login=' . $data['login'] . '&email=' . $data['email'] . '&password=' . $data['password'] . '&re_password=' . $data2['re_password'] . '&hint_question=' . urlencode($data['hint_question']) . '&hint_answer=' . urlencode($data['hint_answer']),
+				CURLOPT_HTTPHEADER => array(
+					'Authorization: ' . $this->getsettings->Get()->api_authorization_key,
+					'Content-Type: application/x-www-form-urlencoded',
+					'Cookie: darkblowpbreborn_cookies=fe99af92ea8a6aee1e0f09b9aa7272c7; darkblowpbreborn_session=svem0f8crg1ibmla3p1jkogvu709e4vm'
+				),
 			));
-			if ($query) $status['success'] += 1;
-			else $status['failed'] += 1;
 
-			// Fetch Account
-			$query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
-			if ($query2) $status['success'] += 1;
-			else $status['failed'] += 1;
+			$response = curl_exec($curl);
 
-			// Fetch Register Events
-			$query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
-			if ($query3) $status['success'] += 1;
-			else $status['failed'] += 1;
-
-			// Check & Insert Events Item
-			if ($query3) {
-				if ($query3->stock > 1) {
-					$query4 = $this->db->insert('player_items', array(
-						'owner_id' => $query2->player_id,
-						'item_id' => $query3->item_id,
-						'item_name' => $this->lib->GetItemName($query3->item_id),
-						'count' => $query3->item_count,
-						'category' => $this->lib->GetItemCategory($query3->item_id),
-						'equip' => '1'
-					));
-					$query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => $query3->stock - 1));
-					if ($query4 && $query5) {
-						$this->lib->DestroyRegisterPageInputProperty(false);
-						$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
-						redirect(base_url('register'), 'refresh');
-					} else {
-						$this->lib->DestroyRegisterPageInputProperty(false);
-						$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
-						redirect(base_url('register'), 'refresh');
-					}
-				} else {
-					$this->lib->DestroyRegisterPageInputProperty(false);
-					$this->session->set_flashdata('success', 'Successfully Registered.');
-					redirect(base_url('register'), 'refresh');
-				}
-			} else {
-				$this->lib->DestroyRegisterPageInputProperty(false);
-				$this->session->set_flashdata('success', 'Successfully Registered. Please Check Your Inventory To View Rewards Benefit.');
-				redirect(base_url('register'), 'refresh');
-			}
+			curl_close($curl);
+			$this->session->unset_userdata('is_browser');
+			echo $response;
 		}
 	}
 

@@ -1,5 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
+
+
 
 /*
 | -------------------------------------------------------------------
@@ -70,31 +72,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$database_version = @file_get_contents('./darkblow_config.json');
-$database_parse = json_decode($database_version);
 
-foreach ($database_parse as $row)
-{
-	switch ($row->ProjectVersion->Version)
-	{
-		case '1.15.42.30':
-			{
-				$active_group = '1.15.42.30';
-				break;
-			}
-			
-		case '3.24.1801.1':
-			{
-				$active_group = '3.24.1801.1';
-				break;
-			}
-		
-		default:
-			{
-				$active_group = '1.15.42.30';
-				break;
-			}
-	}
+$dbconf = array(
+	'active_database' => '1.15.42.30',
+	'1.15.42.30' => array(
+		'host' 				=> '127.0.0.1',
+		'port' 				=> '5432',
+		'user' 				=> 'postgres',
+		'password' 			=> '123456',
+		'name' 				=> 'darkblowproject'
+	),
+	'3.24.1801.1' => array(
+		'host' 				=> '127.0.0.1',
+		'port' 				=> '5432',
+		'user' 				=> 'postgres',
+		'password' 			=> '123456',
+		'name' 				=> 'darkblowproject'
+	),
+);
+
+$active_group = $dbconf['active_database'];
 
 $query_builder = TRUE;
 
@@ -110,7 +107,7 @@ $db['1.15.42.30'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host='. $row->Database->Old->Host .' port='. $row->Database->Old->Port .' user='. $row->Database->Old->User .' password='.$row->Database->Old->Password.' dbname='. $row->Database->Old->Name,
+	'dsn'	=> 'host=' . $dbconf['1.15.42.30']['host'] . ' port=' . $dbconf['1.15.42.30']['port'] . ' user=' . $dbconf['1.15.42.30']['user'] . ' password=' . $dbconf['1.15.42.30']['password'] . ' dbname=' . $dbconf['1.15.42.30']['name'],
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
@@ -149,7 +146,7 @@ $db['1.15.42.30'] = array(
 	// Do Not Change This Line
 	'save_queries' => TRUE,
 	// Do Not Change This Line
-	'port' => 5432
+	'port' => (int)$dbconf['1.15.42.30']['port']
 );
 
 $db['3.24.1801.1'] = array(
@@ -164,7 +161,7 @@ $db['3.24.1801.1'] = array(
 	 * @param password Example => 123456.
 	 * @param dbname Example => darkblowproject
 	 */
-	'dsn'	=> 'host='. $row->Database->Evo->Host .' port='. $row->Database->Evo->Port .' user='. $row->Database->Evo->User .' password='.$row->Database->Evo->Password.' dbname='. $row->Database->Evo->Name,
+	'dsn'	=> 'host=' . $dbconf['3.24.1801.1']['host'] . ' port=' . $dbconf['3.24.1801.1']['port'] . ' user=' . $dbconf['3.24.1801.1']['user'] . ' password=' . $dbconf['3.24.1801.1']['password'] . ' dbname=' . $dbconf['3.24.1801.1']['name'],
 
 	// Do Not Change This Line
 	'hostname' => 'localhost',
@@ -203,7 +200,5 @@ $db['3.24.1801.1'] = array(
 	// Do Not Change This Line
 	'save_queries' => TRUE,
 	// Do Not Change This Line
-	'port' => 5432
+	'port' => (int)$dbconf['3.24.1801.1']['port']
 );
-
-}

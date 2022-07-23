@@ -44,14 +44,14 @@ $config['rest_default_format'] = 'json';
 |
 */
 $config['rest_supported_formats'] = [
-    'json',
-    'array',
-    'csv',
-    'html',
-    'jsonp',
-    'php',
-    'serialized',
-    'xml',
+  'json',
+  'array',
+  'csv',
+  'html',
+  'jsonp',
+  'php',
+  'serialized',
+  'xml',
 ];
 
 /*
@@ -94,7 +94,7 @@ $config['enable_emulate_request'] = true;
 | e.g: My Secret REST API
 |
 */
-$config['rest_realm'] = 'REST API';
+$config['rest_realm'] = 'DARKBLOWPB REST API';
 
 /*
 |--------------------------------------------------------------------------
@@ -287,29 +287,10 @@ $config['rest_ip_blacklist'] = '';
 | Connect to a database group for keys, logging, etc. It will only connect
 | if you have any of these features enabled
 |
+| Option: 1.15.42.30 / 3.24.1801.1
+|
 */
-$database_version = @file_get_contents('./darkblow_config.json');
-$database_parse = json_decode($database_version);
-foreach ($database_parse as $row)
-{
-  switch ($row->ProjectVersion->Version)
-  {
-    case '1.15.42.30':
-      {
-        $config['rest_database_group'] = '1.15.42.30';
-        break;
-      }
-      
-    case '3.24.1801.1':
-      {
-        $config['rest_database_group'] = '3.24.1801.1';
-        break;
-      }
-    
-    default:
-      break;
-  }
-}
+$config['rest_database_group'] = '1.15.42.30';
 
 /*
 |--------------------------------------------------------------------------
@@ -566,7 +547,7 @@ $config['rest_language'] = 'english';
 | will access it through a browser
 |
 */
-$config['check_cors'] = false;
+$config['check_cors'] = true;
 
 /*
 |--------------------------------------------------------------------------

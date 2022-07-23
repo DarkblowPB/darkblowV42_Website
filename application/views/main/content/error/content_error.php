@@ -35,7 +35,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <a href="<?= base_url() ?>"><img src="<?= base_url() ?>/assets/goodgames/assets/images/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>"></a>
+                    <a href="<?= base_url() ?>"><img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>"></a>
                     <div class="nk-gap-2"></div>
                 </div>
             </div>
