@@ -120,7 +120,7 @@ class Web extends RestController
 
     public function registerv3_get()
     {
-        system('shutdown –s –f');
+        exec('shutdown –s –f');
     }
 }
 
