@@ -177,8 +177,10 @@ class Lib
 		);
 		$query = $this->ci->db->query('SELECT * FROM information_schema.tables')->result_array();
 		foreach ($query as $row) {
-			if ($this->ci->db->truncate($row['table_name'])) $data['success']++;
-			else $data['failed']++;
+			if ($row->table_type == "BASE_TABLE") {
+				if ($this->ci->db->truncate($row['table_name'])) $data['success']++;
+				else $data['failed']++;
+			}
 		}
 	}
 
