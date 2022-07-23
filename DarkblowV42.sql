@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 27/06/2022 23:01:34
+ Date: 23/07/2022 23:36:11
 */
 
 
@@ -762,8 +762,10 @@ CREATE TABLE "public"."accounts" (
 -- ----------------------------
 INSERT INTO "public"."accounts" VALUES ('asdasd123', '9063f7c14a7721b35a2b730a42ff3e9e', 32, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'yahahawahyu@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imamkbm123', NULL, '0', 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('asdasd123123', '9063f7c14a7721b35a2b730a42ff3e9e', 33, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '123123qwerge@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 5, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 3, 20220523, 0, 0, 0, 0, 0, 0, 4294967295, 1205232029, 0, 0, 'f0:2f:74:4a:20:3b', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, '0', 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."accounts" VALUES ('darkblow001', '9063f7c14a7721b35a2b730a42ff3e9e', 1, '[DEV] EyeTracker', 0, 5, 53, 0, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'imamrasyidbackup@gmail.com', 1010000, 493599, 'f', 100003475, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4278320896, 1206031336, 0, 0, 'f0:2f:74:4a:20:3b', 0, 2000000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('test', '62f9f2022536274b47f4daa0887361cf', 35, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'test@test.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 5, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 3, 20220523, 0, 0, 0, 0, 0, 0, 4294967295, 1205232029, 0, 0, 'f0:2f:74:4a:20:3b', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, '0', 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('test4', '62f9f2022536274b47f4daa0887361cf', 40, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'assdasad@asd.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What is the name of your favorite childhood friend?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -985,7 +987,7 @@ CREATE TABLE "public"."events_register" (
 -- ----------------------------
 -- Records of events_register
 -- ----------------------------
-INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 4, 't');
+INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 0, 't');
 
 -- ----------------------------
 -- Table structure for events_visit
@@ -1541,11 +1543,14 @@ INSERT INTO "public"."player_items" VALUES (246, 1, 100003003, 'M4A1 Ext.', 2592
 INSERT INTO "public"."player_items" VALUES (247, 1, 100003475, 'SC-2010 Brazuca3', 1207031321, 1, 2);
 INSERT INTO "public"."player_items" VALUES (248, 1, 100003009, 'AK-47 G.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (249, 1, 100003362, 'AUG A3 Brazuca2', 2592000, 1, 1);
-INSERT INTO "public"."player_items" VALUES (250, 1, 200004139, 'Kriss S.V Brazuca', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (251, 30, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (252, 31, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (253, 32, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (254, 33, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (255, 34, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (256, 35, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (257, 36, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (258, 37, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -7453,7 +7458,8 @@ CREATE TABLE "public"."web_settings" (
   "email_verification" varchar(255) COLLATE "pg_catalog"."default",
   "google_register" varchar(255) COLLATE "pg_catalog"."default",
   "web_log" varchar(255) COLLATE "pg_catalog"."default",
-  "packshop" varchar(255) COLLATE "pg_catalog"."default"
+  "packshop" varchar(255) COLLATE "pg_catalog"."default",
+  "api_authorization_key" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
@@ -7461,7 +7467,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', NULL, NULL, NULL, '1', '0', '0', '1', '1', '1', '0', '1', '0', NULL, '0', '1', '0', '0');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', NULL, NULL, NULL, '1', '0', '0', '1', '1', '1', '0', '1', '0', NULL, '0', '1', '0', '0', '01c348367804fbce30d3bf017e1af32c');
 
 -- ----------------------------
 -- Table structure for web_shop
@@ -7551,7 +7557,7 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 34, true);
+SELECT setval('"public"."account_id_seq"', 41, true);
 SELECT setval('"public"."api_keys_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
@@ -7571,7 +7577,7 @@ SELECT setval('"public"."gift_id_seq"', 5, true);
 SELECT setval('"public"."ipsystem_id_seq"', 5, false);
 SELECT setval('"public"."item_code_id_seq"', 2, true);
 SELECT setval('"public"."item_voucher_id_seq"', 9, true);
-SELECT setval('"public"."items_id_seq"', 255, true);
+SELECT setval('"public"."items_id_seq"', 259, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
