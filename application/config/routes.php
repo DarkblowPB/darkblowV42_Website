@@ -53,8 +53,6 @@ $route['default_controller'] = 'home';
 
 $route['adm'] = 'adm/dashboard';
 
-$route['adm2'] = 'adm2/dashboard';
-
 $route['sitemap\.xml'] = 'sitemap';
 
 $route['404_override'] = 'notfound';
