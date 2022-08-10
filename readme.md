@@ -78,7 +78,7 @@ for installing you can using Git or Clone this project into your local machine.
 	3. Copy this project to "htdocs" folder (every local web server have different folder name).
 	4. Done.
 
-And how to configure this website? follow this step clearly:
+And how to configure this website? Follow this step clearly:
 
 	1. Open "darkblow_config.json".
 	2. Setup your credentials server.
