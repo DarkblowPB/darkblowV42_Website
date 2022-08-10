@@ -3,11 +3,12 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <?php if ($this->servercommandmanagement->GetServerState()) { ?>
+                    <?php if ($this->socketcommand->CheckConnection($this->socketcommand->LoadConfig('tcp_primary_server_host'), $this->socketcommand->LoadConfig('tcp_primary_server_port'))) : ?>
                         <input type="button" id="stopserver" class="btn btn-outline-primary text-white" value="Stop Server" onclick="StopServer()">
-                    <?php } else { ?>
+                    <?php endif; ?>
+                    <?php if (!$this->socketcommand->CheckConnection($this->socketcommand->LoadConfig('tcp_primary_server_host'), $this->socketcommand->LoadConfig('tcp_primary_server_port'))) : ?>
                         <input type="button" id="startserver" class="btn btn-outline-primary text-white" value="Start Server" onclick="StartServer()">
-                    <?php } ?>
+                    <?php endif; ?>
                     <input type="button" id="reloadevents" class="btn btn-outline-primary text-white" value="Reload Events" onclick="ReloadEvents()">
                     <a href="<?= base_url('adm/servercommandmanagement/sendannouncement') ?>" class="btn btn-outline-primary text-white">Send Announcement</a>
                     <input type="button" id="kickallplayers" class="btn btn-outline-primary text-white" value="Kick All Players" onclick="KickAllPlayers()">
@@ -325,8 +326,14 @@
                                             if (Result.response == 'true') {
                                                 CSRF_TOKEN = Result.token;
                                             }
-
-                                            return StartServer();
+                                            if (RETRY < 3) return StopServer();
+                                            else {
+                                                SetAttribute('stopserver', 'button', 'Stop Server');
+                                                ShowToast(2000, 'error', 'Failed To Stop Server.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
                                         },
                                         error: function() {
                                             SetAttribute('stopserver', 'button', 'Stop Server');

@@ -16,361 +16,360 @@ class Servercommand extends RestController
     {
         parent::__construct();
         $this->load->library('servercommand_library');
+        $this->load->library('socketcommand');
     }
 
     function send_post()
     {
         $response = array();
 
-        $this->form_validation->set_error_delimiters('', '');
+        $response['status'] = 'error';
+        $response['token'] = $this->security->get_csrf_hash();
+        $response['message'] = 'Sorry, Integrated System Disabled By Author.';
 
-        $this->form_validation->set_rules(
-            'opcode',
-            'opcode',
-            'required|numeric|max_length[2]|in_list[1,2,3,4,5,6,7,8,9,10,11]',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Must Be Numeric Characters.',
-                'max_length' => '%s Invalid Length.',
-                'in_list' => 'Invalid %s'
-            )
-        );
-        $this->form_validation->set_rules(
-            'secret_token',
-            'Secret Token',
-            'required|alpha_numeric|max_length[64]',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'alpha_numeric' => '%s Only Can Using Alphabetic And Numeric Combination.',
-                'max_length' => '%s Only Can Accept 64 Combination Characters.'
-            )
-        );
-        $this->form_validation->set_rules(
-            'secret_keys',
-            'Secret Keys',
-            'required|in_list[darkblowpb,darkblowpb_2021,darkblowpbreborn,darkblowpbreborn_2021]',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'in_list' => 'Invalid %s.'
-            )
-        );
-        $this->form_validation->set_rules(
-            'command_type',
-            'Command Type',
-            'required',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'in_list' => 'Invalid %s.'
-            )
-        );
-        if ($this->form_validation->run()) {
-            $data = array(
-                'real_ipaddress' => $this->input->ip_address(),
-                'opcode' => $this->input->post('opcode', true),
-                'secret_token' => $this->input->post('secret_token', true),
-                'secret_keys' => $this->input->post('secret_keys', true),
-                'command_type' => $this->input->post('command_type', true)
-            );
+        $this->response($response, 200);
 
-            switch ($data['command_type']) {
-                case 'Start Server': {
-                        if ($this->servercommand_library->SendTcpCommand('third', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Start Server.';
+        // $this->form_validation->set_error_delimiters('', '');
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed Start Server.';
+        // $this->form_validation->set_rules(
+        //     'opcode',
+        //     'opcode',
+        //     'required|numeric|max_length[2]|in_list[1,2,3,4,5,6,7,8,9,10,11]',
+        //     array(
+        //         'required' => '%s Cannot Be Empty.',
+        //         'numeric' => '%s Must Be Numeric Characters.',
+        //         'max_length' => '%s Invalid Length.',
+        //         'in_list' => 'Invalid %s'
+        //     )
+        // );
+        // $this->form_validation->set_rules(
+        //     'secret_token',
+        //     'Secret Token',
+        //     'required|alpha_numeric|max_length[64]',
+        //     array(
+        //         'required' => '%s Cannot Be Empty.',
+        //         'alpha_numeric' => '%s Only Can Using Alphabetic And Numeric Combination.',
+        //         'max_length' => '%s Only Can Accept 64 Combination Characters.'
+        //     )
+        // );
+        // $this->form_validation->set_rules(
+        //     'secret_keys',
+        //     'Secret Keys',
+        //     'required|in_list[darkblowpb,darkblowpb_2021,darkblowpbreborn,darkblowpbreborn_2021]',
+        //     array(
+        //         'required' => '%s Cannot Be Empty.',
+        //         'in_list' => 'Invalid %s.'
+        //     )
+        // );
+        // $this->form_validation->set_rules(
+        //     'command_type',
+        //     'Command Type',
+        //     'required',
+        //     array(
+        //         'required' => '%s Cannot Be Empty.',
+        //         'in_list' => 'Invalid %s.'
+        //     )
+        // );
+        // if ($this->form_validation->run()) {
+        // $data = array(
+        //     'real_ipaddress' => $this->input->ip_address(),
+        //     'opcode' => $this->input->post('opcode', true),
+        //     'secret_token' => $this->input->post('secret_token', true),
+        //     'secret_keys' => $this->input->post('secret_keys', true),
+        //     'command_type' => $this->input->post('command_type', true)
+        // );
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Shutdown Server': {
-                        if ($this->servercommand_library->SendTcpCommand('third', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Shutdown Server.';
+        // if ($data['command_type'] != "Start Server" || $data['command_type'] != "Shutdown Server") $this->response($this->socketcommand->CreateConnection($this->socketcommand->LoadConfig('tcp_primary_server_host'), $this->socketcommand->LoadConfig('tcp_primary_server_port'), $data), 200);
+        // else 
+        // $this->response($this->socketcommand->CreateConnection($this->socketcommand->LoadConfig('tcp_primary_server_host'), $this->socketcommand->LoadConfig('tcp_third_server_port'), $data), 200);
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed Shutdown Server.';
+        // switch ($data['command_type']) {
+        //     case 'Start Server': {
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Reload Events': {
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Reload Events.';
+        //             break;
+        //         }
+        //     case 'Shutdown Server': {
+        //             if ($this->servercommand_library->SendTcpCommand('third', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Shutdown Server.';
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed Reload Events.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed Shutdown Server.';
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Send Announcement': {
-                        $data['message'] = $this->input->post('message', true);
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Start Server.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+        //     case 'Reload Events': {
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Reload Events.';
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed Start Server.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed Reload Events.';
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Kick All Players': {
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Kick All Players.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+        //     case 'Send Announcement': {
+        //             $data['message'] = $this->input->post('message', true);
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Start Server.';
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Kick All Players.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed Start Server.';
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Banned Player': {
-                        $data['player_id'] = $this->input->post('player_id', true);
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Banned Players.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+        //     case 'Kick All Players': {
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Kick All Players.';
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Banned Players.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Kick All Players.';
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case 'Attendance': {
-                        $data['event_id'] = $this->input->post('event_id', true);
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+        //     case 'Banned Player': {
+        //             $data['player_id'] = $this->input->post('player_id', true);
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Banned Players.';
 
-                        // Get Accounts
-                        $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
-                        if ($query) {
-                            // Get Event Data
-                            $query2 = $this->db->get_where('events_attendance', array('id' => $data['event_id'], 'date' => date('d-m-Y')))->row();
-                            if ($query2) {
-                                $query3 = $this->db->get_where('check_user_attendance', array('event_id' => $query2->id, 'player_id' => $query->player_id, 'date_claimed' => date('d-m-Y')))->row();
-                                if ($query3) {
-                                    $response['response'] = 'error';
-                                    $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'You Already Check In Today.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Banned Players.';
 
-                                    $this->response($response, 200);
-                                } else {
-                                    $data['player_id'] = $query->player_id;
-                                    $data['item_id'] = $query2->item_id;
-                                    $data['category'] = $this->lib->GetItemCategory($query2->item_id);
-                                    $data['item_name'] = $query2->item_name;
-                                    $data['count'] = $query2->item_count;
-                                    if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                                        $insert = $this->db->insert('check_user_attendance', array(
-                                            'event_id' => $query2->id,
-                                            'player_id' => $query->player_id,
-                                            'item_reward' => $query2->item_id,
-                                            'item_count' => $query2->item_count,
-                                            'date_claimed' => $query2->date,
-                                        ));
-                                        $update = $this->db->where('id', $query->id)->update('events_attendance', array('total_claim' => ($query->total_claim + 1)));
-                                        if ($insert && $update) {
-                                            $response['response'] = 'success';
-                                            $response['token'] = $this->security->get_csrf_hash();
-                                            $response['message'] = 'Successfully Attendance. Please Check Your Inventory.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+        //     case 'Attendance': {
+        //             $data['event_id'] = $this->input->post('event_id', true);
 
-                                            $this->response($response, 200);
-                                        } else {
-                                            $response['response'] = 'success';
-                                            $response['token'] = $this->security->get_csrf_hash();
-                                            $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed.';
+        //             // Get Accounts
+        //             $query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
+        //             if ($query) {
+        //                 // Get Event Data
+        //                 $query2 = $this->db->get_where('events_attendance', array('id' => $data['event_id'], 'date' => date('d-m-Y')))->row();
+        //                 if ($query2) {
+        //                     $query3 = $this->db->get_where('check_user_attendance', array('event_id' => $query2->id, 'player_id' => $query->player_id, 'date_claimed' => date('d-m-Y')))->row();
+        //                     if ($query3) {
+        //                         $response['response'] = 'error';
+        //                         $response['token'] = $this->security->get_csrf_hash();
+        //                         $response['message'] = 'You Already Check In Today.';
 
-                                            $this->response($response, 200);
-                                        }
-                                    } else {
-                                        $response['response'] = 'error';
-                                        $response['token'] = $this->security->get_csrf_hash();
-                                        $response['message'] = 'Failed To Attendance.';
+        //                         $this->response($response, 200);
+        //                     } else {
+        //                         $data['player_id'] = $query->player_id;
+        //                         $data['item_id'] = $query2->item_id;
+        //                         $data['category'] = $this->lib->GetItemCategory($query2->item_id);
+        //                         $data['item_name'] = $query2->item_name;
+        //                         $data['count'] = $query2->item_count;
+        //                         if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                             $insert = $this->db->insert('check_user_attendance', array(
+        //                                 'event_id' => $query2->id,
+        //                                 'player_id' => $query->player_id,
+        //                                 'item_reward' => $query2->item_id,
+        //                                 'item_count' => $query2->item_count,
+        //                                 'date_claimed' => $query2->date,
+        //                             ));
+        //                             $update = $this->db->where('id', $query->id)->update('events_attendance', array('total_claim' => ($query->total_claim + 1)));
+        //                             if ($insert && $update) {
+        //                                 $response['response'] = 'success';
+        //                                 $response['token'] = $this->security->get_csrf_hash();
+        //                                 $response['message'] = 'Successfully Attendance. Please Check Your Inventory.';
 
-                                        $this->response($response, 200);
-                                    }
-                                }
-                            } else {
-                                $response['response'] = 'error';
-                                $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Invalid Attendance Data.';
+        //                                 $this->response($response, 200);
+        //                             } else {
+        //                                 $response['response'] = 'success';
+        //                                 $response['token'] = $this->security->get_csrf_hash();
+        //                                 $response['message'] = 'Item Has Been Sended To Your Inventory. But Logging System Failed.';
 
-                                $this->response($response, 200);
-                            }
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Get Your Account Data.';
+        //                                 $this->response($response, 200);
+        //                             }
+        //                         } else {
+        //                             $response['response'] = 'error';
+        //                             $response['token'] = $this->security->get_csrf_hash();
+        //                             $response['message'] = 'Failed To Attendance.';
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
+        //                             $this->response($response, 200);
+        //                         }
+        //                     }
+        //                 } else {
+        //                     $response['response'] = 'error';
+        //                     $response['token'] = $this->security->get_csrf_hash();
+        //                     $response['message'] = 'Invalid Attendance Data.';
 
-                case 'Redeem Code': {
-                        $data['player_id'] = $this->input->post('player_id', true);
-                        $data['code'] = $this->input->post('code', true);
+        //                     $this->response($response, 200);
+        //                 }
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Get Your Account Data.';
 
-                        $query = $this->db->get_where('accounts', array('palyer_id' => $data['player_id']))->row();
-                        if ($query) {
-                            $query2 = $this->db->get_where('item_code', array('item_code' => $data['code']))->row();
-                            if ($query2) {
-                                $dateNow = time();
-                                $totalQty = $query2->qty - 1;
-                                if ($dateNow < $query2->valid_date) {
-                                    $query3 = $this->db->get_where('check_user_itemcode', array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
-                                    if ($query3) {
-                                        $response['response'] = 'error';
-                                        $response['token'] = $this->security->get_csrf_hash();
-                                        $response['message'] = 'Code Already Used.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
 
-                                        $this->response($response, 200);
-                                    } else {
-                                        if ($totalQty <= 0) {
-                                            $response['response'] = 'error';
-                                            $response['token'] = $this->security->get_csrf_hash();
-                                            $response['message'] = 'Reward Out Of Stock.';
+        //     case 'Redeem Code': {
+        //             $data['player_id'] = $this->input->post('player_id', true);
+        //             $data['code'] = $this->input->post('code', true);
 
-                                            $this->response($response, 200);
-                                        } else {
-                                            $data['item_id'] = $query2->item_id;
-                                            $data['category'] = $this->lib->GetItemCategory($query2->item_id);
-                                            $data['item_name'] = $this->lib->GetItemName($query2->item_id) . ' - Redeem Code';
-                                            $data['count'] = $query2->item_count;
+        //             $query = $this->db->get_where('accounts', array('palyer_id' => $data['player_id']))->row();
+        //             if ($query) {
+        //                 $query2 = $this->db->get_where('item_code', array('item_code' => $data['code']))->row();
+        //                 if ($query2) {
+        //                     $dateNow = time();
+        //                     $totalQty = $query2->qty - 1;
+        //                     if ($dateNow < $query2->valid_date) {
+        //                         $query3 = $this->db->get_where('check_user_itemcode', array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
+        //                         if ($query3) {
+        //                             $response['response'] = 'error';
+        //                             $response['token'] = $this->security->get_csrf_hash();
+        //                             $response['message'] = 'Code Already Used.';
 
-                                            if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                                                $response['response'] = 'success';
-                                                $response['token'] = $this->security->get_csrf_hash();
-                                                $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+        //                             $this->response($response, 200);
+        //                         } else {
+        //                             if ($totalQty <= 0) {
+        //                                 $response['response'] = 'error';
+        //                                 $response['token'] = $this->security->get_csrf_hash();
+        //                                 $response['message'] = 'Reward Out Of Stock.';
 
-                                                $this->response($response, 200);
-                                            } else {
-                                                $response['response'] = 'error';
-                                                $response['token'] = $this->security->get_csrf_hash();
-                                                $response['message'] = 'Failed To Redeem The Code.';
+        //                                 $this->response($response, 200);
+        //                             } else {
+        //                                 $data['item_id'] = $query2->item_id;
+        //                                 $data['category'] = $this->lib->GetItemCategory($query2->item_id);
+        //                                 $data['item_name'] = $this->lib->GetItemName($query2->item_id) . ' - Redeem Code';
+        //                                 $data['count'] = $query2->item_count;
 
-                                                $this->response($response, 200);
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    $response['response'] = 'error';
-                                    $response['token'] = $this->security->get_csrf_hash();
-                                    $response['message'] = 'Code Already Expired.';
+        //                                 if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                                     $response['response'] = 'success';
+        //                                     $response['token'] = $this->security->get_csrf_hash();
+        //                                     $response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
 
-                                    $this->response($response, 200);
-                                }
-                            } else {
-                                $response['response'] = 'error';
-                                $response['token'] = $this->security->get_csrf_hash();
-                                $response['message'] = 'Invalid Redeem Code.';
+        //                                     $this->response($response, 200);
+        //                                 } else {
+        //                                     $response['response'] = 'error';
+        //                                     $response['token'] = $this->security->get_csrf_hash();
+        //                                     $response['message'] = 'Failed To Redeem The Code.';
 
-                                $this->response($response, 200);
-                            }
-                        }
-                        break;
-                    }
+        //                                     $this->response($response, 200);
+        //                                 }
+        //                             }
+        //                         }
+        //                     } else {
+        //                         $response['response'] = 'error';
+        //                         $response['token'] = $this->security->get_csrf_hash();
+        //                         $response['message'] = 'Code Already Expired.';
 
-                case "Send Cash ID": {
-                        $data['player_id'] = $this->input->post('player_id', true);
-                        $data['count'] = $this->input->post('cash_amount', true);
+        //                         $this->response($response, 200);
+        //                     }
+        //                 } else {
+        //                     $response['response'] = 'error';
+        //                     $response['token'] = $this->security->get_csrf_hash();
+        //                     $response['message'] = 'Invalid Redeem Code.';
 
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Send Cash.';
+        //                     $this->response($response, 200);
+        //                 }
+        //             }
+        //             break;
+        //         }
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Send Cash.';
+        //     case "Send Cash ID": {
+        //             $data['player_id'] = $this->input->post('player_id', true);
+        //             $data['count'] = $this->input->post('cash_amount', true);
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Send Cash.';
 
-                case "Refill Shop": {
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Refill Shop.';
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Send Cash.';
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['csrf_token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Refill Shop.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
+        //     case "Refill Shop": {
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Refill Shop.';
 
-                case "Send Point ID": {
-                        $data['player_id'] = $this->input->post('player_id', true);
-                        $data['count'] = $this->input->post('point_amount', true);
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['csrf_token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Refill Shop.';
 
-                        if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Send Point.';
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Send Point.';
+        //     case "Send Point ID": {
+        //             $data['player_id'] = $this->input->post('player_id', true);
+        //             $data['count'] = $this->input->post('point_amount', true);
 
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
+        //             if ($this->servercommand_library->SendTcpCommand('primary', $data) == 'Success') {
+        //                 $response['response'] = 'success';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Successfully Send Point.';
 
-                default:
-                    break;
-            }
-        } else {
-            $response['response'] = 'error';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = validation_errors();
+        //                 $this->response($response, 200);
+        //             } else {
+        //                 $response['response'] = 'error';
+        //                 $response['token'] = $this->security->get_csrf_hash();
+        //                 $response['message'] = 'Failed To Send Point.';
 
-            $this->response($response, 200);
-        }
+        //                 $this->response($response, 200);
+        //             }
+        //             break;
+        //         }
+
+        //     default:
+        //         break;
+        // }
+        // } else {
+        //     $response['response'] = 'error';
+        //     $response['token'] = $this->security->get_csrf_hash();
+        //     $response['message'] = validation_errors();
+
+        //     $this->response($response, 200);
+        // }
     }
 
     function startserver_post()

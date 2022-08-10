@@ -14,6 +14,7 @@ class Servercommandmanagement extends CI_Controller
         parent::__construct();
         $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/servercommandmanagement_model', 'servercommandmanagement');
+        $this->load->library('socketcommand');
         $this->load->library('servercommand_library');
     }
 
@@ -21,6 +22,9 @@ class Servercommandmanagement extends CI_Controller
     {
         $data['title'] = 'Server Command Management';
         $data['header'] = 'Server Command Management';
+
+        $data['config'] = $this->config->item('main_config');
+
         $data['content'] = 'admin/content/servercommandmanagement/content_sendcommand';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
