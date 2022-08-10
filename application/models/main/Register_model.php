@@ -336,7 +336,7 @@ class Register_model extends CI_Model
 
 		$data = array(
 			'login' => $this->input->post('login', true),
-			'password' => $this->lib->password_encrypt('password', true),
+			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
 			'email' => $this->input->post('email', true),
 			'hint_question' => $this->input->post('hint_question', true),
 			'hint_answer' => $this->input->post('hint_answer', true)
@@ -354,43 +354,32 @@ class Register_model extends CI_Model
 
 			$responses['response'] = 'error';
 			$responses['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Error: 400 - Bad Request.';
+			$responses['message'] = 'Error: 400 - Bad Request 1.';
 
 			echo json_encode($responses);
 		}
 
-		if (empty($this->session->userdata('is_browser'))) {
-			$this->session->sess_destroy();
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => base_url('api/web/register'),
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_POSTFIELDS => '' . $this->security->get_csrf_token_name() . '=' . $this->security->get_csrf_hash() . '&login=' . $data['login'] . '&email=' . $data['email'] . '&password=' . $data['password'] . '&re_password=' . $data2['re_password'] . '&hint_question=' . urlencode($data['hint_question']) . '&hint_answer=' . urlencode($data['hint_answer']),
+			CURLOPT_HTTPHEADER => array(
+				'Authorization: ' . $this->getsettings->Get()->api_authorization_key,
+				'Content-Type: application/x-www-form-urlencoded',
+				'Cookie: darkblowpbreborn_cookies=fe99af92ea8a6aee1e0f09b9aa7272c7; darkblowpbreborn_session=svem0f8crg1ibmla3p1jkogvu709e4vm'
+			),
+		));
 
-			$responses['response'] = 'error';
-			$responses['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Error: 400 - Bad Request.';
+		$response = curl_exec($curl);
 
-			echo json_encode($responses);
-		} else {
-			curl_setopt_array($curl, array(
-				CURLOPT_URL => base_url('api/web/register'),
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => '',
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POSTFIELDS => '' . $this->security->get_csrf_token_name() . '=' . $this->security->get_csrf_hash() . '&login=' . $data['login'] . '&email=' . $data['email'] . '&password=' . $data['password'] . '&re_password=' . $data2['re_password'] . '&hint_question=' . urlencode($data['hint_question']) . '&hint_answer=' . urlencode($data['hint_answer']),
-				CURLOPT_HTTPHEADER => array(
-					'Authorization: ' . $this->getsettings->Get()->api_authorization_key,
-					'Content-Type: application/x-www-form-urlencoded',
-					'Cookie: darkblowpbreborn_cookies=fe99af92ea8a6aee1e0f09b9aa7272c7; darkblowpbreborn_session=svem0f8crg1ibmla3p1jkogvu709e4vm'
-				),
-			));
-
-			$response = curl_exec($curl);
-
-			curl_close($curl);
-			$this->session->unset_userdata('is_browser');
-			echo $response;
-		}
+		curl_close($curl);
+		echo $response;
 	}
 
 	function AccountVerification()

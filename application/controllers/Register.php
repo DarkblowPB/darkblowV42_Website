@@ -65,11 +65,6 @@ class Register extends CI_Controller
 
 	function do_register()
 	{
-		$response = array();
-		if (isset($_SESSION['is_browser'])) $this->session->sess_destroy();
-
-		if ($this->input->is_ajax_request()) $this->session->set_userdata('is_browser', 'TRUE');
-		else $this->session->set_userdata('is_browser', 'FALSE');
 		$this->form_validation->set_rules(
 			'login',
 			'Username',

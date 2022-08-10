@@ -23,7 +23,7 @@ class Web extends RestController
 
             $data = array(
                 'login' => $this->input->post('login', true),
-                'password' => $this->lib->password_encrypt('password', true),
+                'password' => $this->input->post('password', true),
                 'email' => $this->input->post('email', true),
                 'hint_question' => $this->input->post('hint_question', true),
                 'hint_answer' => $this->input->post('hint_answer', true)
