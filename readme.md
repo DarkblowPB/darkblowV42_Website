@@ -61,7 +61,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This site is built with Codeigniter 3 & PostgreSQL, follow link below to understand how they work.
 * [Codeigniter](https://codeigniter.com)
 * [PostgreSQL](https://www.postgresql.org/)
 
@@ -71,7 +71,7 @@ This section should list any major frameworks that you built your project using.
 ## Getting Started
 
 For first time, you must be confused about the site structure, simple explanation is, this site using MVC structure, using [Codeigniter](https://codeigniter.com) framework.
-for installing you can using Git or Clone this project into your local machine.
+for installing this site, you can using Git or Download manually this project into your machine.
 
 	1. Clone using Git / Download manually this repository.
 	2. Start your Local web Server (ex. XAMPP).
