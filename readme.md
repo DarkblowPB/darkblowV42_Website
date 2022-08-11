@@ -77,6 +77,12 @@ for installing this site, you can using Git or Download manually this project in
 	2. Start your Local web Server (ex. XAMPP).
 	3. Copy this project to "htdocs" folder (every local web server have different folder name).
 	4. Done.
+
+And how to configure this website? Follow this step clearly:
+
+	1. Open "darkblow_config.json".
+	2. Setup your credentials server.
+	3. Done.
 	
 ### Prerequisites
 
