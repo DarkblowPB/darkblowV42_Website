@@ -18,11 +18,11 @@ class Redeemcode_model extends CI_Model
 
 	function GetCodeSystem()
 	{
-		if ($this->config->item('main_config', 'codesytem') != null) {
-			if (strtolower($this->config->item('main_config', 'codesystem') == "integrated")) return base_url('api/servercommand/redeemcode');
-			else if (strtolower($this->config->item('main_config', 'codesystem') == "manual")) return base_url('player_panel/redeemcode/do_redeem');
-			else return base_url();
-		} else return base_url();
+		$config = $this->config->item('main_config')['codesystem'];
+
+		if (strtolower($config) == 'api') return base_url('api/servercommand/redeemcode');
+		else if (strtolower($config) == 'manual') return base_url('player_panel/redeemcode/do_redeem');
+		else return base_url('player_panel/redeemcode/do_redeem');
 	}
 
 	function CodeValidationManual()
