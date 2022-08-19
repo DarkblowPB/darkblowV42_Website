@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-This project is depends to much repo & library, this how to describe that support version of this repo
+This project is dependent on too much other repositories and libraries. The following table describes the supported versions for this repository.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -13,4 +13,5 @@ This project is depends to much repo & library, this how to describe that suppor
 
 ## Reporting a Vulnerability
 
-If you found any vulnerability, please create an Issues or contact me on discord Lolsecs#2192
+If you've found any vulnerability, please create an issue or contact me on Discord: Lolsecs#2192
+I'll try to work on the issue and deliver a fix as fast as possible!
