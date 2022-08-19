@@ -479,7 +479,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = false;
+$config['csrf_protection'] = true;
 $config['csrf_token_name'] = 'darkblowpbreborn_protector';
 $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
 $config['csrf_expire'] = 1800;
