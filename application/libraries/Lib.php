@@ -528,146 +528,6 @@ class Lib
 		}
 	}
 
-	public function SetRandomInputFieldName()
-	{
-		$randomstring = $this->GenerateRandomTokenV2(32);
-		$salt = '/x!a@r-$r%an¨.&e&+f*f(f(a)';
-		$result = hash_hmac('gost-crypto', $randomstring, $salt);
-		return $result;
-	}
-
-	public function GenerateRandomInputField($page = null, $isRegenerate = false)
-	{
-		$register = array(
-			'username_field' => $this->SetRandomInputFieldName(),
-			'email_field' => $this->SetRandomInputFieldName(),
-			'password_field' => $this->SetRandomInputFieldName(),
-			're_password_field' => $this->SetRandomInputFieldName(),
-			'hint_question_field' => $this->SetRandomInputFieldName(),
-			'hint_answer_field' => $this->SetRandomInputFieldName(),
-		);
-
-		$login = array(
-			'username_field' => $this->SetRandomInputFieldName(),
-			'password_field' => $this->SetRandomInputFieldName()
-		);
-
-		$forgotpassword = array(
-			'email_field' => $this->SetRandomInputFieldName()
-		);
-
-		if ($page != null) {
-			if ($page == 'register') {
-				if ($isRegenerate) {
-					foreach ($register as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-
-					foreach ($register as $key1 => $value1) {
-						$this->ci->session->set_userdata($key1, $value1);
-					}
-				} else {
-					foreach ($register as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-				}
-			} else if ($page == 'login') {
-				if ($isRegenerate) {
-					foreach ($login as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-
-					foreach ($login as $key1 => $value1) {
-						$this->ci->session->set_userdata($key1, $value1);
-					}
-				} else {
-					foreach ($login as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-				}
-			} else if ($page == 'forgotpassword') {
-				if ($isRegenerate) {
-					foreach ($forgotpassword as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-
-					foreach ($forgotpassword as $key1 => $value1) {
-						$this->ci->session->set_userdata($key1, $value1);
-					}
-				} else {
-					foreach ($forgotpassword as $key => $value) {
-						$this->ci->session->unset_userdata($key);
-					}
-				}
-			}
-		}
-	}
-
-	public function SetRegisterPageInputProperty()
-	{
-		$login = $this->SetRandomInputFieldName();
-		$password = $this->SetRandomInputFieldName();
-		$re_password = $this->SetRandomInputFieldName();
-		$email = $this->SetRandomInputFieldName();
-		$hint_question = $this->SetRandomInputFieldName();
-		$hint_answer = $this->SetRandomInputFieldName();
-
-		$sessionData = array(
-			'username_field' => $login,
-			'password_field' => $password,
-			're_password_field' => $re_password,
-			'email_field' => $email,
-			'hint_question_field' => $hint_question,
-			'hint_answer_field' => $hint_answer
-		);
-
-		$this->ci->session->set_userdata($sessionData);
-	}
-
-	public function GetRegisterPageInputProperty($session_key = null)
-	{
-		if ($session_key == null) return '';
-		else {
-			switch ($session_key) {
-				case 'username_field':
-					return $this->ci->session->userdata('username_field');
-				case 'password_field':
-					return $this->ci->session->userdata('password_field');
-				case 're_password_field':
-					return $this->ci->session->userdata('re_password_field');
-				case 'email_field':
-					return $this->ci->session->userdata('email_field');
-				case 'hint_question_field':
-					return $this->ci->session->userdata('hint_question_field');
-				case 'hint_answer_field':
-					return $this->ci->session->userdata('hint_answer_field');
-				default:
-					return '';
-			}
-		}
-	}
-
-	public function DestroyRegisterPageInputProperty(bool $isRegenerate = false)
-	{
-		if (!$isRegenerate) {
-			$this->ci->session->unset_userdata('username_field');
-			$this->ci->session->unset_userdata('password_field');
-			$this->ci->session->unset_userdata('re_password_field');
-			$this->ci->session->unset_userdata('email_field');
-			$this->ci->session->unset_userdata('hint_question_field');
-			$this->ci->session->unset_userdata('hint_answer_field');
-		} else {
-			$this->ci->session->unset_userdata('username_field');
-			$this->ci->session->unset_userdata('password_field');
-			$this->ci->session->unset_userdata('re_password_field');
-			$this->ci->session->unset_userdata('email_field');
-			$this->ci->session->unset_userdata('hint_question_field');
-			$this->ci->session->unset_userdata('hint_answer_field');
-
-			$this->SetRegisterPageInputProperty();
-		}
-	}
-
 	function CustomCaptcha()
 	{
 		$this->ci->load->helper('captcha');
@@ -706,6 +566,34 @@ class Lib
 				else return TRUE;
 			} else return FALSE;
 		}
+	}
+
+	public function UserLocation($ip_address)
+	{
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'http://ip-api.com/json/' . $ip_address . '?fields=status,country',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+
+		$data = json_decode($response, true);
+
+		if ($data['status'] == 'success') {
+			if ($data['country'] == 'indonesia') return TRUE;
+			else return FALSE;
+		} else return FALSE;
 	}
 }
 
