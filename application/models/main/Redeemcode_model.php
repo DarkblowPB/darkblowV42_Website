@@ -43,7 +43,7 @@ class Redeemcode_model extends CI_Model
 				if ($dateNow > $query2->valid_date) {
 					$response['response'] = 'error';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Code Already Expired';
+					$response['message'] = 'Code Already Expired.';
 
 					echo json_encode($response);
 				} else if ($totalQty <= 0) {

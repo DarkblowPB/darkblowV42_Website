@@ -20,10 +20,10 @@ class Lib
 	private function EncryptDecryptConfig()
 	{
 		$config = array(
-			'ciphering' => $this->ci->config->item('main_config', 'encryption_ciphering'),
-			'options' => $this->ci->config->item('main_config'),
-			'encryption_iv' => $this->ci->config->item('main_config', 'encryption_iv'),
-			'encryption_key' => $this->ci->config->item('main_config', 'encryption_key')
+			'ciphering' => $this->ci->config->item('main_config')['encryption_ciphering'],
+			'options' => $this->ci->config->item('main_config')['options'],
+			'encryption_iv' => $this->ci->config->item('main_config')['encryption_iv'],
+			'encryption_key' => $this->ci->config->item('main_config')['encryption_key']
 		);
 
 		return $config;
@@ -359,15 +359,15 @@ class Lib
 	public function HostLibrary($server, $param)
 	{
 		$main_server = array(
-			'ip_address' => $this->ci->config->item('main_config', 'tcp_primary_server_host'),
-			'port_1' => $this->ci->config->item('main_config', 'tcp_primary_server_port'),
-			'port_2' => $this->ci->config->item('main_config', 'tcp_third_server_port')
+			'ip_address' => $this->ci->config->item('main_config')['tcp_primary_server_host'],
+			'port_1' => $this->ci->config->item('main_config')['tcp_primary_server_port'],
+			'port_2' => $this->ci->config->item('main_config')['tcp_third_server_port']
 		);
 
 		$side_server = array(
-			'ip_address' => $this->ci->config->item('main_config', 'tcp_side_server_host'),
-			'port_1' => $this->ci->config->item('main_config', 'tcp_secondary_server_port'),
-			'port_2' => $this->ci->config->item('main_config', 'tcp_side_server_port')
+			'ip_address' => $this->ci->config->item('main_config')['tcp_side_server_host'],
+			'port_1' => $this->ci->config->item('main_config')['tcp_secondary_server_port'],
+			'port_2' => $this->ci->config->item('main_config')['tcp_side_server_port']
 		);
 
 		switch ($server) {

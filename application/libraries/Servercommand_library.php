@@ -20,8 +20,8 @@ class Servercommand_library
     public function PrimaryHost()
     {
         $data = array(
-            'host' => $this->ci->config->item('main_config', 'tcp_primary_server_host'),
-            'port' => $this->ci->config->item('main_config', 'tcp_primary_server_port')
+            'host' => $this->ci->config->item('main_config')['tcp_primary_server_host'],
+            'port' => $this->ci->config->item('main_config')['tcp_primary_server_port']
         );
         return $data;
     }
@@ -29,8 +29,8 @@ class Servercommand_library
     public function SecondaryHost()
     {
         $data = array(
-            'host' => $this->ci->config->item('main_config', 'tcp_secondary_server_host'),
-            'port' => $this->ci->config->item('main_config', 'tcp_secondary_server_port')
+            'host' => $this->ci->config->item('main_config')['tcp_secondary_server_host'],
+            'port' => $this->ci->config->item('main_config')['tcp_secondary_server_port']
         );
         return $data;
     }
@@ -38,8 +38,8 @@ class Servercommand_library
     public function ThirdHost()
     {
         $data = array(
-            'host' => $this->ci->config->item('main_config', 'tcp_third_server_host'),
-            'port' => $this->ci->config->item('main_config', 'tcp_third_server_port')
+            'host' => $this->ci->config->item('main_config')['tcp_third_server_host'],
+            'port' => $this->ci->config->item('main_config')['tcp_third_server_port']
         );
         return $data;
     }

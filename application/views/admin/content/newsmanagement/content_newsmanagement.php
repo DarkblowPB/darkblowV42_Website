@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body text-center">
-                    <a href="<?= base_url('adm/newsmanagement/add') ?>" class="btn btn-outline-primary text-white"><i class="fas fa-plus-circle mr-2"></i>Add New Events</a>
+                    <a href="<?= base_url('adm/newsmanagement/add') ?>" class="btn btn-outline-primary text-white"><i class="fas fa-plus-circle mr-2"></i>Add News</a>
                 </div>
             </div>
         </div>
@@ -31,15 +31,9 @@
                             <?php $num = 1;
                             foreach ($news as $row) : ?>
                                 <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['quickslide_title'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $this->lib->ParseUnixTimeStamp($row['quickslide_date']) ?>
-                                    </td>
+                                    <td><?= $num ?></td>
+                                    <td><?= $row['quickslide_title'] ?></td>
+                                    <td><?= $this->lib->ParseUnixTimeStamp($row['quickslide_date']) ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

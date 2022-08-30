@@ -23,9 +23,20 @@
                         <label class="col-form-label col-3">News Title</label>
                         <input type="text" name="quickslide_title" class="form-control col-9" placeholder="Enter News Title" maxlength="255" autofocus required>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">News Description</label>
-                        <textarea name="quickslide_description" class="form-control col-9 summernote_editor" rows="10" placeholder="Enter News Description" required></textarea>
+                    <style>
+                        .note-editor {
+                            width: auto !important;
+                        }
+                    </style>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-3">
+                                <label class="col-form-label">News Description</label>
+                            </div>
+                            <div class="col-9">
+                                <textarea name="quickslide_description" class="form-control col-9 summernote_editor" rows="10" placeholder="Enter News Description" required></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Image</label>
