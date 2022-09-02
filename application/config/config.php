@@ -5,24 +5,24 @@ $config['main_config'] = array(
     'google_register_clientid' => '704467996300-423omsi33h5g5ehu6r1l7vq96ipjk1bq.apps.googleusercontent.com',
     'google_register_clientsecret' => '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',
     'project_version' => '1.15.42.30',
-    'smtp_host' => 'adiba.herza.id', // Your Host ex. trystane.id.rapidplex.com
+    'smtp_host' => '', // Your Host ex. trystane.id.rapidplex.com
     'smtp_port' => 465, // Your Port ex. 465
-    'smtp_email' => 'support@pb-memories.id', // Your SMTP Email
-    'smtp_password' => 'pbmemories001', // Your SMTP Password,
-    'tcp_primary_server_host' => '127.0.0.1',
-    'tcp_primary_server_port' => "1000",
-    'tcp_secondary_server_host' => '127.0.0.1',
-    'tcp_secondary_server_port' => "1500",
-    'tcp_third_server_host' => '127.0.0.1',
-    'tcp_third_server_port' => "1200",
-    'tcp_side_server_host' => '127.0.0.1',
-    'tcp_side_server_port' => "1700",
+    'smtp_email' => '', // Your SMTP Email
+    'smtp_password' => '', // Your SMTP Password,
     'encryption_ciphering' => 'AES-128-CTR',
     'encryption_options' => 0,
     'encryption_iv' => '2539435361336837',
     'encryption_key' => 'insert_your_encryption_key',
     'site_language' => 'english',
     'codesystem' => 'api',
+    'pbserver_auth_host' => '127.0.0.1',
+    'pbserver_auth_port' => '39190',
+    'pbserver_battle_host' => '127.0.0.1',
+    'pbserver_battle_port' => '2222',
+    'pbserver_game_host' => '127.0.0.1',
+    'pbserver_game_port' => '3333',
+    'pbserver_management_host' => '127.0.0.1',
+    'pbserver_management_port' => '4444'
 );
 /*
 |--------------------------------------------------------------------------
@@ -479,7 +479,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = true;
+$config['csrf_protection'] = false;
 $config['csrf_token_name'] = 'darkblowpbreborn_protector';
 $config['csrf_cookie_name'] = 'darkblowpbreborn_cookies';
 $config['csrf_expire'] = 1800;

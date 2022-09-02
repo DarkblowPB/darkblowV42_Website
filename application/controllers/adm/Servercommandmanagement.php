@@ -15,7 +15,6 @@ class Servercommandmanagement extends CI_Controller
         $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/servercommandmanagement_model', 'servercommandmanagement');
         $this->load->library('socketcommand');
-        $this->load->library('servercommand_library');
     }
 
     function index()

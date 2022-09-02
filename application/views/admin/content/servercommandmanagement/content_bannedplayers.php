@@ -44,9 +44,9 @@
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->servercommand_library->GenerateOpcode("Banned Player") ?>',
-                                        'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
+                                        'opcode': '<?= $this->socketcommand->Opcodes("Banned Player") ?>',
+                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
                                         'command_type': 'Banned Player',
                                         'player_id': $('#player_id').val()
                                     },
@@ -60,39 +60,11 @@
                                         return;
                                     },
                                     error: function() {
-                                        if (RETRY >= 3) {
-                                            SetAttribute('submit', 'button', 'Submit Command');
-                                            ShowToast(2000, 'error', 'Failed To Banned Player.');
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
-                                        } else {
-                                            RETRY += 1;
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') CSRF_TOKEN = Result.token;
-
-                                                    return BannedPlayers();
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'button', 'Submit Command');
-                                                    ShowToast(2000, 'error', 'Failed To Banned Player.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
+                                        SetAttribute('submit', 'button', 'Submit Command');
+                                        ShowToast(2000, 'error', 'Failed To Banned Player.');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
                                     }
                                 });
                             }

@@ -1102,8 +1102,6 @@ class Redeemcodemanagement_model extends CI_Model
 
         $query = $this->db->get_where('item_code', array('item_code' => $data['item_code']))->row();
         if ($query) {
-            $data['item_code'] = $this->GenerateCode2();
-
             $insert = $this->db->insert('item_code', $data);
             if ($insert) {
                 $response['response'] = 'success';

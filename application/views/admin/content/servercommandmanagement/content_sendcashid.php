@@ -54,9 +54,9 @@
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->servercommand_library->GenerateOpcode("Send Cash ID") ?>',
-                                        'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
+                                        'opcode': '<?= $this->socketcommand->Opcodes("Send Cash ID") ?>',
+                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
                                         'command_type': 'Send Cash ID',
                                         'player_id': $('#player_id').val(),
                                         'cash_amount': $('#cash_amount').val()

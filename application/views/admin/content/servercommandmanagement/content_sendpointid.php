@@ -54,9 +54,9 @@
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->servercommand_library->GenerateOpcode("Send Point ID") ?>',
-                                        'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
+                                        'opcode': '<?= $this->socketcommand->Opcodes("Send Point ID") ?>',
+                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
                                         'command_type': 'Send Point ID',
                                         'player_id': $('#player_id').val(),
                                         'point_amount': $('#point_amount').val()

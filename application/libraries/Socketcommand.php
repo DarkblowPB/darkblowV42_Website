@@ -101,49 +101,19 @@ class Socketcommand
         }
     }
 
-    public function CreateConnection($host, $port, $data = array())
+    public function CreateConnection($host, $port, $data)
     {
-        $response = array();
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($socket) {
             $connect = socket_connect($socket, $host, $port);
             if ($connect) {
-                if (is_array($data)) {
-                    $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
-                    if ($write) {
-                        $read = socket_read($socket, 2048);
-
-                        $response['response'] = $read;
-                        $response['token'] = $this->ci->security->get_csrf_hash();
-                        $response['message'] = $read == 'Success' ? 'Successfully.' : 'Failed.';
-                    } else {
-                        $response['response'] = 'error';
-                        $response['token'] = $this->ci->security->get_csrf_hash();
-                        $response['message'] = 'Failed To Write Data Into Socket.';
-
-                        echo json_encode($response);
-                    }
-                } else {
-                    $response['response'] = 'error';
-                    $response['token'] = $this->ci->security->get_csrf_hash();
-                    $response['message'] = 'Invalid Data Type.';
-
-                    echo json_encode($response);
-                }
-            } else {
-                $response['response'] = 'error';
-                $response['token'] = $this->ci->security->get_csrf_hash();
-                $response['message'] = 'Failed To Connect To Server.';
-
-                echo json_encode($response);
-            }
-        } else {
-            $response['response'] = 'error';
-            $response['token'] = $this->ci->security->get_csrf_hash();
-            $response['message'] = 'Failed To Create Socket Connection.';
-
-            echo json_encode($response);
-        }
+                $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
+                if ($write) {
+                    $read = socket_read($socket, 2048);
+                    return strtolower($read);
+                } else return "Failed";
+            } else return "Failed";
+        } else return "Failed";
     }
 }
 
