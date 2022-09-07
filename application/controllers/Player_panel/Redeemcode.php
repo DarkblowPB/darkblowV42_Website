@@ -23,7 +23,7 @@ class Redeemcode extends CI_Controller
 		$this->allprotect->DarkblowCopierGuard();
 
 		$this->load->model('main/redeemcode_model', 'redeemcode');
-		$this->load->library('servercommand_library');
+		$this->load->library('socketcommand');
 
 		$this->lib->FeatureControl('redeemcode', 'player_panel');
 	}

@@ -22,7 +22,7 @@ class Project extends RestController
         $response = array();
 
         $response['status'] = 'Success';
-        $response['project_version'] = $this->config->item('main_config', 'project_version');
+        $response['project_version'] = $this->config->item('main_config')['project_version'];
         $this->response($response, 200);
     }
 }

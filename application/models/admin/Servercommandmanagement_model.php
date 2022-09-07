@@ -18,7 +18,7 @@ class Servercommandmanagement_model extends CI_Model
 
     function GetServerState()
     {
-        if ($this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), '39190') && $this->lib->CheckOpenPort($this->lib->HostLibrary('main', 'ip_address'), '39191'))
+        if ($this->lib->CheckOpenPort($this->config->item('main_config')['pbserver_auth_host'], '39190') && $this->lib->CheckOpenPort($this->config->item('main_config')['pbserver_auth_host'], '39191'))
             return TRUE;
         else return FALSE;
     }
