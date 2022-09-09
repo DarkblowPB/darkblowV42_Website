@@ -12,7 +12,6 @@ class Inventory_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('lib');
 		$this->lang->load('message');
 	}
 
@@ -24,16 +23,6 @@ class Inventory_model extends CI_Model
 	function GetInventoryCount()
 	{
 		return $this->db->where('owner_id', $this->session->userdata('uid'))->get('player_items')->num_rows();
-	}
-
-	function GetItemNameFromInventory($idx)
-	{
-		$query = $this->db->get_where('player_items', array(
-			'object_id' => $idx,
-			'owner_id' => $this->session->userdata('uid')
-		))->row();
-		if ($query) return $query;
-		else return '';
 	}
 
 	function DeleteItem()

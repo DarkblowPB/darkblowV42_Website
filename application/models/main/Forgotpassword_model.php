@@ -37,7 +37,7 @@ class Forgotpassword_model extends CI_Model
                         This link will expire on ' . $this->lib->ParseUnixTimeStamp($expired_date) . '.<br><br>
                         Copyright ' . $this->getsettings->Get()->project_name . ' ' . date('Y') . '. All Rights Reserved.';
 
-            if ($this->querylib->SendEmail('no-reply@darkblowpbreborn.com', $query->email, 'Reset Password', $message)) {
+            if ($this->querylib->SendEmail('no-reply@' . $this->getsettings->Get()->project_name . '.com', $query->email, 'Reset Password', $message)) {
                 $this->db->insert('web_log_forgotpassword', array(
                     'email' => $query->email,
                     'secret_token' => $token,

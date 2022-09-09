@@ -58,7 +58,7 @@ class Inventory extends CI_Controller
 		if ($idx == null) redirect(base_url('player_panel'), 'refresh');
 		else {
 			$data['title'] = 'Details Item';
-			$data['details'] = $this->inventory->GetItemNameFromInventory($idx);
+			$data['details'] = $this->lib->GetItemName($idx);
 			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 			$this->load->view('main/layout/wrapper', $data, FALSE);
 		}

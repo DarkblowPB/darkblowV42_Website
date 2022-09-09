@@ -14,7 +14,6 @@ class Lib
 	public function __construct()
 	{
 		$this->ci = &get_instance();
-		$this->ci->load->helper('file');
 	}
 
 	private function EncryptDecryptConfig()
@@ -428,25 +427,6 @@ class Lib
 		} else return "Failed";
 	}
 
-	public function ResultMessage($type, $message, $redirect_page)
-	{
-		switch ($type) {
-			case 'success': {
-					$this->ci->session->set_flashdata('success', $message);
-					redirect(base_url($redirect_page), 'refresh');
-				}
-			case 'error': {
-					$this->ci->session->set_flashdata('error', $message);
-					redirect(base_url($redirect_page), 'refresh');
-				}
-
-			default:
-				$this->ci->session->set_flashdata('error', 'Fatal Error Message');
-				redirect(base_url(), 'refresh');
-				break;
-		}
-	}
-
 	public function FeatureControl($page = null, $redirect_page = '')
 	{
 		if ($page == null) redirect(base_url('home'), 'refresh');
@@ -528,34 +508,6 @@ class Lib
 		}
 	}
 
-	function CustomCaptcha()
-	{
-		$this->ci->load->helper('captcha');
-		$vals = [
-			'word'          => substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'), 0, 10),
-			'img_path'      => './assets/goodgames/assets/images/captcha/',
-			'img_url'       => base_url('assets/goodgames/assets/images/captcha/'),
-			'img_width'     => 200,
-			'img_height'    => 80,
-			'expiration'    => 1800,
-			'word_length'   => 10,
-			'font_size'     => 72,
-			'img_id'        => 'Imageid',
-			'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-			'colors'        => [
-				'background' => [255, 255, 255],
-				'border'    => [255, 255, 255],
-				'text'      => [0, 0, 0],
-				'grid'      => [255, 40, 40]
-			]
-		];
-
-		$captcha = create_captcha($vals);
-
-		$this->ci->session->set_userdata('captcha', $captcha['word']);
-		return $captcha['image'];
-	}
-
 	public function ApiAuthorization($keys = null)
 	{
 		if ($keys == null) return FALSE;
@@ -566,34 +518,6 @@ class Lib
 				else return TRUE;
 			} else return FALSE;
 		}
-	}
-
-	public function UserLocation($ip_address)
-	{
-
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://ip-api.com/json/' . $ip_address . '?fields=status,country',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'GET',
-		));
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		$data = json_decode($response, true);
-
-		if ($data['status'] == 'success') {
-			if ($data['country'] == 'indonesia') return TRUE;
-			else return FALSE;
-		} else return FALSE;
 	}
 }
 

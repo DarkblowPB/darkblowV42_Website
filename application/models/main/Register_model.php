@@ -25,21 +25,9 @@ class Register_model extends CI_Model
 		else return TRUE;
 	}
 
-	function GenerateRandomToken()
-	{
-		$character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-		$length = strlen($character);
-		$tokenlength = 128;
-		$token = '';
-
-		for ($i = 0; $i < $tokenlength; $i++) $token .= $character[rand(0, $length - 1)];
-
-		return $token;
-	}
-
 	function SendVerificationEmail($username, $email)
 	{
-		$token = $this->GenerateRandomToken();
+		$token = $this->lib->GenerateRandomTokenV2(128);
 		$message = '<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -192,7 +180,7 @@ class Register_model extends CI_Model
 			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true)),
 			'email_verification' => '0',
-			'token' => $this->GenerateRandomToken()
+			'token' => $this->lib->GenerateRandomTokenV2(128)
 		);
 
 		if ($this->getsettings->Get()->register != 1) {
