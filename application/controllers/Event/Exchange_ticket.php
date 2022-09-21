@@ -23,7 +23,6 @@ class Exchange_ticket extends CI_Controller
         $this->main_protect->SessionProtector();
 
         $this->main_protect->mainProtectA();
-        $this->load->library('lib');
         $this->load->model('main/exchangeticket_model', 'exchangeticket');
 
         $this->lib->FeatureControl('exchange_ticket', '');

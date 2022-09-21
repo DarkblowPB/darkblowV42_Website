@@ -6,7 +6,7 @@
 					<?= $this->lang->line('STR_DARKBLOW_151') ?>
 				</a></li>
 			<li><span class="fa fa-angle-right"></span></li>
-			<li><a href="<?= base_url('webshop') ?>">Webshop<?= $this->lang->line('STR_DARKBLOW_148') ?></a></li>
+			<li><a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_DARKBLOW_148') ?></a></li>
 			<li><span class="fa fa-angle-right"></span></li>
 			<li><span>
 					<?= $detail->webshop_itemname ?>

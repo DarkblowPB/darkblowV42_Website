@@ -80,17 +80,12 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            document.getElementById(data_id).remove();
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute(button_id, 'button', 'Delete');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
+                                        SetAttribute(button_id, 'button', 'Delete');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') document.getElementById(data_id).remove();
+                                        return;
                                     },
                                     error: function() {
                                         if (RETRY >= 3) {

@@ -32,6 +32,22 @@ class Settings extends CI_Controller
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
+    function featuresettings()
+    {
+        $data['title'] = 'Feature Settings';
+        $data['header'] = 'Feature Settings';
+        $data['content'] = 'admin/content/settings/content_featuresettings';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
+
+    function socialsettings()
+    {
+        $data['title'] = 'Social Settings';
+        $data['header'] = $data['title'];
+        $data['content'] = 'admin/content/settings/content_socialsettings';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
+
     function do_submit_generalsettings_images()
     {
         $this->settings->SetImage();
@@ -115,14 +131,6 @@ class Settings extends CI_Controller
             $response['message'] = validation_errors();
             echo json_encode($response);
         }
-    }
-
-    function featuresettings()
-    {
-        $data['title'] = 'Feature Settings';
-        $data['header'] = 'Feature Settings';
-        $data['content'] = 'admin/content/settings/content_featuresettings';
-        $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function do_submit_featuresettings()
@@ -243,6 +251,44 @@ class Settings extends CI_Controller
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
+
+            echo json_encode($response);
+        }
+    }
+
+    function do_submit_socialsettings()
+    {
+        $response = array();
+
+        $this->form_validation->set_rules(
+            'facebook_embed_link',
+            'Facebook',
+            'valid_url',
+            array(
+                'valid_url' => '%s invalid.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'instagram_embed_link',
+            'Instagram',
+            'valid_url',
+            array(
+                'valid_url' => '%s invalid.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'youtube_embed_link',
+            'Youtube',
+            'valid_url',
+            array(
+                'valid_url' => '%s invalid.'
+            )
+        );
+        if ($this->form_validation->run()) $this->settings->SetSocial();
+        else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors('', '');
 
             echo json_encode($response);
         }

@@ -22,7 +22,7 @@
                             </tr>
                             <tr>
                                 <td>Image</td>
-                                <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_slider/<?= $news->quickslide_img ?>" class="img img-fluid" style="max-width: 500px" alt=""></td>
+                                <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_news/<?= $news->quickslide_img ?>" class="img img-fluid" style="max-width: 500px" alt=""></td>
                             </tr>
                             <tr>
                                 <td>Date Created</td>

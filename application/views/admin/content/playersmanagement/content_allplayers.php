@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="allplayers_table" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
+                    <table id="allplayers_table_custom" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead class="bg-primary text-uppercase">
                             <th width="5%">No.</th>
                             <th width="15%">Username</th>
@@ -14,53 +14,28 @@
                             <th width="15%">Action</th>
                         </thead>
                         <tbody>
-                            <?php $num = 1;
-                            foreach ($players as $row) : ?>
-                                <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['login'] ?>
-                                    </td>
-                                    <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_rank/<?= $row['rank'] ?>.gif" class="img img-fluid" alt="<?= $row['rank'] ?>"></td>
-                                    <td>
-                                        <?= $row['player_name'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['lastip'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['last_mac'] ?>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle text-uppercase text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Menu
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="<?= base_url('adm/playersmanagement/details/' . $row['player_id']) ?>">Details</a>
-
-                                                <?php if ($row['access_level'] == '-1') : ?>
-                                                    <input type="button" id="submit_<?= $num ?>" class="dropdown-item" value="Unbanned" onclick="Do_UnbannedPlayer('<?= 'submit_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <?php endif; ?>
-                                                <?php if ($row['access_level'] != '-1') : ?>
-                                                    <input type="button" id="submit_<?= $num ?>" class="dropdown-item" value="Banned" onclick="Do_BannedPlayer('<?= 'submit_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <?php endif; ?>
-
-                                                <input type="button" id="reset_<?= $num ?>" class="dropdown-item" value="Reset" onclick="Do_ResetPlayer('<?= 'reset_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="Do_DeletePlayer('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['player_id'] ?>')">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php $num++;
-                            endforeach; ?>
                         </tbody>
                     </table>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var TOTAL_RETRY = 0;
+                        const data = [{
+                            "name": "Tiger Nixon",
+                            "position": "System Architect",
+                            "salary": "$320,800",
+                            "start_date": "2011/04/25",
+                            "office": "Edinburgh",
+                            "extn": "5421"
+                        }];
+
+                        $(document).ready(() => {
+                            $('#allplayers_table_custom').dataTable({
+                                ajax: "",
+                                columns: {
+                                    data: data[0]
+                                }
+                            });
+                        });
 
                         function Do_DeletePlayer(data_id, button_id, player_id) {
                             if (player_id == '' || player_id == null) {

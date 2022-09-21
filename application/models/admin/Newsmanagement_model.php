@@ -26,130 +26,133 @@ class Newsmanagement_model extends CI_Model
         else redirect(base_url('adm/newsmanagement'), 'refresh');
     }
 
-    function AddNewNews()
+    function AddNews()
     {
+        $response = array();
+
         $data = array(
-            'quickslide_title' => $this->encryption->encrypt($this->input->post('quickslide_title', true)),
-            'quickslide_description' => $this->encryption->encrypt($this->input->post('quickslide_description', true))
+            'quickslide_title' => $this->input->post('quickslide_title', true),
+            'quickslide_description' => $this->input->post('quickslide_description', true),
+            'quickslide_date' => date('Y-m-d'),
+            'quickslide_state' => '1'
         );
 
-        $config = array(
-            'upload_path' => './assets/goodgames/assets/images/img_slider/',
-            'allowed_types' => 'gif|jpg|jpeg|png',
-            'max_size' => 2048,
-            'max_width' => 1920,
-            'max_height' => 1080
-        );
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('image')) {
-            if (empty($_FILES['image']['file_name'])) {
-                $query = $this->db->insert('web_quickslide', array(
-                    'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
-                    'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
-                    'quickslide_img' => 'no-image.png',
-                    'quickslide_date' => time(),
-                    'quickslide_state' => '0'
-                ));
-                if ($query) {
-                    $this->session->set_flashdata('true', 'Successfully Add New News.');
-                    redirect(base_url('adm/newsmanagement'), 'refresh');
-                } else {
-                    $this->session->set_flashdata('false', 'Failed To Add New News.');
-                    redirect(base_url('adm/newsmanagement/add'), 'refresh');
-                }
-            } else {
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect(base_url('adm/newsmanagement/add'), 'refresh');
-            }
-        } else {
-            $data2 = array(
-                'upload_data' => $this->upload->data()
+        if (isset($_FILES['quickslide_image']['name'])) {
+            $config = array(
+                'upload_path' => './assets/goodgames/assets/images/img_news/',
+                'allowed_types' => 'jpg|jpeg|png',
+                'max_size' => 2048,
+                'max_width' => 1920,
+                'max_height' => 1080,
+                'encrypt_name' => TRUE,
+                'file_ext_tolower' => TRUE
             );
 
-            $query = $this->db->insert('web_quickslide', array(
-                'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
-                'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
-                'quickslide_img' => $data2['upload_data']['file_name'],
-                'quickslide_date' => time(),
-                'quickslide_state' => '0'
-            ));
+            $this->load->library('upload', $config);
 
-            if ($query) {
-                $this->session->set_flashdata('true', 'Successfully Add New News.');
-                redirect(base_url('adm/newsmanagement'), 'refresh');
+            if (!$this->upload->do_upload('quickslide_image')) {
+                $insert = $this->db->insert('web_quickslide', $data);
+                if ($insert) {
+                    $response['response'] = 'success';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Add News.';
+
+                    echo json_encode($response);
+                } else {
+                    $response['response'] = 'error';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Add News.';
+
+                    echo json_encode($response);
+                }
             } else {
-                $this->session->set_flashdata('false', 'Failed To Add New News.');
-                redirect(base_url('adm/newsmanagement/add'), 'refresh');
+                $data['quickslide_img'] = $this->upload->data()['file_name'];
+
+                $insert = $this->db->insert('web_quickslide', $data);
+                if ($insert) {
+                    $response['response'] = 'success';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Successfully Add News.';
+
+                    echo json_encode($response);
+                } else {
+                    $response['response'] = 'error';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Add News.';
+
+                    echo json_encode($response);
+                }
             }
         }
     }
 
-    function EditNews($id)
+    function EditNews()
     {
+        $response = array();
+
+        $id = $this->input->post('quickslide_id', true);
+
         $data = array(
-            'quickslide_title' => $this->encryption->encrypt($this->input->post('quickslide_title', true)),
-            'quickslide_description' => $this->encryption->encrypt($this->input->post('quickslide_description', true))
+            'quickslide_title' => $this->input->post('quickslide_title', true),
+            'quickslide_description' => $this->input->post('quickslide_description', true),
+            'quickslide_date' => date('Y-m-d'),
+            'quickslide_state' => '1'
         );
 
-        $config = array(
-            'upload_path' => './assets/goodgames/assets/images/img_news/',
-            'allowed_types' => 'gif|jpg|jpeg|png',
-            'max_size' => 2048,
-            'max_width' => 1920,
-            'max_height' => 1080
-        );
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('image')) {
-            if (empty($_FILES['image']['file_name'])) {
-                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
-                if ($query) {
-                    $query2 = $this->db->where('id', $query->id)->update('web_quickslide', array(
-                        'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
-                        'quickslide_description' => $this->encryption->decrypt($data['quickslide_description']),
-                        'quickslide_date' => time()
-                    ));
-                    if ($query2) {
-                        $this->session->set_flashdata('true', 'Successfully Edit News.');
-                        redirect(base_url('adm/newsmanagement'), 'refresh');
-                    } else {
-                        $this->session->set_flashdata('false', 'Failed To Edit News.');
-                        redirect(base_url('adm/newsmanagement/edit/' . $query->id), 'refresh');
-                    }
-                } else {
-                    $this->session->set_flashdata('false', 'News Data Not Found.');
-                    redirect(base_url('adm/newsmanagemet'), 'refresh');
-                }
-            } else {
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect(base_url('adm/newsmanagement/edit/' . $id), 'refresh');
-            }
-        } else {
-            $data2 = array(
-                'upload_data' => $this->upload->data()
+        if (isset($_FILES['quickslide_image']['name'])) {
+            $config = array(
+                'upload_path' => './assets/goodgames/assets/images/img_news/',
+                'allowed_types' => 'jpg|jpeg|png',
+                'max_size' => 2048,
+                'max_width' => 1920,
+                'max_height' => 1080,
+                'encrypt_name' => TRUE,
+                'file_ext_tolower' => TRUE
             );
 
-            $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
-            if ($query) {
-                $query2 = $this->db->where('id', $query->id)->update('web_quickslide', array(
-                    'quickslide_title' => $this->encryption->decrypt($data['quickslide_title']),
-                    'quickslide_description' => $this->encryption->decrpyt($data['quickslide_description']),
-                    'quickslide_img' => $data2['upload_data']['file_name'],
-                    'quickslide_date' => time()
-                ));
-                if ($query2) {
-                    $this->session->set_flashdata('true', 'Successfully Edit News.');
-                    redirect(base_url('adm/newsmanagement'), 'refresh');
-                } else {
-                    $this->session->set_flashdata('false', 'Failed To Edit News.');
-                    redirect(base_url('adm/newsmanagement/edit/' . $query->id), 'refresh');
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('quickslide_image')) {
+                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
+                if ($query) {
+                    $update = $this->db->where('id', $query->id)->update('web_quickslide', $data);
+                    if ($update) {
+                        $response['response'] = 'success';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Successfully Update News.';
+
+                        echo json_encode($response);
+                    } else {
+                        $response['response'] = 'error';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Update News.';
+
+                        echo json_encode($response);
+                    }
                 }
             } else {
-                $this->session->set_flashdata('false', 'News Data Not Found.');
-                redirect(base_url('adm/newsmanagemet'), 'refresh');
+                $data['quickslide_img'] = $this->upload->data()['file_name'];
+                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
+                if ($query) {
+                    if ($query->quickslide_img != null) {
+                        if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
+                    }
+
+                    $update = $this->db->where('id', $query->id)->update('web_quickslide', $data);
+                    if ($update) {
+                        $response['response'] = 'success';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Successfully Update News.';
+
+                        echo json_encode($response);
+                    } else {
+                        $response['response'] = 'error';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = 'Failed To Update News.';
+
+                        echo json_encode($response);
+                    }
+                }
             }
         }
     }
@@ -164,15 +167,18 @@ class Newsmanagement_model extends CI_Model
 
         $query = $this->db->get_where('web_quickslide', array('id' => $this->encryption->decrypt($data['news_id'])))->row();
         if ($query) {
+            if ($query->quickslide_img != null) {
+                if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
+            }
             $query2 = $this->db->where('id', $query->id)->delete('web_quickslide');
             if ($query2) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete News Data.';
 
                 echo json_encode($response);
             } else {
-                $response['response'] = 'true';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete News Data.';
 

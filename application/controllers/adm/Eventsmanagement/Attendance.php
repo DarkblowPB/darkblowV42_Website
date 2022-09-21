@@ -13,7 +13,6 @@ class Attendance extends CI_Controller
     {
         parent::__construct();
         $this->allprotect->AdminDashboard_Protection();
-        $this->load->library('lib');
         $this->load->model('admin/eventsattendance_model', 'attendance');
     }
 

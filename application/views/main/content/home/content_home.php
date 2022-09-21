@@ -4,7 +4,7 @@
         <div class="nk-image-slider" data-autoplay="8000">
             <?php foreach ($this->home->GetNews() as $row) : ?>
                 <div class="nk-image-slider-item">
-                    <img src="<?= base_url() ?>assets/goodgames/assets/images/img_slider/<?= $row['quickslide_img'] ?>" alt="<?= $row['quickslide_title'] ?> Images" class="nk-image-slider-img">
+                    <img src="<?= base_url() ?>assets/goodgames/assets/images/img_news/<?= $row['quickslide_img'] ?>" alt="<?= $row['quickslide_title'] ?> Images" class="nk-image-slider-img">
                     <div class="nk-image-slider-content">
                         <h3 class="h4"><?= $row['quickslide_title'] ?></h3>
                         <p class="text-white"><?= $row['quickslide_description'] ?></p>

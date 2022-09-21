@@ -155,6 +155,14 @@
                     Feature Settings
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="<?= base_url('adm/settings/socialsettings') ?>" class="nav-link <?php if ($title == 'Social Settings') {
+                                                                                              echo 'active';
+                                                                                            } ?>">
+                    <i class="far fa-circle nav-icon"></i>
+                    Social Settings
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-header">Game Menu</li>

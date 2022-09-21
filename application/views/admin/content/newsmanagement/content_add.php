@@ -4,24 +4,9 @@
             <div class="card">
                 <div class="card-body">
                     <?= form_open_multipart(base_url('adm/newsmanagement/add'), 'id="add_form" autocomplete="off"') ?>
-                    <?php if ($this->session->flashdata('true')) : ?>
-                        <div class="alert alert-success" role="alert">
-                            <?= $this->session->flashdata('true') ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($this->session->flashdata('false')) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?= $this->session->flashdata('false') ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($this->session->flashdata('error')) : ?>
-                        <div class="alert alert-warning" role="alert">
-                            <?= $this->session->flashdata('error') ?>
-                        </div>
-                    <?php endif; ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">News Title</label>
-                        <input type="text" name="quickslide_title" class="form-control col-9" placeholder="Enter News Title" maxlength="255" autofocus required>
+                        <input type="text" name="quickslide_title" id="quickslide_title" class="form-control col-9" placeholder="Enter News Title" maxlength="255" autofocus>
                     </div>
                     <style>
                         .note-editor {
@@ -34,18 +19,60 @@
                                 <label class="col-form-label">News Description</label>
                             </div>
                             <div class="col-9">
-                                <textarea name="quickslide_description" class="form-control col-9 summernote_editor" rows="10" placeholder="Enter News Description" required></textarea>
+                                <textarea name="quickslide_description" id="quickslide_description" class="form-control col-9 summernote_editor" rows="10" placeholder="Enter News Description"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Image</label>
-                        <input type="file" name="test" class="form-control-file col-9">
+                        <input type="file" name="quickslide_image" id="quickslide_image" class="form-control-file col-9">
                     </div>
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-outline-primary text-white"><i class="fas fa-paper-plane mr-2"></i>Submit News</button>
+                        <input type="submit" id="submit" class="btn btn-primary" value="Submit">
                     </div>
                     <?= form_close() ?>
+                    <script>
+                        $(document).ready(() => {
+                            $('#add_form').submit((e) => {
+                                e.preventDefault();
+
+                                if ($('#quickslide_title').val() == '' || $('#quickslide_title').val() == null)
+                                    ShowToast(2000, 'warning', 'News Title Cannot Be Empty.');
+                                else if ($('#quickslide_description').val() == '' || $('#quickslide_description').val() == null)
+                                    ShowToast(2000, 'warning', 'News Description Cannot Be Empty.');
+                                else {
+                                    SetAttribute('submit', 'button', 'Processing...');
+                                    $.ajax({
+                                        url: '<?= base_url('adm/newsmanagement/do_add') ?>',
+                                        type: 'POST',
+                                        dataType: 'JSON',
+                                        data: new FormData(document.getElementById('add_form')),
+                                        processData: false,
+                                        contentType: false,
+                                        success: (response) => {
+                                            var stringify = JSON.stringify(response);
+                                            var result = JSON.parse(stringify);
+
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            ShowToast(2000, result.response, result.message);
+                                            if (result.response == 'success') {
+                                                setTimeout(() => {
+                                                    window.location = '<?= base_url('adm/newsmanagement') ?>';
+                                                }, 2000);
+                                            }
+                                        },
+                                        error: () => {
+                                            SetAttribute('submit', 'submit', 'Submit');
+                                            ShowToast(2000, 'error', 'Can\'t Reach Server Right Now.');
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 2000);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

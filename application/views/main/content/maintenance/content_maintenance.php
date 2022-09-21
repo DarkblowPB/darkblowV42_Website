@@ -63,9 +63,9 @@
             <div class="nk-fullscreen-block-bottom">
                 <div class="nk-gap-2"></div>
                 <ul class="nk-social-links-2 nk-social-links-center">
-                    <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-                    <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+                    <li><a class="nk-social-facebook" href="<?= $this->getsettings->Get()->facebook_embed_link ?>" target="_blank"><span class="fab fa-facebook"></span></a></li>
+                    <li><a class="nk-social-instagram" href="<?= $this->getsettings->Get()->instagram_embed_link ?>" target="_blank"><span class="fab fa-instagram"></span></a></li>
+                    <li><a class="nk-social-youtube" href="<?= $this->getsettings->Get()->youtube_embed_link ?>" target="_blank"><span class="fab fa-youtube"></span></a></li>
                 </ul>
                 <div class="nk-gap-2"></div>
             </div>

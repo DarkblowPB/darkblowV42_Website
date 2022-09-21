@@ -324,41 +324,6 @@ class Webshop_model extends CI_Model
 			echo json_encode($response);
 		}
 	}
-
-	function BuyItemV3()
-	{
-		$data = array(
-			'player_id' => $this->encryption->encrypt($this->input->post('player_id')),
-			'item_id' => $this->encryption->encrypt($this->input->post('item_id')),
-			'item_price' => $this->encryption->encrypt($this->input->post('item_price'))
-		);
-
-		$data = array(
-			'player_id' => $this->input->post('player_id', true),
-			'item_id' => $this->input->post('item_id', true),
-			'item_price' => $this->input->post('item_price', true)
-		);
-
-		$query = $this->db->get_where('accounts', array('player_id' => $data['player_id']))->row();
-		if ($query) {
-			$query2 = $this->db->get_where('webshop', array('id' => $data['item_id']))->row();
-			if ($query2) {
-				$query3 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $query2->webshop_itemid))->row();
-				if ($query3) {
-					switch ($query3->equip) {
-						case '1': {
-
-								break;
-							}
-
-						default: {
-								break;
-							}
-					}
-				}
-			}
-		}
-	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

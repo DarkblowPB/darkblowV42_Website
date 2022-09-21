@@ -43,64 +43,32 @@ class Newsmanagement extends CI_Controller
 
     function add()
     {
-        $this->form_validation->set_rules(
-            'quickslide_title',
-            'Title',
-            'required|max_length[255]',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'max_length' => '%s Only Can Contains 255 Characters.'
-            )
-        );
-        $this->form_validation->set_rules(
-            'quickslide_description',
-            'Description',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
-        );
-        if ($this->form_validation->run()) $this->newsmanagement->Test();
-        else {
-            $data['title'] = 'Create New News';
-            $data['header'] = 'Create New News';
-            $data['content'] = 'admin/content/newsmanagement/content_add';
-            $this->load->view('admin/layout/wrapper', $data, FALSE);
-        }
+        $data['title'] = 'Create New News';
+        $data['header'] = 'Create New News';
+        $data['content'] = 'admin/content/newsmanagement/content_add';
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
 
     function edit($news_id = null)
     {
         if ($news_id == null) redirect(base_url('adm/newsmanagement'), 'refresh');
         else {
-            $this->form_validation->set_rules(
-                'quickslide_title',
-                'Title',
-                'required|max_length[255]',
-                array(
-                    'required' => '%s Cannot Be Empty.',
-                    'max_length' => '%s Only Can Contains 255 Characters.'
-                )
-            );
-            $this->form_validation->set_rules(
-                'quickslide_description',
-                'Description',
-                'required',
-                array('required' => '%s Cannot Be Empty.')
-            );
-            if ($this->form_validation->run()) $this->newsmanagement->EditNews($news_id);
-            else {
-                $data['title'] = 'Edit News';
-                $data['header'] = 'Edit News';
+            $data['title'] = 'Edit News';
+            $data['header'] = 'Edit News';
 
-                $data['news'] = $this->newsmanagement->GetDetails($news_id);
+            $data['news'] = $this->newsmanagement->GetDetails($news_id);
 
-                $data['content'] = 'admin/content/newsmanagement/content_edit';
-                $this->load->view('admin/layout/wrapper', $data, FALSE);
-            }
+            $data['content'] = 'admin/content/newsmanagement/content_edit';
+            $this->load->view('admin/layout/wrapper', $data, FALSE);
         }
     }
 
     function do_add()
     {
+        sleep(1);
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules(
             'quickslide_title',
             'Title',
@@ -116,10 +84,43 @@ class Newsmanagement extends CI_Controller
             'required',
             array('required' => '%s Cannot Be Empty.')
         );
-        if ($this->form_validation->run()) $this->newsmanagement->Test();
+        if ($this->form_validation->run()) $this->newsmanagement->AddNews();
         else {
-            $this->session->set_flashdata('false', 'Hehe Error :)');
-            redirect(base_url('adm/newsmanagement/add'), 'refresh');
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors('', '');
+
+            echo json_encode($response);
+        }
+    }
+
+    function do_edit()
+    {
+        sleep(1);
+        $response = array();
+        $this->form_validation->set_error_delimiters('', '');
+        $this->form_validation->set_rules(
+            'quickslide_title',
+            'Title',
+            'required|max_length[255]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'max_length' => '%s Only Can Contains 255 Characters.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'quickslide_description',
+            'Description',
+            'required',
+            array('required' => '%s Cannot Be Empty.')
+        );
+        if ($this->form_validation->run()) $this->newsmanagement->EditNews();
+        else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors('', '');
+
+            echo json_encode($response);
         }
     }
 

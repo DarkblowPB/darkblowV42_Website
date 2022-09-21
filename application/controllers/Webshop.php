@@ -132,9 +132,14 @@ class Webshop extends CI_Controller
 
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors();
+			$response['message'] = validation_errors('', '');
 			echo json_encode($response);
 		}
+	}
+
+	function do_give()
+	{
+		$response = array();
 	}
 }
 

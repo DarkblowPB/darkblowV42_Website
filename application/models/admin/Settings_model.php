@@ -240,6 +240,41 @@ class Settings_model extends CI_Model
             echo json_encode($response);
         }
     }
+
+    function SetSocial()
+    {
+        $response = array();
+
+        $data = array(
+            'facebook_embed_link' => $this->input->post('facebook_embed_link', true),
+            'instagram_embed_link' => $this->input->post('instagram_embed_link', true),
+            'youtube_embed_link' => $this->input->post('youtube_embed_link', true)
+        );
+
+        $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+        if ($query) {
+            $update = $this->db->where('id', $query->id)->update('web_settings', $data);
+            if ($update) {
+                $response['response'] = 'success';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Update Social Settings.';
+
+                echo json_encode($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Update Social Settings.';
+
+                echo json_encode($response);
+            }
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Invalid Settings.';
+
+            echo json_encode($response);
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -14,7 +14,6 @@ class Project extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->helper('file');
     }
 
     function index_get()
