@@ -16,6 +16,65 @@ class Playersmanagement_model extends CI_Model
         $this->load->library('lib');
     }
 
+    function LoadPlayersData()
+    {
+        $data = array();
+
+        $sql = "SELECT * FROM accounts WHERE access_level < 3 AND email != 'empty@empty.empty' ORDER BY player_id DESC";
+        $query = $this->db->query($sql)->result_array();
+        if ($query) {
+            $num = 1;
+            foreach ($query as $row) {
+                $div_open = '<div class="btn-group" role="group">';
+                $parent_button = '<button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle text-uppercase text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>';
+                $sub_div_open = '<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">';
+                $link_1 = '<a class="dropdown-item" href="' . base_url('adm/playersmanagement/details/' . $row['player_id']) . '" target="_blank">Details</a>';
+                $input_2 = '<input type="button" id="submit_' . $num . '" class="dropdown-item" value="Unbanned" onclick="Do_UnbannedPlayer(' . "'submit_" . $num . "', " . $row['player_id'] . ')">';
+                $input_3 = '<input type="button" id="submit_' . $num . '" class="dropdown-item" value="Banned" onclick="Do_BannedPlayer(' . "'submit_" . $num . "', " . $row['player_id'] . ')">';
+                $input_4 = '<input type="button" id="reset_' . $num . '" class="dropdown-item" value="Reset" onclick="Do_ResetPlayer(' . "'reset_" . $num . "', " . $row['player_id'] . ')">';
+                $input_5 = '<input type="button" id="delete_' . $num . '" class="dropdown-item" value="Delete" onclick="Do_DeletePlayer(' . "'data_" . $num . "', 'submit_" . $num . "', " . $row['player_id'] . ')">';
+                $sub_div_close = '</div>';
+                $div_close = '</div>';
+
+                // Full Action
+                // $action = $div_open . $parent_button . $sub_div_open . $link_1 . $input_2 . $input_3 . $input_4 . $input_5 . $sub_div_close . $div_close;
+
+                // If Player Got Banned
+                if ($row['access_level'] == -1) {
+                    $action = $div_open . $parent_button . $sub_div_open . $link_1 . $input_2 . $input_4 . $input_5 . $sub_div_close . $div_close;
+                }
+                if ($row['access_level'] != -1) {
+                    $action = $div_open . $parent_button . $sub_div_open . $link_1 . $input_3 . $input_4 . $input_5 . $sub_div_close . $div_close;
+                }
+
+                $data['data'][] = array(
+                    0 => $num,
+                    1 => $row['login'],
+                    2 => '<img src="' . base_url() . 'assets/goodgames/assets/images/img_rank/' . $row['rank'] . '.gif">',
+                    3 => $row['player_name'],
+                    4 => $row['lastip'],
+                    5 => $row['last_mac'],
+                    6 => $action,
+                );
+                $num++;
+            }
+
+            echo json_encode($data);
+        } else {
+            $data['data'][] = array(
+                0 => '',
+                1 => '',
+                2 => '',
+                3 => '',
+                4 => '',
+                5 => '',
+                6 => '',
+            );
+
+            echo json_encode($data);
+        }
+    }
+
     function SendEmail($email)
     {
 

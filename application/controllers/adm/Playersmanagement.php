@@ -328,6 +328,12 @@ class Playersmanagement extends CI_Controller
             echo json_encode($response);
         }
     }
+
+    function do_loadplayers()
+    {
+        sleep(1);
+        $this->playersmanagement->LoadPlayersData();
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
