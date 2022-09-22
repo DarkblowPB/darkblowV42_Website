@@ -331,7 +331,6 @@ class Playersmanagement extends CI_Controller
 
     function do_loadplayers()
     {
-        sleep(1);
         $this->playersmanagement->LoadPlayersData();
     }
 }

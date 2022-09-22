@@ -16,72 +16,66 @@ class Bannedvisitor_model extends CI_Model
 
     function GetAllIPAddress()
     {
-        return $this->db->get('web_ipbanned')->result_array();
+        return $this->db->order_by('id', 'desc')->get('web_ipbanned')->result_array();
     }
 
-    function DeleteIPAddress()
+    function AddIPAddress()
     {
+        sleep(1);
         $response = array();
 
         $data = array(
-            'ip_address' => $this->encryption->encrypt($this->input->post('ip_address', true))
+            'ipaddress' => $this->input->post('ip_address', true),
+            'reason' => $this->input->post('reason', true),
         );
 
-        $query = $this->db->get_where('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])))->row();
+        $query = $this->db->insert('web_ipbanned', $data);
         if ($query) {
-            $delete = $this->db->where('ip_address', $query->ip_address)->delete('web_ipbanned');
-            if ($delete) {
-                $response['response'] = 'true';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Deleted IP Address.';
-
-                echo json_encode($response);
-            } else {
-                $response['response'] = 'false';
-                $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Failed To Delete IP Address.';
-
-                echo json_encode($response);
-            }
-        } else {
-            $response['response'] = 'false';
+            $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'Invalid IP Address.';
+            $response['message'] = 'Successfully Add Ip Address.';
+
+            echo json_encode($response);
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Add Ip Address.';
 
             echo json_encode($response);
         }
     }
 
-    function AddIPAddress()
+    function DeleteIPAddress()
     {
+        sleep(1);
         $response = array();
 
         $data = array(
-            'ip_address' => $this->encryption->encrypt($this->input->post('ip_address', true))
+            'id' => $this->input->post('id', true)
         );
 
-        $query = $this->db->get_where('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])))->row();
+        $query = $this->db->get_where('web_ipbanned', array('id' => $data['id']))->row();
         if ($query) {
-            $response['response'] = 'false';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'This IP Address Already Exists.';
-
-            echo json_encode($response);
-        } else {
-            $insert = $this->db->insert('web_ipbanned', array('ip_address' => $this->encryption->decrypt($data['ip_address'])));
-            if ($insert) {
-                $response['response'] = 'true';
+            $delete = $this->db->where('id', $query->id)->delete('web_ipbanned');
+            if ($delete) {
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Successfully Add New IP Address.';
+                $response['message'] = 'Successfully Delete Ip Address.';
 
                 echo json_encode($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'Failed To Add New IP Address';
+                $response['message'] = 'Failed To Delete Ip Address.';
 
                 echo json_encode($response);
             }
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Data Not Found.';
+
+            echo json_encode($response);
         }
     }
 }

@@ -36,12 +36,15 @@ class Bannedvisitor extends CI_Controller
         $this->form_validation->set_rules(
             'ip_address',
             'IP ADDRESS',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
+            'required|is_unique[web_ipbanned.ipaddress]',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'is_unique' => '%s Already Registered'
+            )
         );
         if ($this->form_validation->run()) $this->bannedvisitor->AddIPAddress();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
@@ -49,24 +52,28 @@ class Bannedvisitor extends CI_Controller
         }
     }
 
-    function do_delete($ip_address = null)
+    function do_delete()
     {
-        if ($ip_address == null) redirect(base_url('adm/bannedvisitor'), 'refresh');
+        $response = array();
+
+        $this->form_validation->set_error_delimiters('', '');
+
+        $this->form_validation->set_rules(
+            'id',
+            'Id',
+            'required|numeric',
+            array(
+                'required' => '%s Cannot Be Empty.',
+                'numeric' => '%s Only Can Use Numeric Character.'
+            )
+        );
+        if ($this->form_validation->run()) $this->bannedvisitor->DeleteIPAddress();
         else {
-            $query = $this->db->get_where('web_ipbanned', array('ip_address' => $ip_address))->row();
-            if ($query) {
-                $delete = $this->db->where('ip_address', $query->ip_address)->delete('web_ipbanned');
-                if ($delete) {
-                    $this->session->set_flashdata('success', 'Successfully Unbanned IP Address.');
-                    redirect(base_url('adm/bannedvisitor'), 'refresh');
-                } else {
-                    $this->session->set_flashdata('error', 'Failed To Unbanned IP Address.');
-                    redirect(base_url('adm/bannedvisitor'), 'refresh');
-                }
-            } else {
-                $this->session->set_flashdata('error', 'Invalid IP Address.');
-                redirect(base_url('adm/bannedvisitor'), 'refresh');
-            }
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = validation_errors('', '');
+
+            echo json_encode($response);
         }
     }
 }

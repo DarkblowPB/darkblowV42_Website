@@ -14,48 +14,6 @@
                             <th width="15%">Action</th>
                         </thead>
                         <tbody>
-                            <?php $num = 1;
-                            foreach ($players as $row) : ?>
-                                <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['login'] ?>
-                                    </td>
-                                    <td><img src="<?= base_url() ?>assets/goodgames/assets/images/img_rank/<?= $row['rank'] ?>.gif" class="img img-fluid" alt="<?= $row['rank'] ?>"></td>
-                                    <td>
-                                        <?= $row['player_name'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['lastip'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['last_mac'] ?>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle text-uppercase text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Menu
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="<?= base_url('adm/playersmanagement/details/' . $row['player_id']) ?>">Details</a>
-
-                                                <?php if ($row['access_level'] == '-1') : ?>
-                                                    <input type="button" id="submit_<?= $num ?>" class="dropdown-item" value="Unbanned" onclick="Do_UnbannedPlayer('<?= 'submit_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <?php endif; ?>
-                                                <?php if ($row['access_level'] != '-1') : ?>
-                                                    <input type="button" id="submit_<?= $num ?>" class="dropdown-item" value="Banned" onclick="Do_BannedPlayer('<?= 'submit_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <?php endif; ?>
-
-                                                <input type="button" id="reset_<?= $num ?>" class="dropdown-item" value="Reset" onclick="Do_ResetPlayer('<?= 'reset_' . $num ?>', '<?= $row['player_id'] ?>')">
-                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="Do_DeletePlayer('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['player_id'] ?>')">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php $num++;
-                            endforeach; ?>
                         </tbody>
                     </table>
                     <script>
@@ -79,7 +37,7 @@
                                     className: "text-center"
                                 }, {
                                     data: 2,
-                                    orderable: true,
+                                    orderable: false,
                                     className: "text-center"
                                 }, {
                                     data: 3,
@@ -95,7 +53,7 @@
                                     className: "text-center"
                                 }, {
                                     data: 6,
-                                    orderable: true,
+                                    orderable: false,
                                     className: "text-center"
                                 }, ]
                             });

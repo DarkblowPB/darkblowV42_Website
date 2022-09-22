@@ -3,28 +3,24 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
-                    <?php if ($this->session->flashdata('success')) : ?>
-                        <div class="alert alert-success" role="alert"><?= $this->session->flashdata('success') ?></div>
-                    <?php endif; ?>
-                    <?php if ($this->session->flashdata('error')) : ?>
-                        <div class="alert alert-error" role="alert"><?= $this->session->flashdata('error') ?></div>
-                    <?php endif; ?>
                     <table id="bannedvisitor_table" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead class="bg-primary">
-                            <th>IP Address</th>
+                            <th width="5%">No.</th>
+                            <th width="20%">IP Address</th>
+                            <th>Reason</th>
                             <th width="20%">Action</th>
                         </thead>
                         <tbody>
-                            <?php foreach ($ip as $row) : ?>
-                                <tr>
-                                    <td>
-                                        <?= $row['ip_address'] ?>
-                                    </td>
-                                    <td>
-                                        <a href="<?= base_url('adm/bannedvisitor/do_delete/' . $row['ip_address']) ?>" class="btn btn-outline-danger"><i class="fa fa-trash mr-2"></i> Unban IP Address</a>
-                                    </td>
+                            <?php $num = 1;
+                            foreach ($ip as $row) : ?>
+                                <tr id="row_<?= $num ?>">
+                                    <td><?= $num ?></td>
+                                    <td><?= $row['ipaddress'] ?></td>
+                                    <td><?= $row['reason'] ?></td>
+                                    <td><input type="button" id="delete_<?= $num ?>" class="btn btn-outline-danger" value="Delete" onclick="Do_Delete('delete_<?= $num ?>', 'row_<?= $num ?>', '<?= $row['id'] ?>')"></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php $num++;
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -37,6 +33,10 @@
                     <div class="form-group">
                         <label class="col-form-label">IP ADDRESS</label>
                         <input type="text" id="ip_address" class="form-control" placeholder="Enter IP Address">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Reason</label>
+                        <textarea name="reason" id="reason" rows="10" class="form-control" placeholder="Reason"></textarea>
                     </div>
                     <div class="form-group text-center">
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
@@ -57,6 +57,9 @@
                             if ($('#ip_address').val() == '' || $('#ip_address').val() == null) {
                                 ShowToast(2000, 'warning', 'IP ADDRESS Cannot Be Empty.');
                                 return;
+                            } else if ($('#reason').val() == '' || $('#reason').val() == null) {
+                                ShowToast(2000, 'warning', 'Reason Cannot Be Empty.');
+                                return;
                             } else {
                                 SetAttribute('submit', 'button', 'Processing...');
 
@@ -66,34 +69,32 @@
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'ip_address': $('#ip_address').val()
+                                        'ip_address': $('#ip_address').val(),
+                                        'reason': $('#reason').val()
                                     },
                                     success: function(data) {
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Submit');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') {
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
                                         }
                                     },
                                     error: function() {
                                         if (RETRY >= 3) {
                                             SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', 'Failed To Add Item.');
+                                            ShowToast(2000, 'error', 'Failed To Add Ip Address.');
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
                                         } else {
+                                            RETRY += 1;
                                             $.ajax({
                                                 url: '<?= base_url('api/security/csrf') ?>',
                                                 type: 'GET',
@@ -122,6 +123,68 @@
                                     }
                                 });
                             }
+                        }
+
+                        function Do_Delete(button_id, element_id, data_id) {
+                            SetAttribute(button_id, 'button', 'Processing...');
+                            $.ajax({
+                                url: '<?= base_url('adm/bannedvisitor/do_delete') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    "<?= $this->security->get_csrf_token_name() ?>": CSRF_TOKEN,
+                                    "id": data_id
+                                },
+                                success: (response) => {
+                                    var Stringify = JSON.stringify(response);
+                                    var Result = JSON.parse(Stringify);
+
+                                    SetAttribute(button_id, 'button', 'Delete');
+                                    ShowToast(2000, Result.response, Result.message);
+                                    CSRF_TOKEN = Result.token;
+
+                                    if (Result.response == 'success') {
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+                                },
+                                error: () => {
+                                    if (RETRY >= 3) {
+                                        SetAttribute(button_id, 'button', 'Delete');
+                                        ShowToast(2000, 'error', 'Failed To Delete IP Address.');
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    } else {
+                                        RETRY += 1;
+                                        $.ajax({
+                                            url: '<?= base_url('api/security/csrf') ?>',
+                                            type: 'GET',
+                                            dataType: 'JSON',
+                                            data: {
+                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            },
+                                            success: function(data) {
+                                                var GetString = JSON.stringify(data);
+                                                var Result = JSON.parse(GetString);
+
+                                                if (Result.response == 'true') {
+                                                    CSRF_TOKEN = Result.token;
+                                                }
+                                                return Do_Delete();
+                                            },
+                                            error: function() {
+                                                SetAttribute(button_id, 'button', 'Delete');
+                                                ShowToast(2000, 'error', 'Failed To Delete IP Address.');
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 2000);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     </script>
                 </div>

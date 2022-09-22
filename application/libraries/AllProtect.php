@@ -78,14 +78,14 @@ class AllProtect
      */
     public function Web_Protection()
     {
-        $query = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
+        $query = $this->ci->db->get_where('web_ipbanned', array('ipaddress' => $this->ci->input->ip_address()))->row();
         if ($query) redirect(base_url('banned'), 'refresh');
     }
 
 
     public function Banned_Protection2()
     {
-        $check = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
+        $check = $this->ci->db->get_where('web_ipbanned', array('ipaddress' => $this->ci->input->ip_address()))->row();
         if (!$check) redirect(base_url('home'), 'refresh');
     }
 
