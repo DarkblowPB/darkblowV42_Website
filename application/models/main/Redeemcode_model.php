@@ -38,15 +38,13 @@ class Redeemcode_model extends CI_Model
 		if ($query) {
 			$query2 = $this->db->get_where('item_code', array('item_code' => $data['code']))->row();
 			if ($query2) {
-				$dateNow = time();
-				$totalQty = $query2->qty - 1;
-				if ($dateNow > $query2->valid_date) {
+				if (time() > $query2->valid_date) {
 					$response['response'] = 'error';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Code Already Expired.';
 
 					echo json_encode($response);
-				} else if ($totalQty <= 0) {
+				} else if ($query2->qty < 1) {
 					$response['response'] = 'error';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Reward Out Of Stock.';
@@ -170,7 +168,6 @@ class Redeemcode_model extends CI_Model
 													break;
 											}
 										} else {
-
 											$response['response'] = 'error';
 											$response['token'] = $this->security->get_csrf_hash();
 											$response['message'] = 'Invalid Item Reward.';

@@ -54,7 +54,7 @@ class Redeemcode extends CI_Controller
 		else {
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors();
+			$response['message'] = validation_errors('', '');
 
 			echo json_encode($response);
 		}

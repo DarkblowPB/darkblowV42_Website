@@ -30,77 +30,42 @@
 						$('#redeemcode_form').on('submit', function(e) {
 							e.preventDefault();
 
-							return Do_RedeemCode();
-						});
-					});
+							if ($('#code').val() == '' || $('#code').val() == null) {
+								ShowToast(2000, 'warning', 'Code Cannot Be Empty.');
+								return;
+							} else {
+								SetAttribute('submit', 'submit', 'Processing...');
+								$.ajax({
+									url: '<?= $this->redeemcode->GetCodeSystem() ?>',
+									type: 'POST',
+									dataType: 'JSON',
+									data: {
+										'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+										'opcode': '<?= $this->socketcommand->Opcodes("Redeem Code") ?>',
+										'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
+										'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
+										'command_type': 'Redeem Code',
+										'code': $('#code').val()
+									},
+									success: (response) => {
+										var stringify = JSON.stringify(response);
+										var result = JSON.parse(stringify);
 
-					function Do_RedeemCode() {
-						if ($('#code').val() == '' || $('#code').val() == null) {
-							ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_11') ?>');
-							return;
-						} else {
-							SetAttribute('submit', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
-
-							$.ajax({
-								url: '<?= $this->redeemcode->GetCodeSystem() ?>',
-								type: 'POST',
-								dataType: 'JSON',
-								data: {
-									'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-									'opcode': '<?= $this->socketcommand->Opcodes("Redeem Code") ?>',
-									'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-									'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-									'command_type': 'Redeem Code',
-									'code': $('#code').val()
-								},
-								success: function(data) {
-									var GetString = JSON.stringify(data);
-									var Result = JSON.parse(GetString);
-
-									SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');
-									ShowToast(2000, Result.response, Result.message);
-									CSRF_TOKEN = Result.token;
-									return;
-								},
-								error: function() {
-									if (RETRY >= 3) {
-										ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_10') ?>');
+										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');
+										ShowToast(2000, result.response, result.message);
+										CSRF_TOKEN = result.token;
+									},
+									error: () => {
+										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');
+										ShowToast(2000, 'error', 'Failed To Redeem Your Code.');
 										setTimeout(() => {
 											window.location.reload();
 										}, 2000);
-									} else {
-										RETRY += 1;
-										ShowToast(2000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
-
-										$.ajax({
-											url: '<?= base_url('api/security/csrf') ?>',
-											type: 'GET',
-											dataType: 'JSON',
-											data: {
-												'<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-											},
-											success: function(data) {
-												var GetString = JSON.stringify(data);
-												var Result = JSON.parse(GetString);
-
-												if (Result.response == 'true') {
-													CSRF_TOKEN = Result.token;
-												}
-
-												return Do_RedeemCode();
-											},
-											error: function() {
-												ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_22') ?>');
-												setTimeout(() => {
-													window.location.reload();
-												}, 2000);
-											}
-										});
 									}
-								}
-							});
-						}
-					}
+								});
+							}
+						});
+					});
 				</script>
 				<div class="nk-gap-2"></div>
 				<div class="nk-gap-2"></div>
