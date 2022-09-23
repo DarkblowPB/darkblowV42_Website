@@ -14,12 +14,12 @@
 
 <body>
     <br><br><br>
-    <div class="container mt-5">
+    <div class="container" style="margin-top: -100px; margin-bottom: 0px;">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-5 col-sm-12 col-12">
-                <div class="card bg-light">
-                    <div class="card-header bg-dark text-center">
-                        <img src="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>">
+                <div class="card">
+                    <div class="card-header bg-dark text-center text-uppercase">
+                        <?= $this->getsettings->Get()->project_name . ' Voucher' ?>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered text-center">
@@ -32,6 +32,9 @@
                                     <td>
                                         <?= $voucher->voucher_code ?>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td>Reward Item List</td>
@@ -51,10 +54,16 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
                                     <td>Reward Cash</td>
                                     <td>
                                         <?= number_format($voucher->voucher_cash, 0, ',', '.') ?>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td>Reward Webcoin</td>
@@ -65,8 +74,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer text-center bg-dark text-white">
-                        Thankyou For Buying Voucher<br>Have A Nice Day :)<br><br>
+                    <div class="card-footer text-center text-black">
+                        Thankyou For Buying <?= $this->getsettings->Get()->project_name ?> Voucher<br>Have A Nice Day :)<br><br>
                         Copyright &copy; <b>
                             <?= $this->getsettings->Get()->project_name ?>
                         </b> 2020 - <?= date('Y') ?>. All Rights Reserved.

@@ -131,7 +131,7 @@
                     <i class="fas fa-coins mr-2"></i>10 Last Redeemed Code By Players
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-responsive table-responsive-lg table-responsive-md table-responsive-sm text-center">
+                    <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead class="bg-primary">
                             <th width="5%">No.</th>
                             <th width="25%">Username</th>

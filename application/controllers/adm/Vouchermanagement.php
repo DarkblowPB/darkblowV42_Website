@@ -5,6 +5,9 @@
 //     Lolsecs#6289     //
 // ==================== //
 
+use Mpdf\HTMLParserMode;
+use Mpdf\Mpdf;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Vouchermanagement extends CI_Controller
@@ -455,12 +458,32 @@ class Vouchermanagement extends CI_Controller
 
     function print($id = null)
     {
-        if ($id == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
-        else {
-            $data['title'] = 'Voucher Information';
-            $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($id);
-            $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
-        }
+        $mpdf = new Mpdf(['orientation' => 'P', 'format' => [250, 121.97]]);
+
+        // Meta Data
+        $mpdf->SetAuthor($this->getsettings->Get()->project_name);
+        $mpdf->SetCreator($this->getsettings->Get()->project_name);
+        $mpdf->SetKeywords($this->getsettings->Get()->project_name . " Voucher");
+        $mpdf->SetSubject($this->getsettings->Get()->project_name . ' Voucher');
+        $mpdf->SetTitle($this->getsettings->Get()->project_name . ' Voucher');
+
+        // Page
+
+        $css1 = file_get_contents(base_url('assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css'));
+        $css2 = file_get_contents(base_url('assets/goodgames/assets/vendor/jquery/dist/jquery.min.js'));
+
+        $mpdf->WriteHTML($css1, HTMLParserMode::HEADER_CSS);
+        $mpdf->WriteHTML($css2, HTMLParserMode::HEADER_CSS);
+        $mpdf->WriteHTML($this->load->view('admin/content/vouchermanagement/content_print', ['voucher' => $this->vouchermanagement->GetVoucherDetails($id)], TRUE), HTMLParserMode::HTML_BODY);
+
+        $mpdf->Output();
+        // if ($id == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
+        // else {
+
+        //     $data['title'] = 'Voucher Information';
+        //     $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($id);
+        //     $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
+        // }
     }
 
     function do_generatecode()

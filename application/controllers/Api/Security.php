@@ -79,15 +79,29 @@ class Security extends RestController
 		$this->response($response, 200);
 	}
 
-	function licensevalidate_post()
+	function discordbotcsrf_get()
 	{
+		$response = array();
+
 		$data = array(
-			'username' => $this->input->post('username', true),
-			'password' => $this->input->post('password', true),
-			'ip_address' => $this->input->ip_address()
+			'secret_token' => $this->input->get('secret_token', true)
 		);
 
-		$query = $this->db->get_where('');
+		if ($data['secret_token'] != 'darkblowpbreborn_2021') {
+			$response['response'] = 'error';
+			$response['name'] = '';
+			$response['token'] = '';
+			$response['message'] = 'Fatal Error';
+
+			$this->response($response, 401);
+		} else {
+			$response['response'] = 'success';
+			$response['name'] = $this->security->get_csrf_token_name();
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Successfully Get CSRF Token';
+
+			$this->response($response, 200);
+		}
 	}
 }
 
