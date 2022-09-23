@@ -18,7 +18,7 @@
                             <th width="5%">No.</th>
                             <th>Voucher Code</th>
                             <th width="10%">Status</th>
-                            <th width="10%">Menu</th>
+                            <th width="15%">Menu</th>
                         </thead>
                         <tbody>
                             <?php $num = 1;
