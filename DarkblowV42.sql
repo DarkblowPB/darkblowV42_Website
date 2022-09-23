@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : PostgreSQL 5432
+ Source Server         : POSTGRESQL 5432
  Source Server Type    : PostgreSQL
  Source Server Version : 140001
  Source Host           : localhost:5432
@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 23/07/2022 23:36:11
+ Date: 23/09/2022 14:27:07
 */
 
 
@@ -534,6 +534,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_ipbanned_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_ipbanned_id_seq";
+CREATE SEQUENCE "public"."web_ipbanned_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_launcher_ipaddress_id
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_launcher_ipaddress_id";
@@ -756,16 +767,6 @@ CREATE TABLE "public"."accounts" (
   "github" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of accounts
--- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('asdasd123', '9063f7c14a7721b35a2b730a42ff3e9e', 32, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'yahahawahyu@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'imamkbm123', NULL, '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('asdasd123123', '9063f7c14a7721b35a2b730a42ff3e9e', 33, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '123123qwerge@gmail.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow001', '9063f7c14a7721b35a2b730a42ff3e9e', 1, '[DEV] EyeTracker', 0, 5, 53, 0, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'imamrasyidbackup@gmail.com', 1010000, 493599, 'f', 100003475, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4278320896, 1206031336, 0, 0, 'f0:2f:74:4a:20:3b', 0, 2000000, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('test', '62f9f2022536274b47f4daa0887361cf', 35, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'test@test.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What was your childhood nickname?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 5, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 0, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 3, 20220523, 0, 0, 0, 0, 0, 0, 4294967295, 1205232029, 0, 0, 'f0:2f:74:4a:20:3b', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, '0', 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."accounts" VALUES ('test4', '62f9f2022536274b47f4daa0887361cf', 40, '', 0, 0, 31, 250000, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', 'assdasad@asd.com', 1010000, 10000, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 1000, 'What is the name of your favorite childhood friend?', 'asd', NULL, '0', 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -1332,6 +1333,7 @@ CREATE TABLE "public"."item_code" (
 -- Records of item_code
 -- ----------------------------
 INSERT INTO "public"."item_code" VALUES (1, '100003001', 'SG-550 Ext. - Redeem Code', '2592000', 'DARK-CV9T-NRAS-BLOW', '0', 'Item', 98, '1654507858', '1651915858', '0');
+INSERT INTO "public"."item_code" VALUES (2, '200004450', 'Kriss S.V PBTC2017 - Redeem Code', '2592000', 'DARK-KYHG-H66L-BLOW', '0', 'Item', 1, '1662635995', '1662549595', '0');
 
 -- ----------------------------
 -- Table structure for item_goods_sets
@@ -1374,11 +1376,6 @@ CREATE TABLE "public"."item_voucher" (
 ;
 
 -- ----------------------------
--- Records of item_voucher
--- ----------------------------
-INSERT INTO "public"."item_voucher" VALUES (8, '100003001,100003002,100003003', '500000', '500000', 'LR45-MJCN-KZJ9-CKLZ-IN4M', 'f');
-
--- ----------------------------
 -- Table structure for launcher_launcherkey
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."launcher_launcherkey";
@@ -1388,6 +1385,11 @@ CREATE TABLE "public"."launcher_launcherkey" (
   "status" int4
 )
 ;
+
+-- ----------------------------
+-- Records of launcher_launcherkey
+-- ----------------------------
+INSERT INTO "public"."launcher_launcherkey" VALUES (69, 881979577, 1);
 
 -- ----------------------------
 -- Table structure for launcher_loghistory
@@ -1551,6 +1553,7 @@ INSERT INTO "public"."player_items" VALUES (255, 34, 100003001, 'SG-550 Ext.', 2
 INSERT INTO "public"."player_items" VALUES (256, 35, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (257, 36, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
 INSERT INTO "public"."player_items" VALUES (258, 37, 100003001, 'SG-550 Ext.', 2592000, 1, 1);
+INSERT INTO "public"."player_items" VALUES (259, 1, 300005232, 'Barrett M82A1 Premium', 2592000, 1, 1);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -7233,7 +7236,9 @@ INSERT INTO "public"."web_exchangeticket" VALUES (11, '300005232', 'Barrett M82A
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_ipbanned";
 CREATE TABLE "public"."web_ipbanned" (
-  "ip_address" varchar(255) COLLATE "pg_catalog"."default"
+  "id" int4 DEFAULT nextval('web_ipbanned_id_seq'::regclass),
+  "ipaddress" varchar(32) COLLATE "pg_catalog"."default",
+  "reason" text COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -7337,7 +7342,7 @@ CREATE TABLE "public"."web_quickslide" (
   "quickslide_title" varchar(255) COLLATE "pg_catalog"."default",
   "quickslide_description" text COLLATE "pg_catalog"."default",
   "quickslide_img" varchar(255) COLLATE "pg_catalog"."default",
-  "quickslide_date" varchar(255) COLLATE "pg_catalog"."default",
+  "quickslide_date" date,
   "quickslide_state" int4
 )
 ;
@@ -7348,7 +7353,8 @@ CREATE TABLE "public"."web_quickslide" (
 INSERT INTO "public"."web_quickslide" VALUES (10, 'Welcome To New Troopers', '<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio corporis eveniet voluptatem aliquid dolore eaque provident. Velit quod tempore dolorum at debitis quasi dolor tenetur, consequuntur nesciunt nisi sint voluptatem.</p>
 
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>
-', 'playerpanel-background.jpg', '1654145991', 1);
+', 'playerpanel-background.jpg', NULL, 1);
+INSERT INTO "public"."web_quickslide" VALUES (27, 'Test News', '<p xss=removed>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet nulla ac risus pellentesque, quis consequat massa pretium. Duis suscipit iaculis diam, eget dictum libero. Sed ultricies, mauris vel volutpat porttitor, est sapien tincidunt augue, et faucibus ex lorem ut sem. Nulla facilisis a tortor vitae ornare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean faucibus lectus ac neque feugiat blandit. Aenean tincidunt lorem ligula, ut aliquet nisi laoreet eget. Sed sollicitudin risus dictum metus feugiat dictum. Aliquam erat volutpat. Aliquam porttitor felis ac lacinia pretium. Mauris id nisl velit. Pellentesque fermentum eros eu venenatis ultricies. Aliquam ultricies, diam id iaculis tempor, justo mi cursus neque, et suscipit lacus ante vitae odio. Aliquam non lacus sit amet magna sodales venenatis.</p><p xss=removed>Maecenas eu lorem eros. Praesent erat ex, tincidunt in lectus non, tincidunt luctus arcu. Aenean quis porta magna. Pellentesque in dui risus. Curabitur non ultrices nibh. Nulla elementum, odio id sollicitudin varius, justo eros laoreet diam, id porta lectus justo id dolor. Curabitur placerat tincidunt sapien, non rhoncus quam porta vitae. Duis eget eros ut eros laoreet ultrices. Nulla sed sapien at turpis dictum vestibulum porttitor nec nisi. Ut sollicitudin viverra ligula, quis porta nisl semper nec.</p><p xss=removed>Nulla tincidunt tincidunt imperdiet. Etiam aliquet diam nec arcu aliquet venenatis. Proin volutpat eu tellus quis faucibus. Vestibulum quis laoreet odio, suscipit pharetra mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec eu faucibus erat. Nullam condimentum laoreet fringilla. In eget sapien euismod, venenatis diam sed, pharetra arcu. Sed felis massa, blandit ut feugiat vitae, malesuada quis enim. In volutpat interdum mi, a tristique nulla euismod ac. Quisque fermentum cursus orci, sit amet euismod orci pellentesque a. Cras quis nibh id arcu aliquet ornare in rutrum nibh. Nulla vulputate placerat vulputate.</p><p xss=removed>Etiam vestibulum turpis lacus, eu venenatis nisl auctor vitae. Maecenas ut velit quis nisl bibendum finibus. Nunc auctor molestie imperdiet. Pellentesque molestie magna sit amet nisl ornare, et maximus nisl dignissim. Aenean venenatis orci vitae scelerisque tempus. Quisque et vestibulum erat. Aliquam ultrices neque eu leo laoreet, non mollis turpis tincidunt.</p><p xss=removed>Nunc quis nibh enim. Maecenas et nisi porta, aliquam ex sit amet, sagittis lorem. Etiam iaculis congue diam, sed mattis nunc ornare nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id nunc sodales augue luctus varius. Cras ultrices consequat lorem, eget mattis risus molestie rutrum. Morbi cursus sollicitudin auctor. Proin massa magna, ultrices sit amet turpis sed, feugiat blandit ante. Maecenas vel velit eget orci molestie pulvinar eget ut magna. Phasellus ut nisl in justo efficitur tincidunt a sit amet lectus. Ut porta erat volutpat erat maximus dignissim.</p><p xss=removed>Praesent ac rhoncus tellus. Maecenas ultrices cursus consectetur. Cras orci nulla, interdum eget pharetra quis, venenatis et purus. Morbi tellus nulla, pharetra in lacinia consectetur, bibendum sit amet tortor. Aliquam finibus ac lorem at rhoncus. Morbi elementum lacus sed tempor sollicitudin. Nam quis congue erat. Nulla facilisi.</p><p xss=removed>Fusce ullamcorper urna massa, nec interdum nibh posuere ut. Proin eget maximus sapien, vitae rhoncus tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus blandit consequat mi, a dictum felis sagittis non. Quisque vel molestie eros, eu vestibulum erat. Duis ultrices, nulla fringilla aliquet tempor, libero erat pellentesque leo, ac porta sem elit et nibh. Nunc eget nisl eu ipsum consequat consequat. Cras mattis velit in est blandit laoreet. Curabitur tellus lorem, facilisis vel magna a, iaculis ultrices ligula. Nullam id elementum eros, vitae tristique orci. Proin vehicula ultricies tincidunt. Vestibulum id tempor justo.</p><p xss=removed>Vivamus scelerisque nisl vel tellus porttitor semper. Quisque ullamcorper eu mauris in pharetra. Vestibulum faucibus semper congue. Quisque ullamcorper arcu est, non dictum felis accumsan eu. Phasellus porttitor leo enim, eu aliquam enim commodo et. Sed in tempus sapien. Cras sed justo nec ligula viverra dapibus sed vel ex. Sed placerat lacus quis orci interdum pharetra. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec sodales ultrices enim at semper. Curabitur et est sit amet ipsum dapibus laoreet. Sed orci orci, fringilla pharetra dictum vel, commodo venenatis libero. Morbi ultricies luctus leo, facilisis sodales ligula imperdiet a.</p>', NULL, '2022-09-22', 1);
 
 -- ----------------------------
 -- Table structure for web_rankinfo
@@ -7467,7 +7473,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', NULL, NULL, NULL, '1', '0', '0', '1', '1', '1', '0', '1', '0', NULL, '0', '1', '0', '0', '01c348367804fbce30d3bf017e1af32c');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] YOR', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', 'https://www.facebook.com/Ultimate.Defacer/', 'https://www.instagram.com/dev_eyetracker/', 'https://www.youtube.com/channel/UCR-DdWx-H7Mi2bJ8go7zI3Q', '1', '0', '0', '1', '0', '1', '0', '1', '0', NULL, '0', '0', '0', '0', '01c348367804fbce30d3bf017e1af32c');
 
 -- ----------------------------
 -- Table structure for web_shop
@@ -7503,7 +7509,57 @@ CREATE TABLE "public"."web_tokenkey" (
 -- Records of web_tokenkey
 -- ----------------------------
 INSERT INTO "public"."web_tokenkey" VALUES (120, 'iXaYHBUD3y6Ir4CcKy9y5zEdSWcMovSjB31rwMGgpSJoMw2PjR5qHBJjLcJEd1r7', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (121, '2fiNFRAGck3dJ0El5S11BmWsoP7HFXJ394Shdv5x2Pl9hx0QGQFbxmgbXvBUHdP4', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (121, '2fiNFRAGck3dJ0El5S11BmWsoP7HFXJ394Shdv5x2Pl9hx0QGQFbxmgbXvBUHdP4', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (122, '3hW9DzjYO7DIujzd4R98BKq9flXaU3B6S9LGdLNUWGCDMUOKfQvXZ8EoxD5EJNpp', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (123, 'xZppFjv6vSNUDVswmrR7KaAYTiUrgPPXYcl76RjUCFvR65X6ipocL8Ddvio0rpay', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (124, 'LfYJWVZ0kDLxgjKTKlKmHk7foAZ9lwEWAR5V4xUpFUmTecdqZD1VUVho63lhddVe', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (125, 'utk67aabNHdrivSdN3YQgR6ibNWCF1hZzYmWOSkGSpgYoWL8XcyZZeJJoEzC4M6i', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (126, 'ChlhV52ei1TLmI3CoZSoCq4MX3UQTtGOvrJI0NuSKsEeYt1s2W7xTFFPpxc0YvOX', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (127, 'yp9N6OINiDeCzV6cwPCCPz1vRygUaMsemkhSCS3via6jpNhbOXTXq5byXtd7lwBU', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (128, 'hg6cXv1wcgT67amwGZ2lt5Z0d4mY9gTgCLoVPOqFJBKbNRr9SVXoY4eg3TyquYiQ', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (129, 'KcbCGxt2tQmBjbCEYO1mkq7iToMP1FFNhB3kHtpZXeUMvpdfUBslT8Jqq5askjY8', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (130, 'B0DfPgszS0SGxCoRmbJ3NN97SpHNhqwq4c3VPmb7vCvNxPYpkDdSsIbyx73kGakC', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (131, '70J2SlNOSGbb7h3PABH4yhZOjtzD6053QKzV4JY3lkgJoLeWI32AqefqsHzRZzpU', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (132, 'O910uauSOw5bUQQtBTUxtPlGYmexixJ9UhWyDJKKRZOFbCOATf8urQ1Tplsf4hFe', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (133, '5EgWgZFxgFhyRfaRAMRLXD0No2ZGymhmT97aij3zpJthrK4asO52zkTgVbSjKZuN', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (134, 'VkcbW28Zaa8qbWzGyZeYiTKGvRDdEePZz46xLEPe4bKIIZJywjSK5cUV6NpWMZsv', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (135, 'SBCdYDkehbrLQJDQ6IfKtg3E4hC4SfutFyjZlCi7CgDzWFBKxhOLdJW0DCGmjZbi', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (136, '9d15ZeHar8U3HYVTqDvTFwKpAKKoZNLEf3qHK6jyZw3toZCaxlMKRMe6LVhKw80o', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (137, 'IicgRShFBpEgAL28kOsKQC0fiCNM5bxK8v5oiugGIcsbPll1VVR2xTFxSov8FlTY', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (138, 'VLlMHCT7QFjNa8kzhTNYobCluOO9R9UHyxFdMCGsMfqMVmjXRvTdW79fWxX59FCH', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (139, 'EVxkhR1mMDJSluzvlN1rdDG0MHZ2pqhQvL3FujcEtcBT71mrqmW16631PTpkeYMG', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (140, 'RJmpCkPUAX5SeTOWszeE0i9vVep3gatOTVdJAHV5jDFiNULz9Pufqcc6udDslZlx', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (141, 'DfFCO6gmOmvtM6fWDixwaKwPZDtDK5j3qWHUBmU5wIQBeOmyOBeDONgWIlpvW17Q', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (142, '9eec5BavpaVuU9TWl4QEECZcfTTFqSDjKwEVTSeVIdRGq5TruyryCzt28pKF8h6e', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (143, 'zYrzzmtbLiLqI2656IN5HKITF7cRvwrO794gcDhh6LLbPC1sQP5llgP1KlgsDha3', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (144, 'SEouN3Ap1w9sTxVdJrkSetEfbWpmwpsyLCYcuo3bjD2yIhUDuBsOzJJedAmowP8R', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (145, 'FxeP1z8eqfkbTmCLLpyqOcYzDSVl8k9J1q4KAUUvAZIvbZCMMdtsDsP9vQvROXfW', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (146, 'jFK8HE8IDZuBmtRMpENim4S8qChgFSzXP0Lsf6R5HFY9gXUIa0uLICQH9Q8coliB', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (147, 'pqZpx17KAGMCi3krD3Dy4ezNufKyRCjVNDaddDJNH8vwlkuogEP6LaeNaC8oz1NM', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (148, 'hLLlWVSPdg1prsWbyMXNAcPrHoMiku8zANTCL0DvYXOwql8HBU7q9bEUm8R4fubh', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (149, '3zzvCLeSMfl5limmCRPtsDPLMH9r1GGRNGsejCflZMucll44xSTkiux4OHwhhsUR', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (150, 'BNlCru3M7J5Q9qzv4j8NKX2NdlSlLo0wriAQMOLXMD668CMff4ZyTzg6DwVpMmM2', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (151, 'jHvEwmLoWFNQU0iEhHS3uwBfePehTPAzOXusU0Xa4PQYoSptaegNkdkew8iQcDQY', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (152, '5oiiAj1DJe7WpO5ob0iEBbIhw6bJFAffXG89pAbTGAjH6GpoD4V4stKYv5wKZxlj', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (153, 'uXbXfaRrs4s6NWMieGNkv6lu5hxCdbQbKRpaZAbLPaB6WZWPDypOms1CBA1Y4hR0', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (154, 'arz38xUrSbQLkHgBeMTzVF0mV5oQNCorSw7RUN7Me88VplLoY8gBqUMlq3BiUZSo', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (155, 'TJ1vFM7bxTTedexWsig5d6TV64VyvRZZs6K4Mg8OowtskE75ykhJPEOrRUIMbyRa', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (156, '64X2auwaxbRlwQE4Zf8qhLoUkziaVLd6vDlmo67Lbz1twAwsij5Vr7UQ0i1R5U4V', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (157, 'JWGXxOhTNVwGYL4mPp56y2TztzRe4x0LUg0UiwUpsfX82olQZmxL9vPBPzmQKY1q', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (158, '9rDiJQO8lvtJjl0b4wfGF6Qp529seTaVZiTySIt4912TMIbuu3u0G218HW7ok5YQ', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (159, 'XU5htPP1f3ziDDj9S74IyBgLyZIiYNtmdLpVWdzNBTu6Seo7f6tgMBlBjgHe94as', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (160, 'h6AdBCviWD8gz8ZWk3UBeutBARYSojWIbqT5gZx5HAZj3Q14kSrhwtpD17RrDDvK', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (161, 'biCiWPrYRlXNqEcDd3chjM4FQiTaMQbecVTTtAWSgmeEA7Tr4FUhvtHLV535JXVo', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (162, 'Fw6mCf6Rb0dQp80OYOfOPR324AVEpskNEkFWG4HP0fp9yUjRVBzsYcfof1pPKoeF', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (163, 'F87BDh6kMHVU8Q2BaYfS8X1qQeLamrLU8GiTrimHMsDYUXCWI6KILTM4ZFGviSae', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (164, 'IX3TcdkfvZQO1DKgVV6tYw0vZwGB1qfCv4uFKtwlkR27oKlzBQkRHk5a4ijMvOkV', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (165, '0NoeB6dzdCprmRbWQBuwqIpR54Css5fWxNJEausYQw907hI6WUCD6K5lgtb5VYJE', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (166, 'EdTFRe3EE3FxoSgtdBGMQ99mM4Zwew6D3rgK0FCyaMuE3TFuazBcfYbvBmVQpfAd', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (167, '3LxB9uNjYoguN0cw8TFsNWNAFMmMKsfRZNtd1RlpxujfvWWKRrpl8dZKrzAUBx4O', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (168, 'XITj5iekiD2Pgk7zmmkWwrOA6hmtYdFRd0w1HCubZsQRZu0mOJJfav3gJC0N4g3k', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (169, 'fiMdqjckTRJxabMXjMRSLbzc6G37eiuozTD5U9r5fbTwKAqEijTgW9UicjV91Y3K', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (170, 'GFl7XPWKBzDdbe0xtDGv9AmWzfYOxDvTac5qmvoIcOZm5Bd7JBLfvUilwlNN1z4o', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (171, 'cmyVKwhzPHZVDItzp3YzlRDK5oc2Uf9CxPutkr2EDFgPDbbvx62zb8YZN9YBtfpx', 1);
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7557,7 +7613,7 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 41, true);
+SELECT setval('"public"."account_id_seq"', 15369, true);
 SELECT setval('"public"."api_keys_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
 SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
@@ -7575,13 +7631,13 @@ SELECT setval('"public"."events_login_id_seq"', 7, true);
 SELECT setval('"public"."gameservers_id_seq"', 5, false);
 SELECT setval('"public"."gift_id_seq"', 5, true);
 SELECT setval('"public"."ipsystem_id_seq"', 5, false);
-SELECT setval('"public"."item_code_id_seq"', 2, true);
+SELECT setval('"public"."item_code_id_seq"', 3, true);
 SELECT setval('"public"."item_voucher_id_seq"', 9, true);
-SELECT setval('"public"."items_id_seq"', 259, true);
+SELECT setval('"public"."items_id_seq"', 260, true);
 SELECT setval('"public"."jogador_amigo_seq"', 5, true);
 SELECT setval('"public"."jogador_inventario_seq"', 5, true);
 SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 69, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 70, true);
 SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
 SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
 SELECT setval('"public"."loja_seq"', 8, true);
@@ -7604,18 +7660,19 @@ SELECT setval('"public"."web_download_seq"', 22, true);
 SELECT setval('"public"."web_email_confirmation_id_seq"', 10, true);
 SELECT setval('"public"."web_exchangeticket_seq"', 13, true);
 SELECT setval('"public"."web_giftitem_log_seq"', 12, true);
+SELECT setval('"public"."web_ipbanned_id_seq"', 5, true);
 SELECT setval('"public"."web_launcher_ipaddress_id"', 5, true);
 SELECT setval('"public"."web_log_verifyaccount_id_sequence"', 5, true);
 SELECT setval('"public"."web_news_id_seq"', 19, true);
 SELECT setval('"public"."web_packshop_id_seq"', 2, true);
-SELECT setval('"public"."web_quickslide_id_seq"', 23, true);
+SELECT setval('"public"."web_quickslide_id_seq"', 28, true);
 SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
 SELECT setval('"public"."web_recharge_id_seq"', 25, true);
 SELECT setval('"public"."web_report_id_seq"', 9, true);
 SELECT setval('"public"."web_reset_password_sequence_id"', 8, true);
 SELECT setval('"public"."web_shop_id_seq"', 2, false);
 SELECT setval('"public"."web_shop_log_id_seq"', 2, false);
-SELECT setval('"public"."web_tokenkey_id_seq"', 122, true);
+SELECT setval('"public"."web_tokenkey_id_seq"', 172, true);
 SELECT setval('"public"."webdata_news_seq"', 5, true);
 SELECT setval('"public"."webshop_id_seq"', 21, true);
 
