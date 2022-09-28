@@ -31,8 +31,8 @@ class Newsmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'quickslide_title' => $this->input->post('quickslide_title', true),
-            'quickslide_description' => $this->input->post('quickslide_description', true),
+            'quickslide_title' => $this->input->post('quickslide_title'),
+            'quickslide_description' => $this->input->post('quickslide_description'),
             'quickslide_date' => date('Y-m-d'),
             'quickslide_state' => '1'
         );

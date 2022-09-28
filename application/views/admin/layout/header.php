@@ -97,9 +97,7 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-header">General Menu</li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/dashboard') ?>" class="nav-link <?php if ($this->uri->segment(2) == "dashboard") {
-                                                                            echo "active";
-                                                                          } ?>">
+              <a href="<?= base_url('adm/dashboard') ?>" class="nav-link <?php if ($this->uri->segment(2) == "dashboard") echo 'active'; ?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -107,9 +105,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/servercommandmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "servercommandmanagement") {
-                                                                                          echo "active";
-                                                                                        } ?>">
+              <a href="<?= base_url('adm/servercommandmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "servercommandmanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-server"></i>
                 <p>
                   Server Command Management
@@ -117,21 +113,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/bannedvisitor') ?>" class="nav-link <?php if ($this->uri->segment(2) == "bannedvisitor") {
-                                                                                echo "active";
-                                                                              } ?>">
+              <a href="<?= base_url('adm/bannedvisitor') ?>" class="nav-link <?php if ($this->uri->segment(2) == "bannedvisitor") echo 'active'; ?>">
                 <i class="nav-icon fa fa-ban"></i>
                 <p>
                   Banned Visitor
                 </p>
               </a>
             </li>
-            <li class="nav-item <?php if ($this->uri->segment(2) == "settings") {
-                                  echo 'menu-open';
-                                } ?>">
-              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "settings") {
-                                                              echo "active";
-                                                            } ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == "settings") echo 'active'; ?>">
+              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "settings") echo 'active'; ?>">
                 <i class="nav-icon fas fa-cog"></i>
                 <p>
                   Settings
@@ -140,25 +130,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/settings/generalsettings') ?>" class="nav-link <?php if ($title == 'General Settings') {
-                                                                                              echo 'active';
-                                                                                            } ?>">
+                  <a href="<?= base_url('adm/settings/generalsettings') ?>" class="nav-link <?php if ($title == 'General Settings') echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     General Settings
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/settings/featuresettings') ?>" class="nav-link <?php if ($title == 'Feature Settings') {
-                                                                                              echo 'active';
-                                                                                            } ?>">
+                  <a href="<?= base_url('adm/settings/featuresettings') ?>" class="nav-link <?php if ($title == 'Feature Settings') echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     Feature Settings
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/settings/socialsettings') ?>" class="nav-link <?php if ($title == 'Social Settings') {
-                                                                                              echo 'active';
-                                                                                            } ?>">
+                  <a href="<?= base_url('adm/settings/socialsettings') ?>" class="nav-link <?php if ($title == 'Social Settings') echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     Social Settings
                   </a>
@@ -167,21 +151,15 @@
             </li>
             <li class="nav-header">Game Menu</li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/newsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "newsmanagement") {
-                                                                                echo "active";
-                                                                              } ?>">
+              <a href="<?= base_url('adm/newsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "newsmanagement") echo 'active'; ?>">
                 <i class="nav-icon fa fa-newspaper"></i>
                 <p>
                   News Management
                 </p>
               </a>
             </li>
-            <li class="nav-item <?php if ($this->uri->segment(2) == "playersmanagement") {
-                                  echo 'menu-open';
-                                } ?>">
-              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement") {
-                                                              echo 'active';
-                                                            } ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == "playersmanagement") echo 'menu-open'; ?>">
+              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Players Management
@@ -190,25 +168,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/playersmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement" && $this->uri->segment(3) == "details" || $title == "All Players") {
-                                                                                        echo 'active';
-                                                                                      } ?>">
+                  <a href="<?= base_url('adm/playersmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "playersmanagement" && $this->uri->segment(3) == "details" || $title == "All Players") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>All Players</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/playersmanagement/createcustomplayer') ?>" class="nav-link <?php if ($title == "Create Custom Player") {
-                                                                                                          echo 'active';
-                                                                                                        } ?>">
+                  <a href="<?= base_url('adm/playersmanagement/createcustomplayer') ?>" class="nav-link <?php if ($title == "Create Custom Player") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Create Custom Player</p>
                   </a>
                 </li>
                 <!-- <li class="nav-item">
-                  <a href="<?= base_url('adm/playersmanagement/senditem') ?>" class="nav-link <?php if ($title == "Send Item Player") {
-                                                                                                echo 'active';
-                                                                                              } ?>">
+                  <a href="<?= base_url('adm/playersmanagement/senditem') ?>" class="nav-link <?php if ($title == "Send Item Player") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Send Item Player</p>
                   </a>
@@ -218,9 +190,7 @@
             <li class="nav-item <?php if ($this->uri->segment(2) == "eventsmanagement") {
                                   echo 'menu-open';
                                 } ?>">
-              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "eventsmanagement") {
-                                                              echo 'active';
-                                                            } ?>">
+              <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "eventsmanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-calendar-check"></i>
                 <p>
                   Events Management
@@ -229,63 +199,49 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/attendance') ?>" class="nav-link <?php if ($this->uri->segment(3) == "attendance") {
-                                                                                                  echo 'active';
-                                                                                                } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/attendance') ?>" class="nav-link <?php if ($this->uri->segment(3) == "attendance") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Attendance Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/login') ?>" class="nav-link <?php if ($this->uri->segment(3) == "login") {
-                                                                                            echo 'active';
-                                                                                          } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/login') ?>" class="nav-link <?php if ($this->uri->segment(3) == "login") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Login Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/mapbonus') ?>" class="nav-link <?php if ($this->uri->segment(3) == "mapbonus") {
-                                                                                                echo 'active';
-                                                                                              } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/mapbonus') ?>" class="nav-link <?php if ($this->uri->segment(3) == "mapbonus") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Map Bonus Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/playtime') ?>" class="nav-link <?php if ($this->uri->segment(3) == "playtime") {
-                                                                                                echo 'active';
-                                                                                              } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/playtime') ?>" class="nav-link <?php if ($this->uri->segment(3) == "playtime") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Playtime Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/quest') ?>" class="nav-link <?php if ($this->uri->segment(3) == "quest") {
-                                                                                            echo 'active';
-                                                                                          } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/quest') ?>" class="nav-link <?php if ($this->uri->segment(3) == "quest")  echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Quest Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/rankup') ?>" class="nav-link <?php if ($this->uri->segment(3) == "rankup") {
-                                                                                              echo 'active';
-                                                                                            } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/rankup') ?>" class="nav-link <?php if ($this->uri->segment(3) == "rankup") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Rankup Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/register') ?>" class="nav-link <?php if ($this->uri->segment(3) == "register") {
-                                                                                                echo 'active';
-                                                                                              } ?>">
+                  <a href="<?= base_url('adm/eventsmanagement/register') ?>" class="nav-link <?php if ($this->uri->segment(3) == "register") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Register Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available.')">
+                  <a href="<?= base_url('adm/eventsmanagement/visit') ?>" class="nav-link <?php if ($this->uri->segment(3) == 'visit') echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Visit Events</p>
                   </a>
@@ -299,9 +255,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/clientlaunchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "clientlaunchermanagement") {
-                                                                                          echo "active";
-                                                                                        } ?>">
+              <a href="<?= base_url('adm/clientlaunchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "clientlaunchermanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-download"></i>
                 <p>
                   Client & Launcher Management
@@ -309,9 +263,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/redeemcodemanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "redeemcodemanagement") {
-                                                                                      echo "active";
-                                                                                    } ?>">
+              <a href="<?= base_url('adm/redeemcodemanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "redeemcodemanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-gift"></i>
                 <p>
                   Redeem Code Management
@@ -319,9 +271,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/vouchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "vouchermanagement") {
-                                                                                    echo "active";
-                                                                                  } ?>">
+              <a href="<?= base_url('adm/vouchermanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "vouchermanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-gift"></i>
                 <p>
                   Voucher Management
@@ -329,9 +279,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('adm/rankawardsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "rankawardsmanagement") {
-                                                                                      echo "active";
-                                                                                    } ?>">
+              <a href="<?= base_url('adm/rankawardsmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "rankawardsmanagement") echo 'active'; ?>">
                 <i class="nav-icon fas fa-trophy"></i>
                 <p>
                   Rank Awards Management

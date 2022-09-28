@@ -33,7 +33,7 @@
                                 <tr id="data_<?= $num ?>">
                                     <td><?= $num ?></td>
                                     <td><?= $row['quickslide_title'] ?></td>
-                                    <td><?= $this->lib->ParseUnixTimeStamp($row['quickslide_date']) ?></td>
+                                    <td><?= $row['quickslide_date'] ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

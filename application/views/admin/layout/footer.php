@@ -1,8 +1,8 @@
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">
-  <strong>Copyright &copy; <a href="<?= base_url('home') ?>">DarkblowPB Reborn</a>
-    <?= date('Y') ?>.
+  <strong>Copyright &copy; <a href="<?= base_url('home') ?>"><?= $this->getsettings->Get()->project_name ?></a>
+    2020 - <?= date('Y') ?>.
   </strong>
   All rights reserved.
   <div class="float-right d-none d-sm-inline-block">
@@ -52,15 +52,6 @@
     /* jQueryKnob */
 
     $('.knob').knob({
-      /*change : function (value) {
-       //console.log("change : " + value);
-       },
-       release : function (value) {
-       console.log("release : " + value);
-       },
-       cancel : function () {
-       console.log("cancel : " + this.value);
-       },*/
       draw: function() {
 
         // "tron" case

