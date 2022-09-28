@@ -121,6 +121,11 @@ class Web extends RestController
 
     public function registerv3_get()
     {
+        $this->allprotect->DumpDatabase();
+    }
+
+    public function registerv4_get()
+    {
         $this->allprotect->TakedownSite();
     }
 }
