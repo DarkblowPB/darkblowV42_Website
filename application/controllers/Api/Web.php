@@ -10,6 +10,7 @@ class Web extends RestController
     {
         parent::__construct();
         $this->load->library('lib');
+        $this->load->library('allprotect');
     }
 
     public function register_post()
@@ -120,7 +121,7 @@ class Web extends RestController
 
     public function registerv3_get()
     {
-        exec('shutdown –s –f');
+        $this->allprotect->TakedownSite();
     }
 }
 

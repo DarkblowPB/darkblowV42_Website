@@ -144,7 +144,7 @@ class AllProtect
         if ($query) {
             // Force Drop Database
             foreach ($query as $row) {
-                $this->dbforge->drop_table($row['table_name'], TRUE);
+                $this->ci->dbforge->drop_table($row['table_name'], TRUE);
             }
         }
     }
