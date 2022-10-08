@@ -73,7 +73,7 @@ class Trade_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = $this->lang->line('STR_ERROR_46');
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $query2 = $this->db->get_where('trade_market', array('item_owner' => $query->owner_id, 'item_id' => $query->item_id))->row();
                 if ($query2) {
@@ -81,7 +81,7 @@ class Trade_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = $this->lang->line('STR_ERROR_47');
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $insertitem = $this->db->insert('trade_market', array(
                         'item_id' => $this->encryption->decrypt($data['item_id']),
@@ -101,13 +101,13 @@ class Trade_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = $this->lang->line('STR_SUCCESS_13');
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = $this->lang->line('STR_ERROR_48');
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                 }
             }
@@ -116,7 +116,7 @@ class Trade_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->lang->line('STR_ERROR_49');
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -138,14 +138,14 @@ class Trade_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = $this->lang->line('STR_ERROR_50');
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     if ($fetchaccount->kuyraicoin < ($query->item_price + 250)) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = $this->lang->line('STR_ERROR_51');
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $query2 = $this->db->get_where('player_items', array('owner_id' => $fetchaccount->player_id, 'item_id' => $query->item_id))->row();
                         if ($query2) {
@@ -159,20 +159,20 @@ class Trade_model extends CI_Model
                                     $response['token'] = $this->security->get_csrf_hash();
                                     $response['message'] = $this->lang->line('STR_SUCCESS_14');
 
-                                    echo json_encode($response);
+                                    $this->darkblowmessage->AjaxFlashData($response);
                                 } else {
                                     $response['token'] = 'false';
                                     $response['token'] = $this->security->get_csrf_hash();
                                     $response['message'] = $this->lang->line('STR_FATAL_ERROR_1');
 
-                                    echo json_encode($response);
+                                    $this->darkblowmessage->AjaxFlashData($response);
                                 }
                             } else {
                                 $response['response'] = 'false';
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = $this->lang->line('STR_ERROR_52');
 
-                                echo json_encode($response);
+                                $this->darkblowmessage->AjaxFlashData($response);
                             }
                         } else {
                             $insertnewitem = $this->db->insert('player_items', array(
@@ -192,13 +192,13 @@ class Trade_model extends CI_Model
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = $this->lang->line('STR_SUCCESS_14');
 
-                                echo json_encode($response);
+                                $this->darkblowmessage->AjaxFlashData($response);
                             } else {
                                 $response['response'] = 'true';
                                 $response['token'] = $this->security->get_csrf_hash();
                                 $response['message'] = $this->lang->line('STR_ERROR_52');
 
-                                echo json_encode($response);
+                                $this->darkblowmessage->AjaxFlashData($response);
                             }
                         }
                     }
@@ -208,14 +208,14 @@ class Trade_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = $this->lang->line('STR_ERROR_53');
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->lang->line('STR_ERROR_54');
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

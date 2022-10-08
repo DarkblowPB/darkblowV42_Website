@@ -12,8 +12,10 @@ class Quest extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/eventsquest_model', 'eventsquest');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -45,7 +47,7 @@ class Quest extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -73,7 +75,7 @@ class Quest extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

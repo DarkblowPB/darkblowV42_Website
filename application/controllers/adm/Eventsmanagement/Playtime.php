@@ -7,13 +7,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Playtime extends CI_Controller
+class Playtime extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/eventsplaytime_model', 'eventsplaytime');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -34,7 +36,7 @@ Class Playtime extends CI_Controller
         $data['header'] = 'Create Playtime Events';
 
         $data['items'] = $this->eventsplaytime->GetAllItems();
-        
+
         $data['content'] = 'admin/content/events/playtime/content_add';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
@@ -85,13 +87,12 @@ Class Playtime extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->eventsplaytime->AddNewEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -107,17 +108,14 @@ Class Playtime extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->eventsplaytime->DeleteEvents();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

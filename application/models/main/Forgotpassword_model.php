@@ -14,7 +14,6 @@ class Forgotpassword_model extends CI_Model
         parent::__construct();
         $this->load->library('email');
         $this->load->library('querylib');
-        $this->load->library('lib');
     }
 
     function ForgotPasswordValidationV1()
@@ -29,15 +28,15 @@ class Forgotpassword_model extends CI_Model
         if ($query) {
 
             // Required Data
-            $token = $this->lib->GenerateRandomTokenV2(128);
+            $token = $this->darkblowlib->GenerateRandomTokenV2(128);
             $link = base_url('forgotpassword/verifyid/' . $token);
             $expired_date = strtotime('+3 day', time());
-            $message = 'Hey ' . $query->email . ', We confirmed you trying to reset your password at ' . $this->lib->ParseUnixTimeStamp(time()) . '.<br>
+            $message = 'Hey ' . $query->email . ', We confirmed you trying to reset your password at ' . $this->darkblowlib->ParseUnixTimeStamp(time()) . '.<br>
                         If you not trying to reset your password, please secure your account now. keep your hint secret. Anyway, click this link to reset your password: ' . $link . '<br>
-                        This link will expire on ' . $this->lib->ParseUnixTimeStamp($expired_date) . '.<br><br>
-                        Copyright ' . $this->getsettings->Get()->project_name . ' ' . date('Y') . '. All Rights Reserved.';
+                        This link will expire on ' . $this->darkblowlib->ParseUnixTimeStamp($expired_date) . '.<br><br>
+                        Copyright ' . $this->darkblowsettings->load()->project_name . ' ' . date('Y') . '. All Rights Reserved.';
 
-            if ($this->querylib->SendEmail('no-reply@' . $this->getsettings->Get()->project_name . '.com', $query->email, 'Reset Password', $message)) {
+            if ($this->querylib->SendEmail('no-reply@' . $this->darkblowsettings->load()->project_name . '.com', $query->email, 'Reset Password', $message)) {
                 $this->db->insert('web_log_forgotpassword', array(
                     'email' => $query->email,
                     'secret_token' => $token,
@@ -50,20 +49,20 @@ class Forgotpassword_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Send Forgot Password Request. Please Check Your Email.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed Send Forgot Password Request. Please Try Again Later.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Email.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -87,8 +86,8 @@ class Forgotpassword_model extends CI_Model
     {
         $data = array(
             'secret_token' => $param,
-            'password' => $this->lib->password_encrypt($this->input->post('new_password', true)),
-            'confirm_password' => $this->lib->password_encrypt($this->input->post('confirm_password', true))
+            'password' => $this->darkblowlib->password_encrypt($this->input->post('new_password', true)),
+            'confirm_password' => $this->darkblowlib->password_encrypt($this->input->post('confirm_password', true))
         );
 
         $query = $this->db->get_where('web_log_forgotpassword', array(

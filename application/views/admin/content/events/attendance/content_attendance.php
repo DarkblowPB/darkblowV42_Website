@@ -13,7 +13,7 @@
                                 type: 'GET',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                 },
                                 success: function(data) {
                                     var GetString = JSON.stringify(data);
@@ -76,7 +76,7 @@
                                             <?= $row['item_name'] ?>
                                         </td>
                                         <td>
-                                            <?= $this->lib->GetItemDuration('2', $row['item_count'], 1) ?>
+                                            <?= $this->darkblowlib->GetItemDuration('2', $row['item_count'], 1) ?>
                                         </td>
                                         <td>
                                             <?= number_format($row['total_claim'], 0, ',', '.') ?>
@@ -168,7 +168,7 @@
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

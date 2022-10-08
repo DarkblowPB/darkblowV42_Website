@@ -13,7 +13,7 @@ class Sitemap extends CI_Controller
     {
         parent::__construct();
         $this->load->model('main/sitemap_model', 'sitemap');
-        $this->lib->GetVisitorData('Site Map');
+        $this->darkblowlib->GetVisitorData('Site Map');
     }
 
     function index()

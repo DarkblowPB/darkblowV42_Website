@@ -53,7 +53,7 @@ class Voucher_model extends CI_Model
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_55');
 
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				$explode = explode(',', $query->voucher_item);
 				$count = count($explode);
@@ -72,7 +72,7 @@ class Voucher_model extends CI_Model
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = $this->lang->line('STR_ERROR_53');
 
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				}
 
 				for ($i = 0; $i < $count; $i++) {
@@ -95,7 +95,7 @@ class Voucher_model extends CI_Model
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = $this->lang->line('STR_ERROR_53');
 
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							}
 						}
 					} else {
@@ -118,14 +118,14 @@ class Voucher_model extends CI_Model
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_SUCCESS_8') . $this->session->userdata('player_name') . ',' . $this->lang->line('STR_SUCCESS_9') . $state['success'] . $this->lang->line('STR_SUCCESS_15') . $state['total_cash'] . $this->lang->line('STR_SUCCESS_16') . $state['total_webcoin'] . $this->lang->line('STR_SUCCESS_17') . '[' . $state['failed'] . ']';
 
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_55');
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 
@@ -184,9 +184,9 @@ class Voucher_model extends CI_Model
 								$insert = $this->db->insert('player_items', array(
 									'owner_id' => $this->session->userdata('uid'),
 									'item_id' => $explode[$i],
-									'item_name' => $this->lib->GetItemName($explode[$i]),
+									'item_name' => $this->darkblowlib->GetItemName($explode[$i]),
 									'count' => '2592000',
-									'category' => $this->lib->GetItemCategory($explode[$i]),
+									'category' => $this->darkblowlib->GetItemCategory($explode[$i]),
 									'equip' => '1'
 								));
 								if ($insert) $status['success'] += 1;
@@ -218,13 +218,13 @@ class Voucher_model extends CI_Model
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Redeem Voucher.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else {
 							$response['response'] = 'success';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Successfully Redeem Voucher. Please Relogin To See Rewards.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						}
 						break;
 					}
@@ -234,7 +234,7 @@ class Voucher_model extends CI_Model
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Voucher Already Used.';
 
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 						break;
 					}
 			}

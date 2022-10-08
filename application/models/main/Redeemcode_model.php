@@ -12,7 +12,7 @@ class Redeemcode_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('lib');
+
 		$this->lang->load('message');
 	}
 
@@ -43,13 +43,13 @@ class Redeemcode_model extends CI_Model
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Code Already Expired.';
 
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				} else if ($query2->qty < 1) {
 					$response['response'] = 'error';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Reward Out Of Stock.';
 
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
 					$query3 = $this->db->get_where('check_user_itemcode', array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
 					if ($query3) {
@@ -57,7 +57,7 @@ class Redeemcode_model extends CI_Model
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Code Already Used.';
 
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					} else {
 						$query4 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $query2->item_id))->row();
 						if ($query4) {
@@ -77,15 +77,15 @@ class Redeemcode_model extends CI_Model
 										if ($update && $update2 && $insert) {
 											$response['response'] = 'success';
 											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+											$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
 
-											echo json_encode($response);
+											$this->darkblowmessage->AjaxFlashData($response);
 										} else {
 											$response['response'] = 'error';
 											$response['token'] = $this->security->get_csrf_hash();
 											$response['message'] = 'Failed To Add Weapon To Your Inventory.';
 
-											echo json_encode($response);
+											$this->darkblowmessage->AjaxFlashData($response);
 										}
 										break;
 									}
@@ -98,7 +98,7 @@ class Redeemcode_model extends CI_Model
 														$response['token'] = $this->security->get_csrf_hash();
 														$response['message'] = 'Invalid Item Reward.';
 
-														echo json_encode($response);
+														$this->darkblowmessage->AjaxFlashData($response);
 														break;
 													}
 
@@ -116,15 +116,15 @@ class Redeemcode_model extends CI_Model
 														if ($update && $update2 && $insert) {
 															$response['response'] = 'success';
 															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
 
-															echo json_encode($response);
+															$this->darkblowmessage->AjaxFlashData($response);
 														} else {
 															$response['response'] = 'error';
 															$response['token'] = $this->security->get_csrf_hash();
 															$response['message'] = 'Failed To Add Weapon To Your Inventory.';
 
-															echo json_encode($response);
+															$this->darkblowmessage->AjaxFlashData($response);
 														}
 														break;
 													}
@@ -147,15 +147,15 @@ class Redeemcode_model extends CI_Model
 														if ($update && $update2 && $insert) {
 															$response['response'] = 'success';
 															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
 
-															echo json_encode($response);
+															$this->darkblowmessage->AjaxFlashData($response);
 														} else {
 															$response['response'] = 'error';
 															$response['token'] = $this->security->get_csrf_hash();
 															$response['message'] = 'Failed To Add Weapon To Your Inventory.';
 
-															echo json_encode($response);
+															$this->darkblowmessage->AjaxFlashData($response);
 														}
 														break;
 													}
@@ -164,7 +164,7 @@ class Redeemcode_model extends CI_Model
 													$response['token'] = $this->security->get_csrf_hash();
 													$response['message'] = 'Fatal Error.';
 
-													echo json_encode($response);
+													$this->darkblowmessage->AjaxFlashData($response);
 													break;
 											}
 										} else {
@@ -172,7 +172,7 @@ class Redeemcode_model extends CI_Model
 											$response['token'] = $this->security->get_csrf_hash();
 											$response['message'] = 'Invalid Item Reward.';
 
-											echo json_encode($response);
+											$this->darkblowmessage->AjaxFlashData($response);
 										}
 										break;
 									}
@@ -181,7 +181,7 @@ class Redeemcode_model extends CI_Model
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = 'You Already Have This Reward Item For Permanent Duration.';
 
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 										break;
 									}
 								default: {
@@ -189,7 +189,7 @@ class Redeemcode_model extends CI_Model
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = 'Fatal Error. Please Contact DEV / GM For More Information.';
 
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 										break;
 									}
 							}
@@ -197,9 +197,9 @@ class Redeemcode_model extends CI_Model
 							$insert = $this->db->insert('player_items', array(
 								'owner_id' => $query->player_id,
 								'item_id' => $query2->item_id,
-								'item_name' => $this->lib->GetItemName($query2->item_id),
+								'item_name' => $this->darkblowlib->GetItemName($query2->item_id),
 								'count' => $query2->item_count,
-								'category' => $this->lib->GetItemCategory($query2->item_id),
+								'category' => $this->darkblowlib->GetItemCategory($query2->item_id),
 								'equip' => '1'
 							));
 							$insert2 = $this->db->insert('check_user_itemcode', array(
@@ -213,15 +213,15 @@ class Redeemcode_model extends CI_Model
 							if ($insert && $insert2 && $update) {
 								$response['response'] = 'success';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->lib->GetItemName($query2->item_id) . '.';
+								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
 
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							} else {
 								$response['response'] = 'error';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = 'Failed To Redeem Code.';
 
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							}
 						}
 					}
@@ -231,14 +231,14 @@ class Redeemcode_model extends CI_Model
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'Code Doesnt Exist.';
 
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Failed To Fetch Account Data.';
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

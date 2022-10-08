@@ -7,14 +7,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="<?= $this->getsettings->Get()->meta_author ?>">
-    <meta name="description" content="<?= $this->getsettings->Get()->meta_description ?>">
-    <meta name="keywords" content="<?= $this->getsettings->Get()->meta_keywords ?>" />
+    <meta name="author" content="<?= $this->darkblowsettings->load()->meta_author ?>">
+    <meta name="description" content="<?= $this->darkblowsettings->load()->meta_description ?>">
+    <meta name="keywords" content="<?= $this->darkblowsettings->load()->meta_keywords ?>" />
 
     <title>
-        <?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+        <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
     </title>
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_icon ?>">
+    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_icon ?>">
 
     <!-- START: Styles -->
 
@@ -38,7 +38,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>">
+                    <img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_logo ?>" alt="<?= $this->darkblowsettings->load()->project_name ?>">
                     <div class="nk-gap-2"></div>
                 </div>
             </div>
@@ -63,9 +63,9 @@
             <div class="nk-fullscreen-block-bottom">
                 <div class="nk-gap-2"></div>
                 <ul class="nk-social-links-2 nk-social-links-center">
-                    <li><a class="nk-social-facebook" href="<?= $this->getsettings->Get()->facebook_embed_link ?>" target="_blank"><span class="fab fa-facebook"></span></a></li>
-                    <li><a class="nk-social-instagram" href="<?= $this->getsettings->Get()->instagram_embed_link ?>" target="_blank"><span class="fab fa-instagram"></span></a></li>
-                    <li><a class="nk-social-youtube" href="<?= $this->getsettings->Get()->youtube_embed_link ?>" target="_blank"><span class="fab fa-youtube"></span></a></li>
+                    <li><a class="nk-social-facebook" href="<?= $this->darkblowsettings->load()->facebook_embed_link ?>" target="_blank"><span class="fab fa-facebook"></span></a></li>
+                    <li><a class="nk-social-instagram" href="<?= $this->darkblowsettings->load()->instagram_embed_link ?>" target="_blank"><span class="fab fa-instagram"></span></a></li>
+                    <li><a class="nk-social-youtube" href="<?= $this->darkblowsettings->load()->youtube_embed_link ?>" target="_blank"><span class="fab fa-youtube"></span></a></li>
                 </ul>
                 <div class="nk-gap-2"></div>
             </div>

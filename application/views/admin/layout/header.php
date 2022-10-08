@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
-    <?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+    <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
   </title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -39,6 +39,82 @@
   <!-- jQuery -->
   <script src="<?= base_url() ?>assets/admin/plugins/jquery/jquery.min.js"></script>
   <!-- Custam Script -->
+  <script>
+    $(document).ready(function() {
+      // DataTable
+      $('#news_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#allplayers_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#clientlauncher_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#login_events_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#mapbonus_events_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#playtime_events_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#redeemcode_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#visit_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#bannedvisitor_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#voucher_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#rankawards_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+      $('#attendance_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
+
+      // Form Selection
+      $('.reward_selection').select2();
+      $('.count_selection').select2();
+      $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+      });
+      $('.summernote_editor').summernote({
+        disableResizeEditor: true,
+        airMode: false,
+      });
+    })
+  </script>
 </head>
 
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
@@ -74,7 +150,7 @@
       <a href="<?= base_url('adm/dashboard') ?>" class="brand-link">
         <img src="<?= base_url() ?>assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold">
-          <?= $this->getsettings->Get()->project_name ?> Admin
+          <?= $this->darkblowsettings->load()->project_name ?> Admin
         </span>
       </a>
 
@@ -120,7 +196,7 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item <?php if ($this->uri->segment(2) == "settings") echo 'active'; ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == "settings") echo 'menu-open'; ?>">
               <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(2) == "settings") echo 'active'; ?>">
                 <i class="nav-icon fas fa-cog"></i>
                 <p>

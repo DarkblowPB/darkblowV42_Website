@@ -12,8 +12,6 @@ class Eventslogin_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('lib');
     }
 
     function GetAllEvents()
@@ -66,8 +64,8 @@ class Eventslogin_model extends CI_Model
         $defaultDate2 = $this->encryption->decrypt($data['end_date']); // End Date
 
         $query = $this->db->insert('events_login', array(
-            'start_date' => $this->lib->ExplodeDate($defaultDate)['years'] . $this->lib->ExplodeDate($defaultDate)['month'] . $this->lib->ExplodeDate($defaultDate)['days'] . $this->lib->ExplodeDate($defaultDate)['hours'] . $this->lib->ExplodeDate($defaultDate)['minutes'],
-            'end_date' => $this->lib->ExplodeDate($defaultDate2)['years'] . $this->lib->ExplodeDate($defaultDate2)['month'] . $this->lib->ExplodeDate($defaultDate2)['days'] . $this->lib->ExplodeDate($defaultDate2)['hours'] . $this->lib->ExplodeDate($defaultDate2)['minutes'],
+            'start_date' => $this->darkblowlib->ExplodeDate($defaultDate)['years'] . $this->darkblowlib->ExplodeDate($defaultDate)['month'] . $this->darkblowlib->ExplodeDate($defaultDate)['days'] . $this->darkblowlib->ExplodeDate($defaultDate)['hours'] . $this->darkblowlib->ExplodeDate($defaultDate)['minutes'],
+            'end_date' => $this->darkblowlib->ExplodeDate($defaultDate2)['years'] . $this->darkblowlib->ExplodeDate($defaultDate2)['month'] . $this->darkblowlib->ExplodeDate($defaultDate2)['days'] . $this->darkblowlib->ExplodeDate($defaultDate2)['hours'] . $this->darkblowlib->ExplodeDate($defaultDate2)['minutes'],
             'reward_id' => $this->encryption->decrypt($data['reward_id']),
             'reward_count' => $this->encryption->decrypt($data['reward_count'])
         ));
@@ -76,12 +74,12 @@ class Eventslogin_model extends CI_Model
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Created New Login Events.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Created New Login Events.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -105,18 +103,18 @@ class Eventslogin_model extends CI_Model
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Events.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Events.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Events Not Found.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

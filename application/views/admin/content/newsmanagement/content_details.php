@@ -27,7 +27,7 @@
                             <tr>
                                 <td>Date Created</td>
                                 <td>
-                                    <?= $this->lib->ParseUnixTimeStamp($news->quickslide_date) ?>
+                                    <?= $this->darkblowlib->ParseUnixTimeStamp($news->quickslide_date) ?>
                                 </td>
                             </tr>
                         </tbody>

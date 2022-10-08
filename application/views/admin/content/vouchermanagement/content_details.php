@@ -23,7 +23,7 @@
                                     $string = '';
 
                                     for ($i = 0; $i < $count; $i++) {
-                                        $string .= $this->lib->GetItemName($split[$i]);
+                                        $string .= $this->darkblowlib->GetItemName($split[$i]);
                                         $string .= '<br>';
                                     }
 

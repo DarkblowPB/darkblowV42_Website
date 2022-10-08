@@ -9,7 +9,7 @@
                 <div class="container">
                     <div class="col-lg-6 offset-lg-3">
                         <?= form_open('', 'id="register_form" autocomplete="off"', array(
-                            'custom_csrf' => $this->lib->GenerateRandomTokenV2(128),
+                            'custom_csrf' => $this->darkblowlib->GenerateRandomTokenV2(128),
                             'custom_csrf2' => ''
                         )); ?>
                         <div class="form-group">
@@ -86,7 +86,7 @@
                         </div>
                         <?= form_close(); ?>
                         <?php
-                        if ($this->getsettings->Get()->google_register == 1) : ?>
+                        if ($this->darkblowsettings->load()->google_register == 1) : ?>
                             <div class="form-group text-center">
                                 <label style="font-weight: bold; font-style: italic;">OR</label>
                             </div>
@@ -153,7 +153,7 @@
                                                     type: 'GET',
                                                     dataType: 'JSON',
                                                     data: {
-                                                        '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                        '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                     },
                                                     success: function(data) {
                                                         var GetString = JSON.stringify(data);
@@ -230,7 +230,7 @@
                                             ShowToast(2000, Result.response, Result.message);
                                             CSRF_TOKEN = Result.token;
 
-                                            if (Result.status == 'success') {
+                                            if (Result.response == 'success') {
                                                 setTimeout(() => {
                                                     window.location = '<?= base_url('login') ?>';
                                                 }, 2000);

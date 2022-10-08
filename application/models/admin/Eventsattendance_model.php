@@ -40,20 +40,20 @@ class Eventsattendance_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Event.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Event.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'No Events Found.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -88,7 +88,7 @@ class Eventsattendance_model extends CI_Model
             $query = $this->db->insert('events_attendance', array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
-                'item_name' => $this->lib->GetItemName($this->encryption->decrypt($data[$i])),
+                'item_name' => $this->darkblowlib->GetItemName($this->encryption->decrypt($data[$i])),
                 'item_count' => $this->encryption->decrypt($data[8]),
                 'total_claim' => '0',
                 'date' => ($date['day']++) . '-' . $date['month'] . '-' . $date['year']
@@ -101,7 +101,7 @@ class Eventsattendance_model extends CI_Model
         $response['token'] = $this->security->get_csrf_hash();
         $response['message'] = 'Successfully Create [' . $state['success'] . '] Events. Failed [' . $state['fail'] . ']';
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     function CreateEvents7DaysV2()
@@ -129,7 +129,7 @@ class Eventsattendance_model extends CI_Model
             $query = $this->db->insert('events_attendance', array(
                 'day' => ++$num,
                 'item_id' => $data[$i],
-                'item_name' => $this->lib->GetItemName($data[$i]),
+                'item_name' => $this->darkblowlib->GetItemName($data[$i]),
                 'item_count' => $data[7],
                 'total_claim' => '0',
                 'date' => date('d', strtotime('+ ' . $i . ' day', time())) . '-' . date('m') . '-' . date('Y')
@@ -142,7 +142,7 @@ class Eventsattendance_model extends CI_Model
         $response['token'] = $this->security->get_csrf_hash();
         $response['message'] = 'Successfully Create Attendance Event [Success: ' . $state['success'] . '] [Failed: ' . $state['failed'] . ']';
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     function CreateEvents14Days()
@@ -177,7 +177,7 @@ class Eventsattendance_model extends CI_Model
             $query = $this->db->insert('events_attendance', array(
                 'day' => ++$num,
                 'item_id' => $data[$i],
-                'item_name' => $this->lib->GetItemName($data[$i]),
+                'item_name' => $this->darkblowlib->GetItemName($data[$i]),
                 'item_count' => $data[13],
                 'total_claim' => '0',
                 'date' => date('d', strtotime('+ ' . $i . ' day', time())) . '-' . date('m') . '-' . date('Y')
@@ -190,7 +190,7 @@ class Eventsattendance_model extends CI_Model
         $response['token'] = $this->security->get_csrf_hash();
         $response['message'] = 'Successfully Create Attendance Event [Success: ' . $state['success'] . '] [Failed: ' . $state['failed'] . ']';
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     function ClearAllAndDisableEvent()
@@ -207,13 +207,13 @@ class Eventsattendance_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Disabled The Event.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Disabled The Event.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

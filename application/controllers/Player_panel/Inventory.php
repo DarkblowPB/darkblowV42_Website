@@ -14,22 +14,19 @@ class Inventory extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Inventory');
-		$this->main_protect->SessionProtector();
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-
-		$this->main_protect->mainProtectA();
-		$this->load->library('lib');
 		$this->load->model('main/inventory_model', 'inventory');
+		$this->load->library('pagination');
+
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->RequireLogin_Protection();
+		$this->darkblowprotection->InventoryPage_Protection();
 	}
 
 	function index()
 	{
-		$this->load->library('pagination');
+		if ($this->input->is_ajax_request()) return;
 
 		$config['base_url'] = base_url('player_panel/inventory/index');
 		$config['total_rows'] = $this->inventory->GetInventoryCount();
@@ -55,39 +52,44 @@ class Inventory extends CI_Controller
 
 	function detail($idx = null)
 	{
-		if ($idx == null) redirect(base_url('player_panel'), 'refresh');
+		if ($this->input->is_ajax_request()) return;
 		else {
-			$data['title'] = 'Details Item';
-			$data['details'] = $this->lib->GetItemName($idx);
-			$data['isi'] = 'main/content/player_panel/content_inventory_detail';
-			$this->load->view('main/layout/wrapper', $data, FALSE);
+			if ($idx == null) redirect(base_url('player_panel'), 'refresh');
+			else {
+				$data['title'] = 'Details Item';
+				$data['details'] = $this->darkblowlib->GetItemName($idx);
+				$data['isi'] = 'main/content/player_panel/content_inventory_detail';
+				$this->load->view('main/layout/wrapper', $data, FALSE);
+			}
 		}
 	}
 
 	function do_delete()
 	{
-		$response = array();
-		$this->form_validation->set_error_delimiters('', '');
-		$this->form_validation->set_rules(
-			'player_id',
-			'Player ID',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'item_id',
-			'Item ID',
-			'numeric|required',
-			array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
-		);
-		if ($this->form_validation->run()) $this->inventory->DeleteItem();
-		else {
-			$response['response'] = 'false';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors();
+		if ($this->input->is_ajax_request()) {
+			$response = array();
+			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_rules(
+				'player_id',
+				'Player ID',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'item_id',
+				'Item ID',
+				'numeric|required',
+				array('numeric' => '%s Only Accepted Numeric Character.', 'required' => '%s Cannot Be Empty.')
+			);
+			if ($this->form_validation->run()) $this->inventory->DeleteItem();
+			else {
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = validation_errors();
 
-			echo json_encode($response);
-		}
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
+		} else return;
 	}
 }
 

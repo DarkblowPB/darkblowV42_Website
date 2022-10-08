@@ -29,7 +29,7 @@
                                         <?= $num ?>
                                     </td>
                                     <td>
-                                        <?= $this->lib->GetItemName($row['item_id']) ?>
+                                        <?= $this->darkblowlib->GetItemName($row['item_id']) ?>
                                     </td>
                                     <td>
                                         <?= number_format($row['cash'], '0', ',', '.') ?>
@@ -129,7 +129,7 @@
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

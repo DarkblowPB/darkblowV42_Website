@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="<?= $this->getsettings->Get()->meta_author ?>">
-    <meta name="description" content="<?= $this->getsettings->Get()->meta_description ?>">
-    <meta name="keywords" content="<?= $this->getsettings->Get()->meta_keywords ?>" />
+    <meta name="author" content="<?= $this->darkblowsettings->load()->meta_author ?>">
+    <meta name="description" content="<?= $this->darkblowsettings->load()->meta_description ?>">
+    <meta name="keywords" content="<?= $this->darkblowsettings->load()->meta_keywords ?>" />
     <title>
-        <?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+        <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
     </title>
     <!-- START: Styles -->
 
     <!-- Icon -->
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_icon ?>">
+    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_icon ?>">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
     <!-- Bootstrap -->
@@ -35,7 +35,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <a href="<?= base_url() ?>"><img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="<?= $this->getsettings->Get()->project_name ?>"></a>
+                    <a href="<?= base_url() ?>"><img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_logo ?>" alt="<?= $this->darkblowsettings->load()->project_name ?>"></a>
                     <div class="nk-gap-2"></div>
                 </div>
             </div>

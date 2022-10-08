@@ -21,9 +21,9 @@ class Changepassword_model extends CI_Model
 		$response = array();
 
 		$data = array(
-			'old_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('old_password', true))),
-			'new_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('new_password', true))),
-			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('confirm_password', true))),
+			'old_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('old_password', true))),
+			'new_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('new_password', true))),
+			'confirm_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('confirm_password', true))),
 			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
 		);
@@ -35,7 +35,7 @@ class Changepassword_model extends CI_Model
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_30');
 
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
 					'password' => $this->encryption->decrypt($data['new_password'])
@@ -46,13 +46,13 @@ class Changepassword_model extends CI_Model
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = $this->lang->line('STR_SUCCESS_3');
 
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = $this->lang->line('STR_ERROR_31');
 
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				}
 			}
 		} else {
@@ -60,7 +60,7 @@ class Changepassword_model extends CI_Model
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_32');
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 
@@ -79,9 +79,9 @@ class Changepassword_model extends CI_Model
 		$response = array();
 
 		$data = array(
-			'old_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('old_password'))),
-			'new_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('new_password'))),
-			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('confirm_password'))),
+			'old_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('old_password'))),
+			'new_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('new_password'))),
+			'confirm_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('confirm_password'))),
 			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question')),
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
 		);
@@ -93,20 +93,20 @@ class Changepassword_model extends CI_Model
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = 'New Password Cannot Be Same As Old Password.';
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				if ($this->encryption->decrypt($data['hint_question']) != $query->hint_question) {
 					// If Wrong Hint Question
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Invalid Hint Question.';
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				} else if ($this->encryption->decrypt($data['hint_answer']) != $query->hint_answer) {
 					// If Wrong Hint Answer
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = 'Invalid Hint Answer';
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
 					// Update Password
 					$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('password' => $this->encryption->decrypt($data['new_password'])));
@@ -115,13 +115,13 @@ class Changepassword_model extends CI_Model
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Successfully Change The Password.';
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					} else {
 						// If Failed Update Password
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Failed To Change The Password.';
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					}
 				}
 			}
@@ -130,7 +130,7 @@ class Changepassword_model extends CI_Model
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Invalid Old Password.';
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

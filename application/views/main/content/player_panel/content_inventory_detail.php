@@ -4,7 +4,7 @@
 		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">
 					<?= $this->lang->line('STR_DARKBLOW_64') ?>
 				</span>
-				<?= $this->lang->line('STR_DARKBLOW_65') ?> <?= $this->lib->GetItemName($details->item_id); ?>
+				<?= $this->lang->line('STR_DARKBLOW_65') ?> <?= $this->darkblowlib->GetItemName($details->item_id); ?>
 			</span></h3>
 		<div class="row vertical-gap">
 			<div class="col-lg-6 offset-lg-3">
@@ -14,7 +14,7 @@
 					</div>
 					<div class="nk-feature-cont text-center">
 						<h3 class="nk-feature-title">
-							<?= $this->lib->GetItemName($details->item_id) ?>
+							<?= $this->darkblowlib->GetItemName($details->item_id) ?>
 						</h3>
 						<div class="nk-gap"></div>
 						<table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
@@ -24,7 +24,7 @@
 										<?= $this->lang->line('STR_DARKBLOW_66') ?>
 									</td>
 									<td>
-										<?= $this->lib->GetItemName($details->item_id) ?>
+										<?= $this->darkblowlib->GetItemName($details->item_id) ?>
 									</td>
 								</tr>
 								<tr>
@@ -33,7 +33,7 @@
 									</td>
 									<td>
 										<?php
-										echo $this->lib->GetItemDuration($this->lib->GetBuyType($details->item_id), $details->count, $details->equip);
+										echo $this->darkblowlib->GetItemDuration($this->darkblowlib->GetBuyType($details->item_id), $details->count, $details->equip);
 										?>
 									</td>
 								</tr>
@@ -43,7 +43,7 @@
 									</td>
 									<td>
 										<?php
-										switch ($this->lib->GetItemCategory($details->item_id)) {
+										switch ($this->darkblowlib->GetItemCategory($details->item_id)) {
 											case '1': {
 													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_74') . '</button>';
 													break;

@@ -14,19 +14,18 @@ class Download extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Download');
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		$this->main_protect->SessionProtector();
-
 		$this->load->model('main/download_model', 'download');
+
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->DownloadPage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Download';
 
 		$data['client'] = $this->download->GetClient();
@@ -40,15 +39,17 @@ class Download extends CI_Controller
 
 	function do_download($package_id = null)
 	{
-		$response = array();
+		if ($this->input->is_ajax_request()) {
+			$response = array();
 
-		if ($package_id == null) {
-			$response['response'] = 'false';
-			$response['url'] = '';
-			$response['message'] = 'Invalid Download Data';
+			if ($package_id == null) {
+				$response['response'] = 'false';
+				$response['url'] = '';
+				$response['message'] = 'Invalid Download Data';
 
-			echo json_encode($response);
-		} else $this->download->GetDownloadData($package_id);
+				$this->darkblowmessage->AjaxFlashData($response);
+			} else $this->download->GetDownloadData($package_id);
+		} else return;
 	}
 }
 

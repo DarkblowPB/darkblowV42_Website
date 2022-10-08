@@ -14,20 +14,20 @@
                             <tr>
                                 <td id="data_start_date">
                                     <?php
-                                    echo $this->lib->ConvertDate($rankup->start_date)[2] . // Days
-                                        '-' . $this->lib->ConvertDate($rankup->start_date)[1] . // Month
-                                        '-' . '20' . $this->lib->ConvertDate($rankup->start_date)[0] . // Years
-                                        ' ' . $this->lib->ConvertDate($rankup->start_date)[3] . // Hours
-                                        ':' . $this->lib->ConvertDate($rankup->start_date)[4] // Minutes
+                                    echo $this->darkblowlib->ConvertDate($rankup->start_date)[2] . // Days
+                                        '-' . $this->darkblowlib->ConvertDate($rankup->start_date)[1] . // Month
+                                        '-' . '20' . $this->darkblowlib->ConvertDate($rankup->start_date)[0] . // Years
+                                        ' ' . $this->darkblowlib->ConvertDate($rankup->start_date)[3] . // Hours
+                                        ':' . $this->darkblowlib->ConvertDate($rankup->start_date)[4] // Minutes
                                     ?>
                                 </td>
                                 <td id="data_end_date">
                                     <?php
-                                    echo $this->lib->ConvertDate($rankup->end_date)[2] . // Days
-                                        '-' . $this->lib->ConvertDate($rankup->end_date)[1] . // Month
-                                        '-' . '20' . $this->lib->ConvertDate($rankup->end_date)[0] . // Years
-                                        ' ' . $this->lib->ConvertDate($rankup->end_date)[3] . // Hours
-                                        ':' . $this->lib->ConvertDate($rankup->end_date)[4] // Minutes
+                                    echo $this->darkblowlib->ConvertDate($rankup->end_date)[2] . // Days
+                                        '-' . $this->darkblowlib->ConvertDate($rankup->end_date)[1] . // Month
+                                        '-' . '20' . $this->darkblowlib->ConvertDate($rankup->end_date)[0] . // Years
+                                        ' ' . $this->darkblowlib->ConvertDate($rankup->end_date)[3] . // Hours
+                                        ':' . $this->darkblowlib->ConvertDate($rankup->end_date)[4] // Minutes
                                     ?>
                                 </td>
                                 <td id="data_point_boost">
@@ -128,7 +128,7 @@
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);

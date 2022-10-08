@@ -13,20 +13,19 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Player Panel');
-		$this->main_protect->SessionProtector();
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-
-		$this->main_protect->mainProtectA();
 		$this->load->model('main/playerpanel_model', 'player');
+
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->RequireLogin_Protection();
+		$this->darkblowprotection->PlayerPanelHomePage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Player Panels';
 		$data['account'] = $this->player->GetDetailsAccount();
 		$data['isi'] = 'main/content/player_panel/content_playerpanel';
@@ -35,12 +34,14 @@ class Home extends CI_Controller
 
 	function do_requesthint()
 	{
-		$this->player->RequestHint();
+		if ($this->input->is_ajax_request()) $this->player->RequestHint();
+		else return;
 	}
 
 	function do_requestverificationemail()
 	{
-		$this->player->RequestVerificationEmail();
+		if ($this->input->is_ajax_request()) $this->player->RequestVerificationEmail();
+		else return;
 	}
 }
 

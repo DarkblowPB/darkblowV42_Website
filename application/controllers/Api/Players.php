@@ -15,7 +15,6 @@ class Players extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->library('lib');
     }
 
     function index_get($player_id = null)
@@ -78,6 +77,26 @@ class Players extends RestController
         $response['status'] = 'Success';
         $response['ip_address'] = $this->input->ip_address();
         $this->response($response, 200);
+    }
+
+    function getonline_get()
+    {
+        if ($this->input->is_ajax_request()) {
+            $response = array();
+
+            $response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email !=' => 'empty@empty.empty', 'online' => 't'))->num_rows();
+            $this->darkblowmessage->AjaxFlashData($response);
+        } else return;
+    }
+
+    function getregistered_get()
+    {
+        if ($this->input->is_ajax_request()) {
+            $response = array();
+
+            $response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->num_rows();
+            $this->darkblowmessage->AjaxFlashData($response);
+        } else return;
     }
 }
 

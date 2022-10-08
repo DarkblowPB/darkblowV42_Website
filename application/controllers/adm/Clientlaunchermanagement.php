@@ -12,8 +12,9 @@ class Clientlaunchermanagement extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->library('lib');
-        $this->allprotect->AdminDashboard_Protection();
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
         $this->load->model('admin/clientlaunchermanagement_model', 'clientlauncher');
     }
 
@@ -132,7 +133,7 @@ class Clientlaunchermanagement extends CI_Controller
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -180,7 +181,7 @@ class Clientlaunchermanagement extends CI_Controller
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -200,7 +201,7 @@ class Clientlaunchermanagement extends CI_Controller
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -222,7 +223,7 @@ class Clientlaunchermanagement extends CI_Controller
             $response['url'] = '';
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

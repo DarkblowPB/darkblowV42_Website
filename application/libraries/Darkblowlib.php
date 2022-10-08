@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Lib
+class Darkblowlib
 {
 	protected $ci;
 
@@ -16,7 +16,7 @@ class Lib
 		$this->ci = &get_instance();
 	}
 
-	private function EncryptDecryptConfig()
+	protected function EncryptDecryptConfig()
 	{
 		$config = array(
 			'ciphering' => $this->ci->config->item('main_config')['encryption_ciphering'],

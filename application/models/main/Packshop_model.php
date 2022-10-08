@@ -10,7 +10,6 @@ class Packshop_model extends CI_Model
     {
         parent::__construct();
         $this->lang->load(array('string'));
-        $this->load->library('lib');
     }
 
     public function LoadData()
@@ -47,9 +46,9 @@ class Packshop_model extends CI_Model
                     $query3 = $this->db->insert('player_items', array(
                         'owner_id' => $this->session->userdata('uid'),
                         'item_id' => $explode[$i],
-                        'item_name' => $this->lib->GetItemName($explode[$i]),
+                        'item_name' => $this->darkblowlib->GetItemName($explode[$i]),
                         'count' => $query->package_duration,
-                        'category' => $this->lib->GetItemCategory($explode[$i]),
+                        'category' => $this->darkblowlib->GetItemCategory($explode[$i]),
                         'equip' => '1'
                     ));
                     if ($query3) $result['success']++;
@@ -63,13 +62,13 @@ class Packshop_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Buy Package. [Success: (' . $result['success'] . '); Failed: (' . $result['failed'] . ')]';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Package.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

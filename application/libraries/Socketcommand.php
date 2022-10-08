@@ -11,9 +11,17 @@ class Socketcommand
         $this->ci = &get_instance();
     }
 
-    public function LoadConfig(string $config = null)
+    /**
+     * Load System Config
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @param $config
+     * @return string
+     */
+    public function LoadConfig($config)
     {
-        if ($config == null) return '';
+        if ($config == null || $config == '') return '';
         else {
             $ConfigData = $this->ci->config->item('main_config');
             if ($ConfigData != null) return $ConfigData[$config] != null ? $ConfigData[$config] : "";
@@ -21,7 +29,15 @@ class Socketcommand
         }
     }
 
-    public function Config(string $param = null)
+    /**
+     * Old Config
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @param $param
+     * @return string
+     */
+    public function Config($param)
     {
         $config = array(
             'host' => '127.0.0.1',
@@ -35,7 +51,17 @@ class Socketcommand
         else return $config[$param];
     }
 
-    public function Opcodes(string $opcode = null)
+    /**
+     * Site Server Communication Opcodes
+     * 
+     * Specified Package Number To Execute Communication
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @param $opcode
+     * @return int
+     */
+    public function Opcodes($opcode)
     {
         switch ($opcode) {
             case 'Start Server':
@@ -66,6 +92,15 @@ class Socketcommand
         }
     }
 
+    /**
+     * Secret Token Generator
+     * 
+     * Token Data
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @return string
+     */
     public function GenerateSecretToken()
     {
         $list = array(
@@ -85,11 +120,29 @@ class Socketcommand
         return $list[$random];
     }
 
+    /**
+     * Secret Key Generator
+     * 
+     * Key Data
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @return string
+     */
     public function GenerateSecretKeys()
     {
         return "darkblowpbreborn_2021";
     }
 
+    /**
+     * Tcp Socket Connection Checker
+     * 
+     * Will Return Bool If Host Found And Port Open
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @return bool
+     */
     public function CheckConnection(string $host, string $port)
     {
         $socket = @fsockopen($host, $port);
@@ -101,6 +154,19 @@ class Socketcommand
         }
     }
 
+    /**
+     * Tcp Socket Connection
+     * 
+     * This Function Is Core Of Site Server Communication
+     * 
+     * Using Web Socket To Send Encrypted Json Data To Server
+     * 
+     * And Will Return String From Server As A Response Of Command
+     * 
+     * @author Darkblow Studio
+     * @package Site Server Communication
+     * @return string
+     */
     public function CreateConnection($host, $port, $data)
     {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);

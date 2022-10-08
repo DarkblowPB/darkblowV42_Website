@@ -63,7 +63,7 @@
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);
@@ -131,7 +131,7 @@
             </script>
         </div>
         <div class="card-footer text-center">
-            Copyright &copy; <?= $this->getsettings->Get()->project_name ?> <?= date('Y') ?>. All Rights Reserved.
+            Copyright &copy; <?= $this->darkblowsettings->load()->project_name ?> <?= date('Y') ?>. All Rights Reserved.
         </div>
     </div>
 </div>

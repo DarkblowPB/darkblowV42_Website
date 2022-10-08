@@ -165,7 +165,7 @@
                 </div>
             </div>
         </div>
-        <?php if ($this->getsettings->Get()->webshop == 1) : ?>
+        <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
             <?php if ($this->home->GetPopularWebshop() != null) : ?>
                 <div class="nk-gap-3"></div>
                 <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_35') ?></span> <?= $this->lang->line('STR_DARKBLOW_36') ?></span></h3>
@@ -196,10 +196,10 @@
         <div class="nk-gap-2"></div>
         <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_37') ?></span> <?= $this->lang->line('STR_DARKBLOW_159') ?></span></h3>
         <div class="nk-gap-2"></div>
-        <?php if ($this->getsettings->Get()->discord_embed_link != '' || $this->settings->Get()->discord_embed_link != null) : ?>
+        <?php if ($this->darkblowsettings->load()->discord_embed_link != '' || $this->settings->Get()->discord_embed_link != null) : ?>
             <div class="row vertical-gap">
                 <div class="col-lg-12">
-                    <iframe src="<?= $this->getsettings->Get()->discord_embed_link ?>" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <iframe src="<?= $this->darkblowsettings->load()->discord_embed_link ?>" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </div>
             </div>
         <?php endif ?>
@@ -213,11 +213,11 @@
     function GetCondition() {
         $(document).ready(function() {
             $.ajax({
-                url: '<?= base_url('home/do_getservercondition') ?>',
+                url: '<?= base_url('api/server/getservercondition') ?>',
                 type: 'GET',
                 dataType: 'JSON',
                 data: {
-                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                 },
                 success: function(data) {
                     var GetString = JSON.stringify(data);
@@ -256,7 +256,6 @@
                     Q.setAttribute('class', 'h2 mb-0 text-main-1');
                     SetText('OFFLINE');
                     document.getElementById('server_status_card').classList.remove('running');
-                    RefreshFetch();
                 }
             });
         });
@@ -264,11 +263,11 @@
 
     function GetOnlinePlayers() {
         $.ajax({
-            url: '<?= base_url('home/do_getonline') ?>',
+            url: '<?= base_url('api/players/getonline') ?>',
             type: 'GET',
             dataType: 'JSON',
             data: {
-                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
             },
             success: function(data) {
                 var GetString = JSON.stringify(data);
@@ -288,11 +287,11 @@
 
     function GetRegisteredPlayers() {
         $.ajax({
-            url: '<?= base_url('home/do_getregistered') ?>',
+            url: '<?= base_url('api/players/getregistered') ?>',
             type: 'GET',
             dataType: 'JSON',
             data: {
-                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
             },
             success: function(data) {
                 var GetString = JSON.stringify(data);
@@ -317,9 +316,12 @@
             GetRegisteredPlayers();
         }, 5000);
     }
-    setTimeout(() => {
-        GetCondition();
-        GetOnlinePlayers();
-        GetRegisteredPlayers();
-    }, 3000);
+
+    $(document).ready(() => {
+        setTimeout(() => {
+            GetCondition();
+            GetOnlinePlayers();
+            GetRegisteredPlayers();
+        }, 3000);
+    });
 </script>

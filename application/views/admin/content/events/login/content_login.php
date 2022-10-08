@@ -27,19 +27,19 @@
                                         <?= $num ?>
                                     </td>
                                     <td>
-                                        <?= $this->lib->ConvertDate($row['start_date'])[2] . // Days
-                                            '-' . $this->lib->ConvertDate($row['start_date'])[1] . // Month
-                                            '-' . '20' . $this->lib->ConvertDate($row['start_date'])[0] . // Years
-                                            ' ' . $this->lib->ConvertDate($row['start_date'])[3] . // Hours
-                                            ':' . $this->lib->ConvertDate($row['start_date'])[4] // Minutes
+                                        <?= $this->darkblowlib->ConvertDate($row['start_date'])[2] . // Days
+                                            '-' . $this->darkblowlib->ConvertDate($row['start_date'])[1] . // Month
+                                            '-' . '20' . $this->darkblowlib->ConvertDate($row['start_date'])[0] . // Years
+                                            ' ' . $this->darkblowlib->ConvertDate($row['start_date'])[3] . // Hours
+                                            ':' . $this->darkblowlib->ConvertDate($row['start_date'])[4] // Minutes
                                         ?>
                                     </td>
                                     <td>
-                                        <?= $this->lib->ConvertDate($row['end_date'])[2] . // Days
-                                            '-' . $this->lib->ConvertDate($row['end_date'])[1] . // Month
-                                            '-' . '20' . $this->lib->ConvertDate($row['end_date'])[0] . // Years
-                                            ' ' . $this->lib->ConvertDate($row['end_date'])[3] . // Hours
-                                            ':' . $this->lib->ConvertDate($row['end_date'])[4] // Minutes
+                                        <?= $this->darkblowlib->ConvertDate($row['end_date'])[2] . // Days
+                                            '-' . $this->darkblowlib->ConvertDate($row['end_date'])[1] . // Month
+                                            '-' . '20' . $this->darkblowlib->ConvertDate($row['end_date'])[0] . // Years
+                                            ' ' . $this->darkblowlib->ConvertDate($row['end_date'])[3] . // Hours
+                                            ':' . $this->darkblowlib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
                                     <td>
@@ -55,7 +55,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $this->lib->ConvertDate($row['start_date'])[0] . $this->lib->ConvertDate($row['start_date'])[1] . $this->lib->ConvertDate($row['start_date'])[2] . $this->lib->ConvertDate($row['start_date'])[3] . $this->lib->ConvertDate($row['start_date'])[4] ?>', '<?= $this->lib->ConvertDate($row['end_date'])[0] . $this->lib->ConvertDate($row['end_date'])[1] . $this->lib->ConvertDate($row['end_date'])[2] . $this->lib->ConvertDate($row['end_date'])[3] . $this->lib->ConvertDate($row['end_date'])[4] ?>')">
+                                                <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $this->darkblowlib->ConvertDate($row['start_date'])[0] . $this->darkblowlib->ConvertDate($row['start_date'])[1] . $this->darkblowlib->ConvertDate($row['start_date'])[2] . $this->darkblowlib->ConvertDate($row['start_date'])[3] . $this->darkblowlib->ConvertDate($row['start_date'])[4] ?>', '<?= $this->darkblowlib->ConvertDate($row['end_date'])[0] . $this->darkblowlib->ConvertDate($row['end_date'])[1] . $this->darkblowlib->ConvertDate($row['end_date'])[2] . $this->darkblowlib->ConvertDate($row['end_date'])[3] . $this->darkblowlib->ConvertDate($row['end_date'])[4] ?>')">
                                             </div>
                                         </div>
                                     </td>
@@ -115,7 +115,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);

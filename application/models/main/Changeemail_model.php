@@ -47,7 +47,7 @@ class Changeemail_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = $this->lang->line('STR_WARNING_24');
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else if ($query->email_verification == 1) {
                 // If Email Verification Is 1
                 $update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('email' => $this->encryption->decrypt($data['new_email']), 'email_verification' => '0'));
@@ -56,13 +56,13 @@ class Changeemail_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = $this->lang->line('STR_SUCCESS_2');
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = $this->lang->line('STR_ERROR_29');
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             }
         }

@@ -12,7 +12,6 @@ class Redeemcodemanagement_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->library('lib');
     }
 
     /**
@@ -53,7 +52,7 @@ class Redeemcodemanagement_model extends CI_Model
 
         $response['code'] = $prefix . $separator . $pure_code['part_1'] . $separator . $pure_code['part_2'] . $separator . $postfix;
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     /**
@@ -1080,7 +1079,7 @@ class Redeemcodemanagement_model extends CI_Model
 
         $response['code'] = $code_list[$randomize];
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     function CreateNewRedeemCodeV2()
@@ -1089,7 +1088,7 @@ class Redeemcodemanagement_model extends CI_Model
 
         $data = array(
             'item_id' => $this->input->post('item_id', true),
-            'item_name' => $this->lib->GetItemName($this->input->post('item_id', true)) . ' - Redeem Code',
+            'item_name' => $this->darkblowlib->GetItemName($this->input->post('item_id', true)) . ' - Redeem Code',
             'item_count' => $this->input->post('item_count', true),
             'item_code' => $this->input->post('item_code', true),
             'cash' => $this->input->post('cash', true),
@@ -1108,13 +1107,13 @@ class Redeemcodemanagement_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Create New Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed Create New Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $insert = $this->db->insert('item_code', $data);
@@ -1123,13 +1122,13 @@ class Redeemcodemanagement_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Create New Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed Create New Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }
@@ -1172,20 +1171,20 @@ class Redeemcodemanagement_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Redeem Code.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Redeem Code';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

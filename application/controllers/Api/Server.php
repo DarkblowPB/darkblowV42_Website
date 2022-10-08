@@ -277,6 +277,37 @@ class Server extends RestController
             }
         }
     }
+
+    function getservercondition_get()
+    {
+        if ($this->input->is_ajax_request()) {
+            $response = array();
+            $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+            if ($query) {
+                if ($query->server_condition == 0) {
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'OFFLINE';
+                    $this->darkblowmessage->AjaxFlashData($response);
+                } else if ($query->server_condition == 1) {
+                    $response['response'] = 'true';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'ONLINE';
+                    $this->darkblowmessage->AjaxFlashData($response);
+                } else {
+                    $response['response'] = 'false';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'OFFLINE';
+                    $this->darkblowmessage->AjaxFlashData($response);
+                }
+            } else {
+                $response['response'] = 'true';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'INVALID';
+                $this->darkblowmessage->AjaxFlashData($response);
+            }
+        } else return;
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

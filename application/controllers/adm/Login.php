@@ -12,8 +12,7 @@ class Login extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminLogin_Protection();
-        $this->lib->GetVisitorData('Admin Login (Warning!!!)');
+        $this->darkblowprotection->PageDump_Protection();
         $this->load->model('admin/login_model', 'login');
     }
 
@@ -45,7 +44,7 @@ class Login extends CI_Controller
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

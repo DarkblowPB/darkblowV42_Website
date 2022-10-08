@@ -7,12 +7,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Visit extends CI_Controller
+class Visit extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->load->model('admin/eventsvisit_model', 'visit');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()

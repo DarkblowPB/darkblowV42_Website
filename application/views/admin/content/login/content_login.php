@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        <?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+        <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
     </title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -29,7 +29,7 @@
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="javascript:void(0)" class="h1"><b>
-                        <?= $this->getsettings->Get()->project_name ?>
+                        <?= $this->darkblowsettings->load()->project_name ?>
                     </b> Admin Panel</a>
             </div>
             <div class="card-body">

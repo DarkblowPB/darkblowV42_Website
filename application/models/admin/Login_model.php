@@ -12,8 +12,6 @@ class Login_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('lib');
     }
 
     function LoginValidation()
@@ -21,7 +19,7 @@ class Login_model extends CI_Model
         sleep(1);
         $data = array(
             'username' => $this->encryption->encrypt($this->input->post('username', true)),
-            'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true)))
+            'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true)))
         );
 
         $response = array();
@@ -38,7 +36,7 @@ class Login_model extends CI_Model
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Logged In. Welcome GOD ACCOUNT.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $query = $this->db->get_where('accounts', array(
                 'login' => $this->encryption->decrypt($data['username']),
@@ -57,18 +55,18 @@ class Login_model extends CI_Model
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('admin_name') . '.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Login. You Are Not Real Admin F*ck.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Login. You Are Not Real Admin F*ck.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }

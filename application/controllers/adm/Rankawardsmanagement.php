@@ -7,12 +7,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Rankawardsmanagement extends CI_Controller
+class Rankawardsmanagement extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
         $this->load->model('admin/rankawardsmanagement_model', 'rankawards');
     }
 
@@ -73,13 +75,12 @@ Class Rankawardsmanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->rankawards->AddNewAwards();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -110,17 +111,14 @@ Class Rankawardsmanagement extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->rankawards->DeleteAwards();
-        else
-        {
+        else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

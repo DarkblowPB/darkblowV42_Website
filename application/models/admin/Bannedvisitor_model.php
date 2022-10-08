@@ -35,13 +35,13 @@ class Bannedvisitor_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Add Ip Address.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add Ip Address.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -62,20 +62,20 @@ class Bannedvisitor_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Ip Address.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Ip Address.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Data Not Found.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

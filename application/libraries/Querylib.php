@@ -193,7 +193,7 @@ class Querylib
         $this->ci->load->library('email');
 
         $this->ci->email->initialize($config);
-        $this->ci->email->from($from, $this->ci->getsettings->Get()->project_name);
+        $this->ci->email->from($from, $this->ci->darkblowsettings->load()->project_name);
         $this->ci->email->to($to);
         $this->ci->email->subject($subject);
         $this->ci->email->message($message);
@@ -211,13 +211,13 @@ class Querylib
             $response['token'] = $this->ci->security->get_csrf_hash();
             $response['message'] = 'Successfully Banned All Players.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'Success';
             $response['token'] = $this->ci->security->get_csrf_hash();
             $response['message'] = 'Failed To Banned All Players.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

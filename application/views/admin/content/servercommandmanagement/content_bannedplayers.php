@@ -55,7 +55,7 @@
                                         var Result = JSON.parse(GetString);
 
                                         SetAttribute('submit', 'submit', 'Submit Command');
-                                        ShowToast(2000, Result.status, Result.message);
+                                        ShowToast(2000, Result.response, Result.message);
                                         CSRF_TOKEN = Result.token;
                                         return;
                                     },

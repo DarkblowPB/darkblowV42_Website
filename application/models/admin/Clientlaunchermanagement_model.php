@@ -14,7 +14,6 @@ class Clientlaunchermanagement_model extends CI_Model
         parent::__construct();
 
         $this->load->library('upload');
-        $this->load->library('lib');
     }
 
     function GetFilesURL()
@@ -33,7 +32,7 @@ class Clientlaunchermanagement_model extends CI_Model
             $response['url'] = $query->file_url;
             $response['message'] = '';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -50,7 +49,7 @@ class Clientlaunchermanagement_model extends CI_Model
             'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
         );
 
-        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
+        if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
             $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['file_id'])))->row();
             if ($query) {
                 $update = $this->db->where('id', $query->id)->update('web_download_clientlauncher', array(
@@ -64,18 +63,18 @@ class Clientlaunchermanagement_model extends CI_Model
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Edit The File.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Edit The File.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'File Not Found.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
@@ -95,18 +94,18 @@ class Clientlaunchermanagement_model extends CI_Model
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Selected File.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Selected File.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'File Not Found.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -134,7 +133,7 @@ class Clientlaunchermanagement_model extends CI_Model
             'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
         );
 
-        if ($this->lib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
+        if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
             $query = $this->db->insert('web_download_clientlauncher', array(
                 'file_name' => $this->encryption->decrypt($data['file_name']),
                 'file_url' => $this->encryption->decrypt($data['file_url']),
@@ -147,19 +146,19 @@ class Clientlaunchermanagement_model extends CI_Model
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Added New Files.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add New Files.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Cannot Reach Url. Please Use Another Url.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -185,13 +184,13 @@ class Clientlaunchermanagement_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Upload File.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Upload File.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -224,18 +223,18 @@ class Clientlaunchermanagement_model extends CI_Model
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Uploaded New Files.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Upload New Files.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->upload->display_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

@@ -40,18 +40,18 @@ class Settings_model extends CI_Model
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Server & Website Condition';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Server & Website Condition';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Get Website Settings Data.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -83,18 +83,18 @@ class Settings_model extends CI_Model
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Website Credentials.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Website Credentials.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Update Website Credentials.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -126,19 +126,19 @@ class Settings_model extends CI_Model
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Upload Project Logo.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Get Web Settings.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = $this->upload->display_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -169,18 +169,18 @@ class Settings_model extends CI_Model
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Updated Website Images.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Upload Project Icon.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Get Web Settings.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }
@@ -226,18 +226,18 @@ class Settings_model extends CI_Model
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Updated Feature Settings.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Updated Feature Settings.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Get Web Settings.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -259,20 +259,20 @@ class Settings_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Social Settings.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Social Settings.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Settings.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

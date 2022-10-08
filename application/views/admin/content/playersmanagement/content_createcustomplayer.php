@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Rank</label>
-                        <select id="rank" class="form-control col-9 reward_selection">
+                        <select id="rank" class="form-control col-9 reward_selection" style="width: 75%;">
                             <option value="" disabled selected>Select Your Rank</option>
                             <?php foreach ($rank as $row) : ?>
                                 <option value="<?= $row['rank'] ?>">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">PC Cafe</label>
-                        <select id="pc_cafe" class="form-control col-9 reward_selection">
+                        <select id="pc_cafe" class="form-control col-9 reward_selection" style="width: 75%;">
                             <option value="" disabled selected>Select Your PC Cafe</option>
                             <option value="1">VIP</option>
                             <option value="2">VVIP</option>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Hint Question</label>
-                        <select name="hint_question" id="hint_question" class="form-control col-9 reward_selection">
+                        <select name="hint_question" id="hint_question" class="form-control col-9 reward_selection" style="width: 75%;">
                             <option value="" disabled selected>Select Hint Question</option>
                             <option value="What was your childhood nickname?">What was your childhood nickname?</option>
                             <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>

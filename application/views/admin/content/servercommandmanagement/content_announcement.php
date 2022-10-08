@@ -48,9 +48,9 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        SetAttribute('submit', 'submit', 'Submit Command');
-                                        ShowToast(2000, Result.status, Result.message);
                                         CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Submit Command');
+                                        ShowToast(2000, Result.response, Result.message);
                                         return;
                                     },
                                     error: function() {

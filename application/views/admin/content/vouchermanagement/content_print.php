@@ -19,7 +19,7 @@
             <div class="col-lg-5 col-md-5 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header bg-dark text-center text-uppercase">
-                        <?= $this->getsettings->Get()->project_name . ' Voucher' ?>
+                        <?= $this->darkblowsettings->load()->project_name . ' Voucher' ?>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered text-center">
@@ -45,7 +45,7 @@
                                         $string = '';
 
                                         for ($i = 0; $i < $count; $i++) {
-                                            $string .= $this->lib->GetItemName($split[$i]);
+                                            $string .= $this->darkblowlib->GetItemName($split[$i]);
                                             $string .= '<br>';
                                         }
 
@@ -75,9 +75,9 @@
                         </table>
                     </div>
                     <div class="card-footer text-center text-black">
-                        Thankyou For Buying <?= $this->getsettings->Get()->project_name ?> Voucher<br>Have A Nice Day :)<br><br>
+                        Thankyou For Buying <?= $this->darkblowsettings->load()->project_name ?> Voucher<br>Have A Nice Day :)<br><br>
                         Copyright &copy; <b>
-                            <?= $this->getsettings->Get()->project_name ?>
+                            <?= $this->darkblowsettings->load()->project_name ?>
                         </b> 2020 - <?= date('Y') ?>. All Rights Reserved.
                     </div>
                 </div>

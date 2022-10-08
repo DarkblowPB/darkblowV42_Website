@@ -12,8 +12,6 @@ class Eventsplaytime_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('lib');
     }
 
     function GetAllEvents()
@@ -46,8 +44,8 @@ class Eventsplaytime_model extends CI_Model
             $response['message'] = 'Reward 1 & 2 Cannot Be Empty.';
         } else {
             $query = $this->db->insert('events_playtime', array(
-                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
+                'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+                'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
                 'title' => $this->encryption->decrypt($data['title']),
                 'seconds_target' => $this->encryption->decrypt($data['seconds_target']),
                 'good_reward1' => $data['reward_1'],
@@ -61,14 +59,14 @@ class Eventsplaytime_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Created Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
 
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Created Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }
@@ -89,20 +87,20 @@ class Eventsplaytime_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete This Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

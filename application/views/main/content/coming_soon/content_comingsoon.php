@@ -6,11 +6,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="<?= $this->getsettings->Get()->meta_author ?>">
-    <meta name="description" content="<?= $this->getsettings->Get()->meta_description ?>">
-    <meta name="keywords" content="<?= $this->getsettings->Get()->meta_keywords ?>" />
+    <meta name="author" content="<?= $this->darkblowsettings->load()->meta_author ?>">
+    <meta name="description" content="<?= $this->darkblowsettings->load()->meta_description ?>">
+    <meta name="keywords" content="<?= $this->darkblowsettings->load()->meta_keywords ?>" />
     <title>
-        <?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+        <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
     </title>
     <!-- START: Styles -->
 

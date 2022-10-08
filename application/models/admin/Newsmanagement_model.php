@@ -57,13 +57,13 @@ class Newsmanagement_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Add News.';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'error';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Add News.';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
                 $data['quickslide_img'] = $this->upload->data()['file_name'];
@@ -74,13 +74,13 @@ class Newsmanagement_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Add News.';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $response['response'] = 'error';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Add News.';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 }
             }
         }
@@ -121,13 +121,13 @@ class Newsmanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Successfully Update News.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $response['response'] = 'error';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Failed To Update News.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                 }
             } else {
@@ -144,13 +144,13 @@ class Newsmanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Successfully Update News.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $response['response'] = 'error';
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Failed To Update News.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                 }
             }
@@ -176,20 +176,20 @@ class Newsmanagement_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete News Data.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete News Data.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'News Data Not Found.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

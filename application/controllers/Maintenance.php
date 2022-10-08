@@ -14,17 +14,14 @@ class Maintenance extends CI_Controller
         parent::__construct();
 
         $this->lang->load(array('header', 'string'));
-        $this->lib->GetVisitorData('Maintenance');
-
-        $this->allprotect->Web_Protection();
-        $this->allprotect->BlockedAccount_Protection();
-        $this->allprotect->DarkblowCopierGuard();
-
-        if ($this->getsettings->Get()->website_condition != 0) redirect(base_url('home'), 'refresh');
+        $this->darkblowprotection->BlockedIP_Protection();
+        $this->darkblowprotection->PageDump_Protection();
     }
 
     function index()
     {
+        if ($this->input->is_ajax_request()) return;
+
         $data['title'] = 'Maintenance';
         $this->load->view('main/content/maintenance/content_maintenance', $data, FALSE);
     }

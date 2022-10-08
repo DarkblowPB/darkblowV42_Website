@@ -41,7 +41,7 @@ class Security extends RestController
 					$this->response($response, 200);
 				} else if ($query->is_valid == 1) {
 					$update = $this->db->where('token', $query->token)->update('web_tokenkey', array('is_valid' => '0'));
-					$insert = $this->db->insert('web_tokenkey', array('token' => $this->lib->GenerateRandomToken(), 'is_valid' => '1'));
+					$insert = $this->db->insert('web_tokenkey', array('token' => $this->darkblowlib->GenerateRandomToken(), 'is_valid' => '1'));
 					if ($update && $insert) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();

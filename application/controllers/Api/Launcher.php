@@ -224,7 +224,7 @@ class Launcher extends RestController
         $data = array(
             'login' => $this->input->post('login', true),
             'email' => $this->input->post('email', true),
-            'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+            'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true)),
             'hint_question' => $this->input->post('hint_question', true),
             'hint_answer' => $this->input->post('hint_answer', true),
         );

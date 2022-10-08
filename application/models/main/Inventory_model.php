@@ -42,18 +42,18 @@ class Inventory_model extends CI_Model
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_SUCCESS_5');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_36');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_36');
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

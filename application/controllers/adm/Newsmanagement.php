@@ -12,7 +12,9 @@ class Newsmanagement extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
         $this->load->model('admin/newsmanagement_model', 'newsmanagement');
     }
 
@@ -90,7 +92,7 @@ class Newsmanagement extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors('', '');
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -120,7 +122,7 @@ class Newsmanagement extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors('', '');
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -145,7 +147,7 @@ class Newsmanagement extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

@@ -53,7 +53,7 @@ class Vouchermanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $insert = $this->db->insert('item_voucher', array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
@@ -70,13 +70,13 @@ class Vouchermanagement_model extends CI_Model
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         }
                     }
                     break;
@@ -99,7 +99,7 @@ class Vouchermanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $insert = $this->db->insert('item_voucher', array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
@@ -118,13 +118,13 @@ class Vouchermanagement_model extends CI_Model
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         }
                     }
                     break;
@@ -149,7 +149,7 @@ class Vouchermanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $insert = $this->db->insert('item_voucher', array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
@@ -170,13 +170,13 @@ class Vouchermanagement_model extends CI_Model
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         }
                     }
                     break;
@@ -203,7 +203,7 @@ class Vouchermanagement_model extends CI_Model
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Voucher Code Already Exists.';
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $insert = $this->db->insert('item_voucher', array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
@@ -226,13 +226,13 @@ class Vouchermanagement_model extends CI_Model
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         } else {
                             $response['response'] = 'true';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Failed To Create New Voucher.';
 
-                            echo json_encode($response);
+                            $this->darkblowmessage->AjaxFlashData($response);
                         }
                     }
                     break;
@@ -243,7 +243,7 @@ class Vouchermanagement_model extends CI_Model
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Hehe Error :)';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                     break;
                 }
         }
@@ -282,7 +282,7 @@ class Vouchermanagement_model extends CI_Model
 
         $response['code'] = $pure_code['part_1'] . $separator . $pure_code['part_2'] . $separator . $pure_code['part_3'] . $separator . $pure_code['part_4'] . $separator . $pure_code['part_5'];
 
-        echo json_encode($response);
+        $this->darkblowmessage->AjaxFlashData($response);
     }
 
     function DeleteVoucher()
@@ -302,13 +302,13 @@ class Vouchermanagement_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Voucher.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Voucher.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }

@@ -107,7 +107,7 @@ class Webshop_model extends CI_Model
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_56');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				// Fetch Player Data
 				$fetch = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
@@ -116,7 +116,7 @@ class Webshop_model extends CI_Model
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = $this->lang->line('STR_ERROR_57');
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					} else {
 						// Fetch Player Item
 						$fetch2 = $this->db->get_where('player_items', array('owner_id' => $fetch->player_id, 'item_id' => $query->webshop_itemid))->row();
@@ -134,12 +134,12 @@ class Webshop_model extends CI_Model
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_SUCCESS_18');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_ERROR_16');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days") {
 									$totalcount = $fetch2->count + 604800;
@@ -152,12 +152,12 @@ class Webshop_model extends CI_Model
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_SUCCESS_18');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_ERROR_16');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days") {
 									$totalcount = $fetch2->count + 2592000;
@@ -170,12 +170,12 @@ class Webshop_model extends CI_Model
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_SUCCESS_18');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_ERROR_16');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									}
 								} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent") {
 									$totalcount = 1;
@@ -188,18 +188,18 @@ class Webshop_model extends CI_Model
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_SUCCESS_18');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_ERROR_16');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									}
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_ERROR_58');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else if ($fetch2->equip == 2) {
 
@@ -214,24 +214,24 @@ class Webshop_model extends CI_Model
 										$response['response'] = 'true';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_SUCCESS_18');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									} else {
 										$response['response'] = 'false';
 										$response['token'] = $this->security->get_csrf_hash();
 										$response['message'] = $this->lang->line('STR_ERROR_16');
-										echo json_encode($response);
+										$this->darkblowmessage->AjaxFlashData($response);
 									}
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_INFO_15');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else if ($fetch2->equip == 3) {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = $this->lang->line('STR_ERROR_59');
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							}
 						} else {
 							if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "3days") {
@@ -244,12 +244,12 @@ class Webshop_model extends CI_Model
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_18');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_ERROR_16');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "7days") {
 								$totalwebcoin = $fetch->kuyraicoin - $query->webshop_itemprice_7days;
@@ -261,12 +261,12 @@ class Webshop_model extends CI_Model
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_18');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_ERROR_16');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "30days") {
 								$totalwebcoin = $fetch->kuyraicoin - $query->webshop_itemprice_30days;
@@ -278,12 +278,12 @@ class Webshop_model extends CI_Model
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_18');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_ERROR_16');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else if ($this->GetItemDuration($this->encryption->decrypt($data['item_id']), $this->encryption->decrypt($data['item_price'])) == "permanent") {
 								$totalwebcoin = $fetch->kuyraicoin - $query->webshop_itemprice_permanent;
@@ -295,18 +295,18 @@ class Webshop_model extends CI_Model
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_18');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								} else {
 									$response['response'] = 'false';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_ERROR_16');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else {
 								$response['response'] = 'false';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = $this->lang->line('STR_ERROR_58');
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							}
 						}
 					}
@@ -314,14 +314,14 @@ class Webshop_model extends CI_Model
 					$response['response'] = 'false';
 					$response['token'] = $this->security->get_csrf_hash();
 					$response['message'] = $this->lang->line('STR_ERROR_60');
-					echo json_encode($response);
+					$this->darkblowmessage->AjaxFlashData($response);
 				}
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_61');
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

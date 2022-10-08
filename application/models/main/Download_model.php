@@ -50,13 +50,13 @@ class Download_model extends CI_Model
 			$response['url'] = $query->file_url;
 			$response['message'] = $this->lang->line('STR_INFO_10');
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		} else {
 			$response['response'] = 'error';
 			$response['url'] = '';
 			$response['message'] = $this->lang->line('STR_ERROR_35');
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

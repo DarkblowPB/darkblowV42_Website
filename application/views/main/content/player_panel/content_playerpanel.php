@@ -113,7 +113,7 @@
                                                        <?= $this->lang->line('STR_DARKBLOW_48') ?>
                                                   </td>
                                                   <td>
-                                                       <?= $this->lib->ObfuscateEmail($row['email']) ?>
+                                                       <?= $this->darkblowlib->ObfuscateEmail($row['email']) ?>
                                                   </td>
                                              </tr>
                                              <tr class="text-center">
@@ -286,7 +286,7 @@
                                                                  type: 'GET',
                                                                  dataType: 'JSON',
                                                                  data: {
-                                                                      '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                      '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                                  },
                                                                  success: (response) => {
                                                                       var GetString = JSON.stringify(response);
@@ -314,7 +314,7 @@
                                                                  type: 'GET',
                                                                  dataType: 'JSON',
                                                                  data: {
-                                                                      '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                      '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                                  },
                                                                  success: function(data) {
                                                                       var GetString = JSON.stringify(data);
@@ -388,7 +388,7 @@
                                    <a href="<?= base_url('player_panel/changepassword') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">
                                         <?= $this->lang->line('STR_DARKBLOW_47') ?> <?= $this->lang->line('STR_DARKBLOW_42') ?>
                                    </a>&nbsp;
-                                   <?php if ($this->getsettings->Get()->change_email == 1) : ?>
+                                   <?php if ($this->darkblowsettings->load()->change_email == 1) : ?>
                                         <a href="<?= base_url('player_panel/changeemail') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">
                                              <?= $this->lang->line('STR_DARKBLOW_47') ?> <?= $this->lang->line('STR_DARKBLOW_48') ?>
                                         </a>&nbsp;

@@ -12,8 +12,6 @@ class Eventsquest_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('lib');
     }
 
     function UpdateEvents()
@@ -28,55 +26,55 @@ class Eventsquest_model extends CI_Model
         $query = $this->db->get('events_quest')->num_rows();
         if ($query == 0) {
             $insert = $this->db->insert('events_quest', array(
-                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes']
+                'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+                'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes']
             ));
             if ($insert) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $update = $this->db->update('events_quest', array(
-                'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-                'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] .
-                    $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes']
+                'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+                'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] .
+                    $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes']
             ));
             if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Update Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Update Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }
@@ -100,13 +98,13 @@ class Eventsquest_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Delete This Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Delete This Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

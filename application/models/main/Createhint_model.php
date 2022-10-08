@@ -20,7 +20,7 @@ class Createhint_model extends CI_Model
 		$data = array(
 			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true)),
-			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true)))
+			'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true)))
 		);
 
 		$response = array();
@@ -35,18 +35,18 @@ class Createhint_model extends CI_Model
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_SUCCESS_4');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_33');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_34');
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

@@ -12,8 +12,6 @@ class Eventsmapbonus_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('lib');
     }
 
     function GetMap($map_id)
@@ -193,8 +191,8 @@ class Eventsmapbonus_model extends CI_Model
         );
 
         $query = $this->db->insert('events_mapbonus', array(
-            'start_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-            'end_date' => $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->lib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+            'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
+            'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
             'map_id' => $this->encryption->decrypt($data['map_id']),
             'stage_type' => $this->encryption->decrypt($data['stage_type']),
             'percent_xp' => $this->encryption->decrypt($data['percent_xp']),
@@ -206,13 +204,13 @@ class Eventsmapbonus_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Add New Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         } else {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add New Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -233,20 +231,20 @@ class Eventsmapbonus_model extends CI_Model
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Events.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Events.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

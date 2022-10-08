@@ -15,23 +15,22 @@ class Webshop extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Webshop');
-		$this->main_protect->SessionProtector();
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-
 		$this->load->library('pagination');
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->model('main/login_model', 'login');
 
-		$this->lib->FeatureControl('webshop', '');
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->WebshopPage_Protection();
+
+		$this->darkblowlib->FeatureControl('webshop', '');
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		// Pagination Section
 
 		// Load Config
@@ -72,6 +71,8 @@ class Webshop extends CI_Controller
 
 	function details($id)
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Webshop Item Details';
 		$data['detail'] = $this->webshop->GetWebshopDetails($id);
 		$data['related'] = $this->webshop->GetWebshopRelated();
@@ -81,65 +82,64 @@ class Webshop extends CI_Controller
 
 	function do_login()
 	{
-		$response = array();
-		$this->form_validation->set_rules(
-			'username',
-			'Username',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'password',
-			'Password',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		if ($this->form_validation->run()) $this->login->LoginValidationV2();
-		else {
-			$this->form_validation->set_error_delimiters('', '');
-			$response['response'] = 'false';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors();
-			echo json_encode($response);
-		}
+		if ($this->input->is_ajax_request()) {
+			$response = array();
+			$this->form_validation->set_rules(
+				'username',
+				'Username',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'password',
+				'Password',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			if ($this->form_validation->run()) $this->login->LoginValidationV2();
+			else {
+				$this->form_validation->set_error_delimiters('', '');
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = validation_errors();
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
+		} else return;
 	}
 
 	function do_buy()
 	{
-		$response = array();
+		if ($this->input->is_ajax_request()) {
+			$response = array();
 
-		$this->form_validation->set_rules(
-			'player_id',
-			'Player ID',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'item_id',
-			'Item ID',
-			'numeric|required',
-			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'item_price',
-			'Item Price',
-			'numeric|required',
-			array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
-		);
-		if ($this->form_validation->run()) $this->webshop->BuyItemV2();
-		else {
-			$this->form_validation->set_error_delimiters('', '');
+			$this->form_validation->set_rules(
+				'player_id',
+				'Player ID',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'item_id',
+				'Item ID',
+				'numeric|required',
+				array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'item_price',
+				'Item Price',
+				'numeric|required',
+				array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
+			);
+			if ($this->form_validation->run()) $this->webshop->BuyItemV2();
+			else {
+				$this->form_validation->set_error_delimiters('', '');
 
-			$response['response'] = 'false';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors('', '');
-			echo json_encode($response);
-		}
-	}
-
-	function do_give()
-	{
-		$response = array();
+				$response['response'] = 'false';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = validation_errors('', '');
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
+		} else return;
 	}
 }
 

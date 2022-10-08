@@ -7,13 +7,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Login extends CI_Controller
+class Login extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/eventslogin_model', 'eventslogin');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -76,14 +78,13 @@ Class Login extends CI_Controller
             )
         );
         if ($this->form_validation->run()) $this->eventslogin->AddNewEvents();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -104,14 +105,13 @@ Class Login extends CI_Controller
             array('required' => '%s Cannot Be Empty.')
         );
         if ($this->form_validation->run()) $this->eventslogin->DeleteEvents();
-        else
-        {
+        else {
             $this->form_validation->set_error_delimiters('', '');
 
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

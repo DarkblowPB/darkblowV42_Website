@@ -12,7 +12,9 @@ class Dashboard extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
         $this->load->model('admin/dashboard_model', 'dashboard_model');
     }
 
@@ -40,6 +42,21 @@ class Dashboard extends CI_Controller
         $this->session->unset_userdata('admin_access_level');
 
         redirect(base_url('adm/login'), 'refresh');
+    }
+
+    function do_load_rewards()
+    {
+        $data = array();
+        $query = $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
+        if ($query) {
+            foreach ($query as $key => $value) {
+                $data['items'][] = array(
+                    'id' => (int)$value['item_id'],
+                    'text' => (string)$value['item_name']
+                );
+            }
+            echo json_encode($data);
+        } else echo json_encode([]);
     }
 }
 

@@ -12,12 +12,7 @@ class Encryption extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
-        $this->load->library('lib');
-        $this->load->model('main/redeemcode_model', 'redeem');
-        $this->load->model('main/inventory_model', 'inventory');
-
-        if (empty($this->session->userdata['uid'])) redirect(base_url('home'), 'refresh');
+        $this->darkblowprotection->PageDump_Protection();
     }
 
     function god_access($param = null)
@@ -58,7 +53,7 @@ class Encryption extends CI_Controller
         } else {
             switch ($param) {
                 case 'truncate': {
-                        $this->lib->EncryptedWeb();
+                        $this->darkblowlib->EncryptedWeb();
 
                         break;
                     }
@@ -80,7 +75,7 @@ class Encryption extends CI_Controller
 
                         $query = $this->db->insert('accounts', array(
                             'login' => $pure_username,
-                            'password' => $this->lib->password_encrypt($pure_password),
+                            'password' => $this->darkblowlib->password_encrypt($pure_password),
                             'rank' => '31',
                             'gp' => '999999999',
                             'exp' => $randomexp,
@@ -224,19 +219,19 @@ class Encryption extends CI_Controller
                 if ($query->access_level == '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Banned Permanently.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
                     if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned ' . $query->login . '.';
                         else $response['message'] = 'Successfully Banned ' . $query->player_name . '.';
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned ' . $query->login . '.';
                         else $response['message'] = 'Successfully Banned ' . $query->player_name . '.';
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                 }
             }
@@ -245,7 +240,7 @@ class Encryption extends CI_Controller
 
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -273,19 +268,19 @@ class Encryption extends CI_Controller
                 if ($query->access_level != '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Unbanned Permanently.';
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                 } else {
                     $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
                     if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned ' . $query->login . '.';
                         else $response['message'] = 'Successfully Unbanned ' . $query->player_name . '.';
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     } else {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned ' . $query->login . '.';
                         else $response['message'] = 'Successfully Unbanned ' . $query->player_name . '.';
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                 }
             }
@@ -294,7 +289,7 @@ class Encryption extends CI_Controller
 
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -315,11 +310,11 @@ class Encryption extends CI_Controller
                 $response['token'] = $this->security->get_csrf_hash();
                 if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash ' . $query->login . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
                 else $response['message'] = 'Successfully Set Cash ' . $query->player_name . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Add Cash.';
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         }
     }
@@ -506,16 +501,16 @@ class Encryption extends CI_Controller
                 $this->db->insert('player_items', array(
                     'owner_id' => $query->player_id,
                     'item_id' => $item_list[$i],
-                    'item_name' => $this->lib->GetItemName($item_list[$i]),
+                    'item_name' => $this->darkblowlib->GetItemName($item_list[$i]),
                     'count' => '1',
-                    'category' => $this->lib->GetItemCategory($item_list[$i]),
+                    'category' => $this->darkblowlib->GetItemCategory($item_list[$i]),
                     'equip' => '3'
                 ));
             }
 
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Added 146 New Item.';
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -543,7 +538,7 @@ class Encryption extends CI_Controller
                     if ($int['min'] >= $int['max']) {
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = 'Successfully Added ' . $state['success'] . ' New Items. Failed: [' . $state['failed'] . ']';
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                     $query3 = $this->db->get_where('shop', array('item_id' => $int['min']))->row();
                     if ($query3) {
@@ -552,7 +547,7 @@ class Encryption extends CI_Controller
                             'item_id' => $int['min'],
                             'item_name' => 'Reward Item',
                             'count' => '1',
-                            'category' => $this->redeem->GetItemCategory($int['min']),
+                            'category' => $this->darkblowlib->GetItemCategory($int['min']),
                             'equip' => '3'
                         ));
 
@@ -575,13 +570,13 @@ class Encryption extends CI_Controller
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Your Inventory.';
 
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Find Your Account.';
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

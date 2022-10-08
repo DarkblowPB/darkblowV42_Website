@@ -65,7 +65,7 @@
                         <label class="col-form-label">Duration</label>
                         <select id="item_count" class="form-control reward_selection">
                             <option value="" disabled selected>Select Reward Duration</option>
-                            <?php $this->lib->GetItemDurationList('create', null, 90) ?>
+                            <?php $this->darkblowlib->GetItemDurationList('create', null, 90) ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -135,7 +135,7 @@
                                                 type: 'GET',
                                                 dataType: 'JSON',
                                                 data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                 },
                                                 success: function(data) {
                                                     var GetString = JSON.stringify(data);
@@ -167,7 +167,7 @@
                                 type: 'GET',
                                 dataType: 'JSON',
                                 data: {
-                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                 },
                                 success: function(data) {
                                     var GetString = JSON.stringify(data);

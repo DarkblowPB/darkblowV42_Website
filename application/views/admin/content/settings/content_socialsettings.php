@@ -7,15 +7,15 @@
                     <?= form_open('', 'autocomplete="off" id="social_form"') ?>
                     <div class="form-group">
                         <label for="facebook">Facebook</label>
-                        <input type="url" name="facebook" id="facebook" class="form-control" placeholder="Facebook" value="<?= $this->getsettings->Get()->facebook_embed_link ?>">
+                        <input type="url" name="facebook" id="facebook" class="form-control" placeholder="Facebook" value="<?= $this->darkblowsettings->load()->facebook_embed_link ?>">
                     </div>
                     <div class="form-group">
                         <label for="instagram">Instagram</label>
-                        <input type="url" name="instagram" id="instagram" class="form-control" placeholder="Instagram" value="<?= $this->getsettings->Get()->instagram_embed_link ?>">
+                        <input type="url" name="instagram" id="instagram" class="form-control" placeholder="Instagram" value="<?= $this->darkblowsettings->load()->instagram_embed_link ?>">
                     </div>
                     <div class="form-group">
                         <label for="youtube">Youtube</label>
-                        <input type="url" name="youtube" id="youtube" class="form-control" placeholder="Youtube" value="<?= $this->getsettings->Get()->youtube_embed_link ?>">
+                        <input type="url" name="youtube" id="youtube" class="form-control" placeholder="Youtube" value="<?= $this->darkblowsettings->load()->youtube_embed_link ?>">
                     </div>
                     <div class="form-group text-right">
                         <input type="submit" id="submit" class="btn btn-primary" value="Submit">

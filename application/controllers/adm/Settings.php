@@ -12,8 +12,10 @@ class Settings extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/settings_model', 'settings');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -90,7 +92,7 @@ class Settings extends CI_Controller
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = validation_errors();
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else if ($data['submit_form'] == "submit02") {
             $this->form_validation->set_rules(
@@ -123,13 +125,13 @@ class Settings extends CI_Controller
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = validation_errors();
-                echo json_encode($response);
+                $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
             $response['response'] = 'false';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -252,7 +254,7 @@ class Settings extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 
@@ -290,7 +292,7 @@ class Settings extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors('', '');
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

@@ -14,20 +14,19 @@ class Clan_rank extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Clan Rank');
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-		$this->main_protect->SessionProtector();
-
 		$this->load->library('pagination');
 		$this->load->model('main/clanrank_model', 'clanrank');
+
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->ClanRankPage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		// Pagination Section
 
 		// Load Config

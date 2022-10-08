@@ -17,17 +17,17 @@ class Player_rank extends CI_Controller
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->library('pagination');
 		$this->load->model('main/playerrank_model', 'playerrank');
-		$this->lib->GetVisitorData('Player Rank');
-		$this->main_protect->SessionProtector();
 
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->PlayerRankPage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		// Pagination Section
 
 		// Load Config

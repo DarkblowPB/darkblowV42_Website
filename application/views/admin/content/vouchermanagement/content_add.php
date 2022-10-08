@@ -373,7 +373,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -480,7 +480,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -573,7 +573,7 @@
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -688,7 +688,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -789,7 +789,7 @@
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);
@@ -912,7 +912,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString = JSON.stringify(data);
@@ -1021,7 +1021,7 @@
                                                             type: 'GET',
                                                             dataType: 'JSON',
                                                             data: {
-                                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                                             },
                                                             success: function(data) {
                                                                 var GetString = JSON.stringify(data);

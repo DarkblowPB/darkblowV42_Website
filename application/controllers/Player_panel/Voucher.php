@@ -14,18 +14,14 @@ class Voucher extends CI_Controller
         parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Voucher');
-
-        $this->allprotect->Web_Protection();
-        $this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
-        $this->allprotect->DarkblowCopierGuard();
-
-        $this->main_protect->mainProtectA();
-        $this->main_protect->SessionProtector();
         $this->load->model('main/voucher_model', 'voucher');
+        $this->darkblowlib->FeatureControl('voucher', 'player_panel');
 
-        $this->lib->FeatureControl('voucher', 'player_panel');
+        $this->darkblowprotection->BlockedIP_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->Maintenance_Protection();
+        $this->darkblowprotection->RequireLogin_Protection();
+        $this->darkblowprotection->RedeemcodePage_Protection();
     }
 
     function index()
@@ -56,7 +52,7 @@ class Voucher extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

@@ -15,8 +15,10 @@ class Vouchermanagement extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/vouchermanagement_model', 'vouchermanagement');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -131,7 +133,7 @@ class Vouchermanagement extends CI_Controller
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                     break;
                 }
@@ -216,7 +218,7 @@ class Vouchermanagement extends CI_Controller
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                     break;
                 }
@@ -319,7 +321,7 @@ class Vouchermanagement extends CI_Controller
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                     break;
                 }
@@ -440,7 +442,7 @@ class Vouchermanagement extends CI_Controller
                         $response['token'] = $this->security->get_csrf_hash();
                         $response['message'] = validation_errors();
 
-                        echo json_encode($response);
+                        $this->darkblowmessage->AjaxFlashData($response);
                     }
                     break;
                 }
@@ -450,7 +452,7 @@ class Vouchermanagement extends CI_Controller
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Hehe Error :)';
 
-                    echo json_encode($response);
+                    $this->darkblowmessage->AjaxFlashData($response);
                     break;
                 }
         }
@@ -461,11 +463,11 @@ class Vouchermanagement extends CI_Controller
         $mpdf = new Mpdf(['orientation' => 'P', 'format' => [250, 121.97]]);
 
         // Meta Data
-        $mpdf->SetAuthor($this->getsettings->Get()->project_name);
-        $mpdf->SetCreator($this->getsettings->Get()->project_name);
-        $mpdf->SetKeywords($this->getsettings->Get()->project_name . " Voucher");
-        $mpdf->SetSubject($this->getsettings->Get()->project_name . ' Voucher');
-        $mpdf->SetTitle($this->getsettings->Get()->project_name . ' Voucher');
+        $mpdf->SetAuthor($this->darkblowsettings->load()->project_name);
+        $mpdf->SetCreator($this->darkblowsettings->load()->project_name);
+        $mpdf->SetKeywords($this->darkblowsettings->load()->project_name . " Voucher");
+        $mpdf->SetSubject($this->darkblowsettings->load()->project_name . ' Voucher');
+        $mpdf->SetTitle($this->darkblowsettings->load()->project_name . ' Voucher');
 
         // Page
 
@@ -509,7 +511,7 @@ class Vouchermanagement extends CI_Controller
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
-            echo json_encode($response);
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 }

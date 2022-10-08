@@ -48,7 +48,6 @@
                     $(document).ready(function() {
                         $('#login_form').on('submit', function(e) {
                             e.preventDefault();
-
                             return DoLogin();
                         });
                     });
@@ -75,27 +74,17 @@
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true') {
-                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
-
-                                        CSRF_TOKEN = Result.token;
-                                        ShowToast(2000, 'success', Result.message);
+                                    SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>')
+                                    CSRF_TOKEN = Result.token;
+                                    ShowToast(2000, Result.response, Result.message);
+                                    if (Result.response == 'success') {
                                         setTimeout(() => {
                                             window.location = '<?= base_url('player_panel') ?>';
                                         }, 2000);
-                                        return;
-                                    } else if (Result.response == 'false') {
-                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
-
-                                        CSRF_TOKEN = Result.token;
-                                        ShowToast(2000, 'error', Result.message);
-                                        return;
                                     } else {
-                                        SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');
-
-                                        CSRF_TOKEN = Result.token;
-                                        ShowToast(2000, 'error', Result.message);
-                                        return;
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
                                     }
                                 },
                                 error: function() {
@@ -113,7 +102,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function(data) {
                                                 var GetString2 = JSON.stringify(data);

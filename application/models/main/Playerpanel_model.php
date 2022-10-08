@@ -34,7 +34,7 @@ class Playerpanel_model extends CI_Model
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Your Hint: ' . $query->hint_answer;
 
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 						break;
 					}
 				case 0:
@@ -43,7 +43,7 @@ class Playerpanel_model extends CI_Model
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Unverified Email Address.';
 
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 						break;
 					}
 			}
@@ -52,7 +52,7 @@ class Playerpanel_model extends CI_Model
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = 'Fatal Error: Invalid Account.';
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 
@@ -70,7 +70,7 @@ class Playerpanel_model extends CI_Model
 						);
 
 						$expired_date = strtotime('+3 day', time());
-						$secret_token = $this->lib->GenerateRandomTokenV2(128);
+						$secret_token = $this->darkblowlib->GenerateRandomTokenV2(128);
 						$message = 'Hi ' . $query->email . ', We Confirmed You Request A Verification Email For Your Account. Please following this <a href="' . base_url('home/verifyaccount/' . $secret_token) . '">link</a> to activate your account.<br>
 									Link Will Be Expired On ' . date('d-m-Y H:i:s', $expired_date) . '. Please Activate Before This Link Expired. Or You Can Re-Generate This Email By Re-sent An Request Email On Player Panel.';
 
@@ -109,25 +109,25 @@ class Playerpanel_model extends CI_Model
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Successfully Sent Request Email. Please Check Your Mailbox.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else if ($state['failed'] > 0 && $state['success'] == 0) {
 							$response['response'] = 'error';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Failed To Sent Request Email.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else if ($state['success'] > 0 && $state['error'] == 0) {
 							$response['response'] = 'error';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'We Already Trying To Send Request Email But Failed. Please Check Your Mailbox First Before Request An Email Again.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else {
 							$response['response'] = 'error';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Fatal Error. Contact DEV / GM For Detail Information.';
 
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						}
 						break;
 					}
@@ -137,7 +137,7 @@ class Playerpanel_model extends CI_Model
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = 'Your Account Is Already Activated.';
 
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 						break;
 					}
 			}

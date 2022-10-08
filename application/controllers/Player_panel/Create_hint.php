@@ -14,21 +14,19 @@ class Create_hint extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Create Hint');
-		$this->main_protect->SessionProtector();
-
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-
-		$this->main_protect->mainProtectA();
-		$this->main_protect->mainProtectC();
 		$this->load->model('main/createhint_model', 'hint');
+
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->RequireLogin_Protection();
+		$this->darkblowprotection->CreateHintPage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Create Hint';
 		$data['isi'] = 'main/content/player_panel/content_createhint';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
@@ -36,29 +34,38 @@ class Create_hint extends CI_Controller
 
 	function do_create()
 	{
-		$this->form_validation->set_rules(
-			'hint_question',
-			'Hint Question',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'hint_answer',
-			'Hint Answer',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		$this->form_validation->set_rules(
-			'password',
-			'Password',
-			'required',
-			array('required' => '%s Cannot Be Empty.')
-		);
-		if ($this->form_validation->run()) $this->hint->CreateHintValidationV2();
-		else {
+		if ($this->input->is_ajax_request()) {
+			$response = array();
+
 			$this->form_validation->set_error_delimiters('', '');
-			echo validation_errors();
-		}
+
+			$this->form_validation->set_rules(
+				'hint_question',
+				'Hint Question',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'hint_answer',
+				'Hint Answer',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			$this->form_validation->set_rules(
+				'password',
+				'Password',
+				'required',
+				array('required' => '%s Cannot Be Empty.')
+			);
+			if ($this->form_validation->run()) $this->hint->CreateHintValidationV2();
+			else {
+				$response['response'] = 'error';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = validation_errors('', '');
+
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
+		} else return;
 	}
 }
 

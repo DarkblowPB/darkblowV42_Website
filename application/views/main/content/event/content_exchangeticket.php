@@ -39,7 +39,7 @@
                                 <?= $this->lang->line('STR_DARKBLOW_59') ?>
                             </p>
                             <p style="margin-top: -20px">
-                                <?= $this->lang->line('STR_DARKBLOW_62') ?> <?= $this->lib->GetItemDuration($this->lib->GetBuyType($row['item_id']), $row['item_count'], 1); ?>
+                                <?= $this->lang->line('STR_DARKBLOW_62') ?> <?= $this->darkblowlib->GetItemDuration($this->darkblowlib->GetBuyType($row['item_id']), $row['item_count'], 1); ?>
                             </p>
                             <p style="margin-top: -20px">
                                 <?= $this->lang->line('STR_DARKBLOW_63') ?> <?php if ($row['stock'] > 0) {

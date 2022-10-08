@@ -14,21 +14,20 @@ class Trade extends CI_Controller
         parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
-        $this->lib->GetVisitorData('Trade Market');
-        $this->main_protect->SessionProtector();
-
-        $this->allprotect->Web_Protection();
-        $this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
-        $this->allprotect->DarkblowCopierGuard();
-
         $this->load->model('main/trade_model', 'trade');
 
-        $this->lib->FeatureControl('trade_market', '');
+        $this->darkblowprotection->BlockedIP_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->Maintenance_Protection();
+        $this->darkblowprotection->TradePage_Protection();
+
+        $this->darkblowlib->FeatureControl('trade_market', '');
     }
 
     function index()
     {
+        if ($this->input->is_ajax_request()) return;
+
         $data['title'] = 'Trade Market';
 
         $data['items'] = $this->trade->GetAllItems();
@@ -39,7 +38,8 @@ class Trade extends CI_Controller
 
     function addpost()
     {
-        $this->main_protect->mainProtectA();
+        if ($this->input->is_ajax_request()) return;
+
         $data['title'] = 'Post New Items';
 
         $data['items'] = $this->trade->GetPlayerInventoryItems();
@@ -50,57 +50,61 @@ class Trade extends CI_Controller
 
     function do_post()
     {
-        $response = array();
+        if ($this->input->is_ajax_request()) {
+            $response = array();
 
-        $this->form_validation->set_error_delimiters('', '');
-        $this->form_validation->set_rules(
-            'item_id',
-            'Item Name',
-            'required',
-            array('required' => '%s Cannot Be Empty.')
-        );
-        $this->form_validation->set_rules(
-            'item_price',
-            'Item Price',
-            'required|numeric',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Only Accepted Numeric Character.'
-            )
-        );
-        if ($this->form_validation->run()) $this->trade->CreateNewItem();
-        else {
-            $response['response'] = 'false';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = validation_errors();
+            $this->form_validation->set_error_delimiters('', '');
+            $this->form_validation->set_rules(
+                'item_id',
+                'Item Name',
+                'required',
+                array('required' => '%s Cannot Be Empty.')
+            );
+            $this->form_validation->set_rules(
+                'item_price',
+                'Item Price',
+                'required|numeric',
+                array(
+                    'required' => '%s Cannot Be Empty.',
+                    'numeric' => '%s Only Accepted Numeric Character.'
+                )
+            );
+            if ($this->form_validation->run()) $this->trade->CreateNewItem();
+            else {
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = validation_errors();
 
-            echo json_encode($response);
-        }
+                $this->darkblowmessage->AjaxFlashData($response);
+            }
+        } else return;
     }
 
     function do_buy()
     {
-        $response = array();
+        if ($this->input->is_ajax_request()) {
+            $response = array();
 
-        $this->form_validation->set_error_delimiters('', '');
+            $this->form_validation->set_error_delimiters('', '');
 
-        $this->form_validation->set_rules(
-            'trade_id',
-            'Trade ID',
-            'required|numeric',
-            array(
-                'required' => '%s Cannot Be Empty.',
-                'numeric' => '%s Must Be Numeric Characters.'
-            )
-        );
-        if ($this->form_validation->run()) $this->trade->BuyItem();
-        else {
-            $response['response'] = 'false';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = validation_errors();
+            $this->form_validation->set_rules(
+                'trade_id',
+                'Trade ID',
+                'required|numeric',
+                array(
+                    'required' => '%s Cannot Be Empty.',
+                    'numeric' => '%s Must Be Numeric Characters.'
+                )
+            );
+            if ($this->form_validation->run()) $this->trade->BuyItem();
+            else {
+                $response['response'] = 'false';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = validation_errors();
 
-            echo json_encode($response);
-        }
+                $this->darkblowmessage->AjaxFlashData($response);
+            }
+        } else return;
     }
 }
 

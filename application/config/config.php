@@ -11,7 +11,7 @@ $config['main_config'] = array(
     'smtp_password' => '', // Your SMTP Password,
     'encryption_ciphering' => 'AES-128-CTR',
     'encryption_options' => 0,
-    'encryption_iv' => '2539435361336837',
+    'encryption_iv' => '8818721723490673', // 16 Digits
     'encryption_key' => 'insert_your_encryption_key',
     'site_language' => 'english',
     'codesystem' => 'api',
@@ -22,7 +22,10 @@ $config['main_config'] = array(
     'pbserver_game_host' => '127.0.0.1',
     'pbserver_game_port' => '3333',
     'pbserver_management_host' => '127.0.0.1',
-    'pbserver_management_port' => '4444'
+    'pbserver_management_port' => '4444',
+    'license_key' => 'aWJ1TmsjiVE9nfjjw433JtkfqCTvIbHa0oeJaaGyzwv72J5EmHGAP0njoYrQaudNhJIkEyIu09ohettrIZLky9DZazkbEwuZyMT5k6F98Yv5F4tVO9vGANqviP3umcRJ',
+    'license_date_start' => '2022-10-01',
+    'license_date_end' => '2022-10-03',
 );
 /*
 |--------------------------------------------------------------------------

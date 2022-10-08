@@ -13,25 +13,21 @@ class Attendance extends CI_Controller
     {
         parent::__construct();
         $this->lang->load(array('header', 'string', 'message'));
-
-        $this->lib->GetVisitorData('Attendance');
-
-        $this->allprotect->Web_Protection();
-        $this->allprotect->Maintenance_Protection();
-        $this->allprotect->BlockedAccount_Protection();
-        $this->allprotect->DarkblowCopierGuard();
-        $this->main_protect->SessionProtector();
-
-        $this->main_protect->mainProtectA();
-
         $this->load->model('main/attendance_model', 'attendance');
-        $this->load->library('servercommand_library');
 
-        $this->lib->FeatureControl('attendance', '');
+        $this->darkblowprotection->BlockedIP_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->Maintenance_Protection();
+        $this->darkblowprotection->RequireLogin_Protection();
+        $this->darkblowprotection->AttendancePage_Protection();
+
+        $this->darkblowlib->FeatureControl('attendance', '');
     }
 
     function index()
     {
+        if ($this->input->is_ajax_request()) return;
+
         $data['title'] = 'Attandance Events';
 
         $data['attend'] = $this->attendance->GetAttendData();

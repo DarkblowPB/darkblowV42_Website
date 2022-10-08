@@ -14,22 +14,22 @@ class Redeemcode extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->lib->GetVisitorData('Redeem Code');
-		$this->main_protect->SessionProtector();
-
-		$this->main_protect->mainProtectA();
-		$this->allprotect->Web_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
-
 		$this->load->model('main/redeemcode_model', 'redeemcode');
 		$this->load->library('socketcommand');
 
-		$this->lib->FeatureControl('redeemcode', 'player_panel');
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->RequireLogin_Protection();
+		$this->darkblowprotection->RedeemcodePage_Protection();
+
+		$this->darkblowlib->FeatureControl('redeemcode', 'player_panel');
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Redeem Code';
 		$data['isi'] = 'main/content/player_panel/content_redeemcode';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
@@ -37,27 +37,29 @@ class Redeemcode extends CI_Controller
 
 	function do_redeem()
 	{
-		$response = array();
-		$this->form_validation->set_error_delimiters('', '');
+		if ($this->input->is_ajax_request()) {
+			$response = array();
+			$this->form_validation->set_error_delimiters('', '');
 
-		$this->form_validation->set_rules(
-			'code',
-			'Code',
-			'required|min_length[19]|max_length[19]|alpha_dash',
-			array(
-				'required' => '%s Cannot Be Empty.',
-				'min_length' => '%s Must Contains 19 Characters Or More.',
-				'max_length' => '%s Only Can Accepted 19 Characters.'
-			)
-		);
-		if ($this->form_validation->run()) $this->redeemcode->CodeValidationManual();
-		else {
-			$response['response'] = 'error';
-			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = validation_errors('', '');
+			$this->form_validation->set_rules(
+				'code',
+				'Code',
+				'required|min_length[19]|max_length[19]|alpha_dash',
+				array(
+					'required' => '%s Cannot Be Empty.',
+					'min_length' => '%s Must Contains 19 Characters Or More.',
+					'max_length' => '%s Only Can Accepted 19 Characters.'
+				)
+			);
+			if ($this->form_validation->run()) $this->redeemcode->CodeValidationManual();
+			else {
+				$response['response'] = 'error';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = validation_errors('', '');
 
-			echo json_encode($response);
-		}
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
+		} else return;
 	}
 }
 

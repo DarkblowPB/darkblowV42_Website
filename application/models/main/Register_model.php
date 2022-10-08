@@ -14,7 +14,7 @@ class Register_model extends CI_Model
 		parent::__construct();
 		$this->lang->load('message');
 		$this->load->library('email');
-		$this->load->library('lib');
+
 		$this->load->library('querylib');
 	}
 
@@ -27,7 +27,7 @@ class Register_model extends CI_Model
 
 	function SendVerificationEmail($username, $email)
 	{
-		$token = $this->lib->GenerateRandomTokenV2(128);
+		$token = $this->darkblowlib->GenerateRandomTokenV2(128);
 		$message = '<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -100,11 +100,11 @@ class Register_model extends CI_Model
 		<body>
 			<table>
 				<thead class="bg-primary">
-					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="' . base_url() . 'assets/goodgames/assets/images/settings/' . $this->getsettings->Get()->project_logo . '" alt="' . $this->getsettings->Get()->project_name . '"></a></th>
+					<th colspan="2"><a href="javascript:void(0)" style="text-decoration: none;"><img src="' . base_url() . 'assets/goodgames/assets/images/settings/' . $this->darkblowsettings->load()->project_logo . '" alt="' . $this->darkblowsettings->load()->project_name . '"></a></th>
 				</thead>
 				<tbody class="bg-light">
 					<tr>
-						<td colspan="2" id="header" align="center">Email Confirmation - ' . $this->getsettings->Get()->project_name . '</td>
+						<td colspan="2" id="header" align="center">Email Confirmation - ' . $this->darkblowsettings->load()->project_name . '</td>
 					</tr>
 					<tr>
 						<td align="center">
@@ -135,7 +135,7 @@ class Register_model extends CI_Model
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class="bg-primary">Copyright &copy; <b>' . $this->getsettings->Get()->project_name . '</b> 2021. All rights reserved.</td>
+						<td align="center" class="bg-primary">Copyright &copy; <b>' . $this->darkblowsettings->load()->project_name . '</b> 2021. All rights reserved.</td>
 					</tr>
 				</tbody>
 			</table>
@@ -159,12 +159,12 @@ class Register_model extends CI_Model
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_43');
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		} else {
 			$response['response'] = 'success';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_INFO_11');
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 
@@ -175,20 +175,20 @@ class Register_model extends CI_Model
 		$data = array(
 			'login' => $this->encryption->encrypt($this->input->post('login', true)),
 			'email' => $this->encryption->encrypt($this->input->post('email', true)),
-			'password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('password', true))),
-			'confirm_password' => $this->encryption->encrypt($this->lib->password_encrypt($this->input->post('re_password', true))),
+			'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true))),
+			'confirm_password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('re_password', true))),
 			'hint_question' => $this->encryption->encrypt($this->input->post('hint_question', true)),
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true)),
 			'email_verification' => '0',
-			'token' => $this->lib->GenerateRandomTokenV2(128)
+			'token' => $this->darkblowlib->GenerateRandomTokenV2(128)
 		);
 
-		if ($this->getsettings->Get()->register != 1) {
+		if ($this->darkblowsettings->load()->register != 1) {
 			$response['response'] = 'false';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_INFO_12');
 
-			echo json_encode($response);
+			$this->darkblowmessage->AjaxFlashData($response);
 		} else {
 
 			// Check Register Events.
@@ -231,24 +231,24 @@ class Register_model extends CI_Model
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_10');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								} else {
 									$response['response'] = 'true';
 									$response['token'] = $this->security->get_csrf_hash();
 									$response['message'] = $this->lang->line('STR_SUCCESS_10');
-									echo json_encode($response);
+									$this->darkblowmessage->AjaxFlashData($response);
 								}
 							} else {
 								$response['response'] = 'true';
 								$response['token'] = $this->security->get_csrf_hash();
 								$response['message'] = $this->lang->line('STR_SUCCESS_10');
-								echo json_encode($response);
+								$this->darkblowmessage->AjaxFlashData($response);
 							}
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = $this->lang->line('STR_ERROR_12');
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						}
 					} else {
 						$query99 = $this->db->where('id', $query->id)->update('events_register', array('is_active' => 'f'));
@@ -272,12 +272,12 @@ class Register_model extends CI_Model
 							$response['response'] = 'true';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = $this->lang->line('STR_SUCCESS_10');
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else {
 							$response['response'] = 'false';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = $this->lang->line('STR_ERROR_12');
-							echo json_encode($response);
+							$this->darkblowmessage->AjaxFlashData($response);
 						}
 					}
 				} else {
@@ -301,19 +301,19 @@ class Register_model extends CI_Model
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = $this->lang->line('STR_SUCCESS_10');
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					} else {
 						$response['response'] = 'false';
 						$response['token'] = $this->security->get_csrf_hash();
 						$response['message'] = $this->lang->line('STR_ERROR_12');
-						echo json_encode($response);
+						$this->darkblowmessage->AjaxFlashData($response);
 					}
 				}
 			} else {
 				$response['response'] = 'false';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_44');
-				echo json_encode($response);
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		}
 	}
@@ -324,7 +324,7 @@ class Register_model extends CI_Model
 
 		$data = array(
 			'login' => $this->input->post('login', true),
-			'password' => $this->lib->password_encrypt($this->input->post('password', true)),
+			'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true)),
 			'email' => $this->input->post('email', true),
 			'hint_question' => $this->input->post('hint_question', true),
 			'hint_answer' => $this->input->post('hint_answer', true)
@@ -356,7 +356,7 @@ class Register_model extends CI_Model
 				CURLOPT_CUSTOMREQUEST => 'POST',
 				CURLOPT_POSTFIELDS => '' . $this->security->get_csrf_token_name() . '=' . $this->security->get_csrf_hash() . '&login=' . $data['login'] . '&email=' . $data['email'] . '&password=' . $data['password'] . '&re_password=' . $data2['re_password'] . '&hint_question=' . urlencode($data['hint_question']) . '&hint_answer=' . urlencode($data['hint_answer']),
 				CURLOPT_HTTPHEADER => array(
-					'Authorization: ' . $this->getsettings->Get()->api_authorization_key,
+					'Authorization: ' . $this->darkblowsettings->load()->api_authorization_key,
 					'Content-Type: application/x-www-form-urlencoded',
 					'Cookie: darkblowpbreborn_cookies=fe99af92ea8a6aee1e0f09b9aa7272c7; darkblowpbreborn_session=svem0f8crg1ibmla3p1jkogvu709e4vm'
 				),

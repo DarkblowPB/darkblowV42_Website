@@ -7,13 +7,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-Class Webshopmanagement extends CI_Controller
+class Webshopmanagement extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->allprotect->AdminDashboard_Protection();
         $this->load->model('admin/webshopmanagement_model', 'webshop');
+        $this->darkblowprotection->RequireLoginAdmin_Protection();
+        $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->RequireAccessAdmin_Protection();
     }
 
     function index()
@@ -29,5 +31,3 @@ Class Webshopmanagement extends CI_Controller
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
-
-?>

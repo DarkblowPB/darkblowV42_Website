@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="nk-copyright-left">
                     Copyright &copy; <a href="<?= base_url('home') ?>">
-                        <?= $this->getsettings->Get()->project_name ?>
+                        <?= $this->darkblowsettings->load()->project_name ?>
                     </a> 2020 - <?= date('Y'); ?>. All Rights Reserved.
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 type: 'GET',
                 dataType: 'JSON',
                 data: {
-                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                 },
                 success: function(data) {
                     var GetString = JSON.stringify(data);
@@ -96,7 +96,7 @@
                 type: 'GET',
                 dataType: 'JSON',
                 data: {
-                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                 },
                 success: function(data) {
                     var GetString = JSON.stringify(data);

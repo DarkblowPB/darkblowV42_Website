@@ -29,7 +29,7 @@
                             <tr>
                                 <td>Date Upload</td>
                                 <td>
-                                    <?= $this->lib->ParseUnixTimeStamp($files->date_created) ?>
+                                    <?= $this->darkblowlib->ParseUnixTimeStamp($files->date_created) ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -90,7 +90,7 @@
                                             type: 'GET',
                                             dataType: 'JSON',
                                             data: {
-                                                '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                                '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                             },
                                             success: function() {
                                                 var GetString = JSON.stringify(data);

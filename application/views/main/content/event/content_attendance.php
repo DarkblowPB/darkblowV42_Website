@@ -100,14 +100,14 @@
                                 var GetString = JSON.stringify(data);
                                 var Result = JSON.parse(GetString);
 
-                                if (Result.status == 'success') {
+                                if (Result.response == 'success') {
                                     SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'success', Result.message);
                                     CSRF_TOKEN = Result.token;
                                     setTimeout(() => {
                                         document.getElementById('<?= $this->attendance->GetTodayEventID() ?>').setAttribute('class', 'calendar__day claimed');
                                     }, 2000);
-                                } else if (Result.status == 'error') {
+                                } else if (Result.response == 'error') {
                                     SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_DARKBLOW_179') ?>');
                                     ShowToast(2000, 'error', Result.message);
                                     CSRF_TOKEN = Result.token;
@@ -135,7 +135,7 @@
                                         type: 'GET',
                                         dataType: 'JSON',
                                         data: {
-                                            '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
+                                            '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
                                         },
                                         success: function(data) {
                                             var GetString = JSON.stringify(data);

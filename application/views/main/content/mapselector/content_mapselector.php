@@ -8,7 +8,7 @@
 	<meta name="keywords" content="PB, point blank, fps, shooting game, online" />
 	<meta name="description" content="Point Blank Beyond Limits Map Selector" />
 	<title>
-		<?= $this->getsettings->Get()->project_name . ' || ' . $title ?>
+		<?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
 	</title>
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/goodgames/assets/css/mapselector2021.css">
 	<script src="<?= base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -19,7 +19,7 @@
 
 <body>
 	<header>
-		<h2><a href="<?= base_url('home') ?>"><img src="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->getsettings->Get()->project_logo ?>" alt="Point Blank Beyond Limits"></a></h2>
+		<h2><a href="<?= base_url('home') ?>"><img src="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_logo ?>" alt="Point Blank Beyond Limits"></a></h2>
 		<h1><img src="<?= base_url() ?>assets/goodgames/assets/images/mapselector/2021/title.png" alt="Map Selector"></h1>
 		<p class="btn_reset"><button type="button" onclick="javascript:resetPage();">RESET</button></p>
 	</header>

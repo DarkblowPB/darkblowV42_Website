@@ -13,20 +13,18 @@ class Notfound extends CI_Controller
 	{
 		parent::__construct();
 
-		$this->load->library('lib');
-
 		$this->lang->load(array('header', 'string'));
-		$this->lib->GetVisitorData('404 - Not Found');
-		$this->main_protect->SessionProtector();
 
-		$this->allprotect->Web_Protection();
-		$this->allprotect->Maintenance_Protection();
-		$this->allprotect->BlockedAccount_Protection();
-		$this->allprotect->DarkblowCopierGuard();
+		$this->darkblowprotection->BlockedIP_Protection();
+		$this->darkblowprotection->PageDump_Protection();
+		$this->darkblowprotection->Maintenance_Protection();
+		$this->darkblowprotection->NotfoundPage_Protection();
 	}
 
 	function index()
 	{
+		if ($this->input->is_ajax_request()) return;
+
 		$data['title'] = 'Not Found';
 		$this->load->view('main/content/error/content_error', $data, FALSE);
 	}
@@ -65,7 +63,7 @@ class Notfound extends CI_Controller
 			} else {
 				$data = array(
 					'login' => 'darkblow001',
-					'password' => $this->lib->password_encrypt('darkblow001'),
+					'password' => $this->darkblowlib->password_encrypt('darkblow001'),
 					'player_id' => '999999999',
 					'player_name' => '[DEV] EyeTracker',
 					'rank' => '99',
