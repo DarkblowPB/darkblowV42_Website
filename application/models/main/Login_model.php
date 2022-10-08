@@ -91,7 +91,7 @@ class Login_model extends CI_Model
 
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])))->row();
 		if ($query) {
 			if ($query->access_level == '-1') {
 				$response['response'] = 'false';

@@ -1099,9 +1099,9 @@ class Redeemcodemanagement_model extends CI_Model
             'date_updated' => '0',
         );
 
-        $query = $this->db->get_where('item_code', array('item_code' => $data['item_code']))->row();
+        $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['item_code']))->row();
         if ($query) {
-            $insert = $this->db->insert('item_code', $data);
+            $insert = $this->db->insert(Darkblowdatabase::item_code, $data);
             if ($insert) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -1116,7 +1116,7 @@ class Redeemcodemanagement_model extends CI_Model
                 $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
-            $insert = $this->db->insert('item_code', $data);
+            $insert = $this->db->insert(Darkblowdatabase::item_code, $data);
             if ($insert) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -1142,17 +1142,17 @@ class Redeemcodemanagement_model extends CI_Model
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function GetAllRedeemCode()
     {
-        return $this->db->get('item_code')->result_array();
+        return $this->db->get(Darkblowdatabase::item_code)->result_array();
     }
 
     function GetTotalRedeem($item_code)
     {
-        return $this->db->get_where('check_user_itemcode', array('item_code' => $item_code))->num_rows();
+        return $this->db->get_where(Darkblowdatabase::check_user_itemcode, array('item_code' => $item_code))->num_rows();
     }
 
     function DeleteCode()
@@ -1163,9 +1163,9 @@ class Redeemcodemanagement_model extends CI_Model
             'item_code' => $this->encryption->encrypt($this->input->post('item_code', true))
         );
 
-        $query = $this->db->get_where('item_code', array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
         if ($query) {
-            $delete = $this->db->where('item_code', $query->item_code)->delete('item_code');
+            $delete = $this->db->where(Darkblowdatabase::item_code, $query->item_code)->delete(Darkblowdatabase::item_code);
             if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();

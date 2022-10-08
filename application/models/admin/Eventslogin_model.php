@@ -16,17 +16,17 @@ class Eventslogin_model extends CI_Model
 
     function GetAllEvents()
     {
-        return $this->db->get('events_login')->result_array();
+        return $this->db->get(Darkblowdatabase::events_login)->result_array();
     }
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc', true)->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc', true)->get(Darkblowdatabase::shop)->result_array();
     }
 
     function GetItemName($item_id)
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
         if ($query) return $query->item_name;
         else return "";
     }
@@ -63,7 +63,7 @@ class Eventslogin_model extends CI_Model
         $defaultDate = $this->encryption->decrypt($data['start_date']); // Start Date
         $defaultDate2 = $this->encryption->decrypt($data['end_date']); // End Date
 
-        $query = $this->db->insert('events_login', array(
+        $query = $this->db->insert(Darkblowdatabase::events_login, array(
             'start_date' => $this->darkblowlib->ExplodeDate($defaultDate)['years'] . $this->darkblowlib->ExplodeDate($defaultDate)['month'] . $this->darkblowlib->ExplodeDate($defaultDate)['days'] . $this->darkblowlib->ExplodeDate($defaultDate)['hours'] . $this->darkblowlib->ExplodeDate($defaultDate)['minutes'],
             'end_date' => $this->darkblowlib->ExplodeDate($defaultDate2)['years'] . $this->darkblowlib->ExplodeDate($defaultDate2)['month'] . $this->darkblowlib->ExplodeDate($defaultDate2)['days'] . $this->darkblowlib->ExplodeDate($defaultDate2)['hours'] . $this->darkblowlib->ExplodeDate($defaultDate2)['minutes'],
             'reward_id' => $this->encryption->decrypt($data['reward_id']),
@@ -93,12 +93,12 @@ class Eventslogin_model extends CI_Model
             'end_date' => $this->encryption->encrypt($this->input->post('end_date', true))
         );
 
-        $query = $this->db->get_where('events_login', array(
+        $query = $this->db->get_where(Darkblowdatabase::events_login, array(
             'start_date' => $this->encryption->decrypt($data['start_date']),
             'end_date' => $this->encryption->decrypt($data['end_date'])
         ))->row();
         if ($query) {
-            $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete('events_login');
+            $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete(Darkblowdatabase::events_login);
             if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();

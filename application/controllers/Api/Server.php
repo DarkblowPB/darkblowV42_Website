@@ -282,7 +282,7 @@ class Server extends RestController
     {
         if ($this->input->is_ajax_request()) {
             $response = array();
-            $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+            $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
             if ($query) {
                 if ($query->server_condition == 0) {
                     $response['response'] = 'true';

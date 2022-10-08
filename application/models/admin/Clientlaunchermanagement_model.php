@@ -25,7 +25,7 @@ class Clientlaunchermanagement_model extends CI_Model
             'files_id' => $this->encryption->encrypt($this->input->post('files_id', true))
         );
 
-        $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['files_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $this->encryption->decrypt($data['files_id'])))->row();
         if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();
@@ -50,9 +50,9 @@ class Clientlaunchermanagement_model extends CI_Model
         );
 
         if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
-            $query = $this->db->get_where('web_download_clientlauncher', array('id' => $this->encryption->decrypt($data['file_id'])))->row();
+            $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $this->encryption->decrypt($data['file_id'])))->row();
             if ($query) {
-                $update = $this->db->where('id', $query->id)->update('web_download_clientlauncher', array(
+                $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_download_clientlauncher, array(
                     'file_name' => $this->encryption->decrypt($data['file_name']),
                     'file_url' => $this->encryption->decrypt($data['file_url']),
                     'type' => $this->encryption->decrypt($data['file_type']),
@@ -87,9 +87,9 @@ class Clientlaunchermanagement_model extends CI_Model
     {
         $response = array();
 
-        $query = $this->db->get_where('web_download_clientlauncher', array('id' => $files_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $files_id))->row();
         if ($query) {
-            $delete = $this->db->where('id', $query->id)->delete('web_download_clientlauncher');
+            $delete = $this->db->where('id', $query->id)->delete(Darkblowdatabase::web_download_clientlauncher);
             if ($delete) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -111,12 +111,12 @@ class Clientlaunchermanagement_model extends CI_Model
 
     function GetAllFiles()
     {
-        return $this->db->order_by('id', 'desc')->get('web_download_clientlauncher')->result_array();
+        return $this->db->order_by('id', 'desc')->get(Darkblowdatabase::web_download_clientlauncher)->result_array();
     }
 
     function GetSpecifiedFile($files_id)
     {
-        $query = $this->db->get_where('web_download_clientlauncher', array('id' => $files_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $files_id))->row();
         if ($query) return $query;
         else redirect(base_url('adm/clientlaunchermanagement'), 'refresh');
     }
@@ -134,7 +134,7 @@ class Clientlaunchermanagement_model extends CI_Model
         );
 
         if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
-            $query = $this->db->insert('web_download_clientlauncher', array(
+            $query = $this->db->insert(Darkblowdatabase::web_download_clientlauncher, array(
                 'file_name' => $this->encryption->decrypt($data['file_name']),
                 'file_url' => $this->encryption->decrypt($data['file_url']),
                 'type' => $this->encryption->decrypt($data['file_type']),
@@ -178,7 +178,7 @@ class Clientlaunchermanagement_model extends CI_Model
             'date_updated' => '0'
         );
 
-        $query = $this->db->insert('web_download_clientlauncher', $data);
+        $query = $this->db->insert(Darkblowdatabase::web_download_clientlauncher, $data);
         if ($query) {
             $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
@@ -211,7 +211,7 @@ class Clientlaunchermanagement_model extends CI_Model
 
         if ($this->upload->do_upload('file')) {
             $data = $this->upload->data();
-            $query = $this->db->insert('web_download_clientlauncher', array(
+            $query = $this->db->insert(Darkblowdatabase::web_download_clientlauncher, array(
                 'file_name' => $data['raw_name'],
                 'file_url' => $data['full_path'],
                 'type' => $data['file_type'],

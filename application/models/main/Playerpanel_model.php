@@ -18,7 +18,7 @@ class Playerpanel_model extends CI_Model
 
 	function GetDetailsAccount()
 	{
-		return $this->db->where('player_id', $this->session->userdata('uid'))->get('accounts')->result_array();
+		return $this->db->where('player_id', $this->session->userdata('uid'))->get(Darkblowdatabase::accounts)->result_array();
 	}
 
 	function RequestHint()
@@ -26,7 +26,7 @@ class Playerpanel_model extends CI_Model
 		sleep(1);
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid')))->row();
 		if ($query) {
 			switch ($query->email_verification) {
 				case 1: {
@@ -60,7 +60,7 @@ class Playerpanel_model extends CI_Model
 	{
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid')))->row();
 		if ($query) {
 			switch ($query->email_verification) {
 				case 0: {
@@ -74,12 +74,12 @@ class Playerpanel_model extends CI_Model
 						$message = 'Hi ' . $query->email . ', We Confirmed You Request A Verification Email For Your Account. Please following this <a href="' . base_url('home/verifyaccount/' . $secret_token) . '">link</a> to activate your account.<br>
 									Link Will Be Expired On ' . date('d-m-Y H:i:s', $expired_date) . '. Please Activate Before This Link Expired. Or You Can Re-Generate This Email By Re-sent An Request Email On Player Panel.';
 
-						$query2 = $this->db->get_where('web_log_verifyaccount', array('email' => $query->email))->row();
+						$query2 = $this->db->get_where(Darkblowdatabase::web_log_verifyaccount, array('email' => $query->email))->row();
 						if ($query2) {
 							if ($query2->status == 1 && $query2->valid_date < time()) $state['success'] += 1;
 							else if ($query2->status == 0) {
 								if ($this->querylib->SendEmail('no-reply@darkblowpbreborn.com', $query->email, 'Account Verification', $message)) {
-									$this->db->insert('web_log_verifyaccount', array(
+									$this->db->insert(Darkblowdatabase::web_log_verifyaccount, array(
 										'email' => $query->email,
 										'secret_token' => $secret_token,
 										'valid_date' => $expired_date,
@@ -92,7 +92,7 @@ class Playerpanel_model extends CI_Model
 							} else $state['failed'] += 1;
 						} else {
 							if ($this->querylib->SendEmail('no-reply@darkblowpbreborn.com', $query->email, 'Account Verification', $message)) {
-								$this->db->insert('web_log_verifyaccount', array(
+								$this->db->insert(Darkblowdatabase::web_log_verifyaccount, array(
 									'email' => $query->email,
 									'secret_token' => $secret_token,
 									'valid_date' => $expired_date,

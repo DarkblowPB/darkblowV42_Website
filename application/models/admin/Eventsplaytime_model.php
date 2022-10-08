@@ -16,12 +16,12 @@ class Eventsplaytime_model extends CI_Model
 
     function GetAllEvents()
     {
-        return $this->db->get('events_playtime')->result_array();
+        return $this->db->get(Darkblowdatabase::events_playtime)->result_array();
     }
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function AddNewEvents()
@@ -43,7 +43,7 @@ class Eventsplaytime_model extends CI_Model
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Reward 1 & 2 Cannot Be Empty.';
         } else {
-            $query = $this->db->insert('events_playtime', array(
+            $query = $this->db->insert(Darkblowdatabase::events_playtime, array(
                 'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
                 'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['minutes'],
                 'title' => $this->encryption->decrypt($data['title']),
@@ -79,9 +79,9 @@ class Eventsplaytime_model extends CI_Model
             'title' => $this->encryption->encrypt($this->input->post('title', true))
         );
 
-        $query = $this->db->get_where('events_playtime', array('title' => $this->encryption->decrypt($data['title'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::events_playtime, array('title' => $this->encryption->decrypt($data['title'])))->row();
         if ($query) {
-            $delete = $this->db->where('title', $query->title)->delete('events_playtime');
+            $delete = $this->db->where('title', $query->title)->delete(Darkblowdatabase::events_playtime);
             if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();

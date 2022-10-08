@@ -16,7 +16,7 @@ class Bannedvisitor_model extends CI_Model
 
     function GetAllIPAddress()
     {
-        return $this->db->order_by('id', 'desc')->get('web_ipbanned')->result_array();
+        return $this->db->order_by('id', 'desc')->get(Darkblowdatabase::web_ipbanned)->result_array();
     }
 
     function AddIPAddress()
@@ -29,7 +29,7 @@ class Bannedvisitor_model extends CI_Model
             'reason' => $this->input->post('reason', true),
         );
 
-        $query = $this->db->insert('web_ipbanned', $data);
+        $query = $this->db->insert(Darkblowdatabase::web_ipbanned, $data);
         if ($query) {
             $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
@@ -54,9 +54,9 @@ class Bannedvisitor_model extends CI_Model
             'id' => $this->input->post('id', true)
         );
 
-        $query = $this->db->get_where('web_ipbanned', array('id' => $data['id']))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_ipbanned, array('id' => $data['id']))->row();
         if ($query) {
-            $delete = $this->db->where('id', $query->id)->delete('web_ipbanned');
+            $delete = $this->db->where('id', $query->id)->delete(Darkblowdatabase::web_ipbanned);
             if ($delete) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();

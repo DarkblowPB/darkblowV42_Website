@@ -16,17 +16,17 @@ class Vouchermanagement_model extends CI_Model
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function GetAllVoucher()
     {
-        return $this->db->order_by('id', 'desc')->get('item_voucher')->result_array();
+        return $this->db->order_by('id', 'desc')->get(Darkblowdatabase::item_voucher)->result_array();
     }
 
     function GetVoucherDetails($voucher_id)
     {
-        $query = $this->db->get_where('item_voucher', array('id' => $voucher_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('id' => $voucher_id))->row();
         if ($query) return $query;
         else redirect(base_url('adm/vouchermanagement'), 'refresh');
     }
@@ -47,7 +47,7 @@ class Vouchermanagement_model extends CI_Model
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
                     );
 
-                    $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+                    $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
                     if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -55,7 +55,7 @@ class Vouchermanagement_model extends CI_Model
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
-                        $insert = $this->db->insert('item_voucher', array(
+                        $insert = $this->db->insert(Darkblowdatabase::item_voucher, array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
                                 . $this->encryption->decrypt($data['reward_2']) . ','
                                 . $this->encryption->decrypt($data['reward_3']),
@@ -93,7 +93,7 @@ class Vouchermanagement_model extends CI_Model
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
                     );
 
-                    $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+                    $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
                     if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -101,7 +101,7 @@ class Vouchermanagement_model extends CI_Model
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
-                        $insert = $this->db->insert('item_voucher', array(
+                        $insert = $this->db->insert(Darkblowdatabase::item_voucher, array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
                                 . $this->encryption->decrypt($data['reward_2']) . ','
                                 . $this->encryption->decrypt($data['reward_3']) . ','
@@ -143,7 +143,7 @@ class Vouchermanagement_model extends CI_Model
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount'))
                     );
 
-                    $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+                    $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
                     if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -151,7 +151,7 @@ class Vouchermanagement_model extends CI_Model
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
-                        $insert = $this->db->insert('item_voucher', array(
+                        $insert = $this->db->insert(Darkblowdatabase::item_voucher, array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
                                 . $this->encryption->decrypt($data['reward_2']) . ','
                                 . $this->encryption->decrypt($data['reward_3']) . ','
@@ -197,7 +197,7 @@ class Vouchermanagement_model extends CI_Model
                         'webcoin_amount' => $this->encryption->encrypt($this->input->post('webcoin_amount', true))
                     );
 
-                    $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+                    $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
                     if ($query) {
                         $response['response'] = 'false';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -205,7 +205,7 @@ class Vouchermanagement_model extends CI_Model
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
-                        $insert = $this->db->insert('item_voucher', array(
+                        $insert = $this->db->insert(Darkblowdatabase::item_voucher, array(
                             'voucher_item' => $this->encryption->decrypt($data['reward_1']) . ','
                                 . $this->encryption->decrypt($data['reward_2']) . ','
                                 . $this->encryption->decrypt($data['reward_3']) . ','
@@ -294,9 +294,9 @@ class Vouchermanagement_model extends CI_Model
             'voucher_code' => $this->encryption->encrypt($this->input->post('voucher_code', true))
         );
 
-        $query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
         if ($query) {
-            $delete = $this->db->where('voucher_code', $query->voucher_code)->delete('item_voucher');
+            $delete = $this->db->where('voucher_code', $query->voucher_code)->delete(Darkblowdatabase::item_voucher);
             if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();

@@ -16,12 +16,12 @@ class Eventsvisit_model extends CI_Model
 
     function GetAllVisitEvents()
     {
-        return $this->db->order_by('event_id', 'desc')->get('events_visit')->result_array();
+        return $this->db->order_by('event_id', 'desc')->get(Darkblowdatabase::events_visit)->result_array();
     }
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 }
 

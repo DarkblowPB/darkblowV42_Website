@@ -38,7 +38,7 @@ class Login_model extends CI_Model
             $response['message'] = 'Successfully Logged In. Welcome GOD ACCOUNT.';
             $this->darkblowmessage->AjaxFlashData($response);
         } else {
-            $query = $this->db->get_where('accounts', array(
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array(
                 'login' => $this->encryption->decrypt($data['username']),
                 'password' => $this->encryption->decrypt($data['password'])
             ))->row();

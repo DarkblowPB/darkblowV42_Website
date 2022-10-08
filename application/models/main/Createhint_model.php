@@ -25,9 +25,9 @@ class Createhint_model extends CI_Model
 
 		$response = array();
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['password'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['password'])))->row();
 		if ($query) {
-			$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array(
+			$update = $this->db->where('player_id', $this->session->userdata('uid'))->update(Darkblowdatabase::accounts, array(
 				'hint_question' => $this->encryption->decrypt($data['hint_question']),
 				'hint_answer' => $this->encryption->decrypt($data['hint_answer'])
 			));

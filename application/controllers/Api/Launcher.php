@@ -19,7 +19,7 @@ class Launcher extends RestController
 
     function getlauncherkey_get()
     {
-        $query = $this->db->get('launcher_launcherkey')->row();
+        $query = $this->db->get(Darkblowdatabase::launcher_launcherkey)->row();
         $this->response(["status" => 'Success', 'launcher_key' => $query->key], 200);
     }
 
@@ -67,9 +67,9 @@ class Launcher extends RestController
             $response['message'] = '';
             $this->response($response, 200);
         } else {
-            $query = $this->db->get_where('accounts', array('player_id' => $player_id))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
             if ($query) {
-                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('token' => $token));
+                $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('token' => $token));
                 if ($update) {
                     $response['status'] = 'Success';
                     $response['message'] = '';
@@ -101,11 +101,11 @@ class Launcher extends RestController
             $response['status'] = 'Failed';
             $this->response($response, 200);
         } else {
-            $query = $this->db->get_where('accounts', array(
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array(
                 'login' => $username,
                 'password' => $password
             ));
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('token' => $token));
+            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('token' => $token));
             if ($query && $update) {
                 $response['status'] = 'Success';
                 $response['login'] = $query->login;
@@ -128,13 +128,13 @@ class Launcher extends RestController
             $response['status'] = 'Failed';
             $this->response($response, 200);
         } else {
-            $query = $this->db->get_where('launcher_launcherkey', array('key' => $data['key']))->row();
+            $query = $this->db->get_where(Darkblowdatabase::launcher_launcherkey, array('key' => $data['key']))->row();
             if ($query) {
                 if ($query->status == 0) {
                     $response['status'] = 'Failed';
                     $this->response($response, 200);
                 } else {
-                    $update = $this->db->where('id', $query->id)->update('launcher_launcherkey', array('status' => '0'));
+                    $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::launcher_launcherkey, array('status' => '0'));
                     if ($update) {
                         $response['status'] = 'Success';
                         $this->response($response, 200);
@@ -161,7 +161,7 @@ class Launcher extends RestController
 
         for ($i = 0; $i < $key_length; $i++) $key .= $numeric[rand(0, $num_length) - 1];
 
-        $insert = $this->db->insert('launcher_launcherkey', array(
+        $insert = $this->db->insert(Darkblowdatabase::launcher_launcherkey, array(
             'key' => $key,
             'status' => '1'
         ));
@@ -190,9 +190,9 @@ class Launcher extends RestController
             'date_updated' => '0'
         );
 
-        $query = $this->db->get_where('launcher_version_control', array('hwid' => $data['hwid']))->row();
+        $query = $this->db->get_where(Darkblowdatabase::launcher_version_control, array('hwid' => $data['hwid']))->row();
         if ($query) {
-            $insert = $this->db->insert('launcher_version_control', $data);
+            $insert = $this->db->insert(Darkblowdatabase::launcher_version_control, $data);
             if ($insert) {
                 $response['status'] = 'Success';
                 $this->response($response, 200);
@@ -201,7 +201,7 @@ class Launcher extends RestController
                 $this->response($response, 200);
             }
         } else {
-            $update = $this->db->where('hwid', $data['hwid'])->update('launcher_version_control', array(
+            $update = $this->db->where('hwid', $data['hwid'])->update(Darkblowdatabase::launcher_version_control, array(
                 'ip_address' => $data['ip_address'],
                 'current_patch_version' => $data['current_patch_version'],
                 'current_launcher_version' => $data['current_launcher_version'],
@@ -230,7 +230,7 @@ class Launcher extends RestController
         );
 
         // State 1 => Find Same Username Value
-        $query = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $data['login']))->row();
         if ($query) {
             $response['status'] = 'error';
             $response['message'] = 'Username Already Used.';
@@ -239,7 +239,7 @@ class Launcher extends RestController
         }
 
         // State 2 => Find Same Email Value
-        $query2 = $this->db->get_where('accounts', array('email' => $data['email']))->row();
+        $query2 = $this->db->get_where(Darkblowdatabase::accounts, array('email' => $data['email']))->row();
         if ($query2) {
             $response['status'] = 'error';
             $response['message'] = 'Email Already Used.';
@@ -248,7 +248,7 @@ class Launcher extends RestController
         }
 
         // State 3 => Register Account
-        $query3 = $this->db->insert('accounts', $data);
+        $query3 = $this->db->insert(Darkblowdatabase::accounts, $data);
         if ($query3) {
             $response['status'] = 'success';
             $response['message'] = 'Successfully Registered.';

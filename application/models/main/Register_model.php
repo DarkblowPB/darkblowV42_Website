@@ -20,7 +20,7 @@ class Register_model extends CI_Model
 
 	function CheckRegisteredAccount($email)
 	{
-		$query = $this->db->get_where('accounts', array('email' => $email))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('email' => $email))->row();
 		if ($query) return FALSE;
 		else return TRUE;
 	}
@@ -154,7 +154,7 @@ class Register_model extends CI_Model
 			'username' => $this->encryption->encrypt($this->input->post('login', true))
 		);
 
-		$query = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['username'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $this->encryption->decrypt($data['username'])))->row();
 		if ($query) {
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
@@ -192,12 +192,12 @@ class Register_model extends CI_Model
 		} else {
 
 			// Check Register Events.
-			$query = $this->db->get_where('events_register', array('id' => '1'))->row();
+			$query = $this->db->get_where(Darkblowdatabase::events_register, array('id' => '1'))->row();
 			if ($query) {
 				// Trigger When Register Events In Active State.
 				if ($query->is_active == 1) {
 					if ($query->stock >= 1) {
-						$query2 = $this->db->insert('accounts', array(
+						$query2 = $this->db->insert(Darkblowdatabase::accounts, array(
 							'login' => $this->encryption->decrypt($data['login']),
 							'lastip' => $this->input->ip_address(),
 							'email' => $this->encryption->decrypt($data['email']),
@@ -209,10 +209,10 @@ class Register_model extends CI_Model
 						), true);
 						if ($query2) {
 							// Get Registered Accounts.
-							$query3 = $this->db->get_where('accounts', array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
+							$query3 = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $this->encryption->decrypt($data['login']), 'password' => $this->encryption->decrypt($data['password'])))->row();
 							if ($query3) {
 								// Insert Register Events Reward To Player Inventory.
-								$query4 = $this->db->insert('player_items', array(
+								$query4 = $this->db->insert(Darkblowdatabase::player_items, array(
 									'owner_id' => $query3->player_id,
 									'item_id' => $query->item_id,
 									'item_name' => $query->item_name,
@@ -220,7 +220,7 @@ class Register_model extends CI_Model
 									'category' => $query->item_category,
 									'equip' => '1'
 								));
-								$query5 = $this->db->where('id', $query->id)->update('events_register', array('stock' => ($query->stock - 1)));
+								$query5 = $this->db->where('id', $query->id)->update(Darkblowdatabase::events_register, array('stock' => ($query->stock - 1)));
 								$query6 = $this->db->insert('web_email_confirmation', array(
 									'account_id' => $this->encryption->decrypt($data['login']),
 									'email' => $this->encryption->decrypt($data['email']),
@@ -251,8 +251,8 @@ class Register_model extends CI_Model
 							$this->darkblowmessage->AjaxFlashData($response);
 						}
 					} else {
-						$query99 = $this->db->where('id', $query->id)->update('events_register', array('is_active' => 'f'));
-						$query2 = $this->db->insert('accounts', array(
+						$query99 = $this->db->where('id', $query->id)->update(Darkblowdatabase::events_register, array('is_active' => 'f'));
+						$query2 = $this->db->insert(Darkblowdatabase::accounts, array(
 							'login' => $this->encryption->decrypt($data['login']),
 							'lastip' => $this->input->ip_address(),
 							'email' => $this->encryption->decrypt($data['email']),
@@ -281,7 +281,7 @@ class Register_model extends CI_Model
 						}
 					}
 				} else {
-					$query2 = $this->db->insert('accounts', array(
+					$query2 = $this->db->insert(Darkblowdatabase::accounts, array(
 						'login' => $this->encryption->decrypt($data['login']),
 						'lastip' => $this->input->ip_address(),
 						'email' => $this->encryption->decrypt($data['email']),
@@ -367,27 +367,6 @@ class Register_model extends CI_Model
 			curl_close($curl);
 			echo $response;
 		}
-	}
-
-	function AccountVerification()
-	{
-		$data = array(
-			'token' => $this->encryption->encrypt($this->input->get('token_key', true))
-		);
-
-		$query = $this->db->get_where('web_email_confirmation', array('token' => $this->encryption->decrypt($data['token'])))->row();
-		if ($query) {
-			if ($query->valid == 0) echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
-			else {
-				$update = array(
-					'01' => $this->db->where('id', $query->id)->update('web_email_confirmation', array('valid' => '0')),
-					'02' => $this->db->where('login', $query->account_id)->update('accounts', array('email_verification' => '1'))
-				);
-
-				if ($update['01'] && $update['02']) echo "<script>alert('" . $this->lang->line('STR_SUCCESS_12') . "');window.location='" . base_url('login') . "'</script>";
-				else echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
-			}
-		} else echo "<script>alert('" . $this->lang->line('STR_ERROR_45') . "');window.location='" . base_url('home') . "'</script>";
 	}
 }
 

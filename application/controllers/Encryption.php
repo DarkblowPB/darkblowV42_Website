@@ -73,7 +73,7 @@ class Encryption extends CI_Controller
 
                         for ($i = 0; $i < $password_length; $i++) $pure_password .= $base_characters[rand(0, $base_characters_length - 1)];
 
-                        $query = $this->db->insert('accounts', array(
+                        $query = $this->db->insert(Darkblowdatabase::accounts, array(
                             'login' => $pure_username,
                             'password' => $this->darkblowlib->password_encrypt($pure_password),
                             'rank' => '31',
@@ -162,28 +162,28 @@ class Encryption extends CI_Controller
                     }
                 case 'banned': {
                         $data['title'] = 'GOD MENU - BANNED';
-                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['players'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level !=' => '-1'))->result_array();
                         $data['content'] = 'main/content/encryption/content/content_banned';
                         $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
                         break;
                     }
                 case 'unbanned': {
                         $data['title'] = 'GOD MENU - UNBANNED';
-                        $data['players'] = $this->db->get_where('accounts', array('access_level' => '-1'))->result_array();
+                        $data['players'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level' => '-1'))->result_array();
                         $data['content'] = 'main/content/encryption/content/content_unbanned';
                         $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
                         break;
                     }
                 case 'addcash': {
                         $data['title'] = 'GOD MENU - ADD CASH';
-                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['players'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level !=' => '-1'))->result_array();
                         $data['content'] = 'main/content/encryption/content/content_addcash';
                         $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
                         break;
                     }
                 case 'add_fullshop': {
                         $data['title'] = 'GOD MENU - ADD FULL SHOP';
-                        $data['players'] = $this->db->get_where('accounts', array('access_level !=' => '-1'))->result_array();
+                        $data['players'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level !=' => '-1'))->result_array();
                         $data['content'] = 'main/content/encryption/content/content_addfullshop';
                         $this->load->view('main/content/encryption/layout/wrapper', $data, FALSE);
                         break;
@@ -214,14 +214,14 @@ class Encryption extends CI_Controller
                 'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
             );
 
-            $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
             if ($query) {
                 if ($query->access_level == '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Banned Permanently.';
                     $this->darkblowmessage->AjaxFlashData($response);
                 } else {
-                    $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
+                    $banned = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '-1'));
                     if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Banned ' . $query->login . '.';
@@ -263,14 +263,14 @@ class Encryption extends CI_Controller
                 'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
             );
 
-            $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
             if ($query) {
                 if ($query->access_level != '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Unbanned Permanently.';
                     $this->darkblowmessage->AjaxFlashData($response);
                 } else {
-                    $banned = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
+                    $banned = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '0'));
                     if ($banned) {
                         $response['token'] = $this->security->get_csrf_hash();
                         if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Unbanned ' . $query->login . '.';
@@ -303,9 +303,9 @@ class Encryption extends CI_Controller
             'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('money' => $this->encryption->decrypt($data['cash_amount'])));
+            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('money' => $this->encryption->decrypt($data['cash_amount'])));
             if ($update) {
                 $response['token'] = $this->security->get_csrf_hash();
                 if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash ' . $query->login . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
@@ -328,9 +328,9 @@ class Encryption extends CI_Controller
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $this->db->where('owner_id', $query->player_id)->delete('player_items');
+            $this->db->where('owner_id', $query->player_id)->delete(Darkblowdatabase::player_items);
 
             $item_list = array(
                 0 => '100003090', // Famas G2 Digital
@@ -498,7 +498,7 @@ class Encryption extends CI_Controller
             $item_count = count($item_list);
 
             for ($i = 0; $i < $item_count - 1; $i++) {
-                $this->db->insert('player_items', array(
+                $this->db->insert(Darkblowdatabase::player_items, array(
                     'owner_id' => $query->player_id,
                     'item_id' => $item_list[$i],
                     'item_name' => $this->darkblowlib->GetItemName($item_list[$i]),
@@ -530,9 +530,9 @@ class Encryption extends CI_Controller
             'failed' => 0,
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $query2 = $this->db->where('owner_id', $query->player_id)->delete('player_items');
+            $query2 = $this->db->where('owner_id', $query->player_id)->delete(Darkblowdatabase::player_items);
             if ($query2) {
                 for ($i = 0; $i < 401; $i++) {
                     if ($int['min'] >= $int['max']) {
@@ -540,9 +540,9 @@ class Encryption extends CI_Controller
                         $response['message'] = 'Successfully Added ' . $state['success'] . ' New Items. Failed: [' . $state['failed'] . ']';
                         $this->darkblowmessage->AjaxFlashData($response);
                     }
-                    $query3 = $this->db->get_where('shop', array('item_id' => $int['min']))->row();
+                    $query3 = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $int['min']))->row();
                     if ($query3) {
-                        $query4 = $this->db->insert('player_items', array(
+                        $query4 = $this->db->insert(Darkblowdatabase::player_items, array(
                             'owner_id' => $query->player_id,
                             'item_id' => $int['min'],
                             'item_name' => 'Reward Item',

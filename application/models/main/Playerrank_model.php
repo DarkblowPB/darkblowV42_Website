@@ -16,12 +16,12 @@ class Playerrank_model extends CI_Model
 
 	function GetClanPerPage($limit, $start)
 	{
-		return $this->db->order_by('exp', 'desc')->where(array('email !=' => 'empty@empty.empty', 'access_level <' => '3', 'access_level !=' => '-1'))->get('accounts', $limit, $start)->result_array();
+		return $this->db->order_by('exp', 'desc')->where(array('email !=' => 'empty@empty.empty', 'access_level <' => '3', 'access_level !=' => '-1'))->get(Darkblowdatabase::accounts, $limit, $start)->result_array();
 	}
 
 	function GetPlayerCount()
 	{
-		return $this->db->get('accounts')->num_rows();
+		return $this->db->get(Darkblowdatabase::accounts)->num_rows();
 	}
 }
 

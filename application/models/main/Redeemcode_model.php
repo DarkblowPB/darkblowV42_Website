@@ -34,9 +34,9 @@ class Redeemcode_model extends CI_Model
 			'player_id' => $this->session->userdata('uid')
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $data['player_id']))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
 		if ($query) {
-			$query2 = $this->db->get_where('item_code', array('item_code' => $data['code']))->row();
+			$query2 = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['code']))->row();
 			if ($query2) {
 				if (time() > $query2->valid_date) {
 					$response['response'] = 'error';
@@ -51,7 +51,7 @@ class Redeemcode_model extends CI_Model
 
 					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
-					$query3 = $this->db->get_where('check_user_itemcode', array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
+					$query3 = $this->db->get_where(Darkblowdatabase::check_user_itemcode, array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
 					if ($query3) {
 						$response['response'] = 'error';
 						$response['token'] = $this->security->get_csrf_hash();
@@ -59,16 +59,16 @@ class Redeemcode_model extends CI_Model
 
 						$this->darkblowmessage->AjaxFlashData($response);
 					} else {
-						$query4 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $query2->item_id))->row();
+						$query4 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $query->player_id, 'item_id' => $query2->item_id))->row();
 						if ($query4) {
 							switch ($query4->equip) {
 								case '1': {
 										$countNow = $query4->count;
 										$addCount = $query2->item_count;
 
-										$update = $this->db->where('object_id', $query4->object_id)->update('player_items', array('count' => ($countNow + $addCount)));
-										$update2 = $this->db->where('id', $query2->id)->update('item_code', array('qty' => ($query2->qty - 1)));
-										$insert = $this->db->insert('check_user_itemcode', array(
+										$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => ($countNow + $addCount)));
+										$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
+										$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
 											'uid' => $query->player_id,
 											'item_code' => $query2->item_code,
 											'username' => $query->login,
@@ -90,7 +90,7 @@ class Redeemcode_model extends CI_Model
 										break;
 									}
 								case '2': {
-										$query5 = $this->db->get_where('shop', array('item_id' => $query2->item_id))->row();
+										$query5 = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $query2->item_id))->row();
 										if ($query5) {
 											switch ($query5->buy_type) {
 												case '0': {
@@ -105,9 +105,9 @@ class Redeemcode_model extends CI_Model
 												case '1': { // unit
 														$countNow = $query4->count;
 														$addCount = $query2->item_count;
-														$update = $this->db->where('object_id', $query4->object_id)->update('player_items', array('count' => ($countNow + $addCount)));
-														$update2 = $this->db->where('id', $query2->id)->update('item_code', array('qty' => ($query2->qty - 1)));
-														$insert = $this->db->insert('check_user_itemcode', array(
+														$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => ($countNow + $addCount)));
+														$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
+														$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
 															'uid' => $query->player_id,
 															'item_code' => $query2->item_code,
 															'username' => $query->login,
@@ -136,9 +136,9 @@ class Redeemcode_model extends CI_Model
 														$timeSecond = strtotime('+' . $addDays . 'day', $timeFirst);
 														$fixDate = date('ymdHi', $timeSecond);
 
-														$update = $this->db->where('object_id', $query4->object_id)->update('player_items', array('count' => $fixDate));
-														$update2 = $this->db->where('id', $query2->id)->update('item_code', array('qty' => ($query2->qty - 1)));
-														$insert = $this->db->insert('check_user_itemcode', array(
+														$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => $fixDate));
+														$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
+														$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
 															'uid' => $query->player_id,
 															'item_code' => $query2->item_code,
 															'username' => $query->login,
@@ -194,7 +194,7 @@ class Redeemcode_model extends CI_Model
 									}
 							}
 						} else {
-							$insert = $this->db->insert('player_items', array(
+							$insert = $this->db->insert(Darkblowdatabase::player_items, array(
 								'owner_id' => $query->player_id,
 								'item_id' => $query2->item_id,
 								'item_name' => $this->darkblowlib->GetItemName($query2->item_id),
@@ -202,13 +202,13 @@ class Redeemcode_model extends CI_Model
 								'category' => $this->darkblowlib->GetItemCategory($query2->item_id),
 								'equip' => '1'
 							));
-							$insert2 = $this->db->insert('check_user_itemcode', array(
+							$insert2 = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
 								'uid' => $query->player_id,
 								'item_code' => $query2->item_code,
 								'username' => $query->login,
 								'date_redeemed' => time()
 							));
-							$update = $this->db->where('id', $query2->id)->update('item_code', array('qty' => ($query2->qty - 1)));
+							$update = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
 
 							if ($insert && $insert2 && $update) {
 								$response['response'] = 'success';

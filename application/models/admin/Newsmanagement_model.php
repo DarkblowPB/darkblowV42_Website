@@ -16,12 +16,12 @@ class Newsmanagement_model extends CI_Model
 
     function GetAllNews()
     {
-        return $this->db->order_by('id', 'desc')->get('web_quickslide')->result_array();
+        return $this->db->order_by('id', 'desc')->get(Darkblowdatabase::web_quickslide)->result_array();
     }
 
     function GetDetails($news_id)
     {
-        $query = $this->db->get_where('web_quickslide', array('id' => $news_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $news_id))->row();
         if ($query) return $query;
         else redirect(base_url('adm/newsmanagement'), 'refresh');
     }
@@ -51,7 +51,7 @@ class Newsmanagement_model extends CI_Model
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload('quickslide_image')) {
-                $insert = $this->db->insert('web_quickslide', $data);
+                $insert = $this->db->insert(Darkblowdatabase::web_quickslide, $data);
                 if ($insert) {
                     $response['response'] = 'success';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -68,7 +68,7 @@ class Newsmanagement_model extends CI_Model
             } else {
                 $data['quickslide_img'] = $this->upload->data()['file_name'];
 
-                $insert = $this->db->insert('web_quickslide', $data);
+                $insert = $this->db->insert(Darkblowdatabase::web_quickslide, $data);
                 if ($insert) {
                     $response['response'] = 'success';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -113,9 +113,9 @@ class Newsmanagement_model extends CI_Model
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload('quickslide_image')) {
-                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
+                $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $id))->row();
                 if ($query) {
-                    $update = $this->db->where('id', $query->id)->update('web_quickslide', $data);
+                    $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_quickslide, $data);
                     if ($update) {
                         $response['response'] = 'success';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -132,13 +132,13 @@ class Newsmanagement_model extends CI_Model
                 }
             } else {
                 $data['quickslide_img'] = $this->upload->data()['file_name'];
-                $query = $this->db->get_where('web_quickslide', array('id' => $id))->row();
+                $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $id))->row();
                 if ($query) {
                     if ($query->quickslide_img != null) {
                         if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
                     }
 
-                    $update = $this->db->where('id', $query->id)->update('web_quickslide', $data);
+                    $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_quickslide, $data);
                     if ($update) {
                         $response['response'] = 'success';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -165,12 +165,12 @@ class Newsmanagement_model extends CI_Model
             'news_id' => $this->encryption->encrypt($this->input->post('news_id', true))
         );
 
-        $query = $this->db->get_where('web_quickslide', array('id' => $this->encryption->decrypt($data['news_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $this->encryption->decrypt($data['news_id'])))->row();
         if ($query) {
             if ($query->quickslide_img != null) {
                 if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
             }
-            $query2 = $this->db->where('id', $query->id)->delete('web_quickslide');
+            $query2 = $this->db->where('id', $query->id)->delete(Darkblowdatabase::web_quickslide);
             if ($query2) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();

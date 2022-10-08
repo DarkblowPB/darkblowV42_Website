@@ -16,12 +16,12 @@ class Eventsregister_model extends CI_Model
 
     function GetEvents()
     {
-        return $this->db->get_where('events_register', array('id' => '1'))->row();
+        return $this->db->get_where(Darkblowdatabase::events_register, array('id' => '1'))->row();
     }
 
     function GetItemName($item_id)
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
         if ($query) return $query->item_name;
         else return "";
     }
@@ -44,7 +44,7 @@ class Eventsregister_model extends CI_Model
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function UpdateEventsState()
@@ -52,7 +52,7 @@ class Eventsregister_model extends CI_Model
         $response = array();
 
         if ($this->GetEvents()->is_active == 'f') {
-            $query = $this->db->where('id', '1')->update('events_register', array('is_active' => 't'));
+            $query = $this->db->where('id', '1')->update(Darkblowdatabase::events_register, array('is_active' => 't'));
             if ($query) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -65,7 +65,7 @@ class Eventsregister_model extends CI_Model
                 $response['message'] = 'Failed To Enable The Events.';
             }
         } else {
-            $query = $this->db->where('id', '1')->update('events_register', array('is_active' => 'f'));
+            $query = $this->db->where('id', '1')->update(Darkblowdatabase::events_register, array('is_active' => 'f'));
             if ($query) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -90,7 +90,7 @@ class Eventsregister_model extends CI_Model
             'stock' => $this->encryption->encrypt($this->input->post('stock', true))
         );
 
-        $update = $this->db->update('events_register', array(
+        $update = $this->db->update(Darkblowdatabase::events_register, array(
             'item_id' => $this->encryption->decrypt($data['item_id']),
             'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
             'item_category' => $this->GetItemCategory2($this->encryption->decrypt($data['item_id'])),

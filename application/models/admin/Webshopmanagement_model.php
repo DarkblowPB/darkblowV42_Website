@@ -16,7 +16,7 @@ class Webshopmanagement_model extends CI_Model
 
     function GetAllWebshopData()
     {
-        return $this->db->order_by('id', 'desc')->get('webshop')->result_array();
+        return $this->db->order_by('id', 'desc')->get(Darkblowdatabase::webshop)->result_array();
     }
 }
 

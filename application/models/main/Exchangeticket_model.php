@@ -17,7 +17,7 @@ class Exchangeticket_model extends CI_Model
     function GetTicketID($p_id, $ticket_id)
     {
         // Check Player Ticket
-        $query_ticket = $this->db->get_where('player_items', array('owner_id' => $p_id, 'item_id' => $ticket_id));
+        $query_ticket = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $p_id, 'item_id' => $ticket_id));
         $ticket = $query_ticket->row();
         if ($ticket) return $ticket->count;
         else return "0";
@@ -25,7 +25,7 @@ class Exchangeticket_model extends CI_Model
 
     function ticket($ticket_id)
     {
-        $query_ticket = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $ticket_id));
+        $query_ticket = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $this->session->userdata('uid'), 'item_id' => $ticket_id));
         $ticket = $query_ticket->row();
         if ($ticket) return $ticket->item_id;
         else return "0";
@@ -33,12 +33,12 @@ class Exchangeticket_model extends CI_Model
 
     function GetAllItems()
     {
-        return $this->db->get_where('web_exchangeticket', array('visible' => 't'))->result_array();
+        return $this->db->get_where(Darkblowdatabase::web_exchangeticket, array('visible' => 't'))->result_array();
     }
 
     function check_item_status($item_id)
     {
-        $query_check = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $item_id));
+        $query_check = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $this->session->userdata('uid'), 'item_id' => $item_id));
         $check = $query_check->row();
         if ($check) return "Already Own";
         else return "Not Own";

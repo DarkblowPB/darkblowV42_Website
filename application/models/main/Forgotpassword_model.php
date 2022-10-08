@@ -24,7 +24,7 @@ class Forgotpassword_model extends CI_Model
             'email' => $this->input->post('email', true)
         );
 
-        $query = $this->db->get_where('accounts', array('email' => $data['email']))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('email' => $data['email']))->row();
         if ($query) {
 
             // Required Data
@@ -37,7 +37,7 @@ class Forgotpassword_model extends CI_Model
                         Copyright ' . $this->darkblowsettings->load()->project_name . ' ' . date('Y') . '. All Rights Reserved.';
 
             if ($this->querylib->SendEmail('no-reply@' . $this->darkblowsettings->load()->project_name . '.com', $query->email, 'Reset Password', $message)) {
-                $this->db->insert('web_log_forgotpassword', array(
+                $this->db->insert(Darkblowdatabase::web_log_forgotpassword, array(
                     'email' => $query->email,
                     'secret_token' => $token,
                     'valid_date' => $expired_date,
@@ -68,7 +68,7 @@ class Forgotpassword_model extends CI_Model
 
     function VerifyToken($param)
     {
-        $query = $this->db->get_where('web_log_forgotpassword', array('secret_token' => $param))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_log_forgotpassword, array('secret_token' => $param))->row();
         if ($query) {
             if (time() < $query->valid_date) {
                 switch ($query->status) {
@@ -90,19 +90,19 @@ class Forgotpassword_model extends CI_Model
             'confirm_password' => $this->darkblowlib->password_encrypt($this->input->post('confirm_password', true))
         );
 
-        $query = $this->db->get_where('web_log_forgotpassword', array(
+        $query = $this->db->get_where(Darkblowdatabase::web_log_forgotpassword, array(
             'secret_token' => $data['secret_token']
         ))->row();
         if ($query) {
             if (time() < $query->valid_date) {
                 switch ($query->status) {
                     case 1: {
-                            $query2 = $this->db->get_where('accounts', array('email' => $query->email))->row();
+                            $query2 = $this->db->get_where(Darkblowdatabase::accounts, array('email' => $query->email))->row();
                             if ($query2) {
-                                $update = $this->db->where('player_id', $query2->player_id)->update('accounts', array(
+                                $update = $this->db->where('player_id', $query2->player_id)->update(Darkblowdatabase::accounts, array(
                                     'password' => $data['password']
                                 ));
-                                $update2 = $this->db->where('id', $query->id)->update('web_log_forgotpassword', array('status' => '0'));
+                                $update2 = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_log_forgotpassword, array('status' => '0'));
 
                                 if ($update && $update2) echo "<script>alert('Password Successfully Reseted.') window.location='" . base_url('login') . "'</script>";
                             } else redirect(base_url(), 'refresh');

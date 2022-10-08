@@ -16,22 +16,22 @@ class Clanrank_model extends CI_Model
 
 	function GetClanPerPage($limit, $start)
 	{
-		return $this->db->order_by('clan_exp', 'desc')->get('clan_data', $limit, $start)->result_array();
+		return $this->db->order_by('clan_exp', 'desc')->get(Darkblowdatabase::clan_data, $limit, $start)->result_array();
 	}
 
 	function GetClanCount()
 	{
-		return $this->db->get('clan_data')->num_rows();
+		return $this->db->get(Darkblowdatabase::clan_data)->num_rows();
 	}
 
 	function GetTotalMemberEachClan($clan_id)
 	{
-		return $this->db->get_where('accounts', array('clan_id' => $clan_id))->num_rows();
+		return $this->db->get_where(Darkblowdatabase::accounts, array('clan_id' => $clan_id))->num_rows();
 	}
 
 	function GetTotalClanMemberCapacity($clan_id)
 	{
-		$query = $this->db->get_where('clan_data', array('clan_id' => $clan_id))->row();
+		$query = $this->db->get_where(Darkblowdatabase::clan_data, array('clan_id' => $clan_id))->row();
 		if ($query) return $query->max_players;
 		else return 0;
 	}

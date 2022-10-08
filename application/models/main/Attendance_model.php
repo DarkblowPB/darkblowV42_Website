@@ -16,19 +16,19 @@ class Attendance_model extends CI_Model
 
     function GetAttendData()
     {
-        return $this->db->order_by('id', 'asc')->get('events_attendance')->result_array();
+        return $this->db->order_by('id', 'asc')->get(Darkblowdatabase::events_attendance)->result_array();
     }
 
     function GetPlayerAttendDate($event_id)
     {
-        $query = $this->db->get_where('check_user_attendance', array('player_id' => $this->session->userdata('uid'), 'event_id' => $event_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::check_user_attendance, array('player_id' => $this->session->userdata('uid'), 'event_id' => $event_id))->row();
         if ($query) return TRUE;
         else return FALSE;
     }
 
     function GetTodayEventID()
     {
-        $query = $this->db->get_where('events_attendance', array('date' => date('d-m-Y')))->row();
+        $query = $this->db->get_where(Darkblowdatabase::events_attendance, array('date' => date('d-m-Y')))->row();
         if ($query) return $query->id;
         else return "0";
     }

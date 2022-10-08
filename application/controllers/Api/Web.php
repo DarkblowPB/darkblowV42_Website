@@ -31,7 +31,7 @@ class Web extends RestController
             );
 
             // Register Function
-            $query = $this->db->insert('accounts', array(
+            $query = $this->db->insert(Darkblowdatabase::accounts, array(
                 'login' => $data['login'],
                 'password' => $data['password'],
                 'email' => $data['email'],
@@ -40,15 +40,15 @@ class Web extends RestController
             ));
             if ($query) {
                 // Fetch Account
-                $query2 = $this->db->get_where('accounts', array('login' => $data['login']))->row();
+                $query2 = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $data['login']))->row();
                 if ($query2) {
                     // Fetch Register Events
-                    $query3 = $this->db->get_where('events_register', array('is_active' => 't'))->row();
+                    $query3 = $this->db->get_where(Darkblowdatabase::events_register, array('is_active' => 't'))->row();
                     if ($query3) {
                         // Check & Insert Events Item
                         if ($query3) {
                             if ($query3->stock >= 1) {
-                                $query4 = $this->db->insert('player_items', array(
+                                $query4 = $this->db->insert(Darkblowdatabase::player_items, array(
                                     'owner_id' => $query2->player_id,
                                     'item_id' => $query3->item_id,
                                     'item_name' => $this->darkblowlib->GetItemName($query3->item_id),
@@ -56,7 +56,7 @@ class Web extends RestController
                                     'category' => $this->darkblowlib->GetItemCategory($query3->item_id),
                                     'equip' => '1'
                                 ));
-                                $query5 = $this->db->where('id', $query3->id)->update('events_register', array('stock' => ($query3->stock - 1)));
+                                $query5 = $this->db->where('id', $query3->id)->update(Darkblowdatabase::events_register, array('stock' => ($query3->stock - 1)));
                                 if ($query4 && $query5) {
                                     $response['response'] = 'success';
                                     $response['token'] = $this->security->get_csrf_hash();

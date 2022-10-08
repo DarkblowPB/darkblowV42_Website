@@ -16,7 +16,7 @@ class Settings_model extends CI_Model
 
     function GetAllSettings()
     {
-        return $this->db->get_where('web_settings', array('id' => '1'))->row();
+        return $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
     }
 
     function SetCondition()
@@ -29,9 +29,9 @@ class Settings_model extends CI_Model
 
         $response = array();
 
-        $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
-            $update = $this->db->where('id', $query->id)->update('web_settings', array(
+            $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
                 'server_condition' => $this->encryption->decrypt($data['server_condition']),
                 'website_condition' => $this->encryption->decrypt($data['website_condition'])
             ));
@@ -69,9 +69,9 @@ class Settings_model extends CI_Model
             'discord_embed_link' => $this->encryption->encrypt($this->input->post('discord_embed_link', true))
         );
 
-        $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
-            $update = $this->db->where('id', $query->id)->update('web_settings', array(
+            $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
                 'project_name' => $this->encryption->decrypt($data['project_name']),
                 'meta_author' => $this->encryption->decrypt($data['meta_author']),
                 'meta_description' => $this->encryption->decrypt($data['meta_description']),
@@ -116,9 +116,9 @@ class Settings_model extends CI_Model
         if ($this->upload->do_upload('project_logo')) {
             $fileData = $this->upload->data();
 
-            $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+            $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
             if ($query) {
-                $update = $this->db->where('id', $query->id)->update('web_settings', array(
+                $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
                     'project_logo' => $fileData['file_name']
                 ));
                 if ($update) $this->SetImage2();
@@ -160,9 +160,9 @@ class Settings_model extends CI_Model
         if ($this->upload->do_upload('project_icon')) {
             $fileData = $this->upload->data();
 
-            $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+            $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
             if ($query) {
-                $update = $this->db->where('id', $query->id)->update('web_settings', array(
+                $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
                     'project_icon' => $fileData['file_name']
                 ));
                 if ($update) {
@@ -205,9 +205,9 @@ class Settings_model extends CI_Model
 
         $response = array();
 
-        $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
-            $update = $this->db->where('id', $query->id)->update('web_settings', array(
+            $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
                 'webshop' => $this->encryption->decrypt($data['enable_webshop']),
                 'trade_market' => $this->encryption->decrypt($data['enable_trademarket']),
                 'exchange_ticket' => $this->encryption->decrypt($data['enable_exchangeticket']),
@@ -251,9 +251,9 @@ class Settings_model extends CI_Model
             'youtube_embed_link' => $this->input->post('youtube_embed_link', true)
         );
 
-        $query = $this->db->get_where('web_settings', array('id' => '1'))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
-            $update = $this->db->where('id', $query->id)->update('web_settings', $data);
+            $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, $data);
             if ($update) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();

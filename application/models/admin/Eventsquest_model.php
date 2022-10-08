@@ -23,9 +23,9 @@ class Eventsquest_model extends CI_Model
             'end_date' => $this->encryption->encrypt($this->input->post('end_date', true))
         );
 
-        $query = $this->db->get('events_quest')->num_rows();
+        $query = $this->db->get(Darkblowdatabase::events_quest)->num_rows();
         if ($query == 0) {
-            $insert = $this->db->insert('events_quest', array(
+            $insert = $this->db->insert(Darkblowdatabase::events_quest, array(
                 'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
                     $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
                     $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
@@ -51,7 +51,7 @@ class Eventsquest_model extends CI_Model
                 $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
-            $update = $this->db->update('events_quest', array(
+            $update = $this->db->update(Darkblowdatabase::events_quest, array(
                 'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] .
                     $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] .
                     $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] .
@@ -81,7 +81,7 @@ class Eventsquest_model extends CI_Model
 
     function GetEvents()
     {
-        return $this->db->get('events_quest')->result_array();
+        return $this->db->get(Darkblowdatabase::events_quest)->result_array();
     }
 
     function DeleteEvents()
@@ -92,7 +92,7 @@ class Eventsquest_model extends CI_Model
             'start_date' => $this->encryption->encrypt($this->input->post('start_date', true))
         );
 
-        $query = $this->db->where('start_date', $this->encryption->decrypt($data['start_date']))->delete('events_quest');
+        $query = $this->db->where('start_date', $this->encryption->decrypt($data['start_date']))->delete(Darkblowdatabase::events_quest);
         if ($query) {
             $response['response'] = 'true';
             $response['token'] = $this->security->get_csrf_hash();

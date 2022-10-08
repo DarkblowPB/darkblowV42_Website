@@ -22,7 +22,7 @@ class Players extends RestController
         $response = array();
 
         if ($player_id == null) {
-            $query = $this->db->get('accounts')->result();
+            $query = $this->db->get(Darkblowdatabase::accounts)->result();
             if ($query) {
                 $response['status'] = 'Success';
                 $response['data'] = $query;
@@ -33,7 +33,7 @@ class Players extends RestController
                 $this->response($response, 200);
             }
         } else {
-            $query = $this->db->get_where('accounts', array('player_id' => $player_id))->result();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->result();
             if ($query) {
                 $response['status'] = 'Success';
                 $response['data'] = $query;
@@ -55,7 +55,7 @@ class Players extends RestController
             $response['data'] = '';
             $this->response($response, 200);
         } else {
-            $query = $this->db->get_where('accounts', array(
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array(
                 'login' => $username
             ))->result();
             if ($query) {
@@ -84,7 +84,7 @@ class Players extends RestController
         if ($this->input->is_ajax_request()) {
             $response = array();
 
-            $response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email !=' => 'empty@empty.empty', 'online' => 't'))->num_rows();
+            $response['response'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level <' => '3', 'email !=' => 'empty@empty.empty', 'online' => 't'))->num_rows();
             $this->darkblowmessage->AjaxFlashData($response);
         } else return;
     }
@@ -94,7 +94,7 @@ class Players extends RestController
         if ($this->input->is_ajax_request()) {
             $response = array();
 
-            $response['response'] = $this->db->get_where('accounts', array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->num_rows();
+            $response['response'] = $this->db->get_where(Darkblowdatabase::accounts, array('access_level <' => '3', 'email != ' => 'empty@empty.empty'))->num_rows();
             $this->darkblowmessage->AjaxFlashData($response);
         } else return;
     }

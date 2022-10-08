@@ -67,7 +67,7 @@ class Querylib
      */
     public function InsertItem(int $player_id, int $item_id, string $item_name, int $count, int $category, int $equip)
     {
-        $query = $this->ci->db->insert('player_items', array(
+        $query = $this->ci->db->insert(Darkblowdatabase::player_items, array(
             'owner_id' => $player_id,
             'item_id' => $item_id,
             'item_name' => $item_name,
@@ -90,7 +90,7 @@ class Querylib
      */
     public function DeleteItem(int $player_id, int $item_id)
     {
-        $query = $this->ci->db->where(array('owner_id' => $player_id, 'item_id' => $item_id))->delete('player_items');
+        $query = $this->ci->db->where(array('owner_id' => $player_id, 'item_id' => $item_id))->delete(Darkblowdatabase::player_items);
         if ($query) return TRUE;
         else return FALSE;
     }
@@ -105,12 +105,12 @@ class Querylib
      */
     public function InsertCash(int $player_id, int $amount)
     {
-        $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
+        $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
         if ($query) {
             $base_cash = $query->money;
             $total_cash = $base_cash + $amount;
 
-            $update = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('money' => $total_cash));
+            $update = $this->ci->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('money' => $total_cash));
             if ($update) return TRUE;
             else return FALSE;
         } else return FALSE;
@@ -126,9 +126,9 @@ class Querylib
      */
     public function BannedPlayer(int $player_id)
     {
-        $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
+        $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
         if ($query) {
-            $banned = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
+            $banned = $this->ci->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '-1'));
             if ($banned) return TRUE;
             else return FALSE;
         } else return FALSE;
@@ -144,9 +144,9 @@ class Querylib
      */
     public function UnbannedPlayer(int $player_id)
     {
-        $query = $this->ci->db->get_where('accounts', array('player_id' => $player_id))->row();
+        $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
         if ($query) {
-            $banned = $this->ci->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
+            $banned = $this->ci->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '0'));
             if ($banned) return TRUE;
             else return FALSE;
         } else return FALSE;
@@ -162,7 +162,7 @@ class Querylib
      */
     public function ClearNoActivityPlayer()
     {
-        $query = $this->ci->db->delete('accounts', array('last_login' => '0'));
+        $query = $this->ci->db->delete(Darkblowdatabase::accounts, array('last_login' => '0'));
         if ($query) return TRUE;
         else return FALSE;
     }
@@ -205,7 +205,7 @@ class Querylib
     {
         $response = array();
 
-        $query = $this->ci->db->update('accounts', array('access_level' => '-1'));
+        $query = $this->ci->db->update(Darkblowdatabase::accounts, array('access_level' => '-1'));
         if ($query) {
             $response['response'] = 'Success';
             $response['token'] = $this->ci->security->get_csrf_hash();

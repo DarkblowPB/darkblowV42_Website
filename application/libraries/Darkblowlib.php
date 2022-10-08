@@ -69,7 +69,7 @@ class Darkblowlib
 
 	public function GetItemName($item_id)
 	{
-		$query = $this->ci->db->get_where('shop', array('item_id' => $item_id))->row();
+		$query = $this->ci->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
 		if ($query) return $query->item_name;
 		else return "";
 	}
@@ -83,7 +83,7 @@ class Darkblowlib
 
 	public function GetBuyType($item_id)
 	{
-		$query = $this->ci->db->get_where('shop', array('item_id' => $item_id))->row();
+		$query = $this->ci->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
 		if ($query) return $query->buy_type;
 		else return 0;
 	}
@@ -126,7 +126,7 @@ class Darkblowlib
 
 	public function GetItemRewardList()
 	{
-		return $this->ci->db->order_by('item_id', 'asc')->get_where('shop', array('buy_type =' => '2'))->result_array();
+		return $this->ci->db->order_by('item_id', 'asc')->get_where(Darkblowdatabase::shop, array('buy_type =' => '2'))->result_array();
 	}
 
 	public function GetItemDurationList($type, $days, $totaldays)
@@ -242,8 +242,8 @@ class Darkblowlib
 
 		$newtoken .= $this->GenerateRandomToken();
 
-		if ($this->ci->db->get('web_tokenkey')->num_rows() == 0) {
-			$insert = $this->ci->db->insert('web_tokenkey', array(
+		if ($this->ci->db->get(Darkblowdatabase::web_tokenkey)->num_rows() == 0) {
+			$insert = $this->ci->db->insert(Darkblowdatabase::web_tokenkey, array(
 				'token' => $newtoken,
 				'is_valid' => '1'
 			));
@@ -251,7 +251,7 @@ class Darkblowlib
 			if ($insert) return $newtoken;
 			else return "invalidtoken";
 		} else {
-			$query = $this->ci->db->order_by('id', 'desc')->limit(1)->get_where('web_tokenkey', array('is_valid' => '1'))->row();
+			$query = $this->ci->db->order_by('id', 'desc')->limit(1)->get_where(Darkblowdatabase::web_tokenkey, array('is_valid' => '1'))->row();
 			if ($query) return $query->token;
 			else return "invalidtoken";
 		}
@@ -291,12 +291,12 @@ class Darkblowlib
 				'visited_page' => $page
 			);
 
-			$query = $this->ci->db->get_where('web_log_general', array('ip_address' => $data['ip_address'], 'visited_page' => $data['visited_page']))->row();
+			$query = $this->ci->db->get_where(Darkblowdatabase::web_log_general, array('ip_address' => $data['ip_address'], 'visited_page' => $data['visited_page']))->row();
 			if ($query) {
 				$count = $query->total_visit + 1;
-				$this->ci->db->where(array('ip_address' => $query->ip_address, 'visited_page' => $query->visited_page))->update('web_log_general', array('total_visit' => ($count), 'last_visit' => date('d-m-Y h:i:s')));
+				$this->ci->db->where(array('ip_address' => $query->ip_address, 'visited_page' => $query->visited_page))->update(Darkblowdatabase::web_log_general, array('total_visit' => ($count), 'last_visit' => date('d-m-Y h:i:s')));
 			} else {
-				$this->ci->db->insert('web_log_general', array(
+				$this->ci->db->insert(Darkblowdatabase::web_log_general, array(
 					'operating_system' => $data['operating_system'],
 					'browser' => $data['browser'],
 					'ip_address' => $data['ip_address'],
@@ -306,30 +306,6 @@ class Darkblowlib
 				));
 			}
 		}
-	}
-
-	/**
-	 * Get Visitor Action
-	 * 
-	 * When Users Execute A Function, System Will Printed Into Database.
-	 * 
-	 * @param string
-	 * @return void
-	 * @copyright Darkblow Studio
-	 */
-	public function GetVisitorAction($action)
-	{
-		$data = array(
-			'operating_system' => $this->ci->agent->platform(),
-			'browser' => $this->ci->agent->browser() . ' ' . $this->ci->agent->version(),
-			'ip_address' => $this->ci->input->ip_address(),
-			'visited_page' => '-',
-			'actions' => $action,
-			'total_visit' => '0',
-			'last_visit' => date('d-m-Y h:i:s')
-		);
-
-		$this->db->insert('web_log', $data);
 	}
 
 	/**
@@ -430,7 +406,7 @@ class Darkblowlib
 	public function FeatureControl($page = null, $redirect_page = '')
 	{
 		if ($page == null) redirect(base_url('home'), 'refresh');
-		$query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
+		$query = $this->ci->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
 		if ($query) {
 			switch ($page) {
 				case 'webshop': {
@@ -512,7 +488,7 @@ class Darkblowlib
 	{
 		if ($keys == null) return FALSE;
 		else {
-			$query = $this->ci->db->get_where('web_settings', array('id' => '1'))->row();
+			$query = $this->ci->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
 			if ($query) {
 				if ($keys != $query->api_authorization_key) return FALSE;
 				else return TRUE;

@@ -28,7 +28,7 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
 		if ($query) {
 			if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
 				$response['response'] = 'false';
@@ -37,7 +37,7 @@ class Changepassword_model extends CI_Model
 
 				$this->darkblowmessage->AjaxFlashData($response);
 			} else {
-				$update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
+				$update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array(
 					'password' => $this->encryption->decrypt($data['new_password'])
 				));
 
@@ -86,7 +86,7 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer'))
 		);
 
-		$query = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
 		if ($query) {
 			if ($this->encryption->decrypt($data['new_password']) == $query->password) {
 				// If New Password Same Like Old Password
@@ -109,7 +109,7 @@ class Changepassword_model extends CI_Model
 					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
 					// Update Password
-					$update = $this->db->where('player_id', $this->session->userdata('uid'))->update('accounts', array('password' => $this->encryption->decrypt($data['new_password'])));
+					$update = $this->db->where('player_id', $this->session->userdata('uid'))->update(Darkblowdatabase::accounts, array('password' => $this->encryption->decrypt($data['new_password'])));
 					if ($update) {
 						// If Successfully Update Password
 						$response['response'] = 'true';

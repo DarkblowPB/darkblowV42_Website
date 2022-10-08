@@ -174,7 +174,7 @@ class Playersmanagement_model extends CI_Model
     function ResetPasswordPlayers($id)
     {
         $response = array();
-        $query = $this->db->get_where('accounts', array('player_id' => $id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $id))->row();
         if ($query) {
             if ($query->access_level == -1) {
                 $response['response'] = 'false';
@@ -189,14 +189,14 @@ class Playersmanagement_model extends CI_Model
 
     function GetItemName($item_id)
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
         if ($query) return $query->item_name;
         else return "???";
     }
 
     function GetAllShop()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function SendItem()
@@ -209,9 +209,9 @@ class Playersmanagement_model extends CI_Model
             'item_count' => $this->encryption->encrypt($this->input->post('item_count', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $query2 = $this->db->get_where('player_items', array('owner_id' => $query->player_id, 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+            $query2 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $query->player_id, 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
             if ($query2) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -220,7 +220,7 @@ class Playersmanagement_model extends CI_Model
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 if ($this->encryption->decrypt($data['item_count']) != '1') {
-                    $query3 = $this->db->insert('player_items', array(
+                    $query3 = $this->db->insert(Darkblowdatabase::player_items, array(
                         'owner_id' => $query->player_id,
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
@@ -243,7 +243,7 @@ class Playersmanagement_model extends CI_Model
                         $this->darkblowmessage->AjaxFlashData($response);
                     }
                 } else {
-                    $query3 = $this->db->insert('player_items', array(
+                    $query3 = $this->db->insert(Darkblowdatabase::player_items, array(
                         'owner_id' => $query->player_id,
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
@@ -278,17 +278,17 @@ class Playersmanagement_model extends CI_Model
 
     function GetAllPlayers2()
     {
-        return $this->db->get('accounts')->result_array();
+        return $this->db->get(Darkblowdatabase::accounts)->result_array();
     }
 
     function GetAllPlayers()
     {
-        return $this->db->get_where('accounts', array('email !=' => 'empty@empty.empty', 'access_level <' => '3'))->result_array();
+        return $this->db->get_where(Darkblowdatabase::accounts, array('email !=' => 'empty@empty.empty', 'access_level <' => '3'))->result_array();
     }
 
     function GetRankInfo()
     {
-        return $this->db->order_by('id', 'asc')->get('web_rankinfo')->result_array();
+        return $this->db->order_by('id', 'asc')->get(Darkblowdatabase::web_rankinfo)->result_array();
     }
 
     function RegisterCustomPlayer()
@@ -306,7 +306,7 @@ class Playersmanagement_model extends CI_Model
             'money' => $this->encryption->encrypt($this->input->post('money', true))
         );
 
-        $query = $this->db->insert('accounts', array(
+        $query = $this->db->insert(Darkblowdatabase::accounts, array(
             'login' => $this->encryption->decrypt($data['login']),
             'password' => $this->encryption->decrypt($data['password']),
             'player_name' => $this->encryption->decrypt($data['player_name']),
@@ -347,7 +347,7 @@ class Playersmanagement_model extends CI_Model
             'date_registered' => time()
         );
 
-        $query = $this->db->insert('accounts', $data);
+        $query = $this->db->insert(Darkblowdatabase::accounts, $data);
         if ($query) {
             $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
@@ -372,14 +372,14 @@ class Playersmanagement_model extends CI_Model
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
             if ($query->player_name == "[DEV] EyeTracker") {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete This Player.';
             } else {
-                $delete = $this->db->where('player_id', $query->player_id)->delete('accounts');
+                $delete = $this->db->where('player_id', $query->player_id)->delete(Darkblowdatabase::accounts);
                 if ($delete) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -427,9 +427,9 @@ class Playersmanagement_model extends CI_Model
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', $defaultData);
+            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, $defaultData);
             if ($update) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -458,7 +458,7 @@ class Playersmanagement_model extends CI_Model
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
             if ($query->access_level != '-1') {
                 $response['response'] = 'false';
@@ -466,7 +466,7 @@ class Playersmanagement_model extends CI_Model
                 $response['message'] = 'This Player Not In Banned Condition.';
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '0'));
+                $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '0'));
                 if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -496,7 +496,7 @@ class Playersmanagement_model extends CI_Model
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
             if ($query->access_level == '-1') {
                 $response['response'] = 'false';
@@ -504,7 +504,7 @@ class Playersmanagement_model extends CI_Model
                 $response['message'] = 'This Player Already In Banned Condition.';
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $update = $this->db->where('player_id', $query->player_id)->update('accounts', array('access_level' => '-1'));
+                $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('access_level' => '-1'));
                 if ($update) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -534,9 +534,9 @@ class Playersmanagement_model extends CI_Model
             'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
         );
 
-        $query = $this->db->get_where('accounts', array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
         if ($query) {
-            $update = $this->db->where('player_id', $query->player_id)->update('accounts', array(
+            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array(
                 'weapon_primary' => '100003004',
                 'weapon_secondary' => '601002003',
                 'weapon_melee' => '702001001',
@@ -569,14 +569,14 @@ class Playersmanagement_model extends CI_Model
 
     function GetWeaponName($item_id)
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
         if ($query) return $query->item_name;
         else return "";
     }
 
     function GetSpecifiedPlayer($player_id)
     {
-        $query = $this->db->get_where('accounts', array('player_id' => $player_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
         if ($query) return $query;
         else redirect(base_url('adm/playersmanagement'), 'refresh');
     }

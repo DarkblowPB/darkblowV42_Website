@@ -16,12 +16,12 @@ class Eventsattendance_model extends CI_Model
 
     function GetAttendanceData()
     {
-        return $this->db->get('events_attendance')->result_array();
+        return $this->db->get(Darkblowdatabase::events_attendance)->result_array();
     }
 
     function GetRewardItemList()
     {
-        return $this->db->where('buy_type', '2')->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->where('buy_type', '2')->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function DeleteEvents()
@@ -32,9 +32,9 @@ class Eventsattendance_model extends CI_Model
             'event_id' => $this->encryption->encrypt($this->input->post('event_id', true))
         );
 
-        $query = $this->db->get_where('events_attendance', array('id' => $this->encryption->decrypt($data['event_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::events_attendance, array('id' => $this->encryption->decrypt($data['event_id'])))->row();
         if ($query) {
-            $delete = $this->db->where('id', $query->id)->delete('events_attendance');
+            $delete = $this->db->where('id', $query->id)->delete(Darkblowdatabase::events_attendance);
             if ($delete) {
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -85,7 +85,7 @@ class Eventsattendance_model extends CI_Model
         );
 
         for ($i = 1; $i <= 7; $i++) {
-            $query = $this->db->insert('events_attendance', array(
+            $query = $this->db->insert(Darkblowdatabase::events_attendance, array(
                 'day' => $i,
                 'item_id' => $this->encryption->decrypt($data[$i]),
                 'item_name' => $this->darkblowlib->GetItemName($this->encryption->decrypt($data[$i])),
@@ -126,7 +126,7 @@ class Eventsattendance_model extends CI_Model
         );
 
         for ($i = 0; $i < count($data) - 1; $i++) {
-            $query = $this->db->insert('events_attendance', array(
+            $query = $this->db->insert(Darkblowdatabase::events_attendance, array(
                 'day' => ++$num,
                 'item_id' => $data[$i],
                 'item_name' => $this->darkblowlib->GetItemName($data[$i]),
@@ -174,7 +174,7 @@ class Eventsattendance_model extends CI_Model
         );
 
         for ($i = 0; $i < count($data) - 1; $i++) {
-            $query = $this->db->insert('events_attendance', array(
+            $query = $this->db->insert(Darkblowdatabase::events_attendance, array(
                 'day' => ++$num,
                 'item_id' => $data[$i],
                 'item_name' => $this->darkblowlib->GetItemName($data[$i]),
@@ -198,8 +198,8 @@ class Eventsattendance_model extends CI_Model
         $response = array();
 
         $query = array(
-            0 => $this->db->truncate('events_attendance'),
-            1 => $this->db->where('id', '1')->update('web_settings', array('attendance' => '0'))
+            0 => $this->db->truncate(Darkblowdatabase::events_attendance),
+            1 => $this->db->where('id', '1')->update(Darkblowdatabase::web_settings, array('attendance' => '0'))
         );
 
         if ($query[0] && $query[1]) {

@@ -16,29 +16,29 @@ class Rankawardsmanagement_model extends CI_Model
 
     function GetAllRankRewards()
     {
-        return $this->db->order_by('rank_id', 'asc')->get('info_rank_awards')->result_array();
+        return $this->db->order_by('rank_id', 'asc')->get(Darkblowdatabase::info_rank_awards)->result_array();
     }
 
     function GetAllItems()
     {
-        return $this->db->order_by('item_id', 'asc')->get('shop')->result_array();
+        return $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
     }
 
     function GetAllRank()
     {
-        return $this->db->order_by('id')->get('web_rankinfo')->result_array();
+        return $this->db->order_by('id')->get(Darkblowdatabase::web_rankinfo)->result_array();
     }
 
     function GetRank($rank_id)
     {
-        $query = $this->db->get_where('web_rankinfo', array('id' => $rank_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_rankinfo, array('id' => $rank_id))->row();
         if ($query) return $query->rank_name;
         else return "";
     }
 
     function GetItemName($item_id)
     {
-        $query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
         if ($query) return $query->item_name;
         else return "";
     }
@@ -54,7 +54,7 @@ class Rankawardsmanagement_model extends CI_Model
             'item_equip' => '1'
         );
 
-        $query = $this->db->insert('info_rank_awards', array(
+        $query = $this->db->insert(Darkblowdatabase::info_rank_awards, array(
             'rank_id' => $this->encryption->decrypt($data['rank_id']),
             'item_id' => $this->encryption->decrypt($data['item_id']),
             'item_count' => $this->encryption->decrypt($data['item_count']),
@@ -85,10 +85,10 @@ class Rankawardsmanagement_model extends CI_Model
             'item_id' => $this->encryption->encrypt($this->input->post('item_id', true))
         );
 
-        $query = $this->db->get_where('info_rank_awards', array('rank_id' => $this->encryption->decrypt($data['rank_id']), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::info_rank_awards, array('rank_id' => $this->encryption->decrypt($data['rank_id']), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
         if ($query) {
             // Delete
-            $delete = $this->db->where(array('rank_id' => $query->rank_id, 'item_id' => $query->item_id))->delete('info_rank_awards');
+            $delete = $this->db->where(array('rank_id' => $query->rank_id, 'item_id' => $query->item_id))->delete(Darkblowdatabase::info_rank_awards);
             if ($delete) {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();

@@ -17,12 +17,12 @@ class Inventory_model extends CI_Model
 
 	function GetInventoryPerPage($limit, $start)
 	{
-		return $this->db->where('owner_id', $this->session->userdata('uid'))->order_by('object_id', 'desc')->get('player_items', $limit, $start)->result_array();
+		return $this->db->where('owner_id', $this->session->userdata('uid'))->order_by('object_id', 'desc')->get(Darkblowdatabase::player_items, $limit, $start)->result_array();
 	}
 
 	function GetInventoryCount()
 	{
-		return $this->db->where('owner_id', $this->session->userdata('uid'))->get('player_items')->num_rows();
+		return $this->db->where('owner_id', $this->session->userdata('uid'))->get(Darkblowdatabase::player_items)->num_rows();
 	}
 
 	function DeleteItem()
@@ -35,9 +35,9 @@ class Inventory_model extends CI_Model
 			'item_id' => $this->encryption->encrypt($this->input->post('item_id'))
 		);
 
-		$query = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $this->session->userdata('uid'), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
 		if ($query) {
-			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete('player_items');
+			$delete = $this->db->where(array('owner_id' => $query->owner_id, 'item_id' => $query->item_id))->delete(Darkblowdatabase::player_items);
 			if ($delete) {
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();

@@ -32,7 +32,7 @@ class Security extends RestController
 				'tokenkey' => $this->input->get('tokenkey', true)
 			);
 
-			$query = $this->db->get_where('web_tokenkey', array('token' => $data['tokenkey']))->row();
+			$query = $this->db->get_where(Darkblowdatabase::web_tokenkey, array('token' => $data['tokenkey']))->row();
 			if ($query) {
 				if ($query->is_valid == 0) {
 					$response['response'] = 'true';
@@ -40,8 +40,8 @@ class Security extends RestController
 
 					$this->response($response, 200);
 				} else if ($query->is_valid == 1) {
-					$update = $this->db->where('token', $query->token)->update('web_tokenkey', array('is_valid' => '0'));
-					$insert = $this->db->insert('web_tokenkey', array('token' => $this->darkblowlib->GenerateRandomToken(), 'is_valid' => '1'));
+					$update = $this->db->where('token', $query->token)->update(Darkblowdatabase::web_tokenkey, array('is_valid' => '0'));
+					$insert = $this->db->insert(Darkblowdatabase::web_tokenkey, array('token' => $this->darkblowlib->GenerateRandomToken(), 'is_valid' => '1'));
 					if ($update && $insert) {
 						$response['response'] = 'true';
 						$response['token'] = $this->security->get_csrf_hash();

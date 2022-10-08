@@ -25,7 +25,7 @@ class Voucher_model extends CI_Model
 
 	function GetItemName($item_id)
 	{
-		$query = $this->db->get_where('shop', array('item_id' => $item_id))->row();
+		$query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
 		if ($query) return $query->item_name;
 		else return "";
 	}
@@ -46,7 +46,7 @@ class Voucher_model extends CI_Model
 			'total_webcoin' => 0
 		);
 
-		$query = $this->db->get_where('item_voucher', array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $this->encryption->decrypt($data['voucher_code'])))->row();
 		if ($query) {
 			if ($query->active == 'f') {
 				$response['response'] = 'false';
@@ -58,10 +58,10 @@ class Voucher_model extends CI_Model
 				$explode = explode(',', $query->voucher_item);
 				$count = count($explode);
 
-				$query3 = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
+				$query3 = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid')))->row();
 				if ($query3) {
-					$updatecash2 = $this->db->where('player_id', $query3->player_id)->update('accounts', array('money' => ($query3->money + $query->voucher_cash)));
-					$updatewebcoin = $this->db->where('player_id', $query3->player_id)->update('accounts', array('kuyraicoin' => ($query3->kuyraicoin + $query->voucher_webcoin)));
+					$updatecash2 = $this->db->where('player_id', $query3->player_id)->update(Darkblowdatabase::accounts, array('money' => ($query3->money + $query->voucher_cash)));
+					$updatewebcoin = $this->db->where('player_id', $query3->player_id)->update(Darkblowdatabase::accounts, array('kuyraicoin' => ($query3->kuyraicoin + $query->voucher_webcoin)));
 					if ($updatecash2 && $updatewebcoin) {
 						$state['success']++;
 						$state['total_cash'] .= ($state['total_cash'] + $query->voucher_cash);
@@ -76,16 +76,16 @@ class Voucher_model extends CI_Model
 				}
 
 				for ($i = 0; $i < $count; $i++) {
-					$query2 = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $explode[$i]))->row();
+					$query2 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $this->session->userdata('uid'), 'item_id' => $explode[$i]))->row();
 					if ($query2) {
 						if ($query2->equip == 1) {
-							$updatecount = $this->db->where(array('owner_id' => $query2->owner_id, 'item_id' => $query2->item_id))->update('player_items', array('count' => ($query2->count + 7776000)));
+							$updatecount = $this->db->where(array('owner_id' => $query2->owner_id, 'item_id' => $query2->item_id))->update(Darkblowdatabase::player_items, array('count' => ($query2->count + 7776000)));
 							if ($updatecount) $state['success']++;
 							else $state['failed']++;
 						} else {
-							$fetchaccount = $this->db->get_where('accounts', array('player_id' => $query2->owner_id))->row();
+							$fetchaccount = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $query2->owner_id))->row();
 							if ($fetchaccount) {
-								$updatecash = $this->db->where('player_id', $fetchaccount->player_id)->update('accounts', array('money' => ($fetchaccount->money + 100000)));
+								$updatecash = $this->db->where('player_id', $fetchaccount->player_id)->update(Darkblowdatabase::accounts, array('money' => ($fetchaccount->money + 100000)));
 								if ($updatecash) {
 									$state['converted']++;
 									$state['total_cash'] .= ($state['total_cash'] + 100000);
@@ -99,7 +99,7 @@ class Voucher_model extends CI_Model
 							}
 						}
 					} else {
-						$insertnewitem = $this->db->insert('player_items', array(
+						$insertnewitem = $this->db->insert(Darkblowdatabase::player_items, array(
 							'owner_id' => $this->session->userdata('uid'),
 							'item_id' => $explode[$i],
 							'item_name' => $this->GetItemName($explode[$i]),
@@ -112,7 +112,7 @@ class Voucher_model extends CI_Model
 					}
 				}
 
-				$this->db->where('voucher_code', $this->encryption->decrypt($data['voucher_code']))->update('item_voucher', array('active' => 'f'));
+				$this->db->where('voucher_code', $this->encryption->decrypt($data['voucher_code']))->update(Darkblowdatabase::item_voucher, array('active' => 'f'));
 
 				$response['response'] = 'true';
 				$response['token'] = $this->security->get_csrf_hash();
@@ -142,7 +142,7 @@ class Voucher_model extends CI_Model
 			'failed' => 0
 		);
 
-		$query = $this->db->get_where('item_voucher', array('voucher_code' => $data['voucher_code']))->row();
+		$query = $this->db->get_where(Darkblowdatabase::item_voucher, array('voucher_code' => $data['voucher_code']))->row();
 		if ($query) {
 			switch ($query->active) {
 				case 't': {
@@ -152,11 +152,11 @@ class Voucher_model extends CI_Model
 						$count = count($explode);
 
 						for ($i = 0; $i < $count; $i++) {
-							$query2 = $this->db->get_where('player_items', array('owner_id' => $this->session->userdata('uid'), 'item_id' => $explode[$i]))->row();
+							$query2 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $this->session->userdata('uid'), 'item_id' => $explode[$i]))->row();
 							if ($query2) {
 								switch ($query2->equip) {
 									case 1: {
-											$update = $this->db->where('object_id', $query2->object_id)->update('player_items', array('count' => ($query2->count + 2592000)));
+											$update = $this->db->where('object_id', $query2->object_id)->update(Darkblowdatabase::player_items, array('count' => ($query2->count + 2592000)));
 											if ($update) $status['success'] += 1;
 											else $status['failed'] += 1;
 											break;
@@ -168,7 +168,7 @@ class Voucher_model extends CI_Model
 											$timeSecond = strtotime('+' . $addDays . 'day', $timeFirst);
 											$fixDate = date('ymdHi', $timeSecond);
 
-											$update2 = $this->db->where('object_id', $query2->object_id)->update('player_items', array('count' => $fixDate));
+											$update2 = $this->db->where('object_id', $query2->object_id)->update(Darkblowdatabase::player_items, array('count' => $fixDate));
 											if ($update2) $status['success'] += 1;
 											else $status['failed'] += 1;
 											break;
@@ -181,7 +181,7 @@ class Voucher_model extends CI_Model
 										}
 								}
 							} else {
-								$insert = $this->db->insert('player_items', array(
+								$insert = $this->db->insert(Darkblowdatabase::player_items, array(
 									'owner_id' => $this->session->userdata('uid'),
 									'item_id' => $explode[$i],
 									'item_name' => $this->darkblowlib->GetItemName($explode[$i]),
@@ -194,9 +194,9 @@ class Voucher_model extends CI_Model
 							}
 						}
 
-						$query3 = $this->db->get_where('accounts', array('player_id' => $this->session->userdata('uid')))->row();
+						$query3 = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid')))->row();
 						if ($query3) {
-							$update3 = $this->db->where('player_id', $query3->player_id)->update('accounts', array(
+							$update3 = $this->db->where('player_id', $query3->player_id)->update(Darkblowdatabase::accounts, array(
 								'money' => ($query3->money + $query->voucher_cash),
 								'kuyraicoin' => ($query3->kuyraicoin + $query->voucher_webcoin)
 							));
@@ -204,8 +204,8 @@ class Voucher_model extends CI_Model
 							else $status['failed'] += 1;
 						} else $status['failed'] += 1;
 
-						$query4 = $this->db->where('id', $query->id)->update('item_voucher', array('active' => 'f'));
-						$query5 = $this->db->insert('check_user_voucher', array(
+						$query4 = $this->db->where('id', $query->id)->update(Darkblowdatabase::item_voucher, array('active' => 'f'));
+						$query5 = $this->db->insert(Darkblowdatabase::check_user_voucher, array(
 							'uid' => $this->session->userdata('uid'),
 							'voucher' => $query->voucher_code,
 							'date_claimed' => time()

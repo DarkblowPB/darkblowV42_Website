@@ -16,7 +16,7 @@ class Eventsrankup_model extends CI_Model
 
     function GetRankUpEvents()
     {
-        return $this->db->get('events_rankup')->row();
+        return $this->db->get(Darkblowdatabase::events_rankup)->row();
     }
 
     function UpdateEvents()
@@ -31,7 +31,7 @@ class Eventsrankup_model extends CI_Model
             'exp' => $this->encryption->encrypt($this->input->post('exp', true))
         );
 
-        $query = $this->db->update('events_rankup', array(
+        $query = $this->db->update(Darkblowdatabase::events_rankup, array(
             'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
             'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
             'percent_xp' => $this->encryption->decrypt($data['exp']),
