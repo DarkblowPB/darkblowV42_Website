@@ -108,6 +108,8 @@ $lang = array(
     'STR_ERROR_59' => 'You Already Have This Item With Permanent Duration.',
     'STR_ERROR_60' => 'Invalid Account. Do You Execute This From Another Method? Like Postman? Or Anything Else?',
     'STR_ERROR_61' => 'Cannot Find This Webshop Item.',
+    'STR_ERROR_62' => 'Failed To Logging In You To Administrator Panel',
+    'STR_ERROR_63' => 'You Dont Have Access To This Page.',
     'STR_FATAL_ERROR_1' => 'Failed To Buy This Item. Please Contact DEV / GM For Detail Information.',
     'STR_SUCCESS_1' => 'Successfully Update Email Address.',
     'STR_SUCCESS_2' => 'Successfully Change Email.',
@@ -127,6 +129,7 @@ $lang = array(
     'STR_SUCCESS_16' => ' Cash, ',
     'STR_SUCCESS_17' => ' Webcoin. Failed ',
     'STR_SUCCESS_18' => 'Successfully Bought This Item.',
+    'STR_SUCCESS_19' => 'Authorize Complete. Redirecting...'
 );
 
 // This Code Generated Automatically By EyeTracker Snippets. //

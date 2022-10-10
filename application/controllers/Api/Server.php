@@ -15,7 +15,6 @@ class Server extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
         $this->load->library('socketcommand');
     }
 
@@ -143,7 +142,7 @@ class Server extends RestController
                         if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Send Announcement.';
+                            $response['message'] = $this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data);
 
                             $this->response($response, 200);
                         } else {

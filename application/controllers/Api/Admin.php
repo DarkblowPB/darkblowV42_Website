@@ -15,7 +15,7 @@ class Admin extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->library('darkblowdatabase');
+        $this->lang->load('message');
     }
 
     function loginpanel_get()
@@ -24,7 +24,7 @@ class Admin extends RestController
 
         if (empty($this->session->userdata('uid')) && empty($this->session->userdata('adminpanel_login_token'))) {
             $response['response'] = 'false';
-            $response['message'] = 'Failed To Logging In You To Panel.';
+            $response['message'] = $this->lang->line('STR_ERROR_62');
 
             $this->response($response, 200);
         } else {
@@ -35,9 +35,9 @@ class Admin extends RestController
 
             $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id'], 'password' => $data['password']))->row();
             if ($query) {
-                if ($query->access_level < 3) {
+                if ($query->access_level < Darkblowaccesslevel::MODERATOR) {
                     $response['response'] = 'false';
-                    $response['message'] = 'You Dont Have Access To This Page. 1';
+                    $response['message'] = $this->lang->line('STR_ERROR_63');
 
                     $this->response($response, 200);
                 } else {
@@ -50,13 +50,13 @@ class Admin extends RestController
                     $this->session->set_userdata($sessionData);
 
                     $response['response'] = 'true';
-                    $response['message'] = 'Authorize Complete. Redirecting...';
+                    $response['message'] = $this->lang->line('STR_SUCCESS_19');
 
                     $this->response($response, 200);
                 }
             } else {
                 $response['response'] = 'false';
-                $response['message'] = 'You Dont Have Access To This Page. 2';
+                $response['message'] = $this->lang->line('STR_ERROR_63');
 
                 $this->response($response, 200);
             }

@@ -9,8 +9,6 @@ class Web extends RestController
     public function __construct()
     {
         parent::__construct();
-
-        $this->load->library('allprotect');
     }
 
     public function register_post()
