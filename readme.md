@@ -37,6 +37,8 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="#reference">Reference</a></li>
   </ol>
 </details>
 
@@ -112,6 +114,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <a href="https://facebook.com/Ultimate.Defacer">Facebook</a><br>
 <a href="https://instagram.com/dev_eyetracker">Instagram</a><br>
 <a href="https://discord.gg/zcwBaK9rRG">Discord</a>
+
+<!-- DONATE -->
+
+## Donate
+
+<a href="https://saweria.co/YorF">Saweria</a><br>
 
 <!-- REFERENCE -->
 
