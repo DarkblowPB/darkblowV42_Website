@@ -32,16 +32,16 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?= base_url('api/servercommand/sendannouncement') ?>',
+                                    url: '<?= base_url('api/server/sendcommand') ?>',
                                     type: 'POST',
                                     timeout: 0,
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->socketcommand->Opcodes("Send Announcement") ?>',
-                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                                        'command_type': 'Send Announcement',
+                                        'opcode': '<?= Darkblowopcodes::SEND_ANNOUNCEMENT[0] ?>',
+                                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                        'command_type': '<?= Darkblowopcodes::SEND_ANNOUNCEMENT[1] ?>',
                                         'message': $('#message').val()
                                     },
                                     success: function(data) {

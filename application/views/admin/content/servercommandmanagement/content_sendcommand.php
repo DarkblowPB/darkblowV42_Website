@@ -72,10 +72,10 @@
                     dataType: 'JSON',
                     data: {
                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                        'opcode': '<?= $this->socketcommand->Opcodes("Start Server") ?>',
-                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                        'command_type': 'Start Server',
+                        'opcode': '<?= Darkblowopcodes::START_SERVER[0] ?>',
+                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                        'command_type': '<?= Darkblowopcodes::START_SERVER[1] ?>',
                     },
                     timeout: 0,
                     success: function(data) {
@@ -88,7 +88,6 @@
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
-                        return;
                     },
                     error: function() {
                         SetAttribute('startserver', 'button', 'Start Server');
@@ -108,10 +107,10 @@
                     dataType: 'JSON',
                     data: {
                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                        'opcode': '<?= $this->socketcommand->Opcodes("Shutdown Server") ?>',
-                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                        'command_type': 'Shutdown Server',
+                        'opcode': '<?= Darkblowopcodes::SHUTDOWN_SERVER[0] ?>',
+                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                        'command_type': '<?= Darkblowopcodes::SHUTDOWN_SERVER[1] ?>',
                     },
                     timeout: 0,
                     success: function(data) {
@@ -143,10 +142,10 @@
                     dataType: 'JSON',
                     data: {
                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                        'opcode': '<?= $this->socketcommand->Opcodes("Refill Shop") ?>',
-                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                        'command_type': 'Refill Shop',
+                        'opcode': '<?= Darkblowopcodes::REFILL_SHOP[0] ?>',
+                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                        'command_type': '<?= Darkblowopcodes::REFILL_SHOP[1] ?>',
                     },
                     timeout: 0,
                     success: function(data) {
@@ -179,10 +178,10 @@
                     dataType: 'JSON',
                     data: {
                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                        'opcode': '<?= $this->socketcommand->Opcodes("Reload Events") ?>',
-                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                        'command_type': 'Reload Events',
+                        'opcode': '<?= Darkblowopcodes::RELOAD_EVENTS[0] ?>',
+                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                        'command_type': '<?= Darkblowopcodes::RELOAD_EVENTS[1] ?>',
                     },
                     timeout: 0,
                     success: function(data) {
@@ -212,10 +211,10 @@
                     dataType: 'JSON',
                     data: {
                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                        'opcode': '<?= $this->socketcommand->Opcodes("Kick All Players") ?>',
-                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                        'command_type': 'Kick All Players',
+                        'opcode': '<?= Darkblowopcodes::KICK_ALL_PLAYERS[0] ?>',
+                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                        'command_type': '<?= Darkblowopcodes::KICK_ALL_PLAYERS[1] ?>',
                     },
                     timeout: 0,
                     success: function(data) {

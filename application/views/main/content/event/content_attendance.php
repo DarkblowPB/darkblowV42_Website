@@ -89,10 +89,10 @@
                             dataType: 'JSON',
                             data: {
                                 '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                'opcode': '<?= $this->servercommand_library->GenerateOpcode("Attendance") ?>',
-                                'secret_token': '<?= $this->servercommand_library->GenerateSecretToken() ?>',
-                                'secret_keys': '<?= $this->servercommand_library->GenerateSecretKeys() ?>',
-                                'command_type': 'Attendance',
+                                'opcode': '<?= Darkblowopcodes::ATTENDANCE[0] ?>',
+                                'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                'command_type': '<?= Darkblowopcodes::ATTENDANCE[1] ?>',
                                 'event_id': event_id
                             },
                             timeout: 0,

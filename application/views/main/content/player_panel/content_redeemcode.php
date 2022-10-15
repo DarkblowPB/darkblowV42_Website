@@ -41,10 +41,10 @@
 									dataType: 'JSON',
 									data: {
 										'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-										'opcode': '<?= $this->socketcommand->Opcodes("Redeem Code") ?>',
-										'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-										'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-										'command_type': 'Redeem Code',
+										'opcode': '<?= Darkblowopcodes::REDEEM_CODE[0] ?>',
+										'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+										'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+										'command_type': '<?= Darkblowopcodes::REDEEM_CODE[1] ?>',
 										'code': $('#code').val()
 									},
 									success: (response) => {

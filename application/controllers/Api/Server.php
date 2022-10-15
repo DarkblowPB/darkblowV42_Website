@@ -15,7 +15,6 @@ class Server extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->library('socketcommand');
     }
 
     function sendcommand_post()
@@ -69,101 +68,57 @@ class Server extends RestController
                 'opcode' => $this->input->post('opcode', true),
                 'secret_token' => $this->input->post('secret_token', true),
                 'secret_keys' => $this->input->post('secret_keys', true),
-                'command_type' => $this->input->post('command_type', true)
+                'command_type' => $this->input->post('command_type', true),
             );
-
-            $host = array(
-                'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_host'),
-                'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_host'),
-                'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_host'),
-                'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_host'),
-            );
-
-            $port = array(
-                'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_port'),
-                'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_port'),
-                'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_port'),
-                'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_port'),
-            );
-
-            if ($data['opcode'] == 1 || $data['opcode'] == 2) {
-                if (!$this->socketcommand->CheckConnection($host['pbserver_management'], $port['pbserver_management'])) {
-                    $response['response'] = 'error';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Connect To Server.';
-
-                    $this->response($response, 200);
-                }
-            } else {
-                if (!$this->socketcommand->CheckConnection($host['pbserver_game'], $port['pbserver_game'])) {
-                    $response['response'] = 'error';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Connect To Server.';
-
-                    $this->response($response, 200);
-                }
-            }
-
-            sleep(1);
 
             switch ($data['opcode']) {
-                case '1': // Start Server
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_management'], $port['pbserver_management'], $data) == 'success') {
+                case Darkblowopcodes::START_SERVER[0]:
+                case Darkblowopcodes::SHUTDOWN_SERVER[0]: {
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_MANAGEMENT_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Start Server.';
+                            if ($data['opcode'] == Darkblowopcodes::START_SERVER[0]) $response['message'] = 'Successfully Start Server.';
+                            else if ($data['opcode'] == Darkblowopcodes::SHUTDOWN_SERVER[0]) $response['message'] = 'Successfully Shutdown Server.';
 
                             $this->response($response, 200);
                         } else {
                             $response['response'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Start Server.';
+                            if ($data['opcode'] == Darkblowopcodes::START_SERVER[0]) $response['message'] = 'Failed To Start Server.';
+                            else if ($data['opcode'] == Darkblowopcodes::SHUTDOWN_SERVER[0]) $response['message'] = 'Failed To Shutdown Server.';
 
                             $this->response($response, 200);
                         }
                         break;
                     }
-                case '2': // Shutdown Server
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_management'], $port['pbserver_management'], $data) == 'success') {
+                case Darkblowopcodes::RELOAD_EVENTS[0]:
+                case Darkblowopcodes::KICK_ALL_PLAYERS[0]:
+                case Darkblowopcodes::REFILL_SHOP[0]: {
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Shutdown Server.';
+                            if ($data['opcode'] == Darkblowopcodes::RELOAD_EVENTS[0]) $response['message'] = 'Successfully Reload Events.';
+                            else if ($data['opcode'] == Darkblowopcodes::KICK_ALL_PLAYERS[0]) $response['message'] = 'Successfully Kick All Players.';
+                            else if ($data['opcode'] == Darkblowopcodes::REFILL_SHOP[0]) $response['message'] = 'Successfully Refill Shop.';
 
                             $this->response($response, 200);
                         } else {
                             $response['response'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Shutdown Server.';
+                            if ($data['opcode'] == Darkblowopcodes::RELOAD_EVENTS[0]) $response['message'] = 'Failed To Reload Events.';
+                            else if ($data['opcode'] == Darkblowopcodes::KICK_ALL_PLAYERS[0]) $response['message'] = 'Failed To Kick All Players.';
+                            else if ($data['opcode'] == Darkblowopcodes::REFILL_SHOP[0]) $response['message'] = 'Failed To Refill Shop.';
 
                             $this->response($response, 200);
                         }
                         break;
                     }
-                case '3': // Reload Events
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
+                case Darkblowopcodes::SEND_ANNOUNCEMENT[0]: {
+                        $data['message'] = $this->input->post('message', true);
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Reload Events.';
-
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Reload Events.';
-
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case '4': // Send Announcement
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = "Successfully Send Announcement.";
+                            $response['message'] = 'Successfully Send Announcement.';
 
                             $this->response($response, 200);
                         } else {
@@ -175,26 +130,10 @@ class Server extends RestController
                         }
                         break;
                     }
-                case '5': // Kick All Players
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Kick All Players.';
+                case Darkblowopcodes::BANNED_PLAYER[0]: {
+                        $data['player_id'] = $this->input->post('player_id', true);
 
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Kick All Players.';
-
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case '6': // Banned Player
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Banned Player.';
@@ -209,9 +148,9 @@ class Server extends RestController
                         }
                         break;
                     }
-                case '7': // Attendance
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
+                case Darkblowopcodes::ATTENDANCE[0]: {
+                        $data['event_id'] = $this->input->post('event_id', true);
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Attendance.';
@@ -226,26 +165,86 @@ class Server extends RestController
                         }
                         break;
                     }
-                case '8': // Redeem Code
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Redeem Code.';
+                case Darkblowopcodes::REDEEM_CODE[0]: {
+                        $data['player_id'] = (int)$this->session->userdata('uid');
+                        $data['code'] = $this->input->post('code', true);
+                        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
+                        if ($query) {
+                            $query2 = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['code']))->row();
+                            if ($query2) {
+                                if (time() > $query2->valid_date) {
+                                    $response['response'] = 'error';
+                                    $response['token'] = $this->security->get_csrf_hash();
+                                    $response['message'] = 'Code Already Expired.';
 
-                            $this->response($response, 200);
+                                    $this->response($response, 200);
+                                } else if ($query2->qty < 1) {
+                                    $response['response'] = 'error';
+                                    $response['token'] = $this->security->get_csrf_hash();
+                                    $response['message'] = 'Reward Out Of Stock.';
+
+                                    $this->response($response, 200);
+                                } else {
+                                    $query3 = $this->db->get_where(Darkblowdatabase::check_user_itemcode, array(
+                                        'uid' => $data['player_id'],
+                                        'item_code' => $data['code']
+                                    ))->row();
+                                    if ($query3) {
+                                        $response['response'] = 'error';
+                                        $response['token'] = $this->security->get_csrf_hash();
+                                        $response['message'] = 'Code Already Used.';
+
+                                        $this->response($response, 200);
+                                    } else {
+                                        unset($data['code']);
+                                        $data['item_id'] = (int)$query2->item_id;
+                                        $data['category'] = (int)$this->darkblowlib->GetItemCategory($query2->item_id);
+                                        $data['item_name'] = $this->darkblowlib->GetItemName($query2->item_id);
+                                        $data['count'] = (int)$query2->item_count;
+                                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
+                                            $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+                                                'uid' => $data['player_id'],
+                                                'item_code' => $this->input->post('code', true),
+                                                'username' => $this->session->userdata('login'),
+                                                'date_redeemed' => date('d-m-Y H:i:s')
+                                            ));
+                                            $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array(
+                                                'qty' => ($query2->qty - 1)
+                                            ));
+                                            $response['response'] = 'success';
+                                            $response['token'] = $this->security->get_csrf_hash();
+                                            $response['message'] = 'Successfully Redeem Code.';
+
+                                            $this->response($response, 200);
+                                        } else {
+                                            $response['response'] = 'error';
+                                            $response['token'] = $this->security->get_csrf_hash();
+                                            $response['message'] = 'Failed To Redeem Code.';
+
+                                            $this->response($response, 200);
+                                        }
+                                    }
+                                }
+                            } else {
+                                $response['response'] = 'error';
+                                $response['token'] = $this->security->get_csrf_hash();
+                                $response['message'] = 'Invalid Code.';
+
+                                $this->response($response, 200);
+                            }
                         } else {
                             $response['response'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = "Failed To Redeem Code.";
+                            $response['message'] = 'Please Login First Before Redeem The Code.';
 
                             $this->response($response, 200);
                         }
                         break;
                     }
-                case '9': // Send Cash ID
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
+                case Darkblowopcodes::SEND_CASH_ID[0]: {
+                        $data['player_id'] = $this->input->post('player_id', true);
+                        $data['cash_amount'] = $this->input->post('cash_amount', true);
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Send Cash.';
@@ -260,26 +259,10 @@ class Server extends RestController
                         }
                         break;
                     }
-                case '10': // Refill Shop
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Refill Shop.';
-
-                            $this->response($response, 200);
-                        } else {
-                            $response['response'] = 'error';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Refill Shop.';
-
-                            $this->response($response, 200);
-                        }
-                        break;
-                    }
-                case '11': // Send Point ID
-                    {
-                        if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
+                case Darkblowopcodes::SEND_POINT_ID[0]: {
+                        $data['player_id'] = $this->input->post('player_id', true);
+                        $data['point_amount'] = $this->input->post('point_amount', true);
+                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
                             $response['message'] = 'Successfully Send Point.';
@@ -346,34 +329,20 @@ class Server extends RestController
     {
         $response = array();
 
-        $host = array(
-            'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_host'),
-            'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_host'),
-            'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_host'),
-            'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_host'),
-        );
-
-        $port = array(
-            'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_port'),
-            'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_port'),
-            'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_port'),
-            'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_port'),
-        );
-
-        if (!$this->socketcommand->CheckConnection($host['pbserver_management'], $port['pbserver_management'])) {
-            $response['response'] = 'fatal_error';
-            $response['message'] = 'Failed To Connect To Server Management System.';
+        if ($this->darkblowsocketcommand->ServerCheck(Darkblownetwork::DEFAULT_GAME_PORT)) {
+            $response['response'] = 'success';
+            $response['message'] = 'Server Active.';
 
             $this->response($response, 200);
         } else {
-            if ($this->socketcommand->CheckConnection($host['pbserver_auth'], $port['pbserver_auth'])) {
-                $response['response'] = 'success';
-                $response['message'] = 'Server Active.';
+            if ($this->darkblowsocketcommand->ServerCheck(Darkblownetwork::API_MANAGEMENT_PORT)) {
+                $response['response'] = 'error';
+                $response['message'] = 'Server Passive.';
 
                 $this->response($response, 200);
             } else {
-                $response['response'] = 'error';
-                $response['message'] = 'Server Passive.';
+                $response['response'] = 'fatal_error';
+                $response['message'] = 'Failed To Connect To Server Management System.';
 
                 $this->response($response, 200);
             }

@@ -58,7 +58,22 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'form_validation', 'session', 'user_agent', 'encryption', 'darkblowlib', 'darkblowprotection', 'darkblowsettings', 'darkblowmessage', 'darkblowdatabase', 'darkblowaccesslevel');
+$autoload['libraries'] = array(
+    'database',
+    'form_validation',
+    'session',
+    'user_agent',
+    'encryption',
+    'darkblowaccesslevel',
+    'darkblowdatabase',
+    'darkblowlib',
+    'darkblowmessage',
+    'darkblownetwork',
+    'darkblowopcodes',
+    'darkblowprotection',
+    'darkblowsettings',
+    'darkblowsocketcommand'
+);
 
 /*
 | -------------------------------------------------------------------

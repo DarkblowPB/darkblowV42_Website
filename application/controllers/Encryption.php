@@ -211,10 +211,10 @@ class Encryption extends CI_Controller
         );
         if ($this->form_validation->run()) {
             $data = array(
-                'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+                'player_id' => $this->input->post('player_id', true)
             );
 
-            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
             if ($query) {
                 if ($query->access_level == '-1') {
                     $response['token'] = $this->security->get_csrf_hash();

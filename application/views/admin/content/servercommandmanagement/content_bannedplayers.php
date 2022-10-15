@@ -38,16 +38,16 @@
                                 SetAttribute('submit', 'button', 'Processing...');
 
                                 $.ajax({
-                                    url: '<?= base_url('api/servercommand/send') ?>',
+                                    url: '<?= base_url('api/server/sendcommand') ?>',
                                     type: 'POST',
                                     timeout: 0,
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->socketcommand->Opcodes("Banned Player") ?>',
-                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                                        'command_type': 'Banned Player',
+                                        'opcode': '<?= Darkblowopcodes::BANNED_PLAYER[0] ?>',
+                                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                        'command_type': '<?= Darkblowopcodes::BANNED_PLAYER[1] ?>',
                                         'player_id': $('#player_id').val()
                                     },
                                     success: function(data) {

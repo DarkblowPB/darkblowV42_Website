@@ -15,7 +15,6 @@ class Redeemcode extends CI_Controller
 
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/redeemcode_model', 'redeemcode');
-		$this->load->library('socketcommand');
 
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();

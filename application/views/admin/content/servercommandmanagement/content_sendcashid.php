@@ -49,15 +49,15 @@
                             } else {
                                 SetAttribute('submit', 'button', 'Processing...');
                                 $.ajax({
-                                    url: '<?= base_url('api/servercommand/send') ?>',
+                                    url: '<?= base_url('api/server/sendcommand') ?>',
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {
                                         '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'opcode': '<?= $this->socketcommand->Opcodes("Send Cash ID") ?>',
-                                        'secret_token': '<?= $this->socketcommand->GenerateSecretToken() ?>',
-                                        'secret_keys': '<?= $this->socketcommand->GenerateSecretKeys() ?>',
-                                        'command_type': 'Send Cash ID',
+                                        'opcode': '<?= Darkblowopcodes::SEND_CASH_ID[0] ?>',
+                                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                        'command_type': '<?= Darkblowopcodes::SEND_CASH_ID[1] ?>',
                                         'player_id': $('#player_id').val(),
                                         'cash_amount': $('#cash_amount').val()
                                     },

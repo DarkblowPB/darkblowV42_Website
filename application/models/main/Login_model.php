@@ -43,6 +43,7 @@ class Login_model extends CI_Model
 			} else {
 				$sess_data = array(
 					'uid' => $query->player_id,
+					'login' => $query->login,
 					'player_name' => $query->player_name,
 					'access_level' => $query->access_level,
 					'adminpanel_login_token' => $query->password,

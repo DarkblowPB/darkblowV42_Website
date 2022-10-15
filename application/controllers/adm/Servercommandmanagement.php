@@ -13,7 +13,6 @@ class Servercommandmanagement extends CI_Controller
     {
         parent::__construct();
         $this->load->model('admin/servercommandmanagement_model', 'servercommandmanagement');
-        $this->load->library('socketcommand');
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();

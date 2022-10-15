@@ -12,13 +12,10 @@ class Test extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->helper('cookie');
     }
 
     public function index()
     {
-        var_dump(get_cookie('_ga'));
-        die;
     }
 }
 
