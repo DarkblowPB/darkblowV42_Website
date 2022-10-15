@@ -54,6 +54,7 @@
 										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');
 										ShowToast(2000, result.response, result.message);
 										CSRF_TOKEN = result.token;
+										console.log(response);
 									},
 									error: () => {
 										SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_200') ?>');

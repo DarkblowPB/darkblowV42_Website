@@ -81,7 +81,7 @@ class Login extends CI_Controller
         else {
             $this->form_validation->set_error_delimiters('', '');
 
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
             $this->darkblowmessage->AjaxFlashData($response);
@@ -108,7 +108,7 @@ class Login extends CI_Controller
         else {
             $this->form_validation->set_error_delimiters('', '');
 
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
             $this->darkblowmessage->AjaxFlashData($response);

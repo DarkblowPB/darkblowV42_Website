@@ -54,26 +54,26 @@ class Eventsregister_model extends CI_Model
         if ($this->GetEvents()->is_active == 'f') {
             $query = $this->db->where('id', '1')->update(Darkblowdatabase::events_register, array('is_active' => 't'));
             if ($query) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Enable The Events.';
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Enable The Events.';
             }
         } else {
             $query = $this->db->where('id', '1')->update(Darkblowdatabase::events_register, array('is_active' => 'f'));
             if ($query) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Disable The Events.';
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Disable The Events.';
             }
@@ -85,28 +85,28 @@ class Eventsregister_model extends CI_Model
         $response = array();
 
         $data = array(
-            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true)),
-            'item_count' => $this->encryption->encrypt($this->input->post('item_count', true)),
-            'stock' => $this->encryption->encrypt($this->input->post('stock', true))
+            'item_id' => $this->input->post('item_id', true),
+            'item_count' => $this->input->post('item_count', true),
+            'stock' => $this->input->post('stock', true)
         );
 
         $update = $this->db->update(Darkblowdatabase::events_register, array(
-            'item_id' => $this->encryption->decrypt($data['item_id']),
-            'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
-            'item_category' => $this->GetItemCategory2($this->encryption->decrypt($data['item_id'])),
-            'item_count' => $this->encryption->decrypt($data['item_count']),
-            'stock' => $this->encryption->decrypt($data['stock']),
+            'item_id' => $data['item_id'],
+            'item_name' => $this->GetItemName($data['item_id']),
+            'item_category' => $this->GetItemCategory2($data['item_id']),
+            'item_count' => $data['item_count'],
+            'stock' => $data['stock'],
             'is_active' => 't'
         ));
 
         if ($update) {
-            $response['response'] = 'true';
+            $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Update The Events.';
 
             $this->darkblowmessage->AjaxFlashData($response);
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Update The Events.';
 

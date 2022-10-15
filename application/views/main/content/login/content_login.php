@@ -112,9 +112,7 @@
                                                     CSRF_TOKEN = Result2.token;
 
                                                     return DoLogin();
-                                                } else {
-                                                    window.location.reload();
-                                                }
+                                                } else window.location.reload();
                                             },
                                             error: function() {
                                                 SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_38') ?>');

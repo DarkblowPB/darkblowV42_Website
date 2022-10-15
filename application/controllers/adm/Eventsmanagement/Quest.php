@@ -43,7 +43,7 @@ class Quest extends CI_Controller
         );
         if ($this->form_validation->run()) $this->eventsquest->DeleteEvents();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
@@ -71,7 +71,7 @@ class Quest extends CI_Controller
         );
         if ($this->form_validation->run()) $this->eventsquest->UpdateEvents();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

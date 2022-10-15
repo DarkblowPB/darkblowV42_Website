@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
-    </title>
+    <title><?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?></title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,9 +26,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="javascript:void(0)" class="h1"><b>
-                        <?= $this->darkblowsettings->load()->project_name ?>
-                    </b> Admin Panel</a>
+                <a href="javascript:void(0)" class="h1"><b><?= $this->darkblowsettings->load()->project_name ?></b> Admin Panel</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg text-uppercase text-bold text-primary">
@@ -62,11 +58,9 @@
                             </label>
                         </div>
                     </div>
-                    <!-- /.col -->
                     <div class="col-4">
                         <input type="submit" id="submit" class="btn btn-outline-primary btn-block text-white" value="Login">
                     </div>
-                    <!-- /.col -->
                 </div>
                 <?= form_close() ?>
                 <script>
@@ -103,24 +97,14 @@
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true') {
-                                        SetAttribute('submit', 'submit', 'Login');
-                                        ShowToast(2000, 'success', Result.message);
-                                        CSRF_TOKEN = Result.token;
+                                    SetAttribute('submit', 'submit', 'Login');
+                                    ShowToast(2000, Result.response, Result.message);
+                                    CSRF_TOKEN = Result.token;
+
+                                    if (Result.response == 'success') {
                                         setTimeout(() => {
                                             window.location = '<?= base_url('adm/dashboard') ?>';
                                         }, 2000);
-                                        return;
-                                    } else if (Result.response == 'false') {
-                                        SetAttribute('submit', 'submit', 'Login');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    } else {
-                                        SetAttribute('submit', 'submit', 'Login');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
                                     }
                                 },
                                 error: function() {
@@ -135,13 +119,8 @@
                     }
                 </script>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
-
-    <!-- Bootstrap 4 -->
     <script src="<?= base_url() ?>assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url() ?>assets/admin/dist/js/adminlte.min.js"></script>

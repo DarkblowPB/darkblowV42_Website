@@ -14,32 +14,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <?= $this->eventsregister->GetItemName($events->item_id) ?>
-                                </td>
-                                <td>
-                                    <?= $this->eventsregister->GetItemCategory($events->item_id) ?>
-                                </td>
-                                <td>
-                                    <?= ($events->item_count / 24 / 60 / 60) . ' Days' ?>
-                                </td>
-                                <td>
-                                    <?= $events->stock ?>
-                                </td>
-                                <td><?php if ($events->is_active == 'f') {
-                                        echo '<span class="text-danger">DISABLED</span>';
-                                    } else {
-                                        echo '<span class="text-success">ENABLED</span>';
-                                    } ?></td>
-                                <td><input type="button" id="update_events" class="btn btn-outline-<?php if ($events->is_active == 'f') {
-                                                                                                        echo 'success';
-                                                                                                    } else {
-                                                                                                        echo 'danger';
-                                                                                                    } ?>" value="<?php if ($events->is_active == 'f') {
-                                                                                                                        echo 'ENABLE';
-                                                                                                                    } else {
-                                                                                                                        echo 'DISABLE';
-                                                                                                                    } ?>" onclick="Do_SetState()"></td>
+                                <td><?= $this->eventsregister->GetItemName($events->item_id) ?></td>
+                                <td><?= $this->eventsregister->GetItemCategory($events->item_id) ?></td>
+                                <td><?= ($events->item_count / 24 / 60 / 60) . ' Days' ?></td>
+                                <td><?= $events->stock ?></td>
+                                <td><?= $events->is_active == 'f' ? '<span class="text-danger">DISABLED</span>' : '<span class="text-success">ENABLED</span>' ?></td>
+                                <td><input type="button" id="update_events" class="btn btn-outline-<?= $events->is_active == 'f' ? 'danger' : 'success' ?>" value="<?= $events->is_active == 'f' ? 'ENABLE' : 'DISABLE' ?>" onclick="Do_SetState()"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -82,82 +62,7 @@
                             $('#update_form').on('submit', function(e) {
                                 e.preventDefault();
 
-                                if ($('#item_id').val() == null) {
-                                    ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
-                                    return;
-                                } else if ($('#item_count').val() == null) {
-                                    ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
-                                    return;
-                                } else if ($('#stock').val() == '') {
-                                    ShowToast(2000, 'warning', 'Stock Cannot Be Empty.');
-                                    return;
-                                } else {
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/eventsmanagement/register/do_update') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'item_id': $('#item_id').val(),
-                                            'item_count': $('#item_count').val(),
-                                            'stock': $('#stock').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Getting New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return Do_Update();
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'submit', 'Update Events');
-                                                    ShowToast(2000, 'error', 'Failed To Update Events.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return Do_Update();
                             });
                         });
 
@@ -214,23 +119,14 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Update Events');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') {
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
                                         }
                                     },
                                     error: function() {

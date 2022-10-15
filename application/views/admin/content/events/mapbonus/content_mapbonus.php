@@ -25,9 +25,7 @@
                             <?php $num = 1;
                             foreach ($events as $row) : ?>
                                 <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
+                                    <td><?= $num ?></td>
                                     <td>
                                         <?= $this->darkblowlib->ConvertDate($row['start_date'])[2] . // Days
                                             '-' . $this->darkblowlib->ConvertDate($row['start_date'])[1] . // Month
@@ -44,25 +42,16 @@
                                             ':' . $this->darkblowlib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td>
-                                        <?= $this->eventsmapbonus->GetMap($row['map_id']) ?>
-                                    </td>
-                                    <td>
-                                        <?= $this->eventsmapbonus->GetStageType($row['stage_type']) ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($row['percent_xp'], 0, ',', '.') ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($row['percent_gp'], 0, ',', '.') ?>
-                                    </td>
+                                    <td><?= $this->eventsmapbonus->GetMap($row['map_id']) ?></td>
+                                    <td><?= $this->eventsmapbonus->GetStageType($row['stage_type']) ?></td>
+                                    <td><?= number_format($row['percent_xp'], 0, ',', '.') ?></td>
+                                    <td><?= number_format($row['percent_gp'], 0, ',', '.') ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-
                                                 <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteEvents('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $this->darkblowlib->ConvertDate($row['start_date'])[0] . $this->darkblowlib->ConvertDate($row['start_date'])[1] . $this->darkblowlib->ConvertDate($row['start_date'])[2] . $this->darkblowlib->ConvertDate($row['start_date'])[3] . $this->darkblowlib->ConvertDate($row['start_date'])[4] ?>', '<?= $this->darkblowlib->ConvertDate($row['end_date'])[0] . $this->darkblowlib->ConvertDate($row['end_date'])[1] . $this->darkblowlib->ConvertDate($row['end_date'])[2] . $this->darkblowlib->ConvertDate($row['end_date'])[3] . $this->darkblowlib->ConvertDate($row['end_date'])[4] ?>')">
                                             </div>
                                         </div>
@@ -89,22 +78,11 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
-                                                document.getElementById(data_id).remove();
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute(button_id, 'button', 'Delete');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute(button_id, 'button', 'Delete');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
+                                            SetAttribute(button_id, 'button', 'Delete');
+                                            ShowToast(2000, Result.message, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
+                                            if (Result.response == 'success') document.getElementById(data_id).remove();
                                         },
                                         error: function(data) {
                                             if (RETRY >= 3) {
@@ -114,6 +92,7 @@
                                                     window.location.reload();
                                                 }, 2000);
                                             } else {
+                                                RETRY += 1;
                                                 ShowToast(1000, 'info', 'Generating New Request Token...');
 
                                                 $.ajax({
@@ -127,9 +106,7 @@
                                                         var GetString = JSON.stringify(data);
                                                         var Result = JSON.parse(GetString);
 
-                                                        if (Result.response == 'true') {
-                                                            CSRF_TOKEN = Result.token;
-                                                        }
+                                                        if (Result.response == 'true') CSRF_TOKEN = Result.token;
 
                                                         return DeleteEvents(data_id, button_id, start_date, end_date);
                                                     },

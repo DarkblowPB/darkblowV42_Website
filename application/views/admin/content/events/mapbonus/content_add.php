@@ -16,24 +16,22 @@
                         <label class="col-form-label col-3">Map</label>
                         <select id="map_id" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Map</option>
-                            <?php for ($i = 0; $i <= 121; $i++) : ?>
-                                <option value="<?= $i ?>">
-                                    <?php if ($this->eventsmapbonus->GetMap($i) != 'STR_STAGE_EMPTY') : ?>
-                                        <?= $this->eventsmapbonus->GetMap($i) ?>
-                                    <?php endif ?>
-                                </option>
-                            <?php endfor; ?>
+                            <?php foreach ($this->eventsmapbonus->GetMap() as $key => $value) : ?>
+                                <?php if ($value != 'STR_STAGE_EMPTY') : ?>
+                                    <option value="<?= $key ?>"><?= $value ?></option>
+                                <?php endif ?>
+                            <?php endforeach ?>
                         </select>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Gameplay Type</label>
                         <select id="stage_type" class="form-control col-9 reward_selection">
                             <option value="" disabled selected>Select Gameplay Type</option>
-                            <?php for ($i = 0; $i <= 14; $i++) : ?>
-                                <option value="<?= $i ?>">
-                                    <?= $this->eventsmapbonus->GetStageType($i) ?>
-                                </option>
-                            <?php endfor; ?>
+                            <?php foreach ($this->eventsmapbonus->GetStageType() as $key => $value) : ?>
+                                <?php if ($value != 'None') : ?>
+                                    <option value="<?= $key ?>"><?= $value ?></option>
+                                <?php endif ?>
+                            <?php endforeach ?>
                         </select>
                     </div>
                     <div class="form-group row">
@@ -54,94 +52,7 @@
                             $('#add_form').on('submit', function(e) {
                                 e.preventDefault();
 
-                                if ($('#start_date').val() == '' || $('#start_date').val() == null) {
-                                    ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
-                                    return;
-                                } else if ($('#end_date').val() == '' || $('#end_date').val() == null) {
-                                    ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
-                                    return;
-                                } else if ($('#map_id').val() == '' || $('#map_id').val() == null) {
-                                    ShowToast(2000, 'warning', 'Map Cannot Be Empty.');
-                                    return;
-                                } else if ($('#stage_type').val() == '' || $('#stage_type').val() == null) {
-                                    ShowToast(2000, 'warning', 'Gameplay Type Cannot Be Empty.');
-                                    return;
-                                } else if ($('#percent_gp').val() == '' || $('#percent_gp').val() == null) {
-                                    ShowToast(2000, 'warning', 'Point Boost Cannot Be Empty.');
-                                    return;
-                                } else if ($('#percent_xp').val() == '' || $('#percent_xp').val() == null) {
-                                    ShowToast(2000, 'warning', 'EXP Boost Cannot Be Empty.');
-                                    return;
-                                } else {
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/eventsmanagement/mapbonus/do_add') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'start_date': $('#start_date').val(),
-                                            'end_date': $('#end_date').val(),
-                                            'map_id': $('#map_id').val(),
-                                            'stage_type': $('#stage_type').val(),
-                                            'percent_xp': $('#percent_xp').val(),
-                                            'percent_gp': $('#percent_gp').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                setTimeout(() => {
-                                                    self.history.back();
-                                                }, 2000);
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Generate New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return Do_Add();
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'submit', 'Submit New Events');
-                                                    ShowToast(2000, 'error', 'Failed To Submit New Events.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return Do_Add();
                             });
                         });
 
@@ -184,23 +95,14 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Submit New Events');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') {
                                             setTimeout(() => {
                                                 self.history.back();
                                             }, 2000);
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
                                         }
                                     },
                                     error: function() {

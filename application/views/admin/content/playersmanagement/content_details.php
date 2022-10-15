@@ -10,33 +10,19 @@
                         <tbody>
                             <tr>
                                 <td>Username</td>
-                                <td>
-                                    <?= $player->login ?>
-                                </td>
+                                <td><?= $player->login ?></td>
                             </tr>
                             <tr>
                                 <td>Player ID</td>
-                                <td>
-                                    <?= $player->player_id ?>
-                                </td>
+                                <td><?= $player->player_id ?></td>
                             </tr>
                             <tr>
                                 <td>Nickname</td>
-                                <td>
-                                    <?= $player->player_name ?>
-                                </td>
+                                <td><?= $player->player_name ?></td>
                             </tr>
                             <tr>
                                 <td>Name Color</td>
-                                <td>
-                                    <?php
-                                    if ($player->name_color != 0) {
-                                        echo "Use";
-                                    } else {
-                                        echo "Default";
-                                    }
-                                    ?>
-                                </td>
+                                <td><?= $player->name_color != 0 ? 'Custom' : 'Default' ?></td>
                             </tr>
                             <tr>
                                 <td>Rank</td>
@@ -117,12 +103,7 @@
                             <tr>
                                 <td>Online</td>
                                 <td>
-                                    <?php if ($player->online == 't') : ?>
-                                        <span class="text-success text-bold">ONLINE</span>
-                                    <?php endif; ?>
-                                    <?php if ($player->online == 'f') : ?>
-                                        <span class="text-danger text-bold">OFFLINE</span>
-                                    <?php endif; ?>
+                                    <?= $player->online == 't' ? '<span class="text-success text-bold">ONLINE</span>' : '<span class="text-danger text-bold">OFFLINE</span>' ?>
                                 </td>
                             </tr>
                             <tr>
@@ -218,61 +199,61 @@
                             <tr>
                                 <td>Primary Weapon</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->weapon_primary) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->weapon_primary) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Secondary Weapon</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->weapon_secondary) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->weapon_secondary) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Melee Weapon</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->weapon_melee) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->weapon_melee) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Grenade</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->weapon_thrown_normal) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->weapon_thrown_normal) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Special</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->weapon_thrown_special) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->weapon_thrown_special) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Red Chara</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->char_red) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->char_red) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Blue Chara</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->char_blue) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->char_blue) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Helmet</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->char_helmet) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->char_helmet) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Dinosaurs</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->char_dino) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->char_dino) ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Beret</td>
                                 <td>
-                                    <?= $this->playersmanagement->GetWeaponName($player->char_beret) ?>
+                                    <?= $this->darkblowlib->GetItemName($player->char_beret) ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -321,15 +302,7 @@
                         <tbody>
                             <tr>
                                 <td>Email</td>
-                                <td>
-                                    <?= $player->email ?>
-                                    (<?php if ($player->email_verification == 0) : ?>
-                                    <span class="text-danger text-bold">Not Verified</span>
-                                <?php endif; ?>
-                                <?php if ($player->email_verification == 1) : ?>
-                                    <span class="text-success text-bold">Verified</span>
-                                    <?php endif; ?>)
-                                </td>
+                                <td><?= $player->email ?> (<?= $player->email_verification == 0 ? '<span class="text-danger text-bold">Not Verified</span>' : '<span class="text-success text-bold">Verified</span>' ?>)</td>
                             </tr>
                             <tr>
                                 <td>Password</td>
@@ -337,9 +310,7 @@
                             </tr>
                             <tr>
                                 <td>Hint Question</td>
-                                <td>
-                                    <?= character_limiter($player->hint_question, 30) ?>
-                                </td>
+                                <td><?= character_limiter($player->hint_question, 30) ?></td>
                             </tr>
                             <tr>
                                 <td>Hint Answer</td>
@@ -360,35 +331,21 @@
                         <tbody>
                             <tr>
                                 <td>Last Ip Address</td>
-                                <td>
-                                    <?= $player->lastip ?>
-                                </td>
+                                <td><?= $player->lastip ?></td>
                             </tr>
                             <tr>
                                 <td>Last Rank Up</td>
                                 <td>
-                                    <?php
-                                    $lastRankUp = $player->last_rankup_date;
-                                    if ($lastRankUp == 1010000) {
-                                        echo "NULL";
-                                    } else {
-                                        $_string01 = str_split($lastRankUp, 2);
-                                        echo '20' . $_string01[0] . '-' . $_string01[1] . '-' . $_string01[2] . ' ' . $_string01[3] . ':' . $_string01[4] . ':00';
-                                    }
-                                    ?>
+                                    <?php $player->last_rank_up == 1010000 ? 'NULL' : '20' . str_split($lastRankUp, 2)[0] . '-' . str_split($lastRankUp, 2)[1] . '-' . str_split($lastRankUp, 2)[2] . ' ' . str_split($lastRankUp, 2)[3] . ':' . str_split($lastRankUp, 2)[4] . ':00' ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Last Mac Address</td>
-                                <td class="text-uppercase">
-                                    <?= $player->last_mac ?>
-                                </td>
+                                <td class="text-uppercase"><?= $player->last_mac ?></td>
                             </tr>
                             <tr>
                                 <td>Date Registered</td>
-                                <td>
-                                    <?= $player->date_registered ?>
-                                </td>
+                                <td><?= $player->date_registered ?></td>
                             </tr>
                         </tbody>
                     </table>

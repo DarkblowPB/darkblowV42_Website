@@ -86,6 +86,26 @@ class Server extends RestController
                 'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_port'),
             );
 
+            if ($data['opcode'] == 1 || $data['opcode'] == 2) {
+                if (!$this->socketcommand->CheckConnection($host['pbserver_management'], $port['pbserver_management'])) {
+                    $response['response'] = 'error';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Connect To Server.';
+
+                    $this->response($response, 200);
+                }
+            } else {
+                if (!$this->socketcommand->CheckConnection($host['pbserver_game'], $port['pbserver_game'])) {
+                    $response['response'] = 'error';
+                    $response['token'] = $this->security->get_csrf_hash();
+                    $response['message'] = 'Failed To Connect To Server.';
+
+                    $this->response($response, 200);
+                }
+            }
+
+            sleep(1);
+
             switch ($data['opcode']) {
                 case '1': // Start Server
                     {
@@ -136,13 +156,14 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '4': // Send Announcement
                     {
                         if ($this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data) == 'success') {
                             $response['response'] = 'success';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = $this->socketcommand->CreateConnection($host['pbserver_game'], $port['pbserver_game'], $data);
+                            $response['message'] = "Successfully Send Announcement.";
 
                             $this->response($response, 200);
                         } else {
@@ -152,6 +173,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '5': // Kick All Players
                     {
@@ -168,6 +190,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '6': // Banned Player
                     {
@@ -184,6 +207,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '7': // Attendance
                     {
@@ -200,6 +224,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '8': // Redeem Code
                     {
@@ -212,10 +237,11 @@ class Server extends RestController
                         } else {
                             $response['response'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Failed To Redeem Code.';
+                            $response['message'] = "Failed To Redeem Code.";
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '9': // Send Cash ID
                     {
@@ -232,6 +258,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '10': // Refill Shop
                     {
@@ -248,6 +275,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
                 case '11': // Send Point ID
                     {
@@ -264,6 +292,7 @@ class Server extends RestController
 
                             $this->response($response, 200);
                         }
+                        break;
                     }
 
                 default: {
@@ -272,6 +301,7 @@ class Server extends RestController
                         $response['message'] = 'Invalid Opcode.';
 
                         $this->response($response, 200);
+                        break;
                     }
             }
         }
@@ -287,25 +317,67 @@ class Server extends RestController
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'OFFLINE';
-                    $this->darkblowmessage->AjaxFlashData($response);
+
+                    $this->response($response, 200);
                 } else if ($query->server_condition == 1) {
                     $response['response'] = 'true';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'ONLINE';
-                    $this->darkblowmessage->AjaxFlashData($response);
+
+                    $this->response($response, 200);
                 } else {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'OFFLINE';
-                    $this->darkblowmessage->AjaxFlashData($response);
+
+                    $this->response($response, 200);
                 }
             } else {
                 $response['response'] = 'true';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'INVALID';
-                $this->darkblowmessage->AjaxFlashData($response);
+
+                $this->response($response, 200);
             }
         } else return;
+    }
+
+    function serverstatus_get()
+    {
+        $response = array();
+
+        $host = array(
+            'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_host'),
+            'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_host'),
+            'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_host'),
+            'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_host'),
+        );
+
+        $port = array(
+            'pbserver_auth' => $this->socketcommand->LoadConfig('pbserver_auth_port'),
+            'pbserver_battle' => $this->socketcommand->LoadConfig('pbserver_battle_port'),
+            'pbserver_game' => $this->socketcommand->LoadConfig('pbserver_game_port'),
+            'pbserver_management' => $this->socketcommand->LoadConfig('pbserver_management_port'),
+        );
+
+        if (!$this->socketcommand->CheckConnection($host['pbserver_management'], $port['pbserver_management'])) {
+            $response['response'] = 'fatal_error';
+            $response['message'] = 'Failed To Connect To Server Management System.';
+
+            $this->response($response, 200);
+        } else {
+            if ($this->socketcommand->CheckConnection($host['pbserver_auth'], $port['pbserver_auth'])) {
+                $response['response'] = 'success';
+                $response['message'] = 'Server Active.';
+
+                $this->response($response, 200);
+            } else {
+                $response['response'] = 'error';
+                $response['message'] = 'Server Passive.';
+
+                $this->response($response, 200);
+            }
+        }
     }
 }
 

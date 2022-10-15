@@ -88,7 +88,7 @@ class Playtime extends CI_Controller
         );
         if ($this->form_validation->run()) $this->eventsplaytime->AddNewEvents();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
@@ -109,7 +109,7 @@ class Playtime extends CI_Controller
         );
         if ($this->form_validation->run()) $this->eventsplaytime->DeleteEvents();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

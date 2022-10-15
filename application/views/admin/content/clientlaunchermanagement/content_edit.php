@@ -80,10 +80,10 @@
                                         'file_id': '<?= $files->id ?>',
                                         'file_name': $('#file_name').val(),
                                         'file_description': $('#file_description').val(),
+                                        'file_size': $('#file_size').val(),
                                         'file_cloud_type': $('#file_cloud_type').val(),
                                         'file_type': $('#file_type').val(),
                                         'file_url': $('#file_url').val(),
-                                        'file_size': $('#file_size').val()
                                     },
                                     success: function(data) {
                                         var GetString = JSON.stringify(data);
@@ -117,9 +117,7 @@
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
 
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
+                                                    if (Result.response == 'true') CSRF_TOKEN = Result.token;
                                                     return Do_UploadUrl();
                                                 },
                                                 error: function() {

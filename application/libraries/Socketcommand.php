@@ -30,28 +30,6 @@ class Socketcommand
     }
 
     /**
-     * Old Config
-     * 
-     * @author Darkblow Studio
-     * @package Site Server Communication
-     * @param $param
-     * @return string
-     */
-    public function Config($param)
-    {
-        $config = array(
-            'host' => '127.0.0.1',
-            'primary_port' => 1000,
-            'secondary_port' => 1200,
-            'third_port' => 1500,
-            'side_port' => 1700
-        );
-
-        if ($param == null) return $config;
-        else return $config[$param];
-    }
-
-    /**
      * Site Server Communication Opcodes
      * 
      * Specified Package Number To Execute Communication
@@ -175,7 +153,7 @@ class Socketcommand
             if ($connect) {
                 $write = socket_write($socket, json_encode($data), strlen(json_encode($data)));
                 if ($write) {
-                    $read = socket_read($socket, 2048);
+                    $read = socket_read($socket, 1028);
                     return strtolower($read);
                 } else return "Failed";
             } else return "Failed";

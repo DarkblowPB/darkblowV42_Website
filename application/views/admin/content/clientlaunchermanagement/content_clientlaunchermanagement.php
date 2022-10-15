@@ -100,6 +100,7 @@
                                 }
 
                                 default: {
+                                    SetAttribute(button_id, 'button', 'Delete');
                                     setTimeout(() => {
                                         window.location = '<?= base_url('adm/clientlaunchermanagement') ?>';
                                     }, 2000);

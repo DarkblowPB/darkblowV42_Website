@@ -69,7 +69,7 @@ class Rankup extends CI_Controller
         );
         if ($this->form_validation->run()) $this->eventsrankup->UpdateEvents();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

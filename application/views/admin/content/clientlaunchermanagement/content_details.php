@@ -5,9 +5,7 @@
                 <div class="card-body">
                     <table class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
                         <thead>
-                            <th colspan="2" class="text-bold text-uppercase">
-                                <?= $files->file_name ?>
-                            </th>
+                            <th colspan="2" class="text-bold text-uppercase"><?= $files->file_name ?></th>
                         </thead>
                         <tbody>
                             <tr>
@@ -16,21 +14,15 @@
                             </tr>
                             <tr>
                                 <td>File Type</td>
-                                <td class="text-uppercase">
-                                    <?= $files->file_type ?>
-                                </td>
+                                <td class="text-uppercase"><?= $files->file_type ?></td>
                             </tr>
                             <tr>
                                 <td>File Size</td>
-                                <td>
-                                    <?= $files->file_size ?>
-                                </td>
+                                <td><?= $files->file_size ?></td>
                             </tr>
                             <tr>
                                 <td>Date Upload</td>
-                                <td>
-                                    <?= $this->darkblowlib->ParseUnixTimeStamp($files->date_created) ?>
-                                </td>
+                                <td><?= $this->darkblowlib->ParseUnixTimeStamp($files->date_created) ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -58,22 +50,15 @@
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true') {
-                                        SetAttribute('check_visibility', 'button', 'Check Visibility');
-                                        CSRF_TOKEN = Result.token;
-                                        window.open(Result.url);
-                                        return;
-                                    } else if (Result.response == 'false') {
-                                        SetAttribute('check_visibility', 'button', 'Check Visibility');
-                                        CSRF_TOKEN = Result.token;
-                                        ShowToast(2000, 'error', Result.message);
-                                        return;
-                                    } else {
-                                        SetAttribute('check_visibility', 'button', 'Check Visibility');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    }
+                                    SetAttribute('check_visibility', 'button', 'Check Visibility');
+                                    CSRF_TOKEN = Result.token;
+
+                                    if (Result.response == 'success') {
+                                        ShowToast(2000, Result.response, 'Redirecting To Page...');
+                                        setTimeout(() => {
+                                            window.open(Result.url, '_blank');
+                                        }, 2000);
+                                    } else ShowToast(2000, Result.response, Result.message);
                                 },
                                 error: function() {
                                     if (RETRY >= 3) {

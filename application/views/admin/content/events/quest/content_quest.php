@@ -90,79 +90,7 @@
                             $('#update_form').on('submit', function(e) {
                                 e.preventDefault();
 
-                                if ($('#start_date').val() == '' || $('#start_date').val() == null) {
-                                    ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
-                                    return;
-                                } else if ($('#end_date').val() == '' || $('#end_date').val() == null) {
-                                    ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
-                                    return;
-                                } else {
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/eventsmanagement/quest/do_update') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'start_date': $('#start_date').val(),
-                                            'end_date': $('#end_date').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Submit');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Generate Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return Do_Update();
-
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'submit', 'Submit');
-                                                    ShowToast(2000, 'error', 'Failed To Update Events.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return Do_Update();
                             });
                         })
 
@@ -185,30 +113,21 @@
                                         'start_date': $('#start_date').val(),
                                         'end_date': $('#end_date').val()
                                     },
-                                    success: function(data) {
+                                    success: (data) => {
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
+                                        SetAttribute('submit', 'submit', 'Submit');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') {
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Submit');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
                                         }
                                     },
-                                    error: function() {
+                                    error: () => {
                                         SetAttribute('submit', 'submit', 'Submit');
                                         ShowToast(2000, 'error', 'Failed To Update Events.');
                                         setTimeout(() => {

@@ -20,7 +20,7 @@ class Redeemcode_model extends CI_Model
 	{
 		$config = $this->config->item('main_config')['codesystem'];
 
-		if (strtolower($config) == 'api') return base_url('api/servercommand/redeemcode');
+		if (strtolower($config) == 'api') return base_url('api/server/sendcommand');
 		else if (strtolower($config) == 'manual') return base_url('player_panel/redeemcode/do_redeem');
 		else return base_url('player_panel/redeemcode/do_redeem');
 	}

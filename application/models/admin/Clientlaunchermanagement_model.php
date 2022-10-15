@@ -27,10 +27,15 @@ class Clientlaunchermanagement_model extends CI_Model
 
         $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $this->encryption->decrypt($data['files_id'])))->row();
         if ($query) {
-            $response['response'] = 'true';
+            $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
             $response['url'] = $query->file_url;
-            $response['message'] = '';
+
+            $this->darkblowmessage->AjaxFlashData($response);
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['url'] = '';
 
             $this->darkblowmessage->AjaxFlashData($response);
         }
@@ -40,46 +45,40 @@ class Clientlaunchermanagement_model extends CI_Model
     {
         $response = array();
 
+        $file_id = $this->input->post('file_id', true);
+
         $data = array(
-            'file_id' => $this->encryption->encrypt($this->input->post('file_id', true)),
-            'file_name' => $this->encryption->encrypt($this->input->post('file_name', true)),
-            'file_url' => $this->encryption->encrypt($this->input->post('file_url', true)),
-            'file_type' => $this->encryption->encrypt($this->input->post('file_type', true)),
-            'file_size' => $this->encryption->encrypt($this->input->post('file_size', true)),
-            'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
+            'file_name' => $this->input->post('file_name', true),
+            'file_description' => $this->input->post('file_description', true),
+            'file_size' => $this->input->post('file_size', true),
+            'file_cloud_type' => $this->input->post('file_cloud_type', true),
+            'file_type' => $this->input->post('file_type', true),
+            'file_url' => $this->input->post('file_url', true),
+            'date_updated' => date('Y-m-d H:i:s'),
         );
 
-        if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
-            $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $this->encryption->decrypt($data['file_id'])))->row();
-            if ($query) {
-                $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_download_clientlauncher, array(
-                    'file_name' => $this->encryption->decrypt($data['file_name']),
-                    'file_url' => $this->encryption->decrypt($data['file_url']),
-                    'type' => $this->encryption->decrypt($data['file_type']),
-                    'size' => $this->encryption->decrypt($data['file_size']),
-                    'version' => $this->encryption->decrypt($data['file_version'])
-                ));
-                if ($update) {
-                    $response['response'] = 'true';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Successfully Edit The File.';
-                    $this->darkblowmessage->AjaxFlashData($response);
-                } else {
-                    $response['response'] = 'false';
-                    $response['token'] = $this->security->get_csrf_hash();
-                    $response['message'] = 'Failed To Edit The File.';
-                    $this->darkblowmessage->AjaxFlashData($response);
-                }
-            } else {
-                $response['response'] = 'false';
+        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $file_id))->row();
+        if ($query) {
+            $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_download_clientlauncher, $data);
+            if ($update) {
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
-                $response['message'] = 'File Not Found.';
+                $response['message'] = 'Successfully Update File.';
+
+                $this->darkblowmessage->AjaxFlashData($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Update File.';
+
                 $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'Cannot Reach Url. Please Use Another URL';
+            $response['message'] = 'File Not Found.';
+
+            $this->darkblowmessage->AjaxFlashData($response);
         }
     }
 

@@ -30,12 +30,8 @@
                                         ':' . $this->darkblowlib->ConvertDate($rankup->end_date)[4] // Minutes
                                     ?>
                                 </td>
-                                <td id="data_point_boost">
-                                    <?= $rankup->percent_gp ?>
-                                </td>
-                                <td id="data_exp_boost">
-                                    <?= $rankup->percent_xp ?>
-                                </td>
+                                <td id="data_point_boost"><?= $rankup->percent_gp ?></td>
+                                <td id="data_exp_boost"><?= $rankup->percent_xp ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -72,84 +68,7 @@
                             $('#edit_form').on('submit', function(e) {
                                 e.preventDefault();
 
-                                if ($('#start_date').val() == '') {
-                                    ShowToast(2000, 'warning', 'Start Date Cannot Be Empty.');
-                                    return;
-                                } else if ($('#end_date').val() == '') {
-                                    ShowToast(2000, 'warning', 'End Date Cannot Be Empty.');
-                                    return;
-                                } else if ($('#point').val() == '') {
-                                    ShowToast(2000, 'warning', 'Point Boost Cannot Be Empty.');
-                                    return;
-                                } else if ($('#exp').val() == '') {
-                                    ShowToast(2000, 'warning', 'EXP Boost Cannot Be Empty.');
-                                    return;
-                                } else {
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/eventsmanagement/rankup/do_update') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'start_date': $('#start_date').val(),
-                                            'end_date': $('#end_date').val(),
-                                            'point': $('#point').val(),
-                                            'exp': $('#exp').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                CSRF_TOKEN = Result.token;
-                                                ShowToast(2000, 'success', Result.message);
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 2000);
-                                                return;
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Update Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                return;
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Generating New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-
-                                                    return Do_Update();
-                                                },
-                                                error: function() {
-                                                    ShowToast(2000, 'error', 'Failed To Update Events.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
+                                return Do_Update();
                             });
                         });
 
@@ -184,25 +103,18 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            CSRF_TOKEN = Result.token;
-                                            ShowToast(2000, 'success', Result.message);
+                                        SetAttribute('submit', 'submit', 'Update Events');
+                                        CSRF_TOKEN = Result.token;
+                                        ShowToast(2000, Result.response, Result.message);
+
+                                        if (Result.response == 'success') {
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                            return;
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Update Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            return;
                                         }
                                     },
                                     error: function() {
+                                        SetAttribute('submit', 'submit', 'Update Events');
                                         ShowToast(2000, 'error', 'Failed To Update Events.');
                                         setTimeout(() => {
                                             window.location.reload();

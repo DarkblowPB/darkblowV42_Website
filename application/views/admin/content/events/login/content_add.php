@@ -72,24 +72,14 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'success', Result.message);
-                                                CSRF_TOKEN = Result.token;
+                                            SetAttribute('submit', 'submit', 'Submit New Events');
+                                            ShowToast(2000, Result.response, Result.message);
+                                            CSRF_TOKEN = Result.token;
+
+                                            if (Result.response == 'success') {
                                                 setTimeout(() => {
                                                     self.history.back();
                                                 }, 2000);
-                                                return;
-                                            } else if (Result.response == 'false') {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
-                                            } else {
-                                                SetAttribute('submit', 'submit', 'Submit New Events');
-                                                ShowToast(2000, 'error', Result.message);
-                                                CSRF_TOKEN = Result.token;
-                                                return;
                                             }
                                         },
                                         error: function() {

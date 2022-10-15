@@ -145,7 +145,7 @@ class Attendance extends CI_Controller
         );
         if ($this->form_validation->run()) $this->attendance->CreateEvents7DaysV2();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 
@@ -297,7 +297,7 @@ class Attendance extends CI_Controller
         );
         if ($this->form_validation->run()) $this->attendance->CreateEvents14Days();
         else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
 

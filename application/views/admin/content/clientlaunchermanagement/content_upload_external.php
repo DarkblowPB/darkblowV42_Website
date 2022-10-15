@@ -116,9 +116,7 @@
                                                     var GetString = JSON.stringify(data);
                                                     var Result = JSON.parse(GetString);
 
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
+                                                    if (Result.response == 'true') CSRF_TOKEN = Result.token;
                                                     return Do_UploadUrl();
                                                 },
                                                 error: function() {

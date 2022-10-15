@@ -19,20 +19,12 @@
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true') {
-                                        SetAttribute('disable_event', 'button', 'Disable Event');
-                                        ShowToast(2000, 'success', Result.message);
+                                    SetAttribute('disable_event', 'button', 'Disable Event');
+                                    ShowToast(2000, Result.response, Result.message);
+                                    if (Result.response == 'success') {
                                         setTimeout(() => {
                                             window.location.reload();
                                         }, 2000);
-                                    } else if (Result.response == 'false') {
-                                        SetAttribute('disable_event', 'button', 'Disable Event');
-                                        ShowToast(2000, 'error', Result.message);
-                                        return;
-                                    } else {
-                                        SetAttribute('disable_event', 'button', 'Disable Event');
-                                        ShowToast(2000, 'error', Result.message);
-                                        return;
                                     }
                                 },
                                 error: function() {
@@ -66,24 +58,12 @@
                                 <?php $num = 1;
                                 foreach ($attend as $row) : ?>
                                     <tr id="data_<?= $num ?>">
-                                        <td>
-                                            <?= $num ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['day'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['item_name'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $this->darkblowlib->GetItemDuration('2', $row['item_count'], 1) ?>
-                                        </td>
-                                        <td>
-                                            <?= number_format($row['total_claim'], 0, ',', '.') ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['date'] ?>
-                                        </td>
+                                        <td><?= $num ?></td>
+                                        <td><?= $row['day'] ?></td>
+                                        <td><?= $row['item_name'] ?></td>
+                                        <td><?= $this->darkblowlib->GetItemDuration('2', $row['item_count'], 1) ?></td>
+                                        <td><?= number_format($row['total_claim'], 0, ',', '.') ?></td>
+                                        <td><?= $row['date'] ?></td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

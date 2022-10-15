@@ -93,21 +93,11 @@
                                 foreach ($last_players as $row) :
                             ?>
                                     <tr>
-                                        <td>
-                                            <?= $num ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['login'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['email'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['lastip'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['date_registered'] ?>
-                                        </td>
+                                        <td><?= $num ?></td>
+                                        <td><?= $row['login'] ?></td>
+                                        <td><?= $row['email'] ?></td>
+                                        <td><?= $row['lastip'] ?></td>
+                                        <td><?= $row['date_registered'] ?></td>
                                     </tr>
                                 <?php
                                     $num++;
@@ -146,18 +136,10 @@
                                 foreach ($last_redeem as $row) :
                             ?>
                                     <tr>
-                                        <td>
-                                            <?= $num ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['username'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['item_code'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $row['date_redeemed'] ?>
-                                        </td>
+                                        <td><?= $num ?></td>
+                                        <td><?= $row['username'] ?></td>
+                                        <td><?= $row['item_code'] ?></td>
+                                        <td><?= $row['date_redeemed'] ?></td>
                                         <td>Success</td>
                                     </tr>
                                 <?php

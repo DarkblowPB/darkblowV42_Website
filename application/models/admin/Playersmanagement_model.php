@@ -567,13 +567,6 @@ class Playersmanagement_model extends CI_Model
         }
     }
 
-    function GetWeaponName($item_id)
-    {
-        $query = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
-        if ($query) return $query->item_name;
-        else return "";
-    }
-
     function GetSpecifiedPlayer($player_id)
     {
         $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();

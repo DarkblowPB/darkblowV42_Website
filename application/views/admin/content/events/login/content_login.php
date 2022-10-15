@@ -23,9 +23,7 @@
                             <?php $num = 1;
                             foreach ($items as $row) : ?>
                                 <tr id="<?= 'data_' . $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
+                                    <td><?= $num ?></td>
                                     <td>
                                         <?= $this->darkblowlib->ConvertDate($row['start_date'])[2] . // Days
                                             '-' . $this->darkblowlib->ConvertDate($row['start_date'])[1] . // Month
@@ -42,12 +40,8 @@
                                             ':' . $this->darkblowlib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td>
-                                        <?= $this->eventslogin->GetItemName($row['reward_id']) ?>
-                                    </td>
-                                    <td>
-                                        <?= $this->eventslogin->ConvertDuration($row['reward_count']) ?>
-                                    </td>
+                                    <td><?= $this->eventslogin->GetItemName($row['reward_id']) ?></td>
+                                    <td><?= $this->eventslogin->ConvertDuration($row['reward_count']) ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,22 +77,11 @@
                                     var GetString = JSON.stringify(data);
                                     var Result = JSON.parse(GetString);
 
-                                    if (Result.response == 'true') {
-                                        document.getElementById(data_id).remove();
-                                        ShowToast(2000, 'success', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    } else if (Result.response == 'false') {
-                                        SetAttribute(button_id, 'button', 'Delete');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    } else {
-                                        SetAttribute(button_id, 'button', 'Delete');
-                                        ShowToast(2000, 'error', Result.message);
-                                        CSRF_TOKEN = Result.token;
-                                        return;
-                                    }
+                                    SetAttribute('submit', 'submit', 'Submit New Events');
+                                    ShowToast(2000, Result.response, Result.message);
+                                    CSRF_TOKEN = Result.token;
+
+                                    if (Result.response == 'success') document.getElementById(data_id).remove();
                                 },
                                 error: function(data) {
                                     if (RETRY >= 3) {
@@ -108,6 +91,7 @@
                                             window.location.reload();
                                         }, 2000);
                                     } else {
+                                        RETRY += 1;
                                         ShowToast(1000, 'info', 'Generating New Request Token...');
 
                                         $.ajax({

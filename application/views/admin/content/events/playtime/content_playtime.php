@@ -23,9 +23,7 @@
                             <?php $num = 1;
                             foreach ($playtime as $row) : ?>
                                 <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
+                                    <td><?= $num ?></td>
                                     <td>
                                         <?= $this->darkblowlib->ConvertDate($row['start_date'])[2] . // Days
                                             '-' . $this->darkblowlib->ConvertDate($row['start_date'])[1] . // Month
@@ -42,12 +40,8 @@
                                             ':' . $this->darkblowlib->ConvertDate($row['end_date'])[4] // Minutes
                                         ?>
                                     </td>
-                                    <td>
-                                        <?= $row['title'] ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($row['seconds_target'], '0', ',', '.') ?>
-                                    </td>
+                                    <td><?= $row['title'] ?></td>
+                                    <td><?= number_format($row['seconds_target'], '0', ',', '.') ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,23 +79,11 @@
                                         var GetString = JSON.stringify(data);
                                         var Result = JSON.parse(GetString);
 
-                                        if (Result.response == 'true') {
-                                            SetAttribute(button_id, 'button', 'Delete');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            document.getElementById(data_id).remove();
-                                            return;
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute(button_id, 'button', 'Delete');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute(button_id, 'button', 'Delete');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
+                                        SetAttribute(button_id, 'button', 'Delete');
+                                        ShowToast(2000, Result.response, Result.message);
+                                        CSRF_TOKEN = Result.token;
+
+                                        if (Result.response == 'success') document.getElementById(data_id).remove();
                                     },
                                     error: function() {
                                         if (RETRY >= 3) {

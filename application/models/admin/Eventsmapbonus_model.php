@@ -14,7 +14,7 @@ class Eventsmapbonus_model extends CI_Model
         parent::__construct();
     }
 
-    function GetMap($map_id)
+    function GetMap($map_id = '')
     {
         $map_list = array(
             0 => 'STR_STAGE_EMPTY',
@@ -140,11 +140,11 @@ class Eventsmapbonus_model extends CI_Model
             120 => 'STR_STAGE_EMPTY',
             121 => 'Hospital',
         );
-
-        return $map_list[$map_id];
+        if ($map_id == '') return $map_list;
+        else return $map_list[$map_id];
     }
 
-    function GetStageType($stage_id)
+    function GetStageType($stage_id = '')
     {
         $stage_list = array(
             0 => 'None',
@@ -164,7 +164,8 @@ class Eventsmapbonus_model extends CI_Model
             14 => 'Escort',
         );
 
-        return $stage_list[$stage_id];
+        if ($stage_id == '') return $stage_list;
+        else return $stage_list[$stage_id];
     }
 
     function GetAllItems()
@@ -200,13 +201,13 @@ class Eventsmapbonus_model extends CI_Model
         ));
 
         if ($query) {
-            $response['response'] = 'true';
+            $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Successfully Add New Events.';
 
             $this->darkblowmessage->AjaxFlashData($response);
         } else {
-            $response['response'] = 'true';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed To Add New Events.';
 
@@ -227,20 +228,20 @@ class Eventsmapbonus_model extends CI_Model
         if ($query) {
             $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete(Darkblowdatabase::events_mapbonus);
             if ($delete) {
-                $response['response'] = 'true';
+                $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Delete Events.';
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $response['response'] = 'false';
+                $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed To Delete Events.';
 
                 $this->darkblowmessage->AjaxFlashData($response);
             }
         } else {
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Invalid Events.';
 

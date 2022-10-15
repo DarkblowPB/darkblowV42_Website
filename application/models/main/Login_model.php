@@ -28,14 +28,11 @@ class Login_model extends CI_Model
 		$response = array();
 
 		$data = array(
-			'username' => $this->input->post('username', true),
+			'login' => $this->input->post('username', true),
 			'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true))
 		);
 
-		$query = $this->db->get_where(Darkblowdatabase::accounts, array(
-			'login' => $data['username'],
-			'password' => $data['password']
-		))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
 		if ($query) {
 			if ($query->access_level == Darkblowaccesslevel::BANNED) {
 				$response['response'] = 'error';
@@ -85,16 +82,16 @@ class Login_model extends CI_Model
 	{
 		sleep(1);
 		$data = array(
-			'username' => $this->encryption->encrypt($this->input->post('username', true)),
-			'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true)))
+			'login' => $this->input->post('username', true),
+			'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true))
 		);
 
 		$response = array();
 
-		$query = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $this->encryption->decrypt($data['username']), 'password' => $this->encryption->decrypt($data['password'])))->row();
+		$query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
 		if ($query) {
-			if ($query->access_level == '-1') {
-				$response['response'] = 'false';
+			if ($query->access_level == Darkblowaccesslevel::BANNED) {
+				$response['response'] = 'error';
 				$response['token'] = $this->security->get_csrf_hash();
 				$response['message'] = $this->lang->line('STR_ERROR_37');
 				$this->darkblowmessage->AjaxFlashData($response);
@@ -107,14 +104,14 @@ class Login_model extends CI_Model
 					'login_token' => $query->password,
 				);
 				$this->session->set_userdata($sessionData);
-				$response['response'] = 'true';
+				$response['response'] = 'success';
 				$response['token'] = $this->security->get_csrf_hash();
 				$this->session->userdata('player_name') == '' ? $response['message'] = $this->lang->line('STR_SUCCESS_6') . $query->login : $response['message'] = $this->lang->line('STR_SUCCESS_6') . $this->session->userdata('player_name');
 
 				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
-			$response['response'] = 'false';
+			$response['response'] = 'success';
 			$response['token'] = $this->security->get_csrf_hash();
 			$response['message'] = $this->lang->line('STR_ERROR_38');
 			$this->darkblowmessage->AjaxFlashData($response);

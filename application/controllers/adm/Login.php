@@ -25,6 +25,7 @@ class Login extends CI_Controller
     function do_login()
     {
         $response = array();
+        $this->form_validation->set_error_delimiters('', '');
 
         $this->form_validation->set_rules(
             'username',
@@ -40,10 +41,10 @@ class Login extends CI_Controller
         );
         if ($this->form_validation->run()) $this->login->LoginValidation();
         else {
-            $this->form_validation->set_error_delimiters('', '');
-            $response['response'] = 'false';
+            $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = validation_errors();
+
             $this->darkblowmessage->AjaxFlashData($response);
         }
     }
