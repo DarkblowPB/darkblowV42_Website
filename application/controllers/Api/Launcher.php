@@ -14,7 +14,6 @@ class Launcher extends RestController
     function __construct()
     {
         parent::__construct();
-        $this->load->model('admin/servercommandmanagement_model', 'servercommand');
     }
 
     function getlauncherkey_get()
@@ -48,8 +47,18 @@ class Launcher extends RestController
 
     function serverstatus_get()
     {
-        if ($this->servercommand->GetServerState()) $this->response(["status" => 'Success', "server_status" => 'ONLINE'], 200);
-        else $this->response(["status" => 'Success', "server_status" => 'OFFLINE'], 200);
+        $response = array();
+        if ($this->darkblowsocketcommand->ServerCheck(Darkblownetwork::DEFAULT_AUTH_PORT) && $this->darkblowsocketcommand->ServerCheck(Darkblownetwork::DEFAULT_GAME_PORT)) {
+            $response['status'] = 'success';
+            $response['server_status'] = 'ONLINE';
+
+            $this->response($response, 200);
+        } else {
+            $response['status'] = 'error';
+            $response['server_status'] = 'OFFLINE';
+
+            $this->response($response, 200);
+        }
     }
 
     function updatetoken_get($player_id = null)

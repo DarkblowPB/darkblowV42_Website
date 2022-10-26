@@ -1,3 +1,12 @@
+<div class="text-center">
+  <script type='text/javascript' src='https://cdn.trakteer.id/js/embed/trbtn.min.js'></script>
+  <script type='text/javascript'>
+    (function() {
+      var trbtnId = trbtn.init('Support Me On Trakteer', '#be1e2d', 'https://trakteer.id/eyetracker/tip', 'https://cdn.trakteer.id/images/embed/trbtn-icon.png', '25');
+      trbtn.draw(trbtnId);
+    })();
+  </script>
+</div>
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">

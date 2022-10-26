@@ -100,6 +100,11 @@
           'zeroRecords': 'Nothing Found Here.'
         }
       });
+      $('#webshop_table').dataTable({
+        'language': {
+          'zeroRecords': 'Nothing Found Here.'
+        }
+      });
 
       // Form Selection
       $('.reward_selection').select2();
@@ -122,6 +127,9 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="javascript:void(0)" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= base_url() ?>" target="_blank" role="button" title="View Site"><i class="fas fa-home"></i></a>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
@@ -129,7 +137,7 @@
             <i class="far fa-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right text-center">
-            <a href="javascript:void(0)" class="dropdown-item">Settings</a>
+            <a href="<?= base_url('adm/settings/generalsettings') ?>" class="dropdown-item">Settings</a>
             <a href="<?= base_url('adm/dashboard/logout') ?>" class="dropdown-item">Logout</a>
           </div>
         </li>
@@ -148,7 +156,7 @@
             <img src="<?= base_url() ?>assets/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">
+            <a href="javascript:void(0)" class="d-block">
               <?= $this->session->userdata('admin_name') ?>
             </a>
           </div>
@@ -335,6 +343,14 @@
                 <i class="nav-icon fas fa-trophy"></i>
                 <p>
                   Rank Awards Management
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('adm/webshopmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "webshopmanagement") echo 'active'; ?>">
+                <i class="nav-icon fas fa-shopping-bag"></i>
+                <p>
+                  Webshop Management
                 </p>
               </a>
             </li>

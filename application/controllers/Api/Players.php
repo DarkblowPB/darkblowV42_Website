@@ -98,6 +98,26 @@ class Players extends RestController
             $this->darkblowmessage->AjaxFlashData($response);
         } else return;
     }
+
+    function userblockprotection_get()
+    {
+        $response = array();
+
+        $ip_address = $this->input->ip_address();
+
+        $query = $this->db->get_where(Darkblowdatabase::web_ipbanned, array('ipaddress' => $ip_address))->row();
+        if ($query) {
+            $response['status'] = 'error';
+            $response['message'] = 'IP Restricted.';
+
+            $this->response($response, 200);
+        } else {
+            $response['status'] = 'open';
+            $response['message'] = 'IP Open.';
+
+            $this->response($response, 200);
+        }
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

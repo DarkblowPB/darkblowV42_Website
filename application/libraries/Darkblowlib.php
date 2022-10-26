@@ -44,6 +44,7 @@ class Darkblowlib
 
 		// Use openssl_encrypt() function to encrypt the data
 		$encryption = openssl_encrypt($param, $ciphering, $encryption_key, $options, $encryption_iv);
+
 		return $encryption;
 	}
 

@@ -135,9 +135,8 @@ class Darkblowsocketcommand
             // If IP Address Is Valid
             $socket = @socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-            if ($socket === false) {
-                return "socket create failed.";
-            } else {
+            if ($socket === false) return "socket create failed.";
+            else {
                 $result = @socket_connect($socket, $host, $port);
                 if ($result === false) return "socket connect failed.";
                 else {
