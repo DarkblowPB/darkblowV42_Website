@@ -5,7 +5,7 @@
                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Players</span>
-                    <span class="info-box-number" id="total_players">
+                    <span class="info-box-number">
                         <?= $registeredplayers; ?>
                     </span>
                 </div>
@@ -16,7 +16,7 @@
                 <span class="info-box-icon"><i class="fas fa-user-check"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Online Players</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" id="total_players">
                         <?= $onlineplayers ?>
                     </span>
                 </div>
