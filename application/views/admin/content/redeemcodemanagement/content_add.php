@@ -1,67 +1,75 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <?= form_open('', 'id="add_form" autocomplete="off"') ?>
             <div class="card">
                 <div class="card-body">
-                    <?= form_open('', 'id="add_form" autocomplete="off"') ?>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Reward</label>
-                        <select id="item_id" class="form-control col-9 reward_selection" required>
-                            <option value="" disabled selected>Select Reward</option>
-                            <?php foreach ($rewards as $row) : ?>
-                                <option value="<?= $row['item_id'] ?>">
-                                    <?= $row['item_name'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Reward</label>
+                                <select id="item_id" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Reward</option>
+                                    <?php foreach ($rewards as $row) : ?>
+                                        <option value="<?= $row['item_id'] ?>">
+                                            <?= $row['item_name'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Reward Count</label>
+                                <select id="item_count" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Reward Count</option>
+                                    <option value="64800">1 Day</option>
+                                    <option value="259200">3 Day</option>
+                                    <option value="604800">7 Day</option>
+                                    <option value="2592000">30 Day</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Item Code</label>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <input type="text" id="item_code" class="form-control" placeholder="Enter Item Code">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="button" id="generate_randomcode" class="btn btn-outline-primary text-white" value="Generate" onclick="GenerateCode()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Cash Amount</label>
+                                <input type="number" id="cash" class="form-control" placeholder="Enter Cash Amount" value="0">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Type</label>
+                                <select id="type" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Type</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Item">Item</option>
+                                    <option value="Double">Double</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Total Qty</label>
+                                <input type="number" name="qty" id="qty" class="form-control" placeholder="Enter Total Qty">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Valid Date</label>
+                                <select name="valid_date" id="valid_date" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Valid Date</option>
+                                    <option value="1">1 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="7">7 Days</option>
+                                    <option value="15">15 Days</option>
+                                    <option value="30">30 Days</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Reward Count</label>
-                        <select id="item_count" class="form-control col-9 reward_selection" required>
-                            <option value="" disabled selected>Select Reward Count</option>
-                            <option value="64800">1 Day</option>
-                            <option value="259200">3 Day</option>
-                            <option value="604800">7 Day</option>
-                            <option value="2592000">30 Day</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Item Code</label>
-                        <input type="text" id="item_code" class="form-control col-7" placeholder="Enter Item Code" required>
-                        <input type="button" id="generate_randomcode" class="btn btn-outline-primary text-white ml-3 col-1" value="Generate" onclick="GenerateCode()">
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Cash Amount</label>
-                        <input type="number" id="cash" class="form-control col-9" placeholder="Enter Cash Amount" value="0">
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Type</label>
-                        <select id="type" class="form-control col-9 reward_selection" required>
-                            <option value="" disabled selected>Select Type</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Item">Item</option>
-                            <option value="Double">Double</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Total Qty</label>
-                        <input type="number" name="qty" id="qty" class="form-control col-9" placeholder="Enter Total Qty" required>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Valid Date</label>
-                        <select name="valid_date" id="valid_date" class="form-control col-9 reward_selection" required>
-                            <option value="" disabled selected>Select Valid Date</option>
-                            <option value="1">1 Days</option>
-                            <option value="3">3 Days</option>
-                            <option value="7">7 Days</option>
-                            <option value="15">15 Days</option>
-                            <option value="30">30 Days</option>
-                        </select>
-                    </div>
-                    <div class="form-group text-right">
-                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Redeem Code">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
 
@@ -107,6 +115,30 @@
                             } else if ($('#valid_date').val() == '' || $('#valid_date').val() == null) {
                                 ShowToast(2000, 'warning', 'Valid Date Cannot Be Empty.');
                                 return;
+                            } else if ($('#type').val() == 'item') {
+                                if ($('#item_id').val() == '' || $('#item_id').val() == null) {
+                                    ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
+                                    return;
+                                } else if ($('#item_count').val() == '' || $('#item_count').val() == null) {
+                                    ShowToast(2000, 'warning', 'Reward Count Cannot Be Empty.');
+                                    return;
+                                }
+                            } else if ($('#type').val() == 'cash') {
+                                if ($('#cash').val() == '' || $('#cash').val() == null) {
+                                    ShowToast(2000, 'warning', 'Cash Ammount Cannot Be Empty.');
+                                    return;
+                                }
+                            } else if ($('#type').val() == 'double') {
+                                if ($('#item_id').val() == '' || $('#item_id').val() == null) {
+                                    ShowToast(2000, 'warning', 'Reward Cannot Be Empty.');
+                                    return;
+                                } else if ($('#item_count').val() == '' || $('#item_count').val() == null) {
+                                    ShowToast(2000, 'warning', 'Reward Count Cannot Be Empty.');
+                                    return;
+                                } else if ($('#cash').val() == '' || $('#cash').val() == null) {
+                                    ShowToast(2000, 'warning', 'Cash Ammount Cannot Be Empty.');
+                                    return;
+                                }
                             } else {
                                 SetAttribute('submit', 'button', 'Processing...');
 
@@ -167,7 +199,11 @@
                         }
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Redeem Code">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

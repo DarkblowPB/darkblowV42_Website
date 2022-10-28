@@ -27,9 +27,10 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <?= form_open('', 'id="add_form" autocomplete="off"') ?>
             <div class="card">
+                <div class="card-header text-center text-uppercase font-weight-bold">Banned IP Form</div>
                 <div class="card-body">
-                    <?= form_open('', 'id="add_form" autocomplete="off"') ?>
                     <div class="form-group">
                         <label class="col-form-label">IP ADDRESS</label>
                         <input type="text" id="ip_address" class="form-control" placeholder="Enter IP Address">
@@ -38,10 +39,6 @@
                         <label class="col-form-label">Reason</label>
                         <textarea name="reason" id="reason" rows="10" class="form-control" placeholder="Reason"></textarea>
                     </div>
-                    <div class="form-group text-center">
-                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
@@ -188,7 +185,11 @@
                         }
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

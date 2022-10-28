@@ -496,6 +496,12 @@ class Darkblowlib
 			} else return FALSE;
 		}
 	}
+
+	public function GetServerMaxPlayers()
+	{
+		$query = $this->ci->db->get_where(Darkblowdatabase::info_gameservers, array('id' => '1'))->row();
+		if ($query) return $query->max_players;
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

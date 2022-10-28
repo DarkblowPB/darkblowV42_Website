@@ -45,7 +45,6 @@
                         var GetString = JSON.stringify(response);
                         var Result = JSON.parse(GetString);
 
-                        var input_element = document.createElement("input");
                         if (Result.response == 'success') CreateServerStatusButton("button", "stopserver", "btn btn-outline-primary text-white", "Stop Server", "StopServer()");
                         else if (Result.response == 'error') CreateServerStatusButton("button", "startserver", "btn btn-outline-primary text-white", "Start Server", "StartServer()");
                         else CreateServerStatusButton("button", "", "btn btn-outline-primary text-white", "COMMAND SYSTEM DISABLED", "");

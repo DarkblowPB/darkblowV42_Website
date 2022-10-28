@@ -86,7 +86,7 @@
           return false
         }
       }
-    })
+    });
   })
 </script>
 </body>

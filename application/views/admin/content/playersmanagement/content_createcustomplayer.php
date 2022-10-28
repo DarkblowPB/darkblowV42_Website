@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <?= form_open('', 'id="createcustomplayer_form" autocomplete="off"') ?>
             <div class="card">
                 <div class="card-body">
-                    <?= form_open('', 'id="createcustomplayer_form" autocomplete="off"') ?>
                     <div class="form-group row">
                         <label class="col-form-label col-3">Username</label>
                         <input type="text" id="login" class="form-control col-9" placeholder="Enter Your Username">
@@ -69,10 +69,6 @@
                         <label class="col-form-label col-3">Hint Answer</label>
                         <input type="text" name="hint_answer" id="hint_answer" class="form-control col-9" placeholder="Enter Your Hint Answer">
                     </div>
-                    <div class="form-group text-right">
-                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Create New Player">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(function() {
@@ -150,7 +146,11 @@
                         });
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Create New Player">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

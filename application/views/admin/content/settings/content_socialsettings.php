@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <?= form_open('', 'autocomplete="off" id="social_form"') ?>
             <div class="card">
                 <div class="card-header text-bold text-uppercase text-center">Social Settings</div>
                 <div class="card-body">
-                    <?= form_open('', 'autocomplete="off" id="social_form"') ?>
                     <div class="form-group">
                         <label for="facebook">Facebook</label>
                         <input type="url" name="facebook" id="facebook" class="form-control" placeholder="Facebook" value="<?= $this->darkblowsettings->load()->facebook_embed_link ?>">
@@ -17,10 +17,6 @@
                         <label for="youtube">Youtube</label>
                         <input type="url" name="youtube" id="youtube" class="form-control" placeholder="Youtube" value="<?= $this->darkblowsettings->load()->youtube_embed_link ?>">
                     </div>
-                    <div class="form-group text-right">
-                        <input type="submit" id="submit" class="btn btn-primary" value="Submit">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(() => {
@@ -58,7 +54,11 @@
                         });
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

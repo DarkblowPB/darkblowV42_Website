@@ -32,7 +32,6 @@
                                                 Menu
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-
                                                 <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteAwards('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['rank_id'] ?>', '<?= $row['item_id'] ?>')">
                                             </div>
                                         </div>
@@ -58,75 +57,86 @@
                                         ShowToast(2000, 'warning', 'Invalid Data.');
                                         return;
                                     } else {
-                                        SetAttribute(button_id, 'button', 'Processing...');
+                                        Swal.fire({
+                                            title: 'Are You Sure Want To Delete This Awards?',
+                                            text: "You Won't Be Able To Revert This Action!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Yes, Delete It!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                SetAttribute(button_id, 'button', 'Processing...');
+                                                $.ajax({
+                                                    url: '<?= base_url('adm/rankawardsmanagement/do_delete') ?>',
+                                                    type: 'POST',
+                                                    dataType: 'JSON',
+                                                    data: {
+                                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                                        'rank_id': rank_id,
+                                                        'item_id': item_id
+                                                    },
+                                                    success: function(data) {
+                                                        var GetString = JSON.stringify(data);
+                                                        var Result = JSON.parse(GetString);
 
-                                        $.ajax({
-                                            url: '<?= base_url('adm/rankawardsmanagement/do_delete') ?>',
-                                            type: 'POST',
-                                            dataType: 'JSON',
-                                            data: {
-                                                '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                                'rank_id': rank_id,
-                                                'item_id': item_id
-                                            },
-                                            success: function(data) {
-                                                var GetString = JSON.stringify(data);
-                                                var Result = JSON.parse(GetString);
-
-                                                if (Result.response == 'true') {
-                                                    document.getElementById(data_id).remove();
-                                                    ShowToast(2000, 'success', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                } else if (Result.response == 'false') {
-                                                    SetAttribute(button_id, 'button', 'Delete');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                } else {
-                                                    SetAttribute(button_id, 'button', 'Delete');
-                                                    ShowToast(2000, 'error', Result.message);
-                                                    CSRF_TOKEN = Result.token;
-                                                    return;
-                                                }
-                                            },
-                                            error: function() {
-                                                if (RETRY >= 3) {
-                                                    SetAttribute(button_id, 'button', 'Delete');
-                                                    ShowToast(2000, 'error', 'Failed To Delete This Awards.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                    return;
-                                                } else {
-                                                    RETRY += 1;
-                                                    $.ajax({
-                                                        url: '<?= base_url('api/security/csrf') ?>',
-                                                        type: 'GET',
-                                                        dataType: 'JSON',
-                                                        data: {
-                                                            '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-                                                        },
-                                                        success: function(data) {
-                                                            var GetString = JSON.stringify(data);
-                                                            var Result = JSON.parse(GetString);
-
-                                                            if (Result.response == 'true') {
-                                                                CSRF_TOKEN = Result.token;
-                                                            }
-                                                            return DeleteAwards(data_id, button_id, rank_id, item_id);
-                                                        },
-                                                        error: function() {
+                                                        if (Result.response == 'true') {
+                                                            document.getElementById(data_id).remove();
+                                                            ShowToast(2000, 'success', Result.message);
+                                                            CSRF_TOKEN = Result.token;
+                                                            return;
+                                                        } else if (Result.response == 'false') {
+                                                            SetAttribute(button_id, 'button', 'Delete');
+                                                            ShowToast(2000, 'error', Result.message);
+                                                            CSRF_TOKEN = Result.token;
+                                                            return;
+                                                        } else {
+                                                            SetAttribute(button_id, 'button', 'Delete');
+                                                            ShowToast(2000, 'error', Result.message);
+                                                            CSRF_TOKEN = Result.token;
+                                                            return;
+                                                        }
+                                                    },
+                                                    error: function() {
+                                                        if (RETRY >= 3) {
                                                             SetAttribute(button_id, 'button', 'Delete');
                                                             ShowToast(2000, 'error', 'Failed To Delete This Awards.');
                                                             setTimeout(() => {
                                                                 window.location.reload();
                                                             }, 2000);
+                                                            return;
+                                                        } else {
+                                                            RETRY += 1;
+                                                            $.ajax({
+                                                                url: '<?= base_url('api/security/csrf') ?>',
+                                                                type: 'GET',
+                                                                dataType: 'JSON',
+                                                                data: {
+                                                                    '<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
+                                                                },
+                                                                success: function(data) {
+                                                                    var GetString = JSON.stringify(data);
+                                                                    var Result = JSON.parse(GetString);
+
+                                                                    if (Result.response == 'true') {
+                                                                        CSRF_TOKEN = Result.token;
+                                                                    }
+                                                                    return DeleteAwards(data_id, button_id, rank_id, item_id);
+                                                                },
+                                                                error: function() {
+                                                                    SetAttribute(button_id, 'button', 'Delete');
+                                                                    ShowToast(2000, 'error', 'Failed To Delete This Awards.');
+                                                                    setTimeout(() => {
+                                                                        window.location.reload();
+                                                                    }, 2000);
+                                                                }
+                                                            });
                                                         }
-                                                    });
-                                                }
+                                                    }
+                                                });
                                             }
-                                        });
+                                        })
                                     }
                                 }
                             </script>

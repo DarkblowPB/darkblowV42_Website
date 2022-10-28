@@ -26,7 +26,7 @@ class Server extends RestController
         $this->form_validation->set_rules(
             'opcode',
             'opcode',
-            'required|numeric|max_length[2]|in_list[1,2,3,4,5,6,7,8,9,10,11]',
+            'required|numeric|max_length[2]|in_list[1,2,3,4,5,6,7,8,9,10,11,12,13]',
             array(
                 'required' => '%s Cannot Be Empty.',
                 'numeric' => '%s Must Be Numeric Characters.',
@@ -277,7 +277,22 @@ class Server extends RestController
                         }
                         break;
                     }
+                case Darkblowopcodes::GAME_SERVER_GET_MEMORY_USAGE[0]: {
+                        $response['response'] = 'success';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data);
 
+                        $this->response($response, 200);
+                        break;
+                    }
+                case Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[0]: {
+                        $response['response'] = 'success';
+                        $response['token'] = $this->security->get_csrf_hash();
+                        $response['message'] = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data);
+
+                        $this->response($response, 200);
+                        break;
+                    }
                 default: {
                         $response['response'] = 'error';
                         $response['token'] = $this->security->get_csrf_hash();
@@ -287,6 +302,11 @@ class Server extends RestController
                         break;
                     }
             }
+        } else {
+            $response['response'] = 'error';
+            $response['message'] = validation_errors('', '');
+
+            $this->response($response, 200);
         }
     }
 

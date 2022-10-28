@@ -1,145 +1,101 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <?= form_open('', 'id="featuresettings_form" autocomplete="off"') ?>
             <div class="card">
                 <div class="card-body">
-                    <?= form_open('', 'id="featuresettings_form" autocomplete="off"') ?>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Webshop</label>
-                        <select id="enable_webshop" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->webshop == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->webshop == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Webshop</label>
+                                <select id="enable_webshop" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->webshop == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->webshop == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Trade Market</label>
+                                <select id="enable_trademarket" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->trade_market == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->trade_market == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Exchange Ticket (Experimental)</label>
+                                <select id="enable_exchangeticket" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->exchange_ticket == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->exchange_ticket == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Redeem Code</label>
+                                <select id="enable_redeemcode" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->redeemcode == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->redeemcode == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Voucher</label>
+                                <select id="enable_voucher" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->voucher == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->voucher == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Forgot Password</label>
+                                <select id="enable_forgotpassword" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->forgot_password == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->forgot_password == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Register</label>
+                                <select id="enable_register" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->register == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->register == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Attendance</label>
+                                <select id="enable_attendance" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->attendance == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->attendance == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Email Verification</label>
+                                <select name="enable_email_verification" id="enable_email_verification" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->email_verification == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->email_verification == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Google Register</label>
+                                <select name="enable_google_register" id="enable_google_register" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->google_register == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->google_register == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Log System</label>
+                                <select name="enable_log_system" id="enable_log_system" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->google_register == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->google_register == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Pack Shop</label>
+                                <select name="enable_packshop" id="enable_packshop" class="form-control reward_selection" style="width: 100%;">
+                                    <option value="0" <?php if ($this->darkblowsettings->load()->packshop == 0) echo 'selected'; ?>>Disabled</option>
+                                    <option value="1" <?php if ($this->darkblowsettings->load()->packshop == 1) echo 'selected'; ?>>Enabled</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Trade Market</label>
-                        <select id="enable_trademarket" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->trade_market == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->trade_market == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Exchange Ticket (Experimental)</label>
-                        <select id="enable_exchangeticket" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->exchange_ticket == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->exchange_ticket == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Redeem Code</label>
-                        <select id="enable_redeemcode" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->redeemcode == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->redeemcode == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Voucher</label>
-                        <select id="enable_voucher" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->voucher == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->voucher == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Forgot Password</label>
-                        <select id="enable_forgotpassword" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->forgot_password == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->forgot_password == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Register</label>
-                        <select id="enable_register" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->register == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->register == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Attendance</label>
-                        <select id="enable_attendance" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->attendance == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->attendance == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Email Verification</label>
-                        <select name="enable_email_verification" id="enable_email_verification" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->email_verification == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->email_verification == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Google Register</label>
-                        <select name="enable_google_register" id="enable_google_register" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->google_register == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->google_register == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Log System</label>
-                        <select name="enable_log_system" id="enable_log_system" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->google_register == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->google_register == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-3">Pack Shop</label>
-                        <select name="enable_packshop" id="enable_packshop" class="form-control col-9 reward_selection">
-                            <option value="0" <?php if ($this->darkblowsettings->load()->packshop == 0) {
-                                                    echo 'selected';
-                                                } ?>>Disabled</option>
-                            <option value="1" <?php if ($this->darkblowsettings->load()->packshop == 1) {
-                                                    echo 'selected';
-                                                } ?>>Enabled</option>
-                        </select>
-                    </div>
-                    <div class="form-group text-right">
-                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         $(document).ready(function() {
@@ -242,7 +198,11 @@
                         }
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit Feature">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

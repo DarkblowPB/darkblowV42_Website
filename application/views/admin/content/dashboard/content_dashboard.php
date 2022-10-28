@@ -5,7 +5,7 @@
                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Players</span>
-                    <span class="info-box-number">
+                    <span class="info-box-number" id="total_players">
                         <?= $registeredplayers; ?>
                     </span>
                 </div>
@@ -49,24 +49,139 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <i class="fas fa-list mr-2"></i>Server Condition
+                    <i class="fas fa-list mr-2"></i>Server Memory Usage
                 </div>
                 <div class="card-body text-center">
-                    <input type="text" class="knob" value="100" data-skin="tron" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-width="120" data-height="120" data-fgColor="#00c0ef" readonly>
-                    <div class="knob-label text-bold">
-                        <?= $onlineplayers ?> / <?= $fullservers->max_players ?>
-                    </div>
+                    <canvas id="MemoryUsage_Chart"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <i class="fas fa-user-friends mr-2"></i>Total Site Visitors
+                    <i class="fas fa-user-friends mr-2"></i>Total Connected Socket
                 </div>
                 <div class="card-body text-center">
-                    <input type="text" class="knob" value="100" data-skin="tron" data-thickness="0.2" data-angleArc="250" data-angleOffset="-125" data-width="120" data-height="120" data-fgColor="#00c0ef" readonly>
-                    <div class="knob-label text-bold">0</div>
+                    <canvas id="SocketCount_Chart"></canvas>
+                    <script>
+                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
+                        const MemoryUsage_Canvas = $('#MemoryUsage_Chart').get(0).getContext('2d');
+                        const MemoryUsage_Data = {
+                            labels: [
+                                'Memory Usage',
+                                'Available Memory'
+                            ],
+                            datasets: [{
+                                data: [0, 131072],
+                                backgroundColor: ['#dc3545', '#198754'],
+                            }]
+                        };
+                        const MemoryUsage_Options = {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            legend: {
+                                labels: {
+                                    fontColor: "white"
+                                }
+                            }
+                        };
+                        const MemoryUsage = new Chart(MemoryUsage_Canvas, {
+                            type: 'pie',
+                            data: MemoryUsage_Data,
+                            options: MemoryUsage_Options
+                        });
+
+                        const SocketCount_Canvas = $('#SocketCount_Chart').get(0).getContext('2d');
+                        const SocketCount_Data = {
+                            labels: [
+                                'Online Players',
+                                'Max Players'
+                            ],
+                            datasets: [{
+                                data: [0, <?= (int)$this->darkblowlib->GetServerMaxPlayers() ?>],
+                                backgroundColor: ['#dc3545', '#198754'],
+                            }]
+                        };
+                        const SocketCount_Options = {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            legend: {
+                                labels: {
+                                    fontColor: "white"
+                                }
+                            }
+                        };
+                        const SocketCount = new Chart(SocketCount_Canvas, {
+                            type: 'pie',
+                            data: SocketCount_Data,
+                            options: SocketCount_Options
+                        });
+
+                        function ServerUsageUpdateChart(server_usage_value) {
+                            MemoryUsage.config.data.datasets[0].data[0] = server_usage_value != 0 ? server_usage_value : 0;
+                            MemoryUsage.update();
+                        }
+
+                        function ServerTotalConnectedSocketUpdateChart(server_total_connected_socket_value) {
+                            SocketCount.config.data.datasets[0].data[0] = server_total_connected_socket_value != 0 ? server_total_connected_socket_value : 0;
+                            SocketCount.update();
+                        }
+
+                        function GetServerUsageAndTotalConnectedSocket() {
+                            $.ajax({
+                                url: '<?= base_url('api/server/sendcommand') ?>',
+                                type: 'POST',
+                                dataType: 'JSON',
+                                data: {
+                                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                    'opcode': '<?= Darkblowopcodes::GAME_SERVER_GET_MEMORY_USAGE[0] ?>',
+                                    'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                    'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                    'command_type': '<?= Darkblowopcodes::GAME_SERVER_GET_MEMORY_USAGE[1] ?>',
+                                },
+                                success: (response) => {
+                                    var GetString = JSON.stringify(response);
+                                    var Result = JSON.parse(GetString);
+
+                                    CSRF_TOKEN = Result.token;
+                                    ServerUsageUpdateChart(Result.message);
+                                },
+                                error: () => {}
+                            });
+
+                            setTimeout(() => {
+                                $.ajax({
+                                    url: '<?= base_url('api/server/sendcommand') ?>',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                                        'opcode': '<?= Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[0] ?>',
+                                        'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+                                        'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+                                        'command_type': '<?= Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[1] ?>',
+                                    },
+                                    success: (response) => {
+                                        var GetString = JSON.stringify(response);
+                                        var Result = JSON.parse(GetString);
+
+                                        CSRF_TOKEN = Result.token;
+                                        ServerTotalConnectedSocketUpdateChart(Result.message);
+                                        document.getElementById('total_players').innerHTML = Result.message;
+                                    }
+                                });
+                            }, 1000);
+                            setTimeout(() => {
+                                GetServerUsageAndTotalConnectedSocket();
+                            }, 5000);
+                        }
+
+                        $(document).ready(() => {
+                            setTimeout(() => {
+                                GetServerUsageAndTotalConnectedSocket();
+                            }, 2000);
+                        });
+                    </script>
                 </div>
             </div>
         </div>

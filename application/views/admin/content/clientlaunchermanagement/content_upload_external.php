@@ -1,49 +1,51 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <?= form_open('', 'id="clientlauncher_upload_form" autocomplete="off"') ?>
             <div class="card">
                 <div class="card-body">
-                    <?= form_open('', 'id="clientlauncher_upload_form" autocomplete="off"') ?>
-                    <div class="form-group">
-                        <label class="col-form-label">File Name</label>
-                        <input type="text" id="file_name" class="form-control" placeholder="Enter Your File Name" required>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">File Name</label>
+                                <input type="text" id="file_name" class="form-control" placeholder="Enter Your File Name">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">File Description</label>
+                                <textarea name="file_description" id="file_description" rows="10" placeholder="Enter Your File Description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="col-form-label">File Type</label>
+                                <select id="file_type" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Your File Type</option>
+                                    <option value="client">Client (Single Link)</option>
+                                    <option value="partial">Client (Partial)</option>
+                                    <option value="launcher">Launcher</option>
+                                    <option value="support">Support App</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">File Url</label>
+                                <input type="url" id="file_url" class="form-control" placeholder="Enter Your File Url">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">File Size</label>
+                                <input type="text" id="file_size" class="form-control" placeholder="Enter Your File Size">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Cloud Type</label>
+                                <select name="file_cloud_type" id="file_cloud_type" class="form-control reward_selection">
+                                    <option value="" disabled selected>Select Your Cloud Type</option>
+                                    <option value="googledrive">Google Drive</option>
+                                    <option value="mediafire">MediaFire</option>
+                                    <option value="sendspace">Sendspace</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-form-label">File Description</label>
-                        <textarea name="file_description" id="file_description" rows="10" placeholder="Enter Your File Description" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label">Cloud Type</label>
-                        <select name="file_cloud_type" id="file_cloud_type" class="form-control reward_selection" required>
-                            <option value="" disabled selected>Select Your Cloud Type</option>
-                            <option value="googledrive">Google Drive</option>
-                            <option value="mediafire">MediaFire</option>
-                            <option value="sendspace">Sendspace</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label">File Type</label>
-                        <select id="file_type" class="form-control reward_selection" required>
-                            <option value="" disabled selected>Select Your File Type</option>
-                            <option value="client">Client (Single Link)</option>
-                            <option value="partial">Client (Partial)</option>
-                            <option value="launcher">Launcher</option>
-                            <option value="support">Support App</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label">File Url</label>
-                        <input type="url" id="file_url" class="form-control" placeholder="Enter Your File Url" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label">File Size</label>
-                        <input type="text" id="file_size" class="form-control" placeholder="Enter Your File Size">
-                    </div>
-                    <div class="form-group text-right">
-                        <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit File">
-                    </div>
-                    <?= form_close() ?>
                     <script>
                         var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                         var RETRY = 0;
@@ -134,7 +136,11 @@
                         }
                     </script>
                 </div>
+                <div class="card-footer text-right">
+                    <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit File">
+                </div>
             </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

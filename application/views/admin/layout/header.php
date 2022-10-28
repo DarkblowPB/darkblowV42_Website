@@ -33,9 +33,11 @@
   <link rel="stylesheet" href="<?= base_url() ?>assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/vendors/sweetalert2/theme-dark/dark.css">
-  <script src="<?= base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
   <!-- jQuery -->
   <script src="<?= base_url() ?>assets/admin/plugins/jquery/jquery.min.js"></script>
+  <script src="<?= base_url() ?>assets/goodgames/assets/vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+
+  <script src="<?= base_url() ?>assets/admin/plugins/chart.js/Chart.min.js"></script>
   <!-- Custam Script -->
   <script>
     $(document).ready(function() {

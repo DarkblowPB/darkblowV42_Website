@@ -460,7 +460,7 @@ class Vouchermanagement extends CI_Controller
 
     function print($id = null)
     {
-        $mpdf = new Mpdf(['orientation' => 'P', 'format' => [250, 121.97]]);
+        $mpdf = new Mpdf(['orientation' => 'P']);
 
         // Meta Data
         $mpdf->SetAuthor($this->darkblowsettings->load()->project_name);
@@ -470,7 +470,6 @@ class Vouchermanagement extends CI_Controller
         $mpdf->SetTitle($this->darkblowsettings->load()->project_name . ' Voucher');
 
         // Page
-
         $css1 = file_get_contents(base_url('assets/goodgames/assets/vendors/bs5/css/bootstrap.min.css'));
         $css2 = file_get_contents(base_url('assets/goodgames/assets/vendor/jquery/dist/jquery.min.js'));
 
@@ -479,13 +478,6 @@ class Vouchermanagement extends CI_Controller
         $mpdf->WriteHTML($this->load->view('admin/content/vouchermanagement/content_print', ['voucher' => $this->vouchermanagement->GetVoucherDetails($id)], TRUE), HTMLParserMode::HTML_BODY);
 
         $mpdf->Output();
-        // if ($id == null) redirect(base_url('adm/vouchermanagement'), 'refresh');
-        // else {
-
-        //     $data['title'] = 'Voucher Information';
-        //     $data['voucher'] = $this->vouchermanagement->GetVoucherDetails($id);
-        //     $this->load->view('admin/content/vouchermanagement/content_print', $data, FALSE);
-        // }
     }
 
     function do_generatecode()

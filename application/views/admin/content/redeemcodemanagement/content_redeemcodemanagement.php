@@ -25,15 +25,9 @@
                             <?php $num = 1;
                             foreach ($redeemcode as $row) : ?>
                                 <tr id="data_<?= $num ?>">
-                                    <td>
-                                        <?= $num ?>
-                                    </td>
-                                    <td>
-                                        <?= $this->darkblowlib->GetItemName($row['item_id']) ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($row['cash'], '0', ',', '.') ?>
-                                    </td>
+                                    <td><?= $num ?></td>
+                                    <td><?= $this->darkblowlib->GetItemName($row['item_id']) ?></td>
+                                    <td><?= number_format($row['cash'], '0', ',', '.') ?></td>
                                     <td>
                                         <?php if ($row['type'] == 'Item' || $row['type'] == 'Double') : ?>
                                             <?= ($row['item_count'] / 24 / 60 / 60) ?> Days
@@ -42,15 +36,9 @@
                                             -
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <?= $row['item_code'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['type'] ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($this->redeemcodemanagement->GetTotalRedeem($row['item_code']), '0', ',', '.') ?>
-                                    </td>
+                                    <td><?= $row['item_code'] ?></td>
+                                    <td><?= $row['type'] ?></td>
+                                    <td><?= number_format($this->redeemcodemanagement->GetTotalRedeem($row['item_code']), '0', ',', '.') ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle text-uppercase text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

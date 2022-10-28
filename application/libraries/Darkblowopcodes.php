@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Darkblowopcodes
 {
@@ -47,6 +47,15 @@ class Darkblowopcodes
     const SEND_POINT_ID = array(
         11,
         "Send Point ID"
+    );
+    const GAME_SERVER_GET_MEMORY_USAGE = array(
+        12,
+        "Game Server Get Memory Usage"
+    );
+
+    const GAME_SERVER_GET_TOTAL_SOCKET_COUNT = array(
+        13,
+        "Game Server Get Total Socket Count"
     );
 }
 

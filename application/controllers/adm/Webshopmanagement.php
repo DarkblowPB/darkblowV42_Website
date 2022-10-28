@@ -28,6 +28,15 @@ class Webshopmanagement extends CI_Controller
         $data['content'] = 'admin/content/webshopmanagement/content_webshopmanagement';
         $this->load->view('admin/layout/wrapper', $data, FALSE);
     }
+
+    function add()
+    {
+        $data['title'] = 'Add New Webshop';
+        $data['header'] = $data['title'];
+        $data['content'] = 'admin/content/webshopmanagement/content_add';
+
+        $this->load->view('admin/layout/wrapper', $data, FALSE);
+    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //
