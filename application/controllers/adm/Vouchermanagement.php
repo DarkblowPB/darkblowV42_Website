@@ -64,12 +64,12 @@ class Vouchermanagement extends CI_Controller
         $response = array();
 
         $data = array(
-            'type' => $this->encryption->encrypt($this->input->post('type'))
+            'type' => $this->input->post('type')
         );
 
         $this->form_validation->set_error_delimiters('', '');
 
-        switch ($this->encryption->decrypt($data['type'])) {
+        switch ($data['type']) {
             case 'small': {
                     $this->form_validation->set_rules(
                         'reward_1',

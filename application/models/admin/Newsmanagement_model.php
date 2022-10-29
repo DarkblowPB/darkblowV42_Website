@@ -162,14 +162,12 @@ class Newsmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'news_id' => $this->encryption->encrypt($this->input->post('news_id', true))
+            'news_id' => $this->input->post('news_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $this->encryption->decrypt($data['news_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_quickslide, array('id' => $data['news_id']))->row();
         if ($query) {
-            if ($query->quickslide_img != null) {
-                if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
-            }
+            if ($query->quickslide_img != null) if (file_exists('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img)) unlink('./assets/goodgames/assets/images/img_news/' . $query->quickslide_img);
             $query2 = $this->db->where('id', $query->id)->delete(Darkblowdatabase::web_quickslide);
             if ($query2) {
                 $response['response'] = 'success';

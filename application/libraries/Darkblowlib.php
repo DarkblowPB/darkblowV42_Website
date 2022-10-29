@@ -68,6 +68,14 @@ class Darkblowlib
 		return $decryption;
 	}
 
+	public function GetItemDetails($object_id)
+	{
+		if (is_numeric($object_id) && $object_id > 0) {
+			$query = $this->ci->db->get_where(Darkblowdatabase::player_items, array('object_id' => $object_id))->row();
+			if ($query) return $query;
+		}
+	}
+
 	public function GetItemName($item_id)
 	{
 		$query = $this->ci->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
@@ -105,15 +113,13 @@ class Darkblowlib
 						if ($result == 1) echo $result . ' Day';
 						else echo $result . ' Day\'s';
 					} else if ($equip == 2) {
-						$split = str_split($count, 2);
-						$datestr = "20" . $split[0] . '-' . $split[1] . '-' . $split[2] . ' ' . $split[3] . ':' . $split[4] . ':' . '00';
-						$date = strtotime($datestr);
-
-						$diff = $date - time();
-						$days = floor($diff / (60 * 60 * 24));
-
-						//Report
-						echo $days . ' Day\'s Remaining';
+						$splitvalue = str_split($count, 2); // $split[0] = Year, $split[1] = Month, $split[2] = Day, $split[3] = Hours, $split[4] = Minutes;
+						$addyears = $splitvalue[0] + 10;
+						$dateformat = "20" . $addyears . '-' . $splitvalue[1] . '-' . $splitvalue[2] . ' ' . $splitvalue[3] . ':' . $splitvalue[4] . ':' . '00';
+						$getunixfromdateformat = strtotime($dateformat);
+						$getunixfromnow = time();
+						$remaindays = $getunixfromdateformat - $getunixfromnow;
+						echo round(($remaindays / 86400)) . ' Day\'s Remaining';
 					} else echo 'Permanent';
 					break;
 				}

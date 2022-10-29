@@ -204,14 +204,14 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true)),
-            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true)),
-            'item_count' => $this->encryption->encrypt($this->input->post('item_count', true))
+            'player_id' => $this->input->post('player_id', true),
+            'item_id' => $this->input->post('item_id', true),
+            'item_count' => $this->input->post('item_count', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
-            $query2 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $query->player_id, 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+            $query2 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $query->player_id, 'item_id' => $data['item_id']))->row();
             if ($query2) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
@@ -219,20 +219,20 @@ class Playersmanagement_model extends CI_Model
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                if ($this->encryption->decrypt($data['item_count']) != '1') {
+                if ($data['item_count'] != '1') {
                     $query3 = $this->db->insert(Darkblowdatabase::player_items, array(
                         'owner_id' => $query->player_id,
-                        'item_id' => $this->encryption->decrypt($data['item_id']),
-                        'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
-                        'count' => $this->encryption->decrypt($data['item_count']),
-                        'category' => $this->darkblowlib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'item_id' => $data['item_id'],
+                        'item_name' => $this->GetItemName($data['item_id']),
+                        'count' => $data['item_count'],
+                        'category' => $this->darkblowlib->GetItemCategory($data['item_id']),
                         'equip' => '1'
                     ));
                     if ($query3) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->player_name . '".';
-                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->login . '".';
+                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($data['item_id']) . '" To "' . $query->player_name . '".';
+                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($data['item_id']) . '" To "' . $query->login . '".';
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
@@ -245,17 +245,17 @@ class Playersmanagement_model extends CI_Model
                 } else {
                     $query3 = $this->db->insert(Darkblowdatabase::player_items, array(
                         'owner_id' => $query->player_id,
-                        'item_id' => $this->encryption->decrypt($data['item_id']),
-                        'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
-                        'count' => $this->encryption->decrypt($data['item_count']),
-                        'category' => $this->darkblowlib->GetItemCategory($this->encryption->decrypt($data['item_id'])),
+                        'item_id' => $data['item_id'],
+                        'item_name' => $this->GetItemName($data['item_id']),
+                        'count' => $data['item_count'],
+                        'category' => $this->darkblowlib->GetItemCategory($data['item_id']),
                         'equip' => '3'
                     ));
                     if ($query3) {
                         $response['response'] = 'true';
                         $response['token'] = $this->security->get_csrf_hash();
-                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->player_name . '".';
-                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($this->encryption->decrypt($data['item_id'])) . '" To "' . $query->login . '".';
+                        if ($query->player_name != '') $response['message'] = 'Successfully Send "' . $this->GetItemName($data['item_id']) . '" To "' . $query->player_name . '".';
+                        else $response['message'] = 'Successfully Send "' . $this->GetItemName($data['item_id']) . '" To "' . $query->login . '".';
 
                         $this->darkblowmessage->AjaxFlashData($response);
                     } else {
@@ -297,23 +297,23 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'login' => $this->encryption->encrypt($this->input->post('login', true)),
-            'password' => $this->encryption->encrypt($this->darkblowlib->password_encrypt($this->input->post('password', true))),
-            'player_name' => $this->encryption->encrypt($this->input->post('player_name', true)),
-            'rank' => $this->encryption->encrypt($this->input->post('rank', true)),
-            'gp' => $this->encryption->encrypt($this->input->post('gp', true)),
-            'pc_cafe' => $this->encryption->encrypt($this->input->post('pc_cafe', true)),
-            'money' => $this->encryption->encrypt($this->input->post('money', true))
+            'login' => $this->input->post('login', true),
+            'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true)),
+            'player_name' => $this->input->post('player_name', true),
+            'rank' => $this->input->post('rank', true),
+            'gp' => $this->input->post('gp', true),
+            'pc_cafe' => $this->input->post('pc_cafe', true),
+            'money' => $this->input->post('money', true)
         );
 
         $query = $this->db->insert(Darkblowdatabase::accounts, array(
-            'login' => $this->encryption->decrypt($data['login']),
-            'password' => $this->encryption->decrypt($data['password']),
-            'player_name' => $this->encryption->decrypt($data['player_name']),
-            'rank' => $this->encryption->decrypt($data['rank']),
-            'gp' => $this->encryption->decrypt($data['gp']),
-            'pc_cafe' => $this->encryption->decrypt($data['pc_cafe']),
-            'money' => $this->encryption->decrypt($data['money'])
+            'login' => $data['login'],
+            'password' => $data['password'],
+            'player_name' => $data['player_name'],
+            'rank' => $data['rank'],
+            'gp' => $data['gp'],
+            'pc_cafe' => $data['pc_cafe'],
+            'money' => $data['money']
         ));
 
         if ($query) {
@@ -369,10 +369,10 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             if ($query->player_name == "[DEV] EyeTracker") {
                 $response['response'] = 'false';
@@ -424,10 +424,10 @@ class Playersmanagement_model extends CI_Model
             'kuyraicoin' => '1000'
         );
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, $defaultData);
             if ($update) {
@@ -455,10 +455,10 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             if ($query->access_level != '-1') {
                 $response['response'] = 'false';
@@ -493,10 +493,10 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             if ($query->access_level == '-1') {
                 $response['response'] = 'false';
@@ -531,10 +531,10 @@ class Playersmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array(
                 'weapon_primary' => '100003004',

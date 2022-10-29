@@ -12,21 +12,11 @@
 				<table class="nk-table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">
 					<thead>
 						<tr>
-							<th width="5%">
-								<?= $this->lang->line('STR_DARKBLOW_164') ?>
-							</th>
-							<th>
-								<?= $this->lang->line('STR_DARKBLOW_66') ?>
-							</th>
-							<th width="15%">
-								<?= $this->lang->line('STR_DARKBLOW_72') ?>
-							</th>
-							<th width="20%">
-								<?= $this->lang->line('STR_DARKBLOW_69') ?>
-							</th>
-							<th width="25%">
-								<?= $this->lang->line('STR_DARKBLOW_73') ?>
-							</th>
+							<th width="5%"><?= $this->lang->line('STR_DARKBLOW_164') ?></th>
+							<th><?= $this->lang->line('STR_DARKBLOW_66') ?></th>
+							<th width="15%"><?= $this->lang->line('STR_DARKBLOW_72') ?></th>
+							<th width="20%"><?= $this->lang->line('STR_DARKBLOW_69') ?></th>
+							<th width="25%"><?= $this->lang->line('STR_DARKBLOW_73') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,9 +26,7 @@
 							foreach ($inventory as $row) :
 						?>
 								<tr id="data_<?= $num ?>">
-									<td>
-										<?= ++$start; ?>
-									</td>
+									<td><?= ++$start; ?></td>
 									<td><?= $this->darkblowlib->GetItemName($row['item_id']) ?></td>
 									<td>
 										<?php
@@ -87,23 +75,13 @@
 										?>
 									</td>
 									<td>
-										<a href="<?= base_url('player_panel/inventory/detail/' . $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="<?= $this->lang->line('STR_DARKBLOW_81') ?>"><span class="fa fa-info-circle mr-2"></span>
-											<?= $this->lang->line('STR_DARKBLOW_82') ?>
-										</a>
-										<?php
-										if ($row['equip'] == 3) {
-										?>
-											<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'error', '<?= $this->lang->line('STR_INFO_8') ?>');"></span>
-												<?= $this->lang->line('STR_DARKBLOW_190') ?>
-											</button>
-										<?php
-										}
-										if ($row['equip'] >= 1 && $row['equip'] < 3) {
-										?>
+										<a href="<?= base_url('player_panel/inventory/detail/' . $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="<?= $this->lang->line('STR_DARKBLOW_81') ?>"><span class="fa fa-info-circle mr-2"></span><?= $this->lang->line('STR_DARKBLOW_82') ?></a>
+										<?php if ($row['equip'] == 3) : ?>
+											<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="ShowToast(2000, 'error', '<?= $this->lang->line('STR_INFO_8') ?>');"></span><?= $this->lang->line('STR_DARKBLOW_190') ?></button>
+										<?php endif ?>
+										<?php if ($row['equip'] == 1 || $row['equip'] == 2) : ?>
 											<input type="button" id="DeleteButton_<?= $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="DeleteItem('data_<?= $num ?>', 'DeleteButton_<?= $num ?>','<?= $this->session->userdata('uid') ?>', '<?= $row['item_id'] ?>')" value="<?= $this->lang->line('STR_DARKBLOW_190') ?>">
-										<?php
-										}
-										?>
+										<?php endif ?>
 									</td>
 								</tr>
 							<?php
@@ -112,9 +90,7 @@
 						} else {
 							?>
 							<tr>
-								<td colspan="5" class="text-center">
-									<?= $this->lang->line('STR_INFO_4') ?>
-								</td>
+								<td colspan="5" class="text-center"><?= $this->lang->line('STR_INFO_4') ?></td>
 							</tr>
 						<?php
 						}
@@ -138,69 +114,79 @@
 										ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_19') ?>');
 										return;
 									} else {
-										SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
+										Swal.fire({
+											title: 'Are You Sure Want To Delete This Player?',
+											text: "You Won't Be Able To Revert This Action!",
+											icon: 'warning',
+											showCancelButton: true,
+											confirmButtonColor: '#3085d6',
+											cancelButtonColor: '#d33',
+											confirmButtonText: 'Yes, Delete It!'
+										}).then((result) => {
+											if (result.isConfirmed) {
+												SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
-										$.ajax({
-											url: '<?= base_url('player_panel/inventory/do_delete') ?>',
-											type: 'POST',
-											dataType: 'JSON',
-											data: {
-												'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-												'player_id': player_id,
-												'item_id': item_id
-											},
-											success: function(data) {
-												var GetString = JSON.stringify(data);
-												var Result = JSON.parse(GetString);
+												$.ajax({
+													url: '<?= base_url('player_panel/inventory/do_delete') ?>',
+													type: 'POST',
+													dataType: 'JSON',
+													data: {
+														'<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+														'player_id': player_id,
+														'item_id': item_id
+													},
+													success: function(data) {
+														var GetString = JSON.stringify(data);
+														var Result = JSON.parse(GetString);
 
-												if (Result.response == 'true') {
-													document.getElementById(data_id).remove();
-													ShowToast(2000, 'success', Result.message);
-													CSRF_TOKEN = Result.token;
-													return;
-												} else {
-													SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_190') ?>');
-													ShowToast(2000, 'error', Result.message);
-													CSRF_TOKEN = Result.token;
-													return;
-												}
-											},
-											error: function() {
-												if (RETRY >= 3) {
-													SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_190') ?>');
-													ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15') ?>');
-													setTimeout(() => {
-														window.location.reload();
-													}, 2000);
-												} else {
-													ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
-
-													$.ajax({
-														url: '<?= base_url('api/security/csrf') ?>',
-														type: 'GET',
-														dataType: 'JSON',
-														data: {
-															'<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
-														},
-														success: function(data) {
-															var GetString = JSON.stringify(data);
-															var Result = JSON.parse(GetString);
-
-															if (Result.response == 'true') {
-																CSRF_TOKEN = Result.token;
-															}
-
-															return DeleteItem(data_id, button_id, player_id, item_id);
-														},
-														error: function() {
-															SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_181') ?>');
-															ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_8') ?>');
+														if (Result.response == 'true') {
+															document.getElementById(data_id).remove();
+															ShowToast(2000, 'success', Result.message);
+															CSRF_TOKEN = Result.token;
+															return;
+														} else {
+															SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_190') ?>');
+															ShowToast(2000, 'error', Result.message);
+															CSRF_TOKEN = Result.token;
+															return;
+														}
+													},
+													error: function() {
+														if (RETRY >= 3) {
+															SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_190') ?>');
+															ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15') ?>');
 															setTimeout(() => {
 																window.location.reload();
 															}, 2000);
+														} else {
+															ShowToast(1000, 'info', '<?= $this->lang->line('STR_INFO_1') ?>');
+
+															$.ajax({
+																url: '<?= base_url('api/security/csrf') ?>',
+																type: 'GET',
+																dataType: 'JSON',
+																data: {
+																	'<?= $this->darkblowlib->GetTokenName() ?>': '<?= $this->darkblowlib->GetTokenKey() ?>'
+																},
+																success: function(data) {
+																	var GetString = JSON.stringify(data);
+																	var Result = JSON.parse(GetString);
+
+																	if (Result.response == 'true') CSRF_TOKEN = Result.token;
+
+																	return DeleteItem(data_id, button_id, player_id, item_id);
+																},
+																error: function() {
+																	SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_181') ?>');
+																	ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_8') ?>');
+																	setTimeout(() => {
+																		window.location.reload();
+																	}, 2000);
+																}
+															});
 														}
-													});
-												}
+													}
+												});
 											}
 										});
 									}

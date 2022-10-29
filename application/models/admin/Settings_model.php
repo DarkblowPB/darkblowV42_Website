@@ -23,8 +23,8 @@ class Settings_model extends CI_Model
     {
         sleep(1);
         $data = array(
-            'server_condition' => $this->encryption->encrypt($this->input->post('server_condition', true)),
-            'website_condition' => $this->encryption->encrypt($this->input->post('website_condition', true))
+            'server_condition' => $this->input->post('server_condition', true),
+            'website_condition' => $this->input->post('website_condition', true)
         );
 
         $response = array();
@@ -32,8 +32,8 @@ class Settings_model extends CI_Model
         $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
             $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
-                'server_condition' => $this->encryption->decrypt($data['server_condition']),
-                'website_condition' => $this->encryption->decrypt($data['website_condition'])
+                'server_condition' => $data['server_condition'],
+                'website_condition' => $data['website_condition']
             ));
 
             if ($update) {
@@ -61,23 +61,23 @@ class Settings_model extends CI_Model
         $response = array();
 
         $data = array(
-            'project_name' => $this->encryption->encrypt($this->input->post('project_name', true)),
-            'meta_author' => $this->encryption->encrypt($this->input->post('meta_author', true)),
-            'meta_description' => $this->encryption->encrypt($this->input->post('meta_description', true)),
-            'meta_keywords' => $this->encryption->encrypt($this->input->post('meta_keywords', true)),
-            'running_text' => $this->encryption->encrypt($this->input->post('running_text', true)),
-            'discord_embed_link' => $this->encryption->encrypt($this->input->post('discord_embed_link', true))
+            'project_name' => $this->input->post('project_name', true),
+            'meta_author' => $this->input->post('meta_author', true),
+            'meta_description' => $this->input->post('meta_description', true),
+            'meta_keywords' => $this->input->post('meta_keywords', true),
+            'running_text' => $this->input->post('running_text', true),
+            'discord_embed_link' => $this->input->post('discord_embed_link', true)
         );
 
         $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
             $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
-                'project_name' => $this->encryption->decrypt($data['project_name']),
-                'meta_author' => $this->encryption->decrypt($data['meta_author']),
-                'meta_description' => $this->encryption->decrypt($data['meta_description']),
-                'meta_keywords' => $this->encryption->decrypt($data['meta_keywords']),
-                'running_text' => $this->encryption->decrypt($data['running_text']),
-                'discord_embed_link' => $this->encryption->decrypt($data['discord_embed_link'])
+                'project_name' => $data['project_name'],
+                'meta_author' => $data['meta_author'],
+                'meta_description' => $data['meta_description'],
+                'meta_keywords' => $data['meta_keywords'],
+                'running_text' => $data['running_text'],
+                'discord_embed_link' => $data['discord_embed_link']
             ));
             if ($update) {
                 $response['response'] = 'true';
@@ -189,18 +189,18 @@ class Settings_model extends CI_Model
     {
         sleep(1);
         $data = array(
-            'enable_webshop' => $this->encryption->encrypt($this->input->post('enable_webshop', true)),
-            'enable_trademarket' => $this->encryption->encrypt($this->input->post('enable_trademarket', true)),
-            'enable_exchangeticket' => $this->encryption->encrypt($this->input->post('enable_exchangeticket', true)),
-            'enable_redeemcode' => $this->encryption->encrypt($this->input->post('enable_redeemcode', true)),
-            'enable_voucher' => $this->encryption->encrypt($this->input->post('enable_voucher', true)),
-            'enable_forgotpassword' => $this->encryption->encrypt($this->input->post('enable_forgotpassword', true)),
-            'enable_register' => $this->encryption->encrypt($this->input->post('enable_register', true)),
-            'enable_attendance' => $this->encryption->encrypt($this->input->post('enable_attendance', true)),
-            'enable_email_verification' => $this->encryption->encrypt($this->input->post('enable_email_verification', true)),
-            'enable_google_register' => $this->encryption->encrypt($this->input->post('enable_google_register', true)),
-            'enable_log_system' => $this->encryption->encrypt($this->input->post('enable_log_system', true)),
-            'enable_packshop' => $this->encryption->encrypt($this->input->post('enable_packshop', true))
+            'enable_webshop' => $this->input->post('enable_webshop', true),
+            'enable_trademarket' => $this->input->post('enable_trademarket', true),
+            'enable_exchangeticket' => $this->input->post('enable_exchangeticket', true),
+            'enable_redeemcode' => $this->input->post('enable_redeemcode', true),
+            'enable_voucher' => $this->input->post('enable_voucher', true),
+            'enable_forgotpassword' => $this->input->post('enable_forgotpassword', true),
+            'enable_register' => $this->input->post('enable_register', true),
+            'enable_attendance' => $this->input->post('enable_attendance', true),
+            'enable_email_verification' => $this->input->post('enable_email_verification', true),
+            'enable_google_register' => $this->input->post('enable_google_register', true),
+            'enable_log_system' => $this->input->post('enable_log_system', true),
+            'enable_packshop' => $this->input->post('enable_packshop', true)
         );
 
         $response = array();
@@ -208,18 +208,18 @@ class Settings_model extends CI_Model
         $query = $this->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
         if ($query) {
             $update = $this->db->where('id', $query->id)->update(Darkblowdatabase::web_settings, array(
-                'webshop' => $this->encryption->decrypt($data['enable_webshop']),
-                'trade_market' => $this->encryption->decrypt($data['enable_trademarket']),
-                'exchange_ticket' => $this->encryption->decrypt($data['enable_exchangeticket']),
-                'redeemcode' => $this->encryption->decrypt($data['enable_redeemcode']),
-                'voucher' => $this->encryption->decrypt($data['enable_voucher']),
-                'forgot_password' => $this->encryption->decrypt($data['enable_forgotpassword']),
-                'register' => $this->encryption->decrypt($data['enable_register']),
-                'attendance' => $this->encryption->decrypt($data['enable_attendance']),
-                'email_verification' => $this->encryption->decrypt($data['enable_email_verification']),
-                'google_register' => $this->encryption->decrypt($data['enable_google_register']),
-                'web_log' => $this->encryption->decrypt($data['enable_log_system']),
-                'packshop' => $this->encryption->decrypt($data['enable_packshop'])
+                'webshop' => $data['enable_webshop'],
+                'trade_market' => $data['enable_trademarket'],
+                'exchange_ticket' => $data['enable_exchangeticket'],
+                'redeemcode' => $data['enable_redeemcode'],
+                'voucher' => $data['enable_voucher'],
+                'forgot_password' => $data['enable_forgotpassword'],
+                'register' => $data['enable_register'],
+                'attendance' => $data['enable_attendance'],
+                'email_verification' => $data['enable_email_verification'],
+                'google_register' => $data['enable_google_register'],
+                'web_log' => $data['enable_log_system'],
+                'packshop' => $data['enable_packshop']
             ));
 
             if ($update) {

@@ -29,10 +29,10 @@ class Eventsattendance_model extends CI_Model
         $response = array();
 
         $data = array(
-            'event_id' => $this->encryption->encrypt($this->input->post('event_id', true))
+            'event_id' => $this->input->post('event_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::events_attendance, array('id' => $this->encryption->decrypt($data['event_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::events_attendance, array('id' => $data['event_id']))->row();
         if ($query) {
             $delete = $this->db->where('id', $query->id)->delete(Darkblowdatabase::events_attendance);
             if ($delete) {

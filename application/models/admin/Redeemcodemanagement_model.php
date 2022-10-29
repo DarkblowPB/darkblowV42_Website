@@ -1160,10 +1160,10 @@ class Redeemcodemanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'item_code' => $this->encryption->encrypt($this->input->post('item_code', true))
+            'item_code' => $this->input->post('item_code', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $this->encryption->decrypt($data['item_code'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['item_code']))->row();
         if ($query) {
             $delete = $this->db->where(Darkblowdatabase::item_code, $query->item_code)->delete(Darkblowdatabase::item_code);
             if ($delete) {

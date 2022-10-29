@@ -16,6 +16,7 @@ class Maintenance extends CI_Controller
         $this->lang->load(array('header', 'string'));
         $this->darkblowprotection->BlockedIP_Protection();
         $this->darkblowprotection->PageDump_Protection();
+        $this->darkblowprotection->Production_Protection();
     }
 
     function index()

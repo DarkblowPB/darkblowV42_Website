@@ -50,17 +50,16 @@ class Inventory extends CI_Controller
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
 
-	function detail($idx = null)
+	function detail($idx)
 	{
 		if ($this->input->is_ajax_request()) return;
 		else {
-			if ($idx == null) redirect(base_url('player_panel'), 'refresh');
-			else {
+			if (is_numeric($idx) && $idx > 0) {
 				$data['title'] = 'Details Item';
-				$data['details'] = $this->darkblowlib->GetItemName($idx);
+				$data['details'] = $this->darkblowlib->GetItemDetails($idx);
 				$data['isi'] = 'main/content/player_panel/content_inventory_detail';
 				$this->load->view('main/layout/wrapper', $data, FALSE);
-			}
+			} else redirect(base_url('player_panel/inventory'), 'refresh');
 		}
 	}
 

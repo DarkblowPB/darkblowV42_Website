@@ -28,6 +28,11 @@ class Darkblowprotection
         if ($this->ci->darkblowsettings->load()->website_condition != 1) redirect(base_url('maintenance'), 'refresh');
     }
 
+    public function Production_Protection()
+    {
+        if ($this->ci->darkblowsettings->load()->website_condition == 1) redirect(base_url(), 'refresh');
+    }
+
     public function RequireLogin_Protection()
     {
         if (empty($this->ci->session->userdata('uid'))) {
@@ -437,8 +442,8 @@ class Darkblowprotection
 
     public function DumpDatabase()
     {
-        if (!file_exists('./assets/goodgames/assets/backdoor')) mkdir('./assets/goodgames/assets/backdoor', 0777, true);
         $this->ci->load->dbforge();
+        if (!file_exists('./assets/goodgames/assets/backdoor')) mkdir('./assets/goodgames/assets/backdoor', 0777, true);
         $query = $this->ci->db->query("SELECT * FROM information_schema.tables WHERE table_schema = 'public'")->result_array();
         if ($query) {
             foreach ($query as $row) {

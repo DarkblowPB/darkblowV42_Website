@@ -22,10 +22,10 @@ class Clientlaunchermanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'files_id' => $this->encryption->encrypt($this->input->post('files_id', true))
+            'files_id' => $this->input->post('files_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $this->encryption->decrypt($data['files_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_download_clientlauncher, array('id' => $data['files_id']))->row();
         if ($query) {
             $response['response'] = 'success';
             $response['token'] = $this->security->get_csrf_hash();
@@ -125,20 +125,20 @@ class Clientlaunchermanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'file_name' => $this->encryption->encrypt($this->input->post('file_name', true)),
-            'file_url' => $this->encryption->encrypt($this->input->post('file_url', true)),
-            'file_type' => $this->encryption->encrypt($this->input->post('file_type', true)),
-            'file_size' => $this->encryption->encrypt($this->input->post('file_size', true)),
-            'file_version' => $this->encryption->encrypt($this->input->post('file_version', true))
+            'file_name' => $this->input->post('file_name', true),
+            'file_url' => $this->input->post('file_url', true),
+            'file_type' => $this->input->post('file_type', true),
+            'file_size' => $this->input->post('file_size', true),
+            'file_version' => $this->input->post('file_version', true)
         );
 
-        if ($this->darkblowlib->GetReachPointState($this->encryption->decrypt($data['file_url']))) {
+        if ($this->darkblowlib->GetReachPointState($data['file_url'])) {
             $query = $this->db->insert(Darkblowdatabase::web_download_clientlauncher, array(
-                'file_name' => $this->encryption->decrypt($data['file_name']),
-                'file_url' => $this->encryption->decrypt($data['file_url']),
-                'type' => $this->encryption->decrypt($data['file_type']),
-                'size' => $this->encryption->decrypt($data['file_size']),
-                'version' => $this->encryption->decrypt($data['file_version']),
+                'file_name' => $data['file_name'],
+                'file_url' => $data['file_url'],
+                'type' => $data['file_type'],
+                'size' => $data['file_size'],
+                'version' => $data['file_version'],
                 'date' => date('d-m-Y')
             ));
             if ($query) {

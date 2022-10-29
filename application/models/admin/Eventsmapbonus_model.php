@@ -183,21 +183,21 @@ class Eventsmapbonus_model extends CI_Model
         $response = array();
 
         $data = array(
-            'start_date' => $this->encryption->encrypt($this->input->post('start_date', true)),
-            'end_date' => $this->encryption->encrypt($this->input->post('end_date', true)),
-            'map_id' => $this->encryption->encrypt($this->input->post('map_id', true)),
-            'stage_type' => $this->encryption->encrypt($this->input->post('stage_type', true)),
-            'percent_gp' => $this->encryption->encrypt($this->input->post('percent_gp', true)),
-            'percent_xp' => $this->encryption->encrypt($this->input->post('percent_xp', true))
+            'start_date' => $this->input->post('start_date', true),
+            'end_date' => $this->input->post('end_date', true),
+            'map_id' => $this->input->post('map_id', true),
+            'stage_type' => $this->input->post('stage_type', true),
+            'percent_gp' => $this->input->post('percent_gp', true),
+            'percent_xp' => $this->input->post('percent_xp', true)
         );
 
         $query = $this->db->insert(Darkblowdatabase::events_mapbonus, array(
-            'start_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-            'end_date' => $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['years'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['month'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['days'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['end_date']))['hours'] . $this->darkblowlib->ExplodeDate($this->encryption->decrypt($data['start_date']))['minutes'],
-            'map_id' => $this->encryption->decrypt($data['map_id']),
-            'stage_type' => $this->encryption->decrypt($data['stage_type']),
-            'percent_xp' => $this->encryption->decrypt($data['percent_xp']),
-            'percent_gp' => $this->encryption->decrypt($data['percent_gp'])
+            'start_date' => $this->darkblowlib->ExplodeDate($data['start_date'])['years'] . $this->darkblowlib->ExplodeDate($data['start_date'])['month'] . $this->darkblowlib->ExplodeDate($data['start_date'])['days'] . $this->darkblowlib->ExplodeDate($data['start_date'])['hours'] . $this->darkblowlib->ExplodeDate($data['start_date'])['minutes'],
+            'end_date' => $this->darkblowlib->ExplodeDate($data['end_date'])['years'] . $this->darkblowlib->ExplodeDate($data['end_date'])['month'] . $this->darkblowlib->ExplodeDate($data['end_date'])['days'] . $this->darkblowlib->ExplodeDate($data['end_date'])['hours'] . $this->darkblowlib->ExplodeDate($data['start_date'])['minutes'],
+            'map_id' => $data['map_id'],
+            'stage_type' => $data['stage_type'],
+            'percent_xp' => $data['percent_xp'],
+            'percent_gp' => $data['percent_gp']
         ));
 
         if ($query) {
@@ -220,11 +220,11 @@ class Eventsmapbonus_model extends CI_Model
         $response = array();
 
         $data = array(
-            'start_date' => $this->encryption->encrypt($this->input->post('start_date', true)),
-            'end_date' => $this->encryption->encrypt($this->input->post('end_date', true))
+            'start_date' => $this->input->post('start_date', true),
+            'end_date' => $this->input->post('end_date', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::events_mapbonus, array('start_date' => $this->encryption->decrypt($data['start_date']), 'end_date' => $this->encryption->decrypt($data['end_date'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::events_mapbonus, array('start_date' => $data['start_date'], 'end_date' => $data['end_date']))->row();
         if ($query) {
             $delete = $this->db->where(array('start_date' => $query->start_date, 'end_date' => $query->end_date))->delete(Darkblowdatabase::events_mapbonus);
             if ($delete) {

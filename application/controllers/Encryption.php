@@ -260,10 +260,10 @@ class Encryption extends CI_Controller
         );
         if ($this->form_validation->run()) {
             $data = array(
-                'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+                'player_id' => $this->input->post('player_id', true)
             );
 
-            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+            $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
             if ($query) {
                 if ($query->access_level != '-1') {
                     $response['token'] = $this->security->get_csrf_hash();
@@ -299,17 +299,17 @@ class Encryption extends CI_Controller
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true)),
-            'cash_amount' => $this->encryption->encrypt($this->input->post('cash_amount', true))
+            'player_id' => $this->input->post('player_id', true),
+            'cash_amount' => $this->input->post('cash_amount', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
-            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('money' => $this->encryption->decrypt($data['cash_amount'])));
+            $update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array('money' => $data['cash_amount']));
             if ($update) {
                 $response['token'] = $this->security->get_csrf_hash();
-                if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash ' . $query->login . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
-                else $response['message'] = 'Successfully Set Cash ' . $query->player_name . ', To: ' . $this->encryption->decrypt($data['cash_amount']) . '.';
+                if ($query->player_name == '' || empty($query->player_name)) $response['message'] = 'Successfully Set Cash ' . $query->login . ', To: ' . $data['cash_amount'] . '.';
+                else $response['message'] = 'Successfully Set Cash ' . $query->player_name . ', To: ' . $data['cash_amount'] . '.';
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
                 $response['token'] = $this->security->get_csrf_hash();
@@ -325,10 +325,10 @@ class Encryption extends CI_Controller
         $response = array();
 
         $data = array(
-            'player_id' => $this->encryption->encrypt($this->input->post('player_id', true))
+            'player_id' => $this->input->post('player_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->encryption->decrypt($data['player_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
             $this->db->where('owner_id', $query->player_id)->delete(Darkblowdatabase::player_items);
 

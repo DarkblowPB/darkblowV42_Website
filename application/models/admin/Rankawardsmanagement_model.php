@@ -48,17 +48,17 @@ class Rankawardsmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'rank_id' => $this->encryption->encrypt($this->input->post('rank_id', true)),
-            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true)),
-            'item_count' => $this->encryption->encrypt($this->input->post('item_count', true)),
+            'rank_id' => $this->input->post('rank_id', true),
+            'item_id' => $this->input->post('item_id', true),
+            'item_count' => $this->input->post('item_count', true),
             'item_equip' => '1'
         );
 
         $query = $this->db->insert(Darkblowdatabase::info_rank_awards, array(
-            'rank_id' => $this->encryption->decrypt($data['rank_id']),
-            'item_id' => $this->encryption->decrypt($data['item_id']),
-            'item_count' => $this->encryption->decrypt($data['item_count']),
-            'item_name' => $this->GetItemName($this->encryption->decrypt($data['item_id'])),
+            'rank_id' => $data['rank_id'],
+            'item_id' => $data['item_id'],
+            'item_count' => $data['item_count'],
+            'item_name' => $this->GetItemName($data['item_id']),
             'item_equip' => $data['item_equip']
         ));
         if ($query) {
@@ -81,11 +81,14 @@ class Rankawardsmanagement_model extends CI_Model
         $response = array();
 
         $data = array(
-            'rank_id' => $this->encryption->encrypt($this->input->post('rank_id', true)),
-            'item_id' => $this->encryption->encrypt($this->input->post('item_id', true))
+            'rank_id' => $this->input->post('rank_id', true),
+            'item_id' => $this->input->post('item_id', true)
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::info_rank_awards, array('rank_id' => $this->encryption->decrypt($data['rank_id']), 'item_id' => $this->encryption->decrypt($data['item_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::info_rank_awards, array(
+            'rank_id' => $data['rank_id'],
+            'item_id' => $data['item_id']
+        ))->row();
         if ($query) {
             // Delete
             $delete = $this->db->where(array('rank_id' => $query->rank_id, 'item_id' => $query->item_id))->delete(Darkblowdatabase::info_rank_awards);
