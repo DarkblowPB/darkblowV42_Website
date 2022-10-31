@@ -15,9 +15,6 @@ $config['main_config'] = array(
     'encryption_key' => 'insert_your_encryption_key',
     'site_language' => 'english',
     'codesystem' => 'api',
-    'license_key' => 'aWJ1TmsjiVE9nfjjw433JtkfqCTvIbHa0oeJaaGyzwv72J5EmHGAP0njoYrQaudNhJIkEyIu09ohettrIZLky9DZazkbEwuZyMT5k6F98Yv5F4tVO9vGANqviP3umcRJ',
-    'license_date_start' => '2022-10-01',
-    'license_date_end' => '2022-10-03',
 );
 /*
 |--------------------------------------------------------------------------
