@@ -32,3 +32,4 @@ application/views/launcher
 application/controllers/Event/Battlepass.php
 application/models/main/Battlepass_model.php
 application/views/main/content/event/content_battlepass.php
+application/controllers/Test.php
