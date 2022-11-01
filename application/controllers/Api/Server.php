@@ -286,11 +286,83 @@ class Server extends RestController
                         break;
                     }
                 case Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[0]: {
-                        $response['response'] = 'success';
-                        $response['token'] = $this->security->get_csrf_hash();
-                        $response['message'] = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data);
 
-                        $this->response($response, 200);
+                        // Option Method 1
+
+                        // if (empty($this->session->userdata('total_socket'))) {
+                        //     $totalsocket = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data);
+
+                        //     $this->session->set_userdata('total_socket', $totalsocket);
+
+                        //     $response['response'] = 'error';
+                        //     $response['token'] = $this->security->get_csrf_hash();
+                        //     $response['message'] = $this->session->userdata('total_socket');
+                        //     $response['isflooding'] = false;
+
+                        //     $this->response($response, 200);
+                        // } else {
+                        //     $totalsocket = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data);
+
+                        //     $foreign_activity_rules = 20;
+
+                        //     if ($totalsocket != 'socket connect failed.') $totalsocket = (int)$totalsocket;
+                        //     else $totalsocket = $this->session->userdata('total_socket');
+
+                        //     if ($totalsocket > $this->session->userdata('total_socket')) {
+                        //         $newtotalsocket = $totalsocket - $this->session->userdata('total_socket');
+
+                        //         if ($newtotalsocket > $foreign_activity_rules) {
+                        //             $response['response'] = 'error';
+                        //             $response['token'] = $this->security->get_csrf_hash();
+                        //             $response['message'] = $totalsocket;
+                        //             $response['isflooding'] = true;
+
+                        //             $this->session->set_userdata('total_socket', $totalsocket);
+
+                        //             $this->response($response, 200);
+                        //         } else {
+                        //             $response['response'] = 'error';
+                        //             $response['token'] = $this->security->get_csrf_hash();
+                        //             $response['message'] = $this->session->userdata('total_socket');
+                        //             $response['isflooding'] = false;
+
+                        //             $this->response($response, 200);
+                        //         }
+                        //     } else {
+                        //         $this->session->set_userdata('total_socket', $totalsocket);
+
+                        //         $response['response'] = 'success';
+                        //         $response['token'] = $this->security->get_csrf_hash();
+                        //         $response['message'] = $this->session->userdata('total_socket');
+                        //         $response['isflooding'] = false;
+
+                        //         $this->response($response, 200);
+                        //     }
+                        // }
+
+                        // Option Method 2
+
+                        $totalsocket = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) != 'socket connect failed' ? $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) : 0;
+                        $query = $this->db->get_where(Darkblowdatabase::accounts, array('online' => 't'))->num_rows();
+
+                        $foreign_activity_rules = 20;
+
+                        if (($totalsocket - $query) > $foreign_activity_rules) {
+                            $response['response'] = 'error';
+                            $response['token'] = $this->security->get_csrf_hash();
+                            $response['message'] = $totalsocket;
+                            $response['isflooding'] = true;
+
+                            $this->response($response, 200);
+                        } else {
+                            $response['response'] = 'success';
+                            $response['token'] = $this->security->get_csrf_hash();
+                            $response['message'] = $totalsocket;
+                            $response['isflooding'] = false;
+
+                            $this->response($response, 200);
+                        }
+
                         break;
                     }
                 default: {

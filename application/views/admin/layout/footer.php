@@ -89,6 +89,133 @@
     });
   })
 </script>
+<?php if ($this->uri->segment(1) == 'adm' && $this->uri->segment(2) == '' || $this->uri->segment(2) == 'dashboard' && strtolower($this->config->item('main_config')['codesystem']) == 'api') : ?>
+  <script>
+    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
+    const MemoryUsage_Canvas = $('#MemoryUsage_Chart').get(0).getContext('2d');
+    const MemoryUsage_Data = {
+      labels: [
+        'Memory Usage',
+        'Available Memory'
+      ],
+      datasets: [{
+        data: [0, 131072],
+        backgroundColor: ['#dc3545', '#198754'],
+      }]
+    };
+    const MemoryUsage_Options = {
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        labels: {
+          fontColor: "white"
+        }
+      }
+    };
+    const MemoryUsage = new Chart(MemoryUsage_Canvas, {
+      type: 'pie',
+      data: MemoryUsage_Data,
+      options: MemoryUsage_Options
+    });
+
+    const SocketCount_Canvas = $('#SocketCount_Chart').get(0).getContext('2d');
+    const SocketCount_Data = {
+      labels: [
+        'Online Players',
+        'Max Players'
+      ],
+      datasets: [{
+        data: [0, <?= (int)$this->darkblowlib->GetServerMaxPlayers() ?>],
+        backgroundColor: ['#dc3545', '#198754'],
+      }]
+    };
+    const SocketCount_Options = {
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        labels: {
+          fontColor: "white"
+        }
+      }
+    };
+    const SocketCount = new Chart(SocketCount_Canvas, {
+      type: 'pie',
+      data: SocketCount_Data,
+      options: SocketCount_Options
+    });
+
+    function ServerUsageUpdateChart(server_usage_value) {
+      MemoryUsage.config.data.datasets[0].data[0] = server_usage_value != 0 ? server_usage_value : 0;
+      MemoryUsage.update();
+    }
+
+    function ServerTotalConnectedSocketUpdateChart(server_total_connected_socket_value) {
+      SocketCount.config.data.datasets[0].data[0] = server_total_connected_socket_value != 0 ? server_total_connected_socket_value : 0;
+      SocketCount.update();
+    }
+
+    function GetServerUsageAndTotalConnectedSocket() {
+      $.ajax({
+        url: '<?= base_url('api/server/sendcommand') ?>',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+          '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+          'opcode': '<?= Darkblowopcodes::GAME_SERVER_GET_MEMORY_USAGE[0] ?>',
+          'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+          'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+          'command_type': '<?= Darkblowopcodes::GAME_SERVER_GET_MEMORY_USAGE[1] ?>',
+        },
+        success: (response) => {
+          var GetString = JSON.stringify(response);
+          var Result = JSON.parse(GetString);
+
+          CSRF_TOKEN = Result.token;
+          ServerUsageUpdateChart(Result.message);
+        },
+        error: () => {}
+      });
+
+      setTimeout(() => {
+        $.ajax({
+          url: '<?= base_url('api/server/sendcommand') ?>',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+            'opcode': '<?= Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[0] ?>',
+            'secret_token': '<?= $this->darkblowsocketcommand->GenerateSecretToken() ?>',
+            'secret_keys': '<?= $this->darkblowsocketcommand->GenerateSecretKeys() ?>',
+            'command_type': '<?= Darkblowopcodes::GAME_SERVER_GET_TOTAL_SOCKET_COUNT[1] ?>',
+          },
+          success: (response) => {
+            var GetString = JSON.stringify(response);
+            var Result = JSON.parse(GetString);
+
+            CSRF_TOKEN = Result.token;
+            ServerTotalConnectedSocketUpdateChart(Result.message);
+            document.getElementById('total_players').innerHTML = Result.message;
+            if (Result.isflooding) PushNotification();
+          }
+        });
+      }, 1000);
+      setTimeout(() => {
+        GetServerUsageAndTotalConnectedSocket();
+      }, 5000);
+    }
+
+    function PushNotification() {
+      const sound = new Audio("<?= base_url('assets/admin/dist/sound/alert.mp3') ?>");
+      sound.play();
+    }
+
+    $(document).ready(() => {
+      setTimeout(() => {
+        GetServerUsageAndTotalConnectedSocket();
+      }, 2000);
+    });
+  </script>
+<?php endif ?>
 </body>
 
 </html>
