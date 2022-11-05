@@ -1099,6 +1099,44 @@ class Redeemcodemanagement_model extends CI_Model
             'date_updated' => '0',
         );
 
+        $webhook_data =  [
+            'content' => '@everyone',
+            'username' => '',
+            'avatar_url' => '',
+            'tts' => false,
+            'embeds' => [
+                [
+                    'title' => $this->darkblowsettings->load()->project_name . ' - Redeem Code',
+                    'url' => base_url(),
+                    'type' => 'rich',
+                    'description' => '',
+                    'timestamp' => date('c', strtotime('now')),
+                    'fields' => [
+                        [
+                            "name" => "Code",
+                            "value" => $data['item_code']
+                        ],
+                        [
+                            "name" => "Item Name",
+                            "value" => $this->darkblowlib->GetItemName($this->input->post('item_id', true)),
+                        ],
+                        [
+                            "name" => "Item Count",
+                            "value" => ($data['item_count'] / 24 / 60 / 60) . ' Days',
+                        ],
+                        [
+                            "name" => "Stock",
+                            "value" => $data['qty'] . ' Players',
+                        ],
+                        [
+                            "name" => "Valid Until",
+                            "value" => date('d-m-Y H:i:s', $data['valid_date'])
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
         $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['item_code']))->row();
         if ($query) {
             $insert = $this->db->insert(Darkblowdatabase::item_code, $data);
@@ -1121,6 +1159,7 @@ class Redeemcodemanagement_model extends CI_Model
                 $response['response'] = 'success';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Successfully Create New Redeem Code.';
+                $response['webhook_status'] = $this->darkblowwebhook->Send('redeem_code', $webhook_data);
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {

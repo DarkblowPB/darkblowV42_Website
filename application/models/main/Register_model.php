@@ -18,13 +18,6 @@ class Register_model extends CI_Model
 		$this->load->library('querylib');
 	}
 
-	function CheckRegisteredAccount($email)
-	{
-		$query = $this->db->get_where(Darkblowdatabase::accounts, array('email' => $email))->row();
-		if ($query) return FALSE;
-		else return TRUE;
-	}
-
 	function SendVerificationEmail($username, $email)
 	{
 		$token = $this->darkblowlib->GenerateRandomTokenV2(128);
@@ -320,52 +313,125 @@ class Register_model extends CI_Model
 
 	function RegisterValidationV6()
 	{
-		$responses = array();
+		$response = array();
 
 		$data = array(
 			'login' => $this->input->post('login', true),
-			'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true)),
 			'email' => $this->input->post('email', true),
+			'password' => $this->darkblowlib->password_encrypt($this->input->post('password', true)),
 			'hint_question' => $this->input->post('hint_question', true),
 			'hint_answer' => $this->input->post('hint_answer', true)
 		);
 
-		$data2 = array(
-			're_password' => $this->input->post('re_password', true),
-			'authorization' => $this->input->post('authorization', true)
-		);
+		// Register Function
+		$query = $this->db->insert(Darkblowdatabase::accounts, array(
+			'login' => $data['login'],
+			'password' => $data['password'],
+			'email' => $data['email'],
+			'hint_question' => $data['hint_question'],
+			'hint_answer' => $data['hint_answer']
+		));
+		if ($query) {
+			$webhook_data =  [
+				'content' => 'New Registered Account',
+				'username' => '',
+				'avatar_url' => '',
+				'tts' => false,
+				'embeds' => [
+					[
+						'title' => $this->darkblowsettings->load()->project_name . ' - Redeem Code',
+						'url' => base_url(),
+						'type' => 'rich',
+						'description' => '',
+						'timestamp' => date('c', strtotime('now')),
+						'fields' => [
+							[
+								"name" => "Username",
+								"value" => $data['login']
+							],
+							[
+								"name" => "Email",
+								"value" => $data['email'],
+							],
+							[
+								"name" => "IP Address",
+								"value" => $this->input->ip_address(),
+							],
+						]
+					]
+				]
+			];
+			// Fetch Account
+			$query2 = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $data['login']))->row();
+			if ($query2) {
+				// Fetch Register Events
+				$query3 = $this->db->get_where(Darkblowdatabase::events_register, array('is_active' => 't'))->row();
+				if ($query3) {
+					// Check & Insert Events Item
+					if ($query3) {
+						if ($query3->stock >= 1) {
+							$query4 = $this->db->insert(Darkblowdatabase::player_items, array(
+								'owner_id' => $query2->player_id,
+								'item_id' => $query3->item_id,
+								'item_name' => $this->darkblowlib->GetItemName($query3->item_id),
+								'count' => $query3->item_count,
+								'category' => $this->darkblowlib->GetItemCategory($query3->item_id),
+								'equip' => '1'
+							));
+							$query5 = $this->db->where('id', $query3->id)->update(Darkblowdatabase::events_register, array('stock' => ($query3->stock - 1)));
+							if ($query4 && $query5) {
+								$response['response'] = 'success';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Successfully Registered.';
+								if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
 
-		$curl = curl_init();
+								$this->darkblowmessage->AjaxFlashData($response);
+							} else {
+								$response['response'] = 'success';
+								$response['token'] = $this->security->get_csrf_hash();
+								$response['message'] = 'Successfully Registered.';
+								if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
 
-		if (!$this->input->is_ajax_request()) {
+								$this->darkblowmessage->AjaxFlashData($response);
+							}
+						} else {
+							$response['response'] = 'success';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Registered.';
+							if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
 
-			$responses['response'] = 'error';
-			$responses['token'] = $this->security->get_csrf_hash();
-			$responses['message'] = 'Error: 400 - Bad Request 1.';
+							$this->darkblowmessage->AjaxFlashData($response);
+						}
+					} else {
+						$response['response'] = 'success';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Successfully Registered.';
+						if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
 
-			echo json_encode($responses);
+						$this->darkblowmessage->AjaxFlashData($response);
+					}
+				} else {
+					$response['response'] = 'success';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Successfully Registered.';
+					if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
+
+					$this->darkblowmessage->AjaxFlashData($response);
+				}
+			} else {
+				$response['response'] = 'success';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Successfully Registered.';
+				if ($this->config->item('main_config')['webhook_url']['register'] != '') $response['discord_webhook'] = $this->darkblowwebhook->Send('register', $webhook_data);
+
+				$this->darkblowmessage->AjaxFlashData($response);
+			}
 		} else {
-			curl_setopt_array($curl, array(
-				CURLOPT_URL => base_url('api/web/register'),
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => '',
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POSTFIELDS => '' . $this->security->get_csrf_token_name() . '=' . $this->security->get_csrf_hash() . '&login=' . $data['login'] . '&email=' . $data['email'] . '&password=' . $data['password'] . '&re_password=' . $data2['re_password'] . '&hint_question=' . urlencode($data['hint_question']) . '&hint_answer=' . urlencode($data['hint_answer']),
-				CURLOPT_HTTPHEADER => array(
-					'Authorization: ' . $this->darkblowsettings->load()->api_authorization_key,
-					'Content-Type: application/x-www-form-urlencoded',
-					'Cookie: darkblowpbreborn_cookies=fe99af92ea8a6aee1e0f09b9aa7272c7; darkblowpbreborn_session=svem0f8crg1ibmla3p1jkogvu709e4vm'
-				),
-			));
+			$response['response'] = 'error';
+			$response['token'] = $this->security->get_csrf_hash();
+			$response['message'] = 'Failed To Register Your Account.';
 
-			$response = curl_exec($curl);
-
-			curl_close($curl);
-			echo $response;
+			$this->darkblowmessage->AjaxFlashData($response);
 		}
 	}
 }

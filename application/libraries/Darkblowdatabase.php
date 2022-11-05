@@ -53,6 +53,7 @@ class Darkblowdatabase
     const web_bandwith                  = 'web_bandwith';
     const web_battlepass                = 'web_battlepass';
     const web_battlepass_list           = 'web_battlepass_list';
+    const web_category_player_gallery   = 'web_category_player_gallery';
     const web_customtoken               = 'web_customtoken';
     const web_download_clientlauncher   = 'web_download_clientlauncher';
     const web_exchangeticket            = 'web_exchangeticket';
@@ -62,6 +63,7 @@ class Darkblowdatabase
     const web_log_shop                  = 'web_log_shop';
     const web_log_verifyaccount         = 'web_log_verifyaccount';
     const web_packshop                  = 'web_packshop';
+    const web_player_gallery            = 'web_player_gallery';
     const web_quickslide                = 'web_quickslide';
     const web_rankinfo                  = 'web_rankinfo';
     const web_settings                  = 'web_settings';

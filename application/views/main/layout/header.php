@@ -19,9 +19,6 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
-    <!-- FontAwesome -->
-    <script defer src="<?= base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/all.js"></script>
-    <script defer src="<?= base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
     <!-- IonIcons -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/vendor/ionicons/css/ionicons.min.css">
     <!-- Flickity -->
@@ -39,6 +36,9 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.css">
     <!-- jQuery -->
     <script src="<?= base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <!-- FontAwesome -->
+    <script defer src="<?= base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/all.js"></script>
+    <script defer src="<?= base_url() ?>assets/goodgames/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
     <!-- END: Styles -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/css/ldbtn.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/goodgames/assets/css/loading.min.css">

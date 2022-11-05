@@ -19,10 +19,8 @@ class Darkblowmessage
         header('Content-Type: application/json; charset=utf-8');
         $response = array();
         if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $response[$key] = $value;
-                if (!isset($key['token'])) if ($csrf_hash) $response['token'] = $this->ci->security->get_csrf_hash();
-            }
+            foreach ($data as $key => $value) $response[$key] = $value;
+            if ($csrf_hash) $response['token'] = $this->ci->security->get_csrf_hash();
             echo json_encode($response);
         } else {
             // Default Ajax Message

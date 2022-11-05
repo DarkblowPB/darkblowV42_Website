@@ -342,7 +342,7 @@ class Server extends RestController
 
                         // Option Method 2
 
-                        $totalsocket = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) != 'socket connect failed' ? $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) : 0;
+                        $totalsocket = $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) != 'socket connect failed.' ? $this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) : 0;
                         $query = $this->db->get_where(Darkblowdatabase::accounts, array('online' => 't'))->num_rows();
 
                         $foreign_activity_rules = 20;

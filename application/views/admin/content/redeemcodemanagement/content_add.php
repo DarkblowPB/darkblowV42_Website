@@ -5,10 +5,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="col-form-label">Reward</label>
-                                <select id="item_id" class="form-control reward_selection">
+                                <select id="item_id" class="form-control reward_selection" style="width: 100%;">
                                     <option value="" disabled selected>Select Reward</option>
                                     <?php foreach ($rewards as $row) : ?>
                                         <option value="<?= $row['item_id'] ?>">
@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Reward Count</label>
-                                <select id="item_count" class="form-control reward_selection">
+                                <select id="item_count" class="form-control reward_selection" style="width: 100%;">
                                     <option value="" disabled selected>Select Reward Count</option>
                                     <option value="64800">1 Day</option>
                                     <option value="259200">3 Day</option>
@@ -43,10 +43,10 @@
                                 <input type="number" id="cash" class="form-control" placeholder="Enter Cash Amount" value="0">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="col-form-label">Type</label>
-                                <select id="type" class="form-control reward_selection">
+                                <select id="type" class="form-control reward_selection" style="width: 100%;">
                                     <option value="" disabled selected>Select Type</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Item">Item</option>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Valid Date</label>
-                                <select name="valid_date" id="valid_date" class="form-control reward_selection">
+                                <select name="valid_date" id="valid_date" class="form-control reward_selection" style="width: 100%;">
                                     <option value="" disabled selected>Select Valid Date</option>
                                     <option value="1">1 Days</option>
                                     <option value="3">3 Days</option>

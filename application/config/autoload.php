@@ -72,7 +72,8 @@ $autoload['libraries'] = array(
     'darkblowopcodes',
     'darkblowprotection',
     'darkblowsettings',
-    'darkblowsocketcommand'
+    'darkblowsocketcommand',
+    'darkblowwebhook'
 );
 
 /*

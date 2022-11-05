@@ -69,6 +69,18 @@ class Player_rank extends CI_Controller
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 		// End View Section
 	}
+
+	function detail($player_id)
+	{
+		if ($this->input->is_ajax_request()) return;
+
+		if (is_numeric($player_id) && $player_id > 0) {
+			$data['title'] = 'Detail Player';
+			$data['isi'] = 'main/content/player_rank/content_detailplayer';
+
+			$this->load->view('layout/wrapper', $data, FALSE);
+		} else set_status_header(404, 'Invalid Player ID');
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

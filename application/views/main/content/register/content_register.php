@@ -212,7 +212,6 @@
                                         dataType: 'JSON',
                                         data: {
                                             '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'Authorization': 'd29e177565f9e00ca24a1f6273374110', // memek tembem
                                             'login': $('#login').val(),
                                             <?php if (!empty($this->session->userdata('g_email'))) : ?> 'email': '<?= $this->session->userdata('g_email') ?>',
                                             <?php endif; ?>
@@ -241,6 +240,9 @@
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
+                                        },
+                                        beforeSend: (request) => {
+                                            request.setRequestHeader('Authorization', '<?= $this->darkblowsettings->load()->api_authorization_key ?>');
                                         }
                                     });
                                 }

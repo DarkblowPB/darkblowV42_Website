@@ -16,8 +16,6 @@
 <!-- END: Footer -->
 </div>
 
-<!-- dataTables -->
-<script type="text/javascript" src="<?= base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.min.js"></script>
 <!-- Object Fit Polyfill -->
 <script src="<?= base_url() ?>assets/goodgames/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
 <!-- GSAP -->
@@ -42,12 +40,15 @@
 <!-- Hammer.js -->
 <script src="<?= base_url() ?>assets/goodgames/assets/vendor/hammerjs/hammer.min.js"></script>
 <!-- NanoSroller -->
+<script src="<?= base_url() ?>assets/goodgames/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
 <!-- Seiyria Bootstrap Slider -->
 <script src="<?= base_url() ?>assets/goodgames/assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 <!-- GoodGames -->
 <script src="<?= base_url() ?>assets/goodgames/assets/js/goodgames.min.js"></script>
 <script src="<?= base_url() ?>assets/goodgames/assets/js/goodgames-init.js"></script>
 <script src="<?= base_url() ?>assets/goodgames/assets/js/custom.js"></script>
+<!-- dataTables -->
+<script type="text/javascript" src="<?= base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.min.js"></script>
 <!-- END: Scripts -->
 <script type="text/javascript">
     $(document).ready(function() {
