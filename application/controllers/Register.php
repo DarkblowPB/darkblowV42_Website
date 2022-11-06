@@ -15,6 +15,7 @@ class Register extends CI_Controller
 
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/register_model', 'register');
+		$this->load->helper('hintquestion');
 
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();

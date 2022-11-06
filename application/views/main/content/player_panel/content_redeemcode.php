@@ -1,11 +1,12 @@
 <div class="nk-main">
 	<div class="container">
 		<div class="nk-gap"></div>
-		<h3 class="nk-decorated-h-2"><span><span class="text-main-1">
-					<?= $this->lang->line('STR_DARKBLOW_120') ?>
-				</span>
+		<h3 class="nk-decorated-h-2">
+			<span>
+				<span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_120') ?></span>
 				<?= $this->lang->line('STR_DARKBLOW_121') ?>
-			</span></h3>
+			</span>
+		</h3>
 		<div class="nk-gap-2"></div>
 		<div class="row vertical-gap justify-content-center">
 			<div class="col-lg-6">
@@ -14,9 +15,7 @@
 				<div class="nk-gap-2"></div>
 				<?= form_open('', 'id="redeemcode_form" autocomplete="off"') ?>
 				<div class="form-group">
-					<label for="redeemcode">
-						<?= $this->lang->line('STR_DARKBLOW_122') ?>
-					</label>
+					<label for="redeemcode"><?= $this->lang->line('STR_DARKBLOW_122') ?></label>
 					<input type="text" id="code" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_123') ?>" autofocus>
 				</div>
 				<div class="form-group text-center">
@@ -25,7 +24,6 @@
 				<?= form_close() ?>
 				<script>
 					var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
-					var RETRY = 0;
 					$(document).ready(function() {
 						$('#redeemcode_form').on('submit', function(e) {
 							e.preventDefault();

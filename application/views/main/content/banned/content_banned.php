@@ -14,9 +14,9 @@
     <title>
         <?= $this->darkblowsettings->load()->project_name . ' || ' . $title ?>
     </title>
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_icon ?>">
 
     <!-- START: Styles -->
+    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_icon ?>">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
@@ -46,9 +46,8 @@
                 <div class="container text-center">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                            <h1 class="h2"><span class="text-main-1">
-                                    <?= $this->lang->line('STR_DARKBLOW_0') ?>
-                                </span>
+                            <h1 class="h2">
+                                <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_0') ?></span>
                                 <?= $this->lang->line('STR_DARKBLOW_1') ?>
                             </h1>
                             <div class="text-white">
@@ -63,9 +62,9 @@
             <div class="nk-fullscreen-block-bottom">
                 <div class="nk-gap-2"></div>
                 <ul class="nk-social-links-2 nk-social-links-center">
-                    <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-                    <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+                    <li><a class="nk-social-facebook" href="<?= $this->darkblowsettings->load()->facebook_embed_link ?>" target="_blank"><span class="fab fa-facebook"></span></a></li>
+                    <li><a class="nk-social-instagram" href="<?= $this->darkblowsettings->load()->instagram_embed_link ?>" target="_blank"><span class="fab fa-instagram"></span></a></li>
+                    <li><a class="nk-social-youtube" href="<?= $this->darkblowsettings->load()->youtube_embed_link ?>" target="_blank"><span class="fab fa-youtube"></span></a></li>
                 </ul>
                 <div class="nk-gap-2"></div>
             </div>

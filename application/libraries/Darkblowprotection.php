@@ -84,6 +84,7 @@ class Darkblowprotection
     public function RegisterPage_Protection()
     {
         if (!empty($this->ci->session->userdata('uid'))) redirect(base_url(), 'refresh');
+        if ($this->ci->darkblowsettings->load()->register != 1) redirect(base_url(), 'refresh');
     }
 
     public function HomePage_Protection()

@@ -216,7 +216,7 @@ class Encryption extends CI_Controller
 
             $query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
             if ($query) {
-                if ($query->access_level == '-1') {
+                if ($query->access_level == Darkblowaccesslevel::BANNED) {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Banned Permanently.';
                     $this->darkblowmessage->AjaxFlashData($response);
@@ -265,7 +265,7 @@ class Encryption extends CI_Controller
 
             $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
             if ($query) {
-                if ($query->access_level != '-1') {
+                if ($query->access_level != Darkblowaccesslevel::BANNED) {
                     $response['token'] = $this->security->get_csrf_hash();
                     $response['message'] = 'This Player Already Unbanned Permanently.';
                     $this->darkblowmessage->AjaxFlashData($response);

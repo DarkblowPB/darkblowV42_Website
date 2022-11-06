@@ -13,8 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/goodgames/assets/css/mapselector2021.css">
 	<script src="<?= base_url() ?>assets/goodgames/assets/vendor/jquery/dist/jquery.min.js"></script>
 	<script src="<?= base_url() ?>assets/goodgames/assets/js/TweenMax.min.js"></script><!-- roulette -->
-	<script type="text/javascript" src="<?= base_url() ?>assets/goodgames/assets/js/design_winwheel.js"></script><!-- roulette -->
-	<!-- TikTok Pixel Code End -->
+	<script type="text/javascript" src="<?= base_url() ?>assets/goodgames/assets/js/design_winwheel.js"></script>
 </head>
 
 <body>
@@ -339,12 +338,8 @@
 
 		</div>
 	</div>
-	<!-- layerpop (map) //-->
-
 	<footer>Copyright PT. Zepetto Interactive Indonesia All rights reserved.</footer>
 </body>
-
-<!-- Mirrored from pointblank.id/mapselector2 by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 Oct 2021 17:10:21 GMT -->
 
 </html>
 <script type="text/javascript">
@@ -488,13 +483,9 @@
 			}
 			// Based on the power level selected adjust the number of spins for the wheel, the more times is has
 			// to rotate with the duration of the animation the quicker the wheel spins.
-			if (wheelPower == 1) {
-				theWheel.animation.spins = 2;
-			} else if (wheelPower == 2) {
-				theWheel.animation.spins = 5;
-			} else if (wheelPower == 3) {
-				theWheel.animation.spins = 8;
-			}
+			if (wheelPower == 1) theWheel.animation.spins = 2;
+			else if (wheelPower == 2) theWheel.animation.spins = 5;
+			else if (wheelPower == 3) theWheel.animation.spins = 8;
 
 			// Disable the spin button so can't click again while wheel is spinning.
 			document.getElementById('spin_button').src = "spin_off.html";

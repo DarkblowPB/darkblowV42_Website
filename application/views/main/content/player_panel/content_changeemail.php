@@ -1,40 +1,31 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span class="text-main-1">
-                <?= $this->lang->line('STR_DARKBLOW_47') ?> <span class="text-white">
-                    <?= $this->lang->line('STR_DARKBLOW_48') ?>
-                </span>
-            </span></h3>
+        <h3 class="nk-decorated-h-2">
+            <span class="text-main-1">
+                <?= $this->lang->line('STR_DARKBLOW_47') ?>
+                <span class="text-white"><?= $this->lang->line('STR_DARKBLOW_48') ?></span>
+            </span>
+        </h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <?= form_open('', 'id="changeemail_form" autocomplete="off"') ?>
                 <div class="form-group">
-                    <label class="col-form-label">
-                        <?= $this->lang->line('STR_DARKBLOW_49') ?>
-                    </label><br>
+                    <label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_49') ?></label><br>
                     <?php if ($this->changeemail->IsConfirmEmail($player->email)) : ?>
-                        <label class="form-control">
-                            <?= $player->email ?>
-                        </label>
+                        <label class="form-control"><?= $player->email ?></label>
                         <input type="hidden" id="hidden_email" value="<?= $player->email ?>">
                     <?php endif; ?>
                     <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                        <label class="form-control"><button type="button" id="resend_email" onclick="return ShowToast(2000, 'info', '<?= $this->lang->line('STR_INFO_2') ?>')" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5">
-                                <?= $this->lang->line('STR_DARKBLOW_48') ?>
-                            </button></label>
+                        <label class="form-control"><button type="button" id="resend_email" onclick="return ShowToast(2000, 'info', '<?= $this->lang->line('STR_INFO_2') ?>')" class="nk-btn nk-btn-rounded btn-block nk-btn-outline nk-btn-color-main-5"><?= $this->lang->line('STR_DARKBLOW_48') ?></button></label>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label">
-                        <?= $this->lang->line('STR_DARKBLOW_50') ?>
-                    </label>
+                    <label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_50') ?></label>
                     <input type="email" id="new_email" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_51') ?>">
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label">
-                        <?= $this->lang->line('STR_DARKBLOW_52') ?>
-                    </label>
+                    <label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_52') ?></label>
                     <input type="email" id="confirm_email" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_53') ?>">
                 </div>
                 <div class="form-group text-center">
@@ -42,9 +33,7 @@
                         <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="<?= $this->lang->line('STR_DARKBLOW_181') ?>">
                     <?php endif; ?>
                     <?php if (!$this->changeemail->IsConfirmEmail($player->email)) : ?>
-                        <label class="form-control bg-main-1 mt-50">
-                            <?= $this->lang->line('STR_DARKBLOW_54') ?>
-                        </label>
+                        <label class="form-control bg-main-1 mt-50"><?= $this->lang->line('STR_DARKBLOW_54') ?></label>
                     <?php endif; ?>
                 </div>
                 <?= form_close() ?>

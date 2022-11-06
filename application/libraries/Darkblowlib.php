@@ -338,52 +338,6 @@ class Darkblowlib
 		} else return false;
 	}
 
-	public function HostLibrary($server, $param)
-	{
-		$main_server = array(
-			'ip_address' => $this->ci->config->item('main_config')['tcp_primary_server_host'],
-			'port_1' => $this->ci->config->item('main_config')['tcp_primary_server_port'],
-			'port_2' => $this->ci->config->item('main_config')['tcp_third_server_port']
-		);
-
-		$side_server = array(
-			'ip_address' => $this->ci->config->item('main_config')['tcp_side_server_host'],
-			'port_1' => $this->ci->config->item('main_config')['tcp_secondary_server_port'],
-			'port_2' => $this->ci->config->item('main_config')['tcp_side_server_port']
-		);
-
-		switch ($server) {
-			case 'main': {
-					switch ($param) {
-						case 'ip_address':
-							return $main_server['ip_address'];
-						case 'port_1':
-							return $main_server['port_1'];
-						case 'port_2':
-							return $main_server['port_2'];
-						default:
-							return "";
-					}
-				}
-
-			case 'side': {
-					switch ($param) {
-						case 'ip_address':
-							return $side_server['ip_address'];
-						case 'port_1':
-							return $side_server['port_1'];
-						case 'port_2':
-							return $side_server['port_2'];
-						default:
-							return "";
-					}
-				}
-
-			default:
-				return "";
-		}
-	}
-
 	public function CheckOpenPort($ip_address, $port)
 	{
 		$connection = @fsockopen($ip_address, $port);
@@ -393,21 +347,6 @@ class Darkblowlib
 
 			fclose($connection);
 		} else return FALSE;
-	}
-
-	public function SendSocket($ip_address, $port, $buffer)
-	{
-		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		if ($socket) {
-			$connect = socket_connect($socket, $ip_address, $port);
-			if ($connect) {
-				$write = socket_write($socket, $buffer, strlen($buffer));
-				if ($write) {
-					$read = socket_read($socket, 2048);
-					return $read;
-				} else return "Failed";
-			} else return "Failed";
-		} else return "Failed";
 	}
 
 	public function FeatureControl($page = null, $redirect_page = '')
@@ -507,6 +446,10 @@ class Darkblowlib
 	{
 		$query = $this->ci->db->get_where(Darkblowdatabase::info_gameservers, array('id' => '1'))->row();
 		if ($query) return $query->max_players;
+	}
+
+	public function MenuControl()
+	{
 	}
 }
 

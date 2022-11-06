@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header text-center">
-                    <a href="javascript:void(0)" class="btn btn-outline-primary text-white" title="Create New Webshop Item"><i class="fa fa-plus-circle mr-2"></i>Create New Item</a>
+                    <a href="<?= base_url('adm/webshopmanagement/add') ?>" class="btn btn-outline-primary text-white" title="Create New Webshop Item"><i class="fa fa-plus-circle mr-2"></i>Create New Item</a>
                 </div>
                 <div class="card-body">
                     <table id="webshop_table" class="table table-borderless table-responsive-lg table-responsive-md table-responsive-sm text-center">

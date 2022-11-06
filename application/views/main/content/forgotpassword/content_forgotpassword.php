@@ -1,17 +1,18 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">
-                    <?= $this->lang->line('STR_DARKBLOW_17') ?>
-                </span>
+        <h3 class="nk-decorated-h-2">
+            <span>
+                <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_17') ?></span>
                 <?= $this->lang->line('STR_DARKBLOW_18') ?>
-            </span></h3>
+            </span>
+        </h3>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <?= form_open('', 'id="forgotpassword_form" autocomplete="off"') ?>
                 <div class="form-group">
-                    <label class="col-form-labeel">Email</label>
+                    <label class="col-form-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" required autofocus>
                 </div>
                 <div class="form-group text-center">

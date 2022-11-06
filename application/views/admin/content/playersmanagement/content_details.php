@@ -63,31 +63,31 @@
                                 <td>
                                     <?php
                                     switch ($player->access_level) {
-                                        case '0': {
+                                        case Darkblowaccesslevel::NORMAL: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-secondary btn-sm text-white">Default Player</button>';
                                                 break;
                                             }
-                                        case '1': {
+                                        case Darkblowaccesslevel::VIP: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-primary btn-sm text-white">VIP</button>';
                                                 break;
                                             }
-                                        case '2': {
+                                        case Darkblowaccesslevel::STREAMER: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-primary btn-sm text-white">Streamer</button>';
                                                 break;
                                             }
-                                        case '3': {
+                                        case Darkblowaccesslevel::MODERATOR: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-success btn-sm text-white">Moderator</button>';
                                                 break;
                                             }
-                                        case '4': {
+                                        case Darkblowaccesslevel::GAMEMASTER: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-success btn-sm text-white">Game Master</button>';
                                                 break;
                                             }
-                                        case '5': {
+                                        case Darkblowaccesslevel::ADMINISTRATOR: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-warning btn-sm text-white">Administrator</button>';
                                                 break;
                                             }
-                                        case '6': {
+                                        case Darkblowaccesslevel::DEVELOPER: {
                                                 echo '<button id="access_level_button" class="btn btn-outline-warning btn-sm text-white">Developer</button>';
                                                 break;
                                             }

@@ -3,11 +3,12 @@
     <div class="container">
         <div class="row veritcal-gap">
             <div class="col-lg-12">
-                <h3 class="nk-decorated-h-2"><span>
-                        <?= $this->lang->line('STR_DARKBLOW_9') ?> <span class="text-main-1">
-                            <?= $this->lang->line('STR_DARKBLOW_10') ?>
-                        </span>
-                    </span></h3>
+                <h3 class="nk-decorated-h-2">
+                    <span>
+                        <?= $this->lang->line('STR_DARKBLOW_9') ?>
+                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_10') ?></span>
+                    </span>
+                </h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap justify-content-center">
                     <?php if ($this->download->GetClient() != null || $this->download->GetPartialClient() != null) : ?>
@@ -19,9 +20,7 @@
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
                                     </div>
                                     <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title">
-                                            <?= $row['file_name'] ?>
-                                        </h3>
+                                        <h3 class="nk-feature-title"><?= $row['file_name'] ?></h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_single_link_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_single_link_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
@@ -37,9 +36,7 @@
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
                                     </div>
                                     <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title">
-                                            <?= $row['file_name'] ?>
-                                        </h3>
+                                        <h3 class="nk-feature-title"><?= $row['file_name'] ?></h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_partial_link_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_partial_link_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
@@ -72,9 +69,7 @@
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
                                     </div>
                                     <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title">
-                                            <?= $row['file_name'] ?>
-                                        </h3>
+                                        <h3 class="nk-feature-title"><?= $row['file_name'] ?></h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_launcher_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Download" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_launcher_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>
@@ -111,9 +106,7 @@
                                         <img src="<?= base_url() ?>/assets/goodgames/assets/images/rar-images.png" style="max-width: 100px;" alt="rar icon">
                                     </div>
                                     <div class="nk-feature-cont text-center">
-                                        <h3 class="nk-feature-title">
-                                            <?= $row['file_name'] ?>
-                                        </h3>
+                                        <h3 class="nk-feature-title"><?= $row['file_name'] ?></h3>
                                         <p>Size : <?= $row['file_size'] ?><br></p>
                                         <input type="button" id="button_support_app_<?= $num; ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_10') ?>" onclick="GetDownloadUrl('data_<?= $num ?>', 'button_support_app_<?= $num ?>', '<?= $row['id'] ?>')">
                                     </div>

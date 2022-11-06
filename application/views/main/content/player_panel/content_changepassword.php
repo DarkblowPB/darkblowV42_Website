@@ -3,11 +3,12 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12">
-                <h3 class="nk-decorated-h-2"><span class="text-main-1">
-                        <?= $this->lang->line('STR_DARKBLOW_47') ?> <span class="text-white">
-                            <?= $this->lang->line('STR_DARKBLOW_42') ?>
-                        </span>
-                    </span></h3>
+                <h3 class="nk-decorated-h-2">
+                    <span class="text-main-1">
+                        <?= $this->lang->line('STR_DARKBLOW_47') ?>
+                        <span class="text-white"><?= $this->lang->line('STR_DARKBLOW_42') ?></span>
+                    </span>
+                </h3>
                 <div class="nk-gap-3"></div>
                 <div class="nk-gap-3"></div>
                 <div class="container">

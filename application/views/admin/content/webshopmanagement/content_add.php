@@ -1,12 +1,15 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <?= form_open('', 'id="webshop_add_form" autocomplete="off"') ?>
         <div class="card">
             <div class="card-body">
-                <?= form_open('', 'id="webshop_add_form" autocomplete="off"') ?>
                 <div class="form-group">
                     <label for="itemid">Item</label>
-                    <select name="webshop_itemid" id="webshop_itemid" class="form-control" required>
+                    <select name="webshop_itemid" id="webshop_itemid" class="form-control reward_selection" style="width: 100%;" required>
                         <option value="" disabled selected>Select Item</option>
+                        <?php foreach ($this->darkblowlib->GetItemRewardList() as $key => $value) : ?>
+                            <option value="<?= $value['item_id'] ?>"><?= $value['item_name'] ?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -33,11 +36,16 @@
                     <label for="webshop_itemprice_permanent">Permanent Price</label>
                     <input type="number" name="webshop_itemprice_permanent" id="webshop_itemprice_permanent" class="form-control" placeholder="Permanent Price" required>
                 </div>
-                <?= form_close() ?>
             </div>
             <div class="card-footer text-right">
                 <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit">
             </div>
         </div>
+        <?= form_close() ?>
+        <script>
+            function DoAddWebshop() {
+
+            }
+        </script>
     </div>
 </div>

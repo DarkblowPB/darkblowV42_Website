@@ -46,9 +46,8 @@
                 <div class="container text-center">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                            <h1 class="h2"><span class="text-main-1">
-                                    <?= $this->lang->line('STR_DARKBLOW_0') ?>
-                                </span>
+                            <h1 class="h2">
+                                <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_0') ?></span>
                                 <?= $this->lang->line('STR_DARKBLOW_45') ?>
                             </h1>
                             <div class="text-white">

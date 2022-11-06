@@ -28,52 +28,8 @@
 								<tr id="data_<?= $num ?>">
 									<td><?= ++$start; ?></td>
 									<td><?= $this->darkblowlib->GetItemName($row['item_id']) ?></td>
-									<td>
-										<?php
-										switch ($row['category']) {
-											case '1': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_74') . '</button>';
-													break;
-												}
-											case '2': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_186') . '</button>';
-													break;
-												}
-											case '3': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_136') . '</button>';
-													break;
-												}
-
-											default: {
-													echo $this->lang->line('STR_DARKBLOW_77');
-													break;
-												}
-										}
-										?>
-									</td>
-									<td>
-										<?php
-										switch ($row['equip']) {
-											case '1': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">' . $this->lang->line('STR_DARKBLOW_187') . '</button>';
-													break;
-												}
-											case '2': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">' . $this->lang->line('STR_DARKBLOW_188') . '</button>';
-													break;
-												}
-											case '3': {
-													echo '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">' . $this->lang->line('STR_DARKBLOW_189') . '</button>';
-													break;
-												}
-
-											default: {
-													echo $this->lang->line('STR_DARKBLOW_77');
-													break;
-												}
-										}
-										?>
-									</td>
+									<td><?= $row['category'] == 1 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_74') . '</button>' : ($row['category'] == 2 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_186') . '</button>' : ($row['category'] == 3 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1">' . $this->lang->line('STR_DARKBLOW_136') . '</button>' : '')) ?></td>
+									<td><?= $row['equip'] == 1 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-2">' . $this->lang->line('STR_DARKBLOW_187') . '</button>' : ($row['equip'] == 2 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-3">' . $this->lang->line('STR_DARKBLOW_188') . '</button>' : ($row['equip'] == 3 ? '<button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-4">' . $this->lang->line('STR_DARKBLOW_189') . '</button>' : '')) ?></td>
 									<td>
 										<a href="<?= base_url('player_panel/inventory/detail/' . $row['object_id']) ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" title="<?= $this->lang->line('STR_DARKBLOW_81') ?>"><span class="fa fa-info-circle mr-2"></span><?= $this->lang->line('STR_DARKBLOW_82') ?></a>
 										<?php if ($row['equip'] == 3) : ?>

@@ -19,23 +19,17 @@
 					<div class="nk-store-product">
 						<div class="row vertical-gap">
 							<div class="col-md-6">
-								<!-- START: Product Photos -->
 								<div class="nk-gallery">
 									<div class="nk-gallery-item-box">
 										<img src="<?= base_url() ?>assets/goodgames/assets/images/img_webshop/<?= $detail->webshop_itemimg ?>" style="max-width: 1000px;" alt="">
 									</div>
 									<div class="nk-gap-1"></div>
 								</div>
-								<!-- END: Product Photos -->
 							</div>
 							<div class="col-md-6">
-								<h2 class="nk-product-title h3">
-									<?= $detail->webshop_itemname ?>
-								</h2>
+								<h2 class="nk-product-title h3"><?= $detail->webshop_itemname ?></h2>
 								<div class="nk-product-description">
-									<p>
-										<?= $detail->webshop_itemdescription ?>
-									</p>
+									<p><?= $detail->webshop_itemdescription ?></p>
 								</div>
 								<hr class="bg-dark-4">
 								<?= form_open('', 'id= "buy_form" class="text-white"') ?>
@@ -46,25 +40,15 @@
 								<div class="form-group">
 									<label class="col-form-label">Select Duration:</label>
 									<select id="price_option" class="form-control">
-										<option value="<?= $detail->webshop_itemprice_3days ?>">
-											<?= $this->lang->line('STR_DARKBLOW_209') ?>
-										</option>
-										<option value="<?= $detail->webshop_itemprice_7days ?>">
-											<?= $this->lang->line('STR_DARKBLOW_210') ?>
-										</option>
-										<option value="<?= $detail->webshop_itemprice_30days ?>" selected>
-											<?= $this->lang->line('STR_DARKBLOW_211') ?>
-										</option>
-										<option value="<?= $detail->webshop_itemprice_permanent ?>">
-											<?= $this->lang->line('STR_DARKBLOW_80') ?>
-										</option>
+										<option value="<?= $detail->webshop_itemprice_3days ?>"><?= $this->lang->line('STR_DARKBLOW_209') ?></option>
+										<option value="<?= $detail->webshop_itemprice_7days ?>"><?= $this->lang->line('STR_DARKBLOW_210') ?></option>
+										<option value="<?= $detail->webshop_itemprice_30days ?>" selected><?= $this->lang->line('STR_DARKBLOW_211') ?></option>
+										<option value="<?= $detail->webshop_itemprice_permanent ?>"><?= $this->lang->line('STR_DARKBLOW_80') ?></option>
 									</select>
 								</div>
 								<div class="form-group text-center">
 									<?php if (empty($this->session->userdata('uid'))) : ?>
-										<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal">
-											<?= $this->lang->line('STR_DARKBLOW_152') ?>
-										</a>
+										<a href="javascript:void(0)" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" data-toggle="modal" data-target="#login_modal"><?= $this->lang->line('STR_DARKBLOW_152') ?></a>
 									<?php endif; ?>
 									<?php if (!empty($this->session->userdata('uid'))) : ?>
 										<input id="submit_buy" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_207') ?>">
@@ -137,11 +121,12 @@
 					</div>
 					<!-- START: Related Products -->
 					<div class="nk-gap-3"></div>
-					<h3 class="nk-decorated-h-2"><span><span class="text-main-1">
-								<?= $this->lang->line('STR_DARKBLOW_153') ?>
-							</span>
+					<h3 class="nk-decorated-h-2">
+						<span>
+							<span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_153') ?></span>
 							<?= $this->lang->line('STR_DARKBLOW_136') ?>
-						</span></h3>
+						</span>
+					</h3>
 					<div class="nk-gap"></div>
 					<div class="row vertical-gap">
 						<?php if ($related != null) : ?>
@@ -152,9 +137,9 @@
 											<img src="<?= base_url() ?>assets/goodgames/assets/images/img_webshop/<?= $row['webshop_itemimg'] ?>" alt="<?= $row['webshop_itemname'] ?>">
 										</a>
 										<div class="nk-product-cont">
-											<h3 class="nk-product-title h5"><a href="<?= base_url('webshop/details/' . $row['id']) ?>">
-													<?= $row['webshop_itemname'] ?>
-												</a></h3>
+											<h3 class="nk-product-title h5">
+												<a href="<?= base_url('webshop/details/' . $row['id']) ?>"><?= $row['webshop_itemname'] ?></a>
+											</h3>
 											<div class="nk-gap-1"></div>
 											<div class="nk-product-rating" data-rating="<?= $row['webshop_itemrating'] ?>">
 												<?php
@@ -234,13 +219,10 @@
 			<div class="modal-dialog modal-sm" role="document">
 				<div class="modal-content" style="border-radius: 5px;">
 					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span class="ion-android-close"></span>
-						</button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ion-android-close"></span></button>
 						<h4 class="mb-0 text-center">
-							<span><span class="text-main-1">
-									<?= $this->lang->line('STR_DARKBLOW_154') ?>
-								</span>
+							<span>
+								<span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_154') ?></span>
 								<?= $this->lang->line('STR_DARKBLOW_155') ?>
 							</span>
 						</h4>
@@ -248,13 +230,9 @@
 						<div class="row vertical-gap">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="nk-gap"></div>
-								<label class="col-form-label">
-									<?= $this->lang->line('STR_DARKBLOW_19') ?>
-								</label>
+								<label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_19') ?></label>
 								<input type="text" id="username" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_20') ?>" autofocus>
-								<label class="col-form-label">
-									<?= $this->lang->line('STR_DARKBLOW_18') ?>
-								</label>
+								<label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_18') ?></label>
 								<input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>">
 							</div>
 						</div>
@@ -263,9 +241,7 @@
 							<div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
 								<input id="submit_login" type="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_155') ?>">
 								<div class="nk-gap"></div>
-								<a href="<?= base_url('register') ?>" class="nk-btn nk-btn-outline nk-btn-block nk-btn-color-main-3">
-									<?= $this->lang->line('STR_DARKBLOW_44') ?>
-								</a>
+								<a href="<?= base_url('register') ?>" class="nk-btn nk-btn-outline nk-btn-block nk-btn-color-main-3"><?= $this->lang->line('STR_DARKBLOW_44') ?></a>
 							</div>
 						</div>
 						<?= form_close() ?>
@@ -276,6 +252,7 @@
 								$('#float_login').on('submit', function(e) {
 									e.preventDefault();
 
+									return Do_Login();
 								});
 							});
 
@@ -344,9 +321,7 @@
 														var GetString = JSON.stringify(data);
 														var Result = JSON.parse(GetString);
 
-														if (Result.response == 'true') {
-															FLOAT_CSRF = Result.token;
-														}
+														if (Result.response == 'true') FLOAT_CSRF = Result.token;
 
 														return Do_Login();
 													},

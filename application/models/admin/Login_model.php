@@ -49,7 +49,7 @@ class Login_model extends CI_Model
         } else {
             $query = $this->db->get_where(Darkblowdatabase::accounts, $data)->row();
             if ($query) {
-                if ($query->access_level >= 3 && $query->access_level <= 6) {
+                if ($query->access_level >= Darkblowaccesslevel::MODERATOR && $query->access_level <= Darkblowaccesslevel::EYETRACKER) {
                     $sessionData = array(
                         'admin_uid' => $query->player_id,
                         'admin_name' => $query->player_name != '' ? $query->player_name : $query->login,

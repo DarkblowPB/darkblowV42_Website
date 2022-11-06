@@ -31,22 +31,16 @@
                             <img src="<?= base_url() ?>assets/goodgames/asset/images/img_webshop/<?= $row['item_img'] ?>" style="max-width: 100px;" alt="">
                         </div>
                         <div class="nk-feature-cont text-center">
-                            <h3 class="nk-feature-title text-main-1">
-                                <?= $row['item_name'] ?>
-                            </h3>
+                            <h3 class="nk-feature-title text-main-1"><?= $row['item_name'] ?></h3>
                             <p>
-                                <?= $this->lang->line('STR_DARKBLOW_61') ?> <?= $row['item_price'] ?>
+                                <?= $this->lang->line('STR_DARKBLOW_61') ?>
+                                <?= $row['item_price'] ?>
                                 <?= $this->lang->line('STR_DARKBLOW_59') ?>
                             </p>
+                            <p style="margin-top: -20px"><?= $this->lang->line('STR_DARKBLOW_62') ?> <?= $this->darkblowlib->GetItemDuration($this->darkblowlib->GetBuyType($row['item_id']), $row['item_count'], 1); ?></p>
                             <p style="margin-top: -20px">
-                                <?= $this->lang->line('STR_DARKBLOW_62') ?> <?= $this->darkblowlib->GetItemDuration($this->darkblowlib->GetBuyType($row['item_id']), $row['item_count'], 1); ?>
-                            </p>
-                            <p style="margin-top: -20px">
-                                <?= $this->lang->line('STR_DARKBLOW_63') ?> <?php if ($row['stock'] > 0) {
-                                                                                echo $row['stock'] . " Qty";
-                                                                            } else {
-                                                                                echo "Out Of Stock";
-                                                                            } ?>
+                                <?= $this->lang->line('STR_DARKBLOW_63') ?>
+                                <?= $row['stock'] > 0 ? $row['stock'] . ' Qty' : 'Out Of Stock' ?>
                             </p>
 
                             <input type="button" id="submit_<?= $num ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" onclick="Exchange('submit_<?= $num ?>', '<?= $row['id'] ?>')" value="<?= $this->lang->line('STR_DARKBLOW_58') ?>">

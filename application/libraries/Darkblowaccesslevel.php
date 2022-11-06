@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Darkblowaccesslevel
 {
@@ -12,6 +12,7 @@ class Darkblowaccesslevel
     const GAMEMASTER = 4;
     const ADMINISTRATOR = 5;
     const DEVELOPER = 6;
+    const EYETRACKER = 7;
 }
 
 /* End of file Darkblowaccesslevel.php */

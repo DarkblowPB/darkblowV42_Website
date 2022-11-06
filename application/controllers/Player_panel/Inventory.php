@@ -16,6 +16,7 @@ class Inventory extends CI_Controller
 		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/inventory_model', 'inventory');
 		$this->load->library('pagination');
+		$this->load->helper('date');
 
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();

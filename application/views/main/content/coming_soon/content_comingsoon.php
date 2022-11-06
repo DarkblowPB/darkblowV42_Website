@@ -15,7 +15,7 @@
     <!-- START: Styles -->
 
     <!-- Icon -->
-    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/Darkblow-Logos.ico">
+    <link rel="icon" type="image/png" href="<?= base_url() ?>assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_icon ?>">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
     <!-- Bootstrap -->
@@ -40,7 +40,7 @@
             <div class="nk-fullscreen-block-top">
                 <div class="text-center">
                     <div class="nk-gap-4"></div>
-                    <a href="#"><img src="<?= base_url() ?>assets/goodgames/assets/images/weblogo.png" alt=""></a>
+                    <a href="javascript:void(0)"><img src="<?= base_url() ?>/assets/goodgames/assets/images/settings/<?= $this->darkblowsettings->load()->project_logo ?>" alt="<?= $this->darkblowsettings->load()->project_name ?>"></a>
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap-2"></div>
                     <div class="nk-gap-2"></div>
@@ -48,9 +48,7 @@
             </div>
             <div class="nk-fullscreen-block-middle">
                 <div class="container text-center">
-                    <h1 class="h3">
-                        <?= $this->lang->line('STR_DARKBLOW_8') ?>
-                    </h1>
+                    <h1 class="h3"><?= $this->lang->line('STR_DARKBLOW_8') ?></h1>
                     <div class="nk-gap-2"></div>
                     <div class="nk-countdown nk-countdown-center" data-end="2021-8-25 00:00:00" data-timezone="UTC"></div>
                     <div class="nk-gap-2"></div>
@@ -62,9 +60,9 @@
             <div class="nk-fullscreen-block-bottom">
                 <div class="nk-gap-2"></div>
                 <ul class="nk-social-links-2 nk-social-links-center">
-                    <li><a class="nk-social-facebook" href="https://www.facebook.com/groups/darkblowpb" target="_blank"><span class="fab fa-facebook"></span></a></li>
-                    <li><a class="nk-social-instagram" href="https://www.instagram.com/darkblowpb_id" target="_blank"><span class="fab fa-instagram"></span></a></li>
-                    <li><a class="nk-social-youtube" href="#" target="_blank"><span class="fab fa-youtube"></span></a></li>
+                    <li><a class="nk-social-facebook" href="<?= $this->darkblowsettings->load()->facebook_embed_link ?>" target="_blank"><span class="fab fa-facebook"></span></a></li>
+                    <li><a class="nk-social-instagram" href="<?= $this->darkblowsettings->load()->instagram_embed_link ?>" target="_blank"><span class="fab fa-instagram"></span></a></li>
+                    <li><a class="nk-social-youtube" href="<?= $this->darkblowsettings->load()->youtube_embed_link ?>" target="_blank"><span class="fab fa-youtube"></span></a></li>
                 </ul>
                 <div class="nk-gap-2"></div>
             </div>

@@ -176,7 +176,7 @@ class Playersmanagement_model extends CI_Model
         $response = array();
         $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $id))->row();
         if ($query) {
-            if ($query->access_level == -1) {
+            if ($query->access_level == Darkblowaccesslevel::BANNED) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'Failed to reset password this player.';
@@ -460,7 +460,7 @@ class Playersmanagement_model extends CI_Model
 
         $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
-            if ($query->access_level != '-1') {
+            if ($query->access_level != Darkblowaccesslevel::BANNED) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'This Player Not In Banned Condition.';
@@ -498,7 +498,7 @@ class Playersmanagement_model extends CI_Model
 
         $query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
         if ($query) {
-            if ($query->access_level == '-1') {
+            if ($query->access_level == Darkblowaccesslevel::BANNED) {
                 $response['response'] = 'false';
                 $response['token'] = $this->security->get_csrf_hash();
                 $response['message'] = 'This Player Already In Banned Condition.';

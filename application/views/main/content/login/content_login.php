@@ -1,25 +1,22 @@
 <div class="nk-main">
     <div class="nk-gap-2"></div>
     <div class="container">
-        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">
-                    <?= $this->lang->line('STR_DARKBLOW_38') ?>
-                </span>
+        <h3 class="nk-decorated-h-2">
+            <span>
+                <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_38') ?></span>
                 <?= $this->lang->line('STR_DARKBLOW_39') ?>
-            </span></h3>
+            </span>
+        </h3>
         <div class="row vertical-gap justify-content-center">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="nk-gap-3"></div>
                 <?= form_open('', 'id="login_form" autocomplete="off"') ?>
                 <div class="form-group">
-                    <label class="col-form-label">
-                        <?= $this->lang->line('STR_DARKBLOW_40') ?>
-                    </label>
+                    <label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_40') ?></label>
                     <input type="text" id="username" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" autofocus required>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label">
-                        <?= $this->lang->line('STR_DARKBLOW_42') ?>
-                    </label>
+                    <label class="col-form-label"><?= $this->lang->line('STR_DARKBLOW_42') ?></label>
                     <div class="row">
                         <div class="col-9">
                             <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" required>

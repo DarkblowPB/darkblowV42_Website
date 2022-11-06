@@ -1,11 +1,12 @@
 <div class="nk-main">
     <div class="container">
         <div class="nk-gap-2"></div>
-        <h3 class="nk-decorated-h-2"><span class="text-main-1">
-                <?= $this->lang->line('STR_DARKBLOW_175') ?> <span class="text-white">
-                    <?= $this->lang->line('STR_DARKBLOW_176') ?>
-                </span>
-            </span></h3>
+        <h3 class="nk-decorated-h-2">
+            <span class="text-main-1">
+                <?= $this->lang->line('STR_DARKBLOW_175') ?>
+                <span class="text-white"><?= $this->lang->line('STR_DARKBLOW_176') ?></span>
+            </span>
+        </h3>
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
@@ -26,36 +27,22 @@
                                     <div id="<?= $row['id'] ?>" class="calendar__day
                                     <?php
                                     if ($row['date'] == date('d-m-Y')) {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) {
-                                            echo 'claimed';
-                                        } else {
-                                            echo 'today';
-                                        }
+                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) echo 'claimed';
+                                        else echo 'today';
                                     } else if ($row['date'] < date('d-m-Y')) {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) {
-                                            echo 'passed';
-                                        } else {
-                                            echo 'claimed';
-                                        }
+                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) echo 'passed';
+                                        else echo 'claimed';
                                     }
                                     ?>
                                     " title="
                                     <?php
                                     if ($row['date'] == date('d-m-Y')) {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) {
-                                            echo 'Already Claimed';
-                                        } else {
-                                            echo 'Today';
-                                        }
+                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) echo 'Already Claimed';
+                                        else echo 'Today';
                                     } else if ($row['date'] < date('d-m-Y')) {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) {
-                                            echo 'Passed';
-                                        } else {
-                                            echo 'Already Claimed';
-                                        }
-                                    } else {
-                                        echo 'Tomorrow';
-                                    }
+                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) echo 'Passed';
+                                        else echo 'Already Claimed';
+                                    } else echo 'Tomorrow';
                                     ?>
                                     ">
                                         <?= $row['day'] ?>

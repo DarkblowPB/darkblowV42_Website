@@ -1,19 +1,17 @@
 <div class="nk-gap-4"></div>
-<!-- START: Footer -->
 <footer class="nk-footer">
     <div class="nk-copyright">
         <div class="row vertical-gap mt-10 justify-content-center">
             <div class="container">
                 <div class="nk-copyright-left">
-                    Copyright &copy; <a href="<?= base_url('home') ?>">
-                        <?= $this->darkblowsettings->load()->project_name ?>
-                    </a> 2020 - <?= date('Y'); ?>. All Rights Reserved.
+                    Copyright &copy;
+                    <a href="<?= base_url('home') ?>"><?= $this->darkblowsettings->load()->project_name ?></a> 2020 - <?= date('Y'); ?>.
+                    All Rights Reserved.
                 </div>
             </div>
         </div>
     </div>
 </footer>
-<!-- END: Footer -->
 </div>
 
 <!-- Object Fit Polyfill -->
@@ -49,12 +47,6 @@
 <script src="<?= base_url() ?>assets/goodgames/assets/js/custom.js"></script>
 <!-- dataTables -->
 <script type="text/javascript" src="<?= base_url() ?>assets/goodgames/assets/vendors/datatables/datatables.min.js"></script>
-<!-- END: Scripts -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#table_id').DataTable();
-    });
-</script>
 <?php if (!empty($this->session->userdata('uid'))) : ?>
     <script>
         function Logout() {

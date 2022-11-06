@@ -52,7 +52,12 @@
         <div class="nk-gap-2"></div>
         <div class="row veritcal-gap">
             <div class="col-lg-12 col-12">
-                <h3 class="nk-decorated-h-2"><span><?= $this->lang->line('STR_DARKBLOW_28') ?> <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_29') ?></span></span></h3>
+                <h3 class="nk-decorated-h-2">
+                    <span>
+                        <?= $this->lang->line('STR_DARKBLOW_28') ?>
+                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_29') ?></span>
+                    </span>
+                </h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap ">
                     <div class="col-lg-6 col-12 text-white">
@@ -87,11 +92,15 @@
         <div class="nk-gap-2"></div>
         <div class="row vertical-gap">
             <div class="col-lg-12 col-12">
-                <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_177') ?></span> <?= $this->lang->line('STR_DARKBLOW_178') ?></span></h3>
+                <h3 class="nk-decorated-h-2">
+                    <span>
+                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_177') ?></span>
+                        <?= $this->lang->line('STR_DARKBLOW_178') ?>
+                    </span>
+                </h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
                     <div class="col-lg-6 col-12">
-
                         <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
                             <thead style="font-style: italic;">
                                 <th width="10%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>
@@ -168,7 +177,12 @@
         <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
             <?php if ($this->home->GetPopularWebshop() != null) : ?>
                 <div class="nk-gap-3"></div>
-                <h3 class="nk-decorated-h-2"><span><span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_35') ?></span> <?= $this->lang->line('STR_DARKBLOW_36') ?></span></h3>
+                <h3 class="nk-decorated-h-2">
+                    <span>
+                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_35') ?></span>
+                        <?= $this->lang->line('STR_DARKBLOW_36') ?>
+                    </span>
+                </h3>
                 <div class="nk-gap"></div>
                 <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
                     <div class="nk-carousel-inner">
@@ -181,7 +195,9 @@
                                         </a>
                                         <div class="nk-product-cont">
                                             <div class="nk-gap-1"></div>
-                                            <h3 class="nk-product-title h5"><a href="<?= base_url('webshop/details/' . $row['id']) ?>"><?= $row['webshop_itemname'] ?></a></h3>
+                                            <h3 class="nk-product-title h5">
+                                                <a href="<?= base_url('webshop/details/' . $row['id']) ?>"><?= $row['webshop_itemname'] ?></a>
+                                            </h3>
                                             <div class="nk-gap-1"></div>
                                             <div class="nk-product-price"><?= $row['webshop_itemprice_30days'] ?>&#8373;</div>
                                         </div>

@@ -49,16 +49,11 @@
 
 <body>
     <header class="nk-header nk-header-opaque">
-        <!-- START: Marquee -->
         <div class="nk-contacts-top">
             <marquee style="font-weight: 900; text-transform: uppercase;" class="text-main-1">
-                <span>
-                    <?= $this->darkblowsettings->load()->running_text ?>
-                </span>
+                <span><?= $this->darkblowsettings->load()->running_text ?></span>
             </marquee>
         </div>
-        <!-- END: Marquee -->
-        <!-- START: Navbar -->
         <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
             <div class="container">
                 <div class="nk-nav-table">
@@ -67,50 +62,34 @@
                     </a>
                     <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
                         <li class="<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'home') echo 'active'; ?>">
-                            <a href="<?= base_url('home') ?>">
-                                <?= $this->lang->line('STR_MENU_1') ?>
-                            </a>
+                            <a href="<?= base_url('home') ?>"><?= $this->lang->line('STR_MENU_1') ?></a>
                         </li>
                         <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_rank" || $this->uri->segment(1) == "clan_rank") echo 'active'; ?>">
-                            <a href="javascript:void(0)">
-                                <?= $this->lang->line('STR_MENU_2') ?>
-                            </a>
+                            <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_2') ?></a>
                             <ul class="dropdown">
                                 <li class="<?php if ($this->uri->segment(1) == 'player_rank') echo 'active'; ?>">
-                                    <a href="<?= base_url('player_rank') ?>">
-                                        <?= $this->lang->line('STR_MENU_7') ?>
-                                    </a>
+                                    <a href="<?= base_url('player_rank') ?>"><?= $this->lang->line('STR_MENU_7') ?></a>
                                 </li>
                                 <li class="<?php if ($this->uri->segment(1) == 'clan_rank') echo 'active'; ?>">
-                                    <a href="<?= base_url('clan_rank') ?>">
-                                        <?= $this->lang->line('STR_MENU_8') ?>
-                                    </a>
+                                    <a href="<?= base_url('clan_rank') ?>"><?= $this->lang->line('STR_MENU_8') ?></a>
                                 </li>
                             </ul>
                         </li>
                         <li class="<?php if ($this->uri->segment(1) == 'download') echo 'active'; ?>">
-                            <a href="<?= base_url('download') ?>">
-                                <?= $this->lang->line('STR_MENU_3') ?>
-                            </a>
+                            <a href="<?= base_url('download') ?>"><?= $this->lang->line('STR_MENU_3') ?></a>
                         </li>
                         <?php if ($this->darkblowsettings->load()->webshop != 0 && $this->darkblowsettings->load()->trade_market != 0) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                <a href="javascript:void(0)">
-                                    <?= $this->lang->line('STR_MENU_4') ?>
-                                </a>
+                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
                                 <ul class="dropdown">
                                     <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
-                                            <a href="<?= base_url('webshop') ?>">
-                                                <?= $this->lang->line('STR_MENU_9') ?>
-                                            </a>
+                                            <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>">
-                                                <?= $this->lang->line('STR_MENU_10') ?>
-                                            </a>
+                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
@@ -118,22 +97,16 @@
                         <?php endif; ?>
                         <?php if ($this->darkblowsettings->load()->webshop == 1 && $this->darkblowsettings->load()->trade_market == 0) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade")  echo 'active'; ?>">
-                                <a href="javascript:void(0)">
-                                    <?= $this->lang->line('STR_MENU_4') ?>
-                                </a>
+                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
                                 <ul class="dropdown">
                                     <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
-                                            <a href="<?= base_url('webshop') ?>">
-                                                <?= $this->lang->line('STR_MENU_9') ?>
-                                            </a>
+                                            <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>">
-                                                <?= $this->lang->line('STR_MENU_10') ?>
-                                            </a>
+                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
@@ -141,118 +114,82 @@
                         <?php endif; ?>
                         <?php if ($this->darkblowsettings->load()->webshop == 0 && $this->darkblowsettings->load()->trade_market == 1) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                <a href="javascript:void(0)">
-                                    <?= $this->lang->line('STR_MENU_4') ?>
-                                </a>
+                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
                                 <ul class="dropdown">
                                     <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
-                                            <a href="<?= base_url('webshop') ?>">
-                                                <?= $this->lang->line('STR_MENU_9') ?>
-                                            </a>
+                                            <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>">
-                                                <?= $this->lang->line('STR_MENU_10') ?>
-                                            </a>
+                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
                         <?php endif; ?>
-                        <?php
-                        if (empty($this->session->userdata('uid'))) :
-                        ?>
+                        <?php if (empty($this->session->userdata('uid'))) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "login" || $this->uri->segment(1) == "register" || $this->uri->segment(1) == "forgotpassword") echo 'active'; ?>">
-                                <a href="javascript:void(0)">
-                                    <?= $this->lang->line('STR_MENU_5') ?>
-                                </a>
+                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_5') ?></a>
                                 <ul class="dropdown">
                                     <li class="<?php if ($this->uri->segment(1) == "login") echo 'active'; ?>">
-                                        <a href="<?= base_url('login') ?>">
-                                            <?= $this->lang->line('STR_MENU_11') ?>
-                                        </a>
+                                        <a href="<?= base_url('login') ?>"><?= $this->lang->line('STR_MENU_11') ?></a>
                                     </li>
-                                    <li class="<?php if ($this->uri->segment(1) == "register") echo 'active'; ?>">
-                                        <a href="<?= base_url('register') ?>">
-                                            <?= $this->lang->line('STR_MENU_12') ?>
-                                        </a>
-                                    </li>
+                                    <?php if ($this->darkblowsettings->load()->register == 1) : ?>
+                                        <li class="<?php if ($this->uri->segment(1) == "register") echo 'active'; ?>">
+                                            <a href="<?= base_url('register') ?>"><?= $this->lang->line('STR_MENU_12') ?></a>
+                                        </li>
+                                    <?php endif ?>
                                     <?php if ($this->darkblowsettings->load()->forgot_password == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "forgotpassword") echo 'active'; ?>">
-                                            <a href="<?= base_url('forgotpassword') ?>">
-                                                <?= $this->lang->line('STR_MENU_13') ?>
-                                            </a>
+                                            <a href="<?= base_url('forgotpassword') ?>"><?= $this->lang->line('STR_MENU_13') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
-                        <?php
-                        endif;
-                        if (!empty($this->session->userdata('uid'))) :
-                        ?>
+                        <?php endif; ?>
+                        <?php if (!empty($this->session->userdata('uid'))) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "player_panel" || $this->uri->segment(1) == "event") echo 'active'; ?>">
-                                <a href="javascript:void(0)">
-                                    <?= $this->lang->line('STR_MENU_6') ?>
-                                </a>
+                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_6') ?></a>
                                 <ul class="dropdown">
                                     <li class="<?php if ($this->uri->segment(2) == "home" || $this->uri->segment(2) == 'changepassword') echo 'active'; ?>">
-                                        <a href="<?= base_url('player_panel/home') ?>">
-                                            <?= $this->lang->line('STR_MENU_14') ?>
-                                        </a>
+                                        <a href="<?= base_url('player_panel/home') ?>"><?= $this->lang->line('STR_MENU_14') ?></a>
                                     </li>
                                     <?php if ($this->session->userdata('access_level') >= 3 && $this->session->userdata('access_level') <= 7) : ?>
                                         <li>
-                                            <a href="javascript:void(0)" onclick="AutomaticLogin()">
-                                                <?= $this->lang->line('STR_MENU_15') ?>
-                                            </a>
+                                            <a href="javascript:void(0)" onclick="AutomaticLogin()"><?= $this->lang->line('STR_MENU_15') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->attendance == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "attendance") echo 'active'; ?>">
-                                            <a href="<?= base_url('event/attendance') ?>">
-                                                <?= $this->lang->line('STR_MENU_21') ?> <span class="text-main-3">[NEW]</span>
-                                            </a>
+                                            <a href="<?= base_url('event/attendance') ?>"><?= $this->lang->line('STR_MENU_21') ?> <span class="text-main-3">[NEW]</span></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->exchange_ticket == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "exchange_ticket") echo 'active'; ?>">
-                                            <a href="<?= base_url('event/exchange_ticket') ?>">
-                                                <?= $this->lang->line('STR_MENU_17') ?> <span class="text-main-3">[NEW]</span>
-                                            </a>
+                                            <a href="<?= base_url('event/exchange_ticket') ?>"><?= $this->lang->line('STR_MENU_17') ?> <span class="text-main-3">[NEW]</span></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->redeemcode == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "redeemcode") echo 'active'; ?>">
-                                            <a href="<?= base_url('player_panel/redeemcode') ?>">
-                                                <?= $this->lang->line('STR_MENU_16') ?>
-                                            </a>
+                                            <a href="<?= base_url('player_panel/redeemcode') ?>"><?= $this->lang->line('STR_MENU_16') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php if ($this->darkblowsettings->load()->voucher == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(2) == "voucher") echo 'active'; ?>">
-                                            <a href="<?= base_url('player_panel/voucher') ?>">
-                                                <?= $this->lang->line('STR_MENU_18') ?>
-                                            </a>
+                                            <a href="<?= base_url('player_panel/voucher') ?>"><?= $this->lang->line('STR_MENU_18') ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <li class="<?php if ($this->uri->segment(2) == "inventory") echo 'active'; ?>">
-                                        <a href="<?= base_url('player_panel/inventory') ?>">
-                                            <?= $this->lang->line('STR_MENU_19') ?>
-                                        </a>
+                                        <a href="<?= base_url('player_panel/inventory') ?>"><?= $this->lang->line('STR_MENU_19') ?></a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)" onclick="Logout()">
-                                            <?= $this->lang->line('STR_MENU_20') ?>
-                                        </a>
+                                        <a href="javascript:void(0)" onclick="Logout()"><?= $this->lang->line('STR_MENU_20') ?></a>
                                     </li>
                                 </ul>
                             </li>
-                        <?php
-                        endif;
-                        ?>
+                        <?php endif; ?>
                     </ul>
                     <ul class="nk-nav nk-nav-right nk-nav-icons">
                         <li class="single-icon d-lg-none">
@@ -268,9 +205,7 @@
                 </div>
             </div>
         </nav>
-        <!-- END: Navbar -->
     </header>
-    <!-- START: Navbar Mobile -->
     <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
         <div class="nano">
             <div class="nano-content">
@@ -285,4 +220,3 @@
             </div>
         </div>
     </div>
-    <!-- END: Navbar Mobile -->
