@@ -69,6 +69,7 @@ class Darkblowdatabase
     const web_settings                  = 'web_settings';
     const web_shop                      = 'web_shop';
     const web_tokenkey                  = 'web_tokenkey';
+    const web_webhook                   = 'web_webhook';
     const webshop                       = 'webshop';
 }
 

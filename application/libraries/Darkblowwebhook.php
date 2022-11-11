@@ -6,6 +6,9 @@ class Darkblowwebhook
 {
     protected $ci;
 
+    const REGISTER_WEBHOOK = 1;
+    const REDEEMCODE_WEBHOOK = 2;
+
     public function __construct()
     {
         $this->ci = &get_instance();

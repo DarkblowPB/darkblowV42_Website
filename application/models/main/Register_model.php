@@ -315,6 +315,8 @@ class Register_model extends CI_Model
 	{
 		$response = array();
 
+		$webhook_data = [];
+
 		$data = array(
 			'login' => $this->input->post('login', true),
 			'email' => $this->input->post('email', true),
@@ -332,35 +334,40 @@ class Register_model extends CI_Model
 			'hint_answer' => $data['hint_answer']
 		));
 		if ($query) {
-			$webhook_data =  [
-				'content' => 'New Registered Account',
-				'username' => '',
-				'avatar_url' => '',
-				'tts' => false,
-				'embeds' => [
-					[
-						'title' => $this->darkblowsettings->load()->project_name . ' - Redeem Code',
-						'url' => base_url(),
-						'type' => 'rich',
-						'description' => '',
-						'timestamp' => date('c', strtotime('now')),
-						'fields' => [
+			$webhook_get = $this->db->get_where(Darkblowdatabase::web_webhook, array('active' => Darkblowwebhook::REGISTER_WEBHOOK))->row();
+			if ($webhook_get) {
+				if ($webhook_get->active == 1) {
+					$webhook_data =  [
+						'content' => '',
+						'username' => $webhook_get->username != '' || $webhook_get->username != null ? $webhook_get->username : $this->darkblowsettings->load()->project_name,
+						'avatar_url' => $webhook_get->avatar_url != '' || $webhook_get->avatar_url != null ? $webhook_get->avatar_url : '',
+						'tts' => false,
+						'embeds' => [
 							[
-								"name" => "Username",
-								"value" => $data['login']
-							],
-							[
-								"name" => "Email",
-								"value" => $data['email'],
-							],
-							[
-								"name" => "IP Address",
-								"value" => $this->input->ip_address(),
-							],
+								'title' => $webhook_get->embeds_title != '' || $webhook_get->embeds_title != null ? $this->darkblowsettings->load()->project_name . ' - ' . $webhook_get->embeds_title : $this->darkblowsettings->load()->project_name . ' - Register Account',
+								'url' => base_url('register'),
+								'type' => 'rich',
+								'description' => $webhook_get->embeds_description != '' || $webhook_get->embeds_description != null ? $webhook_get->embeds_description : '',
+								'timestamp' => date('c', strtotime('now')),
+								'fields' => [
+									[
+										"name" => "Username",
+										"value" => $data['login']
+									],
+									[
+										"name" => "Email",
+										"value" => $data['email'],
+									],
+									[
+										"name" => "IP Address",
+										"value" => $this->input->ip_address(),
+									],
+								]
+							]
 						]
-					]
-				]
-			];
+					];
+				}
+			}
 			// Fetch Account
 			$query2 = $this->db->get_where(Darkblowdatabase::accounts, array('login' => $data['login']))->row();
 			if ($query2) {

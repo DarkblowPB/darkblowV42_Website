@@ -15,10 +15,6 @@ $config['main_config'] = array(
     'encryption_key' => 'insert_your_encryption_key',
     'site_language' => 'english',
     'codesystem' => 'api',
-    'webhook_url' => array(
-        'register' => 'https://ptb.discord.com/api/webhooks/1037781540320579625/LXp2ngBLeLgAoqogmwxPO7pjJnC4M0lUjxW5wJWhWLXNzeNFjH0Lt2UvXiMliiq-QJC3',
-        'redeem_code' => 'https://ptb.discord.com/api/webhooks/1037781622558310451/Iome61feay4XDpbC92jl1WZgtWEy8-C8TEP8_sHzHpZJB_x5X8IANjRVb40tFgtdHNHh',
-    ),
 );
 /*
 |--------------------------------------------------------------------------

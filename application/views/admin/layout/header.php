@@ -107,6 +107,11 @@
           'zeroRecords': 'Nothing Found Here.'
         }
       });
+      $('#webhook_table').dataTable({
+        language: {
+          zeroRecords: 'Nothing Found Here.'
+        }
+      });
 
       // Form Selection
       $('.reward_selection').select2();
@@ -218,6 +223,15 @@
                   </a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('adm/webhookmanagement') ?>" class="nav-link <?php if ($this->uri->segment(2) == "webhookmanagement") echo 'active'; ?>">
+                <i class="nav-icon fab fa-discord"></i>
+                <p>
+                  Webhook Management <span class="text-<?php if ($this->uri->segment(2) == 'webhookmanagement') echo 'danger';
+                                                        else echo 'success'; ?> font-weight-bold">( BETA )</span>
+                </p>
+              </a>
             </li>
             <li class="nav-header">Game Menu</li>
             <li class="nav-item">
@@ -366,7 +380,7 @@
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0">
-                <?= $header ?>
+                <?= $title ?>
               </h1>
             </div>
             <div class="col-sm-6">
@@ -374,7 +388,7 @@
                 <li class="breadcrumb-item"><a href="<?= base_url('adm/dashboard') ?>">Dashboard</a></li>
                 <?php if ($title != "DarkblowPB || Dashboard") : ?>
                   <li class="breadcrumb-item active">
-                    <?= $header ?>
+                    <?= $title ?>
                   </li>
                 <?php endif; ?>
               </ol>

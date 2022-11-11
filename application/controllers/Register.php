@@ -127,11 +127,8 @@ class Register extends CI_Controller
 				array('required' => '%s Cannot Be Empty.')
 			);
 			if ($this->form_validation->run()) {
-				if (!empty($this->session->userdata('g_email'))) {
-					$this->register->GoogleRegisterValidation();
-				} else {
-					$this->register->RegisterValidationV6();
-				}
+				if (!empty($this->session->userdata('g_email'))) $this->register->GoogleRegisterValidation();
+				else $this->register->RegisterValidationV6();
 			} else {
 				$response['response'] = 'error';
 				$response['token'] = $this->security->get_csrf_hash();

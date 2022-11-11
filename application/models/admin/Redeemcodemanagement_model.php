@@ -1084,6 +1084,7 @@ class Redeemcodemanagement_model extends CI_Model
 
     function CreateNewRedeemCodeV2()
     {
+        $webhook_data = array();
         $response = array();
 
         $data = array(
@@ -1099,43 +1100,49 @@ class Redeemcodemanagement_model extends CI_Model
             'date_updated' => '0',
         );
 
-        $webhook_data =  [
-            'content' => '@everyone',
-            'username' => '',
-            'avatar_url' => '',
-            'tts' => false,
-            'embeds' => [
-                [
-                    'title' => $this->darkblowsettings->load()->project_name . ' - Redeem Code',
-                    'url' => base_url(),
-                    'type' => 'rich',
-                    'description' => '',
-                    'timestamp' => date('c', strtotime('now')),
-                    'fields' => [
+        $webhook_get = $this->db->get_where(Darkblowdatabase::web_webhook, array('type' => Darkblowwebhook::REDEEMCODE_WEBHOOK))->row();
+        if ($webhook_get) {
+            if ($webhook_get->status == 1) {
+
+                $webhook_data =  [
+                    'content' => '',
+                    'username' => $webhook_get->username != '' || $webhook_get->username != null ? $webhook_get->username : $this->darkblowsettings->load()->project_name,
+                    'avatar_url' => $webhook_get->avatar_url != '' || $webhook_get->avatar_url != null ? $webhook_get->avatar_url : '',
+                    'tts' => false,
+                    'embeds' => [
                         [
-                            "name" => "Code",
-                            "value" => $data['item_code']
-                        ],
-                        [
-                            "name" => "Item Name",
-                            "value" => $this->darkblowlib->GetItemName($this->input->post('item_id', true)),
-                        ],
-                        [
-                            "name" => "Item Count",
-                            "value" => ($data['item_count'] / 24 / 60 / 60) . ' Days',
-                        ],
-                        [
-                            "name" => "Stock",
-                            "value" => $data['qty'] . ' Players',
-                        ],
-                        [
-                            "name" => "Valid Until",
-                            "value" => date('d-m-Y H:i:s', $data['valid_date'])
+                            'title' => $webhook_get->embeds_title != '' || $webhook_get->embeds_title != null ? $this->darkblowsettings->load()->project_name . ' - ' . $webhook_get->embeds_title : $this->darkblowsettings->load()->project_name . ' - Redeem Code',
+                            'url' => base_url('player_panel/redeemcode'),
+                            'type' => 'rich',
+                            'description' => $webhook_get->embeds_description != '' || $webhook_get->embeds_description != null ? $webhook_get->embeds_description : '',
+                            'timestamp' => date('c', strtotime('now')),
+                            'fields' => [
+                                [
+                                    "name" => "Code",
+                                    "value" => $data['item_code']
+                                ],
+                                [
+                                    "name" => "Item Name",
+                                    "value" => $this->darkblowlib->GetItemName($data['item_id']),
+                                ],
+                                [
+                                    "name" => "Item Count",
+                                    "value" => ($data['item_count'] / 24 / 60 / 60) . ' Days',
+                                ],
+                                [
+                                    "name" => "Stock",
+                                    "value" => $data['qty'] . ' Players',
+                                ],
+                                [
+                                    "name" => "Valid Until",
+                                    "value" => date('d-m-Y H:i:s', $data['valid_date'])
+                                ]
+                            ]
                         ]
                     ]
-                ]
-            ]
-        ];
+                ];
+            }
+        }
 
         $query = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['item_code']))->row();
         if ($query) {
