@@ -8,7 +8,7 @@ Features List :
 		- Login
 			- Login
 			- Register
-			- Forgot Password (Under Development)
+			- Forgot Password
 		- Rank List
 			- Player Rank
 			- Clan Rank
@@ -27,7 +27,7 @@ Features List :
 				- Create Hint Security
 			- Administrator Panel (Only For Admin & Staff)
 			- Redeem Code
-			- Attendance (Under Development)
+			- Attendance
 			- Exchange Ticket (Under Development)
 			- Voucher
 			- Inventory
