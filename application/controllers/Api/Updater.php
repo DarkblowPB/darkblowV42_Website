@@ -15,6 +15,7 @@ class Updater extends RestController
     {
         parent::__construct();
         $this->load->helper('file');
+        // $this->darkblowlicense->DarkblowPBLicense();
     }
 
     function version_get()

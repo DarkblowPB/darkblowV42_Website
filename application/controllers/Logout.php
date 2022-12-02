@@ -13,6 +13,8 @@ class Logout extends CI_Controller
 	{
 		parent::__construct();
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

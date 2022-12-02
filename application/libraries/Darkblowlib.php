@@ -150,9 +150,7 @@ class Darkblowlib
 			case 'create': {
 					$explode = explode(',', $list);
 					foreach ($explode as $row) {
-						if ($row != '') {
-							echo '<option value="' . $row . '">' . $num . ' Days</option>';
-						}
+						if ($row != '') echo '<option value="' . $row . '">' . $num . ' Days</option>';
 						$num++;
 					}
 					break;
@@ -446,10 +444,6 @@ class Darkblowlib
 	{
 		$query = $this->ci->db->get_where(Darkblowdatabase::info_gameservers, array('id' => '1'))->row();
 		if ($query) return $query->max_players;
-	}
-
-	public function MenuControl()
-	{
 	}
 }
 

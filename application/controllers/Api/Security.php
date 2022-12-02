@@ -16,6 +16,7 @@ class Security extends RestController
 	function __construct()
 	{
 		parent::__construct();
+		// $this->darkblowlicense->DarkblowPBLicense();
 	}
 
 	function csrf_get()

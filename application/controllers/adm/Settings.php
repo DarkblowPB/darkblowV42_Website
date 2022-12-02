@@ -12,7 +12,11 @@ class Settings extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
         $this->load->model('admin/settings_model', 'settings');
+
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();

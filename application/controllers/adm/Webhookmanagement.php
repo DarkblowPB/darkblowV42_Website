@@ -8,6 +8,8 @@ class Webhookmanagement extends CI_Controller
     {
         parent::__construct();
         $this->load->model('admin/webhookmanagement_model', 'webhook');
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();
@@ -126,6 +128,11 @@ class Webhookmanagement extends CI_Controller
 
             $this->darkblowmessage->AjaxFlashData($response);
         }
+    }
+
+    public function do_delete()
+    {
+        $this->webhook->DeleteWebhook($this->input->post('data_id', true));
     }
 }
 

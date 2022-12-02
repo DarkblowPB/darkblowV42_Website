@@ -17,6 +17,8 @@ class Register extends CI_Controller
 		$this->load->model('main/register_model', 'register');
 		$this->load->helper('hintquestion');
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

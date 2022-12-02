@@ -12,10 +12,12 @@ class Redeemcodemanagement extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->model('admin/redeemcodemanagement_model', 'redeemcodemanagement');
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();
-        $this->load->model('admin/redeemcodemanagement_model', 'redeemcodemanagement');
     }
 
     function index()

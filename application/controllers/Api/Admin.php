@@ -16,6 +16,7 @@ class Admin extends RestController
     {
         parent::__construct();
         $this->lang->load('message');
+        // $this->darkblowlicense->DarkblowPBLicense();
     }
 
     function loginpanel_get()

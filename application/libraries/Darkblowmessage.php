@@ -45,7 +45,7 @@ class Darkblowmessage
 
     public function DisplayErrorMessage()
     {
-        return validation_errors('<div>', '</div>');
+        return validation_errors('<div class="alert alert-danger" role="alert">', '</div>');
     }
 }
 

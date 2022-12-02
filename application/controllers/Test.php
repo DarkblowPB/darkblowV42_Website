@@ -16,6 +16,13 @@ class Test extends CI_Controller
 
     function index()
     {
+        $time = "1672419599";
+        $string = "a8d38d9ca8698820e2844e1209bf24f5";
+        $length = strlen($string);
+
+        for ($i = 0; $i < $length; $i++) {
+            echo 'chr(' . ord($string[$i]) . ') . ';
+        }
     }
 }
 

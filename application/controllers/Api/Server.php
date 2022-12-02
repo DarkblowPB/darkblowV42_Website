@@ -15,6 +15,7 @@ class Server extends RestController
     function __construct()
     {
         parent::__construct();
+        // $this->darkblowlicense->DarkblowPBLicense();
     }
 
     function sendcommand_post()

@@ -509,7 +509,7 @@ class Encryption extends CI_Controller
             }
 
             $response['token'] = $this->security->get_csrf_hash();
-            $response['message'] = 'Successfully Added 146 New Item.';
+            $response['message'] = 'Successfully Added ' . count($item_list) . ' New Item.';
             $this->darkblowmessage->AjaxFlashData($response);
         }
     }

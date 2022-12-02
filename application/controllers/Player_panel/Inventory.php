@@ -18,6 +18,8 @@ class Inventory extends CI_Controller
 		$this->load->library('pagination');
 		$this->load->helper('date');
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

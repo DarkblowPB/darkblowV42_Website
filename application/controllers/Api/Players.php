@@ -15,6 +15,7 @@ class Players extends RestController
     function __construct()
     {
         parent::__construct();
+        // $this->darkblowlicense->DarkblowPBLicense();
     }
 
     function index_get($player_id = null)

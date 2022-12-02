@@ -12,6 +12,8 @@ class Login extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->PageDump_Protection();
         $this->load->model('admin/login_model', 'login');
     }

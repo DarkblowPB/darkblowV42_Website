@@ -13,6 +13,8 @@ class Quest extends CI_Controller
     {
         parent::__construct();
         $this->load->model('admin/eventsquest_model', 'eventsquest');
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();

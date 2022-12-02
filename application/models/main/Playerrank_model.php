@@ -23,6 +23,13 @@ class Playerrank_model extends CI_Model
 	{
 		return $this->db->get(Darkblowdatabase::accounts)->num_rows();
 	}
+
+	function GetPlayerData($player_id)
+	{
+		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $player_id))->row();
+		if ($query) return $query;
+		else redirect(base_url('player_rank'), 'refresh');
+	}
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

@@ -14,6 +14,9 @@ class Maintenance extends CI_Controller
         parent::__construct();
 
         $this->lang->load(array('header', 'string'));
+
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->BlockedIP_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->Production_Protection();

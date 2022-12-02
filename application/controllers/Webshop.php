@@ -19,6 +19,8 @@ class Webshop extends CI_Controller
 		$this->load->model('main/webshop_model', 'webshop');
 		$this->load->model('main/login_model', 'login');
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

@@ -17,6 +17,8 @@ class Create_hint extends CI_Controller
 		$this->load->model('main/createhint_model', 'hint');
 		$this->load->helper('hintquestion');
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

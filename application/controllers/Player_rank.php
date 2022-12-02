@@ -18,6 +18,8 @@ class Player_rank extends CI_Controller
 		$this->load->library('pagination');
 		$this->load->model('main/playerrank_model', 'playerrank');
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();
@@ -76,7 +78,8 @@ class Player_rank extends CI_Controller
 
 		if (is_numeric($player_id) && $player_id > 0) {
 			$data['title'] = 'Detail Player';
-			$data['isi'] = 'main/content/player_rank/content_detailplayer';
+			$data['player'] = $this->playerrank->GetPlayerData($player_id);
+			$data['isi'] = 'main/content/player_rank/content_playerdetail';
 
 			$this->load->view('layout/wrapper', $data, FALSE);
 		} else set_status_header(404, 'Invalid Player ID');

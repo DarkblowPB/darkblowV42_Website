@@ -17,6 +17,8 @@ class Voucher extends CI_Controller
         $this->load->model('main/voucher_model', 'voucher');
         $this->darkblowlib->FeatureControl('voucher', 'player_panel');
 
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->BlockedIP_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->Maintenance_Protection();

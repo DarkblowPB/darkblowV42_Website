@@ -59,6 +59,7 @@ class Webhookmanagement_model extends CI_Model
 
     public function EditWebhook($webhook_id)
     {
+        sleep(1);
         $response = array();
 
         $data = array(
@@ -93,6 +94,36 @@ class Webhookmanagement_model extends CI_Model
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
             $response['message'] = 'Failed Update Webhook.';
+
+            $this->darkblowmessage->AjaxFlashData($response);
+        }
+    }
+
+    public function DeleteWebhook($webhook_id)
+    {
+        sleep(1);
+        $response = array();
+
+        $query = $this->db->get_where(Darkblowdatabase::web_webhook, array('id' => $webhook_id))->row();
+        if ($query) {
+            $delete = $this->db->where('id', $query->id)->delete(Darkblowdatabase::web_webhook);
+            if ($delete) {
+                $response['response'] = 'success';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Successfully Delete Webhook.';
+
+                $this->darkblowmessage->AjaxFlashData($response);
+            } else {
+                $response['response'] = 'error';
+                $response['token'] = $this->security->get_csrf_hash();
+                $response['message'] = 'Failed To Delete Webhook.';
+
+                $this->darkblowmessage->AjaxFlashData($response);
+            }
+        } else {
+            $response['response'] = 'error';
+            $response['token'] = $this->security->get_csrf_hash();
+            $response['message'] = 'Failed To Delete Webhook.';
 
             $this->darkblowmessage->AjaxFlashData($response);
         }

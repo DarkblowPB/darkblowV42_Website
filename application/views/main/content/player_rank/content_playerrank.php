@@ -1,10 +1,13 @@
 <div class="container">
 	<div class="nk-gap-2"></div>
-	<h3 class="nk-decorated-h-2"><span><span class="text-main-1">
+	<h3 class="nk-decorated-h-2">
+		<span>
+			<span class="text-main-1">
 				<?= $this->lang->line('STR_DARKBLOW_84') ?>
 			</span>
 			<?= $this->lang->line('STR_DARKBLOW_3') ?>
-		</span></h3>
+		</span>
+	</h3>
 	<div class="col-lg-12 col-12">
 		<table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center">
 			<thead>

@@ -16,6 +16,8 @@ class Trade extends CI_Controller
         $this->lang->load(array('header', 'string', 'message'));
         $this->load->model('main/trade_model', 'trade');
 
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->BlockedIP_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->Maintenance_Protection();

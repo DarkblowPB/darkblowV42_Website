@@ -13,6 +13,8 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->model('admin/eventslogin_model', 'eventslogin');
+        $this->darkblowprotection->RunningLegality();
+        // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->RequireLoginAdmin_Protection();
         $this->darkblowprotection->PageDump_Protection();
         $this->darkblowprotection->RequireAccessAdmin_Protection();

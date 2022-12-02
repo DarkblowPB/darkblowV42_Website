@@ -15,6 +15,8 @@ class Comingsoon extends CI_Controller
 
 		$this->lang->load(array('header', 'string'));
 
+		$this->darkblowprotection->RunningLegality();
+		// $this->darkblowlicense->DarkblowPBLicense();
 		$this->darkblowprotection->BlockedIP_Protection();
 		$this->darkblowprotection->PageDump_Protection();
 		$this->darkblowprotection->Maintenance_Protection();

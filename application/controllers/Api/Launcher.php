@@ -14,6 +14,7 @@ class Launcher extends RestController
     function __construct()
     {
         parent::__construct();
+        // $this->darkblowlicense->DarkblowPBLicense();
     }
 
     function getlauncherkey_get()
@@ -119,6 +120,7 @@ class Launcher extends RestController
                 $response['status'] = 'Success';
                 $response['login'] = $query->login;
                 $response['token'] = $query->token;
+                $this->response($response, 200);
             } else {
                 $response['status'] = 'Failed';
                 $this->response($response, 200);
