@@ -28,6 +28,9 @@ class Home extends CI_Controller
 		if ($this->input->is_ajax_request()) return;
 
 		$data['title'] = 'Home';
+		$data['player_ranking'] = $this->home->GetPlayerRanking();
+		$data['clan_ranking'] = $this->home->GetClanRanking();
+		$data['webshop'] = $this->home->GetPopularWebshop();
 		$data['isi'] = 'main/content/home/content_home';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}

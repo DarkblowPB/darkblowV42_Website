@@ -37,9 +37,10 @@ class Attendance extends CI_Controller
         else {
             switch ($type) {
                 case '7days': {
+                        $reward = $this->darkblowlib->GetItemRewardList();
                         $data = array(
                             'title' => 'Create 7 Days Attendance Event',
-                            'reward' => $this->attendance->GetRewardItemList(),
+                            'reward' => $this->darkblowlib->GetItemRewardList(),
                             'header' => 'Create 7 Days Attendance Event',
                             'content' => 'admin/content/events/attendance/content_create_7days'
                         );
@@ -50,7 +51,7 @@ class Attendance extends CI_Controller
                 case '14days': {
                         $data = array(
                             'title' => 'Create 7 Days Attendance Event',
-                            'reward' => $this->attendance->GetRewardItemList(),
+                            'reward' => $this->darkblowlib->GetItemRewardList(),
                             'header' => 'Create 7 Days Attendance Event',
                             'content' => 'admin/content/events/attendance/content_create_14days'
                         );

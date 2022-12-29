@@ -125,7 +125,7 @@
                                             },
                                             error: function() {
                                                 SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_204 ') ?>');
-                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_27 ') ?>');
+                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_27') ?>');
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 2000);

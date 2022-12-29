@@ -16,9 +16,11 @@ class Darkblowwebhook
 
     function Send($webhook_type, array $message)
     {
-        $data['webhook_url'] = $this->ci->config->item('main_config')['webhook_url'][$webhook_type];
+        $query = $this->ci->db->get_where(Darkblowdatabase::web_webhook, array('type' => $webhook_type))->row();
+        if ($query) {
+            $data['webhook_url'] = $query->url;
+            if (!is_array($message)) return;
 
-        if ($data['webhook_url'] != '' || $data['webhook_url'] != null) {
             $ch = curl_init($data['webhook_url']);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
             curl_setopt($ch, CURLOPT_POST, 1);

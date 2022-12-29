@@ -16,7 +16,7 @@
                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" required autofocus>
                 </div>
                 <div class="form-group text-center">
-                    <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-primary" value="Submit">
+                    <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Submit">
                 </div>
                 <?= form_close() ?>
                 <script>

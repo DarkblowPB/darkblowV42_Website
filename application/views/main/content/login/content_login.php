@@ -22,19 +22,19 @@
                             <input type="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" required>
                         </div>
                         <div class="col-3">
-                            <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
+                            <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Show">
                         </div>
                     </div>
                 </div>
                 <div class="nk-gap-3"></div>
                 <div class="form-group text-center">
-                    <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-primary" value="<?= $this->lang->line('STR_DARKBLOW_38') ?>">
+                    <input type="submit" id="submit" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-main-1" value="<?= $this->lang->line('STR_DARKBLOW_38') ?>">
                 </div>
                 <div class="form-group text-center text-white">
                     OR
                 </div>
                 <div class="form-group text-center">
-                    <a href="<?= base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-success">
+                    <a href="<?= base_url('register') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-block nk-btn-color-main-1">
                         <?= $this->lang->line('STR_DARKBLOW_44') ?>
                     </a>
                 </div>
@@ -46,6 +46,15 @@
                         $('#login_form').on('submit', function(e) {
                             e.preventDefault();
                             return DoLogin();
+                        });
+                        document.getElementById('show_password').addEventListener('click', () => {
+                            if ($('#show_password').val() == 'Show') {
+                                document.getElementById('show_password').setAttribute('value', 'Hide');
+                                document.getElementById('password').setAttribute('type', 'text');
+                            } else {
+                                document.getElementById('show_password').setAttribute('value', 'Show');
+                                document.getElementById('password').setAttribute('type', 'password');
+                            }
                         });
                     });
 
@@ -122,18 +131,6 @@
                                     }
                                 }
                             });
-                        }
-                    }
-
-                    function ShowPassword() {
-                        var PasswordField = document.getElementById('password');
-                        var ButtonPasswordField = document.getElementById('show_password');
-                        if (PasswordField.type == 'password') {
-                            PasswordField.setAttribute('type', 'text');
-                            ButtonPasswordField.setAttribute('value', 'Hide');
-                        } else {
-                            PasswordField.setAttribute('type', 'password');
-                            ButtonPasswordField.setAttribute('value', 'Show');
                         }
                     }
                 </script>

@@ -45,21 +45,6 @@ class Dashboard extends CI_Controller
 
         redirect(base_url('adm/login'), 'refresh');
     }
-
-    function do_load_rewards()
-    {
-        $data = array();
-        $query = $this->db->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
-        if ($query) {
-            foreach ($query as $key => $value) {
-                $data['items'][] = array(
-                    'id' => (int)$value['item_id'],
-                    'text' => (string)$value['item_name']
-                );
-            }
-            echo json_encode($data);
-        } else echo json_encode([]);
-    }
 }
 
 // This Code Generated Automatically By EyeTracker Snippets. //

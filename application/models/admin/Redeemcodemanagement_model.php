@@ -1103,7 +1103,7 @@ class Redeemcodemanagement_model extends CI_Model
         $webhook_get = $this->db->get_where(Darkblowdatabase::web_webhook, array('type' => Darkblowwebhook::REDEEMCODE_WEBHOOK))->row();
         if ($webhook_get) {
             if ($webhook_get->status == 1) {
-
+                $this->load->library('darkblowwebhook');
                 $webhook_data =  [
                     'content' => '',
                     'username' => $webhook_get->username != '' || $webhook_get->username != null ? $webhook_get->username : $this->darkblowsettings->load()->project_name,
@@ -1141,6 +1141,7 @@ class Redeemcodemanagement_model extends CI_Model
                         ]
                     ]
                 ];
+                $this->darkblowwebhook->Send(2, $webhook_data);
             }
         }
 

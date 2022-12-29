@@ -23,7 +23,7 @@
                                     <input type="text" class="form-control" name="login" id="login" placeholder="<?= $this->lang->line('STR_DARKBLOW_41') ?>" minlength="4" maxlength="16" autofocus required>
                                 </div>
                                 <div class="col-3">
-                                    <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
+                                    <input type="button" id="check_username" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="<?= $this->lang->line('STR_DARKBLOW_202') ?>" onclick="CheckUsername()">
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                     <input type="password" name="password" id="password" class="form-control" placeholder="<?= $this->lang->line('STR_DARKBLOW_43') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
-                                    <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowPassword()">
+                                    <input type="button" id="show_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Show">
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <input type="password" class="form-control" name="re_password" id="re_password" placeholder="<?= $this->lang->line('STR_DARKBLOW_133') ?>" minlength="4" maxlength="16" required>
                                 </div>
                                 <div class="col-3">
-                                    <input type="button" id="show_re_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="Show" onclick="ShowRePassword()">
+                                    <input type="button" id="show_re_password" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="Show">
                                 </div>
                             </div>
                         </div>
@@ -73,8 +73,8 @@
                         </div>
                         <div class="nk-gap"></div>
                         <div class="form-group text-center">
-                            <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-5" value="<?= $this->lang->line('STR_DARKBLOW_44') ?>" onclick="ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_20') ?>');">
-                            <a href="<?= base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-success"><?= $this->lang->line('STR_DARKBLOW_155') ?></a>
+                            <input id="submit" type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" value="<?= $this->lang->line('STR_DARKBLOW_44') ?>" onclick="ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_20') ?>');">
+                            <a href="<?= base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><?= $this->lang->line('STR_DARKBLOW_155') ?></a>
                         </div>
                         <?= form_close(); ?>
                         <?php
@@ -101,6 +101,24 @@
                                     e.preventDefault();
 
                                     return Do_Register();
+                                });
+                                document.getElementById('show_password').addEventListener('click', () => {
+                                    if ($('#show_password').val() == 'Show') {
+                                        document.getElementById('show_password').setAttribute('value', 'Hide');
+                                        document.getElementById('password').setAttribute('type', 'text');
+                                    } else {
+                                        document.getElementById('show_password').setAttribute('value', 'Show');
+                                        document.getElementById('password').setAttribute('type', 'password');
+                                    }
+                                });
+                                document.getElementById('show_re_password').addEventListener('click', () => {
+                                    if ($('#show_re_password').val() == 'Show') {
+                                        document.getElementById('show_re_password').setAttribute('value', 'Hide');
+                                        document.getElementById('re_password').setAttribute('type', 'text');
+                                    } else {
+                                        document.getElementById('show_re_password').setAttribute('value', 'Show');
+                                        document.getElementById('re_password').setAttribute('type', 'password');
+                                    }
                                 });
                             });
 

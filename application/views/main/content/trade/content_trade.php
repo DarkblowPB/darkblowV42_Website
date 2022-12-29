@@ -90,7 +90,7 @@
 
                                             function Buy_Item(button_id, id) {
                                                 if (sessionUID == '0') {
-                                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_15 ') ?>');
+                                                    ShowToast(2000, 'warning', '<?= $this->lang->line('STR_WARNING_15') ?>');
                                                     setTimeout(() => {
                                                         window.location = '<?= base_url('login') ?>';
                                                     }, 2500);
@@ -109,7 +109,7 @@
                                                             var Result = JSON.parse(GetString);
 
                                                             if (Result.response == 'true') {
-                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206 ') ?>');
+                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206') ?>');
                                                                 ShowToast(2000, 'success', Result.message);
                                                                 CSRF_TOKEN = Result.token;
                                                                 setTimeout(() => {
@@ -117,12 +117,12 @@
                                                                 }, 2000);
                                                                 return;
                                                             } else if (Result.response == 'false') {
-                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206 ') ?>');
+                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206') ?>');
                                                                 ShowToast(2000, 'error', Result.message);
                                                                 CSRF_TOKEN = Result.token;
                                                                 return;
                                                             } else {
-                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206 ') ?>');
+                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206') ?>');
                                                                 ShowToast(2000, 'error', Result.message);
                                                                 CSRF_TOKEN = Result.token;
                                                                 return;
@@ -130,8 +130,8 @@
                                                         },
                                                         error: function() {
                                                             if (RETRY >= 3) {
-                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206 ') ?>');
-                                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15 ') ?>');
+                                                                SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206') ?>');
+                                                                ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_15') ?>');
                                                                 setTimeout(() => {
                                                                     window.location.reload();
                                                                 }, 2000);
@@ -156,8 +156,8 @@
                                                                         return Buy_Item();
                                                                     },
                                                                     error: function() {
-                                                                        SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206 ') ?>');
-                                                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_27 ') ?>');
+                                                                        SetAttribute(button_id, 'button', '<?= $this->lang->line('STR_DARKBLOW_206') ?>');
+                                                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_27') ?>');
                                                                         setTimeout(() => {
                                                                             window.location.reload();
                                                                         }, 2000);

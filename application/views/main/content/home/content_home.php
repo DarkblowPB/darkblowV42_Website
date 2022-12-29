@@ -54,36 +54,112 @@
             <div class="col-lg-12 col-12">
                 <h3 class="nk-decorated-h-2">
                     <span>
-                        <?= $this->lang->line('STR_DARKBLOW_28') ?>
-                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_29') ?></span>
+                        <span class="text-main-1"><?= $this->lang->line('STR_DARKBLOW_28') ?></span>
+                        <?= $this->lang->line('STR_DARKBLOW_29') ?>
                     </span>
                 </h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap ">
-                    <div class="col-lg-6 col-12 text-white">
+                    <div class="col-6 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
-                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;"><?= $this->lang->line('STR_DARKBLOW_28') ?> <?= $this->lang->line('STR_DARKBLOW_29') ?></h4>
-                            OS : Windows System NT/2000/XP/7;<br>
-                            CPU : Pentium 4 2.4 GHz / Athlon XP 2500+;<br>
-                            Memory : 1GB RAM;<br>
-                            Hard Disk Space : 10 GB;<br>
-                            Video : GeForce FX 5700 / Radeon 9600;<br>
-                            Sound : DirectX Compatible;<br>
-                            DirectX &circledR; : DirectX &circledR;;<br>
-                            Internet : Broadband;
+                            <table class="nk-table">
+                                <thead class="text-center">
+                                    <th colspan="3"><?= $this->lang->line('STR_DARKBLOW_28') ?> <?= $this->lang->line('STR_DARKBLOW_29') ?></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="30%">OS</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Windows System NT/2000/XP/7</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">CPU</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Pentium 4 2.4 GHz / Athlon XP 2500+</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Memory</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>1GB RAM</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Hard Disk Space</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>10 GB</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Video</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>GeForce FX 5700 / Radeon 9600</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Sound</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>DirectX Compatible</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">DirectX &circledR;</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>DirectX &circledR;</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Internet</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Broadband</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
-                            <h4 style="background-color:rgba(221, 22, 59, 0.8); border-radius: 10px;"><?= $this->lang->line('STR_DARKBLOW_30') ?> <?= $this->lang->line('STR_DARKBLOW_29') ?></h4>
-                            OS : Windows 8/8.1/10;<br>
-                            CPU : Pentium 4 4.30 GHz / Athlon XP 3000+;<br>
-                            Memory : 4GB RAM;<br>
-                            Hard Disk Space : 25 GB;<br>
-                            Video : GeForce 6600 / Radeon X600;<br>
-                            Sound : DirectX Compatible;<br>
-                            DirectX &circledR; : DirectX &circledR;;<br>
-                            Internet : Broadband;
+                            <table class="nk-table">
+                                <thead class="text-center">
+                                    <th colspan="3"><?= $this->lang->line('STR_DARKBLOW_30') ?> <?= $this->lang->line('STR_DARKBLOW_29') ?></th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="30%">OS</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Windows 8/8.1/10</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">CPU</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Pentium 4 4.30 GHz / Athlon XP 3000+</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Memory</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>4GB RAM</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Hard Disk Space</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>25 GB</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Video</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>GeForce 6600 / Radeon X600</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Sound</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>DirectX Compatible</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">DirectX &circledR;</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>DirectX &circledR;</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">Internet</td>
+                                        <td width="5%" class="text-center">:</td>
+                                        <td>Broadband;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -110,9 +186,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if ($this->home->GetPlayerRanking() != null) {
+                                if ($player_ranking != null) {
                                     $num = 1;
-                                    foreach ($this->home->GetPlayerRanking() as $row) :
+                                    foreach ($player_ranking as $row) :
                                 ?>
                                         <tr>
                                             <td><strong><span><?= $num ?></span></strong></td>
@@ -144,9 +220,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if ($this->home->GetClanRanking() != null) {
+                                if ($clan_ranking != null) {
                                     $num = 1;
-                                    foreach ($this->home->GetClanRanking() as $row) :
+                                    foreach ($clan_ranking as $row) :
                                 ?>
                                         <tr>
                                             <td><strong><?= $num ?></strong></td>
@@ -169,7 +245,7 @@
                         </table>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <a href="<?= base_url('player_rank') ?>" class="nk-btn nk-btn-x2 nk-btn-rounded nk-btn-outline nk-btn-color-primary"><?= $this->lang->line('STR_DARKBLOW_34') ?></a>
+                        <a href="<?= base_url('player_rank') ?>" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><?= $this->lang->line('STR_DARKBLOW_34') ?></a>
                     </div>
                 </div>
             </div>
@@ -186,7 +262,7 @@
                 <div class="nk-gap"></div>
                 <div class="nk-carousel nk-carousel-x4" data-autoplay="3000" data-dots="false" data-cell-align="left" data-arrows="true">
                     <div class="nk-carousel-inner">
-                        <?php foreach ($this->home->GetPopularWebshop() as $row) : ?>
+                        <?php foreach ($webshop as $row) : ?>
                             <div>
                                 <div class="pl-5 pr-5">
                                     <div class="nk-product-cat-3">

@@ -19,11 +19,6 @@ class Eventsattendance_model extends CI_Model
         return $this->db->get(Darkblowdatabase::events_attendance)->result_array();
     }
 
-    function GetRewardItemList()
-    {
-        return $this->db->where('buy_type', '2')->order_by('item_id', 'asc')->get(Darkblowdatabase::shop)->result_array();
-    }
-
     function DeleteEvents()
     {
         $response = array();

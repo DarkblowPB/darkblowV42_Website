@@ -6,7 +6,7 @@
 			<?= $this->lang->line('STR_DARKBLOW_3') ?>
 		</span>
 	</h3>
-	<div class="col-lg-12">
+	<div class="col-12">
 		<table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center">
 			<thead>
 				<th width="5%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>

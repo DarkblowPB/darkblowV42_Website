@@ -10,11 +10,7 @@
                 <select id="player_id" class="form-control">
                     <option value="" disabled selected>Select Player</option>
                     <?php foreach ($players as $row) : ?>
-                        <option value="<?= $row['player_id'] ?>"> <?php if ($row['player_name'] == '' || empty($row['player_name'])) {
-                                                                        echo $row['login'];
-                                                                    } else {
-                                                                        echo $row['player_name'];
-                                                                    } ?> </option>
+                        <option value="<?= $row['player_id'] ?>" <?= $row['player_name'] != '' || empty($row['player_name']) ? $row['login'] : $row['player_name'] ?>></option>
                     <?php endforeach; ?>
                 </select>
             </div>
