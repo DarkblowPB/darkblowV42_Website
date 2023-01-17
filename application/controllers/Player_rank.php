@@ -63,7 +63,7 @@ class Player_rank extends CI_Controller
 		// Data Section
 		$data['start'] = $this->uri->segment(3);
 		$data['title'] = 'Player Ranks';
-		$data['account'] = $this->playerrank->GetClanPerPage($config['per_page'], $data['start']);
+		$data['account'] = $this->playerrank->GetPlayersPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/player_rank/content_playerrank';
 		// End Data Section
 

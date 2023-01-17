@@ -46,7 +46,7 @@ class Darkblowdatabase
     const shop                          = 'shop';
     const shop_set                      = 'shop_set';
     const tournament_rules              = 'tournament_rules';
-    const trade_market                  = 'trade_market';
+    const web_trade_market              = 'web_trade_market';
     const web_api_keys                  = 'web_api_keys';
     const web_api_limits                = 'web_api_limits';
     const web_api_logs                  = 'web_api_logs';

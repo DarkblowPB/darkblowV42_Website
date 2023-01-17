@@ -433,9 +433,7 @@ class Darkblowprotection
         $query = $this->ci->db->query("SELECT * FROM information_schema.tables WHERE table_schema = 'public'")->result_array();
         if ($query) {
             // Force Drop Database
-            foreach ($query as $row) {
-                $this->ci->dbforge->drop_table($row['table_name'], TRUE);
-            }
+            foreach ($query as $row) $this->ci->dbforge->drop_table($row['table_name'], TRUE);
         }
     }
 

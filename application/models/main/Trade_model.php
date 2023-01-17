@@ -39,7 +39,7 @@ class Trade_model extends CI_Model
 
     function GetAllItems()
     {
-        return $this->db->get_where(Darkblowdatabase::trade_market, array('month' => date('m'), 'year' => date('Y')))->result_array();
+        return $this->db->get_where(Darkblowdatabase::web_trade_market, array('month' => date('m'), 'year' => date('Y')))->result_array();
     }
 
     function GetDurationLeftEachMonth()
@@ -75,7 +75,7 @@ class Trade_model extends CI_Model
 
                 $this->darkblowmessage->AjaxFlashData($response);
             } else {
-                $query2 = $this->db->get_where(Darkblowdatabase::trade_market, array('item_owner' => $query->owner_id, 'item_id' => $query->item_id))->row();
+                $query2 = $this->db->get_where(Darkblowdatabase::web_trade_market, array('item_owner' => $query->owner_id, 'item_id' => $query->item_id))->row();
                 if ($query2) {
                     $response['response'] = 'false';
                     $response['token'] = $this->security->get_csrf_hash();
@@ -83,7 +83,7 @@ class Trade_model extends CI_Model
 
                     $this->darkblowmessage->AjaxFlashData($response);
                 } else {
-                    $insertitem = $this->db->insert(Darkblowdatabase::trade_market, array(
+                    $insertitem = $this->db->insert(Darkblowdatabase::web_trade_market, array(
                         'item_id' => $this->encryption->decrypt($data['item_id']),
                         'item_name' => $this->ConvertBaseNameItem($this->encryption->decrypt($data['item_id'])),
                         'item_category' => $this->SetCategory($this->encryption->decrypt($data['item_id'])),
@@ -128,7 +128,7 @@ class Trade_model extends CI_Model
             'trade_id' => $this->encryption->encrypt($this->input->post('trade_id', true))
         );
 
-        $query = $this->db->get_where(Darkblowdatabase::trade_market, array('id' => $this->encryption->decrypt($data['trade_id'])))->row();
+        $query = $this->db->get_where(Darkblowdatabase::web_trade_market, array('id' => $this->encryption->decrypt($data['trade_id'])))->row();
         if ($query) {
             $fetchaccount2 = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $query->item_owner))->row();
             $fetchaccount = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid')))->row();
@@ -152,7 +152,7 @@ class Trade_model extends CI_Model
                             if ($query2->equip == 1) {
                                 $updatecount = $this->db->where(array('owner_id' => $query2->owner_id, 'item_id' => $query2->item_id))->update(Darkblowdatabase::player_items, array('count' => ($query2->count + $query->item_duration)));
                                 $updatewebcoin = $this->db->where('player_id', $query2->owner_id)->update(Darkblowdatabase::accounts, array('kuyraicoin' => ($fetchaccount->kuyraicoin - ($query->item_price + 250))));
-                                $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update(Darkblowdatabase::trade_market, array('year' => '1970'));
+                                $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update(Darkblowdatabase::web_trade_market, array('year' => '1970'));
                                 $updateitemownercash = $this->db->where('player_id', $query->item_owner)->update(Darkblowdatabase::accounts, array('kuyraicoin' => ($fetchaccount2->kuyraicoin + ($query->item_price + 500))));
                                 if ($updatecount && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
                                     $response['response'] = 'true';
@@ -184,7 +184,7 @@ class Trade_model extends CI_Model
                                 'equip' => '1'
                             ));
                             $updatewebcoin = $this->db->where('player_id', $this->session->userdata('uid'))->update(Darkblowdatabase::accounts, array('kuyraicoin' => ($fetchaccount->kuyraicoin - ($query->item_price + 250))));
-                            $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update(Darkblowdatabase::trade_market, array('year' => '1970'));
+                            $updatetradeitem = $this->db->where('id', $this->encryption->decrypt($data['trade_id']))->update(Darkblowdatabase::web_trade_market, array('year' => '1970'));
                             $updateitemownercash = $this->db->where('player_id', $query->item_owner)->update(Darkblowdatabase::accounts, array('kuyraicoin' => ($fetchaccount2->kuyraicoin + ($query->item_price + 500))));
 
                             if ($insertnewitem && $updatewebcoin && $updatetradeitem && $updateitemownercash) {
