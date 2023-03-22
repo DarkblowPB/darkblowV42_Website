@@ -133,14 +133,12 @@ class Darkblowlib
 
 	public function GetItemRewardList()
 	{
-		$this->ci->db->select('item_id, item_name');
 		$this->ci->db->from(Darkblowdatabase::shop);
 		$this->ci->db->where('buy_type', '2');
 		$this->ci->db->where('item_id >= ', '100003004');
 		$this->ci->db->where('item_id <= ', '1105003032');
 		$this->ci->db->order_by('item_id', 'asc');
 		return $this->ci->db->get()->result_array();
-		// return $this->ci->db->order_by('item_id', 'asc')->get_where(Darkblowdatabase::shop, array('buy_type =' => '2'))->result_array();
 	}
 
 	public function GetItemDurationList($type, $days, $totaldays)

@@ -41,7 +41,6 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a href="<?= base_url('adm/newsmanagement/details/' . $row['id']) ?>" class="dropdown-item">Details</a>
-                                                <a href="<?= base_url('adm/newsmanagement/edit/' . $row['id']) ?>" class="dropdown-item">Edit</a>
                                                 <input type="button" id="delete_<?= $num ?>" class="dropdown-item" value="Delete" onclick="DeleteNews('data_<?= $num ?>', 'delete_<?= $num ?>', '<?= $row['id'] ?>')">
                                             </div>
                                         </div>

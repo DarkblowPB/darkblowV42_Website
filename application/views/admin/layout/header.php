@@ -275,9 +275,15 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/attendance') ?>" class="nav-link <?php if ($this->uri->segment(3) == "attendance") echo 'active'; ?>">
+                  <a href="javascript:void(0)" class="nav-link <?php if ($this->uri->segment(3) == "attendance") echo 'active'; ?>" onclick="ShowToast(2000, 'warning', 'This Feature Is Unavailable Right Now.')">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Attendance Events</p>
+                    <p>Attendance Events (<span class="text-danger font-weight-bolder">Unavailable</span>)</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url('adm/eventsmanagement/register') ?>" class="nav-link <?php if ($this->uri->segment(3) == "register") echo 'active'; ?>">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Register Events</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -308,24 +314,6 @@
                   <a href="<?= base_url('adm/eventsmanagement/rankup') ?>" class="nav-link <?php if ($this->uri->segment(3) == "rankup") echo 'active'; ?>">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Rankup Events</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/register') ?>" class="nav-link <?php if ($this->uri->segment(3) == "register") echo 'active'; ?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Register Events</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('adm/eventsmanagement/visit') ?>" class="nav-link <?php if ($this->uri->segment(3) == 'visit') echo 'active'; ?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Visit Events</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="javascript:void(0)" class="nav-link" onclick="ShowToast(2000, 'info', 'This Feature Not Available.')">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Xmas Events</p>
                   </a>
                 </li>
               </ul>

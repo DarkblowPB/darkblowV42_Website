@@ -18,8 +18,6 @@ class Banned extends CI_Controller
         $this->darkblowprotection->RunningLegality();
         // $this->darkblowlicense->DarkblowPBLicense();
         $this->darkblowprotection->PageDump_Protection();
-        $this->darkblowprotection->Maintenance_Protection();
-        $this->darkblowprotection->BlockedIP_Protection();
     }
 
     function index()

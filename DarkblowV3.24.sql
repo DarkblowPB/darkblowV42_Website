@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : PostgreSQL 5432
+ Source Server         : POSTGRESQL 5432
  Source Server Type    : PostgreSQL
  Source Server Version : 140001
  Source Host           : localhost:5432
@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 07/05/2022 18:37:16
+ Date: 06/01/2023 20:54:14
 */
 
 
@@ -457,6 +457,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_adminpanel_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_adminpanel_id_seq";
+CREATE SEQUENCE "public"."web_adminpanel_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_all_log_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_all_log_id_seq";
@@ -545,13 +556,101 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_giftitem_log_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_giftitem_log_seq";
+CREATE SEQUENCE "public"."web_giftitem_log_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 99999999
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_ipbanned_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_ipbanned_id_seq";
+CREATE SEQUENCE "public"."web_ipbanned_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_launcher_ipaddress_id
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_launcher_ipaddress_id";
+CREATE SEQUENCE "public"."web_launcher_ipaddress_id" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_log_verifyaccount_id_sequence
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_log_verifyaccount_id_sequence";
+CREATE SEQUENCE "public"."web_log_verifyaccount_id_sequence" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_news_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_news_id_seq";
+CREATE SEQUENCE "public"."web_news_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 999999999
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_packshop_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_packshop_id_seq";
+CREATE SEQUENCE "public"."web_packshop_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_quickslide_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_quickslide_id_seq";
 CREATE SEQUENCE "public"."web_quickslide_id_seq" 
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 9223372036854775807
+MAXVALUE 999999999
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_rankinfo_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_rankinfo_id_seq";
+CREATE SEQUENCE "public"."web_rankinfo_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 99
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_recharge_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_recharge_id_seq";
+CREATE SEQUENCE "public"."web_recharge_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 999999999
 START 1
 CACHE 1;
 
@@ -578,6 +677,61 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_report_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_report_id_seq";
+CREATE SEQUENCE "public"."web_report_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_request_manager_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_request_manager_id_seq";
+CREATE SEQUENCE "public"."web_request_manager_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_reset_password_sequence_id
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_reset_password_sequence_id";
+CREATE SEQUENCE "public"."web_reset_password_sequence_id" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_shop_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_shop_id_seq";
+CREATE SEQUENCE "public"."web_shop_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for web_shop_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_shop_log_id_seq";
+CREATE SEQUENCE "public"."web_shop_log_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for web_tokenkey_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."web_tokenkey_id_seq";
@@ -589,13 +743,35 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for web_webhook_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."web_webhook_id_seq";
+CREATE SEQUENCE "public"."web_webhook_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for webdata_news_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."webdata_news_seq";
+CREATE SEQUENCE "public"."webdata_news_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 999999999
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for webshop_id_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."webshop_id_seq";
 CREATE SEQUENCE "public"."webshop_id_seq" 
 INCREMENT 1
 MINVALUE  1
-MAXVALUE 9223372036854775807
+MAXVALUE 999999999
 START 1
 CACHE 1;
 
@@ -2757,33 +2933,6 @@ INSERT INTO "public"."shop_item_repair" VALUES (103025, 0, 15, 100, 't');
 INSERT INTO "public"."shop_item_repair" VALUES (103036, 89, 0, 100, 't');
 
 -- ----------------------------
--- Table structure for trade_market
--- ----------------------------
-DROP TABLE IF EXISTS "public"."trade_market";
-CREATE TABLE "public"."trade_market" (
-  "id" int4 NOT NULL DEFAULT nextval('trade_id_seq'::regclass),
-  "item_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "item_name" varchar(255) COLLATE "pg_catalog"."default",
-  "item_category" int4,
-  "item_duration" varchar(255) COLLATE "pg_catalog"."default",
-  "item_price" varchar(255) COLLATE "pg_catalog"."default",
-  "item_owner" varchar(255) COLLATE "pg_catalog"."default",
-  "day" varchar(255) COLLATE "pg_catalog"."default",
-  "month" varchar(255) COLLATE "pg_catalog"."default",
-  "year" varchar(255) COLLATE "pg_catalog"."default",
-  "valid_duration" varchar(255) COLLATE "pg_catalog"."default"
-)
-;
-
--- ----------------------------
--- Records of trade_market
--- ----------------------------
-INSERT INTO "public"."trade_market" VALUES (8, '100003011', 'K-201 Ext.', 1, '7776000', '123', '177', '26', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (9, '100003010', 'M4A1 S.', 1, '7776000', '200', '177', '26', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (10, '100003453', 'AUG A3 Maze', 1, '259200', '500', '177', '27', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (11, '100003003', 'M4A1 Ext.', 1, '315576000', '2000', '177', '01', '11', '2021', '1 Month');
-
--- ----------------------------
 -- Table structure for web_api_keys
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_api_keys";
@@ -2818,11 +2967,6 @@ CREATE TABLE "public"."web_api_limits" (
 ;
 
 -- ----------------------------
--- Records of web_api_limits
--- ----------------------------
-INSERT INTO "public"."web_api_limits" VALUES (1, 'uri:api/staticdata/registeredplayers:get', 2, 1638690019, 'darkblowpbreborn');
-
--- ----------------------------
 -- Table structure for web_api_logs
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_api_logs";
@@ -2841,18 +2985,42 @@ CREATE TABLE "public"."web_api_logs" (
 ;
 
 -- ----------------------------
--- Records of web_api_logs
+-- Table structure for web_battlepass
 -- ----------------------------
-INSERT INTO "public"."web_api_logs" VALUES (6499, 'api/players/registerplayer', 'post', 'a:15:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"3c5b5af8-807a-41dd-a450-81f2fa52d7b8";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:3:"214";s:8:"username";s:11:"darkblow003";s:8:"password";s:11:"darkblow001";s:16:"confirm_password";s:11:"darkblow001";s:5:"email";s:26:"imamrasyidbackup@gmail.com";s:13:"hint_question";s:33:"What was your childhood nickname?";s:11:"hint_answer";s:4:"imam";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";}', 'darkblowpbreborn', '::1', 1639046489, 1.6390465e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6503, 'api/players/bannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"52c137c0-f6bd-409c-a1ef-fc608f99897f";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056623, 1.6390566e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6500, 'api/players/registerplayer', 'post', 'a:15:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"49c6a8bc-4d35-475a-a4b2-f518b4c454d8";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:3:"214";s:8:"username";s:11:"darkblow003";s:8:"password";s:11:"darkblow001";s:16:"confirm_password";s:11:"darkblow001";s:5:"email";s:26:"imamrasyidbackup@gmail.com";s:13:"hint_question";s:33:"What was your childhood nickname?";s:11:"hint_answer";s:4:"imam";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";}', 'darkblowpbreborn', '::1', 1639046954, 1.6390469e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6501, 'api/players/registerplayer', 'post', 'a:15:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"69371d25-9b92-4b6b-8986-0bc0c38155e3";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:3:"214";s:8:"username";s:11:"darkblow003";s:8:"password";s:11:"darkblow001";s:16:"confirm_password";s:11:"darkblow001";s:5:"email";s:26:"imamrasyidbackup@gmail.com";s:13:"hint_question";s:33:"What was your childhood nickname?";s:11:"hint_answer";s:4:"imam";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";}', 'darkblowpbreborn', '::1', 1639047128, 1.6390472e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6502, 'api/players/bannedplayer', 'put', 'a:9:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"d8f2e51d-edc8-40d1-9404-c5b18f62beca";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"11";s:9:"player_id";s:1:"2";}', '', '::1', 1639056616, 1.6390566e+09, 'false', 403);
-INSERT INTO "public"."web_api_logs" VALUES (6506, 'api/players/unbannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"dc752dd8-7320-4841-a7ec-19aef26da367";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056726, 1.6390568e+09, 'true', 404);
-INSERT INTO "public"."web_api_logs" VALUES (6504, 'api/players/unbannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"a655306b-10da-4134-a7d3-36c35949b7e5";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056631, 1.6390566e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6505, 'api/players/unbannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"066cc638-8b26-4a87-bc31-1f99e4487c37";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056635, 1.6390566e+09, 'true', 200);
-INSERT INTO "public"."web_api_logs" VALUES (6508, 'api/players/unbannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"bacd2388-b199-488b-8a17-60a6679e15e5";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056772, 1.6390568e+09, 'true', 404);
-INSERT INTO "public"."web_api_logs" VALUES (6507, 'api/players/unbannedplayer', 'put', 'a:10:{s:10:"User-Agent";s:21:"PostmanRuntime/7.28.4";s:6:"Accept";s:3:"*/*";s:13:"Postman-Token";s:36:"d2679424-616c-4e30-aa9b-af48990d486e";s:4:"Host";s:14:"localhost:8080";s:15:"Accept-Encoding";s:17:"gzip, deflate, br";s:10:"Connection";s:10:"keep-alive";s:12:"Content-Type";s:33:"application/x-www-form-urlencoded";s:14:"Content-Length";s:2:"45";s:16:"DARKBLOW_API_KEY";s:16:"darkblowpbreborn";s:9:"player_id";s:1:"2";}', 'darkblowpbreborn', '::1', 1639056759, 1.6390568e+09, 'true', 404);
+DROP TABLE IF EXISTS "public"."web_battlepass";
+CREATE TABLE "public"."web_battlepass" (
+  "id" int4 NOT NULL DEFAULT nextval('web_battlepass_id_seq'::regclass),
+  "battlepass_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "battlepass_type" int4 NOT NULL,
+  "battlepass_reward" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT nextval('web_battlepass_id_seq'::regclass),
+  "battlepass_status" int4,
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_battlepass
+-- ----------------------------
+INSERT INTO "public"."web_battlepass" VALUES (1, 'DarkblowPB Battlepass', 0, '-', 1, '-', '-');
+INSERT INTO "public"."web_battlepass" VALUES (2, 'DarkblowPB Battlepass', 1, '-', 1, '-', '-');
+
+-- ----------------------------
+-- Table structure for web_battlepass_list
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_battlepass_list";
+CREATE TABLE "public"."web_battlepass_list" (
+  "id" int4 NOT NULL DEFAULT nextval('web_battlepass_list_id_seq'::regclass),
+  "battlepass_id" int4,
+  "reward_name" varchar(255) COLLATE "pg_catalog"."default",
+  "reward_item_id" int4,
+  "reward_cash" int4,
+  "reward_image" varchar(255) COLLATE "pg_catalog"."default",
+  "reward_min_exp" int4,
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
 
 -- ----------------------------
 -- Table structure for web_download_clientlauncher
@@ -2861,18 +3029,16 @@ DROP TABLE IF EXISTS "public"."web_download_clientlauncher";
 CREATE TABLE "public"."web_download_clientlauncher" (
   "id" int4 NOT NULL DEFAULT nextval('web_download_seq'::regclass),
   "file_name" varchar COLLATE "pg_catalog"."default",
-  "file_url" varchar COLLATE "pg_catalog"."default",
-  "type" varchar COLLATE "pg_catalog"."default",
-  "size" varchar COLLATE "pg_catalog"."default",
-  "version" varchar(255) COLLATE "pg_catalog"."default",
-  "date" date
+  "file_description" varchar(255) COLLATE "pg_catalog"."default",
+  "file_size" varchar(255) COLLATE "pg_catalog"."default",
+  "file_total_download" varchar(255) COLLATE "pg_catalog"."default",
+  "file_cloud_type" varchar(255) COLLATE "pg_catalog"."default",
+  "file_type" varchar(255) COLLATE "pg_catalog"."default",
+  "file_url" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of web_download_clientlauncher
--- ----------------------------
-INSERT INTO "public"."web_download_clientlauncher" VALUES (16, 'asdasd', 'https://www.google.com', 'client', '123', '123', '2021-12-20');
 
 -- ----------------------------
 -- Table structure for web_exchangeticket
@@ -2900,15 +3066,17 @@ INSERT INTO "public"."web_exchangeticket" VALUES (11, '300005232', 'Barrett M82A
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_ipbanned";
 CREATE TABLE "public"."web_ipbanned" (
-  "ip_address" varchar(255) COLLATE "pg_catalog"."default"
+  "id" int4 DEFAULT nextval('web_ipbanned_id_seq'::regclass),
+  "ipaddress" varchar(32) COLLATE "pg_catalog"."default",
+  "reason" text COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
--- Table structure for web_log
+-- Table structure for web_log_general
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."web_log";
-CREATE TABLE "public"."web_log" (
+DROP TABLE IF EXISTS "public"."web_log_general";
+CREATE TABLE "public"."web_log_general" (
   "operating_system" varchar(255) COLLATE "pg_catalog"."default",
   "browser" varchar(255) COLLATE "pg_catalog"."default",
   "ip_address" varchar(255) COLLATE "pg_catalog"."default",
@@ -2918,6 +3086,42 @@ CREATE TABLE "public"."web_log" (
   "last_visit" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
+
+-- ----------------------------
+-- Table structure for web_log_shop
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_log_shop";
+CREATE TABLE "public"."web_log_shop" (
+  "id" int4 NOT NULL DEFAULT nextval('web_shop_log_id_seq'::regclass),
+  "owner_id" int4,
+  "item_id" int4,
+  "count" int4,
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Table structure for web_packshop
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_packshop";
+CREATE TABLE "public"."web_packshop" (
+  "id" int4 NOT NULL DEFAULT nextval('web_packshop_id_seq'::regclass),
+  "package_name" varchar(255) COLLATE "pg_catalog"."default",
+  "package_reward" varchar(255) COLLATE "pg_catalog"."default",
+  "package_duration" varchar(255) COLLATE "pg_catalog"."default",
+  "package_qty" int4,
+  "package_price" int4,
+  "package_status" varchar(255) COLLATE "pg_catalog"."default",
+  "date_created" varchar(255) COLLATE "pg_catalog"."default",
+  "date_updated" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_packshop
+-- ----------------------------
+INSERT INTO "public"."web_packshop" VALUES (1, 'Dolphin Package Box', '100003275,100003276,200004289,200004291,300005168,300005169,400006072', '2592000', 97, 3000, '1', '-', '-');
 
 -- ----------------------------
 -- Table structure for web_quickslide
@@ -2939,14 +3143,90 @@ CREATE TABLE "public"."web_quickslide" (
 INSERT INTO "public"."web_quickslide" VALUES (10, 'Welcome To New Troopers', '<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio corporis eveniet voluptatem aliquid dolore eaque provident. Velit quod tempore dolorum at debitis quasi dolor tenetur, consequuntur nesciunt nisi sint voluptatem.</p>
 
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>
-', 'playerpanel-background.jpg', '2021-01-26', 1);
+', 'playerpanel-background.jpg', NULL, 1);
+
+-- ----------------------------
+-- Table structure for web_rankinfo
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_rankinfo";
+CREATE TABLE "public"."web_rankinfo" (
+  "id" int4 NOT NULL DEFAULT nextval('web_rankinfo_id_seq'::regclass),
+  "rank" varchar(255) COLLATE "pg_catalog"."default",
+  "rank_name" varchar(255) COLLATE "pg_catalog"."default" DEFAULT 0,
+  "expend" varchar(255) COLLATE "pg_catalog"."default" DEFAULT 0
+)
+;
+
+-- ----------------------------
+-- Records of web_rankinfo
+-- ----------------------------
+INSERT INTO "public"."web_rankinfo" VALUES (36, '35', 'Major Grade 5', '2.414.000');
+INSERT INTO "public"."web_rankinfo" VALUES (35, '34', 'Major Grade 4', '2.143.000');
+INSERT INTO "public"."web_rankinfo" VALUES (34, '33', 'Major Grade 3', '1.902.000');
+INSERT INTO "public"."web_rankinfo" VALUES (37, '36', 'Lt. Col. Grade 1', '2.725.000');
+INSERT INTO "public"."web_rankinfo" VALUES (38, '37', 'Lt. Col. Grade 2', '3.076.000');
+INSERT INTO "public"."web_rankinfo" VALUES (39, '38', 'Lt. Col. Grade 3', '3.467.000');
+INSERT INTO "public"."web_rankinfo" VALUES (40, '39', 'Lt. Col. Grade 4', '3.898.000');
+INSERT INTO "public"."web_rankinfo" VALUES (41, '40', 'Lt. Col. Grade 5', '4.369.000');
+INSERT INTO "public"."web_rankinfo" VALUES (42, '41', 'Col. Grade 1', '4.890.000');
+INSERT INTO "public"."web_rankinfo" VALUES (43, '42', 'Col. Grade 2', '5.461.000');
+INSERT INTO "public"."web_rankinfo" VALUES (44, '43', 'Col. Grade 3', '6.082.000');
+INSERT INTO "public"."web_rankinfo" VALUES (45, '44', 'Col. Grade 4', '6.753.000');
+INSERT INTO "public"."web_rankinfo" VALUES (46, '45', 'Col. Grade 5', '7.474.000');
+INSERT INTO "public"."web_rankinfo" VALUES (47, '46', 'Brigadier', '8.255.000');
+INSERT INTO "public"."web_rankinfo" VALUES (1, '0', 'Trainee', '0');
+INSERT INTO "public"."web_rankinfo" VALUES (2, '1', 'Senior Trainee', '2.000');
+INSERT INTO "public"."web_rankinfo" VALUES (3, '2', 'Private', '5.000');
+INSERT INTO "public"."web_rankinfo" VALUES (4, '3', 'Corporal', '9.000');
+INSERT INTO "public"."web_rankinfo" VALUES (5, '4', 'Sergeant', '14.000');
+INSERT INTO "public"."web_rankinfo" VALUES (6, '5', 'Staff Sgt. Grade 1', '21.000');
+INSERT INTO "public"."web_rankinfo" VALUES (7, '6', 'Staff Sgt. Grade 2', '30.000');
+INSERT INTO "public"."web_rankinfo" VALUES (8, '7', 'Staff Sgt. Grade 3', '41.000');
+INSERT INTO "public"."web_rankinfo" VALUES (9, '8', 'Sgt. 1st Class Grade 1', '54.500');
+INSERT INTO "public"."web_rankinfo" VALUES (10, '9', 'Sgt. 1st Class Grade 2', '70.500');
+INSERT INTO "public"."web_rankinfo" VALUES (11, '10', 'Sgt. 1st Class Grade 3', '89.000');
+INSERT INTO "public"."web_rankinfo" VALUES (12, '11', 'Sgt. 1st Class Grade 4', '110.000');
+INSERT INTO "public"."web_rankinfo" VALUES (13, '12', 'Master Sgt. Grade 1', '134.000');
+INSERT INTO "public"."web_rankinfo" VALUES (14, '13', 'Master Sgt. Grade 2', '151.000');
+INSERT INTO "public"."web_rankinfo" VALUES (15, '14', 'Master Sgt. Grade 3', '191.000');
+INSERT INTO "public"."web_rankinfo" VALUES (16, '15', 'Master Sgt. Grade 4', '224.000');
+INSERT INTO "public"."web_rankinfo" VALUES (17, '16', 'Master Sgt. Grade 5', '260.000');
+INSERT INTO "public"."web_rankinfo" VALUES (18, '17', '2nd Lt. Grade 1', '301.000');
+INSERT INTO "public"."web_rankinfo" VALUES (19, '18', '2nd Lt. Grade 1', '347.000');
+INSERT INTO "public"."web_rankinfo" VALUES (48, '47', 'Major General', '9.106.000');
+INSERT INTO "public"."web_rankinfo" VALUES (49, '48', 'Lt. General', '10.037.000');
+INSERT INTO "public"."web_rankinfo" VALUES (50, '49', 'General', '11.058.000');
+INSERT INTO "public"."web_rankinfo" VALUES (51, '50', 'Commander', '12.179.000');
+INSERT INTO "public"."web_rankinfo" VALUES (55, '51', 'Hero', '50.000.000');
+INSERT INTO "public"."web_rankinfo" VALUES (56, '55', 'Garuda Emperor 1', 'NULL');
+INSERT INTO "public"."web_rankinfo" VALUES (57, '56', 'Garuda Emperor 2', 'NULL');
+INSERT INTO "public"."web_rankinfo" VALUES (20, '19', '2nd Lt. Grade 3', '398.000');
+INSERT INTO "public"."web_rankinfo" VALUES (58, '57', 'Garuda Emperor 3', 'NULL');
+INSERT INTO "public"."web_rankinfo" VALUES (59, '58', 'Garuda Emperor 4', 'NULL');
+INSERT INTO "public"."web_rankinfo" VALUES (61, '59', 'Garuda Emperor 5', 'NULL');
+INSERT INTO "public"."web_rankinfo" VALUES (62, '52', 'Bomber', '-1');
+INSERT INTO "public"."web_rankinfo" VALUES (63, '53', 'Game Master', '-1');
+INSERT INTO "public"."web_rankinfo" VALUES (64, '54', 'Moderator', '-1');
+INSERT INTO "public"."web_rankinfo" VALUES (21, '20', '2nd Lt. Grade 4', '454.000');
+INSERT INTO "public"."web_rankinfo" VALUES (22, '21', '1st Lt. Grade 1', '516.000');
+INSERT INTO "public"."web_rankinfo" VALUES (23, '22', '1st Lt. Grade 2', '584.000');
+INSERT INTO "public"."web_rankinfo" VALUES (24, '23', '1st Lt. Grade 3', '658.000');
+INSERT INTO "public"."web_rankinfo" VALUES (25, '24', '1st Lt. Grade 4', '738.000');
+INSERT INTO "public"."web_rankinfo" VALUES (26, '25', '1st Lt. Grade 5', '824.000');
+INSERT INTO "public"."web_rankinfo" VALUES (27, '26', 'Capt. Grade 1', '917.000');
+INSERT INTO "public"."web_rankinfo" VALUES (28, '27', 'Capt. Grade 2', '1.017.000');
+INSERT INTO "public"."web_rankinfo" VALUES (29, '28', 'Capt. Grade 3', '1.124.000');
+INSERT INTO "public"."web_rankinfo" VALUES (30, '29', 'Capt. Grade 4', '1.238.000');
+INSERT INTO "public"."web_rankinfo" VALUES (31, '30', 'Capt. Grade 5', '1.359.000');
+INSERT INTO "public"."web_rankinfo" VALUES (32, '31', 'Major Grade 1', '1.510.000');
+INSERT INTO "public"."web_rankinfo" VALUES (33, '32', 'Major Grade 2', '1.691.000');
 
 -- ----------------------------
 -- Table structure for web_settings
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."web_settings";
 CREATE TABLE "public"."web_settings" (
-  "id" int4,
+  "id" int4 NOT NULL,
   "meta_author" varchar(255) COLLATE "pg_catalog"."default",
   "meta_description" varchar(255) COLLATE "pg_catalog"."default",
   "meta_keywords" varchar(255) COLLATE "pg_catalog"."default",
@@ -2957,6 +3237,9 @@ CREATE TABLE "public"."web_settings" (
   "server_condition" varchar(255) COLLATE "pg_catalog"."default",
   "website_condition" varchar(255) COLLATE "pg_catalog"."default",
   "discord_embed_link" varchar(255) COLLATE "pg_catalog"."default",
+  "facebook_embed_link" varchar(255) COLLATE "pg_catalog"."default",
+  "instagram_embed_link" varchar(255) COLLATE "pg_catalog"."default",
+  "youtube_embed_link" varchar(255) COLLATE "pg_catalog"."default",
   "webshop" varchar(255) COLLATE "pg_catalog"."default",
   "trade_market" varchar(255) COLLATE "pg_catalog"."default",
   "exchange_ticket" varchar(255) COLLATE "pg_catalog"."default",
@@ -2970,7 +3253,11 @@ CREATE TABLE "public"."web_settings" (
   "email_verification" varchar(255) COLLATE "pg_catalog"."default",
   "google_register" varchar(255) COLLATE "pg_catalog"."default",
   "web_log" varchar(255) COLLATE "pg_catalog"."default",
-  "packshop" varchar(255) COLLATE "pg_catalog"."default"
+  "packshop" varchar(255) COLLATE "pg_catalog"."default",
+  "api_authorization_key" varchar(255) COLLATE "pg_catalog"."default",
+  "license_key" varchar(255) COLLATE "pg_catalog"."default",
+  "license_date_start" date,
+  "license_date_end" date
 )
 ;
 COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
@@ -2978,7 +3265,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '0', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', '1', '0', '0', '0', '0', '1', '0', '1', '0', '1', '0', '0', '0', '0');
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', 'https://www.facebook.com/Ultimate.Defacer/', 'https://www.instagram.com/dev_eyetracker/', 'https://www.youtube.com/channel/UCR-DdWx-H7Mi2bJ8go7zI3Q', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, '1', '1', '1', '1', '01c348367804fbce30d3bf017e1af32c', 'iGrfWJWbarrQQfS8J8UdiR5PCjtKUpxKP6ynk0WSLv0T3+iduN9dwrwfLTRvgrHEAiMf/Nvi8gFXvfxblFJBxUQW9oaUpyisojlGTXjB9CY1mtTcDGyMsIKIDYDYc4Yj7JgNhwezNo9ALZevfSBSnbgIoEb4gwNPMrmbU0EK7NU=', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for web_tokenkey
@@ -2990,6 +3277,42 @@ CREATE TABLE "public"."web_tokenkey" (
   "is_valid" int4
 )
 ;
+
+-- ----------------------------
+-- Records of web_tokenkey
+-- ----------------------------
+INSERT INTO "public"."web_tokenkey" VALUES (175, 'ErmPb722saVLYKYdJCtAA7YKUfDax512MEKkEceG27gwwdY9dbelOZpeZqUtuz3G', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (176, 'HBc8Z39o9L2RbE8VEd2CvA4Uh9jED9pimZWOpe0ldQS21PPjieP0NvkOforJS2kt', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (177, 'xePdrdhQmLKZbujKR0x0oEes91WhHbtQhzx50PUC6y7S54Jp0tP5NqRKqxjRlMQO', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (178, 'boLXpwchAZvs1dP5je2fmIGB8khJxCNJ2y3ZjBvWP3SYx17omrujaXDC3Cy27Wb6', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (179, 'zJC5qe4AYcD9gVjam6QBY8UltbdUMeYYYcjaIMZdNfycRBjKaYGCS4L5XI1hpic5', 1);
+
+-- ----------------------------
+-- Table structure for web_trade_market
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_trade_market";
+CREATE TABLE "public"."web_trade_market" (
+  "id" int4 NOT NULL DEFAULT nextval('trade_id_seq'::regclass),
+  "item_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "item_name" varchar(255) COLLATE "pg_catalog"."default",
+  "item_category" int4,
+  "item_duration" varchar(255) COLLATE "pg_catalog"."default",
+  "item_price" varchar(255) COLLATE "pg_catalog"."default",
+  "item_owner" varchar(255) COLLATE "pg_catalog"."default",
+  "day" varchar(255) COLLATE "pg_catalog"."default",
+  "month" varchar(255) COLLATE "pg_catalog"."default",
+  "year" varchar(255) COLLATE "pg_catalog"."default",
+  "valid_duration" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_trade_market
+-- ----------------------------
+INSERT INTO "public"."web_trade_market" VALUES (8, '100003011', 'K-201 Ext.', 1, '7776000', '123', '177', '26', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (9, '100003010', 'M4A1 S.', 1, '7776000', '200', '177', '26', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (10, '100003453', 'AUG A3 Maze', 1, '259200', '500', '177', '27', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (11, '100003003', 'M4A1 Ext.', 1, '315576000', '2000', '177', '01', '11', '2021', '1 Month');
 
 -- ----------------------------
 -- Table structure for webshop
@@ -3085,19 +3408,35 @@ SELECT setval('"public"."server_ranked_id_seq"', 20, true);
 SELECT setval('"public"."storage_seq"', 14, true);
 SELECT setval('"public"."templates_id_seq"', 14, false);
 SELECT setval('"public"."trade_id_seq"', 3, false);
-SELECT setval('"public"."web_all_log_id_seq"', 2, false);
-SELECT setval('"public"."web_api_data_id_seq"', 2, false);
-SELECT setval('"public"."web_battlepass_id_seq"', 2, false);
-SELECT setval('"public"."web_battlepass_list_id_seq"', 2, false);
-SELECT setval('"public"."web_download_seq"', 3, false);
+SELECT setval('"public"."web_adminpanel_id_seq"', 200, true);
+SELECT setval('"public"."web_all_log_id_seq"', 7, false);
+SELECT setval('"public"."web_api_data_id_seq"', 5, false);
+SELECT setval('"public"."web_battlepass_id_seq"', 5, true);
+SELECT setval('"public"."web_battlepass_list_id_seq"', 7, true);
+SELECT setval('"public"."web_download_seq"', 24, true);
 SELECT setval('"public"."web_downloadmanager_id_seq"', 6, true);
-SELECT setval('"public"."web_email_confirmation_id_seq"', 2, true);
-SELECT setval('"public"."web_exchangeticket_seq"', 3, false);
-SELECT setval('"public"."web_quickslide_id_seq"', 3, false);
+SELECT setval('"public"."web_email_confirmation_id_seq"', 12, true);
+SELECT setval('"public"."web_exchangeticket_seq"', 15, true);
+SELECT setval('"public"."web_giftitem_log_seq"', 14, true);
+SELECT setval('"public"."web_ipbanned_id_seq"', 8, true);
+SELECT setval('"public"."web_launcher_ipaddress_id"', 7, true);
+SELECT setval('"public"."web_log_verifyaccount_id_sequence"', 7, true);
+SELECT setval('"public"."web_news_id_seq"', 21, true);
+SELECT setval('"public"."web_packshop_id_seq"', 4, true);
+SELECT setval('"public"."web_quickslide_id_seq"', 34, true);
+SELECT setval('"public"."web_rankinfo_id_seq"', 70, true);
+SELECT setval('"public"."web_recharge_id_seq"', 27, true);
 SELECT setval('"public"."web_redeemcode_history_id_seq"', 5, true);
 SELECT setval('"public"."web_redeemcode_id_seq"', 4, true);
-SELECT setval('"public"."web_tokenkey_id_seq"', 3, false);
-SELECT setval('"public"."webshop_id_seq"', 3, false);
+SELECT setval('"public"."web_report_id_seq"', 11, true);
+SELECT setval('"public"."web_request_manager_id_seq"', 4, false);
+SELECT setval('"public"."web_reset_password_sequence_id"', 10, true);
+SELECT setval('"public"."web_shop_id_seq"', 4, false);
+SELECT setval('"public"."web_shop_log_id_seq"', 4, false);
+SELECT setval('"public"."web_tokenkey_id_seq"', 182, true);
+SELECT setval('"public"."web_webhook_id_seq"', 5, true);
+SELECT setval('"public"."webdata_news_seq"', 7, true);
+SELECT setval('"public"."webshop_id_seq"', 23, true);
 
 -- ----------------------------
 -- Indexes structure for table accounts
@@ -3185,46 +3524,6 @@ ALTER TABLE "public"."player_configs" ADD CONSTRAINT "player_configs_pkey" PRIMA
 ALTER TABLE "public"."shop_item_repair" ADD CONSTRAINT "shop_item_repair_pkey" PRIMARY KEY ("item_id");
 
 -- ----------------------------
--- Primary Key structure for table trade_market
+-- Primary Key structure for table web_trade_market
 -- ----------------------------
-ALTER TABLE "public"."trade_market" ADD CONSTRAINT "trade_market_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_keys
--- ----------------------------
-ALTER TABLE "public"."web_api_keys" ADD CONSTRAINT "keys_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_limits
--- ----------------------------
-ALTER TABLE "public"."web_api_limits" ADD CONSTRAINT "limits_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_logs
--- ----------------------------
-ALTER TABLE "public"."web_api_logs" ADD CONSTRAINT "web_api_logs2_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_download_clientlauncher
--- ----------------------------
-ALTER TABLE "public"."web_download_clientlauncher" ADD CONSTRAINT "web_download_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_exchangeticket
--- ----------------------------
-ALTER TABLE "public"."web_exchangeticket" ADD CONSTRAINT "web_exchangeticket_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_quickslide
--- ----------------------------
-ALTER TABLE "public"."web_quickslide" ADD CONSTRAINT "web_quickslide_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_tokenkey
--- ----------------------------
-ALTER TABLE "public"."web_tokenkey" ADD CONSTRAINT "web_tokenkey_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table webshop
--- ----------------------------
-ALTER TABLE "public"."webshop" ADD CONSTRAINT "webshop2_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."web_trade_market" ADD CONSTRAINT "trade_market_pkey" PRIMARY KEY ("id");

@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 11/11/2022 15:00:54
+ Date: 22/03/2023 11:19:13
 */
 
 
@@ -781,20 +781,21 @@ CREATE TABLE "public"."accounts" (
   "hint_question" text COLLATE "pg_catalog"."default" NOT NULL,
   "hint_answer" text COLLATE "pg_catalog"."default" NOT NULL,
   "date_registered" varchar COLLATE "pg_catalog"."default",
-  "email_verification" varchar(32) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 0,
+  "email_verification" int4 NOT NULL DEFAULT 0,
   "battlepass_type" int4 NOT NULL DEFAULT 0,
   "facebook" varchar(255) COLLATE "pg_catalog"."default",
   "twitter" varchar(255) COLLATE "pg_catalog"."default",
   "instagram" varchar(255) COLLATE "pg_catalog"."default",
-  "github" varchar(255) COLLATE "pg_catalog"."default",
-  "remember_token" varchar(255) COLLATE "pg_catalog"."default"
+  "github" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
 
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO "public"."accounts" VALUES ('darkblow001', '9063f7c14a7721b35a2b730a42ff3e9e', 1, '[DEV] EyeTracker', 0, 5, 53, 0, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'imamrasyidw@gmail.com', 1010000, 493599, 'f', 300005292, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4294967295, 1210282002, 0, 0, 'f0:2f:74:4a:20:3b', 0, 1998800, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', '0', 0, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow002', 'afa5872b34d51600059662e04e91d7da', 2, 'Bukan [DEV] EyeTracker', 0, 0, 31, 0, 1690000, 1, 0, 0, 0, 0, 0, 0, 0, 6, '127.0.0.1', 'imamrasyid1@gmail.com', 1010000, 0, 'f', 400006003, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 2112312042, 0, 0, '28:39:26:0f:73:84', 0, 3323, 'What was your childhood nickname?', 'imam', NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('jufq8r24nl3', '4f06aff7d5e9a41a19b41a8dfb628ac5', 9, 'TEST', 0, 0, 31, 999999999, 378916, 5, 0, 0, 0, 0, 0, 0, 0, 0, '127.0.0.1', 'empty@empty.empty', 1010000, 999999999, 'f', 100003004, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 10, 124, 403, 147, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294967295, 0, 0, 0, '00:00:00:00:00:00', 0, 999999999, 'What was your childhood nickname?', 'asd', NULL, 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."accounts" VALUES ('darkblow001', 'afa5872b34d51600059662e04e91d7da', 1, '[DEV] EyeTracker', 0, 5, 53, 999999999, 0, 5, 999999999, 999999999, 0, 999999999, 0, 999999999, 0, 6, '127.0.0.1', 'empty@empty.empty', 1010000, 999994948, 'f', 100003021, 601002003, 702001001, 803007001, 904007002, 1001001005, 1001002006, 1102003001, 1006003041, 0, 999999999, 999999999, 999999999, 999999999, 0, 1, 20220426, 0, 1, 0, 0, 999999999, 999999999, 4294967295, 1303221012, 0, 0, 'f0:2f:74:4a:20:3b', 0, 999999999, 'What was your childhood nickname?', 'imam', '09-12-2021 11:39:40', 1, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for ban_history
@@ -826,11 +827,6 @@ CREATE TABLE "public"."check_user_attendance" (
 ;
 
 -- ----------------------------
--- Records of check_user_attendance
--- ----------------------------
-INSERT INTO "public"."check_user_attendance" VALUES (36, 97, 1, '100003009', 2592000, '03-06-2022');
-
--- ----------------------------
 -- Table structure for check_user_itemcode
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."check_user_itemcode";
@@ -846,7 +842,8 @@ CREATE TABLE "public"."check_user_itemcode" (
 -- ----------------------------
 -- Records of check_user_itemcode
 -- ----------------------------
-INSERT INTO "public"."check_user_itemcode" VALUES (57, 1, 'DARK-CFAD-Z7K8-BLOW', 'darkblow001', '16-10-2022 02:03:32');
+INSERT INTO "public"."check_user_itemcode" VALUES (42, 1, 'DARK-LQ7H-QE31-BLOW', 'darkblow001', '01-12-2020 17:41:32');
+INSERT INTO "public"."check_user_itemcode" VALUES (59, 1, 'DARK-2KZR-88VN-BLOW', 'darkblow001', '21-03-2023 22:09:44');
 
 -- ----------------------------
 -- Table structure for check_user_voucher
@@ -859,11 +856,6 @@ CREATE TABLE "public"."check_user_voucher" (
   "date_claimed" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of check_user_voucher
--- ----------------------------
-INSERT INTO "public"."check_user_voucher" VALUES (11, 1, 'LR45-MJCN-KZJ9-CKLZ-IN4M', '1654156108');
 
 -- ----------------------------
 -- Table structure for clan_data
@@ -930,6 +922,17 @@ CREATE TABLE "public"."events_attendance" (
 ;
 
 -- ----------------------------
+-- Records of events_attendance
+-- ----------------------------
+INSERT INTO "public"."events_attendance" VALUES (148, 1, 100003009, 'AK-47 G.', '2592000', 0, '22-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (149, 2, 100003010, 'M4A1 S.', '2592000', 0, '23-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (150, 3, 100003022, 'M4A1 Wh.', '2592000', 0, '24-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (151, 4, 100003023, 'M4A1 Gold', '2592000', 0, '25-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (152, 5, 100003025, 'AK-47 SI.+', '2592000', 0, '26-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (153, 6, 100003022, 'M4A1 Wh.', '2592000', 0, '27-03-2023');
+INSERT INTO "public"."events_attendance" VALUES (154, 7, 100003037, 'AUG A3 Gold', '2592000', 0, '28-03-2023');
+
+-- ----------------------------
 -- Table structure for events_login
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_login";
@@ -994,11 +997,6 @@ CREATE TABLE "public"."events_rankup" (
 ;
 
 -- ----------------------------
--- Records of events_rankup
--- ----------------------------
-INSERT INTO "public"."events_rankup" VALUES (2112310000, 2112312359, 0, 0);
-
--- ----------------------------
 -- Table structure for events_register
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."events_register";
@@ -1016,7 +1014,7 @@ CREATE TABLE "public"."events_register" (
 -- ----------------------------
 -- Records of events_register
 -- ----------------------------
-INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 0, 'f');
+INSERT INTO "public"."events_register" VALUES ('1', '100003001', 'SG-550 Ext.', '1', '2592000', 10, 'f');
 
 -- ----------------------------
 -- Table structure for events_visit
@@ -1123,33 +1121,6 @@ CREATE TABLE "public"."info_cupons_flags" (
 ;
 
 -- ----------------------------
--- Records of info_cupons_flags
--- ----------------------------
-INSERT INTO "public"."info_cupons_flags" VALUES (1200007000, 1048576);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200008000, 262144);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200017000, 131072);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200026000, 32768);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200027000, 16384);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200028000, 8192);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200029000, 4096);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200030000, 2048);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200031000, 1024);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200032000, 512);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200033000, 65536);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200034000, 256);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200035000, 128);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200036000, 64);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200040000, 32);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200044000, 16);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200064000, 2097152);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200065000, 1);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200078000, 8);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200079000, 4);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200080000, 4194304);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200185000, 8388608);
-INSERT INTO "public"."info_cupons_flags" VALUES (1200242000, 16777216);
-
--- ----------------------------
 -- Table structure for info_gameservers
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."info_gameservers";
@@ -1188,7 +1159,7 @@ CREATE TABLE "public"."info_login_configs" (
 -- ----------------------------
 -- Records of info_login_configs
 -- ----------------------------
-INSERT INTO "public"."info_login_configs" VALUES (1, 'f', 't', '5CA56B1E483FF9E24F62BE21C6BA6670', '1.15.42', 't', 'https://darkblowpbreborn.com');
+INSERT INTO "public"."info_login_configs" VALUES (1, 'f', 't', '5CA56B1E483FF9E24F62BE21C6BA6670', '1.15.42', 't', '');
 
 -- ----------------------------
 -- Table structure for info_missions
@@ -1343,10 +1314,10 @@ INSERT INTO "public"."info_rank_awards" VALUES (50, 0, '0', 0, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."item_code";
 CREATE TABLE "public"."item_code" (
-  "id" int4 NOT NULL DEFAULT nextval('item_code_id_seq'::regclass),
   "item_id" varchar(32) COLLATE "pg_catalog"."default",
   "item_name" varchar(255) COLLATE "pg_catalog"."default",
   "item_count" varchar(255) COLLATE "pg_catalog"."default",
+  "item_alert" varchar(255) COLLATE "pg_catalog"."default",
   "item_code" varchar(255) COLLATE "pg_catalog"."default",
   "cash" varchar(32) COLLATE "pg_catalog"."default",
   "type" varchar(255) COLLATE "pg_catalog"."default",
@@ -1356,13 +1327,6 @@ CREATE TABLE "public"."item_code" (
   "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of item_code
--- ----------------------------
-INSERT INTO "public"."item_code" VALUES (35, '100003252', 'AK SOPMOD Sakura - Redeem Code', '2592000', 'DARK-1DNC-VD7Y-BLOW', '0', 'Item', 123, '1670089191', '1667497191', '0');
-INSERT INTO "public"."item_code" VALUES (36, '904007021', 'Medical Kit Lotus - Redeem Code', '2592000', 'DARK-MJ04-5HG1-BLOW', '0', 'Item', 123, '1670089249', '1667497249', '0');
-INSERT INTO "public"."item_code" VALUES (37, '200004115', 'Kriss S.V Sakura - Redeem Code', '2592000', 'DARK-D5IM-N7SF-BLOW', '0', 'Item', 123, '1670742720', '1668150720', '0');
 
 -- ----------------------------
 -- Table structure for item_goods_sets
@@ -1405,11 +1369,6 @@ CREATE TABLE "public"."item_voucher" (
 ;
 
 -- ----------------------------
--- Records of item_voucher
--- ----------------------------
-INSERT INTO "public"."item_voucher" VALUES (9, '100003001,100003002,100003003', '123123', '123123', 'NPNR-Y818-ES9O-HK11-86ON', 't');
-
--- ----------------------------
 -- Table structure for launcher_launcherkey
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."launcher_launcherkey";
@@ -1423,11 +1382,25 @@ CREATE TABLE "public"."launcher_launcherkey" (
 -- ----------------------------
 -- Records of launcher_launcherkey
 -- ----------------------------
-INSERT INTO "public"."launcher_launcherkey" VALUES (69, 881979577, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (70, 559470490, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (71, 933199924, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (72, 649326598, 1);
-INSERT INTO "public"."launcher_launcherkey" VALUES (73, 70822846, 1);
+INSERT INTO "public"."launcher_launcherkey" VALUES (28, 808895309, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (29, 760916256, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (30, 480332139, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (31, 310693962, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (32, 593250497, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (33, 498348649, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (34, 221260321, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (35, 474687154, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (36, 319024669, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (37, 376884178, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (62, 245598952, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (63, 91291612, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (64, 173098434, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (65, 990987504, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (66, 555626180, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (67, 291901305, 0);
+INSERT INTO "public"."launcher_launcherkey" VALUES (75, 257934710, 1);
+INSERT INTO "public"."launcher_launcherkey" VALUES (76, 875932262, 1);
+INSERT INTO "public"."launcher_launcherkey" VALUES (77, 229200758, 1);
 
 -- ----------------------------
 -- Table structure for launcher_loghistory
@@ -1447,7 +1420,6 @@ DROP TABLE IF EXISTS "public"."launcher_version_control";
 CREATE TABLE "public"."launcher_version_control" (
   "id" int4 NOT NULL DEFAULT nextval('launcher_version_control_id_seq'::regclass),
   "ip_address" varchar(255) COLLATE "pg_catalog"."default",
-  "hwid" varchar(255) COLLATE "pg_catalog"."default",
   "current_patch_version" int4,
   "current_launcher_version" int4,
   "date_created" varchar(255) COLLATE "pg_catalog"."default",
@@ -1472,7 +1444,6 @@ CREATE TABLE "public"."nick_history" (
 -- Records of nick_history
 -- ----------------------------
 INSERT INTO "public"."nick_history" VALUES (6, '', 'Test', 2112291336, 'First nick');
-INSERT INTO "public"."nick_history" VALUES (2, '', 'asdasd', 1210101930, 'First nick');
 
 -- ----------------------------
 -- Table structure for player_bonus
@@ -1529,8 +1500,8 @@ CREATE TABLE "public"."player_configs" (
 -- ----------------------------
 INSERT INTO "public"."player_configs" VALUES (177, 55, 3, 2, 0, 30, 60, 6, 10, 80, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\000\\032\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\001\\002\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 INSERT INTO "public"."player_configs" VALUES (6, 55, 1, 0, 0, 100, 60, 6, 50, 70, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\001\\002\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\000\\032\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
-INSERT INTO "public"."player_configs" VALUES (2, 55, 1, 0, 0, 22, 60, 6, 10, 70, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\001\\002\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\000\\032\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 INSERT INTO "public"."player_configs" VALUES (1, 55, 3, 2, 0, 50, 15, 6, 10, 80, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\000\\032\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\001\\002\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
+INSERT INTO "public"."player_configs" VALUES (2, 55, 1, 0, 0, 22, 60, 6, 10, 70, 0, 0, 0, 31, '', '', '', '', '', E'\\000\\012\\000\\000\\000\\000\\015\\000\\000\\000\\000 \\000\\000\\000\\000\\034\\000\\000\\000\\000,\\000\\000\\000\\000(\\000\\000\\000\\000&\\000\\000\\000\\000\\017\\000\\000\\000\\001\\001\\000\\000\\000\\001\\002\\000\\000\\000\\000\\033\\000\\000\\000\\000\\035\\000\\000\\000\\000\\001\\000\\000\\000\\000\\002\\000\\000\\000\\000\\003\\000\\000\\000\\000\\004\\000\\000\\000\\000\\005\\000\\000\\000\\000\\006\\000\\000\\000\\000\\032\\000\\000\\000\\001\\000\\000\\000\\020\\001\\000\\000\\000 \\000\\020\\000\\000\\000\\0007\\000\\000\\000\\000\\026\\000\\000\\000\\000\\\\\\000\\000\\000\\000[\\000\\000\\000\\000%\\000\\000\\000\\000@\\000\\000\\000\\000A\\000\\000\\000\\000\\025\\000\\000\\000\\000\\037\\000\\000\\000\\000#\\000\\000\\000\\000!\\000\\000\\000\\000\\014\\000\\000\\000\\000\\016\\000\\000\\000\\0001\\000\\000\\000\\0002\\000\\000\\000\\000F\\000\\000\\000\\000B\\000\\000\\000\\000\\013\\000\\000\\000\\000:\\000\\000\\000\\000\\377\\377\\377\\377\\000E\\000\\000\\000');
 
 -- ----------------------------
 -- Table structure for player_events
@@ -1578,7 +1549,156 @@ CREATE TABLE "public"."player_items" (
 -- ----------------------------
 -- Records of player_items
 -- ----------------------------
-INSERT INTO "public"."player_items" VALUES (265, 1, 300005292, 'Barrett M28A1 Nusantara', 1211272005, 1, 2);
+INSERT INTO "public"."player_items" VALUES (211, 1, 100003169, 'TAR-21 Gold', 2101071740, 1, 2);
+INSERT INTO "public"."player_items" VALUES (212, 1, 200004139, 'Kriss S.V Brazuca', 2005311128, 1, 2);
+INSERT INTO "public"."player_items" VALUES (267, 9, 100003090, 'Famas G2 Digital', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (268, 9, 702015025, 'Dual Knife M9 Digital', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (269, 9, 100003275, 'AUG A3 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (270, 9, 100003276, 'SC-2010 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (271, 9, 200004289, 'Kriss S.V Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (272, 9, 200004291, 'P90 Ext Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (273, 9, 300005168, 'Cheytac M200 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (274, 9, 300005169, 'L115A1 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (275, 9, 400006072, 'M1887 Dolphin', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (276, 9, 100003453, 'AUG A3 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (277, 9, 200004603, 'Kriss S.V Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (278, 9, 200004605, 'OA-93 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (279, 9, 300005303, 'Cheytac M200 Maze', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (280, 9, 400006145, '', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (281, 9, 100003347, 'AUG A3 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (282, 9, 100003348, 'SC-2010 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (283, 9, 200004400, 'Kriss S.V Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (284, 9, 300005216, 'Tactilite T2 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (285, 9, 400006102, 'M1887 Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (286, 9, 702001182, 'Fang Blade Green', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (287, 9, 1103003026, 'Green Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (288, 9, 100003315, 'AUG A3 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (289, 9, 100003316, 'Pindad SS2 V5 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (290, 9, 200004342, 'Kriss S.V Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (291, 9, 200004344, 'P90 Ext. Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (292, 9, 300005194, 'Cheytac M200 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (293, 9, 400006088, 'Zombie Slayer Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (294, 9, 601002106, 'C. Python Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (295, 9, 702001069, 'Ice Fork', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (296, 9, 702001167, 'Fang Blade Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (297, 9, 803007070, 'K-413 Ice', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (298, 9, 100003120, 'AUG A3 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (299, 9, 100003121, 'M4A1 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (300, 9, 100003122, 'AK47 PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (301, 9, 200004103, 'Kriss S.V PBIC2013', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (302, 9, 300005032, 'Barrett M82A1', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (303, 9, 300005232, 'Barrett M82A1 Premium', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (304, 9, 300005268, 'Barrett M82A1 Black', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (305, 9, 300005272, 'Barrett M82A1 Red', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (306, 9, 300005277, 'Barrett M82A1 Blue', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (307, 9, 300005292, 'Barrett M28A1 Nusantara', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (308, 9, 200004513, 'T77.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (309, 9, 200004515, 'T77 SI.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (310, 9, 200004517, 'T77 G.', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (311, 9, 100003147, 'AUG A3 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (312, 9, 200004126, 'Kriss S.V Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (313, 9, 200004128, 'P90 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (314, 9, 300005079, 'Cheytac M200 Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (315, 9, 702001057, 'Fang Blade Inferno', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (316, 9, 100003091, 'Famas G2 Commando PBTN', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (317, 9, 200004078, 'P90 PBTN ', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (318, 9, 200004079, 'Kriss S.V PBTN ', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (319, 9, 300005050, 'L115A1 PBTN', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (320, 9, 1103003010, 'PBTN Champion Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (321, 9, 100003227, 'AUG A3 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (322, 9, 200004232, 'OA-93 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (323, 9, 300005127, 'L115A1 Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (324, 9, 601002073, 'R.B 454 SS8M+S Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (325, 9, 702001108, 'Fang Blade Cobra', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (326, 9, 1103003015, 'Cobra Beret', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (327, 9, 1104003213, 'Mask Cobra', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (328, 9, 904007011, 'Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (329, 9, 904007014, 'Halloween Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (330, 9, 904007015, 'Chocolate Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (331, 9, 904007021, 'Medical Kit Lotus', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (332, 9, 904007025, 'Medical Kit Opor Ayam', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (333, 9, 904007029, 'Medical Kit PBNC5', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (334, 9, 904007031, 'Easter Day Medical Kit', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (335, 9, 904007032, 'Medical Kit Lotus2014', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (336, 9, 904007043, 'Medical Kit Kurma', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (337, 9, 904007046, 'Medical Kit PBNC6', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (338, 9, 904007048, 'Medical Kit [Noname] [BUG]', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (339, 9, 904007051, 'Medical Kit PBNC2015', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (340, 9, 803007066, 'Soccer Ball Bomb', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (341, 9, 803007075, 'Volley Ball Grenade', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (342, 9, 803007053, 'Water Bomb', 1, 1, 3);
+INSERT INTO "public"."player_items" VALUES (343, 9, 1001001003, 'Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (344, 9, 1001001007, 'D-Fox (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (345, 9, 1001001010, 'Viper Red Boost (+30% Points)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (346, 9, 1001001011, 'Reinforced D-Fox', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (347, 9, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (348, 9, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (349, 9, 1001001021, 'Reinforced Red Bulls', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (350, 9, 1001001022, 'Reinforced Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (351, 9, 1001001025, 'D-Fox', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (352, 9, 1001001028, 'Viper Red', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (353, 9, 1001001034, 'Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (354, 9, 1001001036, 'Reinforced Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (355, 9, 1001001049, 'Tarantula -  RED (20% Exp)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (356, 9, 1001001050, 'Red Bulls Point+20%', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (357, 9, 1001001054, 'World Tarantula [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (358, 9, 1001001055, 'Viper Shadow [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (359, 9, 1001001068, 'Viper Kopassus [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (360, 9, 1001001069, 'Bella FBI [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (361, 9, 1001001084, 'Viper Red Pirate [BUG]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (362, 9, 1001001087, 'Gangstar ViperRed', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (363, 9, 1001001095, 'Viper Red Demolition', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (364, 9, 1001001127, 'Red Bulls Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (365, 9, 1001001137, 'D-Fox Hitman', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (366, 9, 1001001268, 'Tarantula CrocSuit', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (367, 9, 1001001275, 'Captain Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (368, 9, 1001001283, 'Pirate Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (369, 9, 1001001286, 'General Viper Red', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (370, 9, 1001001302, 'P1000 Tarantula', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (371, 9, 1001001320, 'Infiltrate Rica', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (372, 9, 1001001356, 'Viper Red Summer Vacation', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (373, 9, 1001001394, 'Tarantula Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (374, 9, 1001001415, 'Bella HalloweenNurse [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (375, 9, 1001001421, 'Bella Rangda', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (376, 9, 1001001436, 'ViperRed Rudolph', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (377, 9, 1001001465, 'Bella PinkChoco [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (378, 9, 1001002004, 'Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (379, 9, 1001002008, 'Leopard (+20% EXP)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (380, 9, 1001002009, 'Hide (+30% Gold)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (381, 9, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (382, 9, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (383, 9, 1001002026, 'Leopard Normal', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (384, 9, 1001002027, 'Hide Normal', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (385, 9, 1001002033, 'Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (386, 9, 1001002035, 'Reinforced Chou [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (387, 9, 1001002047, 'Keen Eyes - Garena (20%Exp)', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (388, 9, 1001002051, 'Hide Kopassus [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (389, 9, 1001002052, 'Leopard Bope', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (390, 9, 1001002053, 'Hide Cup [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (391, 9, 1001002053, 'Hide Cup [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (392, 9, 1001002056, 'Hide Commando', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (393, 9, 1001002062, 'Infected Acid Paul', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (394, 9, 1001002063, 'Infected Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (395, 9, 1001002064, 'Infected Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (396, 9, 1001002065, 'Infected Leopard', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (397, 9, 1001002067, 'Hide Strike [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (398, 9, 1001002144, 'Chou FBI [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (399, 9, 1001002156, 'Keen Eyes Ninja', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (400, 9, 1001002157, 'Swat-Sniper Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (401, 9, 1001002175, 'Gengster Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (402, 9, 1001002183, 'Jumpsuit Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (403, 9, 1001002225, 'Leopard Hitman', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (404, 9, 1001002270, 'Keen Eyes SAS', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (405, 9, 1001002278, 'Captain Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (406, 9, 1001002287, 'General Hide', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (407, 9, 1001002305, 'P1000 Keen Eyes', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (408, 9, 1001002311, 'Infiltrate Chou', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (409, 9, 1001002353, 'Hide Summer Vacation', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (410, 9, 1001002413, 'Chou Pocong', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (411, 9, 1001002418, 'Chou HalloweenNurse [R]', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (412, 9, 1001002439, 'Hide Rudolph', 1, 2, 3);
+INSERT INTO "public"."player_items" VALUES (413, 1, 200004196, 'Kriss S.V Harimau', 1304202210, 1, 2);
+INSERT INTO "public"."player_items" VALUES (414, 1, 100003021, 'Command item', 1, 1, 3);
 
 -- ----------------------------
 -- Table structure for player_messages
@@ -5498,183 +5618,185 @@ INSERT INTO "public"."shop" VALUES (14393, 904007061, 'Smoke Yellow', 18000, 0, 
 INSERT INTO "public"."shop" VALUES (14394, 904007069, 'CS Gas', 0, 350, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14395, 904007069, 'CS Gas', 0, 1099, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14396, 904007069, 'CS Gas', 0, 890, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (14398, 1001001007, 'D-Fox (+20% EXP)', 0, 2500, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14400, 1001001007, 'D-Fox (+20% EXP)', 0, 980, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14401, 1001001010, 'Viper Red Boost (+30% Points)', 0, 2500, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14403, 1001001010, 'Viper Red Boost (+30% Points)', 0, 980, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14404, 1001001011, 'Reinforced D-Fox', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14405, 1001001013, 'Reinforced Viper Red', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14406, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 2500, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14407, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 980, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14408, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14409, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 2500, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14410, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14412, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14413, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14414, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14415, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14416, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14417, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14418, 1001001025, 'D-Fox', 0, 1, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14419, 1001001025, 'D-Fox', 0, 1, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14420, 1001001025, 'D-Fox', 0, 1, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14421, 1001001028, 'Viper Red', 0, 1, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14423, 1001001028, 'Viper Red', 0, 1, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14424, 1001001034, 'Rica', 25000, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14425, 1001001034, 'Rica', 1, 1, 50, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14426, 1001001036, 'Reinforced Rica', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14427, 1001001036, 'Reinforced Rica', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14428, 1001001036, 'Reinforced Rica', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14429, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14430, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14431, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14432, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14433, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14434, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14436, 1001001054, 'World Tarantula [R]', 0, 1, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14437, 1001001054, 'World Tarantula [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14438, 1001001055, 'Viper Shadow [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14439, 1001001055, 'Viper Shadow [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14440, 1001001055, 'Viper Shadow [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14442, 1001001068, 'Viper Kopassus [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14443, 1001001068, 'Viper Kopassus [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14444, 1001001069, 'Bella FBI [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14445, 1001001069, 'Bella FBI [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14446, 1001001069, 'Bella FBI [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14447, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14448, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14449, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14450, 1001001087, 'Gangstar ViperRed', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14451, 1001001095, 'Viper Red Demolition', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14452, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14453, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14454, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14455, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14456, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14457, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14467, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14469, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14470, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14471, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14472, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14474, 1001001320, 'Infiltrate Rica', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14397, 1001001003, 'Tarantula', 22000, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14461, 1001001137, 'D-Fox Hitman', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14462, 1001001268, 'Tarantula CrocSuit', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14463, 1001001275, 'Captain Rica', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14464, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14465, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14466, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14473, 1001001302, 'P1000 Tarantula', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14476, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14477, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14478, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14479, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14480, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14481, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14482, 1001001394, 'Tarantula Ninja', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14483, 1001001415, 'Bella HalloweenNurse [R]', 0, 25, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14484, 1001001415, 'Bella HalloweenNurse [R]', 0, 26, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14485, 1001001415, 'Bella HalloweenNurse [R]', 0, 27, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14486, 1001001421, 'Bella Rangda', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14487, 1001001421, 'Bella Rangda', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14489, 1001001436, 'ViperRed Rudolph', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14490, 1001001465, 'Bella PinkChoco [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14491, 1001001465, 'Bella PinkChoco [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14492, 1001001465, 'Bella PinkChoco [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14493, 1001002004, 'Keen Eyes', 22000, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14494, 1001002004, 'Keen Eyes', 1, 0, 50, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14495, 1001002008, 'Leopard (+20% EXP)', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14496, 1001002008, 'Leopard (+20% EXP)', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14497, 1001002008, 'Leopard (+20% EXP)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14498, 1001002009, 'Hide (+30% Gold)', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14499, 1001002009, 'Hide (+30% Gold)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14500, 1001002009, 'Hide (+30% Gold)', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14501, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14502, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14504, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14505, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14507, 1001002026, 'Leopard Normal', 0, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14508, 1001002027, 'Hide Normal', 0, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14509, 1001002033, 'Chou', 1, 0, 50, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14510, 1001002033, 'Chou', 25000, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14511, 1001002035, 'Reinforced Chou [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14512, 1001002035, 'Reinforced Chou [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14513, 1001002035, 'Reinforced Chou [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14514, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14515, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14516, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14517, 1001002051, 'Hide Kopassus [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14518, 1001002051, 'Hide Kopassus [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14519, 1001002051, 'Hide Kopassus [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14520, 1001002052, 'Leopard Bope', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14521, 1001002052, 'Leopard Bope', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14522, 1001002052, 'Leopard Bope', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14523, 1001002053, 'Hide Cup [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14524, 1001002053, 'Hide World Cup 2014', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14525, 1001002053, 'Hide World Cup 2014', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14526, 1001002056, 'Hide Commando', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14527, 1001002056, 'Hide Commando', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14528, 1001002056, 'Hide Commando', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14529, 1001002062, 'Infected Acid Paul', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14530, 1001002062, 'Infected Acid Paul', 0, 7000, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14532, 1001002063, 'Infected Keen Eyes', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14533, 1001002063, 'Infected Keen Eyes', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14534, 1001002063, 'Infected Keen Eyes', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14535, 1001002064, 'Infected Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14536, 1001002064, 'Infected Hide', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14537, 1001002064, 'Infected Hide', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14538, 1001002065, 'Infected Leopard', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14539, 1001002065, 'Infected Leopard', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14540, 1001002065, 'Infected Leopard', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14541, 1001002067, 'Hide Strike [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14543, 1001002067, 'Hide Strike [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14557, 1001002305, 'P1000 Keen Eyes', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14558, 1001002311, 'Infiltrate Chou', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14559, 1001002353, 'Hide Summer Vacation', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14560, 1001002413, 'Chou Pocong', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14561, 1001002418, 'Chou HalloweenNurse [R]', 0, 30, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14562, 1001002418, 'Chou HalloweenNurse [R]', 0, 28, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14563, 1001002418, 'Chou HalloweenNurse [R]', 0, 29, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14564, 1001002439, 'Hide Rudolph', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14565, 1001002462, 'Chou MintChoco [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14566, 1001002462, 'Chou MintChoco [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14567, 1001002462, 'Chou MintChoco [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14460, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14547, 1001002156, 'Keen Eyes Ninja', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14549, 1001002175, 'Gengster Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14550, 1001002183, 'Jumpsuit Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14551, 1001002225, 'Leopard Hitman', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14552, 1001002270, 'Keen Eyes SAS', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14553, 1001002278, 'Captain Chou', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14554, 1001002278, 'Captain Chou', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14556, 1001002287, 'General Hide', 0, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14568, 1006003032, 'Elite Dino', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14569, 1006003032, 'Elite Dino', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14570, 1006003032, 'Elite Dino', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14572, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14574, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14575, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14576, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14577, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14578, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14579, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14580, 1102003002, 'Normal Headgear', 0, 0, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14581, 1102003003, 'Reinforced Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14582, 1102003003, 'Reinforced Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14583, 1102003003, 'Reinforced Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14584, 1102003006, 'Target Tracking Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14585, 1102003006, 'Target Tracking Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14586, 1102003006, 'Target Tracking Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14587, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14588, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14589, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14590, 1102003008, 'Super Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14591, 1102003008, 'Super Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14592, 1102003008, 'Super Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14593, 1102003009, 'Angel Ring', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14594, 1102003009, 'Angel Ring', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14595, 1102003009, 'Angel Ring', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (14397, 1001001003, 'Tarantula', 22000, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14398, 1001001007, 'D-Fox (+20% EXP)', 0, 2500, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14400, 1001001007, 'D-Fox (+20% EXP)', 0, 980, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14401, 1001001010, 'Viper Red Boost (+30% Points)', 0, 2500, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14403, 1001001010, 'Viper Red Boost (+30% Points)', 0, 980, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14404, 1001001011, 'Reinforced D-Fox', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14405, 1001001013, 'Reinforced Viper Red', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14406, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 2500, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14407, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 980, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14408, 1001001015, 'Reinforced Combo D-Fox (+20% EXP)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14409, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 2500, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14410, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14412, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14413, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14414, 1001001021, 'Reinforced Red Bulls', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14415, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14416, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14417, 1001001022, 'Reinforced Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14418, 1001001025, 'D-Fox', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14419, 1001001025, 'D-Fox', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14420, 1001001025, 'D-Fox', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14421, 1001001028, 'Viper Red', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14423, 1001001028, 'Viper Red', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14424, 1001001034, 'Rica', 25000, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14425, 1001001034, 'Rica', 1, 1, 50, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14426, 1001001036, 'Reinforced Rica', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14427, 1001001036, 'Reinforced Rica', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14428, 1001001036, 'Reinforced Rica', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14429, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14430, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14431, 1001001049, 'Tarantula -  RED (20% Exp)', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14432, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14433, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14434, 1001001050, 'Red Bulls Point+20%', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14436, 1001001054, 'World Tarantula [R]', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14437, 1001001054, 'World Tarantula [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14438, 1001001055, 'Viper Shadow [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14439, 1001001055, 'Viper Shadow [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14440, 1001001055, 'Viper Shadow [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14442, 1001001068, 'Viper Kopassus [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14443, 1001001068, 'Viper Kopassus [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14444, 1001001069, 'Bella FBI [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14445, 1001001069, 'Bella FBI [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14446, 1001001069, 'Bella FBI [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14447, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14448, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14449, 1001001084, 'Viper Red Pirate [BUG]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14450, 1001001087, 'Gangstar ViperRed', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14451, 1001001095, 'Viper Red Demolition', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14452, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14453, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14454, 1001001096, 'Viper Red Bouncer', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14455, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14456, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14457, 1001001109, 'Bella FireFighter', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14467, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14469, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14470, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14471, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14472, 1001001295, 'Hitman Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14474, 1001001320, 'Infiltrate Rica', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14460, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14461, 1001001137, 'D-Fox Hitman', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14462, 1001001268, 'Tarantula CrocSuit', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14463, 1001001275, 'Captain Rica', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14464, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14465, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14466, 1001001283, 'Pirate Tarantula', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14473, 1001001302, 'P1000 Tarantula', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14476, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14477, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14478, 1001001360, 'Viper Red Medic', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14479, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14480, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14481, 1001001375, 'D-Fox Hawaian Gang [BUG]', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14482, 1001001394, 'Tarantula Ninja', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14483, 1001001415, 'Bella HalloweenNurse [R]', 0, 25, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14484, 1001001415, 'Bella HalloweenNurse [R]', 0, 26, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14485, 1001001415, 'Bella HalloweenNurse [R]', 0, 27, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14486, 1001001421, 'Bella Rangda', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14487, 1001001421, 'Bella Rangda', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14489, 1001001436, 'ViperRed Rudolph', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14490, 1001001465, 'Bella PinkChoco [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14491, 1001001465, 'Bella PinkChoco [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14492, 1001001465, 'Bella PinkChoco [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14493, 1001002004, 'Keen Eyes', 22000, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14494, 1001002004, 'Keen Eyes', 1, 0, 50, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14495, 1001002008, 'Leopard (+20% EXP)', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14496, 1001002008, 'Leopard (+20% EXP)', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14497, 1001002008, 'Leopard (+20% EXP)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14498, 1001002009, 'Hide (+30% Gold)', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14499, 1001002009, 'Hide (+30% Gold)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14500, 1001002009, 'Hide (+30% Gold)', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14501, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14502, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14504, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14505, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14507, 1001002026, 'Leopard Normal', 0, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14508, 1001002027, 'Hide Normal', 0, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14509, 1001002033, 'Chou', 1, 0, 50, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14510, 1001002033, 'Chou', 25000, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14511, 1001002035, 'Reinforced Chou [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14512, 1001002035, 'Reinforced Chou [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14513, 1001002035, 'Reinforced Chou [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14514, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14515, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14516, 1001002047, 'Keen Eyes - Garena (20%Exp)', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14517, 1001002051, 'Hide Kopassus [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14518, 1001002051, 'Hide Kopassus [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14519, 1001002051, 'Hide Kopassus [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14520, 1001002052, 'Leopard Bope', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14521, 1001002052, 'Leopard Bope', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14522, 1001002052, 'Leopard Bope', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14523, 1001002053, 'Hide Cup [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14524, 1001002053, 'Hide World Cup 2014', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14525, 1001002053, 'Hide World Cup 2014', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14526, 1001002056, 'Hide Commando', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14527, 1001002056, 'Hide Commando', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14528, 1001002056, 'Hide Commando', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14529, 1001002062, 'Infected Acid Paul', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14530, 1001002062, 'Infected Acid Paul', 0, 7000, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14532, 1001002063, 'Infected Keen Eyes', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14533, 1001002063, 'Infected Keen Eyes', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14534, 1001002063, 'Infected Keen Eyes', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14535, 1001002064, 'Infected Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14536, 1001002064, 'Infected Hide', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14537, 1001002064, 'Infected Hide', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14538, 1001002065, 'Infected Leopard', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14539, 1001002065, 'Infected Leopard', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14540, 1001002065, 'Infected Leopard', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14541, 1001002067, 'Hide Strike [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14543, 1001002067, 'Hide Strike [R]', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14557, 1001002305, 'P1000 Keen Eyes', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14558, 1001002311, 'Infiltrate Chou', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14559, 1001002353, 'Hide Summer Vacation', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14560, 1001002413, 'Chou Pocong', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14561, 1001002418, 'Chou HalloweenNurse [R]', 0, 30, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14562, 1001002418, 'Chou HalloweenNurse [R]', 0, 28, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14563, 1001002418, 'Chou HalloweenNurse [R]', 0, 29, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14564, 1001002439, 'Hide Rudolph', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14565, 1001002462, 'Chou MintChoco [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14566, 1001002462, 'Chou MintChoco [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14567, 1001002462, 'Chou MintChoco [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14546, 1001002144, 'Chou FBI [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14547, 1001002156, 'Keen Eyes Ninja', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14548, 1001002157, 'Swat-Sniper Keen Eyes', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14549, 1001002175, 'Gengster Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14550, 1001002183, 'Jumpsuit Hide', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14551, 1001002225, 'Leopard Hitman', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14552, 1001002270, 'Keen Eyes SAS', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14553, 1001002278, 'Captain Chou', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14554, 1001002278, 'Captain Chou', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14556, 1001002287, 'General Hide', 0, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14568, 1006003032, 'Elite Dino', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14569, 1006003032, 'Elite Dino', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14570, 1006003032, 'Elite Dino', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14572, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14574, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14575, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14576, 1006003045, 'Sting Mars Dino (Reinforced Sting)', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14577, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14578, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14579, 1006003046, 'Acid Vulcan Dino (Reinforced Acid)', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14580, 1102003002, 'Normal Headgear', 0, 0, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14581, 1102003003, 'Reinforced Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14582, 1102003003, 'Reinforced Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14583, 1102003003, 'Reinforced Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14584, 1102003006, 'Target Tracking Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14585, 1102003006, 'Target Tracking Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14586, 1102003006, 'Target Tracking Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14587, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14588, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14589, 1102003007, 'Reinforced Headgear Plus (Super Headgear)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14590, 1102003008, 'Super Headgear', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14591, 1102003008, 'Super Headgear', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14592, 1102003008, 'Super Headgear', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14593, 1102003009, 'Angel Ring', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14594, 1102003009, 'Angel Ring', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14595, 1102003009, 'Angel Ring', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14596, 1103003001, 'Assault Beret', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14597, 1103003001, 'Assault Beret', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14598, 1103003001, 'Assault Beret', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
@@ -5721,7 +5843,6 @@ INSERT INTO "public"."shop" VALUES (14653, 1103003020, 'Beret Strike', 0, 1780, 
 INSERT INTO "public"."shop" VALUES (14654, 1103003020, 'Beret Strike', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14655, 1103003020, 'Beret Strike', 0, 2450, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14656, 1103003021, 'Beret Russian Normal', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (14546, 1001002144, 'Chou FBI [R]', 0, 2250, 604800, 2, 1, 1, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (14633, 1103003013, 'Kopassus Beret', 0, 2450, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14634, 1103003013, 'Kopassus Beret', 0, 1780, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14635, 1103003014, 'Beret Bope', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
@@ -6043,259 +6164,259 @@ INSERT INTO "public"."shop" VALUES (15014, 1200119000, '150% Point Up [E]', 0, 1
 INSERT INTO "public"."shop" VALUES (15016, 1200170000, 'Full Metal Jacket Ammo EV [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15017, 1200185000, 'Ammo Up Cyberindo + 10% [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15018, 1200242000, 'Increase Smoke Slot +1 [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15021, 1300002030, '130% EXP UP', 0, 2500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15022, 1300003003, '150% EXP UP', 0, 500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15024, 1300003030, '150% EXP UP', 0, 2500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15025, 1300004003, '130% Point UP', 0, 500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15026, 1300004007, '130% Point UP', 0, 1500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15027, 1300004030, '130% Point UP', 0, 2500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15028, 1300006003, 'Call Sign Recolor', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15029, 1300006007, 'Call Sign Recolor', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15030, 1300006030, 'Call Sign Recolor', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15031, 1300007003, 'Quick Respawn 30%', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15020, 1300002007, '130% EXP UP', 0, 1500, 1, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15020, 1300002007, '130% EXP UP', 0, 1500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15021, 1300002030, '130% EXP UP', 0, 2500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15022, 1300003003, '150% EXP UP', 0, 500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15024, 1300003030, '150% EXP UP', 0, 2500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15025, 1300004003, '130% Point UP', 0, 500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15026, 1300004007, '130% Point UP', 0, 1500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15027, 1300004030, '130% Point UP', 0, 2500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15028, 1300006003, 'Call Sign Recolor', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15029, 1300006007, 'Call Sign Recolor', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15030, 1300006030, 'Call Sign Recolor', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15031, 1300007003, 'Quick Respawn 30%', 0, 300, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14984, 1200003000, '150% EXP UP [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14985, 1200004000, '130% Point UP [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14988, 1200008000, 'Ammo Up [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15023, 1300003007, '150% EXP UP', 0, 1500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15032, 1300007007, 'Quick Respawn 30%', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15033, 1300007030, 'Quick Respawn 30%', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15034, 1300008003, 'Ammo Up', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15035, 1300008007, 'Ammo Up', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15036, 1300008030, 'Ammo Up', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15037, 1300009003, 'Fake Rank', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15038, 1300009007, 'Fake Rank', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15041, 1300010007, 'Temporary Nickname 7D', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15042, 1300010030, 'Temporary Nickname 30D', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15043, 1300011003, 'Free Move (Duration)', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15044, 1300011007, 'Free Move (Duration)', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15045, 1300011030, 'Free Move (Duration)', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15046, 1300014003, 'Color Change Crosshair', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15047, 1300014007, 'Color Change Crosshair', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15048, 1300014030, 'Color Change Crosshair', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15049, 1300026003, 'Quick Change Weapon', 0, 750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15050, 1300026007, 'Quick Change Weapon', 0, 1800, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15051, 1300026030, 'Quick Change Weapon', 0, 2875, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15052, 1300027003, 'Quick Change Reload', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15053, 1300027007, 'Quick Change Reload', 0, 1990, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15054, 1300027030, 'Quick Change Reload', 0, 3200, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15055, 1300028003, 'MAX HP Up 10%', 0, 750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15056, 1300028007, 'MAX HP Up 10%', 0, 1650, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15057, 1300028030, 'MAX HP Up 10%', 0, 3300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15059, 1300029007, 'Invincible +1 Sec.', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15060, 1300029030, 'Invincible +1 Sec.', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15061, 1300030003, 'Bullet Proof Vest 5%', 0, 450, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15062, 1300030007, 'Bullet Proof Vest 5%', 0, 900, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15063, 1300030030, 'Bullet Proof Vest 5%', 0, 3600, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15064, 1300031003, 'Damage Up, Accuracy Down', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15065, 1300031007, 'Damage Up, Accuracy Down', 0, 890, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15067, 1300032003, 'Hollow Point Ammo', 0, 980, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15075, 1300034030, 'C4 Speed Up', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15076, 1300035003, 'Increase Grenade Slot +1', 0, 800, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15077, 1300035007, 'Increase Grenade Slot +1', 0, 1750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15078, 1300035030, 'Increase Grenade Slot +1', 0, 2650, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15079, 1300036003, 'Jacketed Hollow Point Ammo', 0, 825, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15080, 1300036007, 'Jacketed Hollow Point Ammo', 0, 1750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15081, 1300036030, 'Jacketed Hollow Point Ammo', 0, 3100, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15082, 1300037003, '200% EXP Up', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15083, 1300037007, '200% EXP Up', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15084, 1300037030, '200% EXP Up', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15086, 1300038007, '200% Point Up', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15087, 1300038030, '200% Point Up', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15088, 1300040003, 'Mega HP 5%', 0, 650, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15089, 1300040007, 'Mega HP 5%', 0, 1350, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15090, 1300040030, 'Mega HP 5%', 0, 3210, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15091, 1300044003, 'Bullet Proof Vest Plus 10%', 0, 900, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15092, 1300044007, 'Bullet Proof Vest Plus 10%', 0, 1600, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15093, 1300044030, 'Bullet Proof Vest Plus 10%', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15094, 1300064003, 'Quick Respawn 50%', 0, 650, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15095, 1300064007, 'Quick Respawn 50%', 0, 1350, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15096, 1300064030, 'Quick Respawn 50%', 0, 3210, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15098, 1300065007, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15099, 1300065030, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15100, 1300077003, 'Quick Respawn 20%', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15101, 1300077007, 'Quick Respawn 20%', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15102, 1300077030, 'Quick Respawn 20%', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15103, 1300078003, 'Hollow Point Ammo Plus', 0, 890, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15104, 1300078007, 'Hollow Point Ammo Plus', 0, 1850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15105, 1300078030, 'Hollow Point Ammo Plus', 0, 3500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15107, 1300079007, 'Metal Bullet Proof Vest 20%', 0, 1699, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15108, 1300079030, 'Metal Bullet Proof Vest 20%', 0, 3199, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15109, 1300080001, 'Quick Respawn 100%', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15110, 1300080007, 'Quick Respawn 100%', 0, 700, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15111, 1300080030, 'Quick Respawn 100%', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15112, 1300119003, '150% Point Up', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15113, 1300119007, '150% Point Up', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15114, 1300119030, '150% Point Up', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15115, 1300168003, 'Get Dropped Weapon', 0, 600, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15116, 1300168007, 'Get Dropped Weapon', 0, 1400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15117, 1300168030, 'Get Dropped Weapon', 0, 6000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15118, 1300170003, 'Full Metal jacket Ammo EV', 0, 600, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15119, 1300170007, 'Full Metal Jacket Ammo EV', 0, 1400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15120, 1300170030, 'Full Metal Jacket Ammo EV', 0, 6000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15121, 1300185003, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15122, 1300185007, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15019, 1300002003, '130% EXP UP', 0, 500, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15071, 1300033007, 'FlashBang Protection', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15073, 1300034003, 'C4 Speed Up', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15074, 1300034007, 'C4 Speed Up', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15123, 1300185030, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15124, 1300242003, 'Increase Smoke Slot +1', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15125, 1300242007, 'Increase Smoke Slot +1', 0, 850, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15126, 1300242030, 'Increase Smoke Slot +1', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15128, 1301015000, 'Darkblow Login Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15129, 1301039000, 'Giga Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15130, 1301041000, 'Defcon 1 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15131, 1301042000, 'Defcon 2 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15132, 1301043000, 'Defcon 3 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15133, 1301045000, 'Random Box of Weapons 2', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15135, 1301046000, 'Mini Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15136, 1301047000, 'Change nickname', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15137, 1301048000, 'Reset Win / Losers', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15138, 1301049000, 'Reset Kill / Death', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15139, 1301050000, 'Reset Kabur', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15140, 1301051000, 'Change clan name', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15141, 1301052000, 'Change clan badge', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15142, 1301053000, 'Reset Clan Win / Losers', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15143, 1301055000, 'Clan Member +50', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15144, 1301057000, 'Camo Soldier Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15145, 1301058000, 'Mega Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15146, 1301059000, 'Weapon Crate', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15147, 1301060000, 'Survival Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15148, 1301061000, 'Mega Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15149, 1301068000, 'Giga Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15151, 1301087000, 'Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15152, 1301090000, 'Dual Uzi Supply Kit 1d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15153, 1301097000, 'Famas G2 Supply Kit 1d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15160, 1301108000, 'Random Box of Cheguevara', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15161, 1301108000, 'Che Guevara Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15168, 1301120000, 'Random Box Gold Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15019, 1300002003, '130% EXP UP', 0, 500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15023, 1300003007, '150% EXP UP', 0, 1500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15032, 1300007007, 'Quick Respawn 30%', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15033, 1300007030, 'Quick Respawn 30%', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15034, 1300008003, 'Ammo Up', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15035, 1300008007, 'Ammo Up', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15036, 1300008030, 'Ammo Up', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15037, 1300009003, 'Fake Rank', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15038, 1300009007, 'Fake Rank', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15041, 1300010007, 'Temporary Nickname 7D', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15042, 1300010030, 'Temporary Nickname 30D', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15043, 1300011003, 'Free Move (Duration)', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15044, 1300011007, 'Free Move (Duration)', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15045, 1300011030, 'Free Move (Duration)', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15046, 1300014003, 'Color Change Crosshair', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15047, 1300014007, 'Color Change Crosshair', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15048, 1300014030, 'Color Change Crosshair', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15049, 1300026003, 'Quick Change Weapon', 0, 750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15050, 1300026007, 'Quick Change Weapon', 0, 1800, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15051, 1300026030, 'Quick Change Weapon', 0, 2875, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15052, 1300027003, 'Quick Change Reload', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15053, 1300027007, 'Quick Change Reload', 0, 1990, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15054, 1300027030, 'Quick Change Reload', 0, 3200, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15055, 1300028003, 'MAX HP Up 10%', 0, 750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15056, 1300028007, 'MAX HP Up 10%', 0, 1650, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15057, 1300028030, 'MAX HP Up 10%', 0, 3300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15059, 1300029007, 'Invincible +1 Sec.', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15060, 1300029030, 'Invincible +1 Sec.', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15061, 1300030003, 'Bullet Proof Vest 5%', 0, 450, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15062, 1300030007, 'Bullet Proof Vest 5%', 0, 900, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15063, 1300030030, 'Bullet Proof Vest 5%', 0, 3600, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15064, 1300031003, 'Damage Up, Accuracy Down', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15065, 1300031007, 'Damage Up, Accuracy Down', 0, 890, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15067, 1300032003, 'Hollow Point Ammo', 0, 980, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15075, 1300034030, 'C4 Speed Up', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15076, 1300035003, 'Increase Grenade Slot +1', 0, 800, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15077, 1300035007, 'Increase Grenade Slot +1', 0, 1750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15078, 1300035030, 'Increase Grenade Slot +1', 0, 2650, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15079, 1300036003, 'Jacketed Hollow Point Ammo', 0, 825, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15080, 1300036007, 'Jacketed Hollow Point Ammo', 0, 1750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15081, 1300036030, 'Jacketed Hollow Point Ammo', 0, 3100, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15082, 1300037003, '200% EXP Up', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15083, 1300037007, '200% EXP Up', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15084, 1300037030, '200% EXP Up', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15086, 1300038007, '200% Point Up', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15087, 1300038030, '200% Point Up', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15088, 1300040003, 'Mega HP 5%', 0, 650, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15089, 1300040007, 'Mega HP 5%', 0, 1350, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15090, 1300040030, 'Mega HP 5%', 0, 3210, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15091, 1300044003, 'Bullet Proof Vest Plus 10%', 0, 900, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15092, 1300044007, 'Bullet Proof Vest Plus 10%', 0, 1600, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15093, 1300044030, 'Bullet Proof Vest Plus 10%', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15094, 1300064003, 'Quick Respawn 50%', 0, 650, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15095, 1300064007, 'Quick Respawn 50%', 0, 1350, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15096, 1300064030, 'Quick Respawn 50%', 0, 3210, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15098, 1300065007, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15099, 1300065030, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15100, 1300077003, 'Quick Respawn 20%', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15101, 1300077007, 'Quick Respawn 20%', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15102, 1300077030, 'Quick Respawn 20%', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15103, 1300078003, 'Hollow Point Ammo Plus', 0, 890, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15104, 1300078007, 'Hollow Point Ammo Plus', 0, 1850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15105, 1300078030, 'Hollow Point Ammo Plus', 0, 3500, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15107, 1300079007, 'Metal Bullet Proof Vest 20%', 0, 1699, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15108, 1300079030, 'Metal Bullet Proof Vest 20%', 0, 3199, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15109, 1300080001, 'Quick Respawn 100%', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15110, 1300080007, 'Quick Respawn 100%', 0, 700, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15111, 1300080030, 'Quick Respawn 100%', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15112, 1300119003, '150% Point Up', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15113, 1300119007, '150% Point Up', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15114, 1300119030, '150% Point Up', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15115, 1300168003, 'Get Dropped Weapon', 0, 600, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15116, 1300168007, 'Get Dropped Weapon', 0, 1400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15117, 1300168030, 'Get Dropped Weapon', 0, 6000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15118, 1300170003, 'Full Metal jacket Ammo EV', 0, 600, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15119, 1300170007, 'Full Metal Jacket Ammo EV', 0, 1400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15120, 1300170030, 'Full Metal Jacket Ammo EV', 0, 6000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15121, 1300185003, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15122, 1300185007, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15070, 1300033003, 'FlashBang Protection', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15071, 1300033007, 'FlashBang Protection', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15073, 1300034003, 'C4 Speed Up', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15074, 1300034007, 'C4 Speed Up', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15123, 1300185030, 'Ammo Up Cyberindo + 10%', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15124, 1300242003, 'Increase Smoke Slot +1', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15125, 1300242007, 'Increase Smoke Slot +1', 0, 850, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15126, 1300242030, 'Increase Smoke Slot +1', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15128, 1301015000, 'Darkblow Login Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15129, 1301039000, 'Giga Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15130, 1301041000, 'Defcon 1 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15131, 1301042000, 'Defcon 2 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15132, 1301043000, 'Defcon 3 Pack', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15133, 1301045000, 'Random Box of Weapons 2', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15135, 1301046000, 'Mini Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15136, 1301047000, 'Change nickname', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15137, 1301048000, 'Reset Win / Losers', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15138, 1301049000, 'Reset Kill / Death', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15139, 1301050000, 'Reset Kabur', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15140, 1301051000, 'Change clan name', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15141, 1301052000, 'Change clan badge', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15142, 1301053000, 'Reset Clan Win / Losers', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15143, 1301055000, 'Clan Member +50', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15144, 1301057000, 'Camo Soldier Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15145, 1301058000, 'Mega Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15146, 1301059000, 'Weapon Crate', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15147, 1301060000, 'Survival Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15148, 1301061000, 'Mega Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15149, 1301068000, 'Giga Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15151, 1301087000, 'Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15152, 1301090000, 'Dual Uzi Supply Kit 1d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15153, 1301097000, 'Famas G2 Supply Kit 1d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15160, 1301108000, 'Random Box of Cheguevara', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15161, 1301108000, 'Che Guevara Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15162, 1301114000, '500 Points', 1, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15163, 1301115000, '1000 Points', 1, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15164, 1301116000, '5000 Points', 1, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15165, 1301117000, '10000 Points', 1, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15167, 1301118000, '30000 Points', 1, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15169, 1301121000, 'Random Box Gold Bomb Premium', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15170, 1301129000, 'Christmas Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15171, 1301131000, 'Facebook Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15172, 1301143000, 'M18A1 Claymore Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15173, 1301144000, 'Sakura Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15174, 1301145000, 'Premium Sakura Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15175, 1301146000, 'Sakura Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15176, 1301147000, 'Serpent Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15178, 1301151000, 'Premium PC Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15179, 1301152000, 'Random Box Beast', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15181, 1301154000, 'Random Box Serpent', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15182, 1301155000, 'Loyal Troppers Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15183, 1301156000, 'PBGC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15184, 1301157000, 'Premium PBGC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15185, 1301172000, 'Darkblow Wekeend Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15186, 1301176000, 'E-Sports 2 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15187, 1301177000, 'Medic Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15188, 1301179000, 'Skeleton Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15189, 1301180000, 'Random Box Sniper 7D', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15191, 1301191000, 'Darkblow Starter Package', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15193, 1301202000, 'Random Box Silence', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15197, 1301207000, 'Darkblow Mech Series Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15199, 1301211000, 'Random Box Mummy', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15200, 1301212000, 'Random Box Dragon', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15201, 1301215000, 'PBWC 2016 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15202, 1301216000, 'Mummy Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15203, 1301217000, 'Dragon Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15204, 1301220000, 'Dual Kunai Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15205, 1301221000, 'PBWC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15207, 1301224000, 'AUG A3 Bolivia Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15208, 1301225000, 'AUG A3 Chile Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15209, 1301226000, 'AUG A3 Colombia Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15211, 1301228000, 'AUG A3 Mexico Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15212, 1301229000, 'AUG A3 Peru Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15214, 1301240000, 'Random Box Cupid', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15215, 1301241000, 'Random Box Demonic', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15216, 1301243000, 'Wayang Supply Kit A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15217, 1301244000, 'Wayang Supply Kit B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15218, 1301245000, 'AUG A3 Silincer Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15219, 1301246000, 'Medical Kit Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15220, 1301247000, 'Explosive Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15070, 1300033003, 'FlashBang Protection', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15235, 1301269000, 'Ballistic Knife Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15157, 1301102000, 'Famas G2 Supply Kit 3d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15158, 1301103000, 'Famas G2 Supply Kit 7d', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15159, 1301104000, 'Famas G2 Supply Kit 30d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15180, 1301153000, 'Random Box Sakura', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15198, 1301210000, 'Random Box PBWC', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15222, 1301249000, 'SuperHeadgear Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15223, 1301250000, 'Premium AUG Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15224, 1301250000, 'Premium Aug Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15225, 1301251000, 'Turkey Weapon Package', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15226, 1301253000, 'Darkblow Summer Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15227, 1301254000, 'Darkblow Tiger Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15228, 1301258000, 'Darkblow Premium Tiger Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15229, 1301260000, 'Character Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15230, 1301261000, 'Silencer Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15231, 1301262000, 'P90 Ext. Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15232, 1301263000, 'Kriss S.V Red Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15234, 1301265000, 'Premium Item Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15236, 1301273000, 'Darkblow Starter Package 2', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15237, 1301279000, 'Cerberus Shotgun Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15240, 1301282000, 'Quick Change Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15244, 1301291000, 'Blue Diamond Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15245, 1301297000, 'Darkblow New Year 2020 Package V1', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15247, 1301299000, 'Random Box Blue Diamond', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15248, 1301300000, 'Random Box Dolphin', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15249, 1301305000, 'Random Box GSL2016', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15250, 1301306000, 'Random Box Newborn2016', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15251, 1301307000, 'Metal Bullet Proof Vest Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15252, 1301308000, 'Hollow Point Ammo Plus Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15253, 1301309000, 'Premium Demonic Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15254, 1301310000, 'Indonesian Weapon Package', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15255, 1301311000, 'C4 Speed Kit Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15257, 1301313000, 'Kemerdekaan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15258, 1301318000, 'Woody Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15259, 1301322000, 'PBIC Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15260, 1301323000, 'Premium PBIC Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15261, 1301324000, 'Premium Knife Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15262, 1301325000, 'PBST 2017 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15263, 1301326000, 'Random Box DarkSteel', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15264, 1301331000, 'Dark Steel Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15265, 1301332000, 'Supreme Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15267, 1301334000, 'PBIC 2016 Supply Kit (Premium)', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15268, 1301335000, 'Random Box Supreme', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15269, 1301336000, 'Random Box Special PBIC', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15270, 1301502000, 'Peti Harta Gatotkaca', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15271, 1301506000, 'DSR-1 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15272, 1301507000, 'Random Box Unique Mask', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15273, 1301508000, 'Dual K-413 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15274, 1301517000, 'PBNC4 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15275, 1301519000, 'Garena Premium Gacha A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15276, 1301520000, 'Garena Premium Gacha B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15277, 1301521000, 'Ramadhan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15278, 1301527000, 'Random Box Points', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15279, 1301528000, 'Crimson Random Box A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15280, 1301529000, 'Crimson Random Box B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15281, 1301532000, 'Cross Over Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15282, 1301545000, 'World Cup 2014 Random Box A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15283, 1301546000, 'World Cup 2014 Random Box B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15284, 1301547000, 'World Cup 2014 Random Box C', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15286, 1301549000, 'PBNC5 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15168, 1301120000, 'Random Box Gold Bomb', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15169, 1301121000, 'Random Box Gold Bomb Premium', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15170, 1301129000, 'Christmas Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15171, 1301131000, 'Facebook Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15172, 1301143000, 'M18A1 Claymore Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15173, 1301144000, 'Sakura Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15174, 1301145000, 'Premium Sakura Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15175, 1301146000, 'Sakura Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15176, 1301147000, 'Serpent Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15178, 1301151000, 'Premium PC Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15179, 1301152000, 'Random Box Beast', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15181, 1301154000, 'Random Box Serpent', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15182, 1301155000, 'Loyal Troppers Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15183, 1301156000, 'PBGC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15184, 1301157000, 'Premium PBGC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15185, 1301172000, 'Darkblow Wekeend Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15186, 1301176000, 'E-Sports 2 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15187, 1301177000, 'Medic Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15188, 1301179000, 'Skeleton Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15189, 1301180000, 'Random Box Sniper 7D', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15191, 1301191000, 'Darkblow Starter Package', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15193, 1301202000, 'Random Box Silence', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15197, 1301207000, 'Darkblow Mech Series Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15199, 1301211000, 'Random Box Mummy', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15200, 1301212000, 'Random Box Dragon', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15201, 1301215000, 'PBWC 2016 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15202, 1301216000, 'Mummy Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15203, 1301217000, 'Dragon Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15204, 1301220000, 'Dual Kunai Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15205, 1301221000, 'PBWC 2016 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15207, 1301224000, 'AUG A3 Bolivia Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15208, 1301225000, 'AUG A3 Chile Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15209, 1301226000, 'AUG A3 Colombia Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15211, 1301228000, 'AUG A3 Mexico Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15212, 1301229000, 'AUG A3 Peru Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15214, 1301240000, 'Random Box Cupid', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15215, 1301241000, 'Random Box Demonic', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15216, 1301243000, 'Wayang Supply Kit A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15217, 1301244000, 'Wayang Supply Kit B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15218, 1301245000, 'AUG A3 Silincer Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15219, 1301246000, 'Medical Kit Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15220, 1301247000, 'Explosive Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15234, 1301265000, 'Premium Item Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15156, 1301100000, 'Dual Uzi Supply Kit 30d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15157, 1301102000, 'Famas G2 Supply Kit 3d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15158, 1301103000, 'Famas G2 Supply Kit 7d', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15159, 1301104000, 'Famas G2 Supply Kit 30d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15180, 1301153000, 'Random Box Sakura', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15198, 1301210000, 'Random Box PBWC', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15222, 1301249000, 'SuperHeadgear Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15223, 1301250000, 'Premium AUG Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15224, 1301250000, 'Premium Aug Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15225, 1301251000, 'Turkey Weapon Package', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15226, 1301253000, 'Darkblow Summer Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15227, 1301254000, 'Darkblow Tiger Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15228, 1301258000, 'Darkblow Premium Tiger Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15229, 1301260000, 'Character Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15230, 1301261000, 'Silencer Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15231, 1301262000, 'P90 Ext. Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15232, 1301263000, 'Kriss S.V Red Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15235, 1301269000, 'Ballistic Knife Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15236, 1301273000, 'Darkblow Starter Package 2', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15237, 1301279000, 'Cerberus Shotgun Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15240, 1301282000, 'Quick Change Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15244, 1301291000, 'Blue Diamond Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15245, 1301297000, 'Darkblow New Year 2020 Package V1', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15247, 1301299000, 'Random Box Blue Diamond', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15248, 1301300000, 'Random Box Dolphin', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15249, 1301305000, 'Random Box GSL2016', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15250, 1301306000, 'Random Box Newborn2016', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15251, 1301307000, 'Metal Bullet Proof Vest Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15252, 1301308000, 'Hollow Point Ammo Plus Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15253, 1301309000, 'Premium Demonic Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15254, 1301310000, 'Indonesian Weapon Package', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15255, 1301311000, 'C4 Speed Kit Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15257, 1301313000, 'Kemerdekaan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15258, 1301318000, 'Woody Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15259, 1301322000, 'PBIC Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15260, 1301323000, 'Premium PBIC Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15261, 1301324000, 'Premium Knife Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15262, 1301325000, 'PBST 2017 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15263, 1301326000, 'Random Box DarkSteel', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15264, 1301331000, 'Dark Steel Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15265, 1301332000, 'Supreme Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15267, 1301334000, 'PBIC 2016 Supply Kit (Premium)', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15268, 1301335000, 'Random Box Supreme', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15269, 1301336000, 'Random Box Special PBIC', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15270, 1301502000, 'Peti Harta Gatotkaca', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15271, 1301506000, 'DSR-1 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15272, 1301507000, 'Random Box Unique Mask', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15273, 1301508000, 'Dual K-413 Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15274, 1301517000, 'PBNC4 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15275, 1301519000, 'Garena Premium Gacha A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15276, 1301520000, 'Garena Premium Gacha B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15277, 1301521000, 'Ramadhan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15278, 1301527000, 'Random Box Points', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15279, 1301528000, 'Crimson Random Box A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15280, 1301529000, 'Crimson Random Box B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15281, 1301532000, 'Cross Over Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15282, 1301545000, 'World Cup 2014 Random Box A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15283, 1301546000, 'World Cup 2014 Random Box B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15284, 1301547000, 'World Cup 2014 Random Box C', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15286, 1301549000, 'PBNC5 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15288, 1301562000, 'World Cup 2014 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15289, 1301564000, 'Flaming Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15290, 1301575000, 'PBIC 2014 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15291, 1301584000, 'M1887 Lion Heart Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15292, 1301587000, 'Winter X Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15293, 1301588000, 'New Year Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15294, 1301589000, 'New Year 2015 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15296, 1301602000, 'C.S Apologize Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15297, 1301605000, 'Sorry Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15298, 1301606000, 'Thanks Random Box 1', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15299, 1301607000, 'Thanks Random Box 2', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15300, 1301608000, 'New Year AUG A3 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15301, 1301615000, 'Goat Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15302, 1301616000, 'Premium CNY Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15304, 1301618000, 'Point Bomb Special', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15306, 1301619000, 'Random Box Mix PBIC', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15310, 1301647000, 'Random Box AK Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15287, 1301554000, 'Brazuca Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15156, 1301100000, 'Dual Uzi Supply Kit 30d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15289, 1301564000, 'Flaming Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15290, 1301575000, 'PBIC 2014 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15291, 1301584000, 'M1887 Lion Heart Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15292, 1301587000, 'Winter X Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15293, 1301588000, 'New Year Gift Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15294, 1301589000, 'New Year 2015 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15296, 1301602000, 'C.S Apologize Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15297, 1301605000, 'Sorry Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15298, 1301606000, 'Thanks Random Box 1', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15299, 1301607000, 'Thanks Random Box 2', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15300, 1301608000, 'New Year AUG A3 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15301, 1301615000, 'Goat Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15302, 1301616000, 'Premium CNY Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15304, 1301618000, 'Point Bomb Special', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15306, 1301619000, 'Random Box Mix PBIC', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15310, 1301647000, 'Random Box AK Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15288, 1301562000, 'World Cup 2014 Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10126, 100003091, 'Famas G2 Commando PBTN', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10153, 100003100, 'Famas G2 GRS', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10173, 100003112, 'AUG A3 Turkey', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
@@ -6313,29 +6434,30 @@ INSERT INTO "public"."shop" VALUES (10397, 100003214, 'AUG A3 PBNC2015', 0, 3650
 INSERT INTO "public"."shop" VALUES (10419, 100003222, 'AUG A3 VeraCruz', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10440, 100003231, 'AUG A3 Steam', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10453, 100003235, 'AUG A3 Obsidian', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15241, 1301283000, 'Darkblow Ultimate Package', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15242, 1301289000, 'Alien Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15243, 1301290000, 'Dolphin Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15246, 1301298000, 'Random Box Alien', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15303, 1301617000, 'Point Bomb Mini', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15305, 1301619000, 'Mix PBIC Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15307, 1301620000, 'AUG A3 Lucky Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15308, 1301621000, 'KID Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15309, 1301646000, 'Random Box Elite Pro', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15312, 1301649000, 'Random Box G36C Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15313, 1301650000, 'Random Box M4A1 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15314, 1301651000, 'Random Box PSG1 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15315, 1301652000, 'Random Box SPAS-15 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15316, 1301653000, 'Random Box SVU Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15317, 1301654000, 'Random Box VSK94 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15318, 1301663000, 'Random Box Every Day', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15319, 1301664000, 'Random Box Everyday Login Plus', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15320, 1301794000, 'Random Box PBIC2015', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15327, 1302014000, 'Random Box Woody A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15328, 1302016000, 'Random Box Woody B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15329, 1302017000, 'Random Box Halloween 2016', 0, 33, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15330, 1302122000, 'Premium Cheytac Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15331, 1302266000, 'OA-7 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15239, 1301281000, 'Premium Dolphin Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15241, 1301283000, 'Darkblow Ultimate Package', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15242, 1301289000, 'Alien Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15243, 1301290000, 'Dolphin Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15246, 1301298000, 'Random Box Alien', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15303, 1301617000, 'Point Bomb Mini', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15305, 1301619000, 'Mix PBIC Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15307, 1301620000, 'AUG A3 Lucky Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15308, 1301621000, 'KID Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15309, 1301646000, 'Random Box Elite Pro', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15312, 1301649000, 'Random Box G36C Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15313, 1301650000, 'Random Box M4A1 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15314, 1301651000, 'Random Box PSG1 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15315, 1301652000, 'Random Box SPAS-15 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15316, 1301653000, 'Random Box SVU Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15317, 1301654000, 'Random Box VSK94 Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15318, 1301663000, 'Random Box Every Day', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15319, 1301664000, 'Random Box Everyday Login Plus', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15320, 1301794000, 'Random Box PBIC2015', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15327, 1302014000, 'Random Box Woody A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15328, 1302016000, 'Random Box Woody B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15329, 1302017000, 'Random Box Halloween 2016', 0, 33, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15330, 1302122000, 'Premium Cheytac Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15331, 1302266000, 'OA-7 Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15333, 1500000001, 'Point 1,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15335, 1500000003, 'Point 3,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15336, 1500000004, 'Point 4,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
@@ -6374,7 +6496,6 @@ INSERT INTO "public"."shop" VALUES (15371, 1500002003, 'Point 3,200 [NOT VISIBLE
 INSERT INTO "public"."shop" VALUES (15372, 1501000000, 'Point 1,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15373, 1503000000, 'Point 3,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15374, 1508000000, 'Point 8,000,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15239, 1301281000, 'Premium Dolphin Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10074, 100003045, 'M4 SR-16 F.C.', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10094, 100003057, 'Vz. 52', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10276, 100003170, 'SCAR-L Carbine Gold', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
@@ -6409,7 +6530,6 @@ INSERT INTO "public"."shop" VALUES (10627, 100003298, 'AUG A3 PBST2016', 0, 3650
 INSERT INTO "public"."shop" VALUES (10695, 100003324, 'AUG A3 Beyond', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10718, 100003332, 'Famas G2 Commando Talos', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10727, 100003336, 'AUG A3 Samurai', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15322, 1301852000, 'Random Box Character A', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (10751, 100003345, 'AUG A3 Comic', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10822, 100003368, 'AUG A3 Phantom', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10845, 100003376, 'Pindad SS2 V5 Kemerdekaan', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
@@ -6452,10 +6572,11 @@ INSERT INTO "public"."shop" VALUES (12040, 300005029, 'VSK94', 26000, 0, 100, 1,
 INSERT INTO "public"."shop" VALUES (12061, 300005050, 'L115A1 PBTN', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12082, 300005058, 'CheyTac M200 GRS EV', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12105, 300005075, 'PSG1 Elite', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15323, 1301853000, 'Random Box Character B', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15324, 1301854000, 'Random Box Camo Soldier', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15325, 1301895000, 'Random Box Monkey', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15326, 1301901000, 'Random Box Horror', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15322, 1301852000, 'Random Box Character A', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15323, 1301853000, 'Random Box Character B', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15324, 1301854000, 'Random Box Camo Soldier', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15325, 1301895000, 'Random Box Monkey', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15326, 1301901000, 'Random Box Horror', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10804, 100003362, 'AUG A3 Brazuca2', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (12888, 400006028, 'M1887W GRS EV', 0, 1499, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12896, 400006030, 'M1887 Bloody', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
@@ -6570,14 +6691,14 @@ INSERT INTO "public"."shop" VALUES (14301, 803007065, 'K-413 Russian Deluxe', 0,
 INSERT INTO "public"."shop" VALUES (14326, 803007075, 'Volley Ball Grenade', 0, 450, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14353, 904007012, 'WP Smoke Plus', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14374, 904007031, 'Easter Day Medical Kit', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (14422, 1001001028, 'Viper Red', 0, 1, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14459, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14475, 1001001356, 'Viper Red Summer Vacation', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14503, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14531, 1001002062, 'Infected Acid Paul', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14545, 1001002144, 'Chou FBI [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14555, 1001002278, 'Captain Chou', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15039, 1300009030, 'Fake Rank', 0, 3000, 1, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (14399, 1001001007, 'D-Fox (+20% EXP)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14422, 1001001028, 'Viper Red', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14459, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14475, 1001001356, 'Viper Red Summer Vacation', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14503, 1001002016, 'Reinforced Combo Leopard (+20% EXP) [R]', 0, 3000, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14531, 1001002062, 'Infected Acid Paul', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14545, 1001002144, 'Chou FBI [R]', 0, 990, 259200, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14555, 1001002278, 'Captain Chou', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14605, 1103003004, 'SMG Beret', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14627, 1103003011, 'PB Black Beret', 0, 2450, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14630, 1103003012, 'Turkish Beret', 0, 2450, 2592000, 2, 1, 2, 0, 0, 2);
@@ -6601,24 +6722,24 @@ INSERT INTO "public"."shop" VALUES (14959, 1105003014, 'Cowboy Hat (GM)', 0, 790
 INSERT INTO "public"."shop" VALUES (14981, 1105003032, 'Fes Hat Milkyway', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14987, 1200007000, 'Quick Respawn 30% [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15010, 1200065000, 'Quick Respawn 20% [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15058, 1300029003, 'Invincible +1 Sec.', 0, 300, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15068, 1300032007, 'Hollow Point Ammo', 0, 1875, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15085, 1300038003, '200% Point Up', 0, 400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15106, 1300079001, 'Metal Bullet Proof Vest 20%', 0, 999, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15377, 1301000000, 'Angpao', 0, 0, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15134, 1301045000, 'Weapon Crate 2', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15190, 1301180000, 'Sniper Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15039, 1300009030, 'Fake Rank', 0, 3000, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15058, 1300029003, 'Invincible +1 Sec.', 0, 300, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15068, 1300032007, 'Hollow Point Ammo', 0, 1875, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15085, 1300038003, '200% Point Up', 0, 400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15106, 1300079001, 'Metal Bullet Proof Vest 20%', 0, 999, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15127, 1301013000, 'Darkblow Package Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15134, 1301045000, 'Weapon Crate 2', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15166, 1301118000, '30.000 Points', 0, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15213, 1301230000, 'AUG A3 Venezuela Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15238, 1301280000, 'Dolphin Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15256, 1301312000, 'Premium Kemerdekaan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15285, 1301548000, 'World Cup 2014 Random Box D', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15311, 1301648000, 'Random Box Dragunov Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15321, 1301850000, 'X-MAS Mission Box', 0, 1, 1, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15190, 1301180000, 'Sniper Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15213, 1301230000, 'AUG A3 Venezuela Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15238, 1301280000, 'Dolphin Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15256, 1301312000, 'Premium Kemerdekaan Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15285, 1301548000, 'World Cup 2014 Random Box D', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15311, 1301648000, 'Random Box Dragunov Elite', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15321, 1301850000, 'X-MAS Mission Box', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15359, 1500000035, 'Point 35,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15127, 1301013000, 'Darkblow Package Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15376, 1301001000, 'Dual Kunai Gacha TH', 0, 0, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14399, 1001001007, 'D-Fox (+20% EXP)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15376, 1301001000, 'Dual Kunai Gacha TH', 0, 0, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15377, 1301000000, 'Angpao', 0, 0, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (13244, 400006155, 'M1887 Latin Championship 2', 0, 3200, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (13341, 601002050, 'R.B 454 SS8M NonLogo PBSC2013', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11294, 200004187, 'P90 Ext Ongame', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
@@ -6692,14 +6813,14 @@ INSERT INTO "public"."shop" VALUES (13946, 702001178, 'Fang Blade Renegade', 0, 
 INSERT INTO "public"."shop" VALUES (14029, 702001212, 'Fang Blade Fire Dragon', 0, 1, 259200, 2, 1, 1, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14134, 702015017, 'Dual Bone Knife PBGC 2017', 0, 1000, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14284, 803007057, 'Mummy Grenade', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (14573, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15378, 1301066000, 'Point Gachapon I', 0, 0, 1, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (14411, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 980, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14573, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14895, 1104003226, 'Mask Songkran2016', 0, 790, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15155, 1301099000, 'Dual Uzi Supply Kit 7d', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15192, 1301195000, 'Medical Kit Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15194, 1301203000, 'Random Box E-Sport2', 0, 3000, 3, 1, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15154, 1301098000, 'Dual Uzi Supply Kit 3d Error', 0, 1, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14411, 1001001017, 'Reinforced Combo Viper Red (+30% Points)', 0, 980, 259200, 2, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15154, 1301098000, 'Dual Uzi Supply Kit 3d Error', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15155, 1301099000, 'Dual Uzi Supply Kit 7d', 0, 1, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15192, 1301195000, 'Medical Kit Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15194, 1301203000, 'Random Box E-Sport2', 0, 3000, 3, 1, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15378, 1301066000, 'Point Gachapon I', 0, 0, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10022, 100003022, 'M4A1 Wh.', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10025, 100003023, 'M4A1 Gold', 0, 2100, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (10044, 100003034, 'G36C SI. +20% [EXP+]', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
@@ -6779,10 +6900,10 @@ INSERT INTO "public"."shop" VALUES (14303, 803007066, 'Soccer Ball Bomb', 0, 450
 INSERT INTO "public"."shop" VALUES (14936, 1105003006, 'Fes Hat', 0, 1230, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14937, 1105003006, 'Fes Hat', 0, 2340, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14938, 1105003006, 'Fes Hat', 0, 790, 259200, 2, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15196, 1301205000, 'Character Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15206, 1301223000, 'AUG A3 Argentina Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
+INSERT INTO "public"."shop" VALUES (15195, 1301204000, 'Platinum Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15196, 1301205000, 'Character Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15206, 1301223000, 'AUG A3 Argentina Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15367, 1500000200, 'Point 200,000  [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
-INSERT INTO "public"."shop" VALUES (15195, 1301204000, 'Platinum Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (12047, 300005032, 'Barrett M82A1', 0, 1399, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12560, 300005232, 'Barrett M82A1 Premium', 0, 3699, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12562, 300005232, 'Barrett M82A1 Premium', 0, 890, 259200, 2, 1, 2, 0, 0, 2);
@@ -6883,8 +7004,8 @@ INSERT INTO "public"."shop" VALUES (12115, 300005079, 'Cheytac M200 Inferno', 0,
 INSERT INTO "public"."shop" VALUES (13378, 601002069, 'Kriss Vector SDP DarkDays', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (13379, 601002069, 'Kriss Vector SDP DarkDays', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (13491, 601002110, 'Kriss Vector SDP Mech Hero', 0, 650, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15221, 1301248000, 'Kriss S.V Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (11047, 100003475, 'SC-2010 Brazuca3', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15221, 1301248000, 'Kriss S.V Lucky Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (12130, 300005085, 'Cheytac M200 W.O.E', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12134, 300005086, 'Dragunov W.O.E', 0, 1, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12163, 300005096, 'Cheytac M200 LATIN4', 0, 1, 604800, 2, 1, 2, 0, 0, 2);
@@ -6978,6 +7099,16 @@ INSERT INTO "public"."shop" VALUES (14330, 803007076, 'C-5 PBIC 2017', 0, 890, 6
 INSERT INTO "public"."shop" VALUES (14354, 904007012, 'WP Smoke Plus', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14373, 904007031, 'Easter Day Medical Kit', 0, 3650, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14382, 904007046, 'Medical Kit PBNC6', 0, 1350, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14402, 1001001010, 'Viper Red Boost (+30% Points)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14435, 1001001054, 'World Tarantula [R]', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14441, 1001001068, 'Viper Kopassus [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14458, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14468, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14488, 1001001421, 'Bella Rangda', 0, 2250, 604800, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14506, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 30000, 2592000, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14542, 1001002067, 'Hide Strike [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14544, 1001002144, 'Chou FBI [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (14571, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 990, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14600, 1103003002, 'Sniper Beret', 0, 1, 2592000, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14624, 1103003010, 'PBTN Champion Beret', 0, 900, 259200, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14631, 1103003012, 'Turkish Beret', 0, 1780, 604800, 2, 1, 2, 0, 0, 2);
@@ -7002,34 +7133,23 @@ INSERT INTO "public"."shop" VALUES (14957, 1105003013, 'Camo Soldier Boonie Hat'
 INSERT INTO "public"."shop" VALUES (14983, 1200002000, '130% EXP UP [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (14990, 1200010000, 'Temporary Nickname 1D [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15015, 1200168000, 'Get Dropped Weapon [E]', 0, 1, 1, 2, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15040, 1300010003, 'Temporary Nickname 1D', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15066, 1300031030, 'Damage Up, Accuracy Down', 0, 2990, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15069, 1300032030, 'Hollow Point Ammo', 0, 3400, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15072, 1300033030, 'FlashBang Protection', 0, 2750, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15097, 1300065003, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15150, 1301085000, 'PB Inspector', 22000, 0, 100, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15177, 1301148000, 'AUG A3 Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15210, 1301227000, 'AUG A3 Ecuador Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15233, 1301264000, 'Premium Limited Edition Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15266, 1301333000, 'PBIC 2016 Supply Kit (Normal)', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15295, 1301591000, 'Collection Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15332, 1302379000, '2018 Premium Knife Box', 0, 3000, 3, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15334, 1500000002, 'Point 2,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (15357, 1500000030, 'Point 30,000 [NOT VISIBLE]', 0, 1, 1, 1, 1, 2, 0, 0, 2);
+INSERT INTO "public"."shop" VALUES (15379, 1301067000, 'Point Gachapon II', 0, 0, 1, 1, 1, 2, 0, 0, 2);
 INSERT INTO "public"."shop" VALUES (12126, 300005083, 'Cheytac M200 Brazuca', 0, 1, 259200, 2, 1, 2, 0, 0, 0);
 INSERT INTO "public"."shop" VALUES (12830, 300005327, 'Tactilite T2 Brazuca3', 0, 890, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14402, 1001001010, 'Viper Red Boost (+30% Points)', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14435, 1001001054, 'World Tarantula [R]', 0, 1, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14441, 1001001068, 'Viper Kopassus [R]', 0, 4500, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14458, 1001001127, 'Red Bulls Ninja', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14468, 1001001286, 'General Viper Red', 0, 1, 1, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14488, 1001001421, 'Bella Rangda', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14506, 1001002018, 'Reinforced Combo Hide (+30% Gold) [R]', 0, 30000, 2592000, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14542, 1001002067, 'Hide Strike [R]', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14544, 1001002144, 'Chou FBI [R]', 0, 4500, 2592000, 2, 1, 1, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14548, 1001002157, 'Swat-Sniper Keen Eyes', 0, 2250, 604800, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (14571, 1006003044, 'Raptor Mercury Dino (Reinforced Raptor)', 0, 990, 259200, 2, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15040, 1300010003, 'Temporary Nickname 1D', 0, 1, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15066, 1300031030, 'Damage Up, Accuracy Down', 0, 2990, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15069, 1300032030, 'Hollow Point Ammo', 0, 3400, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15072, 1300033030, 'FlashBang Protection', 0, 2750, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15097, 1300065003, 'Bullet Proof Vest Plus (GM) 90%', 0, 999999999, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15379, 1301067000, 'Point Gachapon II', 0, 0, 1, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15150, 1301085000, 'PB Inspector', 22000, 0, 100, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15177, 1301148000, 'AUG A3 Random Box (7D)', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15210, 1301227000, 'AUG A3 Ecuador Supply Kit', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15233, 1301264000, 'Premium Limited Edition Gacha', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15266, 1301333000, 'PBIC 2016 Supply Kit (Normal)', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15295, 1301591000, 'Collection Random Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
-INSERT INTO "public"."shop" VALUES (15332, 1302379000, '2018 Premium Knife Box', 0, 3000, 3, 1, 1, 2, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for shop_set
@@ -7060,33 +7180,6 @@ CREATE TABLE "public"."tournament_rules" (
   "name_exception" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
-
--- ----------------------------
--- Table structure for trade_market
--- ----------------------------
-DROP TABLE IF EXISTS "public"."trade_market";
-CREATE TABLE "public"."trade_market" (
-  "id" int4 NOT NULL DEFAULT nextval('trade_id_seq'::regclass),
-  "item_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "item_name" varchar(255) COLLATE "pg_catalog"."default",
-  "item_category" int4,
-  "item_duration" varchar(255) COLLATE "pg_catalog"."default",
-  "item_price" varchar(255) COLLATE "pg_catalog"."default",
-  "item_owner" varchar(255) COLLATE "pg_catalog"."default",
-  "day" varchar(255) COLLATE "pg_catalog"."default",
-  "month" varchar(255) COLLATE "pg_catalog"."default",
-  "year" varchar(255) COLLATE "pg_catalog"."default",
-  "valid_duration" varchar(255) COLLATE "pg_catalog"."default"
-)
-;
-
--- ----------------------------
--- Records of trade_market
--- ----------------------------
-INSERT INTO "public"."trade_market" VALUES (8, '100003011', 'K-201 Ext.', 1, '7776000', '123', '177', '26', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (9, '100003010', 'M4A1 S.', 1, '7776000', '200', '177', '26', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (10, '100003453', 'AUG A3 Maze', 1, '259200', '500', '177', '27', '10', '1970', '1 Month');
-INSERT INTO "public"."trade_market" VALUES (11, '100003003', 'M4A1 Ext.', 1, '315576000', '2000', '177', '01', '11', '2021', '1 Month');
 
 -- ----------------------------
 -- Table structure for web_api_keys
@@ -7406,7 +7499,7 @@ CREATE TABLE "public"."web_quickslide" (
   "quickslide_title" varchar(255) COLLATE "pg_catalog"."default",
   "quickslide_description" text COLLATE "pg_catalog"."default",
   "quickslide_img" varchar(255) COLLATE "pg_catalog"."default",
-  "quickslide_date" date,
+  "quickslide_date" timestamp(0),
   "quickslide_state" int4
 )
 ;
@@ -7418,6 +7511,7 @@ INSERT INTO "public"."web_quickslide" VALUES (10, 'Welcome To New Troopers', '<p
 
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>
 ', 'playerpanel-background.jpg', NULL, 1);
+INSERT INTO "public"."web_quickslide" VALUES (33, 'test', '<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Donec sollicitudin molestie malesuada.</p><p><br></p><p>Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p><p><br></p><p>Nulla porttitor accumsan tincidunt. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus.</p>', 'a45942c38c71ead49b73242a0658b372.png', '2023-03-22 10:55:55', 1);
 
 -- ----------------------------
 -- Table structure for web_rankinfo
@@ -7569,7 +7663,7 @@ COMMENT ON COLUMN "public"."web_settings"."event_ticket" IS 'Ticket ID';
 -- ----------------------------
 -- Records of web_settings
 -- ----------------------------
-INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '1', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', 'https://www.facebook.com/Ultimate.Defacer/', 'https://www.instagram.com/dev_eyetracker/', 'https://www.youtube.com/channel/UCR-DdWx-H7Mi2bJ8go7zI3Q', '1', '1', '1', '1', '1', '1', '1', '1', '1', NULL, '1', '1', '1', '1', '01c348367804fbce30d3bf017e1af32c', 'iGrfWJWbarrQQfS8J8UdiR5PCjtKUpxKP6ynk0WSLv0T3+iduN9dwrwfLTRvgrHEAiMf/Nvi8gFXvfxblFJBxUQW9oaUpyisojlGTXjB9CY1mtTcDGyMsIKIDYDYc4Yj7JgNhwezNo9ALZevfSBSnbgIoEb4gwNPMrmbU0EK7NU=', NULL, NULL);
+INSERT INTO "public"."web_settings" VALUES (1, '[DEV] EyeTracker', 'Darkblow Studio', 'DarkblowPB', 'DarkblowPB Reborn', '4aa4284c11b916f2cb87b38eb2eca50f.png', 'Darkblow-Logos.ico', 'Welcome To DarkblowPB Reborn 2022', '0', '1', 'https://ptb.discord.com/widget?id=851494738044387368&theme=dark', 'https://www.facebook.com/Ultimate.Defacer/', 'https://www.instagram.com/dev_eyetracker/', 'https://www.youtube.com/channel/UCR-DdWx-H7Mi2bJ8go7zI3Q', '1', '1', '0', '1', '1', '1', '0', '1', '1', NULL, '1', '1', '0', '0', '01c348367804fbce30d3bf017e1af32c', 'iGrfWJWbarrQQfS8J8UdiR5PCjtKUpxKP6ynk0WSLv0T3+iduN9dwrwfLTRvgrHEAiMf/Nvi8gFXvfxblFJBxUQW9oaUpyisojlGTXjB9CY1mtTcDGyMsIKIDYDYc4Yj7JgNhwezNo9ALZevfSBSnbgIoEb4gwNPMrmbU0EK7NU=', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for web_shop
@@ -7608,7 +7702,37 @@ INSERT INTO "public"."web_tokenkey" VALUES (175, 'ErmPb722saVLYKYdJCtAA7YKUfDax5
 INSERT INTO "public"."web_tokenkey" VALUES (176, 'HBc8Z39o9L2RbE8VEd2CvA4Uh9jED9pimZWOpe0ldQS21PPjieP0NvkOforJS2kt', 0);
 INSERT INTO "public"."web_tokenkey" VALUES (177, 'xePdrdhQmLKZbujKR0x0oEes91WhHbtQhzx50PUC6y7S54Jp0tP5NqRKqxjRlMQO', 0);
 INSERT INTO "public"."web_tokenkey" VALUES (178, 'boLXpwchAZvs1dP5je2fmIGB8khJxCNJ2y3ZjBvWP3SYx17omrujaXDC3Cy27Wb6', 0);
-INSERT INTO "public"."web_tokenkey" VALUES (179, 'zJC5qe4AYcD9gVjam6QBY8UltbdUMeYYYcjaIMZdNfycRBjKaYGCS4L5XI1hpic5', 1);
+INSERT INTO "public"."web_tokenkey" VALUES (179, 'zJC5qe4AYcD9gVjam6QBY8UltbdUMeYYYcjaIMZdNfycRBjKaYGCS4L5XI1hpic5', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (181, 'mOquAfRH20oTKhMEmNyvvNLu3I1Qtf9sV54flsdu5XOGck4oufEJdmj6hibzC2Lk', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (182, 'daBEQykRiJDBPyWJMHPvTZoDu4UIFZXaVPPNpZjRaoPrjIxymORBarZqfIKyQL7F', 0);
+INSERT INTO "public"."web_tokenkey" VALUES (183, 'ztfjrgLDQxxT7rLBmV0giQgBmurUyS0A8GB9yMaQeatrPeavAeiOK3Q51qWhpX1x', 1);
+
+-- ----------------------------
+-- Table structure for web_trade_market
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."web_trade_market";
+CREATE TABLE "public"."web_trade_market" (
+  "id" int4 NOT NULL DEFAULT nextval('trade_id_seq'::regclass),
+  "item_id" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "item_name" varchar(255) COLLATE "pg_catalog"."default",
+  "item_category" int4,
+  "item_duration" varchar(255) COLLATE "pg_catalog"."default",
+  "item_price" varchar(255) COLLATE "pg_catalog"."default",
+  "item_owner" varchar(255) COLLATE "pg_catalog"."default",
+  "day" varchar(255) COLLATE "pg_catalog"."default",
+  "month" varchar(255) COLLATE "pg_catalog"."default",
+  "year" varchar(255) COLLATE "pg_catalog"."default",
+  "valid_duration" varchar(255) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of web_trade_market
+-- ----------------------------
+INSERT INTO "public"."web_trade_market" VALUES (8, '100003011', 'K-201 Ext.', 1, '7776000', '123', '177', '26', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (9, '100003010', 'M4A1 S.', 1, '7776000', '200', '177', '26', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (10, '100003453', 'AUG A3 Maze', 1, '259200', '500', '177', '27', '10', '1970', '1 Month');
+INSERT INTO "public"."web_trade_market" VALUES (11, '100003003', 'M4A1 Ext.', 1, '315576000', '2000', '177', '01', '11', '2021', '1 Month');
 
 -- ----------------------------
 -- Table structure for web_webhook
@@ -7628,12 +7752,6 @@ CREATE TABLE "public"."web_webhook" (
   "date_updated" varchar(255) COLLATE "pg_catalog"."default"
 )
 ;
-
--- ----------------------------
--- Records of web_webhook
--- ----------------------------
-INSERT INTO "public"."web_webhook" VALUES (1, 'https://ptb.discord.com/api/webhooks/1037781540320579625/LXp2ngBLeLgAoqogmwxPO7pjJnC4M0lUjxW5wJWhWLXNzeNFjH0Lt2UvXiMliiq-QJC3', 'Register Webhook', '', 'New Account Registered', '', 1, NULL, 1, '2022-11-11 14:09:16', NULL);
-INSERT INTO "public"."web_webhook" VALUES (2, 'https://ptb.discord.com/api/webhooks/1037781622558310451/Iome61feay4XDpbC92jl1WZgtWEy8-C8TEP8_sHzHpZJB_x5X8IANjRVb40tFgtdHNHh', 'Redeem Code Webhook', '', 'Redeem Code', '', 2, NULL, 1, '2022-11-11 14:09:53', '2022-11-11 14:51:58');
 
 -- ----------------------------
 -- Table structure for webshop
@@ -7687,70 +7805,70 @@ INSERT INTO "public"."webshop" VALUES (19, '300005232', 'Barrett M82A1 Premium',
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."account_id_seq"', 8, true);
-SELECT setval('"public"."api_keys_id_seq"', 3, true);
-SELECT setval('"public"."api_keys_limit_id_seq"', 3, true);
-SELECT setval('"public"."api_keys_logs_id_seq"', 6530, true);
-SELECT setval('"public"."auto_ban_seq"', 5, true);
-SELECT setval('"public"."ban_seq"', 5, true);
-SELECT setval('"public"."captcha_id_seq"', 3, true);
-SELECT setval('"public"."channels_id_seq"', 5, false);
-SELECT setval('"public"."check_event_seq"', 5, true);
-SELECT setval('"public"."check_user_attendance_id_seq"', 37, true);
-SELECT setval('"public"."check_user_itemcode_seq"', 58, true);
-SELECT setval('"public"."check_user_voucher_id_seq"', 12, true);
-SELECT setval('"public"."clan_seq"', 6, true);
-SELECT setval('"public"."event_attendance_id_seq"', 133, true);
-SELECT setval('"public"."events_login_id_seq"', 7, true);
-SELECT setval('"public"."gameservers_id_seq"', 5, false);
-SELECT setval('"public"."gift_id_seq"', 5, true);
-SELECT setval('"public"."ipsystem_id_seq"', 5, false);
-SELECT setval('"public"."item_code_id_seq"', 38, true);
-SELECT setval('"public"."item_voucher_id_seq"', 10, true);
-SELECT setval('"public"."items_id_seq"', 266, true);
-SELECT setval('"public"."jogador_amigo_seq"', 5, true);
-SELECT setval('"public"."jogador_inventario_seq"', 5, true);
-SELECT setval('"public"."jogador_mensagem_seq"', 5, true);
-SELECT setval('"public"."launcher_launcherkey_id_seq"', 74, true);
-SELECT setval('"public"."launcher_loghistory_id_seq"', 14, true);
-SELECT setval('"public"."launcher_version_control_id_seq"', 3, false);
-SELECT setval('"public"."loja_seq"', 8, true);
-SELECT setval('"public"."message_id_seq"', 11, true);
-SELECT setval('"public"."player_characters_id_seq"', 5, true);
-SELECT setval('"public"."player_eqipment_id_seq"', 5, true);
-SELECT setval('"public"."player_friends_player_account_id_seq"', 5, false);
-SELECT setval('"public"."player_topups_seq"', 9, true);
-SELECT setval('"public"."players_id_seq"', 5, true);
-SELECT setval('"public"."server_license_id_seq"', 2, false);
-SELECT setval('"public"."storage_seq"', 5, true);
-SELECT setval('"public"."templates_id_seq"', 5, false);
-SELECT setval('"public"."trade_id_seq"', 13, true);
-SELECT setval('"public"."web_adminpanel_id_seq"', 198, true);
-SELECT setval('"public"."web_all_log_id_seq"', 5, false);
-SELECT setval('"public"."web_api_data_id_seq"', 3, false);
-SELECT setval('"public"."web_battlepass_id_seq"', 3, true);
-SELECT setval('"public"."web_battlepass_list_id_seq"', 5, true);
-SELECT setval('"public"."web_download_seq"', 22, true);
-SELECT setval('"public"."web_email_confirmation_id_seq"', 10, true);
-SELECT setval('"public"."web_exchangeticket_seq"', 13, true);
-SELECT setval('"public"."web_giftitem_log_seq"', 12, true);
-SELECT setval('"public"."web_ipbanned_id_seq"', 6, true);
-SELECT setval('"public"."web_launcher_ipaddress_id"', 5, true);
-SELECT setval('"public"."web_log_verifyaccount_id_sequence"', 5, true);
-SELECT setval('"public"."web_news_id_seq"', 19, true);
-SELECT setval('"public"."web_packshop_id_seq"', 2, true);
-SELECT setval('"public"."web_quickslide_id_seq"', 32, true);
-SELECT setval('"public"."web_rankinfo_id_seq"', 68, true);
-SELECT setval('"public"."web_recharge_id_seq"', 25, true);
-SELECT setval('"public"."web_report_id_seq"', 9, true);
-SELECT setval('"public"."web_request_manager_id_seq"', 2, false);
-SELECT setval('"public"."web_reset_password_sequence_id"', 8, true);
-SELECT setval('"public"."web_shop_id_seq"', 2, false);
-SELECT setval('"public"."web_shop_log_id_seq"', 2, false);
-SELECT setval('"public"."web_tokenkey_id_seq"', 180, true);
-SELECT setval('"public"."web_webhook_id_seq"', 3, true);
-SELECT setval('"public"."webdata_news_seq"', 5, true);
-SELECT setval('"public"."webshop_id_seq"', 21, true);
+SELECT setval('"public"."account_id_seq"', 10, true);
+SELECT setval('"public"."api_keys_id_seq"', 4, true);
+SELECT setval('"public"."api_keys_limit_id_seq"', 4, true);
+SELECT setval('"public"."api_keys_logs_id_seq"', 6531, true);
+SELECT setval('"public"."auto_ban_seq"', 6, true);
+SELECT setval('"public"."ban_seq"', 6, true);
+SELECT setval('"public"."captcha_id_seq"', 4, true);
+SELECT setval('"public"."channels_id_seq"', 6, false);
+SELECT setval('"public"."check_event_seq"', 6, true);
+SELECT setval('"public"."check_user_attendance_id_seq"', 38, true);
+SELECT setval('"public"."check_user_itemcode_seq"', 60, true);
+SELECT setval('"public"."check_user_voucher_id_seq"', 13, true);
+SELECT setval('"public"."clan_seq"', 7, true);
+SELECT setval('"public"."event_attendance_id_seq"', 155, true);
+SELECT setval('"public"."events_login_id_seq"', 8, true);
+SELECT setval('"public"."gameservers_id_seq"', 6, false);
+SELECT setval('"public"."gift_id_seq"', 6, true);
+SELECT setval('"public"."ipsystem_id_seq"', 6, false);
+SELECT setval('"public"."item_code_id_seq"', 39, true);
+SELECT setval('"public"."item_voucher_id_seq"', 11, true);
+SELECT setval('"public"."items_id_seq"', 415, true);
+SELECT setval('"public"."jogador_amigo_seq"', 6, true);
+SELECT setval('"public"."jogador_inventario_seq"', 6, true);
+SELECT setval('"public"."jogador_mensagem_seq"', 6, true);
+SELECT setval('"public"."launcher_launcherkey_id_seq"', 78, true);
+SELECT setval('"public"."launcher_loghistory_id_seq"', 15, true);
+SELECT setval('"public"."launcher_version_control_id_seq"', 4, false);
+SELECT setval('"public"."loja_seq"', 9, true);
+SELECT setval('"public"."message_id_seq"', 12, true);
+SELECT setval('"public"."player_characters_id_seq"', 6, true);
+SELECT setval('"public"."player_eqipment_id_seq"', 6, true);
+SELECT setval('"public"."player_friends_player_account_id_seq"', 6, false);
+SELECT setval('"public"."player_topups_seq"', 10, true);
+SELECT setval('"public"."players_id_seq"', 6, true);
+SELECT setval('"public"."server_license_id_seq"', 3, false);
+SELECT setval('"public"."storage_seq"', 6, true);
+SELECT setval('"public"."templates_id_seq"', 6, false);
+SELECT setval('"public"."trade_id_seq"', 14, true);
+SELECT setval('"public"."web_adminpanel_id_seq"', 199, true);
+SELECT setval('"public"."web_all_log_id_seq"', 6, false);
+SELECT setval('"public"."web_api_data_id_seq"', 4, false);
+SELECT setval('"public"."web_battlepass_id_seq"', 4, true);
+SELECT setval('"public"."web_battlepass_list_id_seq"', 6, true);
+SELECT setval('"public"."web_download_seq"', 23, true);
+SELECT setval('"public"."web_email_confirmation_id_seq"', 11, true);
+SELECT setval('"public"."web_exchangeticket_seq"', 14, true);
+SELECT setval('"public"."web_giftitem_log_seq"', 13, true);
+SELECT setval('"public"."web_ipbanned_id_seq"', 9, true);
+SELECT setval('"public"."web_launcher_ipaddress_id"', 6, true);
+SELECT setval('"public"."web_log_verifyaccount_id_sequence"', 6, true);
+SELECT setval('"public"."web_news_id_seq"', 20, true);
+SELECT setval('"public"."web_packshop_id_seq"', 3, true);
+SELECT setval('"public"."web_quickslide_id_seq"', 34, true);
+SELECT setval('"public"."web_rankinfo_id_seq"', 69, true);
+SELECT setval('"public"."web_recharge_id_seq"', 26, true);
+SELECT setval('"public"."web_report_id_seq"', 10, true);
+SELECT setval('"public"."web_request_manager_id_seq"', 3, false);
+SELECT setval('"public"."web_reset_password_sequence_id"', 9, true);
+SELECT setval('"public"."web_shop_id_seq"', 3, false);
+SELECT setval('"public"."web_shop_log_id_seq"', 3, false);
+SELECT setval('"public"."web_tokenkey_id_seq"', 184, true);
+SELECT setval('"public"."web_webhook_id_seq"', 4, true);
+SELECT setval('"public"."webdata_news_seq"', 6, true);
+SELECT setval('"public"."webshop_id_seq"', 22, true);
 
 -- ----------------------------
 -- Primary Key structure for table accounts
@@ -7776,11 +7894,6 @@ ALTER TABLE "public"."clan_data" ADD CONSTRAINT "clan_data_pkey" PRIMARY KEY ("c
 -- Primary Key structure for table events_attendance
 -- ----------------------------
 ALTER TABLE "public"."events_attendance" ADD CONSTRAINT "events_attendance_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table item_code
--- ----------------------------
-ALTER TABLE "public"."item_code" ADD CONSTRAINT "item_code_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table item_goods_sets
@@ -7818,126 +7931,6 @@ ALTER TABLE "public"."launcher_version_control" ADD CONSTRAINT "launcher_version
 ALTER TABLE "public"."player_configs" ADD CONSTRAINT "player_configs_pkey" PRIMARY KEY ("owner_id");
 
 -- ----------------------------
--- Primary Key structure for table trade_market
+-- Primary Key structure for table web_trade_market
 -- ----------------------------
-ALTER TABLE "public"."trade_market" ADD CONSTRAINT "trade_market_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_keys
--- ----------------------------
-ALTER TABLE "public"."web_api_keys" ADD CONSTRAINT "keys_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_limits
--- ----------------------------
-ALTER TABLE "public"."web_api_limits" ADD CONSTRAINT "limits_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_api_logs
--- ----------------------------
-ALTER TABLE "public"."web_api_logs" ADD CONSTRAINT "web_api_logs2_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_bandwith
--- ----------------------------
-ALTER TABLE "public"."web_bandwith" ADD CONSTRAINT "web_bandwith_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_battlepass
--- ----------------------------
-ALTER TABLE "public"."web_battlepass" ADD CONSTRAINT "web_battlepass_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_battlepass_claim_history
--- ----------------------------
-ALTER TABLE "public"."web_battlepass_claim_history" ADD CONSTRAINT "web_battlepass_claim_history_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_battlepass_list
--- ----------------------------
-ALTER TABLE "public"."web_battlepass_list" ADD CONSTRAINT "web_battlepass_list_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_category_player_gallery
--- ----------------------------
-ALTER TABLE "public"."web_category_player_gallery" ADD CONSTRAINT "web_category_player_gallery_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_customtoken
--- ----------------------------
-ALTER TABLE "public"."web_customtoken" ADD CONSTRAINT "web_customtoken_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_download_clientlauncher
--- ----------------------------
-ALTER TABLE "public"."web_download_clientlauncher" ADD CONSTRAINT "web_download_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_exchangeticket
--- ----------------------------
-ALTER TABLE "public"."web_exchangeticket" ADD CONSTRAINT "web_exchangeticket_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_log_forgotpassword
--- ----------------------------
-ALTER TABLE "public"."web_log_forgotpassword" ADD CONSTRAINT "web_log_resetpassword_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_log_shop
--- ----------------------------
-ALTER TABLE "public"."web_log_shop" ADD CONSTRAINT "web_shop_log_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_log_verifyaccount
--- ----------------------------
-ALTER TABLE "public"."web_log_verifyaccount" ADD CONSTRAINT "web_log_verifyaccount_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_packshop
--- ----------------------------
-ALTER TABLE "public"."web_packshop" ADD CONSTRAINT "web_packshop_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_player_gallery
--- ----------------------------
-ALTER TABLE "public"."web_player_gallery" ADD CONSTRAINT "web_player_gallery_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_quickslide
--- ----------------------------
-ALTER TABLE "public"."web_quickslide" ADD CONSTRAINT "web_quickslide_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_rankinfo
--- ----------------------------
-ALTER TABLE "public"."web_rankinfo" ADD CONSTRAINT "web_rankinfo_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_request_managers
--- ----------------------------
-ALTER TABLE "public"."web_request_managers" ADD CONSTRAINT "web_request_managers_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_settings
--- ----------------------------
-ALTER TABLE "public"."web_settings" ADD CONSTRAINT "web_settings_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_shop
--- ----------------------------
-ALTER TABLE "public"."web_shop" ADD CONSTRAINT "web_shop_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_tokenkey
--- ----------------------------
-ALTER TABLE "public"."web_tokenkey" ADD CONSTRAINT "web_tokenkey_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table web_webhook
--- ----------------------------
-ALTER TABLE "public"."web_webhook" ADD CONSTRAINT "web_webhook_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table webshop
--- ----------------------------
-ALTER TABLE "public"."webshop" ADD CONSTRAINT "webshop2_pkey" PRIMARY KEY ("id");
+ALTER TABLE "public"."web_trade_market" ADD CONSTRAINT "trade_market_pkey" PRIMARY KEY ("id");

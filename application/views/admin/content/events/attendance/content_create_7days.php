@@ -46,7 +46,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="reward_day_5">Reward Day 5</label>
-                                <select name="reward_day_5" id="reward_day_5" class="form-control reward_selection" style="width: 500%;" required>
+                                <select name="reward_day_5" id="reward_day_5" class="form-control reward_selection" style="width: 100%;" required>
                                     <option value="" disabled selected>Select Your Reward</option>
                                     <?php foreach ($reward as $key => $value) : ?>
                                         <option value="<?= $value['item_id'] ?>"><?= $value['item_name'] ?></option>
@@ -69,6 +69,13 @@
                                     <?php foreach ($reward as $key => $value) : ?>
                                         <option value="<?= $value['item_id'] ?>"><?= $value['item_name'] ?></option>
                                     <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reward_duration">Reward Duration</label>
+                                <select name="reward_duration" id="reward_duration" class="form-control reward_selection" style="width:100%">
+                                    <option value="" disabled selected>Select Reward Duration</option>
+                                    <?php $this->darkblowlib->GetItemDurationList('create', null, 90) ?>
                                 </select>
                             </div>
                         </div>

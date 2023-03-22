@@ -151,12 +151,28 @@ class Server extends RestController
                     }
                 case Darkblowopcodes::ATTENDANCE[0]: {
                         $data['event_id'] = $this->input->post('event_id', true);
-                        if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
-                            $response['response'] = 'success';
-                            $response['token'] = $this->security->get_csrf_hash();
-                            $response['message'] = 'Successfully Attendance.';
+                        $data['player_id'] = $this->session->userdata('player_id');
 
-                            $this->response($response, 200);
+
+                        $query = $this->db->get_where('events_attendance', array('id' => $data['event_id']))->row_array();
+                        if ($query != []) {
+                            $data['item_id'] = $query['item_id'];
+                            $data['item_name'] = $query['item_name'];
+                            $data['count'] = $query['item_count'];
+
+                            if ($this->darkblowsocketcommand->CreateTCPConnection(Darkblownetwork::HOST, Darkblownetwork::API_GAME_PORT, $data) == 'Success') {
+                                $response['response'] = 'success';
+                                $response['token'] = $this->security->get_csrf_hash();
+                                $response['message'] = 'Successfully Attendance.';
+
+                                $this->response($response, 200);
+                            } else {
+                                $response['response'] = 'error';
+                                $response['token'] = $this->security->get_csrf_hash();
+                                $response['message'] = 'Failed To Attendance.';
+
+                                $this->response($response, 200);
+                            }
                         } else {
                             $response['response'] = 'error';
                             $response['token'] = $this->security->get_csrf_hash();

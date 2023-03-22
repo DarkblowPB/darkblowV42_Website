@@ -24,27 +24,7 @@
                             </div>
                             <div class="calendar__week">
                                 <?php foreach ($attend as $row) : ?>
-                                    <div id="<?= $row['id'] ?>" class="calendar__day
-                                    <?php
-                                    if ($row['date'] == date('d-m-Y')) {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) echo 'claimed';
-                                        else echo 'today';
-                                    } else if ($row['date'] < date('d-m-Y')) {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) echo 'passed';
-                                        else echo 'claimed';
-                                    }
-                                    ?>
-                                    " title="
-                                    <?php
-                                    if ($row['date'] == date('d-m-Y')) {
-                                        if ($this->attendance->GetPlayerAttendDate($row['id'])) echo 'Already Claimed';
-                                        else echo 'Today';
-                                    } else if ($row['date'] < date('d-m-Y')) {
-                                        if (!$this->attendance->GetPlayerAttendDate($row['id'])) echo 'Passed';
-                                        else echo 'Already Claimed';
-                                    } else echo 'Tomorrow';
-                                    ?>
-                                    ">
+                                    <div id="<?= $row['id'] ?>" class="calendar__day <?= $row['date'] == date('d-m-Y') ? ($this->attendance->GetPlayerAttendDate($row['id']) ? 'claimed' : 'today') : ($row['date'] < date('d-m-Y') ? (!$this->attendance->GetPlayerAttendDate($row['id']) ? 'passed' : 'claimed') : '') ?>" title="<?= $row['date'] == date('d-m-Y') ? ($this->attendance->GetPlayerAttendDate($row['id']) ? 'Already Claimed' : 'Today') : ($row['date'] < date('d-m-Y') ? (!$this->attendance->GetPlayerAttendDate($row['id']) ? 'Passed' : 'Already Claimed') : 'Tomorrow') ?>">
                                         <?= $row['day'] ?>
                                     </div>
                                 <?php endforeach; ?>
@@ -71,7 +51,7 @@
                         SetAttribute('claim_today', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
 
                         $.ajax({
-                            url: '<?= base_url('api/servercommand/attendance') ?> ',
+                            url: '<?= base_url('api/server/sendcommand') ?> ',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
