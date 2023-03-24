@@ -250,9 +250,6 @@
                                             setTimeout(() => {
                                                 window.location.reload();
                                             }, 2000);
-                                        },
-                                        beforeSend: (request) => {
-                                            request.setRequestHeader('Authorization', '<?= $this->darkblowsettings->load()->api_authorization_key ?>');
                                         }
                                     });
                                 }
