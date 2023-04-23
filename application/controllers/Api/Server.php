@@ -399,6 +399,36 @@ class Server extends RestController
         }
     }
 
+    function checklauncherkey_post()
+    {
+        $response = array();
+
+        $data = array(
+            'key' => $this->input->post('launcher_key', true)
+        );
+
+        $this->db->trans_start();
+        $this->db->select('*', TRUE);
+        $this->db->from('launcher_launcherkey');
+        $this->db->where('key', $data['key'], TRUE);
+
+        $result = $this->db->get()->row_array();
+        $this->db->trans_complete();
+
+        if ($result != []) {
+            if ($result['status'] == 1) {
+                $response['status'] = 'Success';
+                $this->response($response, 200);
+            } else {
+                $response['status'] = 'Failed';
+                $this->response($response, 200);
+            }
+        } else {
+            $response['status'] = 'Failed';
+            $this->response($response, 200);
+        }
+    }
+
     function getservercondition_get()
     {
         if ($this->input->is_ajax_request()) {

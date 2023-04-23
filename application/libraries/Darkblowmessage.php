@@ -31,22 +31,6 @@ class Darkblowmessage
             echo json_encode($response);
         }
     }
-
-    public function SetDefaultMessage($tag, $message)
-    {
-        $this->ci->session->set_flashdata(($tag == Darkblowmessage::success_tag ? Darkblowmessage::success_tag : Darkblowmessage::error_tag), $message);
-    }
-
-    public function DisplayMessage()
-    {
-        if ($this->ci->session->flashdata(Darkblowmessage::success_tag)) return '<div class="alert alert-success" role="alert">' . $this->ci->session->flashdata(Darkblowmessage::success_tag) . '</div>';
-        else if ($this->ci->session->flashdata(Darkblowmessage::error_tag)) return '<div class="alert alert-danger" role="alert">' . $this->ci->session->flashdata(Darkblowmessage::error_tag) . '</div>';
-    }
-
-    public function DisplayErrorMessage()
-    {
-        return validation_errors('<div class="alert alert-danger" role="alert">', '</div>');
-    }
 }
 
 /* End of file Darkblowmessage.php */

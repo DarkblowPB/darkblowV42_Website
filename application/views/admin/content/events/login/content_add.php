@@ -37,149 +37,70 @@
                         <input type="submit" id="submit" class="btn btn-outline-primary text-white" value="Submit New Events">
                     </div>
                     <?= form_close() ?>
-                    <script>
-                        var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
-                        $(document).ready(function() {
-                            $('#add_form').on('submit', function(e) {
-                                e.preventDefault();
-                                if ($('#date_start').val() == "") {
-                                    ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
-                                    return;
-                                } else if ($('#date_end').val() == "") {
-                                    ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
-                                    return;
-                                } else if ($('#reward_item').val() == null) {
-                                    ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
-                                    return;
-                                } else if ($('#reward_count').val() == null) {
-                                    ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
-                                    return;
-                                } else {
-                                    SetAttribute('submit', 'button', 'Processing...');
-
-                                    $.ajax({
-                                        url: '<?= base_url('adm/eventsmanagement/login/do_add') ?>',
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {
-                                            '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                            'start_date': $('#date_start').val(),
-                                            'end_date': $('#date_end').val(),
-                                            'reward_id': $('#reward_item').val(),
-                                            'reward_count': $('#reward_count').val()
-                                        },
-                                        success: function(data) {
-                                            var GetString = JSON.stringify(data);
-                                            var Result = JSON.parse(GetString);
-
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, Result.response, Result.message);
-                                            CSRF_TOKEN = Result.token;
-
-                                            if (Result.response == 'success') {
-                                                setTimeout(() => {
-                                                    self.history.back();
-                                                }, 2000);
-                                            }
-                                        },
-                                        error: function() {
-                                            ShowToast(1000, 'info', 'Generating New Request Token...');
-
-                                            $.ajax({
-                                                url: '<?= base_url('api/security/csrf') ?>',
-                                                type: 'GET',
-                                                dataType: 'JSON',
-                                                data: {
-                                                    '<?= $this->lib->GetTokenName() ?>': '<?= $this->lib->GetTokenKey() ?>'
-                                                },
-                                                success: function(data) {
-                                                    var GetString = JSON.stringify(data);
-                                                    var Result = JSON.parse(GetString);
-
-                                                    if (Result.response == 'true') {
-                                                        CSRF_TOKEN = Result.token;
-                                                    }
-                                                    return Do_Add();
-
-                                                },
-                                                error: function() {
-                                                    SetAttribute('submit', 'submit', 'Submit New Events');
-                                                    ShowToast(2000, 'error', 'Failed To Add Events.');
-                                                    setTimeout(() => {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        });
-
-                        function Do_Add() {
-                            if ($('#date_start').val() == "") {
-                                ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
-                                return;
-                            } else if ($('#date_end').val() == "") {
-                                ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
-                                return;
-                            } else if ($('#reward_item').val() == null) {
-                                ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
-                                return;
-                            } else if ($('#reward_count').val() == null) {
-                                ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
-                                return;
-                            } else {
-                                SetAttribute('submit', 'button', 'Processing...');
-
-                                $.ajax({
-                                    url: '<?= base_url('adm/eventsmanagement/login/do_add') ?>',
-                                    type: 'POST',
-                                    dataType: 'JSON',
-                                    data: {
-                                        '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
-                                        'start_date': $('#date_start').val(),
-                                        'end_date': $('#date_end').val(),
-                                        'reward_id': $('#reward_item').val(),
-                                        'reward_count': $('#reward_count').val()
-                                    },
-                                    success: function(data) {
-                                        var GetString = JSON.stringify(data);
-                                        var Result = JSON.parse(GetString);
-
-                                        if (Result.response == 'true') {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'success', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            setTimeout(() => {
-                                                self.history.back();
-                                            }, 2000);
-                                            return;
-                                        } else if (Result.response == 'false') {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        } else {
-                                            SetAttribute('submit', 'submit', 'Submit New Events');
-                                            ShowToast(2000, 'error', Result.message);
-                                            CSRF_TOKEN = Result.token;
-                                            return;
-                                        }
-                                    },
-                                    error: function() {
-                                        SetAttribute('submit', 'submit', 'Submit New Events');
-                                        ShowToast(2000, 'error', 'Failed To Add Events.');
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
-                                    }
-                                });
-                            }
-                        }
-                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
+    $(document).ready(function() {
+        $('#add_form').on('submit', function(e) {
+            e.preventDefault();
+            return Do_Add();
+        });
+    });
+
+    function Do_Add() {
+        if ($('#date_start').val() == "") {
+            ShowToast(2000, 'warning', 'Date Start Cannot Be Empty.');
+            return;
+        } else if ($('#date_end').val() == "") {
+            ShowToast(2000, 'warning', 'Date End Cannot Be Empty.');
+            return;
+        } else if ($('#reward_item').val() == null) {
+            ShowToast(2000, 'warning', 'Reward Item Cannot Be Empty.');
+            return;
+        } else if ($('#reward_count').val() == null) {
+            ShowToast(2000, 'warning', 'Reward Duration Cannot Be Empty.');
+            return;
+        } else {
+            SetAttribute('submit', 'button', 'Processing...');
+
+            $.ajax({
+                url: '<?= base_url('adm/eventsmanagement/login/do_add') ?>',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    '<?= $this->security->get_csrf_token_name() ?>': CSRF_TOKEN,
+                    'start_date': $('#date_start').val(),
+                    'end_date': $('#date_end').val(),
+                    'reward_id': $('#reward_item').val(),
+                    'reward_count': $('#reward_count').val()
+                },
+                success: function(data) {
+                    var GetString = JSON.stringify(data);
+                    var Result = JSON.parse(GetString);
+
+                    SetAttribute('submit', 'submit', 'Submit New Events');
+                    ShowToast(2000, Result.response, Result.message);
+                    CSRF_TOKEN = Result.token;
+
+                    if (Result.response == 'success') {
+                        setTimeout(() => {
+                            window.location = '<?= base_url('adm/eventsmanagement/login') ?>';
+                        }, 2000);
+                    }
+                    return;
+                },
+                error: function() {
+                    SetAttribute('submit', 'submit', 'Submit New Events');
+                    ShowToast(2000, 'error', 'Failed To Add Events.');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        }
+    }
+</script>

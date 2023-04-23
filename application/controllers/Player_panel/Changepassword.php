@@ -14,7 +14,6 @@ class Changepassword extends CI_Controller
 		parent::__construct();
 
 		$this->lang->load(array('header', 'string', 'message'));
-		$this->darkblowlib->GetVisitorData('Change Password');
 
 		$this->darkblowprotection->RunningLegality();
 		// $this->darkblowlicense->DarkblowPBLicense();

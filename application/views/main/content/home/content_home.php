@@ -60,7 +60,7 @@
                 </h3>
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap ">
-                    <div class="col-6 text-white">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
                             <table class="nk-table">
                                 <thead class="text-center">
@@ -111,7 +111,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12 text-white">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-white">
                         <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
                             <table class="nk-table">
                                 <thead class="text-center">
