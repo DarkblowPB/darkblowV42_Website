@@ -2,8 +2,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 $config['main_config'] = array(
-    'google_register_clientid' => '704467996300-423omsi33h5g5ehu6r1l7vq96ipjk1bq.apps.googleusercontent.com',
-    'google_register_clientsecret' => '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',
+    'google_register_clientid' => '',
+    'google_register_clientsecret' => '',
     'project_version' => '1.15.42.30',
     'smtp_host' => '', // Your Host ex. trystane.id.rapidplex.com
     'smtp_port' => 465, // Your Port ex. 465
