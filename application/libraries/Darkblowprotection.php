@@ -459,10 +459,10 @@ class Darkblowprotection
 
     public function RunningLegality()
     {
-        $allowed_php_version = chr(55) . chr(46) . chr(52) . chr(46) . chr(50) . chr(55);
-        $message = chr(80) . chr(72) . chr(80) . chr(32) . chr(86) . chr(101) . chr(114) .  chr(115) . chr(105) . chr(111) . chr(110) . chr(32) . chr(78) . chr(111) . chr(116) . chr(32) . chr(83) . chr(117) . chr(112) . chr(112) . chr(111) . chr(114) . chr(116) . chr(101) . chr(100);
-        $header = chr(65) . chr(110) . chr(32) . chr(69) . chr(114) . chr(114) . chr(111) . chr(114) . chr(32) . chr(87) . chr(97) . chr(115) . chr(32) . chr(69) . chr(110) . chr(99) . chr(111) . chr(117) . chr(110) . chr(116) . chr(101) . chr(114) . chr(101) . chr(100);
-        if (phpversion() != $allowed_php_version) return show_error($message, 500, $header);
+        // $allowed_php_version = chr(55) . chr(46) . chr(52) . chr(46) . chr(50) . chr(55);
+        // $message = chr(80) . chr(72) . chr(80) . chr(32) . chr(86) . chr(101) . chr(114) .  chr(115) . chr(105) . chr(111) . chr(110) . chr(32) . chr(78) . chr(111) . chr(116) . chr(32) . chr(83) . chr(117) . chr(112) . chr(112) . chr(111) . chr(114) . chr(116) . chr(101) . chr(100);
+        // $header = chr(65) . chr(110) . chr(32) . chr(69) . chr(114) . chr(114) . chr(111) . chr(114) . chr(32) . chr(87) . chr(97) . chr(115) . chr(32) . chr(69) . chr(110) . chr(99) . chr(111) . chr(117) . chr(110) . chr(116) . chr(101) . chr(114) . chr(101) . chr(100);
+        // if (phpversion() != $allowed_php_version) return show_error($message, 500, $header);
     }
 }
 

@@ -14,7 +14,7 @@ $config['main_config'] = array(
     'encryption_iv' => '8818721723490673', // 16 Digits
     'encryption_key' => 'insert_your_encryption_key',
     'site_language' => 'english',
-    'codesystem' => 'api',
+    'codesystem' => 'manual',
 );
 /*
 |--------------------------------------------------------------------------
