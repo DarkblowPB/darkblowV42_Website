@@ -68,7 +68,7 @@ class Changepassword_model extends CI_Model
 						$this->db->trans_complete();
 
 						if ($this->db->trans_status()) {
-							$response['response'] = 'error';
+							$response['response'] = 'success';
 							$response['token'] = $this->security->get_csrf_hash();
 							$response['message'] = 'Successfully Change Password. Please Login To Continue.';
 
