@@ -34,209 +34,641 @@ class Redeemcode_model extends CI_Model
 			'player_id' => $this->session->userdata('uid')
 		);
 
-		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $data['player_id']))->row();
-		if ($query) {
-			$query2 = $this->db->get_where(Darkblowdatabase::item_code, array('item_code' => $data['code']))->row();
-			if ($query2) {
-				if (time() > $query2->valid_date) {
-					$response['response'] = 'error';
-					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Code Already Expired.';
+		$now = time();
 
-					$this->darkblowmessage->AjaxFlashData($response);
-				} else if ($query2->qty < 1) {
-					$response['response'] = 'error';
-					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = 'Reward Out Of Stock.';
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::accounts);
+		$this->db->where('player_id', $data['player_id'], TRUE);
 
-					$this->darkblowmessage->AjaxFlashData($response);
-				} else {
-					$query3 = $this->db->get_where(Darkblowdatabase::check_user_itemcode, array('uid' => $query->player_id, 'item_code' => $query2->item_code))->row();
-					if ($query3) {
-						$response['response'] = 'error';
-						$response['token'] = $this->security->get_csrf_hash();
-						$response['message'] = 'Code Already Used.';
+		$accounts = $this->db->get()->row_array();
+		$this->db->trans_complete();
 
-						$this->darkblowmessage->AjaxFlashData($response);
-					} else {
-						$query4 = $this->db->get_where(Darkblowdatabase::player_items, array('owner_id' => $query->player_id, 'item_id' => $query2->item_id))->row();
-						if ($query4) {
-							switch ($query4->equip) {
-								case '1': {
-										$countNow = $query4->count;
-										$addCount = $query2->item_count;
+		if ($this->db->trans_status()) {
+			if ($accounts != null) {
+				$this->db->trans_start();
+				$this->db->select('*', TRUE);
+				$this->db->from(Darkblowdatabase::item_code);
+				$this->db->where('item_code', $data['code'], TRUE);
 
-										$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => ($countNow + $addCount)));
-										$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
-										$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
-											'uid' => $query->player_id,
-											'item_code' => $query2->item_code,
-											'username' => $query->login,
-											'date_redeemed' => date('d-m-Y H:i:s')
-										));
-										if ($update && $update2 && $insert) {
-											$response['response'] = 'success';
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
+				$item_code = $this->db->get()->row_array();
+				$this->db->trans_complete();
 
-											$this->darkblowmessage->AjaxFlashData($response);
-										} else {
-											$response['response'] = 'error';
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Failed To Add Weapon To Your Inventory.';
+				if ($this->db->trans_status()) {
+					if ($item_code != null) {
+						if ($now > $item_code['valid_date']) {
+							$response['response'] = 'error';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Code Already Expired.';
 
-											$this->darkblowmessage->AjaxFlashData($response);
-										}
-										break;
-									}
-								case '2': {
-										$query5 = $this->db->get_where(Darkblowdatabase::shop, array('item_id' => $query2->item_id))->row();
-										if ($query5) {
-											switch ($query5->buy_type) {
-												case '0': {
-														$response['response'] = 'error';
-														$response['token'] = $this->security->get_csrf_hash();
-														$response['message'] = 'Invalid Item Reward.';
-
-														$this->darkblowmessage->AjaxFlashData($response);
-														break;
-													}
-
-												case '1': { // unit
-														$countNow = $query4->count;
-														$addCount = $query2->item_count;
-														$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => ($countNow + $addCount)));
-														$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
-														$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
-															'uid' => $query->player_id,
-															'item_code' => $query2->item_code,
-															'username' => $query->login,
-															'date_redeemed' => date('d-m-Y H:i:s')
-														));
-														if ($update && $update2 && $insert) {
-															$response['response'] = 'success';
-															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
-
-															$this->darkblowmessage->AjaxFlashData($response);
-														} else {
-															$response['response'] = 'error';
-															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Failed To Add Weapon To Your Inventory.';
-
-															$this->darkblowmessage->AjaxFlashData($response);
-														}
-														break;
-													}
-
-												case '2': {
-														$countNow = $query4->count;
-														$addDays = $query2->item_count / 24 / 60 / 60;
-														$timeFirst = strtotime('20' . $countNow);
-														$timeSecond = strtotime('+' . $addDays . 'day', $timeFirst);
-														$fixDate = date('ymdHi', $timeSecond);
-
-														$update = $this->db->where('object_id', $query4->object_id)->update(Darkblowdatabase::player_items, array('count' => $fixDate));
-														$update2 = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
-														$insert = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
-															'uid' => $query->player_id,
-															'item_code' => $query2->item_code,
-															'username' => $query->login,
-															'date_redeemed' => date('d-m-Y H:i:s')
-														));
-														if ($update && $update2 && $insert) {
-															$response['response'] = 'success';
-															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
-
-															$this->darkblowmessage->AjaxFlashData($response);
-														} else {
-															$response['response'] = 'error';
-															$response['token'] = $this->security->get_csrf_hash();
-															$response['message'] = 'Failed To Add Weapon To Your Inventory.';
-
-															$this->darkblowmessage->AjaxFlashData($response);
-														}
-														break;
-													}
-												default:
-													$response['response'] = 'error';
-													$response['token'] = $this->security->get_csrf_hash();
-													$response['message'] = 'Fatal Error.';
-
-													$this->darkblowmessage->AjaxFlashData($response);
-													break;
-											}
-										} else {
-											$response['response'] = 'error';
-											$response['token'] = $this->security->get_csrf_hash();
-											$response['message'] = 'Invalid Item Reward.';
-
-											$this->darkblowmessage->AjaxFlashData($response);
-										}
-										break;
-									}
-								case '3': {
-										$response['response'] = 'error';
-										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'You Already Have This Reward Item For Permanent Duration.';
-
-										$this->darkblowmessage->AjaxFlashData($response);
-										break;
-									}
-								default: {
-										$response['response'] = 'error';
-										$response['token'] = $this->security->get_csrf_hash();
-										$response['message'] = 'Fatal Error. Please Contact DEV / GM For More Information.';
-
-										$this->darkblowmessage->AjaxFlashData($response);
-										break;
-									}
-							}
+							$this->darkblowmessage->AjaxFlashData($response);
 						} else {
-							$insert = $this->db->insert(Darkblowdatabase::player_items, array(
-								'owner_id' => $query->player_id,
-								'item_id' => $query2->item_id,
-								'item_name' => $this->darkblowlib->GetItemName($query2->item_id),
-								'count' => $query2->item_count,
-								'category' => $this->darkblowlib->GetItemCategory($query2->item_id),
-								'equip' => '1'
-							));
-							$insert2 = $this->db->insert(Darkblowdatabase::check_user_itemcode, array(
-								'uid' => $query->player_id,
-								'item_code' => $query2->item_code,
-								'username' => $query->login,
-								'date_redeemed' => time()
-							));
-							$update = $this->db->where('id', $query2->id)->update(Darkblowdatabase::item_code, array('qty' => ($query2->qty - 1)));
-
-							if ($insert && $insert2 && $update) {
-								$response['response'] = 'success';
+							if ($item_code['qty'] < 1) {
+								$response['response'] = 'error';
 								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($query2->item_id) . '.';
+								$response['message'] = 'Reward Out Of Stock.';
 
 								$this->darkblowmessage->AjaxFlashData($response);
 							} else {
-								$response['response'] = 'error';
-								$response['token'] = $this->security->get_csrf_hash();
-								$response['message'] = 'Failed To Redeem Code.';
+								$this->db->trans_start();
+								$this->db->select('*', TRUE);
+								$this->db->from(Darkblowdatabase::check_user_itemcode);
+								$this->db->where('uid', $accounts['player_id'], TRUE);
+								$this->db->where('item_code', $item_code['item_code'], TRUE);
 
-								$this->darkblowmessage->AjaxFlashData($response);
+								$check_user_itemcode = $this->db->get()->row_array();
+								$this->db->trans_complete();
+
+								if ($this->db->trans_status()) {
+									if ($check_user_itemcode != null) {
+										$response['response'] = 'error';
+										$response['token'] = $this->security->get_csrf_hash();
+										$response['message'] = 'Code Already Used.';
+
+										$this->darkblowmessage->AjaxFlashData($response);
+									} else {
+										switch ($item_code['type']) {
+											case 'Item': {
+													$this->db->trans_start();
+													$this->db->select('*', TRUE);
+													$this->db->from(Darkblowdatabase::player_items);
+													$this->db->where('owner_id', $accounts['player_id'], TRUE);
+													$this->db->where('item_id', $item_code['item_id'], TRUE);
+
+													$player_items = $this->db->get()->row_array();
+													$this->db->trans_complete();
+
+													if ($this->db->trans_status()) {
+														if ($player_items != null) {
+															switch ($player_items['equip']) {
+																case '1': {
+																		$count_now = $player_items['count'];
+																		$add_count = $item_code['item_count'];
+
+																		$this->db->trans_start();
+																		$this->db->where('object_id', $player_items['object_id'], TRUE);
+																		$this->db->update(Darkblowdatabase::player_items, array(
+																			'count' => ($count_now + $add_count)
+																		));
+																		$this->db->trans_complete();
+
+																		$this->db->trans_start();
+																		$this->db->where('item_code', $item_code['item_code'], TRUE);
+																		$this->db->update(Darkblowdatabase::item_code, array(
+																			'qty' => ($item_code['qty'] - 1)
+																		));
+																		$this->db->trans_complete();
+
+																		$this->db->trans_start();
+																		$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																			'uid' => $accounts['player_id'],
+																			'item_code' => $item_code['item_code'],
+																			'username' => $accounts['login'],
+																			'date_redeemed' => date('Y-m-d H:i:s')
+																		), TRUE);
+																		$this->db->trans_complete();
+
+																		if ($this->db->trans_status()) {
+																			$response['response'] = 'success';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		} else {
+																			$response['response'] = 'error';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		}
+																		break;
+																	}
+																case '2': {
+																		$this->db->trans_start();
+																		$this->db->select('*', TRUE);
+																		$this->db->from(Darkblowdatabase::shop);
+																		$this->db->where('item_id', $item_code['item_id'], TRUE);
+
+																		$shop = $this->db->get()->row_array();
+																		$this->db->trans_complete();
+
+																		if ($this->db->trans_status()) {
+																			if ($shop != null) {
+																				switch ($shop['buy_type']) {
+																					case '1': {
+																							$count_now = $player_items['count'];
+																							$add_count = $item_code['item_count'];
+
+																							$this->db->trans_start();
+																							$this->db->where('object_id', $player_items['object_id'], TRUE);
+																							$this->db->update(Darkblowdatabase::player_items, array(
+																								'count' => ($count_now + $add_count)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->where('item_code', $item_code['item_code'], TRUE);
+																							$this->db->update(Darkblowdatabase::item_code, array(
+																								'qty' => ($item_code['qty'] - 1)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																								'uid' => $accounts['player_id'],
+																								'item_code' => $item_code['item_code'],
+																								'username' => $accounts['login'],
+																								'date_redeemed' => date('Y-m-d H:i:s')
+																							), TRUE);
+																							$this->db->trans_complete();
+
+																							if ($this->db->trans_status()) {
+																								$response['response'] = 'success';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							} else {
+																								$response['response'] = 'error';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							}
+																							break;
+																						}
+																					case '2': {
+																							$count_now = $player_items['count'];
+																							$add_count = $item_code['item_count'] / 24 / 60 / 60;
+																							$time_first = strtotime('20' . $count_now);
+																							$time_second = strtotime('+' . $add_count . 'day', $time_first);
+																							$fix_date = date('ymdHi', $time_second);
+
+																							$this->db->trans_start();
+																							$this->db->where('object_id', $player_items['object_id'], TRUE);
+																							$this->db->update(Darkblowdatabase::player_items, array(
+																								'count' => $fix_date
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->where('item_code', $item_code['item_code'], TRUE);
+																							$this->db->update(Darkblowdatabase::item_code, array(
+																								'qty' => ($item_code['qty'] - 1)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																								'uid' => $accounts['player_id'],
+																								'item_code' => $item_code['item_code'],
+																								'username' => $accounts['login'],
+																								'date_redeemed' => date('Y-m-d H:i:s')
+																							), TRUE);
+																							$this->db->trans_complete();
+
+																							if ($this->db->trans_status()) {
+																								$response['response'] = 'success';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							} else {
+																								$response['response'] = 'error';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							}
+																							break;
+																						}
+																					case '3': {
+																							break;
+																						}
+																					default:
+																						# code...
+																						break;
+																				}
+																			} else {
+																				$response['response'] = 'error';
+																				$response['token'] = $this->security->get_csrf_hash();
+																				$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'];
+
+																				$this->darkblowmessage->AjaxFlashData($response);
+																			}
+																		} else {
+																			$response['response'] = 'error';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'];
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		}
+																		break;
+																	}
+																case '3': {
+																		$response['response'] = 'error';
+																		$response['token'] = $this->security->get_csrf_hash();
+																		$response['message'] = 'Failed to Redeem The Code. Error: You Already Have This Item For Permanent Duration.';
+
+																		$this->darkblowmessage->AjaxFlashData($response);
+																		break;
+																	}
+																default: {
+																		$response['response'] = 'error';
+																		$response['token'] = $this->security->get_csrf_hash();
+																		$response['message'] = 'Fatal Error. Please Contact DEV / GM For More Information.';
+
+																		$this->darkblowmessage->AjaxFlashData($response);
+																		break;
+																	}
+															}
+														} else {
+															$this->db->trans_start();
+															$this->db->insert(Darkblowdatabase::player_items, array(
+																'owner_id' => $accounts['player_id'],
+																'item_id' => $item_code['item_id'],
+																'item_name' => $this->darkblowlib->GetItemName($item_code['item_id']),
+																'count' => $item_code['item_count'],
+																'category' => $this->darkblowlib->GetItemCategory($item_code['item_id']),
+																'equip' => '1'
+															), TRUE);
+															$this->db->trans_complete();
+
+															$this->db->trans_start();
+															$this->db->where('item_code', $item_code['item_code'], TRUE);
+															$this->db->update(Darkblowdatabase::item_code, array(
+																'qty' => ($item_code['qty'] - 1)
+															));
+															$this->db->trans_complete();
+
+															$this->db->trans_start();
+															$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																'uid' => $accounts['player_id'],
+																'item_code' => $item_code['item_code'],
+																'username' => $accounts['login'],
+																'date_redeemed' => date('Y-m-d H:i:s')
+															), TRUE);
+															$this->db->trans_complete();
+
+															if ($this->db->trans_status()) {
+																$response['response'] = 'success';
+																$response['token'] = $this->security->get_csrf_hash();
+																$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																$this->darkblowmessage->AjaxFlashData($response);
+															} else {
+																$response['response'] = 'error';
+																$response['token'] = $this->security->get_csrf_hash();
+																$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																$this->darkblowmessage->AjaxFlashData($response);
+															}
+														}
+													} else {
+														$response['response'] = 'error';
+														$response['token'] = $this->security->get_csrf_hash();
+														$response['message'] = 'Failed To Redeem The Code. Error: ' . $this->db->error()['message'];
+
+														$this->darkblowmessage->AjaxFlashData($response);
+													}
+													break;
+												}
+											case 'Cash': {
+													$money_now = $accounts['money'];
+													$add_money = $item_code['cash'];
+
+													$this->db->trans_start();
+													$this->db->where('player_id', $accounts['player_id'], TRUE);
+													$this->db->update(Darkblowdatabase::accounts, array(
+														'money' => ($money_now + $add_money)
+													));
+													$this->db->trans_complete();
+
+													$this->db->trans_start();
+													$this->db->where('item_code', $item_code['item_code'], TRUE);
+													$this->db->update(Darkblowdatabase::item_code, array(
+														'qty' => ($item_code['qty'] - 1)
+													));
+													$this->db->trans_complete();
+
+													$this->db->trans_start();
+													$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+														'uid' => $accounts['player_id'],
+														'item_code' => $item_code['item_code'],
+														'username' => $accounts['login'],
+														'date_redeemed' => date('Y-m-d H:i:s')
+													), TRUE);
+													$this->db->trans_complete();
+
+													if ($this->db->trans_status()) {
+														$response['response'] = 'success';
+														$response['token'] = $this->security->get_csrf_hash();
+														$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+														$this->darkblowmessage->AjaxFlashData($response);
+													} else {
+														$response['response'] = 'error';
+														$response['token'] = $this->security->get_csrf_hash();
+														$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+														$this->darkblowmessage->AjaxFlashData($response);
+													}
+													break;
+												}
+											case 'Double': {
+													$money_now = $accounts['money'];
+													$add_money = $item_code['cash'];
+
+													$this->db->trans_start();
+													$this->db->where('player_id', $accounts['player_id'], TRUE);
+													$this->db->update(Darkblowdatabase::accounts, array(
+														'money' => ($money_now + $add_money)
+													));
+													$this->db->trans_complete();
+
+													$this->db->trans_start();
+													$this->db->select('*', TRUE);
+													$this->db->from(Darkblowdatabase::player_items);
+													$this->db->where('owner_id', $accounts['player_id'], TRUE);
+													$this->db->where('item_id', $item_code['item_id'], TRUE);
+
+													$player_items = $this->db->get()->row_array();
+													$this->db->trans_complete();
+
+													if ($this->db->trans_status()) {
+														if ($player_items != null) {
+															switch ($player_items['equip']) {
+																case '1': {
+																		$count_now = $player_items['count'];
+																		$add_count = $item_code['item_count'];
+
+																		$this->db->trans_start();
+																		$this->db->where('object_id', $player_items['object_id'], TRUE);
+																		$this->db->update(Darkblowdatabase::player_items, array(
+																			'count' => ($count_now + $add_count)
+																		));
+																		$this->db->trans_complete();
+
+																		$this->db->trans_start();
+																		$this->db->where('item_code', $item_code['item_code'], TRUE);
+																		$this->db->update(Darkblowdatabase::item_code, array(
+																			'qty' => ($item_code['qty'] - 1)
+																		));
+																		$this->db->trans_complete();
+
+																		$this->db->trans_start();
+																		$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																			'uid' => $accounts['player_id'],
+																			'item_code' => $item_code['item_code'],
+																			'username' => $accounts['login'],
+																			'date_redeemed' => date('Y-m-d H:i:s')
+																		), TRUE);
+																		$this->db->trans_complete();
+
+																		if ($this->db->trans_status()) {
+																			$response['response'] = 'success';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		} else {
+																			$response['response'] = 'error';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		}
+																		break;
+																	}
+																case '2': {
+																		$this->db->trans_start();
+																		$this->db->select('*', TRUE);
+																		$this->db->from(Darkblowdatabase::shop);
+																		$this->db->where('item_id', $item_code['item_id'], TRUE);
+
+																		$shop = $this->db->get()->row_array();
+																		$this->db->trans_complete();
+
+																		if ($this->db->trans_status()) {
+																			if ($shop != null) {
+																				switch ($shop['buy_type']) {
+																					case '1': {
+																							$count_now = $player_items['count'];
+																							$add_count = $item_code['item_count'];
+
+																							$this->db->trans_start();
+																							$this->db->where('object_id', $player_items['object_id'], TRUE);
+																							$this->db->update(Darkblowdatabase::player_items, array(
+																								'count' => ($count_now + $add_count)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->where('item_code', $item_code['item_code'], TRUE);
+																							$this->db->update(Darkblowdatabase::item_code, array(
+																								'qty' => ($item_code['qty'] - 1)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																								'uid' => $accounts['player_id'],
+																								'item_code' => $item_code['item_code'],
+																								'username' => $accounts['login'],
+																								'date_redeemed' => date('Y-m-d H:i:s')
+																							), TRUE);
+																							$this->db->trans_complete();
+
+																							if ($this->db->trans_status()) {
+																								$response['response'] = 'success';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							} else {
+																								$response['response'] = 'error';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							}
+																							break;
+																						}
+																					case '2': {
+																							$count_now = $player_items['count'];
+																							$add_count = $item_code['item_count'] / 24 / 60 / 60;
+																							$time_first = strtotime('20' . $count_now);
+																							$time_second = strtotime('+' . $add_count . 'day', $time_first);
+																							$fix_date = date('ymdHi', $time_second);
+
+																							$this->db->trans_start();
+																							$this->db->where('object_id', $player_items['object_id'], TRUE);
+																							$this->db->update(Darkblowdatabase::player_items, array(
+																								'count' => $fix_date
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->where('item_code', $item_code['item_code'], TRUE);
+																							$this->db->update(Darkblowdatabase::item_code, array(
+																								'qty' => ($item_code['qty'] - 1)
+																							));
+																							$this->db->trans_complete();
+
+																							$this->db->trans_start();
+																							$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																								'uid' => $accounts['player_id'],
+																								'item_code' => $item_code['item_code'],
+																								'username' => $accounts['login'],
+																								'date_redeemed' => date('Y-m-d H:i:s')
+																							), TRUE);
+																							$this->db->trans_complete();
+
+																							if ($this->db->trans_status()) {
+																								$response['response'] = 'success';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							} else {
+																								$response['response'] = 'error';
+																								$response['token'] = $this->security->get_csrf_hash();
+																								$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																								$this->darkblowmessage->AjaxFlashData($response);
+																							}
+																							break;
+																						}
+																					case '3': {
+																							break;
+																						}
+																					default:
+																						# code...
+																						break;
+																				}
+																			} else {
+																				$response['response'] = 'error';
+																				$response['token'] = $this->security->get_csrf_hash();
+																				$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'];
+
+																				$this->darkblowmessage->AjaxFlashData($response);
+																			}
+																		} else {
+																			$response['response'] = 'error';
+																			$response['token'] = $this->security->get_csrf_hash();
+																			$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'];
+
+																			$this->darkblowmessage->AjaxFlashData($response);
+																		}
+																		break;
+																	}
+																case '3': {
+																		$response['response'] = 'error';
+																		$response['token'] = $this->security->get_csrf_hash();
+																		$response['message'] = 'Failed to Redeem The Code. Error: You Already Have This Item For Permanent Duration.';
+
+																		$this->darkblowmessage->AjaxFlashData($response);
+																		break;
+																	}
+																default: {
+																		$response['response'] = 'error';
+																		$response['token'] = $this->security->get_csrf_hash();
+																		$response['message'] = 'Fatal Error. Please Contact DEV / GM For More Information.';
+
+																		$this->darkblowmessage->AjaxFlashData($response);
+																		break;
+																	}
+															}
+														} else {
+															$this->db->trans_start();
+															$this->db->insert(Darkblowdatabase::player_items, array(
+																'owner_id' => $accounts['player_id'],
+																'item_id' => $item_code['item_id'],
+																'item_name' => $this->darkblowlib->GetItemName($item_code['item_id']),
+																'count' => $item_code['item_count'],
+																'category' => $this->darkblowlib->GetItemCategory($item_code['item_id']),
+																'equip' => '1'
+															), TRUE);
+															$this->db->trans_complete();
+
+															$this->db->trans_start();
+															$this->db->where('item_code', $item_code['item_code'], TRUE);
+															$this->db->update(Darkblowdatabase::item_code, array(
+																'qty' => ($item_code['qty'] - 1)
+															));
+															$this->db->trans_complete();
+
+															$this->db->trans_start();
+															$this->db->insert(Darkblowdatabase::check_user_itemcode, array(
+																'uid' => $accounts['player_id'],
+																'item_code' => $item_code['item_code'],
+																'username' => $accounts['login'],
+																'date_redeemed' => date('Y-m-d H:i:s')
+															), TRUE);
+															$this->db->trans_complete();
+
+															if ($this->db->trans_status()) {
+																$response['response'] = 'success';
+																$response['token'] = $this->security->get_csrf_hash();
+																$response['message'] = 'Congratulations ' . $this->session->userdata('player_name') . ', You Received ' . $this->darkblowlib->GetItemName($item_code['item_id']) . '.';
+
+																$this->darkblowmessage->AjaxFlashData($response);
+															} else {
+																$response['response'] = 'error';
+																$response['token'] = $this->security->get_csrf_hash();
+																$response['message'] = 'Failed to Redeem The Code. Error: ' . $this->db->error()['message'] . '.';
+
+																$this->darkblowmessage->AjaxFlashData($response);
+															}
+														}
+													} else {
+														$response['response'] = 'error';
+														$response['token'] = $this->security->get_csrf_hash();
+														$response['message'] = 'Failed To Redeem The Code. Error: ' . $this->db->error()['message'];
+
+														$this->darkblowmessage->AjaxFlashData($response);
+													}
+													break;
+												}
+											default:
+												# code...
+												break;
+										}
+									}
+								} else {
+									$response['response'] = 'error';
+									$response['token'] = $this->security->get_csrf_hash();
+									$response['message'] = 'Failed To Redeem The Code. Error: ' . $this->db->error()['message'];
+
+									$this->darkblowmessage->AjaxFlashData($response);
+								}
 							}
 						}
+					} else {
+						$response['response'] = 'error';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Failed To Redeem The Code. Error: Redeem Code Not Found';
+
+						$this->darkblowmessage->AjaxFlashData($response);
 					}
+				} else {
+					$response['response'] = 'error';
+					$response['token'] = $this->security->get_csrf_hash();
+					$response['message'] = 'Failed To Redeem The Code. Error: ' . $this->db->error()['message'];
+
+					$this->darkblowmessage->AjaxFlashData($response);
 				}
 			} else {
 				$response['response'] = 'error';
 				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = 'Code Doesnt Exist.';
+				$response['message'] = 'Failed To Redeem The Code. Error: Player Not Found.';
 
 				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
 			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = 'Failed To Fetch Account Data.';
+			$response['message'] = 'Failed To Redeem The Code. Error: ' . $this->db->error()['message'];
 
 			$this->darkblowmessage->AjaxFlashData($response);
 		}
