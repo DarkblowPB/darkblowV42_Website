@@ -135,7 +135,7 @@
                                             var GetString = JSON.stringify(data);
                                             var Result = JSON.parse(GetString);
 
-                                            if (Result.response == 'true') {
+                                            if (Result.response == 'success') {
                                                 SetAttribute('submit', 'submit', '<?= $this->lang->line('STR_DARKBLOW_182') ?>');
                                                 ShowToast(2000, 'success', Result.message);
                                                 CSRF_TOKEN = Result.token;
@@ -172,7 +172,7 @@
                                                         var GetString = JSON.stringify(data);
                                                         var Result = JSON.parse(GetString);
 
-                                                        if (Result.response == 'true') {
+                                                        if (Result.response == 'success') {
                                                             CSRF_TOKEN = Result.token;
                                                         }
 

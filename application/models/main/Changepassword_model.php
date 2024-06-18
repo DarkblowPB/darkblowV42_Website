@@ -28,37 +28,71 @@ class Changepassword_model extends CI_Model
 			'hint_answer' => $this->encryption->encrypt($this->input->post('hint_answer', true))
 		);
 
-		$query = $this->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->session->userdata('uid'), 'password' => $this->encryption->decrypt($data['old_password'])))->row();
-		if ($query) {
-			if ($this->encryption->decrypt($data['new_password']) == $this->encryption->decrypt($data['old_password'])) {
-				$response['response'] = 'false';
-				$response['token'] = $this->security->get_csrf_hash();
-				$response['message'] = $this->lang->line('STR_ERROR_30');
+		$data = array(
+			'old_password' => $this->darkblowlib->password_encrypt($this->input->post('old_password', true)),
+			'new_password' => $this->darkblowlib->password_encrypt($this->input->post('new_password', true)),
+			'confirm_password' => $this->darkblowlib->password_encrypt($this->input->post('confirm_password', true)),
+			'hint_question' => $this->input->post('hint_question', true),
+			'hint_answer' => $this->input->post('hint_answer', true)
+		);
 
-				$this->darkblowmessage->AjaxFlashData($response);
-			} else {
-				$update = $this->db->where('player_id', $query->player_id)->update(Darkblowdatabase::accounts, array(
-					'password' => $this->encryption->decrypt($data['new_password'])
-				));
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::accounts);
+		$this->db->where('player_id', $this->session->userdata('uid'), TRUE);
 
-				if ($update) {
-					$response['response'] = 'true';
+		$result = $this->db->get()->row_array();
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status()) {
+			if ($result != null) {
+				if ($data['old_password'] != $result['password']) {
+					$response['response'] = 'error';
 					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = $this->lang->line('STR_SUCCESS_3');
+					$response['message'] = 'Invalid Old Password.';
 
 					$this->darkblowmessage->AjaxFlashData($response);
 				} else {
-					$response['response'] = 'false';
-					$response['token'] = $this->security->get_csrf_hash();
-					$response['message'] = $this->lang->line('STR_ERROR_31');
+					if ($data['new_password'] == $data['old_password']) {
+						$response['response'] = 'error';
+						$response['token'] = $this->security->get_csrf_hash();
+						$response['message'] = 'Please Use Another New Password Combination.';
 
-					$this->darkblowmessage->AjaxFlashData($response);
+						$this->darkblowmessage->AjaxFlashData($response);
+					} else {
+						$this->db->trans_start();
+						$this->db->where('player_id', $result['player_id'], TRUE);
+						$this->db->update(Darkblowdatabase::accounts, array(
+							'password' => $data['new_password']
+						));
+						$this->db->trans_complete();
+
+						if ($this->db->trans_status()) {
+							$response['response'] = 'error';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Successfully Change Password. Please Login To Continue.';
+
+							$this->darkblowmessage->AjaxFlashData($response);
+						} else {
+							$response['response'] = 'error';
+							$response['token'] = $this->security->get_csrf_hash();
+							$response['message'] = 'Failed To Change Password. Error: ' . $this->db->error()['message'];
+
+							$this->darkblowmessage->AjaxFlashData($response);
+						}
+					}
 				}
+			} else {
+				$response['response'] = 'error';
+				$response['token'] = $this->security->get_csrf_hash();
+				$response['message'] = 'Invalid Account.';
+
+				$this->darkblowmessage->AjaxFlashData($response);
 			}
 		} else {
-			$response['response'] = 'false';
+			$response['response'] = 'error';
 			$response['token'] = $this->security->get_csrf_hash();
-			$response['message'] = $this->lang->line('STR_ERROR_32');
+			$response['message'] = 'Failed To Change Password. Error: ' . $this->db->error()['message'];
 
 			$this->darkblowmessage->AjaxFlashData($response);
 		}
