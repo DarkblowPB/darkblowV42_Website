@@ -56,7 +56,6 @@ class DARKBLOW_Controller extends CI_Controller
         $this->instagram_embed_link = $settings['instagram_embed_link'];
         $this->youtube_embed_link = $settings['youtube_embed_link'];
         $this->webshop = $settings['webshop'];
-        $this->trade_market = $settings['trade_market'];
         $this->exchange_ticket = $settings['exchange_ticket'];
         $this->voucher = $settings['voucher'];
         $this->forgot_password = $settings['forgot_password'];
@@ -66,8 +65,6 @@ class DARKBLOW_Controller extends CI_Controller
         $this->change_email = $settings['change_email'];
         $this->event_ticket = $settings['event_ticket'];
         $this->email_verification = $settings['email_verification'];
-        $this->google_register = $settings['google_register'];
-        $this->web_log = $settings['web_log'];
         $this->packshop = $settings['packshop'];
         $this->api_authorization_key = $settings['api_authorization_key'];
         $this->license_key = $settings['license_key'];

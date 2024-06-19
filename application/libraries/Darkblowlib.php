@@ -71,16 +71,31 @@ class Darkblowlib
 	public function GetItemDetails($object_id)
 	{
 		if (is_numeric($object_id) && $object_id > 0) {
-			$query = $this->ci->db->get_where(Darkblowdatabase::player_items, array('object_id' => $object_id))->row();
-			if ($query) return $query;
+			$this->ci->db->trans_start();
+			$this->ci->db->select('*', TRUE);
+			$this->ci->db->from(Darkblowdatabase::player_items);
+			$this->ci->db->where('object_id', $object_id, TRUE);
+
+			$result = $this->ci->db->get()->row_array();
+			$this->ci->db->trans_complete();
+
+			if ($result != null) return $result;
+			else return null;
 		}
 	}
 
 	public function GetItemName($item_id)
 	{
-		$query = $this->ci->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
-		if ($query) return $query->item_name;
-		else return "";
+		$this->ci->db->trans_start();
+		$this->ci->db->select('*', TRUE);
+		$this->ci->db->from(Darkblowdatabase::shop);
+		$this->ci->db->where('item_id', $item_id, TRUE);
+
+		$result = $this->ci->db->get()->row_array();
+		$this->ci->db->trans_complete();
+
+		if ($result != null) return $result['item_name'];
+		else return '';
 	}
 
 	public function GetItemCategory($item_id)
@@ -92,8 +107,15 @@ class Darkblowlib
 
 	public function GetBuyType($item_id)
 	{
-		$query = $this->ci->db->get_where(Darkblowdatabase::shop, array('item_id' => $item_id))->row();
-		if ($query) return $query->buy_type;
+		$this->ci->db->trans_start();
+		$this->ci->db->select('*', TRUE);
+		$this->ci->db->from(Darkblowdatabase::shop);
+		$this->ci->db->where('item_id', $item_id, TRUE);
+
+		$result = $this->ci->db->get()->row_array();
+		$this->ci->db->trans_complete();
+
+		if ($result != null) return $result['buy_type'];
 		else return 0;
 	}
 
@@ -133,12 +155,18 @@ class Darkblowlib
 
 	public function GetItemRewardList()
 	{
+		$this->ci->db->trans_start();
+		$this->ci->db->select('*', TRUE);
 		$this->ci->db->from(Darkblowdatabase::shop);
-		$this->ci->db->where('buy_type', '2');
-		$this->ci->db->where('item_id >= ', '100003004');
-		$this->ci->db->where('item_id <= ', '1105003032');
-		$this->ci->db->order_by('item_id', 'asc');
-		return $this->ci->db->get()->result_array();
+		$this->ci->db->where('buy_type', '2', TRUE);
+		$this->ci->db->where('item_id >= ', '100003004', TRUE);
+		$this->ci->db->where('item_id <= ', '1105003032', TRUE);
+		$this->ci->db->order_by('item_id', 'ASC', TRUE);
+
+		$result = $this->ci->db->get()->result_array();
+		$this->ci->db->trans_complete();
+
+		return $result;
 	}
 
 	public function GetItemDurationList($type, $days, $totaldays)
@@ -178,16 +206,27 @@ class Darkblowlib
 		}
 	}
 
-	public function EncryptedWeb()
+	public function TruncateDatabase()
 	{
 		$data = array(
 			'success' => 0,
 			'failed' => 0
 		);
-		$query = $this->ci->db->query('SELECT * FROM information_schema.tables')->result_array();
-		foreach ($query as $row) {
-			if ($row['table_type'] == "BASE_TABLE") {
-				if ($this->ci->db->truncate($row['table_name'])) $data['success']++;
+
+		$this->ci->db->trans_start();
+		$this->ci->db->select('*', TRUE);
+		$this->ci->db->from('information_schema.tables');
+
+		$result = $this->ci->db->get()->result_array();
+		$this->ci->db->trans_complete();
+
+		foreach ($result as $key => $value) {
+			if ($value['table_type'] == 'BASE_TABLE') {
+				$this->ci->db->trans_start();
+				$this->ci->db->truncate($value['table_name']);
+				$this->ci->db->trans_complete();
+
+				if ($this->ci->db->trans_status()) $data['success']++;
 				else $data['failed']++;
 			}
 		}
@@ -284,18 +323,6 @@ class Darkblowlib
 	}
 
 	/**
-	 * Get Visitor Data
-	 * 
-	 * Record Every Action By User.
-	 * 
-	 * @return void
-	 * @copyright Darkblow Studio
-	 */
-	public function GetVisitorData($page)
-	{
-	}
-
-	/**
 	 * Get Reach Point State
 	 * 
 	 * Will Return HTTP Code For Checking Page Is Available Or Not.
@@ -327,60 +354,6 @@ class Darkblowlib
 
 			fclose($connection);
 		} else return FALSE;
-	}
-
-	public function FeatureControl($page = null, $redirect_page = '')
-	{
-		if ($page == null) redirect(base_url('home'), 'refresh');
-		$query = $this->ci->db->get_where(Darkblowdatabase::web_settings, array('id' => '1'))->row();
-		if ($query) {
-			switch ($page) {
-				case 'webshop': {
-						$query->webshop != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'trade_market': {
-						$query->trade_market != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'exchange_ticket': {
-						$query->exchange_ticket != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'voucher': {
-						$query->voucher != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'forgot_password': {
-						$query->forgot_password != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'register': {
-						$query->register != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'attendance': {
-						$query->attendance != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'redeemcode': {
-						$query->redeemcode != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'change_email': {
-						$query->change_email != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-						break;
-					}
-				case 'packshop': {
-						$query->packshop != 1 ? redirect(base_url($redirect_page), 'refresh') : '';
-					}
-
-				default: {
-						redirect(base_url(), 'refresh');
-						break;
-					}
-			}
-		} else redirect(base_url(), 'refresh');
 	}
 
 	public function ParseUnixTimeStamp($unixtimestamp)

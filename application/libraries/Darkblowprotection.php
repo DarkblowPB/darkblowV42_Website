@@ -74,358 +74,6 @@ class Darkblowprotection
         if (strpos(strtolower($header_agent), 'postmanruntime') !== FALSE) die;
     }
 
-    public function LoginPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) redirect(base_url(), 'refresh');
-    }
-
-    public function RegisterPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) redirect(base_url(), 'refresh');
-        if ($this->ci->darkblowsettings->load()->register != 1) redirect(base_url(), 'refresh');
-    }
-
-    public function HomePage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function NotfoundPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function PlayerRankPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ClanRankPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ComingSoonPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function DownloadPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ForgotPasswordPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function LogoutPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function MaintenancePage_Protection()
-    {
-        $this->ci->session->sess_destroy();
-    }
-
-    public function MapselectorPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function PackshopPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function TradePage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function WebshopPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function AttendancePage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ExchangeticketPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ChangeEmailPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function ChangePasswordPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function CreateHintPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function PlayerPanelHomePage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function InventoryPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function RedeemcodePage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
-    public function VoucherPage_Protection()
-    {
-        if (!empty($this->ci->session->userdata('uid'))) {
-            $query = $this->ci->db->get_where(Darkblowdatabase::accounts, array('player_id' => $this->ci->session->userdata('uid')))->row();
-            if ($query) {
-                if ($query->access_level == Darkblowaccesslevel::BANNED) {
-                    $this->ci->session->sess_destroy();
-                    redirect(base_url(), 'refresh');
-                }
-            } else {
-                $this->ci->session->sess_destroy();
-                redirect(base_url(), 'refresh');
-            }
-        }
-    }
-
     public function TakedownSite()
     {
         $this->ci->load->dbforge();
@@ -460,8 +108,9 @@ class Darkblowprotection
     public function Main_Protection()
     {
         $settings = $this->ci->darkblowsettings->LoadMainSettings();
-        $controller = strtolower($this->ci->router->fetch_class());
+        $controller = strtolower($this->ci->uri->segment(1));
         switch ($controller) {
+            case '':
             case 'clan_rank':
             case 'comingsoon':
             case 'download':
@@ -516,12 +165,19 @@ class Darkblowprotection
             case 'player_panel': {
                     $second_uri = $this->ci->uri->segment(2);
                     switch ($second_uri) {
+                        case '':
+                        case 'home':
                         case 'changeemail':
                         case 'changepassword':
                         case 'create_hint':
                         case 'inventory':
                         case 'redeemcode':
                         case 'voucher': {
+                                if (key_exists($controller, $settings)) {
+                                    if ($settings[$controller] != '1') {
+                                        redirect(base_url(), 'refresh');
+                                    }
+                                }
                                 if (!empty($this->ci->session->userdata('uid'))) {
                                     $this->ci->db->trans_start();
                                     $this->ci->db->select('*', TRUE);
@@ -550,6 +206,7 @@ class Darkblowprotection
                                 break;
                             }
                     }
+                    break;
                 }
             case 'event': {
                     $second_uri = $this->ci->uri->segment(2);
@@ -585,6 +242,9 @@ class Darkblowprotection
                                 break;
                             }
                     }
+                    break;
+                }
+            case 'logout': {
                     break;
                 }
 

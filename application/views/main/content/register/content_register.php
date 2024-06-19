@@ -77,21 +77,6 @@
                             <a href="<?= base_url('login') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1"><?= $this->lang->line('STR_DARKBLOW_155') ?></a>
                         </div>
                         <?= form_close(); ?>
-                        <?php
-                        if ($this->darkblowsettings->load()->google_register == 1) : ?>
-                            <div class="form-group text-center">
-                                <label style="font-weight: bold; font-style: italic;">OR</label>
-                            </div>
-                            <div class="form-group text-center">
-                                <?php if (empty($this->session->userdata('g_email'))) : ?>
-                                    <button type="button" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="window.location = '<?= base_url('register/g_register') ?>'"><span class="fa fa-google"></span> &nbsp;<?= $this->lang->line('STR_DARKBLOW_156') ?></button>
-                                <?php endif; ?>
-                                <?php if (!empty($this->session->userdata('g_email'))) : ?>
-                                    <input type="button" id="cancelgoogleregistration" value="<?= $this->lang->line('STR_DARKBLOW_204') ?>" class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-main-1" onclick="CancelGoogleRegistration()">
-                                <?php endif; ?>
-                                <div class="nk-gap-1"></div>
-                            </div>
-                        <?php endif ?>
                         <script>
                             var CSRF_TOKEN = '<?= $this->security->get_csrf_hash() ?>';
                             var RETRY = 0;
@@ -253,35 +238,6 @@
                                         }
                                     });
                                 }
-                            }
-
-                            function CancelGoogleRegistration() {
-                                SetAttribute('cancelgoogleregistration', 'button', '<?= $this->lang->line('STR_INFO_8') ?>');
-                                $.ajax({
-                                    url: '<?= base_url('register/do_cancelgoogleregistration') ?>',
-                                    type: 'GET',
-                                    dataType: 'JSON',
-                                    data: {},
-                                    success: function(data) {
-                                        var GetString = JSON.stringify(data);
-                                        var Result = JSON.parse(GetString);
-
-                                        if (Result.response == 'true') {
-                                            SetAttribute('cancelgoogleregistration', 'button', '<?= $this->lang->line('STR_DARKBLOW_204') ?>');
-                                            ShowToast(2000, 'success', Result.message);
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 2000);
-                                        }
-                                    },
-                                    erorr: function() {
-                                        SetAttribute('cancelgoogleregistration', 'button', '<?= $this->lang->line('STR_DARKBLOW_204') ?>');
-                                        ShowToast(2000, 'error', '<?= $this->lang->line('STR_ERROR_26') ?>');
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2000);
-                                    }
-                                });
                             }
 
                             function ShowPassword() {

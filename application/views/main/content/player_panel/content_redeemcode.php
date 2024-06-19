@@ -34,7 +34,7 @@
 							} else {
 								SetAttribute('submit', 'submit', 'Processing...');
 								$.ajax({
-									url: '<?= $this->redeemcode->GetCodeSystem() ?>',
+									url: '<?= $this->redeemcode_model->GetCodeSystem() ?>',
 									type: 'POST',
 									dataType: 'JSON',
 									data: {

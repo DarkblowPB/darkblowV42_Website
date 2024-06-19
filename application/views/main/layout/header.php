@@ -78,52 +78,13 @@
                         <li class="<?php if ($this->uri->segment(1) == 'download') echo 'active'; ?>">
                             <a href="<?= base_url('download') ?>"><?= $this->lang->line('STR_MENU_3') ?></a>
                         </li>
-                        <?php if ($this->darkblowsettings->load()->webshop != 0 && $this->darkblowsettings->load()->trade_market != 0) : ?>
-                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
-                                <ul class="dropdown">
-                                    <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
-                                            <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </li>
-                        <?php endif; ?>
-                        <?php if ($this->darkblowsettings->load()->webshop == 1 && $this->darkblowsettings->load()->trade_market == 0) : ?>
+                        <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
                             <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade")  echo 'active'; ?>">
                                 <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
                                 <ul class="dropdown">
                                     <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
                                         <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
                                             <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </li>
-                        <?php endif; ?>
-                        <?php if ($this->darkblowsettings->load()->webshop == 0 && $this->darkblowsettings->load()->trade_market == 1) : ?>
-                            <li class="nk-drop-item <?php if ($this->uri->segment(1) == "webshop" || $this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                <a href="javascript:void(0)"><?= $this->lang->line('STR_MENU_4') ?></a>
-                                <ul class="dropdown">
-                                    <?php if ($this->darkblowsettings->load()->webshop == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(1) == "webshop") echo 'active'; ?>">
-                                            <a href="<?= base_url('webshop') ?>"><?= $this->lang->line('STR_MENU_9') ?></a>
-                                        </li>
-                                    <?php endif; ?>
-                                    <?php if ($this->darkblowsettings->load()->trade_market == 1) : ?>
-                                        <li class="<?php if ($this->uri->segment(1) == "trade") echo 'active'; ?>">
-                                            <a href="<?= base_url('trade') ?>"><?= $this->lang->line('STR_MENU_10') ?></a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
