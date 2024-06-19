@@ -9,7 +9,7 @@ class Packshop extends DARKBLOW_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('main/packshop_model', 'packshop');
+        $this->load->model('main/packshop_model', 'packshop_model');
     }
 
     public function index()
@@ -45,7 +45,7 @@ class Packshop extends DARKBLOW_Controller
                     'numeric' => 'Invalid %s'
                 )
             );
-            if ($this->form_validation->run()) $this->packshop->BuyPack();
+            if ($this->form_validation->run()) $this->packshop_model->BuyPack();
             else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();

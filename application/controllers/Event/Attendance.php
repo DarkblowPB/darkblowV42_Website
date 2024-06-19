@@ -12,7 +12,7 @@ class Attendance extends DARKBLOW_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('main/attendance_model', 'attendance');
+        $this->load->model('main/attendance_model', 'attendance_model');
     }
 
     function index()
@@ -21,7 +21,7 @@ class Attendance extends DARKBLOW_Controller
 
         $data['title'] = 'Attandance Events';
 
-        $data['attend'] = $this->attendance->GetAttendData();
+        $data['attend'] = $this->attendance_model->GetAttendData();
 
         $data['isi'] = 'main/content/event/content_attendance';
         $this->load->view('main/layout/wrapper', $data, FALSE);

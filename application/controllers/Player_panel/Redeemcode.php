@@ -12,7 +12,7 @@ class Redeemcode extends DARKBLOW_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('main/redeemcode_model', 'redeemcode');
+		$this->load->model('main/redeemcode_model', 'redeemcode_model');
 	}
 
 	function index()
@@ -40,7 +40,7 @@ class Redeemcode extends DARKBLOW_Controller
 					'max_length' => '%s Only Can Accepted 19 Characters.'
 				)
 			);
-			if ($this->form_validation->run()) $this->redeemcode->CodeValidationManual();
+			if ($this->form_validation->run()) $this->redeemcode_model->CodeValidationManual();
 			else {
 				$response['response'] = 'error';
 				$response['token'] = $this->security->get_csrf_hash();

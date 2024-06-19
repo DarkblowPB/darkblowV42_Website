@@ -12,7 +12,7 @@ class Voucher extends DARKBLOW_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('main/voucher_model', 'voucher');
+        $this->load->model('main/voucher_model', 'voucher_model');
     }
 
     function index()
@@ -37,7 +37,7 @@ class Voucher extends DARKBLOW_Controller
                 'max_length' => '%s Only Can Contains 24 Characters.'
             )
         );
-        if ($this->form_validation->run()) $this->voucher->RedeemVoucherV4();
+        if ($this->form_validation->run()) $this->voucher_model->RedeemVoucherV4();
         else {
             $response['response'] = 'error';
             $response['token'] = $this->security->get_csrf_hash();
