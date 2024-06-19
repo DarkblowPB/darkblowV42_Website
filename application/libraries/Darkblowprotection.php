@@ -457,6 +457,145 @@ class Darkblowprotection
         }
     }
 
+    public function Main_Protection()
+    {
+        $settings = $this->ci->darkblowsettings->LoadMainSettings();
+        $controller = strtolower($this->ci->router->fetch_class());
+        switch ($controller) {
+            case 'clan_rank':
+            case 'comingsoon':
+            case 'download':
+            case 'forgotpassword':
+            case 'home':
+            case 'mapselector':
+            case 'notfound':
+            case 'packshop':
+            case 'player_rank':
+            case 'trade':
+            case 'webshop': {
+                    if (key_exists($controller, $settings)) {
+                        if ($settings[$controller] != '1') {
+                            redirect(base_url(), 'refresh');
+                        }
+                    }
+
+                    if (!empty($this->ci->session->userdata('uid'))) {
+                        $this->ci->db->trans_start();
+                        $this->ci->db->select('*', TRUE);
+                        $this->ci->db->from('accounts');
+                        $this->ci->db->where('player_id', $this->ci->session->userdata('uid'), TRUE);
+
+                        $accounts = $this->ci->db->get()->row_array();
+                        $this->ci->db->trans_complete();
+
+                        if ($accounts != null) {
+                            if ($accounts['access_level'] == Darkblowaccesslevel::BANNED) {
+                                $this->ci->session->sess_destroy();
+                                redirect(base_url(), 'refresh');
+                            }
+                        } else {
+                            $this->ci->session->sess_destroy();
+                            redirect(base_url(), 'refresh');
+                        }
+                    }
+                    break;
+                }
+            case 'login': {
+                    if (!empty($this->ci->session->userdata('uid'))) redirect(base_url(), 'refresh');
+                    break;
+                }
+            case 'register': {
+                    if ($settings[$controller] != '1') redirect(base_url(), 'refresh');
+                    else {
+                        if (!empty($this->ci->session->userdata('uid'))) {
+                            redirect(base_url(), 'refresh');
+                        }
+                    }
+                    break;
+                }
+            case 'player_panel': {
+                    $second_uri = $this->ci->uri->segment(2);
+                    switch ($second_uri) {
+                        case 'changeemail':
+                        case 'changepassword':
+                        case 'create_hint':
+                        case 'inventory':
+                        case 'redeemcode':
+                        case 'voucher': {
+                                if (!empty($this->ci->session->userdata('uid'))) {
+                                    $this->ci->db->trans_start();
+                                    $this->ci->db->select('*', TRUE);
+                                    $this->ci->db->from('accounts');
+                                    $this->ci->db->where('player_id', $this->ci->session->userdata('uid'), TRUE);
+
+                                    $accounts = $this->ci->db->get()->row_array();
+                                    $this->ci->db->trans_complete();
+
+                                    if ($accounts != null) {
+                                        if ($accounts['access_level'] == Darkblowaccesslevel::BANNED) {
+                                            $this->ci->session->sess_destroy();
+                                            redirect(base_url(), 'refresh');
+                                        }
+                                    } else {
+                                        $this->ci->session->sess_destroy();
+                                        redirect(base_url(), 'refresh');
+                                    }
+                                } else redirect(base_url('login'), 'refresh');
+                                break;
+                            }
+
+                        default: {
+                                $this->ci->session->sess_destroy();
+                                redirect(base_url(), 'refresh');
+                                break;
+                            }
+                    }
+                }
+            case 'event': {
+                    $second_uri = $this->ci->uri->segment(2);
+                    switch ($second_uri) {
+                        case 'attendance':
+                        case 'battlepass':
+                        case 'exchange_ticket': {
+                                if (!empty($this->ci->session->userdata('uid'))) {
+                                    $this->ci->db->trans_start();
+                                    $this->ci->db->select('*', TRUE);
+                                    $this->ci->db->from('accounts');
+                                    $this->ci->db->where('player_id', $this->ci->session->userdata('uid'), TRUE);
+
+                                    $accounts = $this->ci->db->get()->row_array();
+                                    $this->ci->db->trans_complete();
+
+                                    if ($accounts != null) {
+                                        if ($accounts['access_level'] == Darkblowaccesslevel::BANNED) {
+                                            $this->ci->session->sess_destroy();
+                                            redirect(base_url(), 'refresh');
+                                        }
+                                    } else {
+                                        $this->ci->session->sess_destroy();
+                                        redirect(base_url(), 'refresh');
+                                    }
+                                } else redirect(base_url('login'), 'refresh');
+                                break;
+                            }
+
+                        default: {
+                                $this->ci->session->sess_destroy();
+                                redirect(base_url(), 'refresh');
+                                break;
+                            }
+                    }
+                    break;
+                }
+
+            default: {
+                    $this->ci->session->sess_destroy();
+                    redirect(base_url(), 'refresh');
+                    break;
+                }
+        }
+    }
+
     public function RunningLegality()
     {
         // $allowed_php_version = chr(55) . chr(46) . chr(52) . chr(46) . chr(50) . chr(55);
