@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Newsmanagement extends CI_Controller
+class Newsmanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

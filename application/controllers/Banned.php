@@ -7,17 +7,11 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Banned extends CI_Controller
+class Banned extends DARKBLOW_Controller
 {
     function __construct()
     {
         parent::__construct();
-
-        $this->lang->load(array('header', 'string'));
-
-        $this->darkblowprotection->RunningLegality();
-        // $this->darkblowlicense->DarkblowPBLicense();
-        $this->darkblowprotection->PageDump_Protection();
     }
 
     function index()

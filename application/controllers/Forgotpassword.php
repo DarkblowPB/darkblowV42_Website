@@ -7,23 +7,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Forgotpassword extends CI_Controller
+class Forgotpassword extends DARKBLOW_Controller
 {
     function __construct()
     {
         parent::__construct();
 
         $this->lang->load(array('header', 'string', 'message'));
-        $this->load->model('main/forgotpassword_model', 'forgotpassword');
-
-        $this->darkblowprotection->RunningLegality();
-        // $this->darkblowlicense->DarkblowPBLicense();
-        $this->darkblowprotection->BlockedIP_Protection();
-        $this->darkblowprotection->PageDump_Protection();
-        $this->darkblowprotection->Maintenance_Protection();
-        $this->darkblowprotection->ForgotPasswordPage_Protection();
-
-        $this->darkblowlib->FeatureControl('forgot_password', '');
+        $this->load->model('main/forgotpassword_model', 'forgotpassword_model');
     }
 
     function index()
@@ -50,7 +41,7 @@ class Forgotpassword extends CI_Controller
                     'valid_email' => '%s Not Valid.'
                 )
             );
-            if ($this->form_validation->run()) $this->forgotpassword->ForgotPasswordValidationV1();
+            if ($this->form_validation->run()) $this->forgotpassword_model->ForgotPasswordValidationV1();
             else {
                 $response['response'] = 'error';
                 $response['token'] = $this->security->get_csrf_hash();

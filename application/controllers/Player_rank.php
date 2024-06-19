@@ -7,23 +7,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Player_rank extends CI_Controller
+class Player_rank extends DARKBLOW_Controller
 {
 
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->library('pagination');
 		$this->load->model('main/playerrank_model', 'playerrank');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->PlayerRankPage_Protection();
 	}
 
 	function index()

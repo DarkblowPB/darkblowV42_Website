@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Redeemcodemanagement extends CI_Controller
+class Redeemcodemanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

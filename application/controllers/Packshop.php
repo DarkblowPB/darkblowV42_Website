@@ -3,22 +3,13 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Packshop extends CI_Controller
+class Packshop extends DARKBLOW_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->lang->load(array('header', 'string', 'message'));
         $this->load->model('main/packshop_model', 'packshop');
-        $this->darkblowlib->FeatureControl('packshop', '');
-
-        $this->darkblowprotection->RunningLegality();
-        // $this->darkblowlicense->DarkblowPBLicense();
-        $this->darkblowprotection->BlockedIP_Protection();
-        $this->darkblowprotection->PageDump_Protection();
-        $this->darkblowprotection->Maintenance_Protection();
-        $this->darkblowprotection->PackshopPage_Protection();
     }
 
     public function index()

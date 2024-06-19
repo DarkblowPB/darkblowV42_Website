@@ -7,23 +7,13 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Register extends CI_Controller
+class Register extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
-		$this->load->model('main/register_model', 'register');
+		$this->load->model('main/register_model', 'register_model');
 		$this->load->helper('hintquestion');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->NotRequireLogin_Protection();
-		$this->darkblowprotection->RegisterPage_Protection();
 	}
 
 	function index()
@@ -52,7 +42,7 @@ class Register extends CI_Controller
 					'is_unique' => '%s Already Registered.'
 				)
 			);
-			if ($this->form_validation->run()) $this->register->CheckUsername();
+			if ($this->form_validation->run()) $this->register_model->CheckUsername();
 			else {
 				$this->form_validation->set_error_delimiters('', '');
 
@@ -99,8 +89,8 @@ class Register extends CI_Controller
 				'required'
 			);
 			if ($this->form_validation->run()) {
-				if (!empty($this->session->userdata('g_email'))) $this->register->GoogleRegisterValidation();
-				else $this->register->ModulCreate();
+				if (!empty($this->session->userdata('g_email'))) $this->register_model->GoogleRegisterValidation();
+				else $this->register_model->ModulCreate();
 			} else {
 				$response['response'] = 'error';
 				$response['token'] = $this->security->get_csrf_hash();
@@ -108,46 +98,6 @@ class Register extends CI_Controller
 
 				$this->darkblowmessage->AjaxFlashData($response);
 			}
-		} else return;
-	}
-
-	function g_register()
-	{
-		$google_client = new Google_Client();
-
-		$google_client->setClientId($this->config->item('main_config', 'google_register_clientid'));
-		$google_client->setClientSecret($this->config->item('main_config', 'google_register_clientsecret'));
-		$google_client->setRedirectUri(base_url('register/g_register'));
-		$google_client->addScope('email');
-
-		if (!empty($this->input->get('code'))) {
-			$token = $google_client->fetchAccessTokenWithAuthCode($this->input->get('code', true));
-			if (!isset($token["error"])) {
-				$google_client->setAccessToken($token['access_token']);
-				$google_service = new Google_Service_Oauth2($google_client);
-				$data = $google_service->userinfo->get();
-
-				$this->session->set_userdata('access_token', $token['access_token']);
-				$this->session->set_userdata('g_email', $data['email']);
-				redirect(base_url('register'), 'refresh');
-			}
-		}
-		if ($this->session->userdata('access_token') == '') redirect($google_client->createAuthUrl(), 'refresh');
-		else redirect(base_url('register'), 'refresh');
-	}
-
-	function do_cancelgoogleregistration()
-	{
-		if ($this->input->is_ajax_request()) {
-			sleep(1);
-			$response = array();
-
-			$this->session->sess_destroy();
-
-			$response['response'] = 'true';
-			$response['message'] = 'Successfully Canceled Google Registration.';
-
-			$this->darkblowmessage->AjaxFlashData($response);
 		} else return;
 	}
 }

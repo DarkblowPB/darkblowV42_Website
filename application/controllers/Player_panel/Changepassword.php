@@ -7,23 +7,11 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Changepassword extends CI_Controller
+class Changepassword extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->RequireLogin_Protection();
-		$this->darkblowprotection->ChangePasswordPage_Protection();
-
-		$this->load->model('main/changepassword_model', 'changepassword');
 	}
 
 	function index()

@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Bannedvisitor extends CI_Controller
+class Bannedvisitor extends DARKBLOW_Controller
 {
     function __construct()
     {

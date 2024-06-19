@@ -7,23 +7,13 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Create_hint extends CI_Controller
+class Create_hint extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/createhint_model', 'hint');
 		$this->load->helper('hintquestion');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->RequireLogin_Protection();
-		$this->darkblowprotection->CreateHintPage_Protection();
 	}
 
 	function index()

@@ -7,21 +7,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Download extends CI_Controller
+class Download extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/download_model', 'download');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->DownloadPage_Protection();
 	}
 
 	function index()

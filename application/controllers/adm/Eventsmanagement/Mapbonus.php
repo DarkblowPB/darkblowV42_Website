@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mapbonus extends CI_Controller
+class Mapbonus extends DARKBLOW_Controller
 {
     function __construct()
     {

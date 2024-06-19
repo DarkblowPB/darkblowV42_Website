@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Attendance extends CI_Controller
+class Attendance extends DARKBLOW_Controller
 {
     function __construct()
     {

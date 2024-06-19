@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rankawardsmanagement extends CI_Controller
+class Rankawardsmanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

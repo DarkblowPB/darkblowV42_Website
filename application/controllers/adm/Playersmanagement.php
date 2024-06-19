@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Playersmanagement extends CI_Controller
+class Playersmanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

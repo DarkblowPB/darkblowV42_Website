@@ -7,18 +7,11 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Logout extends CI_Controller
+class Logout extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->LogoutPage_Protection();
 	}
 
 	function do_logout()

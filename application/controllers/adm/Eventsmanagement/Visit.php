@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Visit extends CI_Controller
+class Visit extends DARKBLOW_Controller
 {
     function __construct()
     {

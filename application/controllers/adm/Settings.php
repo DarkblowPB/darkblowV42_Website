@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Settings extends CI_Controller
+class Settings extends DARKBLOW_Controller
 {
     function __construct()
     {

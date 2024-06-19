@@ -7,22 +7,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login extends CI_Controller
+class Login extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/login_model', 'login');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->LoginPage_Protection();
-		$this->darkblowprotection->NotRequireLogin_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
 	}
 
 	function index()

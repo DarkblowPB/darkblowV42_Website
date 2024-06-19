@@ -7,20 +7,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
+class Home extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/home_model', 'home');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->HomePage_Protection();
 	}
 
 	function index()

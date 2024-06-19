@@ -10,7 +10,7 @@ use Mpdf\Mpdf;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Vouchermanagement extends CI_Controller
+class Vouchermanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

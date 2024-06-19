@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Webhookmanagement extends CI_Controller
+class Webhookmanagement extends DARKBLOW_Controller
 {
     public function __construct()
     {

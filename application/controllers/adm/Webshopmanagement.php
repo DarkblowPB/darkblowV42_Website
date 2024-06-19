@@ -7,7 +7,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Webshopmanagement extends CI_Controller
+class Webshopmanagement extends DARKBLOW_Controller
 {
     function __construct()
     {

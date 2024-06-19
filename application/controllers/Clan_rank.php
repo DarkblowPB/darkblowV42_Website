@@ -7,22 +7,15 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Clan_rank extends CI_Controller
+class Clan_rank extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->library('pagination');
 		$this->load->model('main/clanrank_model', 'clanrank');
 
-		$this->darkblowprotection->RunningLegality();
 		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->ClanRankPage_Protection();
 	}
 
 	function index()

@@ -8,25 +8,14 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Webshop extends CI_Controller
+class Webshop extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->library('pagination');
-		$this->load->model('main/webshop_model', 'webshop');
+		$this->load->model('main/webshop_model', 'webshop_model');
 		$this->load->model('main/login_model', 'login');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->WebshopPage_Protection();
-
-		$this->darkblowlib->FeatureControl('webshop', '');
 	}
 
 	function index()
@@ -37,7 +26,7 @@ class Webshop extends CI_Controller
 
 		// Load Config
 		$config['base_url'] = base_url('webshop/index');
-		$config['total_rows'] = $this->webshop->GetWebshopCount();
+		$config['total_rows'] = $this->webshop_model->GetWebshopCount();
 		$config['per_page'] = 9;
 		// End Load Config
 
@@ -64,9 +53,9 @@ class Webshop extends CI_Controller
 		// End Pagination Section
 
 		$data['title'] = 'Webshop';
-		$data['popular'] = $this->webshop->GetPopularWebshop();
+		$data['popular'] = $this->webshop_model->GetPopularWebshop();
 		$data['start'] = $this->uri->segment(3);
-		$data['webshop'] = $this->webshop->GetWebshopPerPage($config['per_page'], $data['start']);
+		$data['webshop'] = $this->webshop_model->GetWebshopPerPage($config['per_page'], $data['start']);
 		$data['isi'] = 'main/content/webshop/content_webshop';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
@@ -76,8 +65,8 @@ class Webshop extends CI_Controller
 		if ($this->input->is_ajax_request()) return;
 
 		$data['title'] = 'Webshop Item Details';
-		$data['detail'] = $this->webshop->GetWebshopDetails($id);
-		$data['related'] = $this->webshop->GetWebshopRelated();
+		$data['detail'] = $this->webshop_model->GetWebshopDetails($id);
+		$data['related'] = $this->webshop_model->GetWebshopRelated();
 		$data['isi'] = 'main/content/webshop/content_webshopdetail';
 		$this->load->view('main/layout/wrapper', $data, FALSE);
 	}
@@ -132,7 +121,7 @@ class Webshop extends CI_Controller
 				'numeric|required',
 				array('numeric' => '%s Cannot Be Empty', 'required' => '%s Cannot Be Empty.')
 			);
-			if ($this->form_validation->run()) $this->webshop->BuyItemV2();
+			if ($this->form_validation->run()) $this->webshop_model->BuyItemV2();
 			else {
 				$this->form_validation->set_error_delimiters('', '');
 

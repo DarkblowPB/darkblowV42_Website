@@ -7,24 +7,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Redeemcode extends CI_Controller
+class Redeemcode extends DARKBLOW_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-
-		$this->lang->load(array('header', 'string', 'message'));
 		$this->load->model('main/redeemcode_model', 'redeemcode');
-
-		$this->darkblowprotection->RunningLegality();
-		// $this->darkblowlicense->DarkblowPBLicense();
-		$this->darkblowprotection->BlockedIP_Protection();
-		$this->darkblowprotection->PageDump_Protection();
-		$this->darkblowprotection->Maintenance_Protection();
-		$this->darkblowprotection->RequireLogin_Protection();
-		$this->darkblowprotection->RedeemcodePage_Protection();
-
-		$this->darkblowlib->FeatureControl('redeemcode', 'player_panel');
 	}
 
 	function index()
