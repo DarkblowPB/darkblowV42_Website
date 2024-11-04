@@ -71,7 +71,9 @@ class DARKBLOW_Controller extends CI_Controller
         $this->license_date_start = $settings['license_date_start'];
         $this->license_date_end = $settings['license_date_end'];
 
-        $this->lang->load(array('header', 'string', 'message'));
+        $this->lang->load('menu');
+        $this->lang->load('ui');
+        $this->lang->load('message');
 
         $this->darkblowprotection->RunningLegality();
         $this->darkblowprotection->PageDump_Protection();

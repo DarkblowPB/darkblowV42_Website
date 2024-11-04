@@ -14,26 +14,57 @@ class Clanrank_model extends CI_Model
 		parent::__construct();
 	}
 
-	function GetClanPerPage($limit, $start)
+	function GetClanPerPage($limit = '', $start = '')
 	{
-		return $this->db->order_by('clan_exp', 'desc')->get(Darkblowdatabase::clan_data, $limit, $start)->result_array();
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::clan_data);
+		$this->db->limit($limit, $start);
+		$this->db->order_by('clan_exp', 'DESC', TRUE);
+
+		$result = $this->db->get()->result_array();
+		$this->db->trans_complete();
+
+		return $result;
 	}
 
 	function GetClanCount()
 	{
-		return $this->db->get(Darkblowdatabase::clan_data)->num_rows();
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::clan_data);
+
+		$result = $this->db->get()->num_rows();
+		$this->db->trans_complete();
+
+		return $result;
 	}
 
-	function GetTotalMemberEachClan($clan_id)
+	function GetTotalMemberEachClan($clan_id = '')
 	{
-		return $this->db->get_where(Darkblowdatabase::accounts, array('clan_id' => $clan_id))->num_rows();
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::accounts);
+		$this->db->where('clan_id', $clan_id, TRUE);
+
+		$result = $this->db->get()->num_rows();
+		$this->db->trans_complete();
+
+		return $result;
 	}
 
-	function GetTotalClanMemberCapacity($clan_id)
+	function GetTotalClanMemberCapacity($clan_id = '')
 	{
-		$query = $this->db->get_where(Darkblowdatabase::clan_data, array('clan_id' => $clan_id))->row();
-		if ($query) return $query->max_players;
-		else return 0;
+		$this->db->trans_start();
+		$this->db->select('*', TRUE);
+		$this->db->from(Darkblowdatabase::clan_data);
+		$this->db->where('clan_id', $clan_id, TRUE);
+
+		$result = $this->db->get()->row_array();
+		$this->db->trans_complete();
+
+		if ($result != null) return $result['max_players'];
+		else return '0';
 	}
 }
 

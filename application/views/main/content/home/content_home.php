@@ -177,67 +177,66 @@
                 <div class="nk-gap"></div>
                 <div class="row vertical-gap text-white">
                     <div class="col-lg-6 col-12">
-                        <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
-                            <thead class="font-italic">
-                                <th width="10%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>
-                                <th width="5%"><?= $this->lang->line('STR_DARKBLOW_31') ?></th>
-                                <th><?= $this->lang->line('STR_DARKBLOW_32') ?></th>
-                                <th width="23%"><?= $this->lang->line('STR_DARKBLOW_33') ?></th>
-                            </thead>
-                            <tbody>
-                                <?php if ($player_ranking !== null) : ?>
-                                    <?php
-                                    $num = 1;
-                                    foreach ($player_ranking as $key => $value) :
-                                    ?>
+                        <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
+                            <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
+                                <thead class="font-italic">
+                                    <th width="10%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>
+                                    <th width="5%"><?= $this->lang->line('STR_DARKBLOW_31') ?></th>
+                                    <th><?= $this->lang->line('STR_DARKBLOW_32') ?></th>
+                                    <th width="23%"><?= $this->lang->line('STR_DARKBLOW_33') ?></th>
+                                </thead>
+                                <tbody>
+                                    <?php if ($player_ranking !== null) : ?>
+                                        <?php
+                                        $num = 1;
+                                        foreach ($player_ranking as $key => $value) :
+                                        ?>
+                                            <tr>
+                                                <td><strong><?= $num ?></strong></td>
+                                                <td><img src="<?= base_url('assets/goodgames/assets/images/img_rank/' . $value['rank'] . '.gif') ?>" alt=""></td>
+                                                <td><?= $value['player_name'] === '' ? '<span class="text-muted font-italic">Empty Nickname</span>' : $value['player_name'] ?></td>
+                                                <td><strong><?= number_format($value['exp'], '0', ',', '.') ?></strong></td>
+                                            </tr>
+                                        <?php $num++;
+                                        endforeach ?>
+                                    <?php else : ?>
                                         <tr>
-                                            <td><strong><?= $num ?></strong></td>
-                                            <td><img src="<?= base_url('assets/goodgames/assets/images/img_rank/' . $value['rank'] . '.gif') ?>" alt=""></td>
-                                            <td><?= $value['player_name'] === '' ? '<span class="text-muted font-italic">Empty Nickname</span>' : $value['player_name'] ?></td>
-                                            <td><strong><?= number_format($value['exp'], '0', ',', '.') ?></strong></td>
+                                            <td colspan="4" class="text-center text-muted font-italic"><?= $this->lang->line('STR_INFO_4') ?></td>
                                         </tr>
-                                    <?php endforeach ?>
-                                <?php else : ?>
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted font-italic"><?= $this->lang->line('STR_INFO_4') ?></td>
-                                    </tr>
-                                <?php endif ?>
-                            </tbody>
-                        </table>
+                                    <?php endif ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
-                            <thead class="font-italic">
-                                <th width="10%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>
-                                <th width="5%"><?= $this->lang->line('STR_DARKBLOW_31') ?></th>
-                                <th><?= $this->lang->line('STR_DARKBLOW_5') ?></th>
-                                <th width="24%"><?= $this->lang->line('STR_DARKBLOW_33') ?></th>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if ($clan_ranking != null) {
-                                    $num = 1;
-                                    foreach ($clan_ranking as $row) :
-                                ?>
+                        <div class="nk-box-2 bg-dark-2 text-center" style="border-radius: 10px;">
+                            <table class="nk-table table-responsive-lg table-responsive-md table-responsive-sm text-center" style="border-radius: 10px;">
+                                <thead class="font-italic">
+                                    <th width="10%"><?= $this->lang->line('STR_DARKBLOW_3') ?></th>
+                                    <th width="5%"><?= $this->lang->line('STR_DARKBLOW_31') ?></th>
+                                    <th><?= $this->lang->line('STR_DARKBLOW_5') ?></th>
+                                    <th width="24%"><?= $this->lang->line('STR_DARKBLOW_33') ?></th>
+                                </thead>
+                                <tbody>
+                                    <?php if ($clan_ranking != null) : ?>
+                                        <?php $num = 1;
+                                        foreach ($clan_ranking as $key => $value) : ?>
+                                            <tr>
+                                                <td><strong><?= $num ?></strong></td>
+                                                <td><img src="<?= base_url('assets/goodgames/assets/images/img_clan/' . $value['clan_rank'] . '.jpg') ?>" alt=""></td>
+                                                <td><?= $value['clan_name'] ?></td>
+                                                <td><?= number_format($value['clan_exp'], 0, ',', '.') ?></td>
+                                            </tr>
+                                        <?php $num++;
+                                        endforeach ?>
+                                    <?php else : ?>
                                         <tr>
-                                            <td><strong><?= $num ?></strong></td>
-                                            <td><img src="<?= base_url() ?>/assets/goodgames/assets/images/img_clan/<?= $row['clan_rank'] ?>.jpg" alt=""></td>
-                                            <td><?= $row['clan_name'] ?></td>
-                                            <td><strong><?= number_format($row['clan_exp'], '0', ',', '.') ?></strong></td>
+                                            <td colspan="4" class="text-center text-muted font-italic"><?= $this->lang->line('STR_INFO_4') ?></td>
                                         </tr>
-                                    <?php
-                                        $num++;
-                                    endforeach;
-                                } else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="4"><?= $this->lang->line('STR_INFO_4') ?></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                    <?php endif ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-lg-12 text-center">
                         <a href="<?= base_url('player_rank') ?>" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-outline nk-btn-color-main-5"><?= $this->lang->line('STR_DARKBLOW_34') ?></a>
